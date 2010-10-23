@@ -4,24 +4,36 @@ Contributors: ChrisWiegman
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: 0.1
+Stable tag: 0.1 ALPHA
 
 == License ==  
 Released under the terms of the GNU General Public License. 
 
 == Description ==
 
+A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
 == Long Description ==
 
+NOTE: This plugin is not yet ready for production and should be used only to test features and provide feedback!!!!
+
+Current features:
+	Ban individual IP addresses from the Wordpress backend
+	Remove generator tag
+	Remove login error messages
+	Change backend urls such as wp-login, wp-admin, and more
+	
+Features coming soon:
+	Too many to list right now
 
 == Installation ==
 
+Coming soon
 
 == Changelog ==
 
-= 0.1 October 22, 2010 =
-First release. 
+= 0.1 ALPHA October 22, 2010 =
+First alpha release including simple featureset. 
 
 == Support ==
 
