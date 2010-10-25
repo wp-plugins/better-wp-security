@@ -17,13 +17,13 @@ Released under the terms of the GNU General Public License.
 NOTE: This plugin is not yet ready for production and should be used only to test features and provide feedback!!!!
 
 Current features:
-	* Ban individual IP addresses from the Wordpress backend
-	* Remove generator tag
-	* Remove login error messages
-	* Change backend urls such as wp-login, wp-admin, and more
+* Ban individual IP addresses from the Wordpress backend
+* Remove generator tag
+* Remove login error messages
+* Change backend urls such as wp-login, wp-admin, and more
 	
 Features coming soon:
-	Too many to list right now
+* Too many to list right now
 
 == Installation ==
 
@@ -39,10 +39,10 @@ Coming soon
 * Optimized and commented code
 * Added uninstall function
 * Numerous fixes to bugs and logic
-----This realease contains no new features----
+*----This realease contains no new features----
 
 = 0.1 ALPHA - October 22, 2010 =
-First alpha release including simple featureset. 
+* First alpha release including simple featureset. 
 
 == Upgrade Notice ==
 
