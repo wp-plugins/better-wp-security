@@ -15,10 +15,18 @@
 				<label for="BWPS_banips_iplist">Enable Ban IPs</label>
 			</th>
 			<td>
-				<textarea name="BWPS_banips_iplist" id="BWPS_banips_iplist"><?php echo get_option("BWPS_banips_iplist"); ?></textarea><br />
+				<?php if(!get_option("BWPS_banips_iplist")) {
+					$ipList = $_POST['BWPS_banips_iplist'];
+				} else {
+					$ipList = get_option("BWPS_banips_iplist");
+				}
+				
+				?>
+				<textarea name="BWPS_banips_iplist" id="BWPS_banips_iplist"><?php echo $ipList; ?></textarea><br />
 				<p><em>IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).<br />
 				<a href="http://ip-lookup.net/domain-lookup.php" target="_blank">Lookup IP Address.</a><br />
-				Enter only 1 IP address per line.</a></em></p>
+				Enter only 1 IP address per line.<br />
+				You may NOT ban your own IP address</em></p>
 			</td>
 		</tr>
 	</tbody>
