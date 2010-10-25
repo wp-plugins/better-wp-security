@@ -3,15 +3,22 @@
 	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
 	
 	if (isset($_POST['save'])) { // Save options
+		
 		if (!wp_verify_nonce($_POST['wp_nonce'], 'save')) { //verify nonce field
 			die('Security error!');
 		}	
+		
+		/*
+ 		* Save version information to the database
+ 		*/
+		update_option("BWPS_savedVersion", "alpha3");
 		
 		/*
  		* Save general options
  		*/
 		update_option("BWPS_removeGenerator", $_POST['BWPS_removeGenerator']);
 		update_option("BWPS_removeLoginMessages", $_POST['BWPS_removeLoginMessages']);
+		update_option("BWPS_randomVersion", $_POST['BWPS_randomVersion']);
 		
 		/*
 		 * Save hide admin options
@@ -39,7 +46,8 @@
 			$ipArray = explode("\n",  $_POST['BWPS_banips_iplist']);
 		
 			if (!$htString = createBanList($ipArray)) { //make sure all ips are valid IPv4 addresses and NOT the users own address
-				echo "You entered a bad IP address";
+				$errorHandler = new WP_Error();
+				$errorHandler->add("1", __("You entered a bad IP address"));
 			}  else { //save the IP addresses to the database
 				update_option("BWPS_banips_iplist", $_POST['BWPS_banips_iplist']);
 			}
@@ -53,7 +61,10 @@
 			
 			delete_option("BWPS_hideadmin_enable");
 			delete_option("BWPS_banips_enable");
-			echo "Unable to update htaccess rules";
+			if (!is_wp_error($errorHandler)) {
+				$errorHandler = new WP_Error();
+			}
+			$errorHandler->add("2", __("Unable to update htaccess rules"));
 			
 		} else {
 		
@@ -92,8 +103,12 @@
 			}	
 			
 		}
-			
-		echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
+		
+		if (is_wp_error($errorHandler)) {
+			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
+		} else {
+			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
+		}
 		
 	}
 	
@@ -107,11 +122,6 @@
 		
 		if (strlen($ruleCheck) < 1) {
 			echo '<div id="message" class="error"><p>Your htaccess settings appear to be missing. Please save your settings below to reset them.</p></div>';
-		}
-		
-		//see if user registrattion has been changed since htaccess rules were updated.
-		if ((get_option("BWPS_hideadmin_canregister") && !get_option('users_can_register')) || (!get_option("BWPS_hideadmin_canregister") && get_option('users_can_register'))) {
-			echo "User registions options have changed. Please verify your htaccess rules.";
 		}
 		
 	}
@@ -185,6 +195,16 @@
 					<h3>Ban Troublesome IP Addresses</h3>	
 					<div class="inside">
 						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/banips.php'); ?>
+						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="postbox-container" style="width:100%">
+				<div class="postbox opened">
+					<h3>Limit Bad Login Attempts</h3>	
+					<div class="inside">
+						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/limitlogin.php'); ?>
 						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 					</div>
 				</div>

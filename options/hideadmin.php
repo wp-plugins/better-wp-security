@@ -67,15 +67,15 @@
 				<em><span style="color: #666666;"><strong>Logout URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $logoutSlug; ?></span></em>
 			</td>
 		</tr>
-                             	
+		
+		<?php
+			if (!get_option('BWPS_hideadmin_register_slug')) {
+				$registerSlug = "register";
+			} else {
+				$registerSlug = get_option('BWPS_hideadmin_register_slug');
+			}
+		?>                             	
 		<?php if (get_option('users_can_register')) { ?>
-			<?php
-				if (!get_option('BWPS_hideadmin_register_slug')) {
-					$registerSlug = "register";
-				} else {
-					$registerSlug = get_option('BWPS_hideadmin_register_slug');
-				}
-			?>
 			<tr valign="top">
 				<th scope="row">
 					<label for="register_slug">Register Slug</label>
@@ -85,6 +85,8 @@
 					<em><span style="color: #666666;"><strong>Register URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $registerSlug; ?></span></em>
 				</td>
 			</tr>
+		<?php } else { ?>
+			<input type="hidden" name="BWPS_hideadmin_register_slug" id="register_slug" value="<?php echo $registerSlug; ?>" />
 		<?php } ?>
 
 		<?php
