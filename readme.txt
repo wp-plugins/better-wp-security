@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 3
+Stable tag: ALPHA 4
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -22,6 +22,7 @@ Current features:
 * Remove login error messages
 * Change backend urls such as wp-login, wp-admin, and more
 * Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
+* Lockout host or user after too many invalid login attempts
 	
 Features coming soon:
 * Too many to list right now
@@ -35,6 +36,10 @@ Coming soon
 Coming soon
 
 == Changelog ==
+
+= ALPHA 4 - October 26, 2010 =
+* Added login limiter to limit invalid attempts
+* various Bug fixes
 
 = ALPHA 3 - October 25, 2010 =
 * Corrected error display
@@ -53,6 +58,9 @@ Coming soon
 First alpha release including simple featureset. 
 
 == Upgrade Notice ==
+
+= ALPHA 4=
+* Upgrade should work fine through wordpress updater. Just make a database backup first
 
 = ALPHA 3 =
 * Do to a change in the mod-rewrite rules you MUST re-save options

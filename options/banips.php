@@ -12,7 +12,7 @@
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="BWPS_banips_iplist">Enable Ban IPs</label>
+				<label for="BWPS_banips_iplist">IP List</label>
 			</th>
 			<td>
 				<?php if(!get_option("BWPS_banips_iplist")) {

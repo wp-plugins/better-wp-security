@@ -1,17 +1,19 @@
 <?php
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hideadmin.php');
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
+	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/vars.php');
+	include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/common.php');
+	include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hideadmin.php');
+	include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
 	
-	if (isset($_POST['save'])) { // Save options
+	if (isset($_POST['BWPS_save'])) { // Save options
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_save')) { //verify nonce field
 			die('Security error!');
 		}	
 		
 		/*
  		* Save version information to the database
  		*/
-		update_option("BWPS_savedVersion", "alpha3");
+		update_option("BWPS_savedVersion", $BWPS_currentVersion);
 		
 		/*
  		* Save general options
@@ -30,6 +32,15 @@
 		update_option("BWPS_hideadmin_admin_slug", $_POST['BWPS_hideadmin_admin_slug']);
 		update_option("BWPS_hideadmin_login_custom", $_POST['BWPS_hideadmin_login_custom']);
 		update_option("BWPS_hideadmin_register_slug", $_POST['BWPS_hideadmin_register_slug']);
+		
+		/*
+		 * Save limit login options
+		 */
+		update_option("BWPS_limitlogin_enable", $_POST['BWPS_limitlogin_enable']);
+		update_option("BWPS_limitlogin_maxattemptshost", $_POST['BWPS_limitlogin_maxattemptshost']);
+		update_option("BWPS_limitlogin_maxattemptsuser", $_POST['BWPS_limitlogin_maxattemptsuser']);
+		update_option("BWPS_limitlogin_checkinterval", $_POST['BWPS_limitlogin_checkinterval']);
+		update_option("BWPS_limitlogin_banperiod", $_POST['BWPS_limitlogin_banperiod']);
 		
 		/*
 		 * Save ban ips options
@@ -57,7 +68,7 @@
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
 		
-		if (!is_writeable_ACLSafe($htaccess)) { //verify the .htaccess file is writeable
+		if (!BWPS_can_write($htaccess)) { //verify the .htaccess file is writeable
 			
 			delete_option("BWPS_hideadmin_enable");
 			delete_option("BWPS_banips_enable");
@@ -75,15 +86,15 @@
 			
 				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
-				wpsc_remove_marker($htaccess, 'WordPress');
-				wpsc_remove_marker($htaccess, 'Better WP Security Hide Admin');
+				BWPS_remove_section($htaccess, 'WordPress');
+				BWPS_remove_section($htaccess, 'Better WP Security Hide Admin');
 				
 				insert_with_markers($htaccess,'Better WP Security Hide Admin', explode( "\n", CreateRewriteRules()));
 				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));			
 				
 			} else { //delete rewrite rules
 			
-				wpsc_remove_marker($htaccess, 'Better WP Security Hide Admin');
+				BWPS_remove_section($htaccess, 'Better WP Security Hide Admin');
 				
 			}
 		
@@ -92,13 +103,13 @@
 			 */
 			if ($_POST['BWPS_banips_enable'] == 1 && get_option("BWPS_banips_iplist")) { //if ban ips is enabled write them to .htaccess
 
-					wpsc_remove_marker($htaccess, 'Better WP Security Ban IPs');
+					BWPS_remove_section($htaccess, 'Better WP Security Ban IPs');
 					insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $htString));
 
 			} else { //make sure no ips are banned if ban ips is disabled
 			
 				delete_option("BWPS_banips_enable");
-				wpsc_remove_marker($htaccess, 'Better WP Security Ban IPs');
+				BWPS_remove_section($htaccess, 'Better WP Security Ban IPs');
 				
 			}	
 			
@@ -169,23 +180,13 @@
 	</div>
 	<div class="clear"></div>
 		<form method="post">
-			<?php wp_nonce_field('save','wp_nonce') ?>
+			<?php wp_nonce_field('BWPS_save','wp_nonce') ?>
 			<div class="postbox-container" style="width:100%">
 				<div class="postbox opened">
 					<h3>General Options</h3>
 					<div class="inside">
-						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/general.php'); ?>
-						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="postbox-container" style="width:100%">
-				<div class="postbox opened">
-					<h3>Hide Backend Options</h3>	
-					<div class="inside">
-						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/hideadmin.php'); ?>
-						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+						<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/general.php'); ?>
+						<p class="submit"><input type="submit" name="BWPS_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 					</div>
 				</div>
 			</div>
@@ -194,18 +195,44 @@
 				<div class="postbox opened">
 					<h3>Ban Troublesome IP Addresses</h3>	
 					<div class="inside">
-						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/banips.php'); ?>
-						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+						<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/banips.php'); ?>
+						<p class="submit"><input type="submit" name="BWPS_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 					</div>
 				</div>
 			</div>
 			<div class="clear"></div>
-			<div class="postbox-container" style="width:100%">
+			<div class="postbox-container" style="width:34%">
 				<div class="postbox opened">
-					<h3>Limit Bad Login Attempts</h3>	
+					<h3>Hide Backend Options</h3>	
 					<div class="inside">
-						<?php include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/limitlogin.php'); ?>
-						<p class="submit"><input type="submit" name="save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+						<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/hideadmin.php'); ?>
+						<p class="submit"><input type="submit" name="BWPS_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+					</div>
+				</div>
+			</div>
+			<div class="postbox-container" style="width:65%">
+				<div class="postbox opened">
+					<h3>Hide Backend Rewrite Rules</h3>	
+					<div class="inside">
+						<pre><?php echo CreateRewriteRules(); ?></pre>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="postbox-container" style="width:60%">
+				<div class="postbox opened">
+					<h3>Limit Bad Login Attempts Options</h3>	
+					<div class="inside">
+						<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/limitlogin.php'); ?>
+						<p class="submit"><input type="submit" name="BWPS_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+					</div>
+				</div>
+			</div>
+			<div class="postbox-container" style="width:39%">
+				<div class="postbox opened">
+					<h3>Current Hosts Banned Due to Login Attempts</h3>	
+					<div class="inside">
+						<p class="submit"><input type="submit" name="BWPS_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 					</div>
 				</div>
 			</div>
