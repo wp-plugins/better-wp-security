@@ -3,7 +3,7 @@
 Plugin Name: Better WP Security
 Plugin URI: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-Version: 0.1 ALPHA
+Version: ALPHA 5
 Author: ChrisWiegman
 Author URI: http://www.chriswiegman.com
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
@@ -25,21 +25,11 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/common.php');
+ 
+global $BWPS;
 
-if (get_option("BWPS_removeGenerator")) {
-	 remove_action('wp_head', 'wp_generator'); //remove generator tag
-}
+$BWPS = new BWPS();
 
-if (get_option("BWPS_removeLoginMessages")) {
-	add_filter('login_errors', create_function('$a', "return null;")); //hide login errors
-}
-
-add_action('admin_menu', 'BWPS_menu');
-
-function BWPS_menu() {
-	add_menu_page('Better WP Security Options', 'Better WP Security', 'manage_options',__FILE__,'BWPS_options');
-}
-
-function BWPS_options () {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/options.php');
-}
+register_activation_hook(__file__, 'bwps_install');
+register_deactivation_hook(__file__, 'bwps_uninstall');
