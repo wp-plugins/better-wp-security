@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 4
+Stable tag: ALPHA 5
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -37,6 +37,15 @@ Coming soon
 
 == Changelog ==
 
+= ALPHA 5 - October 28, 2010 =
+* Complete refactor of the existing code
+* Divided settings sections for better UX
+* Added htaccess checks
+* Redesigned options system for less database calls
+* Reduced table usage from 4 to 2
+* Added email notifications for login limiter
+* Added complete access blocker for login limiter
+
 = ALPHA 4 - October 26, 2010 =
 * Added login limiter to limit invalid attempts
 * various Bug fixes
@@ -58,6 +67,9 @@ Coming soon
 First alpha release including simple featureset. 
 
 == Upgrade Notice ==
+
+= ALPHA 5 = 
+* This is a major reworking of the existing code. Please check all settings after installing
 
 = ALPHA 4=
 * Upgrade should work fine through wordpress updater. Just make a database backup first

@@ -38,7 +38,6 @@ function bwps_install() {
 			`computer_id` varchar(20),
 			`user_id` bigint(20),
 			`lockout_date` int(10),
-			`release_date` int(10),
 			PRIMARY KEY  (`lockout_ID`)
 			);";
 	}
@@ -57,9 +56,9 @@ function bwps_uninstall() {
 	global $BWPS;
 	
 	//first delete all options
-	$BWPS->saveOptions("hideadmin_enable", "0");
+	$BWPS->saveOptions("hidebe_enable", "0");
 	$BWPS->saveOptions("banips_enable", "0");
-	$BWPS->saveOptions("hideadmin_canregister", "0");
+	$BWPS->saveOptions("hidebe_canregister", "0");
 
 	//remove any .htaccess rules and notify if there are problems
 	$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
@@ -81,19 +80,21 @@ function bwps_defaults() {
 		"general_removeGenerator" => "0",
 		"general_removeLoginMessages" => "0",
 		"general_randomVersion" => "0",
-		"hideadmin_enable" => "0",
-		"hideadmin_login_slug" => "login",
-		"hideadmin_login_redirect" => get_option('siteurl').'/wp-admin/',
-		"hideadmin_logout_slug" => "logout",
-		"hideadmin_admin_slug" => "admin",
-		"hideadmin_login_custom" => "",
-		"hideadmin_register_slug" => "register",
-		"hideadmin_canregister" => get_option('users_can_register'),
+		"hidebe_enable" => "0",
+		"hidebe_login_slug" => "login",
+		"hidebe_login_redirect" => get_option('siteurl').'/wp-admin/',
+		"hidebe_logout_slug" => "logout",
+		"hidebe_admin_slug" => "admin",
+		"hidebe_login_custom" => "",
+		"hidebe_register_slug" => "register",
+		"hidebe_canregister" => get_option('users_can_register'),
 		"limitlogin_enable" => "0",
 		"limitlogin_maxattemptshost" => "5",
 		"limitlogin_maxattemptsuser" => "10",
 		"limitlogin_checkinterval" => "5",
 		"limitlogin_banperiod" => "60",
+		"limitlogin_denyaccess" => "1",
+		"limitlogin_emailnotify" => "1",
 		"banips_enable" => "0",
 		"banips_iplist" => "",
 		"savedVersion" => ""

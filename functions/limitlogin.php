@@ -12,6 +12,11 @@ if (!class_exists('BWPS_limitlogin')) {
 			
 			remove_filter('authenticate', array(&$this,'wp_authenticate_username_password'), 20, 3);
 			add_filter('authenticate', array(&$this,'_wp_authenticate_username_password'), 20, 3);
+
+			if ($opts['limitlogin_denyaccess'] == 1 && $this->checkLock()) {
+				die('Security error!');
+			}
+			
 		}
 		
 		function countAttempts($username = "") {
@@ -61,33 +66,51 @@ if (!class_exists('BWPS_limitlogin')) {
 			$username = sanitize_user($username);
 			$user = get_userdatabylogin($username);
 			
-			
-			$lUser = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (user_id, lockout_date)
-				VALUES ('" . $user->ID . "', " . time() . ")";
+			$loTime = time();
+			$reTime = $loTime + ($opts['limitlogin_banperiod'] * 60);
+				
+			if ($user) {
+				$lUser = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (user_id, lockout_date)
+					VALUES ('" . $user->ID . "', " . $loTime . ")";
 					
-			$wpdb->query($lUser);
-			
-			$lHost = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (computer_id, lockout_date)
-				VALUES ('" . $computer_id . "', " . time() . ")";
+				$wpdb->query($lUser);
+				
+				$mesEmail = "A Wordpress user, " . $username . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+				
+			} else {
+				$lHost = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (computer_id, lockout_date)
+					VALUES ('" . $computer_id . "', " . $loTime . ")";
 					
-			$wpdb->query($lHost);
+				$wpdb->query($lHost);
+				
+				$mesEmail = "A computer, " . $computer_id . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+				
+			}
+			
+			$toEmail = get_site_option("admin_email");
+			$subEmail = get_bloginfo('name') . ": Site Lockout Notification";
+			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
+			
+			$sendMail = wp_mail($toEmail, $subEmail, $mesEmail, $headers);
 			
 		}
 
 		function checkLock($username = "") {
 			global $wpdb, $opts, $computer_id;
 		
-			$username = sanitize_user($username);
-			$user = get_userdatabylogin($username);
+			if (strlen($username) > 0) {
+				$username = sanitize_user($username);
+				$user = get_userdatabylogin($username);
 
-			if ($user) {
-				$userCheck = $wpdb->get_var("SELECT user_id FROM " . $opts['limitlogin_table_lockouts']  . 
-					" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND user_id = '$user->ID'");
+				if ($user) {
+					$userCheck = $wpdb->get_var("SELECT user_id FROM " . $opts['limitlogin_table_lockouts']  . 
+						" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND user_id = '$user->ID'");
+				}
 			}
 		
 			$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . $opts['limitlogin_table_lockouts']  . 
 					" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND computer_id = '$computer_id'");
-					
+			
 			if (!$userCheck && !$hostCheck) {
 				return false;
 			} else {
@@ -97,7 +120,6 @@ if (!class_exists('BWPS_limitlogin')) {
 
 		function listLocked($ltype = "") {
 			global $wpdb, $opts, $computer_id;
-			$BWPS_limitlogin_options = getLimitloginOptions();
 			
 			if ($ltype == "users") {
 				$checkField = "user_id";
@@ -105,26 +127,43 @@ if (!class_exists('BWPS_limitlogin')) {
 				$checkField = "computer_id";
 			}
 
-			$lockList = $wpdb->get_results("SELECT lockout_ID, floor((UNIX_TIMESTAMP(release_date)-UNIX_TIMESTAMP(" . time() . "))/60) AS minutes_left,
-				user_id FROM " . $opts['limitlogin_table_lockouts']  . " WHERE release_date > " . time() . " AND " . $checkField . " != NULL", ARRAY_A);
+			$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, " . $checkField . " AS loLabel FROM " . $opts['limitlogin_table_lockouts']  . " WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND " . $checkField . " != ''", ARRAY_A);
+			
+			if ($ltype == "users" && sizeof($lockList) > 0) {
+				$user = get_userdata($lockList[0]['loLabel']);
+				
+				$lockList[0]['loLabel'] = $user->user_login . " (" . $user->first_name . " " . $user->last_name . ")";
+			}
 			
 			return $lockList;
 		}
 		
+		function dispRem($expTime) {
+    		$currTime = time(); 
+    		
+    		$timeDif = $expTime - $currTime;
+    			
+		    $dispTime = floor($timeDif / 60) . " minutes and " . ($timeDif % 60) . " seconds";
+		    
+		    return $dispTime;
+		}
+		
 		function _wp_authenticate_username_password($user, $username, $password) {
+			global $opts;
+			
 			if (is_a($user, 'WP_User')) {
 				return $user;
 			}
 			
-			if ( empty($username) || empty($password) ) {
+			if (empty($username) || empty($password)) {
 				$error = new WP_Error();
 
-				if ( empty($username) )
+				if (empty($username))
 					$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.'));
-
-				if ( empty($password) )
+				
+				if (empty($password))
 					$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
-
+				
 				return $error;
 			}
 
@@ -157,30 +196,71 @@ if ( !function_exists('wp_authenticate') ) {
 		$username = sanitize_user($username);
 		$password = trim($password);
 		
-		if ($limitLogin->checkLock()) {
-			return new WP_Error('incorrect_password', "<strong>ERROR</strong>: We're sorry, but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later.");
+		if ($limitLogin->checkLock($username)) {
+			if ($opts['limitlogin_denyaccess'] == 1) {
+				die('Security error!');
+			} else {
+				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+			}
 		}
 
 		$user = apply_filters('authenticate', null, $username, $password);
 
 		if ( $user == null ) {
-			// TODO what should the error message be? (Or would these even happen?)
-			// Only needed if all authentication handlers fail to return anything.
 			$user = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.'));
 		}
 
 		$ignore_codes = array('empty_username', 'empty_password');
-
-		if (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
+		
+		
+		if (isset($_POST['wp-submit']) && is_wp_error($user)) {
+		
 			if ($opts['limitlogin_maxattemptsuser'] >= $limitLogin->countAttempts($username)) {
 				$limitLogin->logAttempt($username);	
-			} else {				
+			} else {	
 				$limitLogin->logAttempt();
 			}
+			
+			if ($opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
+				$limitLogin->lockOut();
+				$locked = true;
+			}
 				
-			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username) || $opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
+			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username)) {
 				$limitLogin->lockOut($username);
-				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+				$locked = true;
+			} 
+			
+			if ($locked == true) {
+				if ($opts['limitlogin_denyaccess'] == 1) {
+					die('Security error!');
+				} else {
+					return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+				}
+			}
+		} elseif (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
+			if ($opts['limitlogin_maxattemptsuser'] >= $limitLogin->countAttempts($username)) {
+				$limitLogin->logAttempt($username);	
+			} else {	
+				$limitLogin->logAttempt();
+			}
+			
+			if ($opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
+				$limitLogin->lockOut();
+				$locked = true;
+			}
+				
+			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username)) {
+				$limitLogin->lockOut($username);
+				$locked = true;
+			} 
+			
+			if ($locked == true) {
+				if ($opts['limitlogin_denyaccess'] == 1) {
+					die('Security error!');
+				} else {
+					return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+				}
 			}
 
 			do_action('wp_login_failed', $username);

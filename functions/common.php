@@ -1,12 +1,12 @@
 <?php
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/setup.php');
-include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hideadmin.php');
+include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hidebe.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/limitlogin.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/general.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
 
 function bwps_defaultVersion() {
-	return 'alpha4';
+	return 'alpha5';
 }
 	
 if (!class_exists('BWPS')) {
@@ -120,13 +120,39 @@ if (!class_exists('BWPS')) {
 				return false;
 			}
 		}
-
-		function optspage() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/options.php');
+		
+		function status_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/status.php');
+		}
+		
+		function general_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/general.php');
+		}
+		
+		function hidebe_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/hidebe.php');
+		}
+		
+		function limitlogin_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/limitlogin.php');
+		}
+		
+		function banips_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/banips.php');
+		}
+		
+		function support_options() {
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/support.php');
 		}
 	
 		function optsmenu() {
-			add_menu_page('Better WP Security Options', 'Better WP Security', 'manage_options',__FILE__,array(&$this,'optspage'));
+			add_menu_page('Better Security - System Status', 'Better Security', 'manage_options', 'bwps', array(&$this,'status_options'));
+			add_submenu_page('bwps', 'Better WP Security - System Status', 	'System Status', 'manage_options', 'bwps', array(&$this,'status_options'));
+			add_submenu_page('bwps', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'bwps-banips', array(&$this,'banips_options'));
+			add_submenu_page('bwps', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'bwps-hidebe', array(&$this,'hidebe_options'));
+			add_submenu_page('bwps', 'Better WP Security - General Fetures', 	'General Fetures', 'manage_options', 'bwps-general', array(&$this,'general_options'));
+			add_submenu_page('bwps', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'bwps-limitlogin', array(&$this,'limitlogin_options'));
+			add_submenu_page('bwps', 'Better WP Security - Support', 	'Support', 'manage_options', 'bwps-support', array(&$this,'support_options'));
 		}
 	}
 }

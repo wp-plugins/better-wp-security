@@ -2,33 +2,45 @@
 if (!class_exists('BWPS_banips')) {
 	class BWPS_banips {
 	
-		public $ipList;
+		public $theRules;
 		public $ipCheck;
+		
+		function __construct() {
+			global $opts, $theRules;
+			
+			if (strlen($opts['banips_iplist']) > 1) { 
+				$this->createRules(explode("\n",  $opts['banips_iplist']));
+			}
+		}
 
-		function __construct($ipArray) {
-			global $ipList,$ipCheck;
+		function createRules($ipArray) {
+			global $theRules, $ipCheck;
 	
 			$goodAddress = true;
 			$myIp = getenv("REMOTE_ADDR");
+			
+			
 	
-			for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) { //check all ips until we find a bad one
-				if (!$this->checkIps($ipArray[$i]) || $ipArray[$i] == $myIp) { //make sure input is valid IPV4 address and it is NOT your own IP
+			for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) { //check all ips until we find a bad one 
+				$ipArray[$i] = trim($ipArray[$i]);
+				if (strlen($ipArray[$i]) > 0 && (!$this->checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) { //make sure input is valid IPV4 address and it is NOT your own IP
 					$goodAddress = false;
 				}
 			}
 	
 			if ($goodAddress == true) { //generate and return code if all addresses are good
+			
+				$ipList = implode(" ",$ipArray);
 	
-				$ipList = "order allow,deny\n" . 
-					"deny from " . 
-					implode(" ",$ipArray) . "\n" .
+				$theRules = "order allow,deny\n" . 
+					"deny from " . $ipList . "\n" . 
 					"allow from all\n";
 				
-				$ipCheck = true;
+				return $theRules;
 				
-			} else { //return false as there was a bad address entered
-				
-				$ipCheck = false;
+			} else {
+			
+				return false;
 				
 			}
 		}
@@ -41,16 +53,25 @@ if (!class_exists('BWPS_banips')) {
 			}
 		}
 		
-		function getOk() {
-			global $ipCheck;
+		function getList() {
+			global $theRules;
 			
-			return $ipCheck;
+			return $theRules;
 		}
 		
-		function getList() {
-			global $ipList;
+		function confirmRules() {
+		
+			$htaccess = trailingslashit(ABSPATH).'.htaccess';
 			
-			return $ipList;
+			$curRules = $this->getList();
+			$savedRules = implode("\n", extract_from_markers($htaccess, 'Better WP Security Ban IPs' ));
+			
+			if (strlen($curRules) != strlen($savedRules)) {
+				return "#ffebeb";
+			} else {
+				return "#fff";
+			}
+			
 		}
 	}
 }
