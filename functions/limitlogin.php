@@ -1,232 +1,164 @@
 <?php
-include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/vars.php');
-
-remove_filter('authenticate', 'wp_authenticate_username_password', 20, 3);
-add_filter('authenticate', 'BWPS_wp_authenticate_username_password', 20, 3);
-
-function getLimitloginOptions() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/vars.php');
-	global $wpdb;
-	
-	if (!get_option('BWPS_limilogin_maxattemptshost')) {
-		$maxattemptshost = "5";
-	} else {
-		$maxattemptshost = get_option('BWPS_limilogin_maxattemptshost');
-	}
-	if (!get_option('BWPS_limitlogin_maxattemptsuser')) {
-		$maxattemptsuser = "10";
-	} else {
-		$maxattemptsuser = get_option('BWPS_limitlogin_maxattemptsuser');
-	}
-	if (!get_option('BWPS_limilogin_banperiod')) {
-		$banperiod = "60";
-	} else {
-		$banperiod = get_option('BWPS_limilogin_banperiod');
-	}
-	if (!get_option('BWPS_limilogin_checkinterval')) {
-		$checkinterval = "5";
-	} else {
-		$checkinterval = get_option('BWPS_limilogin_checkinterval');
-	}
-	
-	$opts = array(
-		'table_hostfailstable' => $BWPS_limitlogin_table_hostfailstable,
-		'table_userfailstable' => $BWPS_limitlogin_table_userfailstable,
-		'table_lockouthosttable' => $BWPS_limitlogin_table_lockouthosttable,
-		'table_lockoutusertable' => $BWPS_limitlogin_table_lockoutusertable,
-		'maxattemptshost' => $maxattemptshost,
-		'maxattemptsuser' => $maxattemptsuser,
-		'banperiod' => $banperiod,
-		'checkinterval' => $checkinterval,
-		'computer_id' => $wpdb->escape($_SERVER['REMOTE_ADDR'])
-	);
-	
-	return $opts;
-}
+if (!class_exists('BWPS_limitlogin')) {
+	class BWPS_limitlogin {
 		
-function BWPS_verifyDbTables() {
-	
-}
+		public $opts;
+		public $computer_id;
 		
-function BWPS_countHostFails() {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
-
-	$hostFails = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . $BWPS_limitlogin_options['table_hostfailstable'] . "
-		WHERE attempt_date +
-			" . ($BWPS_limitlogin_options['checkinterval'] * 60) . " >'" . time() . "' AND
-		computer_id = '" . $BWPS_limitlogin_options['computer_id'] . "'"
-	);
+		function __construct() {
+			global $wpdb, $BWPS, $opts, $computer_id;
 			
-	return $hostFails;
-}
+			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
+			
+			remove_filter('authenticate', array(&$this,'wp_authenticate_username_password'), 20, 3);
+			add_filter('authenticate', array(&$this,'_wp_authenticate_username_password'), 20, 3);
+		}
 		
-function BWPS_countUserFails($username = "") {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
+		function countAttempts($username = "") {
+			global $wpdb, $opts, $computer_id;
 			
-	$username = sanitize_user($username);
-	$user = get_userdatabylogin($username);
-	
-	if($user) {
-		$userFails = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . $BWPS_limitlogin_options['table_userfailstable'] . "
-			WHERE attempt_date +
-			" . ($BWPS_limitlogin_options['checkinterval'] * 60) . " > " . time() . " AND
-			user_id = '" . $user->ID . "'"
-		);		
-	} else {
-		$userFails = 0;
-	}
+			$username = sanitize_user($username);
+			$user = get_userdatabylogin($username);
 			
-	return $userFails;
-}
+			if ($user) {
+				$checkField = "user_id";
+				$val = $user->ID;
+			} else {
+				$checkField = "computer_id";
+				$val = $computer_id;
+			}
+			
+			$fails = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . $opts['limitlogin_table_fails'] . "
+				WHERE attempt_date +
+				" . ($opts['limitlogin_checkinterval'] * 60) . " >'" . time() . "' AND
+				" . $checkField . " = '" . $val . "'"
+			);
+			
+			return $fails;
+		}
 
-function BWPS_logFailedAttempt($username = "") {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
+		function logAttempt($username = "") {
+			global $wpdb, $opts, $computer_id;
 			
-	$username = sanitize_user($username);
-	$user = get_userdatabylogin($username);
+			$username = sanitize_user($username);
+			$user = get_userdatabylogin($username);
 	
-	if ($user) {		
-		$insertUser = "INSERT INTO " . $BWPS_limitlogin_options['table_userfailstable'] . " (user_id, attempt_date)
-			VALUES ('" . $user->ID . "', " . time() . ");";
+			if ($user) {
+				$userId = $user->ID;
+			} else {
+				$userId = "";
+			}
+					
+			$failQuery = "INSERT INTO " . $opts['limitlogin_table_fails'] . " (user_id, computer_id, attempt_date)
+				VALUES ('" . $userId . "', '" . $computer_id . "', " . time() . ");";
 				
-		$flag1 = $wpdb->query($insertUser);
-	} else {
-		$flag1 = true;
-	}
+			return $wpdb->query($failQuery);
+		}
+
+		function lockOut($username = "") {
+			global $wpdb, $opts, $computer_id;
+
+			$username = sanitize_user($username);
+			$user = get_userdatabylogin($username);
 			
-	$insertHost = "INSERT INTO " . $BWPS_limitlogin_options['table_hostfailstable'] . " (computer_id, attempt_date)
-		VALUES ('" . $BWPS_limitlogin_options['computer_id'] . "', " . time() . ");";
-	
-	$flag1 = $wpdb->query($insertHost);
 			
-	if ($flag1 == true && $flag2 == true) {
-		return true;
-	} else {
-		return false;
-	}
-}
+			$lUser = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (user_id, lockout_date)
+				VALUES ('" . $user->ID . "', " . time() . ")";
+					
+			$wpdb->query($lUser);
+			
+			$lHost = "INSERT INTO " . $opts['limitlogin_table_lockouts'] . " (computer_id, lockout_date)
+				VALUES ('" . $computer_id . "', " . time() . ")";
+					
+			$wpdb->query($lHost);
+			
+		}
 
-function BWPS_lockOutUser($username = "") {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
+		function checkLock($username = "") {
+			global $wpdb, $opts, $computer_id;
+		
+			$username = sanitize_user($username);
+			$user = get_userdatabylogin($username);
 
-	$username = sanitize_user($username);
-	$user = get_userdatabylogin($username);
+			if ($user) {
+				$userCheck = $wpdb->get_var("SELECT user_id FROM " . $opts['limitlogin_table_lockouts']  . 
+					" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND user_id = '$user->ID'");
+			}
+		
+			$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . $opts['limitlogin_table_lockouts']  . 
+					" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND computer_id = '$computer_id'");
+					
+			if (!$userCheck && !$hostCheck) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function listLocked($ltype = "") {
+			global $wpdb, $opts, $computer_id;
+			$BWPS_limitlogin_options = getLimitloginOptions();
+			
+			if ($ltype == "users") {
+				$checkField = "user_id";
+			} else {
+				$checkField = "computer_id";
+			}
+
+			$lockList = $wpdb->get_results("SELECT lockout_ID, floor((UNIX_TIMESTAMP(release_date)-UNIX_TIMESTAMP(" . time() . "))/60) AS minutes_left,
+				user_id FROM " . $opts['limitlogin_table_lockouts']  . " WHERE release_date > " . time() . " AND " . $checkField . " != NULL", ARRAY_A);
+			
+			return $lockList;
+		}
+		
+		function _wp_authenticate_username_password($user, $username, $password) {
+			if (is_a($user, 'WP_User')) {
+				return $user;
+			}
+			
+			if ( empty($username) || empty($password) ) {
+				$error = new WP_Error();
+
+				if ( empty($username) )
+					$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.'));
+
+				if ( empty($password) )
+					$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
+
+				return $error;
+			}
+
+			$userdata = get_userdatabylogin($username);
+
+			if (!$userdata) {
+				return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
+			}
+
+			$userdata = apply_filters('wp_authenticate_user', $userdata, $password);
+		
+			if (is_wp_error($userdata)) {
+				return $userdata;
+			}
+
+			if ( !wp_check_password($password, $userdata->user_pass, $userdata->ID) ) {
+				return new WP_Error('incorrect_password', sprintf(__('<strong>ERROR</strong>: Incorrect password. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
+			}
 	
-	if ($user) {
-		$insertUserQuery = "INSERT INTO " . $BWPS_limitlogin_table_lockoutusertable . " (user_id, lockout_date, release_date)
-			VALUES ('" . $user->ID . "', " . time() . ", date_add(" . time() . ", INTERVAL " .
-			$BWPS_limitlogin_options['checkinterval'] . " MINUTE))";
-		
-		return $wpdb->query($insertUserQuery);
-	}
-}
-		
-function BWPS_lockOutHost() {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
-	
-	$insertHostQuery = "INSERT INTO " . $BWPS_limitlogin_table_lockouthosttable . " (computer_id, lockout_date, release_date)
-		VALUES ('" . $BWPS_limitlogin_options['computer_id'] . "', " . time() . ", date_add(" . time() . ", INTERVAL " .
-		$BWPS_limitlogin_options['checkinterval'] . " MINUTE))";
-		
-	return $wpdb->query($insertHostQuery);
-}
-
-function BWPS_isLockedDown($username = "") {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
-		
-	$username = sanitize_user($username);
-	$user = get_userdatabylogin($username);
-	
-
-	if ($user) {
-		$userCheck = $wpdb->get_var("SELECT user_id FROM " . $BWPS_limitlogin_options['table_lockoutusertable'] . "
-			WHERE release_date > " . time() . " AND user_id = '$user->ID'");
-	}
-		
-	$hostCheck = $wpdb->get_var("SELECT " . $BWPS_limitlogin_options['computer_id'] . " FROM " . $BWPS_limitlogin_options['table_lockouthosttable'] . "
-			WHERE release_date > " . time() . "");
-
-	if ($userCheck == true || $hostCheck == true) {
-		return true;
-	} else {
-		return false;
+			$user =  new WP_User($userdata->ID);
+			return $user;
+		}
 	}
 }
 
-function BWPS_listLockedUsers() {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
-
-	$lockedUsers = $wpdb->get_results("SELECT lockout_ID, floor((UNIX_TIMESTAMP(release_date)-UNIX_TIMESTAMP(" . time() . "))/60) AS minutes_left,
-		user_id FROM " . $BWPS_limitlogin_options['table_lockoutusertable'] . " WHERE release_date > " . time() . "", ARRAY_A);
-
-	return $lockedUsers;
-}
-		
-function BWPS_listLockedHosts() {
-	global $wpdb;
-	$BWPS_limitlogin_options = getLimitloginOptions();
-
-	$lockedUsers = $wpdb->get_results("SELECT lockout_ID, floor((UNIX_TIMESTAMP(release_date)-UNIX_TIMESTAMP(" . time() . "))/60) AS minutes_left,
-		computer_id FROM " . $BWPS_limitlogin_options['table_lockouthosttable'] . " WHERE release_date > " . time() . "", ARRAY_A);
-
-	return $lockedUsers;
-}
-		
-function BWPS_wp_authenticate_username_password($user, $username, $password) {
-	if (is_a($user, 'WP_User')) {
-		return $user;
-	}
-
-	if (empty($username) || empty($password)) {
-		$error = new WP_Error();
-
-		if ( empty($username) )
-			$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.'));
-
-		if ( empty($password) )
-			$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
-
-		return $error;
-	}
-
-	$userdata = get_userdatabylogin($username);
-
-	if (!$userdata) {
-		return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
-	}
-
-	$userdata = apply_filters('wp_authenticate_user', $userdata, $password);
-		
-	if (is_wp_error($userdata)) {
-		return $userdata;
-	}
-
-	if ( !wp_check_password($password, $userdata->user_pass, $userdata->ID) ) {
-		return new WP_Error('incorrect_password', sprintf(__('<strong>ERROR</strong>: Incorrect password. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
-	}
-	
-	$user =  new WP_User($userdata->ID);
-	return $user;
-}
-		
-if (!function_exists('wp_authenticate')) {
+if ( !function_exists('wp_authenticate') ) {
 	function wp_authenticate($username, $password) {
-		global $wpdb, $error;
-		$BWPS_limitlogin_options = getLimitloginOptions();
+		global $wpdb, $error, $opts, $limitLogin;
 
 		$username = sanitize_user($username);
 		$password = trim($password);
-
-		if (BWPS_isLockedDown()) {
-			return new WP_Error('incorrect_password', "<strong>ERROR</strong>: We're sorry, but this computer_id range has been blocked due to too many recent " .
-				"failed login attempts.<br /><br />Please try again later.");
+		
+		if ($limitLogin->checkLock()) {
+			return new WP_Error('incorrect_password', "<strong>ERROR</strong>: We're sorry, but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later.");
 		}
 
 		$user = apply_filters('authenticate', null, $username, $password);
@@ -240,15 +172,15 @@ if (!function_exists('wp_authenticate')) {
 		$ignore_codes = array('empty_username', 'empty_password');
 
 		if (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
-			if ($BWPS_limitlogin_options['maxattemptsuser'] <= BWPS_countUserFails($username)) {
-				BWPS_logFailedAttempt($username);	
-			} else {
-				BWPS_logFailedAttempt();
-			}	
-			if ($BWPS_limitlogin_options['maxattemptsuser'] <= BWPS_countUserFails($username) || $BWPS_limitlogin_options['maxattemptshost'] <= BWPS_countHostFails()) {
-				BWPS_lockOutUser($username);
-				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer_id range has been blocked due to too many recent " .
-					"failed login attempts.<br /><br />Please try again later."));
+			if ($opts['limitlogin_maxattemptsuser'] >= $limitLogin->countAttempts($username)) {
+				$limitLogin->logAttempt($username);	
+			} else {				
+				$limitLogin->logAttempt();
+			}
+				
+			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username) || $opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
+				$limitLogin->lockOut($username);
+				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
 			}
 
 			do_action('wp_login_failed', $username);

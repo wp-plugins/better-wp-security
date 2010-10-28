@@ -1,34 +1,33 @@
 <?php
-/*
- * Remove Wordpress Generator Meta Tag if checked
- */
-if (get_option("BWPS_removeGenerator")) {
-	 remove_action('wp_head', 'wp_generator'); //remove generator tag
-}
+if (!class_exists('BWPS_general')) {
+	class BWPS_general {
+	
+		function __construct() {
+			global $opts;
+			
+			if ($opts['general_removeGenerator'] == 1) {
+				remove_action('wp_head', 'wp_generator'); //remove generator tag
+			}
 
-/*
- * Remove error messages from login page
- */
-if (get_option("BWPS_removeLoginMessages")) {
-	add_filter('login_errors', create_function('$a', "return null;")); //hide login errors
-}
+			if ($opts['general_removeLoginMessages'] == 1) {
+				add_filter('login_errors', create_function('$a', "return null;")); //hide login errors
+			}
 
-/*
- * Display a random version # to all non-admins
- */
-if (get_option("BWPS_randomVersion")) {
-	BWPS_randomVersion();
-}
+			if ($opts['general_randomVersion'] == 1) {
+				$this->randomVersion();
+			}
+		
+		}
+		
+		function randomVersion() {
+			global $wp_version, $ver;
 
-/*
- * Display a random version # to all non-admins
- */
-function BWPS_randomVersion() {
-	global $wp_version, $ver;
+			$newVersion = rand(100,500);
 
-	$newVersion = rand(100,500);
-
-	if (!is_admin()) {
-		$wp_version = $newVersion;
+			if (!is_admin()) {
+				$wp_version = $newVersion;
+			}
+		}
+	
 	}
 }
