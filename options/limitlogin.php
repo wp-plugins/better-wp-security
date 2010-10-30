@@ -7,21 +7,67 @@
 			die('Security error!');
 		}	
 		
-		$BWPS->saveOptions("limitlogin_enable",$_POST['BWPS_limitlogin_enable']);
-		$BWPS->saveOptions("limitlogin_maxattemptshost",$_POST['BWPS_limitlogin_maxattemptshost']);
-		$BWPS->saveOptions("limitlogin_maxattemptsuser",$_POST['BWPS_limitlogin_maxattemptsuser']);
-		$BWPS->saveOptions("limitlogin_checkinterval",$_POST['BWPS_limitlogin_checkinterval']);
-		$BWPS->saveOptions("limitlogin_banperiod",$_POST['BWPS_limitlogin_banperiod']);
-		$BWPS->saveOptions("limitlogin_denyaccess",$_POST['BWPS_limitlogin_denyaccess']);
-		$BWPS->saveOptions("limitlogin_emailnotify",$_POST['BWPS_limitlogin_emailnotify']);
+		//validate the input
+		$mahinput = (string)absint(intval($_POST['BWPS_limitlogin_maxattemptshost']));
+		$mauinput = (string)absint(intval($_POST['BWPS_limitlogin_maxattemptsuser']));
+		$ciinput = (string)absint(intval($_POST['BWPS_limitlogin_checkinterval']));
+		$bainput = (string)absint(intval($_POST['BWPS_limitlogin_banperiod']));
 		
-		$opts = $BWPS->getOptions();
+		if (strcmp($_POST['BWPS_limitlogin_maxattemptshost'], $mahinput) || strcmp($_POST['BWPS_limitlogin_maxattemptsuser'], $mauinput) || strcmp($_POST['BWPS_limitlogin_checkinterval'], $ciinput) || strcmp($_POST['BWPS_limitlogin_banperiod'], $bainput)) {
+			
+			$errorHandler = new WP_Error();
+			
+			if ($_POST['BWPS_limitlogin_maxattemptshost'] != $mahinput) {
+				$errorHandler->add("3", __("<strong>Max Login Attempts Per Host</strong> MUST be a positive integer."));
+			}
+		
+			if ($_POST['BWPS_limitlogin_maxattemptsuser'] != $mauinput) {
+				$errorHandler->add("3", __("<strong>Max Login Attempts Per User</strong> MUST be a positive integer."));
+			}
+		
+			if ($_POST['BWPS_limitlogin_checkinterval'] != $ciinput) {
+				$errorHandler->add("3", __("<strong>Login Time Period (minutes)</strong> MUST be a positive integer."));
+			}
+		
+			if ($_POST['BWPS_limitlogin_banperiod'] != $bainput) {
+				$errorHandler->add("3", __("<strong>Lockout Time Period (minutes)</strong> MUST be a positive integer."));
+			}
+			
+		} else {
+			$BWPS->saveOptions("limitlogin_enable", $_POST['BWPS_limitlogin_enable']);
+			$BWPS->saveOptions("limitlogin_maxattemptshost", $mahinput);
+			$BWPS->saveOptions("limitlogin_maxattemptsuser", $mauinput);
+			$BWPS->saveOptions("limitlogin_checkinterval", $ciinput);
+			$BWPS->saveOptions("limitlogin_banperiod", $bainput);
+			$BWPS->saveOptions("limitlogin_denyaccess", $_POST['BWPS_limitlogin_denyaccess']);
+			$BWPS->saveOptions("limitlogin_emailnotify", $_POST['BWPS_limitlogin_emailnotify']);
+		
+			$opts = $BWPS->getOptions();
+		}
 		
 		if (is_wp_error($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
+		
+		$ledisplay = $_POST['BWPS_limitlogin_enable'];
+		$mahdisplay = $_POST['BWPS_limitlogin_maxattemptshost'];
+		$maudisplay = $_POST['BWPS_limitlogin_maxattemptsuser'];
+		$cidsplay = $_POST['BWPS_limitlogin_checkinterval'];
+		$bpdisplay = $_POST['BWPS_limitlogin_banperiod'];
+		$dadisplay = $_POST['BWPS_limitlogin_denyaccess'];
+		$endisplay = $_POST['BWPS_limitlogin_emailnotify'];
+		
+	} else {
+		
+		$ledisplay = $opts['limitlogin_enable'];
+		$mahdisplay = $opts['limitlogin_maxattemptshost'];
+		$maudisplay = $opts['limitlogin_maxattemptsuser'];
+		$cidsplay = $opts['limitlogin_checkinterval'];
+		$bpdisplay = $opts['limitlogin_banperiod'];
+		$dadisplay = $opts['limitlogin_denyaccess'];
+		$endisplay = $opts['limitlogin_emailnotify'];
 		
 	}
 	
@@ -32,12 +78,10 @@
 		
 		
 		while (list($key, $value) = each($_POST)) {
-
 			if (strstr($key,"lo")) {
 				$wpdb->query("DELETE FROM " . $opts['limitlogin_table_lockouts'] . " WHERE lockout_ID = " . $value . ";");
 			}
 		}
-	
 	}
 	
 ?>
@@ -48,7 +92,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 		
-		<div class="postbox-container" style="width:80%">	
+		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
 				<h3>Limit Logins Options</h3>	
 				<div class="inside">
@@ -62,8 +106,8 @@
 										<label for="BWPS_limitlogin_enable">Enable Limit Bad Login Attempts</label>
 									</th>
 									<td>
-										<label><input name="BWPS_limitlogin_enable" id="BWPS_limitlogin_enable" value="1" <?php if ($opts['limitlogin_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_limitlogin_enable" value="0" <?php if ($opts['limitlogin_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label>
+										<label><input name="BWPS_limitlogin_enable" id="BWPS_limitlogin_enable" value="1" <?php if ($ledisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
+										<label><input name="BWPS_limitlogin_enable" value="0" <?php if ($ledisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label>
 									</td>
 								</tr>
 
@@ -72,7 +116,7 @@
 										<label for="BWPS_limitlogin_maxattemptshost">Max Login Attempts Per Host</label>
 									</th>
 									<td>
-										<input name="BWPS_limitlogin_maxattemptshost" id="BWPS_limitlogin_maxattemptshost" value="<?php echo $opts['limitlogin_maxattemptshost']; ?>" type="text">
+										<input name="BWPS_limitlogin_maxattemptshost" id="BWPS_limitlogin_maxattemptshost" value="<?php echo $mahdisplay; ?>" type="text">
 										<p>
 											The number of login attempts a user has before their host or computer is locked out of the system.
 										</p>
@@ -84,7 +128,7 @@
 										<label for="BWPS_limitlogin_maxattemptsuser">Max Login Attempts Per User</label>
 									</th>
 									<td>
-										<input name="BWPS_limitlogin_maxattemptsuser" id="BWPS_limitlogin_maxattemptsuser" value="<?php echo $opts['limitlogin_maxattemptsuser']; ?>" type="text">
+										<input name="BWPS_limitlogin_maxattemptsuser" id="BWPS_limitlogin_maxattemptsuser" value="<?php echo $maudisplay; ?>" type="text">
 										<p>
 											The number of login attempts a user has before their username is locked out of the system.
 										</p>
@@ -96,7 +140,7 @@
 										<label for="BWPS_limitlogin_checkinterval">Login Time Period (minutes)</label>
 									</th>
 									<td>
-										<input name="BWPS_limitlogin_checkinterval" id="BWPS_limitlogin_checkinterval" value="<?php echo $opts['limitlogin_checkinterval']; ?>" type="text"><br />
+										<input name="BWPS_limitlogin_checkinterval" id="BWPS_limitlogin_checkinterval" value="<?php echo $cidsplay; ?>" type="text"><br />
 										<p>
 											The number of minutes in which bad logins should be remembered.
 										</p>
@@ -105,10 +149,10 @@
 		
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_limitlogin_banperiod">Login Time Period (minutes)</label>
+										<label for="BWPS_limitlogin_banperiod">Lockout Time Period (minutes)</label>
 									</th>
 									<td>
-										<input name="BWPS_limitlogin_banperiod" id="BWPS_limitlogin_banperiod" value="<?php echo $opts['limitlogin_banperiod']; ?>" type="text"><br />
+										<input name="BWPS_limitlogin_banperiod" id="BWPS_limitlogin_banperiod" value="<?php echo $bpdisplay; ?>" type="text"><br />
 										<p>
 											The length of time a host or computer will be banned from this site after hitting the limit of bad logins.
 										</p>
@@ -120,8 +164,8 @@
 										<label for="BWPS_limitlogin_denyaccess">Deny All Site Access To Locked Out Hosts.</label>
 									</th>
 									<td>
-										<label><input name="BWPS_limitlogin_denyaccess" id="BWPS_limitlogin_denyaccess" value="1" <?php if ($opts['limitlogin_denyaccess'] == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_limitlogin_denyaccess" value="0" <?php if ($opts['limitlogin_denyaccess'] == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
+										<label><input name="BWPS_limitlogin_denyaccess" id="BWPS_limitlogin_denyaccess" value="1" <?php if ($dadisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
+										<label><input name="BWPS_limitlogin_denyaccess" value="0" <?php if ($dadisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
 										<p>
 											If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout.
 										</p>
@@ -133,8 +177,8 @@
 										<label for="BWPS_limitlogin_emailnotify">Enable Email Notifications.</label>
 									</th>
 									<td>
-										<label><input name="BWPS_limitlogin_emailnotify" id="BWPS_limitlogin_emailnotify" value="1" <?php if ($opts['limitlogin_emailnotify'] == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_limitlogin_emailnotify" value="0" <?php if ($opts['limitlogin_emailnotify'] == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
+										<label><input name="BWPS_limitlogin_emailnotify" id="BWPS_limitlogin_emailnotify" value="1" <?php if ($endisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
+										<label><input name="BWPS_limitlogin_emailnotify" value="0" <?php if ($endisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
 										<p>
 											Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.
 										</p>
@@ -154,7 +198,7 @@
 		<?php if ($opts['limitlogin_enable'] == 1) { ?>
 			<div class="clear"></div>
 		
-			<div class="postbox-container" style="width:80%">
+			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
 					<h3>Active Lockouts</h3>	
 					<div class="inside">

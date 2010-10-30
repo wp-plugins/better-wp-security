@@ -4,7 +4,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 	
-		<div class="postbox-container" style="width:80%">	
+		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
 				<h3>Instructions and Support</h3>
 				<div class="inside">

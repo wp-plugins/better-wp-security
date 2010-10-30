@@ -13,22 +13,19 @@
 		 * Save ban ips options
 		 */
 		$BWPS->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
-		
-		if (get_option('users_can_register')) { //save state for registrations to check for later errors
-			$BWPS->saveOptions("hidebe_canregister","1");
-		} else {
-			$BWPS->saveOptions("hidebe_canregister","0");
-		}
-		
+				
 		if (strlen($_POST['BWPS_banips_iplist']) > 0) { //save banned IPs if present
 		
-			$ipArray = explode("\n",  $_POST['BWPS_banips_iplist']);	
+			//sanitize the input
+			$ipInput = esc_html__($_POST['BWPS_banips_iplist']);
+		
+			$ipArray = explode("\n", $ipInput);	
 			
 			if (!$BWPS_banips->createRules($ipArray)) { //make sure all ips are valid IPv4 addresses and NOT the users own address
 				$errorHandler = new WP_Error();
 				$errorHandler->add("1", __("You entered a bad IP address"));
 			}  else { //save the IP addresses to the database
-				$BWPS->saveOptions("banips_iplist",$_POST['BWPS_banips_iplist']);
+				$BWPS->saveOptions("banips_iplist",$ipInput);
 			}
 		} else { //delete any IPs from the database
 			$BWPS->saveOptions("banips_enable","0");
@@ -90,7 +87,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 		
-		<div class="postbox-container" style="width:80%">	
+		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
 				<h3>Ban IPs Options</h3>	
 				<div class="inside">
@@ -139,7 +136,7 @@
 			<?php
 				$bgColor = $BWPS_banips->confirmRules();
 			?>
-			<div class="postbox-container" style="width:80%">
+			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
 					<h3>Hide Backend Rewrite Rules</h3>	
 					<div class="inside">

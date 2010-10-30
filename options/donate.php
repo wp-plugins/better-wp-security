@@ -1,4 +1,4 @@
-<div class="postbox-container" style="width:19%">
+<div class="postbox-container" style="width:29%">
 	<div class="postbox opened">
 		<h3>Please Donate</h3>
 		<div class="inside">

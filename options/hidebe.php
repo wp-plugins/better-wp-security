@@ -9,16 +9,24 @@
 			die('Security error!');
 		}	
 		
+		//Validate
+		
+		$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
+		$logout_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_logout_slug']));
+		$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
+		$login_custom = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_custom']));
+		$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
+		
 		/*
 		 * Save hide admin options
 		 */
 		$BWPS->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
-		$BWPS->saveOptions("hidebe_login_slug",$_POST['BWPS_hidebe_login_slug']);
-		$BWPS->saveOptions("hidebe_login_redirect",$_POST['BWPS_hidebe_login_redirect']);
-		$BWPS->saveOptions("hidebe_logout_slug",$_POST['BWPS_hidebe_logout_slug']);
-		$BWPS->saveOptions("hidebe_admin_slug",$_POST['BWPS_hidebe_admin_slug']);
-		$BWPS->saveOptions("hidebe_login_custom",$_POST['BWPS_hidebe_login_custom']);
-		$BWPS->saveOptions("hidebe_register_slug",$_POST['BWPS_hidebe_register_slug']);
+		$BWPS->saveOptions("hidebe_login_slug", $login_slug);
+		$BWPS->saveOptions("hidebe_login_redirect", $_POST['BWPS_hidebe_login_redirect']);
+		$BWPS->saveOptions("hidebe_logout_slug", $logout_slug);
+		$BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
+		$BWPS->saveOptions("hidebe_login_custom", $login_custom);
+		$BWPS->saveOptions("hidebe_register_slug", $register_slug);
 		
 		if (get_option('users_can_register')) { //save state for registrations to check for later errors
 			$BWPS->saveOptions("hidebe_canregister","1");
@@ -78,7 +86,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 		
-		<div class="postbox-container" style="width:80%">	
+		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
 				<h3>Hide Backend Options</h3>	
 				<div class="inside">
@@ -172,7 +180,7 @@
 			<?php
 				$bgColor = $BWPS_hidebe->confirmRules();
 			?>
-			<div class="postbox-container" style="width:80%">
+			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
 					<h3>Hide Backend Rewrite Rules</h3>	
 					<div class="inside">

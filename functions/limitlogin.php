@@ -6,17 +6,20 @@ if (!class_exists('BWPS_limitlogin')) {
 		public $computer_id;
 		
 		function __construct() {
-			global $wpdb, $BWPS, $opts, $computer_id;
+			global $wpdb, $opts, $computer_id;
 			
 			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
-			
-			remove_filter('authenticate', array(&$this,'wp_authenticate_username_password'), 20, 3);
-			add_filter('authenticate', array(&$this,'_wp_authenticate_username_password'), 20, 3);
 
 			if ($opts['limitlogin_denyaccess'] == 1 && $this->checkLock()) {
 				die('Security error!');
 			}
 			
+		}
+		
+		function isOn() {
+			global $opts;
+			
+			return $opts['limitlogin_enable'];
 		}
 		
 		function countAttempts($username = "") {
@@ -147,125 +150,5 @@ if (!class_exists('BWPS_limitlogin')) {
 		    
 		    return $dispTime;
 		}
-		
-		function _wp_authenticate_username_password($user, $username, $password) {
-			global $opts;
-			
-			if (is_a($user, 'WP_User')) {
-				return $user;
-			}
-			
-			if (empty($username) || empty($password)) {
-				$error = new WP_Error();
-
-				if (empty($username))
-					$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.'));
-				
-				if (empty($password))
-					$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
-				
-				return $error;
-			}
-
-			$userdata = get_userdatabylogin($username);
-
-			if (!$userdata) {
-				return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
-			}
-
-			$userdata = apply_filters('wp_authenticate_user', $userdata, $password);
-		
-			if (is_wp_error($userdata)) {
-				return $userdata;
-			}
-
-			if ( !wp_check_password($password, $userdata->user_pass, $userdata->ID) ) {
-				return new WP_Error('incorrect_password', sprintf(__('<strong>ERROR</strong>: Incorrect password. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
-			}
-	
-			$user =  new WP_User($userdata->ID);
-			return $user;
-		}
-	}
-}
-
-if ( !function_exists('wp_authenticate') ) {
-	function wp_authenticate($username, $password) {
-		global $wpdb, $error, $opts, $limitLogin;
-
-		$username = sanitize_user($username);
-		$password = trim($password);
-		
-		if ($limitLogin->checkLock($username)) {
-			if ($opts['limitlogin_denyaccess'] == 1) {
-				die('Security error!');
-			} else {
-				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
-			}
-		}
-
-		$user = apply_filters('authenticate', null, $username, $password);
-
-		if ( $user == null ) {
-			$user = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.'));
-		}
-
-		$ignore_codes = array('empty_username', 'empty_password');
-		
-		
-		if (isset($_POST['wp-submit']) && is_wp_error($user)) {
-		
-			if ($opts['limitlogin_maxattemptsuser'] >= $limitLogin->countAttempts($username)) {
-				$limitLogin->logAttempt($username);	
-			} else {	
-				$limitLogin->logAttempt();
-			}
-			
-			if ($opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
-				$limitLogin->lockOut();
-				$locked = true;
-			}
-				
-			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username)) {
-				$limitLogin->lockOut($username);
-				$locked = true;
-			} 
-			
-			if ($locked == true) {
-				if ($opts['limitlogin_denyaccess'] == 1) {
-					die('Security error!');
-				} else {
-					return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
-				}
-			}
-		} elseif (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
-			if ($opts['limitlogin_maxattemptsuser'] >= $limitLogin->countAttempts($username)) {
-				$limitLogin->logAttempt($username);	
-			} else {	
-				$limitLogin->logAttempt();
-			}
-			
-			if ($opts['limitlogin_maxattemptshost'] <= $limitLogin->countAttempts()) {
-				$limitLogin->lockOut();
-				$locked = true;
-			}
-				
-			if ($opts['limitlogin_maxattemptsuser'] <= $limitLogin->countAttempts($username)) {
-				$limitLogin->lockOut($username);
-				$locked = true;
-			} 
-			
-			if ($locked == true) {
-				if ($opts['limitlogin_denyaccess'] == 1) {
-					die('Security error!');
-				} else {
-					return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
-				}
-			}
-
-			do_action('wp_login_failed', $username);
-		}
-
-		return $user;
 	}
 }

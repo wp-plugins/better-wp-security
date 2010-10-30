@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 5
+Stable tag: ALPHA 6
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -16,16 +16,26 @@ Released under the terms of the GNU General Public License.
 
 NOTE: This plugin is not yet ready for production and should be used only to test features and provide feedback!!!!
 
-Current features:
-* Ban individual IP addresses from the Wordpress backend
-* Remove generator tag
-* Remove login error messages
-* Change backend urls such as wp-login, wp-admin, and more
+= Current features =
+
+* Remove the meta "Generator" tag
+* Removes login error messages
+* Change the urls for backend functions including login, admin, and more
+* Limit admin access to specified IP or range of IP addresses
+* Ban troublesome bots and other hosts
+* Completely turn off the ability to login for a given time period (away mode)
+* Prevent brute force attacks by banning hosts and users with too many invalid login attempts
 * Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
-* Lockout host or user after too many invalid login attempts
 	
-Features coming soon:
-* Too many to list right now
+= Features coming soon =
+
+* Force SSL for admin pages (on supporting servers)
+* Allow for changing the Wordpress table prefix where necessary
+* Intrusion detection
+* Enforce strong passwords
+* Rename "admin" account
+* View security "status"
+* --and more--
 
 == Installation ==
 
@@ -36,6 +46,11 @@ Coming soon
 Coming soon
 
 == Changelog ==
+
+= ALPHA 6 - October 30, 2010 =
+* Added sanitization and validation to user input
+* Added "away mode" to limit backend access by time
+* Script no longer dies when logged out and instead returns to homepage.
 
 = ALPHA 5 - October 28, 2010 =
 * Complete refactor of the existing code
@@ -61,25 +76,13 @@ Coming soon
 * Optimized and commented code
 * Added uninstall function
 * Numerous fixes to bugs and logic
-----This realease contains no new features----
 
 = 0.1 ALPHA - October 22, 2010 =
 First alpha release including simple featureset. 
 
 == Upgrade Notice ==
 
-= ALPHA 5 = 
-* This is a major reworking of the existing code. Please check all settings after installing
-
-= ALPHA 4=
-* Upgrade should work fine through wordpress updater. Just make a database backup first
-
-= ALPHA 3 =
-* Do to a change in the mod-rewrite rules you MUST re-save options
-
-= ALPHA 2 =
-* Now removes .htaccess rules on uninstall
-* more error checking for stability
+If upgrading from a version prior to ALPHA 5 you MUST deactivate the plugin manually first. Failure to do so may result in an inability to access the backend.
 
 == Support ==
 

@@ -75,6 +75,10 @@ function bwps_defaults() {
 	global $wpdb;
 	
 	$opts = array(
+		"away_enable" => "0",
+		"away_mode" => "0",
+		"away_start" => "1",
+		"away_end" => "1",
 		"limitlogin_table_fails" => $wpdb->prefix . "BWPS_bad_logins",
 		"limitlogin_table_lockouts" => $wpdb->prefix . "BWPS_lockouts",
 		"general_removeGenerator" => "0",
