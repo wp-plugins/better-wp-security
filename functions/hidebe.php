@@ -54,7 +54,7 @@ if (!class_exists('BWPS_hidebe')) {
 			$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			srand((double)microtime()*1000000);
 			$pass = '' ;		
-			for ($i = 0; $i <= 25; $i++) {
+			for ($i = 0; $i <= 20; $i++) {
 				$num = rand() % 33;
 				$tmp = substr($chars, $num, 1);
 				$pass = $pass . $tmp;
