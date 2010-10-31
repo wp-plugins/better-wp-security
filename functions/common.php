@@ -168,23 +168,18 @@ if (!class_exists('BWPS')) {
 			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/banips.php');
 		}
 		
-		function support_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/support.php');
-		}
-		
 		function away_options() {
 			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/away.php');
 		}
 	
 		function optsmenu() {
-			add_menu_page('Better Security - System Status', 'Better Security', 'manage_options', 'bwps', array(&$this,'status_options'));
+			add_menu_page('Better Security - System Status and Support', 'Better WP Security', 'manage_options', 'bwps', array(&$this,'status_options'));
 			add_submenu_page('bwps', 'Better WP Security - System Status', 	'System Status', 'manage_options', 'bwps', array(&$this,'status_options'));
 			add_submenu_page('bwps', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'bwps-away', array(&$this,'away_options'));
 			add_submenu_page('bwps', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'bwps-banips', array(&$this,'banips_options'));
 			add_submenu_page('bwps', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'bwps-hidebe', array(&$this,'hidebe_options'));
 			add_submenu_page('bwps', 'Better WP Security - General Fetures', 	'General Fetures', 'manage_options', 'bwps-general', array(&$this,'general_options'));
 			add_submenu_page('bwps', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'bwps-limitlogin', array(&$this,'limitlogin_options'));
-			add_submenu_page('bwps', 'Better WP Security - Support', 	'Support', 'manage_options', 'bwps-support', array(&$this,'support_options'));
 		}
 		
 		function getLocalTime() {
