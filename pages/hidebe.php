@@ -1,7 +1,7 @@
 <?php
-	global $BWPS, $opts;
-	
 	$BWPS_hidebe = new BWPS_hidebe();
+	
+	$opts = $BWPS_hidebe->getOptions();
 	
 	if (isset($_POST['BWPS_hidbe_save'])) { // Save options
 		
@@ -9,7 +9,7 @@
 			die('Security error!');
 		}	
 		
-		$BWPS->saveOptions("hidebe_Version", $versions['hidebe_Version']);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_Version", BWPS_HIDEBE_VERSION);
 		
 		//Validate
 		
@@ -22,25 +22,25 @@
 		/*
 		 * Save hide admin options
 		 */
-		$BWPS->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
-		$BWPS->saveOptions("hidebe_login_slug", $login_slug);
-		$BWPS->saveOptions("hidebe_login_redirect", $_POST['BWPS_hidebe_login_redirect']);
-		$BWPS->saveOptions("hidebe_logout_slug", $logout_slug);
-		$BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
-		$BWPS->saveOptions("hidebe_login_custom", $login_custom);
-		$BWPS->saveOptions("hidebe_register_slug", $register_slug);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_login_slug", $login_slug);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_login_redirect", $_POST['BWPS_hidebe_login_redirect']);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_logout_slug", $logout_slug);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_admin_slug", $admin_slug);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_login_custom", $login_custom);
+		$opts = $BWPS_hidebe->saveOptions("hidebe_register_slug", $register_slug);
 		
 		if (get_option('users_can_register')) { //save state for registrations to check for later errors
-			$BWPS->saveOptions("hidebe_canregister","1");
+			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","1");
 		} else {
-			$BWPS->saveOptions("hidebe_canregister","0");
+			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","0");
 		}
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
 		
-		if (!$BWPS->can_write($htaccess)) { //verify the .htaccess file is writeable
+		if (!$BWPS_hidebe->can_write($htaccess)) { //verify the .htaccess file is writeable
 			
-			$BWPS->saveOptions("hidebe_enable","0");
+			$opts = $BWPS_hidebe->saveOptions("hidebe_enable","0");
 			
 			$errorHandler = new WP_Error();
 			
@@ -55,21 +55,19 @@
 			
 				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
-				$BWPS->remove_section($htaccess, 'WordPress');
-				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
+				$BWPS_hidebe->remove_section($htaccess, 'WordPress');
+				$BWPS_hidebe->remove_section($htaccess, 'Better WP Security Hide Backend');
 				
 				insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS_hidebe->getRules()));
 				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));			
 				
 			} else { //delete rewrite rules
 			
-				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
+				$BWPS_hidebe->remove_section($htaccess, 'Better WP Security Hide Backend');
 				
 			}
 			
 		}
-		
-		$opts = $BWPS->getOptions();
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';

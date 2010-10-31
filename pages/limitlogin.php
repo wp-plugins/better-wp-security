@@ -1,5 +1,7 @@
 <?php
-	global $wpdb, $opts, $BWPS, $limitLogin;
+	global $wpdb, $BWPS_limitlogin;
+	
+	$opts = $BWPS_limitlogin->getOptions();
 	
 	if (isset($_POST['BWPS_limitlogin_save'])) { // Save options
 		
@@ -7,7 +9,7 @@
 			die('Security error!');
 		}	
 		
-		$BWPS->saveOptions("limitlogin_Version", $versions['limitlogin_Version']);
+		$opts = $BWPS_limitlogin->saveOptions("limitlogin_Version", BWPS_LIMITLOGIN_VERSION);
 		
 		//validate the input
 		$mahinput = (string)absint(intval($_POST['BWPS_limitlogin_maxattemptshost']));
@@ -36,15 +38,13 @@
 			}
 			
 		} else {
-			$BWPS->saveOptions("limitlogin_enable", $_POST['BWPS_limitlogin_enable']);
-			$BWPS->saveOptions("limitlogin_maxattemptshost", $mahinput);
-			$BWPS->saveOptions("limitlogin_maxattemptsuser", $mauinput);
-			$BWPS->saveOptions("limitlogin_checkinterval", $ciinput);
-			$BWPS->saveOptions("limitlogin_banperiod", $bainput);
-			$BWPS->saveOptions("limitlogin_denyaccess", $_POST['BWPS_limitlogin_denyaccess']);
-			$BWPS->saveOptions("limitlogin_emailnotify", $_POST['BWPS_limitlogin_emailnotify']);
-		
-			$opts = $BWPS->getOptions();
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_enable", $_POST['BWPS_limitlogin_enable']);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_maxattemptshost", $mahinput);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_maxattemptsuser", $mauinput);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_checkinterval", $ciinput);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_banperiod", $bainput);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_denyaccess", $_POST['BWPS_limitlogin_denyaccess']);
+			$opts = $BWPS_limitlogin->saveOptions("limitlogin_emailnotify", $_POST['BWPS_limitlogin_emailnotify']);
 		}
 		
 		if (isset($errorHandler)) {
@@ -218,7 +218,7 @@
 										<?php wp_nonce_field('BWPS_releasesave','wp_nonce') ?>
 										<td width="50%">
 											<?php 
-												$lockedList = $limitLogin->listLocked();
+												$lockedList = $BWPS_limitlogin->listLocked();
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {
@@ -232,7 +232,7 @@
 										</td>
 										<td width="50%">
 											<?php 
-												$lockedList = $limitLogin->listLocked("users");
+												$lockedList = $BWPS_limitlogin->listLocked("users");
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {

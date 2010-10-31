@@ -3,10 +3,9 @@
 function BWPS_install() {
 	global $wpdb;
 
-	$versions = BWPS_versions();
 	$defaults = BWPS_defaults();
 	
-	$pi_version = $versions['pi_version'];
+	$pi_version = BWPS_VERSION;
 	
 	if (get_option("BWPS_options")) {
 		$opts = unserialize(get_option("BWPS_options"));
@@ -19,8 +18,8 @@ function BWPS_install() {
 	
 	update_option("BWPS_options", serialize($opts));
 	
-	$upgrade_lt = ($versions['limitlogin_lt_Version'] != $opts['limitlogin_lt_Version']);
-	$upgrade_at = ($versions['limitlogin_at_Version'] != $opts['limitlogin_at_Version']);
+	$upgrade_lt = (BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION != $opts['limitlogin_lt_Version']);
+	$upgrade_at = (BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION != $opts['limitlogin_at_Version']);
 			
 	$BWPSinstall = "";
 			
@@ -37,7 +36,7 @@ function BWPS_install() {
 			`computer_id` varchar(20),
 			PRIMARY KEY  (`attempt_id`)
 			);";		
-			$opts['limitlogin_lt_Version'] = $versions['limitlogin_lt_Version'];
+			$opts['limitlogin_lt_Version'] = BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION;
 	}
 			
 	if (!$lockouts_exists || $upgrade_at) {
@@ -48,7 +47,7 @@ function BWPS_install() {
 			`lockout_date` int(10),
 			PRIMARY KEY  (`lockout_ID`)
 			);";
-			$opts['limitlogin_at_Version'] = $versions['limitlogin_at_Version'];
+			$opts['limitlogin_at_Version'] = BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION;
 	}
 			
 	if ($BWPSinstall != "") {

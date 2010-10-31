@@ -1,7 +1,7 @@
 <?php
-	global $BWPS, $opts, $versions;
-	
 	$BWPS_banips = new BWPS_banips();
+	
+	$opts = $BWPS_banips->getOptions();
 	
 	if (isset($_POST['BWPS_banips_save'])) { // Save options
 		
@@ -9,12 +9,12 @@
 			die('Security error!');
 		}
 		
-		$BWPS->saveOptions("banips_Version", $versions['banips_Version']);
+		$opts = $BWPS_banips->saveOptions("banips_Version", BWPS_BANIPS_VERSION);
 		
 		/*
 		 * Save ban ips options
 		 */
-		$BWPS->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
+		$opts = $BWPS_banips->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
 				
 		if (strlen($_POST['BWPS_banips_iplist']) > 0) { //save banned IPs if present
 		
@@ -27,18 +27,18 @@
 				$errorHandler = new WP_Error();
 				$errorHandler->add("1", __("You entered a bad IP address"));
 			}  else { //save the IP addresses to the database
-				$BWPS->saveOptions("banips_iplist",$ipInput);
+				$opts = $BWPS_banips->saveOptions("banips_iplist",$ipInput);
 			}
 		} else { //delete any IPs from the database
-			$BWPS->saveOptions("banips_enable","0");
-			$BWPS->saveOptions("banips_iplist","");
+			$opts = $BWPS_banips->saveOptions("banips_enable","0");
+			$opts = $BWPS_banips->saveOptions("banips_iplist","");
 		}
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
 		
-		if (!$BWPS->can_write($htaccess)) { //verify the .htaccess file is writeable
+		if (!$BWPS_banips->can_write($htaccess)) { //verify the .htaccess file is writeable
 
-			$BWPS->saveOptions("banips_enable","0");
+			$opts = $BWPS_banips->saveOptions("banips_enable","0");
 			
 			$errorHandler = new WP_Error();
 			
@@ -50,20 +50,17 @@
 			 * Save banned ips to .htaccess
 			 */
 			if ($_POST['BWPS_banips_enable'] == 1 && $opts['banips_iplist'] != "") { //if ban ips is enabled write them to .htaccess
-
-				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
+				$BWPS_banips->remove_section($htaccess, 'Better WP Security Ban IPs');
 				insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $BWPS_banips->getList()));
 
 			} else { //make sure no ips are banned if ban ips is disabled
 			
-				$BWPS->saveOptions("banips_enable","0");
-				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
+				$opts = $BWPS_banips->saveOptions("banips_enable","0");
+				$BWPS_banips->remove_section($htaccess, 'Better WP Security Ban IPs');
 				
 			}		
 			
 		} 
-		
-		$opts = $BWPS->getOptions();
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';

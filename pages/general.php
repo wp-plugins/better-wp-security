@@ -1,5 +1,7 @@
 <?php
-	global $opts, $BWPS, $versions;
+	global $opts, $BWPS_general;
+	
+	$opts = $BWPS_general->getOptions();
 	
 	if (isset($_POST['BWPS_general_save'])) { // Save options
 		
@@ -7,13 +9,11 @@
 			die('Security error!');
 		}	
 		
-		$BWPS->saveOptions("general_Version", $versions['general_Version']);
+		$opts = $BWPS_general->saveOptions("general_Version", BWPS_GENERAL_VERSION);
 		
-		$BWPS->saveOptions("general_removeGenerator",$_POST['BWPS_removeGenerator']);
-		$BWPS->saveOptions("general_removeLoginMessages",$_POST['BWPS_removeLoginMessages']);
-		$BWPS->saveOptions("general_randomVersion",$_POST['BWPS_randomVersion']);
-		
-		$opts = $BWPS->getOptions();
+		$opts = $BWPS_general->saveOptions("general_removeGenerator",$_POST['BWPS_removeGenerator']);
+		$opts = $BWPS_general->saveOptions("general_removeLoginMessages",$_POST['BWPS_removeLoginMessages']);
+		$opts = $BWPS_general->saveOptions("general_randomVersion",$_POST['BWPS_randomVersion']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
