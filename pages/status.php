@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		
-		<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/donate.php'); ?>
+		<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/donate.php'); ?>
 		
 	</div>
 	

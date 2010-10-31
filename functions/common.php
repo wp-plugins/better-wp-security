@@ -1,26 +1,11 @@
 <?php
-include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/setup.php');
+include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/setup.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/away.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hidebe.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/limitlogin.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/general.php');
 include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
 
-function BWPS_versions() {
-	$versions = array(
-		"pi_version" => "alpha6",
-		"limitlogin_at_Version" => "1",
-		"limitlogin_lt_Version" => "1",
-		"away_Version" => "1",
-		"banips_Version" => "1",
-		"general_Version" => "1",
-		"hidebe_Version" => "1",
-		"limitlogin_Version" => "1"
-	);
-	
-	return $versions;
-}
-	
 if (!class_exists('BWPS')) {
 	class BWPS {
 		
@@ -164,31 +149,31 @@ if (!class_exists('BWPS')) {
 		}
 		
 		function status_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/status.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/status.php');
 		}
 		
 		function general_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/general.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/general.php');
 		}
 		
 		function hidebe_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/hidebe.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/hidebe.php');
 		}
 		
 		function limitlogin_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/limitlogin.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/limitlogin.php');
 		}
 		
 		function banips_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/banips.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/banips.php');
 		}
 		
 		function support_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/support.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/support.php');
 		}
 		
 		function away_options() {
-			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/options/away.php');
+			include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/away.php');
 		}
 	
 		function optsmenu() {
@@ -291,4 +276,19 @@ if ( !function_exists('wp_authenticate') ) {
 		}
 		return $user;
 	}
+}
+
+function BWPS_versions() {
+	$versions = array(
+		"pi_version" => "alpha6",
+		"limitlogin_at_Version" => "1",
+		"limitlogin_lt_Version" => "1",
+		"away_Version" => "1",
+		"banips_Version" => "1",
+		"general_Version" => "1",
+		"hidebe_Version" => "1",
+		"limitlogin_Version" => "1"
+	);
+	
+	return $versions;
 }
