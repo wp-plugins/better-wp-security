@@ -174,7 +174,7 @@ if (!class_exists('BWPS')) {
 	
 		function optsmenu() {
 			add_menu_page('Better Security - System Status and Support', 'Better WP Security', 'manage_options', 'bwps', array(&$this,'status_options'));
-			add_submenu_page('bwps', 'Better WP Security - System Status', 	'System Status', 'manage_options', 'bwps', array(&$this,'status_options'));
+			add_submenu_page('bwps', 'Better WP Security - System Status and Support', 	'Better WP Security', 'manage_options', 'bwps', array(&$this,'status_options'));
 			add_submenu_page('bwps', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'bwps-away', array(&$this,'away_options'));
 			add_submenu_page('bwps', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'bwps-banips', array(&$this,'banips_options'));
 			add_submenu_page('bwps', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'bwps-hidebe', array(&$this,'hidebe_options'));
