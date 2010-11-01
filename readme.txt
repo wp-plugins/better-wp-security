@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 6
+Stable tag: ALPHA 7
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -46,6 +46,11 @@ Coming soon
 Coming soon
 
 == Changelog ==
+
+= ALPHA 7 - October 31, 2010 =
+* Continued code refactoring and bug-fixes
+* Improved error handling and upgrade support
+* Combined status and support options pages
 
 = ALPHA 6 - October 30, 2010 =
 * Added sanitization and validation to user input
