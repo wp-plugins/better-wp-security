@@ -61,7 +61,8 @@ function BWPS_install() {
 }
 	
 function BWPS_uninstall() {
-	global $BWPS;
+	
+	$BWPS = new BWPS();
 	
 	//first delete all options
 	$BWPS->saveOptions("hidebe_enable", "0");

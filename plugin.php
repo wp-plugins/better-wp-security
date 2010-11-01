@@ -39,7 +39,7 @@ define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
 define('BWPS_LIMITLOGIN_VERSION','1');
  
-global $BWPS_limitlogin, $BWPS_general;
+global $BWPS_away, $BWPS_limitlogin, $BWPS_general;
 
 $BWPS_general = new BWPS_general();
 $BWPS_away = new BWPS_away();
