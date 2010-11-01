@@ -60,7 +60,7 @@
 			</div>
 		</div>
 			
-		<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/donate.php'); ?>
+		<?php include_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/donate.php'); ?>
 		
 	</div>
 </div>

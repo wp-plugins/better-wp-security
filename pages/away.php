@@ -304,7 +304,7 @@
 			</div>
 		</div>
 			
-		<?php include_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/donate.php'); ?>
+		<?php include_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/donate.php'); ?>
 		
 		<?php if ($opts['away_enable'] == 1) { ?>
 			<div class="clear"></div>

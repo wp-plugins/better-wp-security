@@ -1,11 +1,11 @@
 <?php
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/auth.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/setup.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/away.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/hidebe.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/limitlogin.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/general.php');
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/banips.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/away.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hidebe.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/general.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/banips.php');
 
 
 class BWPS {

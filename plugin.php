@@ -28,7 +28,7 @@ License: GPLv2
     Fou
     ndation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-require_once(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/functions/common.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/common.php');
 
 define('BWPS_VERSION','ALPHA7');
 define('BWPS_AWAY_VERSION','1');
@@ -49,27 +49,27 @@ register_activation_hook(__file__, 'BWPS_install');
 register_deactivation_hook(__file__, 'BWPS_uninstall');
 
 function status_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/status.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/status.php');
 }
 		
 function general_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/general.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/general.php');
 }
 		
 function hidebe_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/hidebe.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/hidebe.php');
 }
 		
 function limitlogin_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/limitlogin.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/limitlogin.php');
 }
 	
 function banips_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/banips.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/banips.php');
 }
 		
 function away_options() {
-	include(trailingslashit(ABSPATH) . 'wp-content/plugins/better-wp-security/pages/away.php');
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/away.php');
 }
 	
 function optsmenu() {
