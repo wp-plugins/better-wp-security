@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 8
+Stable tag: ALPHA 9
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -30,15 +30,16 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Remove Windows Live Write header information
 * Remove RSD header information
 * Strengthen .htaccess settings
+* Enforce strong passwords for all accounts of a configurable minimum role
 	
 = Features coming soon =
 
 * Force SSL for admin pages (on supporting servers)
 * Allow for changing the Wordpress table prefix where necessary
 * Intrusion detection
-* Enforce strong passwords
 * Rename "admin" account
 * View security "status"
+* Support and discussion forums
 * --and more--
 
 == Installation ==
@@ -51,8 +52,10 @@ Coming soon
 
 == Changelog ==
 
-= ALPHA 9 - November 1, 2010 =
+= ALPHA 9 - November 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options
+* Enforce strong passwords for all users of a given minimum role
+* Minor bug fixes
 
 = ALPHA 8 - November 1, 2010 =
 * Added various .htaccess options to strengthen file security

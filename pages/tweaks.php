@@ -9,7 +9,7 @@
 			die('Security error!');
 		}	
 		
-		$opts = $BWPS_tweaks->saveOptions("tweaks_Version", BWPS_tweaks_VERSION);
+		$opts = $BWPS_tweaks->saveOptions("tweaks_Version", BWPS_TWEAKS_VERSION);
 		
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removeGenerator",$_POST['BWPS_removeGenerator']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removeLoginMessages",$_POST['BWPS_removeLoginMessages']);
@@ -118,6 +118,14 @@
 						<?php wp_nonce_field('BWPS_tweaks_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
+								<style type="text/css">
+									h4 {
+										font-size: 130%;
+										display: block;
+										padding: 2px;
+										border-bottom: 1px solid #ccc;
+									}
+								</style>
 								<h4>Header Tweaks</h4>
 								<p>
 									<input type="checkbox" name="BWPS_removeGenerator" id="BWPS_removeGenerator" value="1" <?php if ($opts['tweaks_removeGenerator'] == 1) echo "checked"; ?> /> <label for="BWPS_removeGenerator"><strong>Remove Wordpress Generator Meta Tag</strong></label><br />

@@ -89,18 +89,24 @@ class BWPS_tweaks extends BWPS {
 			"subscriber" => "0"
 		);
 		
+		$rollists = array(
+			"administrator" => array("subscriber", "author", "contributor","editor"),
+			"editor" =>  array("subscriber", "author", "contributor"),
+			"author" =>  array("subscriber", "contributor"),
+			"contributor" =>  array("subscriber"),
+			"subscriber" => array()
+		);
+		
 		$enforce = true;  
 		$args = func_get_args();  
 		$userID = $args[2]->ID;  
 		if ( $userID ) {  
 			$userInfo = get_userdata( $userID );  
 			if ( $userInfo->user_level < $availableRoles[$minRole] ) {  
-			
 				$enforce = false;  
 			}  
 		} else {  
-			
-			if ( in_array( $_POST["role"], array( "subscriber", "author", "contributor" ) ) ) {  
+			if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
 				$enforce = false;  
 			}  
 		}  
