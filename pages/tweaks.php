@@ -1,5 +1,5 @@
 <?php
-	global $opts, $BWPS_tweaks;
+	global $BWPS_tweaks;
 	
 	$opts = $BWPS_tweaks->getOptions();
 	
@@ -19,6 +19,77 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_coreUpdates",$_POST['BWPS_coreUpdates']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removewlm",$_POST['BWPS_removewlm']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
+		
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		
+		if (!$BWPS_tweaks->can_write($htaccess)) { 
+			
+			$errorHandler = new WP_Error();
+			
+			$errorHandler->add("2", __("Unable to update htaccess rules"));
+			
+		} else {
+		
+			$opts = $BWPS_tweaks->saveOptions("tweaks_protectht",$_POST['BWPS_protectht']);
+			$opts = $BWPS_tweaks->saveOptions("tweaks_protectwpc",$_POST['BWPS_protectwpc']);
+			$opts = $BWPS_tweaks->saveOptions("tweaks_dirbrowse",$_POST['BWPS_dirbrowse']);
+			$opts = $BWPS_tweaks->saveOptions("tweaks_hotlink",$_POST['BWPS_hotlink']);
+		
+			if ($_POST['BWPS_protectht'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect htaccess');
+				$rules = "<files .htaccess>\n" .
+					"order allow,deny\n" . 
+					"deny from all\n" .
+					"</files>\n";
+				insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $rules));		
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect htaccess');
+			}
+			
+			if ($_POST['BWPS_protectwpc'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect wp-config');
+				$rules = "<files wp-config.php>\n" .
+					"order allow,deny\n" . 
+					"deny from all\n" .
+					"</files>\n";
+				insert_with_markers($htaccess,'Better WP Security Protect wp-config', explode( "\n", $rules));		
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect wp-config');
+			}
+			
+			if ($_POST['BWPS_dirbrowse'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
+				$rules = "Options All -Indexes\n";
+				insert_with_markers($htaccess,'Better WP Security Prevent Directory Browsing', explode( "\n", $rules));		
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
+			}
+			
+			if ($_POST['BWPS_hotlink'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+				
+				$reDomain = $BWPS_tweaks->uDomain(get_option('siteurl'));
+				
+				$rules = "<IfModule mod_rewrite.c>\n" . 
+					"RewriteEngine On\n" . 
+					"RewriteBase /\n" . 
+					"RewriteCond %{HTTP_REFERER} !^$\n" .
+					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/.*$ [NC]\n" .
+					"RewriteRule .(jpg|jpeg|png|gif|pdf|doc)$ - [F]\n" . 
+					"</IfModule>\n";
+				
+				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
+				
+				$BWPS_tweaks->remove_section($htaccess, 'WordPress');
+				insert_with_markers($htaccess,'Better WP Security Prevent Hotlinking', explode( "\n", $rules));	
+				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));
+					
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+			}
+			
+		}
+
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -70,6 +141,23 @@
 								<p>
 									<input type="checkbox" name="BWPS_coreUpdates" id="BWPS_coreUpdates" value="1" <?php if ($opts['tweaks_coreUpdates'] == 1) echo "checked"; ?> /> <label for="BWPS_coreUpdates"><strong>Hide Core Update Notifications</strong></label><br />
 									Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.
+								</p>
+								<h4>.htaccess Tweaks</h4>
+								<p>
+									<input type="checkbox" name="BWPS_protectht" id="BWPS_protectht" value="1" <?php if ($opts['tweaks_protectht'] == 1) echo "checked"; ?> /> <label for="BWPS_protectht"><strong>Protect .htaccess</strong></label><br />
+									Add extra protection to the .htaccess file.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_protectwpc" id="BWPS_protectwpc" value="1" <?php if ($opts['tweaks_protectwpc'] == 1) echo "checked"; ?> /> <label for="BWPS_protectwpc"><strong>Protect wp-config.php</strong></label><br />
+									Prevents access to the wp-config.php file
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_dirbrowse" id="BWPS_dirbrowse" value="1" <?php if ($opts['tweaks_dirbrowse'] == 1) echo "checked"; ?> /> <label for="BWPS_dirbrowse"><strong>Disable directory browsing</strong></label><br />
+									Prevents users from seeing a list of files in a directory when no index file is present
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_hotlink" id="BWPS_hotlink" value="1" <?php if ($opts['tweaks_hotlink'] == 1) echo "checked"; ?> /> <label for="BWPS_hotlink"><strong>Prevent Hotlinking</strong></label><br />
+									Prevents visitors from being able to directly link to images, documents, and other files which could hurt your bandwidth.
 								</p>
 								<h4>Other Tweaks</h4>
 								<p>

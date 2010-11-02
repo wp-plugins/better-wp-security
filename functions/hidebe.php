@@ -74,13 +74,4 @@ class BWPS_hidebe extends BWPS {
 		}
 			
 	}
-	
-	function uDomain($address) {
-		preg_match("/^(http:\/\/)?([^\/]+)/i", $address, $matches);
-		$host = $matches[2];
-		preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
-		$newAddress =  "http://(.*)" . $matches[0] ;
-		
-		return $newAddress;
-	}
 }

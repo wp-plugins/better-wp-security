@@ -33,7 +33,7 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/comm
 define('BWPS_VERSION','ALPHA8');
 define('BWPS_AWAY_VERSION','1');
 define('BWPS_BANIPS_VERSION','1');
-define('BWPS_TWEAKS_VERSION','4');
+define('BWPS_TWEAKS_VERSION','6');
 define('BWPS_HIDEBE_VERSION','3');
 define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');

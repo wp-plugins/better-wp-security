@@ -127,10 +127,10 @@ class BWPS {
 			}
 			add_action('admin_notices', 'BWPS_banipsWarning');
 		}
-			
-		if ($this->opts['tweaks_Version'] != BWPS_tweaks_VERSION && $this->opts['tweaks_Version'] > 0 && !isset($_POST['BWPS_tweaks_save'])) {
+		
+		if ($this->opts['tweaks_Version'] != BWPS_TWEAKS_VERSION && $this->opts['tweaks_Version'] > 0 && !isset($_POST['BWPS_tweaks_save'])) {
 			function BWPS_tweaksWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-tweaks">Better WP Security - tweaks Settings.</a></strong></p></div>';
+				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-tweaks">Better WP Security - System Tweaks.</a></strong></p></div>';
 			}
 			add_action('admin_notices', 'BWPS_tweaksWarning');
 		}
@@ -152,5 +152,14 @@ class BWPS {
 		
 	function getLocalTime() {
 		return strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())));
+	}
+	
+	function uDomain($address) {
+		preg_match("/^(http:\/\/)?([^\/]+)/i", $address, $matches);
+		$host = $matches[2];
+		preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+		$newAddress =  "http://(.*)" . $matches[0] ;
+		
+		return $newAddress;
 	}
 }
