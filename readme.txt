@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 7
+Stable tag: ALPHA 8
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -29,7 +29,7 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
 * Remove Windows Live Write header information
 * Remove RSD header information
-* Remove "pingback" header
+* Strengthen .htaccess settings
 	
 = Features coming soon =
 
@@ -50,6 +50,15 @@ Coming soon
 Coming soon
 
 == Changelog ==
+
+= ALPHA 8 - November 1, 2010 =
+* Added various .htaccess options to strengthen file security
+* Modified "hide backend" rewrite rules to work with multi-site
+* Removed non-security hide-backend options
+* Various bug fixes 
+* Renamed "General" options page to "System Tweaks" to avoid confusion
+* Added more options to clean up Wordpress headers
+* Added options to remove plugin notifications from non-super admin users
 
 = ALPHA 7 - October 31, 2010 =
 * Continued code refactoring and bug-fixes
