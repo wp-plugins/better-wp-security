@@ -1,5 +1,5 @@
 <?php
-	$BWPS_banips = new BWPS_banips();
+	global $BWPS_banips;
 	
 	$opts = $BWPS_banips->getOptions();
 	

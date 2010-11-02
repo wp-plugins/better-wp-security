@@ -26,6 +26,10 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Completely turn off the ability to login for a given time period (away mode)
 * Prevent brute force attacks by banning hosts and users with too many invalid login attempts
 * Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
+* Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
+* Remove Windows Live Write header information
+* Remove RSD header information
+* Remove "pingback" header
 	
 = Features coming soon =
 

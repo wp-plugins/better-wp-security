@@ -1,11 +1,11 @@
 <?php
-	$BWPS_hidebe = new BWPS_hidebe();
+	global $BWPS_hidebe;
 	
 	$opts = $BWPS_hidebe->getOptions();
 	
-	if (isset($_POST['BWPS_hidbe_save'])) { // Save options
+	if (isset($_POST['BWPS_hidebe_save'])) { // Save options
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_hidbe_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_hidebe_save')) { //verify nonce field
 			die('Security error!');
 		}	
 		
@@ -14,9 +14,7 @@
 		//Validate
 		
 		$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
-		$logout_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_logout_slug']));
 		$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
-		$login_custom = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_custom']));
 		$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
 		
 		/*
@@ -24,10 +22,7 @@
 		 */
 		$opts = $BWPS_hidebe->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_login_slug", $login_slug);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_login_redirect", $_POST['BWPS_hidebe_login_redirect']);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_logout_slug", $logout_slug);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_admin_slug", $admin_slug);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_login_custom", $login_custom);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_register_slug", $register_slug);
 		
 		if (get_option('users_can_register')) { //save state for registrations to check for later errors
@@ -90,7 +85,7 @@
 				<div class="inside">
 					<p>The options below allow you to "hide" the backed of Wordpress replacing known URLs of important areas with ones of your choosing. This is useful if slowing bots and keeping away other nosy users especially on closed or private systems.</p>
 					<form method="post">
-						<?php wp_nonce_field('BWPS_hidbe_save','wp_nonce') ?>
+						<?php wp_nonce_field('BWPS_hidebe_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
@@ -110,32 +105,6 @@
 									<td>
 										<input name="BWPS_hidebe_login_slug" id="login_slug" value="<?php echo $opts['hidebe_login_slug']; ?>" type="text"><br />
 										<em><span style="color: #666666;"><strong>Login URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_login_slug']; ?>	</span></em>
-									</td>
-								</tr>
-		
-								<tr valign="top">
-									<th scope="row">
-										<label for="login_redirect">Login Redirect</label>
-									</th>
-									<td>
-										<select name="BWPS_hidebe_login_redirect" id="login_redirect">
-											<option value="<?php echo get_option('siteurl'); ?>/wp-admin/" <?php if ($opts['hidebe_login_redirect'] == get_option('siteurl').'/wp-admin/') echo 'selected="selected"'; ?>">WordPress Admin</option>
-											<option value="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo get_option('siteurl');?>" <?php if ($opts['hidebe_login_redirect'] == get_option('siteurl').'/wp-login.php?redirect_to='.get_option('siteurl')) echo 'selected="selected"'; ?>">WordPress Address</option>
-											<option value="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo get_option('home');?>" <?php if ($opts['hidebe_login_redirect'] == get_option('siteurl').'/wp-login.php?redirect_to='.get_option('home')) echo 'selected="selected"'; ?>">Blog Address</option>
-											<option value="Custom" <?php if ($opts['hidebe_login_redirect'] == "Custom") echo 'selected="selected"'; ?>">Custom URL (Enter Below)</option>
-										</select><br />
-										<input type="text" name="BWPS_hidebe_login_custom" size="40" value="<?php echo $opts['hidebe_login_custom']; ?>" /><br />
-										<em><span style="color: #666666;"><strong>Redirect URL:</strong> </span><span style="color: #4AA02C"><?php echo $opts['hidebe_login_redirect']; ?></span></em>
-									</td>
-								</tr>
-						
-								<tr valign="top">
-									<th scope="row">
-										<label for="logout_slug">Logout Slug</label>
-									</th>
-									<td>
-										<input type="text" name="BWPS_hidebe_logout_slug" id="logout_slug" value="<?php echo $opts['hidebe_logout_slug']; ?>" /><br />
-										<em><span style="color: #666666;"><strong>Logout URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_logout_slug']; ?></span></em>
 									</td>
 								</tr>
 		                            	
@@ -164,7 +133,7 @@
 								</tr>
 							</tbody>
 						</table>	
-						<p class="submit"><input type="submit" name="BWPS_hidbe_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
+						<p class="submit"><input type="submit" name="BWPS_hidebe_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 					</form>
 				</div>
 			</div>

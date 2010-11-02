@@ -222,7 +222,7 @@
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {
-														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $limitLogin->dispRem(($item['lockout_date'] + ($opts['limitlogin_banperiod'] * 60))) . "</span></label>\n";
+														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS_limitlogin->dispRem(($item['lockout_date'] + ($opts['limitlogin_banperiod'] * 60))) . "</span></label>\n";
 													}
 													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"Release Selected Lockouts\"></p>\n";
 												} else {
@@ -236,7 +236,7 @@
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {
-														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $limitLogin->dispRem(($item['lockout_date'] + ($opts['limitlogin_banperiod'] * 60))) . "</span></label>\n";
+														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS_limitlogin->dispRem(($item['lockout_date'] + ($opts['limitlogin_banperiod'] * 60))) . "</span></label>\n";
 													}
 													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"Release Selected Lockouts\"></p>\n";
 												} else {
