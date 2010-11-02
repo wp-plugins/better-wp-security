@@ -52,6 +52,9 @@ Coming soon
 
 == Changelog ==
 
+= ALPHA 10 - =
+* Added more htaccess security options
+
 = ALPHA 9 - November 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options
 * Enforce strong passwords for all users of a given minimum role

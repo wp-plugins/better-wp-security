@@ -20,7 +20,7 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removewlm",$_POST['BWPS_removewlm']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
+		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);	
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
@@ -36,6 +36,8 @@
 			$opts = $BWPS_tweaks->saveOptions("tweaks_protectwpc",$_POST['BWPS_protectwpc']);
 			$opts = $BWPS_tweaks->saveOptions("tweaks_dirbrowse",$_POST['BWPS_dirbrowse']);
 			$opts = $BWPS_tweaks->saveOptions("tweaks_hotlink",$_POST['BWPS_hotlink']);
+			$opts = $BWPS_tweaks->saveOptions("tweaks_request",$_POST['BWPS_request']);
+			$opts = $BWPS_tweaks->saveOptions("tweaks_qstring",$_POST['BWPS_qstring']);
 		
 			if ($_POST['BWPS_protectht'] == 1) { 
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect htaccess');
@@ -57,6 +59,38 @@
 				insert_with_markers($htaccess,'Better WP Security Protect wp-config', explode( "\n", $rules));		
 			} else {
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Protect wp-config');
+			}
+			
+			if ($_POST['BWPS_request'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Request Methods');
+				$rules = "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
+					"RewriteRule ^(.*)$ - [F,L]\n";
+				insert_with_markers($htaccess,'Better WP Security Filter Request Methods', explode( "\n", $rules));		
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Request Methods');
+			}
+			
+			if ($_POST['BWPS_qstring'] == 1) { 
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
+				$rules = "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} http\:  [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} https\:  [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|Õ|\"|;|\?|\*|=$).* [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]\n" .  
+					"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
+					"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|drop).* [NC]\n" . 
+					"RewriteRule ^(.*)$ - [F,L]\n";
+				insert_with_markers($htaccess,'Better WP Security Filter Query String Exploits', explode( "\n", $rules));		
+			} else {
+				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 			}
 			
 			if ($_POST['BWPS_dirbrowse'] == 1) { 
@@ -168,6 +202,14 @@
 								<p>
 									<input type="checkbox" name="BWPS_hotlink" id="BWPS_hotlink" value="1" <?php if ($opts['tweaks_hotlink'] == 1) echo "checked"; ?> /> <label for="BWPS_hotlink"><strong>Prevent Hotlinking</strong></label><br />
 									Prevents visitors from being able to directly link to images, documents, and other files which could hurt your bandwidth.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_request" id="BWPS_request" value="1" <?php if ($opts['tweaks_request'] == 1) echo "checked"; ?> /> <label for="BWPS_request"><strong>Filter Request Methods</strong></label><br />
+									Filter out hits with the head, trace, delete, or track request methods.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_qstring" id="BWPS_qstring" value="1" <?php if ($opts['tweaks_qstring'] == 1) echo "checked"; ?> /> <label for="BWPS_qstring"><strong>Filter suspicious query strings</strong></label><br />
+									Filter out suspicious query strings in the URL.
 								</p>
 								<h4>Strong Password Tweaks</h4>
 								<p>

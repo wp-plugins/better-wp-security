@@ -72,6 +72,8 @@ function BWPS_uninstall() {
 	$BWPS->saveOptions("tweaks_protectwpc", "0");
 	$BWPS->saveOptions("tweaks_dirbrowse", "0");
 	$BWPS->saveOptions("tweaks_hotlink", "0");
+	$BWPS->saveOptions("tweaks_qstring", "0");
+	$BWPS->saveOptions("tweaks_request", "0");
 
 	//remove any .htaccess rules and notify if there are problems
 	$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
@@ -85,6 +87,8 @@ function BWPS_uninstall() {
 		$BWPS->remove_section($htaccess, 'Better WP Security Protect wp-config');
 		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
 		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+		$BWPS->remove_section($htaccess, 'Better WP Security Filter Request Methods');
+		$BWPS->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 		
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 	}
@@ -114,6 +118,8 @@ function BWPS_defaults() {
 		"tweaks_removewlm" => "0",
 		"tweaks_strongpass" => "0",
 		"tweaks_strongpassrole" => "administrator",
+		"tweaks_request" => "0",
+		"tweaks_qstring" => "0",
 		"hidebe_enable" => "0",
 		"hidebe_login_slug" => "login",
 		"hidebe_admin_slug" => "admin",
