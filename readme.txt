@@ -51,6 +51,9 @@ Coming soon
 
 == Changelog ==
 
+= ALPHA 9 - November 1, 2010 =
+* Deactivating now removes all htaccess areas and turns off associated options
+
 = ALPHA 8 - November 1, 2010 =
 * Added various .htaccess options to strengthen file security
 * Modified "hide backend" rewrite rules to work with multi-site

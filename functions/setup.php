@@ -68,6 +68,10 @@ function BWPS_uninstall() {
 	$BWPS->saveOptions("hidebe_enable", "0");
 	$BWPS->saveOptions("banips_enable", "0");
 	$BWPS->saveOptions("hidebe_canregister", "0");
+	$BWPS->saveOptions("tweaks_protectht", "0");
+	$BWPS->saveOptions("tweaks_protectwpc", "0");
+	$BWPS->saveOptions("tweaks_dirbrowse", "0");
+	$BWPS->saveOptions("tweaks_hotlink", "0");
 
 	//remove any .htaccess rules and notify if there are problems
 	$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
@@ -77,6 +81,10 @@ function BWPS_uninstall() {
 	} else {
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Admin');
 		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
+		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
+		$BWPS->remove_section($htaccess, 'Better WP Security Protect wp-config');
+		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
+		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
 		
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 	}
@@ -104,6 +112,8 @@ function BWPS_defaults() {
 		"tweaks_hotlink" => "0",
 		"tweaks_removersd" => "0",
 		"tweaks_removewlm" => "0",
+		"tweaks_strongpass" => "0",
+		"tweaks_strongpassrole" => "administrator",
 		"hidebe_enable" => "0",
 		"hidebe_login_slug" => "login",
 		"hidebe_admin_slug" => "admin",

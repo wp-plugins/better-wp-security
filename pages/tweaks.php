@@ -19,6 +19,8 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_coreUpdates",$_POST['BWPS_coreUpdates']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removewlm",$_POST['BWPS_removewlm']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
+		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
+		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
@@ -158,6 +160,15 @@
 								<p>
 									<input type="checkbox" name="BWPS_hotlink" id="BWPS_hotlink" value="1" <?php if ($opts['tweaks_hotlink'] == 1) echo "checked"; ?> /> <label for="BWPS_hotlink"><strong>Prevent Hotlinking</strong></label><br />
 									Prevents visitors from being able to directly link to images, documents, and other files which could hurt your bandwidth.
+								</p>
+								<h4>Strong Password Tweaks</h4>
+								<p>
+									<input type="checkbox" name="BWPS_strongpass" id="BWPS_strongpass" value="1" <?php if ($opts['tweaks_strongpass'] == 1) echo "checked"; ?> /> <label for="BWPS_strongpass"><strong>Enable strong password enforcement</strong></label><br />
+									Enforce strong passwords for all users with at least the role specified below.
+								</p>
+								<p>
+									<select name="BWPS_strongpassrole" id="BWPS_strongpassrole"><option value="administrator" <?php if ($opts['tweaks_strongpassrole'] == "administrator") echo "selected"; ?>>Administrator</option><option value="editor" <?php if ($opts['tweaks_strongpassrole'] == "editor") echo "selected"; ?>>Editor</option><option value="author" <?php if ($opts['tweaks_strongpassrole'] == "author") echo "selected"; ?>>Author</option><option value="contributor" <?php if ($opts['tweaks_strongpassrole'] == "contributor") echo "selected"; ?>>Contributor</option><option value="subscriber" <?php if ($opts['tweaks_strongpassrole'] == "subscriber") echo "selected"; ?>>Subscriber</option></select> <label for="BWPS_strongpassrole"><strong>Strong Password Role</strong></label><br />
+									Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see <a hre="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.
 								</p>
 								<h4>Other Tweaks</h4>
 								<p>
