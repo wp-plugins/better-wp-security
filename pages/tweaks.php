@@ -63,8 +63,12 @@
 			
 			if ($_POST['BWPS_request'] == 1) { 
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Request Methods');
-				$rules = "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
-					"RewriteRule ^(.*)$ - [F,L]\n";
+				$rules = "<IfModule mod_rewrite.c>\n" . 
+					"RewriteEngine On\n" . 
+					"RewriteBase /\n" . 
+					"RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
+					"RewriteRule ^(.*)$ - [F,L]\n" . 
+					"</IfModule>\n";
 				insert_with_markers($htaccess,'Better WP Security Filter Request Methods', explode( "\n", $rules));		
 			} else {
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Request Methods');
@@ -72,7 +76,10 @@
 			
 			if ($_POST['BWPS_qstring'] == 1) { 
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
-				$rules = "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
+				$rules = "<IfModule mod_rewrite.c>\n" . 
+					"RewriteEngine On\n" . 
+					"RewriteBase /\n" . 
+					"RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
 					"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
 					"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
 					"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
@@ -87,7 +94,8 @@
 					"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
 					"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
 					"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|drop).* [NC]\n" . 
-					"RewriteRule ^(.*)$ - [F,L]\n";
+					"RewriteRule ^(.*)$ - [F,L]\n" . 
+					"</IfModule>\n";
 				insert_with_markers($htaccess,'Better WP Security Filter Query String Exploits', explode( "\n", $rules));		
 			} else {
 				$BWPS_tweaks->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
