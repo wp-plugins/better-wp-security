@@ -2,7 +2,7 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
-Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict
+Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink
 Requires at least: 3.0.1
 Tested up to: 3.0.1
 Stable tag: ALPHA 8
