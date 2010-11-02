@@ -68,12 +68,12 @@ function BWPS_uninstall() {
 	$BWPS->saveOptions("hidebe_enable", "0");
 	$BWPS->saveOptions("banips_enable", "0");
 	$BWPS->saveOptions("hidebe_canregister", "0");
-	$BWPS->saveOptions("tweaks_protectht", "0");
-	$BWPS->saveOptions("tweaks_protectwpc", "0");
-	$BWPS->saveOptions("tweaks_dirbrowse", "0");
-	$BWPS->saveOptions("tweaks_hotlink", "0");
-	$BWPS->saveOptions("tweaks_qstring", "0");
-	$BWPS->saveOptions("tweaks_request", "0");
+	$BWPS->saveOptions("htaccess_protectht", "0");
+	$BWPS->saveOptions("htaccess_protectwpc", "0");
+	$BWPS->saveOptions("htaccess_dirbrowse", "0");
+	$BWPS->saveOptions("htaccess_hotlink", "0");
+	$BWPS->saveOptions("htaccess_qstring", "0");
+	$BWPS->saveOptions("htaccess_request", "0");
 
 	//remove any .htaccess rules and notify if there are problems
 	$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
@@ -110,16 +110,16 @@ function BWPS_defaults() {
 		"tweaks_themeUpdates" => "0",
 		"tweaks_pluginUpdates" => "0",
 		"tweaks_coreUpdates" => "0",
-		"tweaks_protectht" => "0",
-		"tweaks_protectwpc" => "0",
-		"tweaks_dirbrowse" => "0",
-		"tweaks_hotlink" => "0",
 		"tweaks_removersd" => "0",
 		"tweaks_removewlm" => "0",
 		"tweaks_strongpass" => "0",
 		"tweaks_strongpassrole" => "administrator",
-		"tweaks_request" => "0",
-		"tweaks_qstring" => "0",
+		"htaccess_protectht" => "0",
+		"htaccess_protectwpc" => "0",
+		"htaccess_dirbrowse" => "0",
+		"htaccess_hotlink" => "0",
+		"htaccess_request" => "0",
+		"htaccess_qstring" => "0",
 		"hidebe_enable" => "0",
 		"hidebe_login_slug" => "login",
 		"hidebe_admin_slug" => "admin",
@@ -140,7 +140,8 @@ function BWPS_defaults() {
 		"banips_Version" => "0",
 		"tweaks_Version" => "0",
 		"hidebe_Version" => "0",
-		"limitlogin_Version" => "0"
+		"limitlogin_Version" => "0",
+		"htaccess_Version" => "0",
 	);
 	
 	return $opts;

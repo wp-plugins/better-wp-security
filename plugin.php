@@ -33,8 +33,9 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/comm
 define('BWPS_VERSION','ALPHA 10');
 define('BWPS_AWAY_VERSION','1');
 define('BWPS_BANIPS_VERSION','1');
-define('BWPS_TWEAKS_VERSION','8');
+define('BWPS_TWEAKS_VERSION','9');
 define('BWPS_HIDEBE_VERSION','3');
+define('BWPS_HTACCESS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
 define('BWPS_LIMITLOGIN_VERSION','1');
@@ -69,6 +70,10 @@ function banips_options() {
 function away_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/away.php');
 }
+
+function htaccess_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/htaccess.php');
+}
 	
 function optsmenu() {
 	add_menu_page('Better Security - System Status and Support', 'Better WP Security', 'manage_options', 'BWPS', 'status_options');
@@ -76,6 +81,7 @@ function optsmenu() {
 	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
 	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
+	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', 	'.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');
 	add_submenu_page('BWPS', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');
 	add_submenu_page('BWPS', 'Better WP Security - System Tweaks', 	'System Tweaks', 'manage_options', 'BWPS-tweaks', 'tweaks_options');
 }

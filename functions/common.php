@@ -6,6 +6,7 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hide
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/banips.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/htaccess.php');
 
 
 class BWPS {
@@ -13,7 +14,7 @@ class BWPS {
 	private $opts;
 		
 	function __construct() {
-		global $BWPS_away, $BWPS_limitlogin, $BWPS_tweaks, $BWPS_hidebe, $BWPS_banips;
+		global $BWPS_away, $BWPS_limitlogin, $BWPS_tweaks, $BWPS_hidebe, $BWPS_banips, $BWPS_htaccess;
 		
 		$this->opts = $this->getOptions();
 			
@@ -24,6 +25,7 @@ class BWPS {
 		$BWPS_limitlogin = new BWPS_limitlogin();
 		$BWPS_hidebe = new BWPS_hidebe();
 		$BWPS_banips = new BWPS_banips();
+		$BWPS_htaccess = new BWPS_htaccess();
 		define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/content');
 		define('WP_CONTENT_URL', '/content');
 	}
@@ -147,6 +149,13 @@ class BWPS {
 				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-limitlogin">Better WP Security - Limit Login Settings.</a></strong></p></div>';
 			}
 			add_action('admin_notices', 'BWPS_limitloginWarning');
+		}
+		
+		if ($this->opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $this->opts['limitlogin_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) {
+			function BWPS_htaccessWarning() {
+				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-htaccess">Better WP Security - .htaccess Options.</a></strong></p></div>';
+			}
+			add_action('admin_notices', 'BWPS_htaccessWarning');
 		}
 	}
 		
