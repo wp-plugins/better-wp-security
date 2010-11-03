@@ -21,6 +21,7 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
+		$opts = $BWPS_tweaks->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
 
 		
 		if (isset($errorHandler)) {
@@ -99,6 +100,10 @@
 								<p>
 									<input type="checkbox" name="BWPS_randomVersion" id="BWPS_randomVersion" value="1" <?php if ($opts['tweaks_randomVersion'] == 1) echo "checked"; ?> /> <label for="BWPS_randomVersion"><strong>Display random version number to all non-administrative users</strong></label><br />
 									Displays a random version number to non-administrator users in all places where version number must be used.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_longurls" id="BWPS_longurls" value="1" <?php if ($opts['tweaks_longurls'] == 1) echo "checked"; ?> /> <label for="BWPS_longurls"><strong>Prevent long URL strings.</strong></label><br />
+									Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.
 								</p>
 							</tbody>
 						</table>	

@@ -40,6 +40,7 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Rename "admin" account
 * View security "status"
 * Support and discussion forums
+* Excellent documentation (why turn on a feature you don't understand?)
 * --and more--
 
 == Installation ==
@@ -54,6 +55,7 @@ Coming soon
 
 = ALPHA 10 - =
 * Added more htaccess security options
+* All htaccess options have been moved to their own page
 
 = ALPHA 9 - November 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options

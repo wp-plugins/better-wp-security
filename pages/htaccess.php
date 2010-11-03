@@ -27,111 +27,32 @@
 			$opts = $BWPS_htaccess->saveOptions("htaccess_hotlink",$_POST['BWPS_hotlink']);
 			$opts = $BWPS_htaccess->saveOptions("htaccess_request",$_POST['BWPS_request']);
 			$opts = $BWPS_htaccess->saveOptions("htaccess_qstring",$_POST['BWPS_qstring']);
-		
-			if ($_POST['BWPS_protectht'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect htaccess');
-				$rules = "<files .htaccess>\n" .
-					"order allow,deny\n" . 
-					"deny from all\n" .
-					"</files>\n";
-				insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $rules));		
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect htaccess');
-			}
+			$opts = $BWPS_htaccess->saveOptions("htaccess_protectreadme",$_POST['BWPS_protectreadme']);
+			$opts = $BWPS_htaccess->saveOptions("htaccess_protectinstall",$_POST['BWPS_protectinstall']);
 			
-			if ($_POST['BWPS_protectwpc'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect wp-config');
-				$rules = "<files wp-config.php>\n" .
-					"order allow,deny\n" . 
-					"deny from all\n" .
-					"</files>\n";
-				insert_with_markers($htaccess,'Better WP Security Protect wp-config', explode( "\n", $rules));		
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect wp-config');
-			}
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect wp-config');
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Request Methods');
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 			
-			if ($_POST['BWPS_request'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Request Methods');
-				$rules = "<IfModule mod_rewrite.c>\n" . 
-					"RewriteEngine On\n" . 
-					"RewriteBase /\n" . 
-					"RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
-					"RewriteRule ^(.*)$ - [F,L]\n" . 
-					"</IfModule>\n";
-				insert_with_markers($htaccess,'Better WP Security Filter Request Methods', explode( "\n", $rules));		
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Request Methods');
-			}
+			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect htaccess');
 			
-			if ($_POST['BWPS_qstring'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
-				$rules = "<IfModule mod_rewrite.c>\n" . 
-					"RewriteEngine On\n" . 
-					"RewriteBase /\n" . 
-					"RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} http\:  [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} https\:  [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|Õ|\"|;|\?|\*|=$).* [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]\n" .  
-					"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
-					"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|drop).* [NC]\n" . 
-					"RewriteRule ^(.*)$ - [F,L]\n" . 
-					"</IfModule>\n";
-				insert_with_markers($htaccess,'Better WP Security Filter Query String Exploits', explode( "\n", $rules));		
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
-			}
-			
-			if ($_POST['BWPS_dirbrowse'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
-				$rules = "Options All -Indexes\n";
-				insert_with_markers($htaccess,'Better WP Security Prevent Directory Browsing', explode( "\n", $rules));		
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
-			}
-			
-			if ($_POST['BWPS_hotlink'] == 1) { 
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+			$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
-				$reDomain = $BWPS_htaccess->uDomain(get_option('siteurl'));
-				
-				$rules = "<IfModule mod_rewrite.c>\n" . 
-					"RewriteEngine On\n" . 
-					"RewriteBase /\n" . 
-					"RewriteCond %{HTTP_REFERER} !^$\n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/.*$ [NC]\n" .
-					"RewriteRule .(jpg|jpeg|png|gif|pdf|doc)$ - [F]\n" . 
-					"</IfModule>\n";
-				
-				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
-				
-				$BWPS_htaccess->remove_section($htaccess, 'WordPress');
-				insert_with_markers($htaccess,'Better WP Security Prevent Hotlinking', explode( "\n", $rules));	
-				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));
-					
-			} else {
-				$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
-			}
+			$BWPS_htaccess->remove_section($htaccess, 'WordPress');
+			
+			insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS_htaccess->genRules()));
+			insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));	
 			
 		}
-
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
-		
 	}
-	
 ?>
 
 <div class="wrap" >
@@ -152,6 +73,14 @@
 								<p>
 									<input type="checkbox" name="BWPS_protectht" id="BWPS_protectht" value="1" <?php if ($opts['htaccess_protectht'] == 1) echo "checked"; ?> /> <label for="BWPS_protectht"><strong>Protect .htaccess</strong></label><br />
 									Add extra protection to the .htaccess file.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_protectreadme" id="BWPS_protectreadme" value="1" <?php if ($opts['htaccess_protectreadme'] == 1) echo "checked"; ?> /> <label for="BWPS_protectreadme"><strong>Protect Readme.html</strong></label><br />
+									Remove access to <a href="/readme.html" target="_blank">readme.html</a> which can give away your Wordpress version.
+								</p>
+								<p>
+									<input type="checkbox" name="BWPS_protectinstall" id="BWPS_protectinstall" value="1" <?php if ($opts['htaccess_protectinstall'] == 1) echo "checked"; ?> /> <label for="BWPS_protectinstall"><strong>Protect Wordpress installer script</strong></label><br />
+									Remove access to <a href="wp-admin/install.php" target="_blank">wp-admin/install.php</a>.
 								</p>
 								<p>
 									<input type="checkbox" name="BWPS_protectwpc" id="BWPS_protectwpc" value="1" <?php if ($opts['htaccess_protectwpc'] == 1) echo "checked"; ?> /> <label for="BWPS_protectwpc"><strong>Protect wp-config.php</strong></label><br />
