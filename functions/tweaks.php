@@ -41,8 +41,6 @@ class BWPS_tweaks extends BWPS {
 			add_action( 'user_profile_update_errors',  array(&$this, 'strongpass'), 0, 3 ); 
 		}
 		
-		chmod(trailingslashit(ABSPATH) . "wp-config.php", 0755);
-		
 		if ($opts['tweaks_longurls'] == 1) {
 			if (strlen($_SERVER['REQUEST_URI']) > 255 ||
 				strpos($_SERVER['REQUEST_URI'], "eval(") ||

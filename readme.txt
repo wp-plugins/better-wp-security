@@ -56,6 +56,7 @@ Coming soon
 = ALPHA 10 - =
 * Added more htaccess security options
 * All htaccess options have been moved to their own page
+* Added basic intrusion detection based on 404 logging
 
 = ALPHA 9 - November 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options

@@ -145,6 +145,7 @@ function BWPS_defaults() {
 		"hidebe_Version" => "0",
 		"limitlogin_Version" => "0",
 		"htaccess_Version" => "0",
+		"hacker_Version" => "0",
 	);
 	
 	return $opts;

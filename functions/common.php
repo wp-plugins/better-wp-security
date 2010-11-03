@@ -1,4 +1,5 @@
 <?php
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hacker.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/away.php');
@@ -26,6 +27,7 @@ class BWPS {
 		$BWPS_hidebe = new BWPS_hidebe();
 		$BWPS_banips = new BWPS_banips();
 		$BWPS_htaccess = new BWPS_htaccess();
+		$BWPS_hacker = new BWPS_hacker();
 		define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/content');
 		define('WP_CONTENT_URL', '/content');
 	}
@@ -151,11 +153,18 @@ class BWPS {
 			add_action('admin_notices', 'BWPS_limitloginWarning');
 		}
 		
-		if ($this->opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $this->opts['limitlogin_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) {
+		if ($this->opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $this->opts['htaccess_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) {
 			function BWPS_htaccessWarning() {
 				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-htaccess">Better WP Security - .htaccess Options.</a></strong></p></div>';
 			}
 			add_action('admin_notices', 'BWPS_htaccessWarning');
+		}
+		
+		if ($this->opts['hacker_Version'] != BWPS_HACKER_VERSION && $this->opts['hacker_Version'] > 0 && !isset($_POST['BWPS_hacker_save'])) {
+			function BWPS_hackerWarning() {
+				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=hacker-detection">Better WP Security - Hacker Detection.</a></strong></p></div>';
+			}
+			add_action('admin_notices', 'BWPS_hackerWarning');
 		}
 	}
 		

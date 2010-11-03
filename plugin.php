@@ -34,6 +34,7 @@ define('BWPS_VERSION','ALPHA 10');
 define('BWPS_AWAY_VERSION','1');
 define('BWPS_BANIPS_VERSION','1');
 define('BWPS_TWEAKS_VERSION','10');
+define('BWPS_HACKER_VERSION','1');
 define('BWPS_HIDEBE_VERSION','3');
 define('BWPS_HTACCESS_VERSION','3');
 define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
@@ -74,12 +75,17 @@ function away_options() {
 function htaccess_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/htaccess.php');
 }
+
+function hacker_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/hacker.php');
+}
 	
 function optsmenu() {
 	add_menu_page('Better Security - System Status and Support', 'Better WP Security', 'manage_options', 'BWPS', 'status_options');
 	add_submenu_page('BWPS', 'Better WP Security - System Status and Support', 	'Better WP Security', 'manage_options', 'BWPS', 'status_options');
 	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
+	add_submenu_page('BWPS', 'Better WP Security - Hacker Detection', 'Hacker Detection', 'manage_options', 'BWPS-hacker-detection', 'hacker_options');
 	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', 	'.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');
 	add_submenu_page('BWPS', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');
