@@ -31,12 +31,12 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Remove RSD header information
 * Strengthen .htaccess settings
 * Enforce strong passwords for all accounts of a configurable minimum role
+* Basic Intrusion detection (based on 404 logging)
 	
 = Features coming soon =
 
 * Force SSL for admin pages (on supporting servers)
 * Allow for changing the Wordpress table prefix where necessary
-* Intrusion detection
 * Rename "admin" account
 * View security "status"
 * Support and discussion forums
