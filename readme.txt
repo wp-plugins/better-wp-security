@@ -38,10 +38,9 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Force SSL for admin pages (on supporting servers)
 * Allow for changing the Wordpress table prefix where necessary
 * Rename "admin" account
-* View security "status"
+* Security checker
 * Support and discussion forums
 * Excellent documentation (why turn on a feature you don't understand?)
-* --and more--
 
 == Installation ==
 
