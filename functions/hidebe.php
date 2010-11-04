@@ -1,12 +1,6 @@
 <?php
 class BWPS_hidebe extends BWPS {
 
-	private $opts;
-	
-	function __construct() {
-		$opts = $this->getOptions();
-	}
-
 	function getRules() {
 	
 		$opts = $this->getOptions();
@@ -26,7 +20,6 @@ class BWPS_hidebe extends BWPS {
 		
 		$reDomain = $this->uDomain(get_option('siteurl'));
 		
-			
 		$theRules = "<IfModule mod_rewrite.c>\n" . 
 			"RewriteEngine On\n" . 
 			"RewriteBase /\n" . 
@@ -44,8 +37,9 @@ class BWPS_hidebe extends BWPS {
 			"RewriteRule ^wp-login\.php not_found [L]\n" .
 			"</IfModule>\n";
 		
-		return $theRules;
+		unset($opts);
 		
+		return $theRules;
 	}
 	
 	function secKey() {	

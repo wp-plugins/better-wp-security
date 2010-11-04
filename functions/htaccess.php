@@ -1,11 +1,5 @@
 <?php
 class BWPS_htaccess extends BWPS {
-
-	private $opts;
-	
-	function __construct() {
-		$opts = $this->getOptions();
-	}
 	
 	function showContents() {
 	

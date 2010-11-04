@@ -1,18 +1,6 @@
 <?php
 class BWPS_banips extends BWPS {
 
-	private $opts;
-		
-	function __construct() {
-		$opts = $this->getOptions();
-		
-		$theRules = '';
-			
-		if (strlen($opts['banips_iplist']) > 1) { 
-			$theRules = $this->createRules(explode("\n",  $opts['banips_iplist']));
-		}
-	}
-
 	function createRules($ipArray) {
 		global $theRules; 
 		

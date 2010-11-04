@@ -1,7 +1,7 @@
 <?php
 if ( !function_exists('wp_authenticate') ) {
 	function wp_authenticate($username, $password) {
-		global $wpdb, $error, $BWPS_limitlogin, $BWPS_away;
+		global $BWPS_limitlogin, $BWPS_away;
 		
 		$opts = $BWPS_away->getOptions();
 
@@ -16,6 +16,7 @@ if ( !function_exists('wp_authenticate') ) {
 			if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 				wp_redirect(get_option('siteurl'));
 			} else {
+				unset($opts);
 				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
 			}
 		}
@@ -51,6 +52,7 @@ if ( !function_exists('wp_authenticate') ) {
 					if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 						wp_redirect(get_option('siteurl'));
 					} else {
+						unset($opts);
 						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
 					}
 				}
@@ -75,6 +77,7 @@ if ( !function_exists('wp_authenticate') ) {
 					if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 						wp_redirect(get_option('siteurl'));
 					} else {
+						unset($opts);
 						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
 					}
 				}
@@ -82,6 +85,7 @@ if ( !function_exists('wp_authenticate') ) {
 
 			do_action('wp_login_failed', $username);
 		}
+		unset($opts);
 		return $user;
 	}
 }

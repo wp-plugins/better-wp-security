@@ -133,6 +133,12 @@ class BWPS {
 			}
 			add_action('admin_notices', 'BWPS_htaccessWarning');
 		}
+		if ($opts['hacker_Version'] != BWPS_hacker_VERSION && $opts['hacker_Version'] > 0 && !isset($_POST['BWPS_hacker_save'])) {
+			function BWPS_hackerWarning() {
+				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-hacker">Better WP Security - Detect Hacker Options.</a></strong></p></div>';
+			}
+			add_action('admin_notices', 'BWPS_hackerWarning');
+		}
 		
 		unset($opts);
 	}

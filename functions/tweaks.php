@@ -53,10 +53,12 @@ class BWPS_tweaks extends BWPS {
 				@exit;
 			}
 		}	
+		
+		unset($opts);
 	}
 		
 	function randomVersion() {
-		global $wp_version, $ver;
+		global $wp_version;
 
 		$newVersion = rand(100,500);
 
@@ -126,6 +128,9 @@ class BWPS_tweaks extends BWPS {
 		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
 			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' ) );  
 		}  
+		unset($opts);
+		unset ($rollists);
+		unset($availableRoles);
 		return $errors;  
 	}  
  

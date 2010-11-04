@@ -2,15 +2,11 @@
 
 class BWPS_away extends BWPS {
 
-	private $opts;
-	
-	function __construct() {
-		$opts = $this->getOptions();
-	}
-	
 	function isOn() {
 		$opts = $this->getOptions();
-		return $opts['away_enable'];
+		$flag =  $opts['away_enable'];
+		unset($opts);
+		return $flag;
 	}
 			
 	function check() {
@@ -47,19 +43,23 @@ class BWPS_away extends BWPS {
 				
 				if ($start >= $end) {
 					if ($local >= $start || $local < $end) {
+						unset($opts);
 						return true;
 					}
 				} else {
 					if ($local >= $start && $local < $end) {
+						unset($opts);
 						return true;
 					}
 				}
 			} else {	
 				if ($lTime >= $opts['away_start'] && $lTime <= $opts['away_end']) {
+					unset($opts);
 					return true;
 				}
 			}
 		}
+		unset($opts);
 		return false;
 	}
 }
