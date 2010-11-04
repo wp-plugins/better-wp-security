@@ -52,6 +52,8 @@ Coming soon
 
 == Changelog ==
 
+= ALPHA 11 - =
+
 = ALPHA 10 - November 3, 2010 =
 * Added more htaccess security options
 * All htaccess options have been moved to their own page
