@@ -27,25 +27,24 @@ License: GPLv2
 */
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/common.php');
 
-echo round(memory_get_usage() / 1024 / 1024, 2) . "<br />";
-echo round(memory_get_peak_usage() / 1024 / 1024, 2);
-
 define('BWPS_AWAY_VERSION','1');
 define('BWPS_BANIPS_VERSION','1');
 define('BWPS_TWEAKS_VERSION','10');
 define('BWPS_HIDEBE_VERSION','3');
-define('BWPS_HACKER_VERSION','1');
+define('BWPS_D404_VERSION','2');
+define('BWPS_D404_TABLE_ATTEMPTS_VERSION','2');
+define('BWPS_D404_TABLE_LOCKOUTS_VERSION','2');
 define('BWPS_HTACCESS_VERSION','3');
 define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
 define('BWPS_LIMITLOGIN_VERSION','1');
  
-global $BWPS_tweaks, $BWPS_away, $BWPS_limitlogin, $BWPS_hacker;
+global $BWPS_tweaks, $BWPS_away, $BWPS_limitlogin, $BWPS_d404;
 
 $BWPS_tweaks = new BWPS_tweaks();
 $BWPS_away = new BWPS_away();
 $BWPS_limitlogin = new BWPS_limitlogin();
-$BWPS_hacker = new BWPS_hacker();
+$BWPS_d404 = new BWPS_d404();
 
 if (is_admin()) {
 	$BWPS_tweaks->checkVersions();
@@ -82,8 +81,8 @@ function htaccess_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/htaccess.php');
 }
 
-function hacker_options() {
-	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/hacker.php');
+function d404_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/d404.php');
 }
 	
 function optsmenu() {
@@ -91,7 +90,7 @@ function optsmenu() {
 	add_submenu_page('BWPS', 'Better WP Security - System Status and Support', 	'Better WP Security', 'manage_options', 'BWPS', 'status_options');
 	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS', 'Better WP Security - Detect Hackers', 	'Detect Hackers', 'manage_options', 'BWPS-hacker', 'hacker_options');
+	add_submenu_page('BWPS', 'Better WP Security - Block 404s', 	'Block 404s', 'manage_options', 'BWPS-404', 'd404_options');
 	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', 	'.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');
 	add_submenu_page('BWPS', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');

@@ -4,7 +4,7 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setu
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/away.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hacker.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/d404.php');
 
 
 class BWPS {
@@ -133,11 +133,11 @@ class BWPS {
 			}
 			add_action('admin_notices', 'BWPS_htaccessWarning');
 		}
-		if ($opts['hacker_Version'] != BWPS_hacker_VERSION && $opts['hacker_Version'] > 0 && !isset($_POST['BWPS_hacker_save'])) {
-			function BWPS_hackerWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-hacker">Better WP Security - Detect Hacker Options.</a></strong></p></div>';
+		if ($opts['d404_Version'] != BWPS_D404_VERSION && $opts['d404_Version'] > 0 && !isset($_POST['BWPS_d404_save'])) {
+			function BWPS_d404Warning() {
+				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-d404">Better WP Security - Detect d404 Options.</a></strong></p></div>';
 			}
-			add_action('admin_notices', 'BWPS_hackerWarning');
+			add_action('admin_notices', 'BWPS_d404Warning');
 		}
 		
 		unset($opts);
@@ -154,5 +154,12 @@ class BWPS {
 		$newAddress =  "http://(.*)" . $matches[0] ;
 		
 		return $newAddress;
+	}
+	
+	function dispRem($expTime) {
+		$currTime = time(); 
+    		$timeDif = $expTime - $currTime;
+		$dispTime = floor($timeDif / 60) . " minutes and " . ($timeDif % 60) . " seconds";
+		return $dispTime;
 	}
 }

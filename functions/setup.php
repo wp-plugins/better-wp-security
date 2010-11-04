@@ -20,11 +20,15 @@ function BWPS_install() {
 	
 	$upgrade_lt = (BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION != $opts['limitlogin_lt_Version']);
 	$upgrade_at = (BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION != $opts['limitlogin_at_Version']);
+	$upgrade_da = (BWPS_D404_TABLE_ATTEMPTS_VERSION != $opts['d404_table_attempts_Version']);
+	$upgrade_dl = (BWPS_D404_TABLE_LOCKOUTS_VERSION != $opts['d404_table_lockouts_Version']);
 			
 	$BWPSinstall = "";
 			
 	$fails_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_fails'] . "'") == $opts['limitlogin_table_fails']);
 	$lockouts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_lockouts'] . "'") == $opts['limitlogin_table_lockouts']);
+	$d404_attempts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['d404_table_attempts'] . "'") == $opts['d404_table_attempts']);
+	$d404_lockouts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['d404_table_lockouts'] . "'") == $opts['d404_table_lockouts']);
 	
 	if (!$fails_exists || $upgrade_lt) {
 		$BWPSinstall .= "CREATE TABLE " . $opts['limitlogin_table_fails'] . " (
@@ -47,6 +51,27 @@ function BWPS_install() {
 			);";
 			$opts['limitlogin_at_Version'] = BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION;
 	}
+	
+	if (!$d404_attempts_exists || $upgrade_da) {
+		$BWPSinstall .= "CREATE TABLE " . $opts['d404_table_attempts'] . " (
+			`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT,
+			`computer_id` varchar(20),
+			`attempt_date` int(10),
+			`qstring` varchar(255),
+			PRIMARY KEY  (`attempt_id`)
+			);";
+			$opts['d404_table_attempts_Version'] = BWPS_D404_TABLE_ATTEMPTS_VERSION;
+	}
+	
+	if (!$d404_lockouts_exists || $upgrade_dl) {
+		$BWPSinstall .= "CREATE TABLE " . $opts['d404_table_lockouts'] . " (
+			`lockout_id` bigint(20) NOT NULL AUTO_INCREMENT,
+			`computer_id` varchar(20),
+			`lockout_date` int(10),
+			PRIMARY KEY  (`lockout_id`)
+			);";
+			$opts['d404_table_lockouts_Version'] = BWPS_D404_TABLE_LOCKOUTS_VERSION;
+	}
 			
 	if ($BWPSinstall != "") {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -56,6 +81,7 @@ function BWPS_install() {
 	$opts['pi_version'] = $pi_version;
 	delete_option("BWPS_options");
 	update_option("BWPS_options", serialize($opts));
+	unset($opts);
 }
 	
 function BWPS_uninstall() {
@@ -133,8 +159,11 @@ function BWPS_defaults() {
 		"limitlogin_emailnotify" => "1",
 		"banips_enable" => "0",
 		"banips_iplist" => "",
-		"hacker_emailnotify" => "0",
-		"hacker_enable" => "0",
+		"d404_enable" => "0",
+		"d404_table_attempts" => $wpdb->prefix . "BWPS_d404_attempts",
+		"d404_table_attempts_Version" => "0",
+		"d404_table_lockouts" => $wpdb->prefix . "BWPS_d404_lockouts",
+		"d404_table_lockouts_Version" => "0",
 		"limitlogin_at_Version" => "0",
 		"limitlogin_lt_Version" => "0",
 		"away_Version" => "0",
@@ -143,7 +172,7 @@ function BWPS_defaults() {
 		"hidebe_Version" => "0",
 		"limitlogin_Version" => "0",
 		"htaccess_Version" => "0",
-		"hacker_Version" => "0"
+		"d404_Version" => "0"
 	);
 	
 	return $opts;

@@ -64,6 +64,8 @@ class BWPS_limitlogin extends BWPS {
 		} else {
 			$userId = "";
 		}
+		
+		unset($user);
 					
 		$failQuery = "INSERT INTO " . $opts['limitlogin_table_fails'] . " (user_id, computer_id, attempt_date)
 			VALUES ('" . $userId . "', '" . $this->computer_id . "', " . time() . ");";
@@ -165,12 +167,5 @@ class BWPS_limitlogin extends BWPS {
 		
 		unset($opts);
 		return $lockList;
-	}
-		
-	function dispRem($expTime) {
-		$currTime = time(); 
-    		$timeDif = $expTime - $currTime;
-		$dispTime = floor($timeDif / 60) . " minutes and " . ($timeDif % 60) . " seconds";
-		return $dispTime;
 	}
 }
