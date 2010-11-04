@@ -30,18 +30,18 @@ class BWPS_hidebe extends BWPS {
 		$theRules = "<IfModule mod_rewrite.c>\n" . 
 			"RewriteEngine On\n" . 
 			"RewriteBase /\n" . 
-			"RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" . 	//Redirect Login slug to show wp-login.php with hidebe_key
-			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" . //Check if user is logged in
-			"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" . 	//Send to login form if not logged in
-			"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" . 	//Send to admin area if logged in
+			"RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" .
+			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+			"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" .
+			"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" .
 			"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $supsec_key . "&action=register [R,L]\n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" . //if did not come from WP Admin
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" . //if did not come from wp-login.php
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" . //if did not come from Login slug
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" . //if did not come from Admin slug
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" . //if did not come from Register slug
-			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" . //if no hidebe_key query
-			"RewriteRule ^wp-login\.php not_found [L]\n" . //Send to home page
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
+			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
+			"RewriteRule ^wp-login\.php not_found [L]\n" .
 			"</IfModule>\n";
 		
 		return $theRules;

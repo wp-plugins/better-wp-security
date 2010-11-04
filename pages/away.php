@@ -1,11 +1,11 @@
 <?php
-	global $wpdb, $BWPS_away;
+	global $BWPS_away;
 	
 	$opts = $BWPS_away->getOptions();
 	
-	if (isset($_POST['BWPS_away_save'])) { // Save options
+	if (isset($_POST['BWPS_away_save'])) {
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_away_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_away_save')) {
 			die('Security error!');
 		}
 		

@@ -1,39 +1,36 @@
 <?php
-	global $BWPS_hidebe;
+	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hidebe.php');
+	
+	$BWPS_hidebe = new BWPS_hidebe();
 	
 	$opts = $BWPS_hidebe->getOptions();
 	
-	if (isset($_POST['BWPS_hidebe_save'])) { // Save options
+	if (isset($_POST['BWPS_hidebe_save'])) {
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_hidebe_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_hidebe_save')) {
 			die('Security error!');
 		}	
 		
 		$opts = $BWPS_hidebe->saveOptions("hidebe_Version", BWPS_HIDEBE_VERSION);
 		
-		//Validate
-		
 		$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
 		$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
 		$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
 		
-		/*
-		 * Save hide admin options
-		 */
 		$opts = $BWPS_hidebe->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_login_slug", $login_slug);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_admin_slug", $admin_slug);
 		$opts = $BWPS_hidebe->saveOptions("hidebe_register_slug", $register_slug);
 		
-		if (get_option('users_can_register')) { //save state for registrations to check for later errors
+		if (get_option('users_can_register')) {
 			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","1");
 		} else {
 			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","0");
 		}
 		
-		$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
-		if (!$BWPS_hidebe->can_write($htaccess)) { //verify the .htaccess file is writeable
+		if (!$BWPS_hidebe->can_write($htaccess)) {
 			
 			$opts = $BWPS_hidebe->saveOptions("hidebe_enable","0");
 			
@@ -43,10 +40,7 @@
 			
 		} else {
 		
-			/*
-			 * Save hide admin rewrite rules to .htaccess
-			 */
-			if ($_POST['BWPS_hidebe_enable'] == 1) { //if hide admin is enabled save rewrite rules
+			if ($_POST['BWPS_hidebe_enable'] == 1) {
 			
 				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
@@ -56,7 +50,7 @@
 				insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS_hidebe->getRules()));
 				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));			
 				
-			} else { //delete rewrite rules
+			} else {
 			
 				$BWPS_hidebe->remove_section($htaccess, 'Better WP Security Hide Backend');
 				

@@ -6,11 +6,11 @@ class BWPS_tweaks extends BWPS {
 		$opts = $this->getOptions();
 			
 		if ($opts['tweaks_removeGenerator'] == 1) {
-			remove_action('wp_head', 'wp_generator'); //remove generator tag
+			remove_action('wp_head', 'wp_generator');
 		}
 
 		if ($opts['tweaks_removeLoginMessages'] == 1) {
-			add_filter('login_errors', create_function('$a', "return null;")); //hide login errors
+			add_filter('login_errors', create_function('$a', "return null;"));
 		}
 
 		if ($opts['tweaks_randomVersion'] == 1) {

@@ -31,11 +31,11 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Remove RSD header information
 * Strengthen .htaccess settings
 * Enforce strong passwords for all accounts of a configurable minimum role
-* Basic Intrusion detection (based on 404 logging)
 	
 = Features coming soon =
 
 * Force SSL for admin pages (on supporting servers)
+* Basic Intrusion detection (based on 404 logging)
 * Allow for changing the Wordpress table prefix where necessary
 * Rename "admin" account
 * Security checker
@@ -55,7 +55,6 @@ Coming soon
 = ALPHA 10 - =
 * Added more htaccess security options
 * All htaccess options have been moved to their own page
-* Added basic intrusion detection based on 404 logging
 
 = ALPHA 9 - November 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options

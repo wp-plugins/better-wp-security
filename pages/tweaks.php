@@ -3,9 +3,9 @@
 	
 	$opts = $BWPS_tweaks->getOptions();
 	
-	if (isset($_POST['BWPS_tweaks_save'])) { // Save options
+	if (isset($_POST['BWPS_tweaks_save'])) {
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_tweaks_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_tweaks_save')) {
 			die('Security error!');
 		}	
 		

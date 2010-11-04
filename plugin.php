@@ -1,7 +1,4 @@
 <?php
-/**
- * @package BWPS
- */
 /*
 Plugin Name: Better WP Security
 Plugin URI: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
@@ -30,20 +27,29 @@ License: GPLv2
 */
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/common.php');
 
-define('BWPS_VERSION','ALPHA 10');
+echo round(memory_get_usage() / 1024 / 1024, 2) . "<br />";
+echo round(memory_get_peak_usage() / 1024 / 1024, 2);
+
 define('BWPS_AWAY_VERSION','1');
 define('BWPS_BANIPS_VERSION','1');
 define('BWPS_TWEAKS_VERSION','10');
-define('BWPS_HACKER_VERSION','1');
 define('BWPS_HIDEBE_VERSION','3');
+define('BWPS_HACKER_VERSION','1');
 define('BWPS_HTACCESS_VERSION','3');
 define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
 define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
 define('BWPS_LIMITLOGIN_VERSION','1');
  
-global $BWPS;
+global $BWPS_tweaks, $BWPS_away, $BWPS_limitlogin, $BWPS_hacker;
 
-$BWPS = new BWPS();
+$BWPS_tweaks = new BWPS_tweaks();
+$BWPS_away = new BWPS_away();
+$BWPS_limitlogin = new BWPS_limitlogin();
+$BWPS_hacker = new BWPS_hacker();
+
+if (is_admin()) {
+	$BWPS_tweaks->checkVersions();
+}
 
 register_activation_hook(__file__, 'BWPS_install');
 register_deactivation_hook(__file__, 'BWPS_uninstall');
@@ -85,7 +91,7 @@ function optsmenu() {
 	add_submenu_page('BWPS', 'Better WP Security - System Status and Support', 	'Better WP Security', 'manage_options', 'BWPS', 'status_options');
 	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS', 'Better WP Security - Hacker Detection', 'Hacker Detection', 'manage_options', 'BWPS-hacker-detection', 'hacker_options');
+	add_submenu_page('BWPS', 'Better WP Security - Detect Hackers', 	'Detect Hackers', 'manage_options', 'BWPS-hacker', 'hacker_options');
 	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', 	'.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');
 	add_submenu_page('BWPS', 'Better WP Security - Limit Logins Options', 	'Limit Logins', 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');

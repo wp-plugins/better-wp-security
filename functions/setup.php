@@ -23,11 +23,9 @@ function BWPS_install() {
 			
 	$BWPSinstall = "";
 			
-	// Check tables exist
 	$fails_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_fails'] . "'") == $opts['limitlogin_table_fails']);
 	$lockouts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_lockouts'] . "'") == $opts['limitlogin_table_lockouts']);
 	
-	// Create host attempts table
 	if (!$fails_exists || $upgrade_lt) {
 		$BWPSinstall .= "CREATE TABLE " . $opts['limitlogin_table_fails'] . " (
 			`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT ,
@@ -64,7 +62,6 @@ function BWPS_uninstall() {
 	
 	$BWPS = new BWPS();
 	
-	//first delete all options
 	$BWPS->saveOptions("hidebe_enable", "0");
 	$BWPS->saveOptions("banips_enable", "0");
 	$BWPS->saveOptions("hidebe_canregister", "0");
@@ -75,10 +72,9 @@ function BWPS_uninstall() {
 	$BWPS->saveOptions("htaccess_qstring", "0");
 	$BWPS->saveOptions("htaccess_request", "0");
 
-	//remove any .htaccess rules and notify if there are problems
-	$htaccess = trailingslashit(ABSPATH).'.htaccess'; //get htaccess info
+	$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
-	if (!$BWPS->can_write($htaccess)) { //verify the .htaccess file is writeable
+	if (!$BWPS->can_write($htaccess)) {
 		echo "Unable to update htaccess rules";
 	} else {
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Admin');
@@ -137,6 +133,8 @@ function BWPS_defaults() {
 		"limitlogin_emailnotify" => "1",
 		"banips_enable" => "0",
 		"banips_iplist" => "",
+		"hacker_emailnotify" => "0",
+		"hacker_enable" => "0",
 		"limitlogin_at_Version" => "0",
 		"limitlogin_lt_Version" => "0",
 		"away_Version" => "0",
@@ -145,7 +143,7 @@ function BWPS_defaults() {
 		"hidebe_Version" => "0",
 		"limitlogin_Version" => "0",
 		"htaccess_Version" => "0",
-		"hacker_Version" => "0",
+		"hacker_Version" => "0"
 	);
 	
 	return $opts;

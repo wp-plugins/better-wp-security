@@ -1,11 +1,13 @@
 <?php
-	global $BWPS_htaccess;
+	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/htaccess.php');
+	
+	$BWPS_htaccess = new BWPS_htaccess();
 	
 	$opts = $BWPS_htaccess->getOptions();
 	
-	if (isset($_POST['BWPS_htaccess_save'])) { // Save options
+	if (isset($_POST['BWPS_htaccess_save'])) {
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_htaccess_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_htaccess_save')) {
 			die('Security error!');
 		}	
 		

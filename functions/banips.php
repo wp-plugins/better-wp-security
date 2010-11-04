@@ -19,14 +19,14 @@ class BWPS_banips extends BWPS {
 		$goodAddress = true;
 		$myIp = getenv("REMOTE_ADDR");
 				
-		for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) { //check all ips until we find a bad one 
+		for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) {
 			$ipArray[$i] = trim($ipArray[$i]);
-			if (strlen($ipArray[$i]) > 0 && (!$this->checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) { //make sure input is valid IPV4 address and it is NOT your own IP
+			if (strlen($ipArray[$i]) > 0 && (!$this->checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) {
 				$goodAddress = false;
 			}
 		}
 	
-		if ($goodAddress == true) { //generate and return code if all addresses are good
+		if ($goodAddress == true) {
 			
 			$ipList = implode(" ",$ipArray);
 	

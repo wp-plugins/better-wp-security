@@ -3,15 +3,14 @@
 	
 	$opts = $BWPS_limitlogin->getOptions();
 	
-	if (isset($_POST['BWPS_limitlogin_save'])) { // Save options
+	if (isset($_POST['BWPS_limitlogin_save'])) {
 		
-		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_limitlogin_save')) { //verify nonce field
+		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_limitlogin_save')) {
 			die('Security error!');
 		}	
 		
 		$opts = $BWPS_limitlogin->saveOptions("limitlogin_Version", BWPS_LIMITLOGIN_VERSION);
 		
-		//validate the input
 		$mahinput = (string)absint(intval($_POST['BWPS_limitlogin_maxattemptshost']));
 		$mauinput = (string)absint(intval($_POST['BWPS_limitlogin_maxattemptsuser']));
 		$ciinput = (string)absint(intval($_POST['BWPS_limitlogin_checkinterval']));
