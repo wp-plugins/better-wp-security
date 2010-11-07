@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 10
+Stable tag: ALPHA 11
 
 A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
 
@@ -36,13 +36,12 @@ Better WP Security takes the best Wordpress security features and techniques and
 * Basic Intrusion detection (based on 404 logging)
 * Rename "admin" account
 * Security checker
+* Allow for changing the Wordpress table prefix where necessary
 	
 = Features coming soon =
 
 * Force SSL for admin pages (on supporting servers)
-* Allow for changing the Wordpress table prefix where necessary
-* Support and discussion forums
-* Excellent documentation (why turn on a feature you don't understand?)
+* Change wp-content path
 
 == Installation ==
 
@@ -58,10 +57,11 @@ Coming soon
 
 == Changelog ==
 
-= ALPHA 11 - =
+= ALPHA 11 - November 6, 2010 =
 * Added security checklist
 * Added option to rename existing admin account
 * Added option to change DB table prefix
+* Various bugfixes
 
 = ALPHA 10 - November 3, 2010 =
 * Added more htaccess security options

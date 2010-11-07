@@ -17,7 +17,9 @@
 		
 		if (!$BWPS_htaccess->can_write($htaccess)) { 
 			
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			$errorHandler->add("2", __("Unable to update htaccess rules"));
 			

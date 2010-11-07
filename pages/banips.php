@@ -22,7 +22,9 @@
 			$ipArray = explode("\n", $ipInput);	
 			
 			if (!$BWPS_banips->createRules($ipArray)) {
-				$errorHandler = new WP_Error();
+				if (!$errorHandler) {
+					$errorHandler = new WP_Error();
+				}
 				$errorHandler->add("1", __("You entered a bad IP address"));
 			}  else {
 				$opts = $BWPS_banips->saveOptions("banips_iplist",$ipInput);
@@ -38,7 +40,9 @@
 
 			$opts = $BWPS_banips->saveOptions("banips_enable","0");
 			
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			$errorHandler->add("2", __("Unable to update htaccess rules"));
 			

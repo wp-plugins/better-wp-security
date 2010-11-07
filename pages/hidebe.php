@@ -34,7 +34,9 @@
 			
 			$opts = $BWPS_hidebe->saveOptions("hidebe_enable","0");
 			
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			$errorHandler->add("2", __("Unable to update htaccess rules"));
 			

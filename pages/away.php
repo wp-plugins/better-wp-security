@@ -25,7 +25,9 @@
 			$opts = $BWPS_away->saveOptions("away_end", strtotime($endDate . " " . $endTime));
 			
 		} else {
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			if (!checkdate($_POST['BWPS_away_startmonth'], $_POST['BWPS_away_startday'], $_POST['BWPS_away_startyear'])) {
 				$errorHandler->add("1", __("<strong>You MUST enter a valid date for start time."));

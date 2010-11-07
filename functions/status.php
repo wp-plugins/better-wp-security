@@ -30,14 +30,14 @@ class BWPS_status extends BWPS {
 	}
 	
 	function checkTablePre(){
-		global $table_prefix;
-
+		global $wpdb;
+		
 		echo "<p>\n";
 
 		if ($table_prefix == 'wp_') {
 			echo "<span style=\"color: red;\">Your table prefix should not be <em>wp_</em>.  <a href=\"admin.php?page=BWPS-database\">Click here to change it</a>.</span>\n";
 		}else{
-			echo "<span style=\"color: green;\">Your table prefix is <em>" . $table_prefix . "</em>.</span>\n";
+			echo "<span style=\"color: green;\">Your table prefix is <em>" . $wpdb->prefix . "</em>.</span>\n";
 		}
 
 		echo "</p>\n";

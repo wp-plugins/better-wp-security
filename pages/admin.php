@@ -7,7 +7,7 @@
 			die('Security error!');
 		}
 		
-		$newuser = $_POST['newuser'];
+		$newuser = $wpdb->escape($_POST['newuser']);
 		
 		if(validate_username($newuser)) {
 			if (checkAdminUser($newuser)) {
@@ -18,7 +18,9 @@
 				$wpdb->query("UPDATE " . $wpdb->users . " SET user_login = '" . $newuser . "' WHERE user_login='admin'");
 			}
 		} else {
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			$errorHandler->add("2", __($newuser . " is not a valid username. Please try again"));
 		}

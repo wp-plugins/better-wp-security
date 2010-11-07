@@ -18,7 +18,9 @@
 		
 		if (strcmp($_POST['BWPS_limitlogin_maxattemptshost'], $mahinput) || strcmp($_POST['BWPS_limitlogin_maxattemptsuser'], $mauinput) || strcmp($_POST['BWPS_limitlogin_checkinterval'], $ciinput) || strcmp($_POST['BWPS_limitlogin_banperiod'], $bainput)) {
 			
-			$errorHandler = new WP_Error();
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
+			}
 			
 			if ($_POST['BWPS_limitlogin_maxattemptshost'] != $mahinput) {
 				$errorHandler->add("3", __("<strong>Max Login Attempts Per Host</strong> MUST be a positive integer."));
