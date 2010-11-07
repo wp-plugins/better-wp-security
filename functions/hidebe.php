@@ -34,6 +34,7 @@ class BWPS_hidebe extends BWPS {
 			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
 			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
 			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
+			"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
 			"RewriteRule ^wp-login\.php not_found [L]\n" .
 			"</IfModule>\n";
 		

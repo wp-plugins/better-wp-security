@@ -67,6 +67,9 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
+= 0.2.BETS - =
+* Updated hidebe to handle standard logout links
+
 = 0.1.BETA - November 7, 2010 = 
 * Finished status reporting
 * Force SSL for admin pages (on supporting servers)
