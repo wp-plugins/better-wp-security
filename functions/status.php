@@ -8,6 +8,160 @@ class BWPS_status extends BWPS {
 		$this->checkhtaccess();
 		$this->checkLimitlogin();
 		$this->checkAway();
+		$this->checkhidebe();
+		$this->checkStrongPass();
+		$this->checkHead();
+		$this->checkUpdates();
+		$this->checklongurls();
+		$this->checkranver();
+		$this->check404();
+		$this->checkSSL();
+		$this->checkContentDir();
+	}
+	
+	function checkContentDir() {
+		echo "<p>\n";
+		if (!strstr(WP_CONTENT_DIR,'wp-content') || !strstr(WP_CONTENT_URL,'wp-content')) {
+			echo "<span style=\"color: green;\">You have renamed the wp-content directory of your site.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">You should rename the wp-content directory of your site. <a href=\"admin.php?page=BWPS-content\">Click here to do so</a>.</span>\n";
+		}
+		echo "</p>\n";
+	}
+	
+	function checkSSL() {
+		echo "<p>\n";
+		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
+			echo "<span style=\"color: green;\">You are requiring a secure connection for logins and the admin area.</span>\n";
+		} else {
+			echo "<span style=\"color: orange;\">You are not requiring a secure connection for longs or the admin area. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+	}
+	
+	function check404() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['d404_enable'] == 1) {
+			echo "<span style=\"color: green;\">Your site is secured from attacks by XSS.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your site is still vulnerable to some XSS attacks. <a href=\"admin.php?page=BWPS-d404\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkranver() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_randomVersion'] == 1) {
+			echo "<span style=\"color: green;\">Version information is obscured to all non admin users.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Users may still be able to get version information from various plugins and themes. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checklongurls() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_longurls'] == 1) {
+			echo "<span style=\"color: green;\">Your installation does not accept long URLs.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkLogin() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_removeLoginMessages'] == 1) {
+			echo "<span style=\"color: green;\">No error messages are displayed on failed login.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Error messages are displayed to users on failed login. <a href=\"admin.php?page=BWPS-tweaks\">Click here to remove them</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkUpdates() {
+		$opts = $this->getOptions();
+		
+		$hcount = intval($opts["tweaks_themeUpdates"]) + intval($opts["tweaks_pluginUpdates"]) + intval($opts["tweaks_coreUpdates"]);
+	
+		echo "<p>\n";
+		if ($hcount == 3) {
+			echo "<span style=\"color: green;\">Non-administrators cannot see available updates.</span>\n";
+		} elseif ($hcount > 0) {
+			echo "<span style=\"color: orange;\">Non-administrators can see some updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Non-administrators can see all updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkHead() {
+		$opts = $this->getOptions();
+		
+		$hcount = intval($opts["tweaks_removeGenerator"]) + intval($opts["tweaks_removersd"]) + intval($opts["tweaks_removewlm"]);
+	
+		echo "<p>\n";
+		if ($hcount == 3) {
+			echo "<span style=\"color: green;\">Your Wordpress header is revealing as little information as possible.</span>\n";
+		} elseif ($hcount > 0) {
+			echo "<span style=\"color: orange;\">Your Wordpress header is still revealing some information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your Wordpress header is showing too much information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkStrongPass() {
+		$opts = $this->getOptions();
+		
+		$isOn = $opts['tweaks_strongpass'];
+		$role = $opts['tweaks_strongpassrole']; 
+	
+		echo "<p>\n";
+		if ($isOn == 1 && $role == 'subscriber') {
+			echo "<span style=\"color: green;\">You are enforcing strong passwords for all users</span>\n";
+		} elseif ($isOn == 1) {
+			echo "<span style=\"color: orange;\">You are enforcing strong passwords, but not for all users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">You are not enforcing strong passwords. <a href=\"admin.php?page=BWPS-tweaks\">Click here to enforce strong passwords.</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function checkhidebe() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['hidebe_enable'] == 1) {
+			echo "<span style=\"color: green;\">Your Wordpress admin area is hidden.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your Wordpress admin area  file is NOT hidden. <a href=\"admin.php?page=BWPS-hidebe\">Click here to secure it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
 	}
 	
 	function checkWPVersion() {

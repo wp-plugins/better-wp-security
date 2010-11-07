@@ -3,7 +3,7 @@
 Plugin Name: Better WP Security
 Plugin URI: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-Version: ALPHA 11
+Version: 0.1.BETA
 Author: ChrisWiegman
 Author URI: http://www.chriswiegman.com
 License: GPLv2
@@ -92,6 +92,10 @@ function admin_options() {
 function database_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/database.php');
 }
+
+function content_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/content.php');
+}
 	
 function optsmenu() {
 	add_menu_page('Better Security - System Status and Support', 'Better WP Security', 'manage_options', 'BWPS', 'status_options');
@@ -100,6 +104,7 @@ function optsmenu() {
 	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
 	add_submenu_page('BWPS', 'Better WP Security - Block 404s', 	'Block 404s', 'manage_options', 'BWPS-404', 'd404_options');
+	add_submenu_page('BWPS', 'Better WP Security - Content Directory', 'Content Directory', 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS', 'Better WP Security - Database Prefix', 	'Database Prefix', 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', '.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');

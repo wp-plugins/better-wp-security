@@ -164,9 +164,18 @@
 				<div class="inside">
 				<?php if ($isForm) {echo "Good"; } ?>
 				<p>Use the form below to change the table prefix for your Wordpress Database.</p>
-				<p STYLE="text-align: center; font-size: 150%; font-weight: bold;">WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!</p>
+				<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;">WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!</p>
 					<?php if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) { ?>
 						<p><strong>Your database is using the default table prefix <em>wp_</em>. You should change this.</strong></p>
+					<?php } else { ?>
+						<?php 
+							if (isset($_POST['BWPS_database_save']) && !isset($errorHandler)) {
+								$pre = $newPrefix;
+							} else {
+								$pre = $wpdb->prefix;
+							}
+						?>
+						<p>Your current database table prefix is <strong><em><?php echo $pre; ?></em></strong></p>
 					<?php } ?>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_database_save','wp_nonce') ?>

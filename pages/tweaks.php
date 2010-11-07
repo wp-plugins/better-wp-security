@@ -23,6 +23,29 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
 
+		if ($_POST['BWPS_enforceSSL'] == 1) {
+			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+			$scanText = "/* That's all, stop editing! Happy blogging. */";
+			$newText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n\r\n/* That's all, stop editing! Happy blogging. */";
+			chmod($conf_f, 0755);
+			$handle = @fopen($conf_f, "r+");
+			if ($handle) {
+				while (!feof($handle)) {
+					$lines[] = fgets($handle, 4096);
+				}
+				fclose($handle);
+				$handle = @fopen($conf_f, "w+");
+				foreach ($lines as $line) {
+					if (strstr($line, $scanText)) {
+						$line = str_replace($scanText, $newText, $line);
+					}
+					fwrite($handle, $line);
+				}
+				fclose($handle);
+			}
+			$sslon = "1";
+		}
+
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -104,6 +127,11 @@
 								<p>
 									<input type="checkbox" name="BWPS_longurls" id="BWPS_longurls" value="1" <?php if ($opts['tweaks_longurls'] == 1) echo "checked"; ?> /> <label for="BWPS_longurls"><strong>Prevent long URL strings.</strong></label><br />
 									Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.
+								</p>
+								<h4>SSL Tweaks</h4>
+								<p>
+									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS_tweaks->checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
+									Prevents error messages from being displayed to a user upon a failed login attempt.
 								</p>
 							</tbody>
 						</table>	

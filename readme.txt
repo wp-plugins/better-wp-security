@@ -2,12 +2,12 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
-Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix
+Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: ALPHA 11
+Stable tag: 0.1.BETA
 
-A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
+A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
@@ -37,9 +37,6 @@ Better WP Security takes the best Wordpress security features and techniques and
 * Rename "admin" account
 * Security checker
 * Allow for changing the Wordpress table prefix where necessary
-	
-= Features coming soon =
-
 * Force SSL for admin pages (on supporting servers)
 * Change wp-content path
 
@@ -53,9 +50,27 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Frequently Asked Questions ==
 
-Coming soon
+= When will this plugin be officially released? =
+* Better WP Security will be released officially when all known bugs are fixed and documentation is complete.
+
+= Why release it at all before it is finished? =
+* As this is a rather complex program I am releasing it early to get feedback from the Wordpress community. This will help insure that when it is fully released it will be the most stable and comprehensive security solution available for Wordpress.
+
+= Will you keep developing this after the initial release? =
+* Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
+
+= Can I help? =
+* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization.
+
+= Will this break my site? =
+* Until it is officially released it is quite possible (maybe even probable) that something will break. I will not release this officially until I am completely convinced that the code is stable and usable over as many systems as possible. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 == Changelog ==
+
+= 0.1.BETA - November 7, 2010 = 
+* Finished status reporting
+* Force SSL for admin pages (on supporting servers)
+* Change wp-content path
 
 = ALPHA 11 - November 6, 2010 =
 * Added security checklist

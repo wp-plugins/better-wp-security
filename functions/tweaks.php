@@ -156,5 +156,13 @@ class BWPS_tweaks extends BWPS {
 			return $b;  
 		return $a;  
 	}
+	
+	function checkSSL() {
+		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 	
