@@ -2,7 +2,7 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
-Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink
+Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix
 Requires at least: 3.0.1
 Tested up to: 3.0.1
 Stable tag: ALPHA 10
@@ -15,6 +15,8 @@ Released under the terms of the GNU General Public License.
 == Description ==
 
 NOTE: This plugin is not yet ready for production and should be used only to test features and provide feedback!!!!
+
+Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
 
 = Current features =
 
@@ -32,19 +34,23 @@ NOTE: This plugin is not yet ready for production and should be used only to tes
 * Strengthen .htaccess settings
 * Enforce strong passwords for all accounts of a configurable minimum role
 * Basic Intrusion detection (based on 404 logging)
+* Rename "admin" account
+* Security checker
 	
 = Features coming soon =
 
 * Force SSL for admin pages (on supporting servers)
 * Allow for changing the Wordpress table prefix where necessary
-* Rename "admin" account
-* Security checker
 * Support and discussion forums
 * Excellent documentation (why turn on a feature you don't understand?)
 
 == Installation ==
 
-Coming soon
+1. Backup your Wordpress database, config file, and .htaccess file
+2. Upload the zip file to the `/wp-content/plugins/` directory
+3. Unzip
+4. Activate the plugin through the 'Plugins' menu in WordPress
+5. Visit the Better security menu for checklist and options
 
 == Frequently Asked Questions ==
 
@@ -53,6 +59,9 @@ Coming soon
 == Changelog ==
 
 = ALPHA 11 - =
+* Added security checklist
+* Added option to rename existing admin account
+* Added option to change DB table prefix
 
 = ALPHA 10 - November 3, 2010 =
 * Added more htaccess security options

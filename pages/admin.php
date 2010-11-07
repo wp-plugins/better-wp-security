@@ -49,9 +49,16 @@
 	<h2>Better WP Security - Admin User</h2>
 	
 	<div id="poststuff" class="ui-sortable">
-		
+
+		<?php 
+			if (checkAdminUser("admin")) {
+				$bgcolor = "#ffebeb";
+			} else {
+				$bgcolor = "#fff";
+			}
+		?>		
 		<div class="postbox-container" style="width:70%">	
-			<div class="postbox opened">
+			<div class="postbox opened" style="background-color: <?php echo $bgcolor; ?>;">
 				<h3>Rename Admin User</h3>	
 				<div class="inside">
 					<?php if (checkAdminUser("admin")) { ?>
