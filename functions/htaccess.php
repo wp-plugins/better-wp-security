@@ -78,7 +78,7 @@ class BWPS_htaccess extends BWPS {
 				"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
 				"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
 				"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|drop).* [NC]\n" . 
-				"RewriteCond %{QUERY_STRING} !^.*(selected).* [NC]\n" . 
+				"RewriteCond %{QUERY_STRING} !^.*(delete-selected).* [NC]\n" . 
 				"RewriteRule ^(.*)$ - [F,L]\n\n";
 		}
 		
