@@ -42,7 +42,7 @@ class BWPS_tweaks extends BWPS {
 		}
 		
 		if ($opts['tweaks_longurls'] == 1) {
-			if (strlen($_SERVER['REQUEST_URI']) > 300 ||
+			if (strlen($_SERVER['REQUEST_URI']) > 400 ||
 				strpos($_SERVER['REQUEST_URI'], "eval(") ||
 				strpos($_SERVER['REQUEST_URI'], "CONCAT") ||
 				strpos($_SERVER['REQUEST_URI'], "UNION+SELECT") ||
