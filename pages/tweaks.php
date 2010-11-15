@@ -44,7 +44,28 @@
 				fclose($handle);
 			}
 			$sslon = "1";
-		}
+		} else {
+			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+			$scanText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n";
+			$newText = "";
+			chmod($conf_f, 0755);
+			$handle = @fopen($conf_f, "r+");
+			if ($handle) {
+				while (!feof($handle)) {
+					$lines[] = fgets($handle, 4096);
+				}
+				fclose($handle);
+				$handle = @fopen($conf_f, "w+");
+				foreach ($lines as $line) {
+					if (strstr($line, $scanText)) {
+						$line = str_replace($scanText, $newText, $line);
+					}
+					fwrite($handle, $line);
+				}
+				fclose($handle);
+			}
+			$sslon = "0";
+		} 
 
 		
 		if (isset($errorHandler)) {
@@ -53,6 +74,12 @@
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 		
+	} else {
+		if (isset($_SERVER['HTTPS'])) {
+			$sslon = "1";
+		} else {
+			$sslon = "0";
+		}
 	}
 	
 ?>
@@ -130,6 +157,7 @@
 								</p>
 								<h4>SSL Tweaks</h4>
 								<p>
+									<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4><br />
 									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS_tweaks->checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
 									Prevents error messages from being displayed to a user upon a failed login attempt.
 								</p>
