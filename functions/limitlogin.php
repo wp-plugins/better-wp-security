@@ -125,9 +125,9 @@ class BWPS_limitlogin extends BWPS {
 			$user = get_userdatabylogin($username);
 
 			if ($user) {
-				unset($user);
 				$userCheck = $wpdb->get_var("SELECT user_id FROM " . $opts['limitlogin_table_lockouts']  . 
 					" WHERE lockout_date < " . (time() + ($opts['limitlogin_banperiod'] * 60)). " AND user_id = '$user->ID'");
+				unset($user);
 			}
 		} else {
 			$userCheck = false;

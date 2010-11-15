@@ -21,6 +21,8 @@ class BWPS_away extends BWPS {
 					$linc = 12;
 				}elseif (date('a',$lTime) == "am" && date('g',$lTime) == "12") {
 					$linc = -12;
+				} else {
+					$linc = 0;
 				}
 				
 				$local = ((date('g',$lTime) + $linc) * 60) + date('i',$lTime);
@@ -29,6 +31,8 @@ class BWPS_away extends BWPS {
 					$sinc = 12;
 				}elseif (date('a',$opts['away_start']) == "am" && date('g',$opts['away_start']) == "12") {
 					$sinc = -12;
+				} else {
+					$sinc = 0;
 				}
 				
 				$start = ((date('g',$opts['away_start']) + $sinc) * 60) + date('i',$opts['away_start']);
@@ -37,6 +41,8 @@ class BWPS_away extends BWPS {
 					$einc = 12;
 				} elseif (date('a',$opts['away_end']) == "am" && date('g',$opts['away_end']) == "12") {
 					$einc = -12;
+				} else {
+					$einc = 0;
 				}
 				
 				$end = ((date('g',$opts['away_end']) + $einc) * 60) + date('i',$opts['away_end']);
