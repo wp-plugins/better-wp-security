@@ -20,6 +20,12 @@ class BWPS_hidebe extends BWPS {
 		
 		$reDomain = $this->uDomain(get_option('siteurl'));
 		
+		if (get_option('users_can_register') == 1) {
+			$regEn = "RewriteCond %{QUERY_STRING} !^action=register\n";
+		} else {
+			$regEn = "";
+		}
+		
 		$theRules = "<IfModule mod_rewrite.c>\n" . 
 			"RewriteEngine On\n" . 
 			"RewriteBase /\n" . 
@@ -35,6 +41,7 @@ class BWPS_hidebe extends BWPS {
 			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
 			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
 			"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
+			$regEn . 
 			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
 			"RewriteRule ^wp-login\.php not_found [L]\n" .
 			"</IfModule>\n";

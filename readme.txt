@@ -67,7 +67,10 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
-= 0.2.BETA - November 15, 2010=
+= 0.3.BETA - =
+* Numerous bugfixes
+
+= 0.2.BETA - November 15, 2010 =
 * Updated hidebe to handle standard logout links
 * Numerous other bugfixes
 
@@ -146,4 +149,4 @@ If upgrading from a version prior to ALPHA 5 you MUST deactivate the plugin manu
 
 == Support ==
 
-Please visit the <a href="http://www.chriswiegman.com/projects/wordpress/better-wp-security/">Homepage</a> for support
+Please visit the <a href="http://www.chriswiegman.com/projects/wordpress/better-wp-security/">Homepage</a> for support and more

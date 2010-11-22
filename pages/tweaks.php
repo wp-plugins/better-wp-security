@@ -23,7 +23,7 @@
 		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
 		$opts = $BWPS_tweaks->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
 
-		if ($_POST['BWPS_enforceSSL'] == 1) {
+		if (isset($_POST['BWPS_enforceSSL'])) {
 			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
 			$scanText = "/* That's all, stop editing! Happy blogging. */";
 			$newText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n\r\n/* That's all, stop editing! Happy blogging. */";
