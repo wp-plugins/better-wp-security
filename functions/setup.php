@@ -9,14 +9,9 @@ function BWPS_install() {
 	
 	if (get_option("BWPS_options")) {
 		$opts = unserialize(get_option("BWPS_options"));
-		delete_option("BWPS_options");
+	} else {
+		$opts = BWPS_defaults();
 	}
-	
-	if (count($opts) != count($defaults)) {
-		$opts = $defaults;
-	}
-	
-	update_option("BWPS_options", serialize($opts));
 	
 	$upgrade_lt = (BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION != $opts['limitlogin_lt_Version']);
 	$upgrade_at = (BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION != $opts['limitlogin_at_Version']);
@@ -82,27 +77,47 @@ function BWPS_install() {
 	delete_option("BWPS_options");
 	update_option("BWPS_options", serialize($opts));
 	unset($opts);
+	
+	$BWPS = new BWPS();
+	
+	$htaccess = trailingslashit(ABSPATH).'.htaccess';
+	
+	if (!$BWPS->can_write($htaccess)) {
+		echo "Unable to update htaccess rules";
+	} else {
+	
+		$BWPSohide = get_option('BWPS_oldRules1');
+		$BWPSoht = get_option('BWPS_oldRules2');
+		
+		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
+				
+		$BWPS->remove_section($htaccess, 'WordPress');
+		
+		insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPSoht));
+		insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPSohide));
+		insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));
+		
+		delete_option('BWPS_oldRules1');
+		delete_option('BWPS_oldRules2');
+	}
 }
 	
 function BWPS_uninstall() {
 	
 	$BWPS = new BWPS();
-	
-	$BWPS->saveOptions("hidebe_enable", "0");
-	$BWPS->saveOptions("banips_enable", "0");
-	$BWPS->saveOptions("hidebe_canregister", "0");
-	$BWPS->saveOptions("htaccess_protectht", "0");
-	$BWPS->saveOptions("htaccess_protectwpc", "0");
-	$BWPS->saveOptions("htaccess_dirbrowse", "0");
-	$BWPS->saveOptions("htaccess_hotlink", "0");
-	$BWPS->saveOptions("htaccess_qstring", "0");
-	$BWPS->saveOptions("htaccess_request", "0");
 
 	$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
 	if (!$BWPS->can_write($htaccess)) {
 		echo "Unable to update htaccess rules";
 	} else {
+	
+		$BWPSohide = implode("\n", extract_from_markers($htaccess, 'Better WP Security Hide Backend' ));
+		$BWPSoht = implode("\n", extract_from_markers($htaccess, 'Better WP Security Protect htaccess' ));
+		
+		update_option("BWPS_oldRules1", $BWPSohide);
+		update_option("BWPS_oldRules2", $BWPSoht);
+		
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Admin');
 		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
@@ -117,15 +132,13 @@ function BWPS_uninstall() {
 }
 
 function BWPS_defaults() {
-	global $wpdb;
-	
 	$opts = array(
 		"away_enable" => "0",
 		"away_mode" => "0",
 		"away_start" => "1",
 		"away_end" => "1",
-		"limitlogin_table_fails" => $wpdb->prefix . "BWPS_bad_logins",
-		"limitlogin_table_lockouts" => $wpdb->prefix . "BWPS_lockouts",
+		"limitlogin_table_fails" => "BWPS_bad_logins",
+		"limitlogin_table_lockouts" => "BWPS_lockouts",
 		"tweaks_removeGenerator" => "0",
 		"tweaks_removeLoginMessages" => "0",
 		"tweaks_randomVersion" => "0",
@@ -160,9 +173,9 @@ function BWPS_defaults() {
 		"banips_enable" => "0",
 		"banips_iplist" => "",
 		"d404_enable" => "0",
-		"d404_table_attempts" => $wpdb->prefix . "BWPS_d404_attempts",
+		"d404_table_attempts" => "BWPS_d404_attempts",
 		"d404_table_attempts_Version" => "0",
-		"d404_table_lockouts" => $wpdb->prefix . "BWPS_d404_lockouts",
+		"d404_table_lockouts" => "BWPS_d404_lockouts",
 		"d404_table_lockouts_Version" => "0",
 		"limitlogin_at_Version" => "0",
 		"limitlogin_lt_Version" => "0",

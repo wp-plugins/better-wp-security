@@ -10,11 +10,17 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/d404
 class BWPS {
 
 	function getOptions() {
+		global $wpdb;
+		
 		if (!get_option("BWPS_options")) {
 			$opts = BWPS_defaults();
 			update_option("BWPS_options", serialize($opts));
 		} else {
 			$opts = unserialize(get_option("BWPS_options"));
+			$opts['limitlogin_table_fails'] = $wpdb->prefix . $opts['limitlogin_table_fails'];
+			$opts['limitlogin_table_lockouts'] = $wpdb->prefix . $opts['limitlogin_table_lockouts'];
+			$opts['d404_table_attempts'] = $wpdb->prefix . $opts['d404_table_attempts'];
+			$opts['d404_table_lockouts'] = $wpdb->prefix . $opts['d404_table_lockouts'];
 		}
 		
 		return $opts;

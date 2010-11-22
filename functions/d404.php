@@ -20,7 +20,7 @@ class BWPS_d404 extends BWPS {
 		if (is_404()) {
 			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
 			$this->logd404($computer_id);
-			if ($this->countAttempts($computer_id) >= 20 && !$this->checkLock($computer_id) ) {
+			if ($this->countAttempts($computer_id) >= 20 && !$this->checkLock($computer_id) && !is_user_logged_in()) {
 				$this->lockout($computer_id);
 			}
 		}

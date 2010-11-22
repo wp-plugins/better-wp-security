@@ -69,6 +69,7 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 = 0.3.BETA - =
 * Numerous bugfixes
+* 404 check will NOT ban logged in users
 
 = 0.2.BETA - November 15, 2010 =
 * Updated hidebe to handle standard logout links
