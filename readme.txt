@@ -67,6 +67,9 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
+= 0.4.BETA - =
+* Changed the main menu name to "Security"
+
 = 0.3.BETA - November 21, 2010 =
 * Numerous bugfixes
 * 404 check will NOT ban logged in users
