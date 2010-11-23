@@ -1,5 +1,7 @@
 <?php
 /**
+ * Main BWPS plugin file defines plugin and registers with Wordpress
+ *
  * @package BWPS
  */
  
@@ -51,18 +53,21 @@ define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
  * @return null 
  */
 function menu_items() {
-	add_menu_page('Better Security - System Status and Support', 'Security', 'manage_options', 'BWPS', 'status_options');
-	add_submenu_page('BWPS', 'Better WP Security - System Status and Support', 'Better WP Security', 'manage_options', 'BWPS', 'status_options');
-	add_submenu_page('BWPS', 'Better WP Security - Admin User', 'Admin User', 'manage_options', 'BWPS-adminuser', 'admin_options');
-	add_submenu_page('BWPS', 'Better WP Security - Away Mode', 	'Away Mode', 'manage_options', 'BWPS-away', 'away_options');
-	add_submenu_page('BWPS', 'Better WP Security - Ban IPs Options', 	'Ban IPs', 'manage_options', 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS', 'Better WP Security - Block 404s', 	'Block 404s', 'manage_options', 'BWPS-404', 'd404_options');
-	add_submenu_page('BWPS', 'Better WP Security - Content Directory', 'Content Directory', 'manage_options', 'BWPS-content', 'content_options');
-	add_submenu_page('BWPS', 'Better WP Security - Database Prefix', 	'Database Prefix', 'manage_options', 'BWPS-database', 'database_options');
-	add_submenu_page('BWPS', 'Better WP Security - Hide Backend Options', 	'Hide Backend', 'manage_options', 'BWPS-hidebe', 'hidebe_options');
-	add_submenu_page('BWPS', 'Better WP Security - .htaccess Options', '.htaccess Options', 'manage_options', 'BWPS-htaccess', 'htaccess_options');
-	add_submenu_page('BWPS', 'Better WP Security - Limit Logins Options', 'Limit Logins', 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');
-	add_submenu_page('BWPS', 'Better WP Security - System Tweaks', 'System Tweaks', 'manage_options', 'BWPS-tweaks', 'tweaks_options');
+	//Add main menu page
+	add_menu_page(__('Better Security - System Status and Support'), __('Security'), 'manage_options', 'BWPS', 'status_options');
+	
+	//Add submenu pages
+	add_submenu_page('BWPS', __('Better WP Security - System Status and Support'), __('Better WP Security'), 'manage_options', 'BWPS', 'status_options');
+	add_submenu_page('BWPS', __('Better WP Security - Admin User'), 'Admin User', __('manage_options'), 'BWPS-adminuser', 'admin_options');
+	add_submenu_page('BWPS', __('Better WP Security - Away Mode'), __('Away Mode', 'manage_options'), 'BWPS-away', 'away_options');
+	add_submenu_page('BWPS', __('Better WP Security - Ban IPs Options'), __('Ban IPs', 'manage_options'), 'BWPS-banips', 'banips_options');
+	add_submenu_page('BWPS', __('Better WP Security - Block 404s'), __('Block 404s', 'manage_options'), 'BWPS-404', 'd404_options');
+	add_submenu_page('BWPS', __('Better WP Security - Content Directory'), __('Content Directory'), 'manage_options', 'BWPS-content', 'content_options');
+	add_submenu_page('BWPS', __('Better WP Security - Database Prefix'), __('Database Prefix'), 'manage_options', 'BWPS-database', 'database_options');
+	add_submenu_page('BWPS', __('Better WP Security - Hide Backend Options'), __('Hide Backend'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
+	add_submenu_page('BWPS', __('Better WP Security - .htaccess Options'), __('.htaccess Options'), 'manage_options', 'BWPS-htaccess', 'htaccess_options');
+	add_submenu_page('BWPS', __('Better WP Security - Limit Logins Options'), __('Limit Logins'), 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');
+	add_submenu_page('BWPS', __('Better WP Security - System Tweaks'), __('System Tweaks'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
 }
 
 /**
@@ -155,6 +160,31 @@ function tweaks_options() {
 
 //Register the admin menu
 add_action('admin_menu',  'menu_items');
+
+/**
+ * Defines the plugin action link to appear on the plugin menu
+ *
+ * @param link array
+ * @param file array
+ * @return link array
+ */
+function BWPS_plugin_action_links($links, $file) {
+	static $this_plugin;
+			
+	if (!$this_plugin ) {
+		$this_plugin = plugin_basename(__FILE__);
+	 }
+	 
+	if ($file == $this_plugin) {
+		$settings_link = '<a href="/wp-admin/admin.php?page=BWPS">' . __('Setup') . '</a>';
+		array_unshift($links, $settings_link);
+	}
+	
+	return $links;
+}
+
+//Add filter for options choice on plugin page
+add_filter('plugin_action_links','BWPS_plugin_action_links', 10, 2 );
 
 //register the install and uninstall routines
 register_activation_hook(__file__, 'BWPS_install');

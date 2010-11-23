@@ -1,11 +1,17 @@
 <?php
+/**
+ * Create BWPS object and shared functions.
+ *
+ * @package BWPS
+ */
+ 
+ //Require files for related subclasses
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/away.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/d404.php');
-
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
 
 class BWPS {
 
@@ -98,53 +104,34 @@ class BWPS {
 	
 		$opts = $this->getOptions();
 		
-		if ($opts['away_Version'] != BWPS_AWAY_VERSION && $opts['away_Version'] > 0 && !isset($_POST['BWPS_away_save'])) {
-			function BWPS_awayWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-away">Better WP Security - Away Mode Settings.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_awayWarning');
-		}
+		function BWPS_upgradeWarning() {
+			$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your') . ' <strong>';
+			$postMess = '</strong></p></div>';
 			
-		if ($opts['banips_Version'] != BWPS_BANIPS_VERSION && $opts['banips_Version'] > 0 && !isset($_POST['BWPS_banips_save'])) {
-			function BWPS_banipsWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-banips">Better WP Security - Ban IPs Settings.</a></strong></p></div>';
+			if ($opts['away_Version'] != BWPS_AWAY_VERSION && $opts['away_Version'] > 0 && !isset($_POST['BWPS_away_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . _e('Better WP Security - Away Mode Settings.') . '</a>' . $postMess;
 			}
-			add_action('admin_notices', 'BWPS_banipsWarning');
+			if ($opts['banips_Version'] != BWPS_BANIPS_VERSION && $opts['banips_Version'] > 0 && !isset($_POST['BWPS_banips_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . _e('Better WP Security - Ban IPs Settings.') . '</a>' . $postMess;
+			}
+			if ($opts['tweaks_Version'] != BWPS_TWEAKS_VERSION && $opts['tweaks_Version'] > 0 && !isset($_POST['BWPS_tweaks_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . _e('Better WP Security - System Tweaks.') . '</a>' . $postMess;
+			}
+			if ($opts['hidebe_Version'] != BWPS_HIDEBE_VERSION && $opts['hidebe_Version'] > 0 && !isset($_POST['BWPS_hidebe_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . _e('Better WP Security - Hide Backend Settings.') . '</a>' . $postMess;
+			}
+			if ($opts['limitlogin_Version'] != BWPS_LIMITLOGIN_VERSION && $opts['limitlogin_Version'] > 0 && !isset($_POST['BWPS_limitlogin_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-limitlogin">' . _e('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
+			}
+			if ($opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $opts['htaccess_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . _e('Better WP Security - .htaccess Options.') . '</a>' . $postMess;
+			}
+			if ($opts['d404_Version'] != BWPS_D404_VERSION && $opts['d404_Version'] > 0 && !isset($_POST['BWPS_d404_save'])) {
+				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . _e('Better WP Security - Detect d404 Options.') . '</a>' . $postMess;
+			}
 		}
 		
-		if ($opts['tweaks_Version'] != BWPS_TWEAKS_VERSION && $opts['tweaks_Version'] > 0 && !isset($_POST['BWPS_tweaks_save'])) {
-			function BWPS_tweaksWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-tweaks">Better WP Security - System Tweaks.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_tweaksWarning');
-		}
-			
-		if ($opts['hidebe_Version'] != BWPS_HIDEBE_VERSION && $opts['hidebe_Version'] > 0 && !isset($_POST['BWPS_hidebe_save'])) {
-			function BWPS_hidebeWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-hidebe">Better WP Security - Hide Backend Settings.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_hidebeWarning');
-		}
-			
-		if ($opts['limitlogin_Version'] != BWPS_LIMITLOGIN_VERSION && $opts['limitlogin_Version'] > 0 && !isset($_POST['BWPS_limitlogin_save'])) {
-			function BWPS_limitloginWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-limitlogin">Better WP Security - Limit Login Settings.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_limitloginWarning');
-		}
-		
-		if ($opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $opts['htaccess_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) {
-			function BWPS_htaccessWarning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-htaccess">Better WP Security - .htaccess Options.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_htaccessWarning');
-		}
-		if ($opts['d404_Version'] != BWPS_D404_VERSION && $opts['d404_Version'] > 0 && !isset($_POST['BWPS_d404_save'])) {
-			function BWPS_d404Warning() {
-				echo '<div id="message" class="error"><p>Due to changes in the latest Better WP Security release  you must update your <strong><a href="/wp-admin/admin.php?page=BWPS-d404">Better WP Security - Detect d404 Options.</a></strong></p></div>';
-			}
-			add_action('admin_notices', 'BWPS_d404Warning');
-		}
+		add_action('admin_notices', 'BWPS_upgradeWarning');
 		
 		unset($opts);
 	}
