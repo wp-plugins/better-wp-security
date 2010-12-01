@@ -58,10 +58,10 @@ function menu_items() {
 	
 	//Add submenu pages
 	add_submenu_page('BWPS', __('Better WP Security - System Status and Support'), __('Better WP Security'), 'manage_options', 'BWPS', 'status_options');
-	add_submenu_page('BWPS', __('Better WP Security - Admin User'), 'Admin User', __('manage_options'), 'BWPS-adminuser', 'admin_options');
-	add_submenu_page('BWPS', __('Better WP Security - Away Mode'), __('Away Mode', 'manage_options'), 'BWPS-away', 'away_options');
-	add_submenu_page('BWPS', __('Better WP Security - Ban IPs Options'), __('Ban IPs', 'manage_options'), 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS', __('Better WP Security - Block 404s'), __('Block 404s', 'manage_options'), 'BWPS-404', 'd404_options');
+	add_submenu_page('BWPS', __('Better WP Security - Admin User'), __('Admin User'), 'manage_options', 'BWPS-adminuser', 'admin_options');
+	add_submenu_page('BWPS', __('Better WP Security - Away Mode'), __('Away Mode'), 'manage_options', 'BWPS-away', 'away_options');
+	add_submenu_page('BWPS', __('Better WP Security - Ban IPs Options'), __('Ban IPs'), 'manage_options', 'BWPS-banips', 'banips_options');
+	add_submenu_page('BWPS', __('Better WP Security - Block 404s'), __('Block 404s'), 'manage_options', 'BWPS-404', 'd404_options');
 	add_submenu_page('BWPS', __('Better WP Security - Content Directory'), __('Content Directory'), 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS', __('Better WP Security - Database Prefix'), __('Database Prefix'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS', __('Better WP Security - Hide Backend Options'), __('Hide Backend'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
