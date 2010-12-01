@@ -1,7 +1,7 @@
 <?php
-	global $wpdb, $BWPS_d404;
+	global $wpdb, $BWPS;
 	
-	$opts = $BWPS_d404->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_d404_save'])) {
 		
@@ -9,9 +9,9 @@
 			die('Security error!');
 		}	
 		
-		$opts = $BWPS_d404->saveOptions("d404_Version", BWPS_D404_VERSION);
+		$opts = $BWPS->saveOptions("d404_Version", BWPS_D404_VERSION);
 		
-		$opts = $BWPS_d404->saveOptions("d404_enable", $_POST['BWPS_d404_enable']);
+		$opts = $BWPS->saveOptions("d404_enable", $_POST['BWPS_d404_enable']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -81,11 +81,11 @@
 						<?php wp_nonce_field('BWPS_releasesave','wp_nonce') ?>
 
 						<?php 
-							$lockedList = $BWPS_d404->listLocked();
+							$lockedList = $BWPS->d404_listLocked();
 		
 							if (sizeof($lockedList) > 0) {
 								foreach ($lockedList as $item) {
-									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['computer_id'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS_d404->dispRem(($item['lockout_date'] + 1800)) . "</span></label>\n";
+									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['computer_id'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS->dispRem(($item['lockout_date'] + 1800)) . "</span></label>\n";
 													}
 								echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"Release Selected Lockouts\"></p>\n";
 							} else {

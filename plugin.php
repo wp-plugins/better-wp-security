@@ -198,11 +198,10 @@ register_deactivation_hook(__file__, 'BWPS_uninstall');
  * @global object 
  * @global object 
  */
-global $BWPS, $BWPS_d404, $BWPS_limitlogin, $BWPS_tweaks;
+global $BWPS, $BWPS_limitlogin, $BWPS_tweaks;
 
 //create BWPS objects
 $BWPS = new BWPS();
-$BWPS_d404 = new BWPS_d404();
 $BWPS_limitlogin = new BWPS_limitlogin();
 $BWPS_tweaks = new BWPS_tweaks();
 
