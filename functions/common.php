@@ -1,6 +1,6 @@
 <?php
 /**
- * Create BWPS object and shared functions.
+ * Create BWPS object.
  *
  * @package BWPS
  */
@@ -15,13 +15,17 @@ require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/twea
 
 class BWPS {
 
+	/**
+ 	 * Returns the array of BWPS options
+ 	 * @return object 
+ 	 */
 	function getOptions() {
 		global $wpdb;
 		
-		if (!get_option("BWPS_options")) {
+		if (!get_option("BWPS_options")) { //if options are not in the database retreive default options
 			$opts = BWPS_defaults();
 			update_option("BWPS_options", serialize($opts));
-		} else {
+		} else { //get options from database and add db prefix to tablenames
 			$opts = unserialize(get_option("BWPS_options"));
 			$opts['limitlogin_table_fails'] = $wpdb->prefix . $opts['limitlogin_table_fails'];
 			$opts['limitlogin_table_lockouts'] = $wpdb->prefix . $opts['limitlogin_table_lockouts'];
@@ -32,6 +36,10 @@ class BWPS {
 		return $opts;
 	}
 		
+	/**
+ 	 * Saves a new option to the database and returns an updated array of options
+ 	 * @return object 
+ 	 */
 	function saveOptions($opt, $val) {
 		global $wpdb;
 		
@@ -45,6 +53,11 @@ class BWPS {
 		return $this->getOptions();;
 	}
 
+	/**
+ 	 * Check $path and return whether it is writable
+ 	 * @return Boolean
+ 	 * @param String file 
+ 	 */
 	function can_write($path) {		 
 		if ($path{strlen($path)-1} == '/') {
 			return BWPS_can_write($path.uniqid(mt_rand()).'.tmp');
