@@ -1,14 +1,14 @@
 <?php
 if ( !function_exists('wp_authenticate') ) {
 	function wp_authenticate($username, $password) {
-		global $BWPS_limitlogin, $BWPS_away;
+		global $BWPS_limitlogin, $BWPS;
 		
-		$opts = $BWPS_away->getOptions();
+		$opts = $BWPS->getOptions();
 
 		$username = sanitize_user($username);
 		$password = trim($password);
 		
-		if ($BWPS_away->isOn() && $BWPS_away->check()) {
+		if ($BWPS->isOn('away') && $BWPS->away_check()) {
 			wp_redirect(get_option('siteurl'));
 		}
 		

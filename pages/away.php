@@ -1,7 +1,7 @@
 <?php
-	global $BWPS_away;
+	global $BWPS;
 	
-	$opts = $BWPS_away->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_away_save'])) {
 		
@@ -9,7 +9,7 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS_away->saveOptions("away_Version", BWPS_AWAY_VERSION);
+		$opts = $BWPS->saveOptions("away_Version", BWPS_AWAY_VERSION);
 		
 		if (checkdate($_POST['BWPS_away_startmonth'], $_POST['BWPS_away_startday'], $_POST['BWPS_away_startyear']) && checkdate($_POST['BWPS_away_endmonth'], $_POST['BWPS_away_endday'], $_POST['BWPS_away_endyear'])) {
 		
@@ -19,10 +19,10 @@
 			$startTime = $_POST['BWPS_away_starthour'] . ":" . $_POST['BWPS_away_startmin'] . " " . $_POST['BWPS_away_startsel'];
 			$endTime = $_POST['BWPS_away_endhour'] . ":" . $_POST['BWPS_away_endmin'] . " " . $_POST['BWPS_away_endsel'];
 		
-			$opts = $BWPS_away->saveOptions("away_enable", $_POST['BWPS_away_enable']);
-			$opts = $BWPS_away->saveOptions("away_mode", $_POST['BWPS_away_mode']);
-			$opts = $BWPS_away->saveOptions("away_start", strtotime($startDate . " " . $startTime));
-			$opts = $BWPS_away->saveOptions("away_end", strtotime($endDate . " " . $endTime));
+			$opts = $BWPS->saveOptions("away_enable", $_POST['BWPS_away_enable']);
+			$opts = $BWPS->saveOptions("away_mode", $_POST['BWPS_away_mode']);
+			$opts = $BWPS->saveOptions("away_start", strtotime($startDate . " " . $startTime));
+			$opts = $BWPS->saveOptions("away_end", strtotime($endDate . " " . $endTime));
 			
 		} else {
 			if (!$errorHandler) {
@@ -326,7 +326,7 @@
 							}
 						?>
 						<p style="font-size: 150%; text-align: center;">The backend (administrative section) of this site will be unavailable<?php echo $freq; ?> from <?php echo $stime; ?> until <?php echo $etime; ?>.</p>
-						<p>Please note that according to your <a href="options-general.php">Wordpress timezone settings</a> your local time is <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS_away->getLocalTime()); ?></em></strong>. If this is incorrect please correct it on the <a href="options-general.php">Wordpress general settings page</a> by setting the appropriate time zone. Failure to do so may result in unintended lockouts.</p>
+						<p>Please note that according to your <a href="options-general.php">Wordpress timezone settings</a> your local time is <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS->getLocalTime()); ?></em></strong>. If this is incorrect please correct it on the <a href="options-general.php">Wordpress general settings page</a> by setting the appropriate time zone. Failure to do so may result in unintended lockouts.</p>
 					</div>
 				</div>
 			</div>

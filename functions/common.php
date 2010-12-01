@@ -7,7 +7,6 @@
  
  //Require files for related subclasses
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/away.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/d404.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
@@ -39,6 +38,8 @@ class BWPS {
 	/**
  	 * Saves a new option to the database and returns an updated array of options
  	 * @return object 
+ 	 * @param String
+ 	 * @param String
  	 */
 	function saveOptions($opt, $val) {
 		global $wpdb;
@@ -59,28 +60,34 @@ class BWPS {
  	 * @param String file 
  	 */
 	function can_write($path) {		 
-		if ($path{strlen($path)-1} == '/') {
+		if ($path{strlen($path)-1} == '/') { //if we have a dir with a trailing slash
 			return BWPS_can_write($path.uniqid(mt_rand()).'.tmp');
-		} elseif (is_dir($path)) {
+		} elseif (is_dir($path)) { //now make sure we have a directory
 			return BWPS_can_write($path.'/'.uniqid(mt_rand()).'.tmp');
 		}
 
 		$rm = file_exists($path);
 		$f = @fopen($path, 'a');
 	
-		if ($f===false) {
+		if ($f===false) { //if we can't open the file
 			return false;
 		}
 	
 		fclose($f);
 	
-		if (!$rm) {
+		if (!$rm) { //make sure to delete any temp files
 			unlink($path);
 		}
 	
-		return true;
+		return true; //return true
 	}
 
+	/**
+ 	 * Remove a given section of code from .htaccess
+ 	 * @return Boolean 
+ 	 * @param String
+ 	 * @param String
+ 	 */
 	function remove_section($filename, $marker) {
 		if (!file_exists($filename) || $this->can_write($filename)) {
 			if (!file_exists($filename)) {
@@ -112,7 +119,10 @@ class BWPS {
 			return false;
 		}
 	}
-		
+	
+	/**
+	 * Check supsection versions and prompt user if update is needed.
+	 */	
 	function checkVersions() {
 	
 		$opts = $this->getOptions();
@@ -149,10 +159,17 @@ class BWPS {
 		unset($opts);
 	}
 		
+	/**
+	 * Returns local time
+	 * @return String
+	 */
 	function getLocalTime() {
 		return strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())));
 	}
 	
+	/**
+	 * 
+	 */
 	function uDomain($address) {
 		preg_match("/^(http:\/\/)?([^\/]+)/i", $address, $matches);
 		$host = $matches[2];
@@ -162,10 +179,93 @@ class BWPS {
 		return $newAddress;
 	}
 	
+	/**
+	 * Display time remaining for given future time
+	 * @return String
+	 * @param integer
+	 */
 	function dispRem($expTime) {
 		$currTime = time(); 
     		$timeDif = $expTime - $currTime;
 		$dispTime = floor($timeDif / 60) . " minutes and " . ($timeDif % 60) . " seconds";
 		return $dispTime;
+	}
+	
+	/**
+	 * Check if given mode is turned on
+	 * @return Boolean
+	 * @param String
+	 */
+	function isOn($mode) {
+		$opts = $this->getOptions();
+		if ($mode == 'away') {
+			$flag =  $opts['away_enable'];
+		}
+		unset($opts);
+		return $flag;
+	}
+	
+	/**
+	 * Check to see if time restrictions allow login
+	 * @return Boolean
+	 */
+	function away_check() {
+		$opts = $this->getOptions();
+			
+		if ($opts['away_enable'] == 1) {
+			
+			$lTime = strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())));
+			
+			if ($opts['away_mode'] == 1) {
+				if (date('a',$lTime) == "pm" && date('g',$lTime) != "12") {
+					$linc = 12;
+				}elseif (date('a',$lTime) == "am" && date('g',$lTime) == "12") {
+					$linc = -12;
+				} else {
+					$linc = 0;
+				}
+				
+				$local = ((date('g',$lTime) + $linc) * 60) + date('i',$lTime);
+			
+				if (date('a',$opts['away_start']) == "pm" && date('g',$opts['away_start']) != "12") {
+					$sinc = 12;
+				}elseif (date('a',$opts['away_start']) == "am" && date('g',$opts['away_start']) == "12") {
+					$sinc = -12;
+				} else {
+					$sinc = 0;
+				}
+				
+				$start = ((date('g',$opts['away_start']) + $sinc) * 60) + date('i',$opts['away_start']);
+				
+				if (date('a',$opts['away_end']) == "pm" && date('g',$opts['away_end']) != "12") {
+					$einc = 12;
+				} elseif (date('a',$opts['away_end']) == "am" && date('g',$opts['away_end']) == "12") {
+					$einc = -12;
+				} else {
+					$einc = 0;
+				}
+				
+				$end = ((date('g',$opts['away_end']) + $einc) * 60) + date('i',$opts['away_end']);
+				
+				if ($start >= $end) {
+					if ($local >= $start || $local < $end) {
+						unset($opts);
+						return true;
+					}
+				} else {
+					if ($local >= $start && $local < $end) {
+						unset($opts);
+						return true;
+					}
+				}
+			} else {	
+				if ($lTime >= $opts['away_start'] && $lTime <= $opts['away_end']) {
+					unset($opts);
+					return true;
+				}
+			}
+		}
+		unset($opts);
+		return false;
 	}
 }
