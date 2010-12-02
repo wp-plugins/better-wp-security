@@ -198,11 +198,11 @@ register_activation_hook(__file__, 'BWPS_install');
 register_deactivation_hook(__file__, 'BWPS_uninstall');
 
 /**
- * Define BWPS global options
+ * Define BWPS globals
  *
  * @global object 
  */
 global $BWPS;
 
-//create BWPS objects
+//create BWPS object
 $BWPS = new BWPS();

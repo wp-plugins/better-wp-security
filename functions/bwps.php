@@ -687,17 +687,25 @@ class BWPS {
 		return $lockList;
 	}
 	
+	/**
+	 * Set wordpress version to a random integer between 100 and 500
+	 */
 	function randomVersion() {
 		global $wp_version;
 
 		$newVersion = rand(100,500);
 
+		//always show real version to site administrators
 		if (!is_admin()) {
 			$wp_version = $newVersion;
 		}
 	}
 	
+	/**
+	 * Disble plugin update notifications
+	 */
 	function pluginupdates() {
+		//don't remove for super admins
 		if (!is_super_admin()) {
 			remove_action( 'load-update-core.php', 'wp_update_plugins' );
 			add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
@@ -705,6 +713,9 @@ class BWPS {
 		}
 	}
 
+	/**
+	 * Diable theme update notifications
+	 */
 	function themeupdates() {
 		if (!is_super_admin()) {
 			remove_action( 'load-update-core.php', 'wp_update_themes' );
@@ -713,6 +724,9 @@ class BWPS {
 		}
 	}
 	
+	/**
+	 * Disable core update notifications
+	 */
 	function coreupdates() {
 		if (!is_super_admin()) {
 			remove_action('admin_notices', 'update_nag', 3);
@@ -721,11 +735,18 @@ class BWPS {
 		}
 	}
 	
+	/**
+	 * add an error message if password is not strong enough
+	 * @return object
+	 * @param object
+	 */
 	function strongpass( $errors ) {  
 		$opts = $this->getOptions();
 		
+		//determine the minimum role for enforcement
 		$minRole = $opts['tweaks_strongpassrole'];
 	
+		//all the standard roles and level equivalents
 		$availableRoles = array(
 			"administrator" => "8",
 			"editor" => "5",
@@ -734,6 +755,7 @@ class BWPS {
 			"subscriber" => "0"
 		);
 		
+		//roles and subroles
 		$rollists = array(
 			"administrator" => array("subscriber", "author", "contributor","editor"),
 			"editor" =>  array("subscriber", "author", "contributor"),
@@ -745,25 +767,35 @@ class BWPS {
 		$enforce = true;  
 		$args = func_get_args();  
 		$userID = $args[2]->ID;  
-		if ( $userID ) {  
+		if ( $userID ) {  //if updating an existing user
 			$userInfo = get_userdata( $userID );  
 			if ( $userInfo->user_level < $availableRoles[$minRole] ) {  
 				$enforce = false;  
 			}  
-		} else {  
+		} else {  //a new user
 			if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
 				$enforce = false;  
 			}  
 		}  
+		
+		//add to error array if the password does not meet requirements
 		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
 			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' ) );  
 		}  
+		
+		//cleanup
 		unset($opts);
 		unset ($rollists);
 		unset($availableRoles);
 		return $errors;  
 	}  
  
+ 	/**
+	 * Determin password strength based off wordpress display
+	 * @return integer
+	 * @param string
+	 * @param string
+	 */
 	function pwordstrength( $i, $f ) {  
 		$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null;  
 		if ( strlen( $i ) < 4 )  
@@ -787,6 +819,10 @@ class BWPS {
 		return $a;  
 	}
 	
+	/**
+	 * Check to see if ssl is requirement for all admin and logins
+	 * @return Boolean
+	 */
 	function checkSSL() {
 		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
 			return true;
@@ -794,5 +830,4 @@ class BWPS {
 			return false;
 		}
 	}
-	
 }
