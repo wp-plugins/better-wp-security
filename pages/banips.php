@@ -1,6 +1,8 @@
 <?php
 	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/banips.php');
 	
+	global $BWPS;
+	
 	$BWPS_banips = new BWPS_banips();
 	
 	$opts = $BWPS_banips->getOptions();
@@ -10,8 +12,6 @@
 		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_banips_save')) {
 			die('Security error!');
 		}
-		
-		$opts = $BWPS_banips->saveOptions("banips_Version", BWPS_BANIPS_VERSION);
 		
 		$opts = $BWPS_banips->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
 				
@@ -64,6 +64,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('BANIPS', BWPS_VERSION_BANIPS);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 		

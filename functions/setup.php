@@ -2,81 +2,46 @@
 
 function BWPS_install() {
 	global $wpdb;
-
-	$defaults = BWPS_defaults();
 	
-	$pi_version = BWPS_VERSION;
-	
-	if (get_option("BWPS_options")) {
-		$opts = unserialize(get_option("BWPS_options"));
+	if (get_option("BWPS_versions")) {
+		$vers = unserialize(get_option("BWPS_versions"));
 	} else {
-		$opts = BWPS_defaults();
+		$vers = BWPS_versions();
 	}
 	
-	$upgrade_lt = (BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION != $opts['limitlogin_lt_Version']);
-	$upgrade_at = (BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION != $opts['limitlogin_at_Version']);
-	$upgrade_da = (BWPS_D404_TABLE_ATTEMPTS_VERSION != $opts['d404_table_attempts_Version']);
-	$upgrade_dl = (BWPS_D404_TABLE_LOCKOUTS_VERSION != $opts['d404_table_lockouts_Version']);
+	$BWPSinstall = "CREATE TABLE " . BWPS_TABLE_D404 . " (
+		`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT,
+		`computer_id` varchar(20),
+		`attempt_date` int(10),
+		`qstring` varchar(255),
+		PRIMARY KEY  (`attempt_id`)
+		);";
+		$vers['TABLE_D404'] = BWPS_VERSION_TABLE_D404;
+
+	$BWPSinstall .= "CREATE TABLE " . BWPS_TABLE_LL . " (
+		`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT ,
+		`attempt_date` int(10),
+		`user_id` bigint(20),
+		`computer_id` varchar(20),
+		PRIMARY KEY  (`attempt_id`)
+		);";		
+		$vers['TABLE_LL'] = BWPS_VERSION_TABLE_LL;
+
+	$BWPSinstall .= "CREATE TABLE " . BWPS_TABLE_LOCKOUTS . " (
+		`lockout_id` bigint(20) NOT NULL AUTO_INCREMENT,
+		`computer_id` varchar(20),
+		`lockout_date` int(10),
+		`mode` int(5),
+		PRIMARY KEY  (`lockout_id`)
+		);";
+		$vers['TABLE_LOCKOUTS'] = BWPS_VERSION_TABLE_LOCKOUTS;
 			
-	$BWPSinstall = "";
-			
-	$fails_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_fails'] . "'") == $opts['limitlogin_table_fails']);
-	$lockouts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['limitlogin_table_lockouts'] . "'") == $opts['limitlogin_table_lockouts']);
-	$d404_attempts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['d404_table_attempts'] . "'") == $opts['d404_table_attempts']);
-	$d404_lockouts_exists = ($wpdb->get_var("SHOW TABLES LIKE '" . $opts['d404_table_lockouts'] . "'") == $opts['d404_table_lockouts']);
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta($BWPSinstall);
 	
-	if (!$fails_exists || $upgrade_lt) {
-		$BWPSinstall .= "CREATE TABLE " . $opts['limitlogin_table_fails'] . " (
-			`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT ,
-			`attempt_date` int(10),
-			`user_id` bigint(20),
-			`computer_id` varchar(20),
-			PRIMARY KEY  (`attempt_id`)
-			);";		
-			$opts['limitlogin_lt_Version'] = BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION;
-	}
-			
-	if (!$lockouts_exists || $upgrade_at) {
-		$BWPSinstall .= "CREATE TABLE " . $opts['limitlogin_table_lockouts'] . " (
-			`lockout_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-			`computer_id` varchar(20),
-			`user_id` bigint(20),
-			`lockout_date` int(10),
-			PRIMARY KEY  (`lockout_ID`)
-			);";
-			$opts['limitlogin_at_Version'] = BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION;
-	}
-	
-	if (!$d404_attempts_exists || $upgrade_da) {
-		$BWPSinstall .= "CREATE TABLE " . $opts['d404_table_attempts'] . " (
-			`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT,
-			`computer_id` varchar(20),
-			`attempt_date` int(10),
-			`qstring` varchar(255),
-			PRIMARY KEY  (`attempt_id`)
-			);";
-			$opts['d404_table_attempts_Version'] = BWPS_D404_TABLE_ATTEMPTS_VERSION;
-	}
-	
-	if (!$d404_lockouts_exists || $upgrade_dl) {
-		$BWPSinstall .= "CREATE TABLE " . $opts['d404_table_lockouts'] . " (
-			`lockout_id` bigint(20) NOT NULL AUTO_INCREMENT,
-			`computer_id` varchar(20),
-			`lockout_date` int(10),
-			PRIMARY KEY  (`lockout_id`)
-			);";
-			$opts['d404_table_lockouts_Version'] = BWPS_D404_TABLE_LOCKOUTS_VERSION;
-	}
-			
-	if ($BWPSinstall != "") {
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($BWPSinstall);
-	}		
-	
-	$opts['pi_version'] = $pi_version;
-	delete_option("BWPS_options");
-	update_option("BWPS_options", serialize($opts));
-	unset($opts);
+	delete_option("BWPS_versions");
+	update_option("BWPS_versions", serialize($vers));
+	unset($vers);
 	
 	$BWPS = new BWPS();
 	
@@ -103,6 +68,7 @@ function BWPS_install() {
 }
 	
 function BWPS_uninstall() {
+	global $wpdb;
 	
 	$BWPS = new BWPS();
 
@@ -128,7 +94,31 @@ function BWPS_uninstall() {
 		$BWPS->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 		
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
+		
+		$del_d404 = 'DROP TABLE '. BWPS_TABLE_D404 . ';';
+		$del_ll = 'DROP TABLE '. BWPS_TABLE_LL . ';';
+		$del_lockouts = 'DROP TABLE '. BWPS_TABLE_LOCKOUTS . ';';
+		$wpdb->query($del_d404);
+		$wpdb->query($del_ll);
+		$wpdb->query($del_lockouts);
 	}
+}
+
+function BWPS_versions() {
+	$vers = array(
+		'TABLE_D404' => '0',
+		'TABLE_LL' => '0',
+		'TABLE_LOCKOUTS' => '0',
+		'AWAY' => '0',
+		'BANIPS' => '0',
+		'TWEAKS' => '0',
+		'HIDEBE' => '0',
+		'LL' => '0',
+		'HTACCESS' => '0',
+		'D404' => '0'
+	);
+	
+	return $vers;
 }
 
 function BWPS_defaults() {
@@ -137,8 +127,6 @@ function BWPS_defaults() {
 		"away_mode" => "0",
 		"away_start" => "1",
 		"away_end" => "1",
-		"limitlogin_table_fails" => "BWPS_bad_logins",
-		"limitlogin_table_lockouts" => "BWPS_lockouts",
 		"tweaks_removeGenerator" => "0",
 		"tweaks_removeLoginMessages" => "0",
 		"tweaks_randomVersion" => "0",
@@ -172,20 +160,7 @@ function BWPS_defaults() {
 		"limitlogin_emailnotify" => "1",
 		"banips_enable" => "0",
 		"banips_iplist" => "",
-		"d404_enable" => "0",
-		"d404_table_attempts" => "BWPS_d404_attempts",
-		"d404_table_attempts_Version" => "0",
-		"d404_table_lockouts" => "BWPS_d404_lockouts",
-		"d404_table_lockouts_Version" => "0",
-		"limitlogin_at_Version" => "0",
-		"limitlogin_lt_Version" => "0",
-		"away_Version" => "0",
-		"banips_Version" => "0",
-		"tweaks_Version" => "0",
-		"hidebe_Version" => "0",
-		"limitlogin_Version" => "0",
-		"htaccess_Version" => "0",
-		"d404_Version" => "0"
+		"d404_enable" => "0"
 	);
 	
 	return $opts;

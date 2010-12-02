@@ -9,8 +9,6 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS->saveOptions("away_Version", BWPS_AWAY_VERSION);
-		
 		if (checkdate($_POST['BWPS_away_startmonth'], $_POST['BWPS_away_startday'], $_POST['BWPS_away_startyear']) && checkdate($_POST['BWPS_away_endmonth'], $_POST['BWPS_away_endday'], $_POST['BWPS_away_endyear'])) {
 		
 			$startDate = $_POST['BWPS_away_startmonth'] . "/" . $_POST['BWPS_away_startday'] . "/" . $_POST['BWPS_away_startyear'];
@@ -42,6 +40,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('AWAY', BWPS_VERSION_AWAY);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 		

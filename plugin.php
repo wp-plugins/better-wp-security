@@ -34,19 +34,25 @@
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/common.php');
 
 //Define section versions
-define('BWPS_AWAY_VERSION','1');
-define('BWPS_BANIPS_VERSION','1');
-define('BWPS_D404_VERSION','2');
-define('BWPS_HIDEBE_VERSION','3');
-define('BWPS_HTACCESS_VERSION','3');
-define('BWPS_LIMITLOGIN_VERSION','1');
-define('BWPS_TWEAKS_VERSION','10');
+define('BWPS_VERSION_AWAY','1');
+define('BWPS_VERSION_BANIPS','1');
+define('BWPS_VERSION_D404','2');
+define('BWPS_VERSION_HIDEBE','3');
+define('BWPS_VERSION_HTACCESS','3');
+define('BWPS_VERSION_LL','1');
+define('BWPS_VERSION_TWEAKS','10');
 
 //Defing table versions
-define('BWPS_D404_TABLE_ATTEMPTS_VERSION','2');
-define('BWPS_D404_TABLE_LOCKOUTS_VERSION','2');
-define('BWPS_LIMITLOGIN_TABLE_ATTEMPTS_VERSION','1');
-define('BWPS_LIMITLOGIN_TABLE_LOCKOUTS_VERSION','1');
+define('BWPS_VERSION_TABLE_D404','0');
+define('BWPS_VERSION_TABLE_LL','0');
+define('BWPS_VERSION_TABLE_LOCKOUTS','0');
+
+global $wpdb;
+
+//Define table names
+define('BWPS_TABLE_D404', $wpdb->prefix . 'BWPS_d404');
+define('BWPS_TABLE_LL', $wpdb->prefix . 'BWPS_ll');
+define('BWPS_TABLE_LOCKOUTS', $wpdb->prefix . 'BWPS_lockouts');
 
 /**
  * Adds the admin menu pages
@@ -204,8 +210,3 @@ global $BWPS, $BWPS_limitlogin, $BWPS_tweaks;
 $BWPS = new BWPS();
 $BWPS_limitlogin = new BWPS_limitlogin();
 $BWPS_tweaks = new BWPS_tweaks();
-
-//if the user is an admin check BWPS versions
-if (is_admin()) {
-	$BWPS_tweaks->checkVersions();
-}

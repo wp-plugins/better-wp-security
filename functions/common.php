@@ -32,6 +32,10 @@ class BWPS {
 			add_action('wp_head', array(&$this,'d404_check')); //register action
 		}
 		unset($opts);
+		
+		if (is_admin()) {
+			$this->checkVersions();
+		}
 	}
 
 	/**
@@ -46,12 +50,6 @@ class BWPS {
 			update_option("BWPS_options", serialize($opts));
 		} else { //get options from database and add db prefix to tablenames
 			$opts = unserialize(get_option("BWPS_options"));
-			if (!strstr($opts['limitlogin_table_fails'],$wpdb->prefix)) {
-				$opts['limitlogin_table_fails'] = $wpdb->prefix . $opts['limitlogin_table_fails'];
-				$opts['limitlogin_table_lockouts'] = $wpdb->prefix . $opts['limitlogin_table_lockouts'];
-				$opts['d404_table_attempts'] = $wpdb->prefix . $opts['d404_table_attempts'];
-				$opts['d404_table_lockouts'] = $wpdb->prefix . $opts['d404_table_lockouts'];
-			}
 		}
 		
 		return $opts;
@@ -69,20 +67,47 @@ class BWPS {
 		$opts = $this->getOptions(); 
 			
 		$opts[$opt] = $val;
-		
-		//get the string length of the database prefix
-		$prelen = strlen($wpdb->prefix);
-		
-		//make sure to remove the database prefix from the table names before saving
-		$opts['limitlogin_table_fails'] = substr($opts['limitlogin_table_fails'],$prelen,strlen($opts['limitlogin_table_fails']));
-		$opts['limitlogin_table_lockouts'] = substr($opts['limitlogin_table_lockouts'],$prelen,strlen($opts['limitlogin_table_lockouts']));
-		$opts['d404_table_attempts'] = substr($opts['d404_table_attempts'],$prelen,strlen($opts['d404_table_attempts']));
-		$opts['d404_table_lockouts'] = substr($opts['d404_table_lockouts'],$prelen,strlen($opts['d404_table_lockouts']));
 				
 		delete_option("BWPS_options");
 		update_option("BWPS_options", serialize($opts));
 			
 		return $this->getOptions();;
+	}
+	
+	/**
+ 	 * Returns the array of BWPS version numbers
+ 	 * @return object 
+ 	 */
+	function getVersions() {
+		global $wpdb;
+		
+		if (!get_option("BWPS_versions")) { //if options are not in the database retreive default options
+			$vers = BWPS_versions();
+			update_option("BWPS_versions", serialize($opts));
+		} else { //get options from database and add db prefix to tablenames
+			$vers = unserialize(get_option("BWPS_versions"));
+		}
+		
+		return $vers;
+	}
+		
+	/**
+ 	 * Saves a new option to the database and returns an updated array of version numbers
+ 	 * @return object 
+ 	 * @param String
+ 	 * @param String
+ 	 */
+	function saveVersions($ver, $val) {
+		global $wpdb;
+		
+		$vers = $this->getVersions(); 
+			
+		$vers[$ver] = $val;
+				
+		delete_option("BWPS_versions");
+		update_option("BWPS_versions", serialize($vers));
+			
+		return $this->getVersions();;
 	}
 
 	/**
@@ -152,47 +177,48 @@ class BWPS {
 			return false; //return false if we can't write the file
 		}
 	}
-	
+
 	/**
 	 * Check supsection versions and prompt user if update is needed.
 	 */	
 	function checkVersions() {
 	
-		$opts = $this->getOptions();
+		$vers = $this->getVersions();
 		
 		/**
 	 	 * Display warning message
-	 	 */
-		function BWPS_upgradeWarning() {
-			$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your') . ' <strong>';
-			$postMess = '</strong></p></div>';
-			
-			if ($opts['away_Version'] != BWPS_AWAY_VERSION && $opts['away_Version'] > 0 && !isset($_POST['BWPS_away_save'])) { //see if away section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . __('Better WP Security - Away Mode Settings.') . '</a>' . $postMess;
-			}
-			if ($opts['banips_Version'] != BWPS_BANIPS_VERSION && $opts['banips_Version'] > 0 && !isset($_POST['BWPS_banips_save'])) { //see if banips section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . __('Better WP Security - Ban IPs Settings.') . '</a>' . $postMess;
-			}
-			if ($opts['tweaks_Version'] != BWPS_TWEAKS_VERSION && $opts['tweaks_Version'] > 0 && !isset($_POST['BWPS_tweaks_save'])) { //see if tweaks section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . __('Better WP Security - System Tweaks.') . '</a>' . $postMess;
-			}
-			if ($opts['hidebe_Version'] != BWPS_HIDEBE_VERSION && $opts['hidebe_Version'] > 0 && !isset($_POST['BWPS_hidebe_save'])) { //see if hidebe section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.') . '</a>' . $postMess;
-			}
-			if ($opts['limitlogin_Version'] != BWPS_LIMITLOGIN_VERSION && $opts['limitlogin_Version'] > 0 && !isset($_POST['BWPS_limitlogin_save'])) { //see if limitlogin section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-limitlogin">' . __('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
-			}
-			if ($opts['htaccess_Version'] != BWPS_HTACCESS_VERSION && $opts['htaccess_Version'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.') . '</a>' . $postMess;
-			}
-			if ($opts['d404_Version'] != BWPS_D404_VERSION && $opts['d404_Version'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
-				echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.') . '</a>' . $postMess;
+ 		 */
+ 		 if (!function_exists('upWarning')) {
+			function upWarning() {
+				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your') . ' <strong>';
+				$postMess = '</strong></p></div>';
+	
+				if ($vers['AWAY'] != BWPS_VERSION_AWAY && $vers['AWAY'] > 0 && !isset($_POST['BWPS_away_save'])) { //see if away section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . __('Better WP Security - Away Mode Settings.') . '</a>' . $postMess;
+				}
+				if ($vers['BANIPS'] != BWPS_VERSION_BANIPS && $vers['BANIPS'] > 0 && !isset($_POST['BWPS_banips_save'])) { //see if banips section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . __('Better WP Security - Ban IPs Settings.') . '</a>' . $postMess;
+				}
+				if ($vers['TWEAKS'] != BWPS_VERSION_TWEAKS && $vers['TWEAKS'] > 0 && !isset($_POST['BWPS_tweaks_save'])) { //see if tweaks section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . __('Better WP Security - System Tweaks.') . '</a>' . $postMess;
+				}
+				if ($vers['HIDEBE'] != BWPS_VERSION_HIDEBE && $vers['HIDEBE'] > 0 && !isset($_POST['BWPS_hidebe_save'])) { //see if hidebe section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.') . '</a>' . $postMess;
+				}
+				if ($vers['LL'] != BWPS_VERSION_LL && $vers['LL'] > 0 && !isset($_POST['BWPS_limitlogin_save'])) { //see if limitlogin section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-limitlogin">' . __('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
+				}
+				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.') . '</a>' . $postMess;
+				}
+				if ($vers['D404'] != BWPS_VERSION_D404 && $vers['D404'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.') . '</a>' . $postMess;
+				}
 			}
 		}
 		
-		add_action('admin_notices', 'BWPS_upgradeWarning'); //register wordpress action
-		
-		unset($opts);
+		add_action('admin_notices', 'upWarning'); //register wordpress action
+		unset($vers);
 	}
 		
 	/**
@@ -332,9 +358,9 @@ class BWPS {
 		
 		$qstring = $wpdb->escape($_SERVER['REQUEST_URI']);
 					
-		$hackQuery = "INSERT INTO " . $opts['d404_table_attempts'] . " (computer_id, qstring, attempt_date)
+		$hackQuery = "INSERT INTO " . BWPS_TABLE_D404 . " (computer_id, qstring, attempt_date)
 			VALUES ('" . $computer_id . "', '" . $qstring . "', " . time() . ");";
-			echo $hackQuery;
+			
 		unset($opts);		
 		return $wpdb->query($hackQuery);
 	}
@@ -351,7 +377,7 @@ class BWPS {
 			
 		$reTime = 300;
 				
-		$count = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . $opts['d404_table_attempts'] . "
+		$count = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . BWPS_TABLE_D404 . "
 			WHERE attempt_date +
 			" . $reTime . " >'" . time() . "' AND
 			computer_id = '" . $computer_id . "';"
@@ -372,8 +398,8 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 				
-		$lHost = "INSERT INTO " . $opts['d404_table_lockouts'] . " (computer_id, lockout_date)
-			VALUES ('" . $computer_id . "', " . time() . ")";
+		$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
+			VALUES ('" . $computer_id . "', " . time() . ", 1)";
 					
 		$wpdb->query($lHost);			
 		
@@ -391,8 +417,8 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 		
-		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . $opts['d404_table_lockouts']  . 
-			" WHERE lockout_date < " . (time() + 1800) . " AND computer_id = '" . $computer_id . "';");
+		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . 
+			" WHERE lockout_date < " . (time() + 1800) . " AND computer_id = '" . $computer_id . "' AND mode = 1;");
 		
 		unset($opts);
 		
@@ -413,7 +439,7 @@ class BWPS {
 		$opts = $this->getOptions();
 			
 
-		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, computer_id FROM " . $opts['d404_table_lockouts']  . " WHERE lockout_date < " . (time() + 1800) . ";", ARRAY_A);
+		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + 1800) . " AND mode = 1;", ARRAY_A);
 					
 		unset($opts);
 		return $lockList;
