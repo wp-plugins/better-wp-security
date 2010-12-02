@@ -31,7 +31,7 @@
 */
 
 //Require the code to the rest of the plugin
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/common.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/bwps.php');
 
 //Define section versions
 define('BWPS_VERSION_AWAY','1');
@@ -200,12 +200,8 @@ register_deactivation_hook(__file__, 'BWPS_uninstall');
  * Define BWPS global options
  *
  * @global object 
- * @global object 
- * @global object 
- * @global object 
  */
-global $BWPS, $BWPS_tweaks;
+global $BWPS;
 
 //create BWPS objects
 $BWPS = new BWPS();
-$BWPS_tweaks = new BWPS_tweaks();

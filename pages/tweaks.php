@@ -1,7 +1,7 @@
 <?php
-	global $BWPS_tweaks;
+	global $BWPS;
 	
-	$opts = $BWPS_tweaks->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_tweaks_save'])) {
 		
@@ -9,19 +9,17 @@
 			die('Security error!');
 		}	
 		
-		$opts = $BWPS_tweaks->saveOptions("tweaks_Version", BWPS_TWEAKS_VERSION);
-		
-		$opts = $BWPS_tweaks->saveOptions("tweaks_removeGenerator",$_POST['BWPS_removeGenerator']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_removeLoginMessages",$_POST['BWPS_removeLoginMessages']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_randomVersion",$_POST['BWPS_randomVersion']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_themeUpdates",$_POST['BWPS_themeUpdates']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_pluginUpdates",$_POST['BWPS_pluginUpdates']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_coreUpdates",$_POST['BWPS_coreUpdates']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_removewlm",$_POST['BWPS_removewlm']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
-		$opts = $BWPS_tweaks->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
+		$opts = $BWPS->saveOptions("tweaks_removeGenerator",$_POST['BWPS_removeGenerator']);
+		$opts = $BWPS->saveOptions("tweaks_removeLoginMessages",$_POST['BWPS_removeLoginMessages']);
+		$opts = $BWPS->saveOptions("tweaks_randomVersion",$_POST['BWPS_randomVersion']);
+		$opts = $BWPS->saveOptions("tweaks_themeUpdates",$_POST['BWPS_themeUpdates']);
+		$opts = $BWPS->saveOptions("tweaks_pluginUpdates",$_POST['BWPS_pluginUpdates']);
+		$opts = $BWPS->saveOptions("tweaks_coreUpdates",$_POST['BWPS_coreUpdates']);
+		$opts = $BWPS->saveOptions("tweaks_removewlm",$_POST['BWPS_removewlm']);
+		$opts = $BWPS->saveOptions("tweaks_removersd",$_POST['BWPS_removersd']);
+		$opts = $BWPS->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
+		$opts = $BWPS->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
+		$opts = $BWPS->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
 
 		if (isset($_POST['BWPS_enforceSSL'])) {
 			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
@@ -71,6 +69,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('TWEAKS', BWPS_VERSION_TWEAKS);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 		
@@ -158,7 +157,7 @@
 								<h4>SSL Tweaks</h4>
 								<p>
 									<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4><br />
-									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS_tweaks->checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
+									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS->checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
 									Prevents error messages from being displayed to a user upon a failed login attempt.
 								</p>
 							</tbody>

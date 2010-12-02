@@ -8,7 +8,6 @@
  //Require files for related subclasses
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
 
 class BWPS {
 
@@ -20,7 +19,7 @@ class BWPS {
 	function __construct() {
 		global $wpdb;
 		
-		$this->computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
+		$this->computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']); //get the visitor's ip address
 		
 		$opts = $this->getOptions();
 		
@@ -35,15 +34,76 @@ class BWPS {
 			add_action('wp_head', array(&$this,'d404_check')); //register action
 		}
 		
+		//remove wp-generator meta tag
+		if ($opts['tweaks_removeGenerator'] == 1) { 
+			remove_action('wp_head', 'wp_generator');
+		}
+
+		//remove login error messages if turned on
+		if ($opts['tweaks_removeLoginMessages'] == 1) {
+			add_filter('login_errors', create_function('$a', "return null;"));
+		}
+
+		//display random number for wordpress version if turned on
+		if ($opts['tweaks_randomVersion'] == 1) {
+			$this->randomVersion();
+		}
+		
+		//remove theme update notifications if turned on
+		if ($opts['tweaks_themeUpdates'] == 1) {
+			add_action('init', array(&$this, 'themeupdates'), 1);
+		}
+		
+		//remove plugin update notifications if turned on
+		if ($opts['tweaks_pluginUpdates'] == 1) {
+			add_action('init', array(&$this, 'pluginupdates'), 1);
+		}
+		
+		//remove core update notifications if turned on
+		if ($opts['tweaks_coreUpdates'] == 1) {
+			add_action('init', array(&$this, 'coreupdates'), 1);
+		}
+		
+		//remove wlmanifest link if turned on
+		if ($opts['tweaks_removewlm'] == 1) {
+			remove_action('wp_head', 'wlwmanifest_link');
+		}
+		
+		//remove rsd link from header if turned on
+		if ($opts['tweaks_removersd'] == 1) {
+			remove_action('wp_head', 'rsd_link');
+		}
+		
+		//require strong passwords if turned on
+		if ($opts['tweaks_strongpass'] == 1) {
+			add_action( 'user_profile_update_errors',  array(&$this, 'strongpass'), 0, 3 ); 
+		}
+		
+		//ban extra-long urls if turned on
+		if ($opts['tweaks_longurls'] == 1 && !is_admin()) {
+			if (strlen($_SERVER['REQUEST_URI']) > 255 ||
+				strpos($_SERVER['REQUEST_URI'], "eval(") ||
+				strpos($_SERVER['REQUEST_URI'], "CONCAT") ||
+				strpos($_SERVER['REQUEST_URI'], "UNION+SELECT") ||
+				strpos($_SERVER['REQUEST_URI'], "base64")) {
+				@header("HTTP/1.1 414 Request-URI Too Long");
+				@header("Status: 414 Request-URI Too Long");
+				@header("Connection: Close");
+				@exit;
+			}
+		}
+		
+		//see if they're locked out and banned from the site
 		if ($opts['ll_denyaccess'] == 1 && $this->ll_checkLock()) {
 			die('Security error!');
 		}
-		
-		unset($opts);
-		
+			
+		//check versions if user is admin
 		if (is_admin()) {
 			$this->checkVersions();
 		}
+		
+		unset($opts);
 	}
 
 	/**
@@ -297,6 +357,7 @@ class BWPS {
 					$linc = 0;
 				}
 				
+				//check for appropriate times
 				$local = ((date('g',$lTime) + $linc) * 60) + date('i',$lTime);
 			
 				if (date('a',$opts['away_start']) == "pm" && date('g',$opts['away_start']) != "12") {
@@ -319,6 +380,7 @@ class BWPS {
 				
 				$end = ((date('g',$opts['away_end']) + $einc) * 60) + date('i',$opts['away_end']);
 				
+				//return true if they are not allowed to log in
 				if ($start >= $end) { 
 					if ($local >= $start || $local < $end) {
 						unset($opts);
@@ -338,7 +400,7 @@ class BWPS {
 			}
 		}
 		unset($opts);
-		return false;
+		return false; //they are allowed to log in
 	}
 	
 	/**
@@ -468,10 +530,10 @@ class BWPS {
 		$username = sanitize_user($username);
 		$user = get_userdatabylogin($username);
 			
-		if ($user) {
+		if ($user) { //if we are dealing with a user account return the approrpriate count
 			$checkField = "user_id";
 			$val = $user->ID;
-		} else {
+		} else { 
 			$checkField = "computer_id";
 			$val = $this->computer_id;
 		}
@@ -499,7 +561,7 @@ class BWPS {
 		$username = sanitize_user($username);
 		$user = get_userdatabylogin($username);
 	
-		if ($user) {
+		if ($user) { //set the userid field if applicable
 			$userId = $user->ID;
 		} else {
 			$userId = "";
@@ -529,25 +591,25 @@ class BWPS {
 		$loTime = time();
 		$reTime = $loTime + ($opts['ll_banperiod'] * 60);
 				
-		if ($user) {
+		if ($user) { //lock out the user
 			$lUser = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (user_id, lockout_date, mode)
 				VALUES ('" . $user->ID . "', " . $loTime . ", 2)";
 			unset($user);	
 			$wpdb->query($lUser);
 				
-			$mesEmail = "A Wordpress user, " . $username . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+			$mesEmail = __("A Wordpress user, " . $username . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.");
 				
-		} else {
+		} else { //just lock out the host
 			$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
 				VALUES ('" . $this->computer_id . "', " . $loTime . ", 2)";
 					
 			$wpdb->query($lHost);
 				
-			$mesEmail = "A computer, " . $this->computer_id . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+			$mesEmail = __("A computer, " . $this->computer_id . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.");
 				
 		}
 		
-		if ($opts['ll_emailnotify'] == 1) {
+		if ($opts['ll_emailnotify'] == 1) { //email the site admin if necessary
 			$toEmail = get_site_option("admin_email");
 			$subEmail = get_bloginfo('name') . ": Site Lockout Notification";
 			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
@@ -569,22 +631,23 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 		
-		if (strlen($username) > 0) {
+		if (strlen($username) > 0) { //if a username was entered check to see if it's locked out
 			$username = sanitize_user($username);
 			$user = get_userdatabylogin($username);
 
 			if ($user) {
-				$userCheck = $wpdb->get_var("SELECT user_id FROM " . BWPS_TABLE_LOCKOUTS  . 
-					" WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND user_id = '$user->ID' AND mode = 2");
+				$userCheck = $wpdb->get_var("SELECT user_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND user_id = '$user->ID' AND mode = 2");
 				unset($user);
 			}
-		} else {
+		} else { //no username to be locked out
 			$userCheck = false;
 		}
 		
-		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . 
-			" WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND computer_id = '$this->computer_id' AND mode = 2");
-			
+		//see if the host is locked out
+		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND computer_id = '$this->computer_id' AND mode = 2");
+		
+		
+		//return false if both the user and the host are not locked out	
 		if (!$userCheck && !$hostCheck) {
 			unset($opts);
 			return false;
@@ -602,7 +665,8 @@ class BWPS {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
-			
+		
+		//display the appropriate list	
 		if ($ltype == "users") {
 			$checkField = "user_id";
 		} else {
@@ -610,7 +674,8 @@ class BWPS {
 		}
 
 		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, " . $checkField . " AS loLabel FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND " . $checkField . " != '' AND mode = 2", ARRAY_A);
-			
+		
+		//get the users's name if needed
 		if ($ltype == "users" && sizeof($lockList) > 0) {
 			$user = get_userdata($lockList[0]['loLabel']);
 				
@@ -620,6 +685,114 @@ class BWPS {
 		
 		unset($opts);
 		return $lockList;
+	}
+	
+	function randomVersion() {
+		global $wp_version;
+
+		$newVersion = rand(100,500);
+
+		if (!is_admin()) {
+			$wp_version = $newVersion;
+		}
+	}
+	
+	function pluginupdates() {
+		if (!is_super_admin()) {
+			remove_action( 'load-update-core.php', 'wp_update_plugins' );
+			add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
+			wp_clear_scheduled_hook( 'wp_update_plugins' );
+		}
+	}
+
+	function themeupdates() {
+		if (!is_super_admin()) {
+			remove_action( 'load-update-core.php', 'wp_update_themes' );
+			add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
+			wp_clear_scheduled_hook( 'wp_update_themes' );
+		}
+	}
+	
+	function coreupdates() {
+		if (!is_super_admin()) {
+			remove_action('admin_notices', 'update_nag', 3);
+			add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+			wp_clear_scheduled_hook( 'wp_version_check' );
+		}
+	}
+	
+	function strongpass( $errors ) {  
+		$opts = $this->getOptions();
+		
+		$minRole = $opts['tweaks_strongpassrole'];
+	
+		$availableRoles = array(
+			"administrator" => "8",
+			"editor" => "5",
+			"author" => "2",
+			"contributor" => "1",
+			"subscriber" => "0"
+		);
+		
+		$rollists = array(
+			"administrator" => array("subscriber", "author", "contributor","editor"),
+			"editor" =>  array("subscriber", "author", "contributor"),
+			"author" =>  array("subscriber", "contributor"),
+			"contributor" =>  array("subscriber"),
+			"subscriber" => array()
+		);
+		
+		$enforce = true;  
+		$args = func_get_args();  
+		$userID = $args[2]->ID;  
+		if ( $userID ) {  
+			$userInfo = get_userdata( $userID );  
+			if ( $userInfo->user_level < $availableRoles[$minRole] ) {  
+				$enforce = false;  
+			}  
+		} else {  
+			if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
+				$enforce = false;  
+			}  
+		}  
+		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
+			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' ) );  
+		}  
+		unset($opts);
+		unset ($rollists);
+		unset($availableRoles);
+		return $errors;  
+	}  
+ 
+	function pwordstrength( $i, $f ) {  
+		$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null;  
+		if ( strlen( $i ) < 4 )  
+			return $h;  
+		if ( strtolower( $i ) == strtolower( $f ) )  
+			return $e;  
+		if ( preg_match( "/[0-9]/", $i ) )  
+			$d += 10;  
+		if ( preg_match( "/[a-z]/", $i ) )  
+			$d += 26;  
+		if ( preg_match( "/[A-Z]/", $i ) )  
+			$d += 26;  
+		if ( preg_match( "/[^a-zA-Z0-9]/", $i ) )  
+			$d += 31;  
+		$g = log( pow( $d, strlen( $i ) ) );  
+		$c = $g / log( 2 );  
+		if ( $c < 40 )  
+			return $e;  
+		if ( $c < 56 )  
+			return $b;  
+		return $a;  
+	}
+	
+	function checkSSL() {
+		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
