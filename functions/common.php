@@ -7,17 +7,20 @@
  
  //Require files for related subclasses
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/limitlogin.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/tweaks.php');
 
 class BWPS {
+
+	private $computer_id;
 
 	/**
 	 * Execute startup tasks
 	 */
 	function __construct() {
 		global $wpdb;
+		
+		$this->computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
 		
 		$opts = $this->getOptions();
 		
@@ -31,6 +34,11 @@ class BWPS {
 			
 			add_action('wp_head', array(&$this,'d404_check')); //register action
 		}
+		
+		if ($opts['ll_denyaccess'] == 1 && $this->ll_checkLock()) {
+			die('Security error!');
+		}
+		
 		unset($opts);
 		
 		if (is_admin()) {
@@ -205,8 +213,8 @@ class BWPS {
 				if ($vers['HIDEBE'] != BWPS_VERSION_HIDEBE && $vers['HIDEBE'] > 0 && !isset($_POST['BWPS_hidebe_save'])) { //see if hidebe section needs updating
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.') . '</a>' . $postMess;
 				}
-				if ($vers['LL'] != BWPS_VERSION_LL && $vers['LL'] > 0 && !isset($_POST['BWPS_limitlogin_save'])) { //see if limitlogin section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-limitlogin">' . __('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
+				if ($vers['LL'] != BWPS_VERSION_LL && $vers['LL'] > 0 && !isset($_POST['BWPS_ll_save'])) { //see if ll section needs updating
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-ll">' . __('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
 				}
 				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.') . '</a>' . $postMess;
@@ -262,6 +270,8 @@ class BWPS {
 		$opts = $this->getOptions();
 		if ($mode == 'away') {
 			$flag =  $opts['away_enable'];
+		} elseif ($mode == 'll') {
+			$flag =  $opts['ll_enable'];
 		}
 		unset($opts);
 		return $flag;
@@ -444,6 +454,172 @@ class BWPS {
 		unset($opts);
 		return $lockList;
 	}
+	
+	/**
+	 * Count how many bad logins from host or username
+	 * @return integer
+	 * @param String
+	 */
+	function ll_countAttempts($username = "") {
+		global $wpdb;
+		
+		$opts = $this->getOptions();
+			
+		$username = sanitize_user($username);
+		$user = get_userdatabylogin($username);
+			
+		if ($user) {
+			$checkField = "user_id";
+			$val = $user->ID;
+		} else {
+			$checkField = "computer_id";
+			$val = $this->computer_id;
+		}
+			
+		$fails = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . BWPS_TABLE_LL . "
+			WHERE attempt_date +
+			" . ($opts['ll_checkinterval'] * 60) . " >'" . time() . "' AND
+			" . $checkField . " = '" . $val . "'"
+		);
+		
+		unset($opts);	
+		return $fails;
+	}
 
+	/**
+	 * Log the bad login attempt
+	 * @return Boolean
+	 * @param String
+	 */
+	function ll_logAttempt($username = "") {
+		global $wpdb;
+		
+		$opts = $this->getOptions();
+		
+		$username = sanitize_user($username);
+		$user = get_userdatabylogin($username);
+	
+		if ($user) {
+			$userId = $user->ID;
+		} else {
+			$userId = "";
+		}
+		
+		unset($user);
+					
+		$failQuery = "INSERT INTO " . BWPS_TABLE_LL . " (user_id, computer_id, attempt_date)
+			VALUES ('" . $userId . "', '" . $this->computer_id . "', " . time() . ");";
+		
+		unset($opts);		
+		return $wpdb->query($failQuery);
+	}
+	
+	/**
+	 * Lock out the host or username
+	 * @param String
+	 */
+	function ll_lockOut($username = "") {
+		global $wpdb;
+		
+		$opts = $this->getOptions();
+
+		$username = sanitize_user($username);
+		$user = get_userdatabylogin($username);
+			
+		$loTime = time();
+		$reTime = $loTime + ($opts['ll_banperiod'] * 60);
+				
+		if ($user) {
+			$lUser = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (user_id, lockout_date, mode)
+				VALUES ('" . $user->ID . "', " . $loTime . ", 2)";
+			unset($user);	
+			$wpdb->query($lUser);
+				
+			$mesEmail = "A Wordpress user, " . $username . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+				
+		} else {
+			$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
+				VALUES ('" . $this->computer_id . "', " . $loTime . ", 2)";
+					
+			$wpdb->query($lHost);
+				
+			$mesEmail = "A computer, " . $this->computer_id . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.";
+				
+		}
+		
+		if ($opts['ll_emailnotify'] == 1) {
+			$toEmail = get_site_option("admin_email");
+			$subEmail = get_bloginfo('name') . ": Site Lockout Notification";
+			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
+			
+			$sendMail = wp_mail($toEmail, $subEmail, $mesEmail, $headers);
+		}
+		
+		unset($opts);
+			
+	}
+	
+	/**
+	 * Determine if host or username is locked out
+	 * @return Boolean
+	 * @param String
+	 */
+	function ll_checkLock($username = "") {
+		global $wpdb;
+		
+		$opts = $this->getOptions();
+		
+		if (strlen($username) > 0) {
+			$username = sanitize_user($username);
+			$user = get_userdatabylogin($username);
+
+			if ($user) {
+				$userCheck = $wpdb->get_var("SELECT user_id FROM " . BWPS_TABLE_LOCKOUTS  . 
+					" WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND user_id = '$user->ID' AND mode = 2");
+				unset($user);
+			}
+		} else {
+			$userCheck = false;
+		}
+		
+		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . 
+			" WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND computer_id = '$this->computer_id' AND mode = 2");
+			
+		if (!$userCheck && !$hostCheck) {
+			unset($opts);
+			return false;
+		} else {
+			unset($opts);
+			return true;
+		}
+	}
+	
+	/**
+	 * List locked out users and computers
+	 * @return array
+	 */
+	function ll_listLocked($ltype = "") {
+		global $wpdb;
+		
+		$opts = $this->getOptions();
+			
+		if ($ltype == "users") {
+			$checkField = "user_id";
+		} else {
+			$checkField = "computer_id";
+		}
+
+		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, " . $checkField . " AS loLabel FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + ($opts['ll_banperiod'] * 60)). " AND " . $checkField . " != '' AND mode = 2", ARRAY_A);
+			
+		if ($ltype == "users" && sizeof($lockList) > 0) {
+			$user = get_userdata($lockList[0]['loLabel']);
+				
+			$lockList[0]['loLabel'] = $user->user_login . " (" . $user->first_name . " " . $user->last_name . ")";
+			unset($user);
+		}
+		
+		unset($opts);
+		return $lockList;
+	}
 	
 }

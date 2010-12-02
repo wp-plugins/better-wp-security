@@ -30,6 +30,7 @@ function BWPS_install() {
 	$BWPSinstall .= "CREATE TABLE " . BWPS_TABLE_LOCKOUTS . " (
 		`lockout_id` bigint(20) NOT NULL AUTO_INCREMENT,
 		`computer_id` varchar(20),
+		`user_id` varchar(20),
 		`lockout_date` int(10),
 		`mode` int(5),
 		PRIMARY KEY  (`lockout_id`)
@@ -151,13 +152,13 @@ function BWPS_defaults() {
 		"hidebe_admin_slug" => "admin",
 		"hidebe_register_slug" => "register",
 		"hidebe_canregister" => get_option('users_can_register'),
-		"limitlogin_enable" => "0",
-		"limitlogin_maxattemptshost" => "5",
-		"limitlogin_maxattemptsuser" => "10",
-		"limitlogin_checkinterval" => "5",
-		"limitlogin_banperiod" => "60",
-		"limitlogin_denyaccess" => "1",
-		"limitlogin_emailnotify" => "1",
+		"ll_enable" => "0",
+		"ll_maxattemptshost" => "5",
+		"ll_maxattemptsuser" => "10",
+		"ll_checkinterval" => "5",
+		"ll_banperiod" => "60",
+		"ll_denyaccess" => "1",
+		"ll_emailnotify" => "1",
 		"banips_enable" => "0",
 		"banips_iplist" => "",
 		"d404_enable" => "0"

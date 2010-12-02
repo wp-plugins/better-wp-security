@@ -7,15 +7,14 @@
 		
 		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_d404_save')) {
 			die('Security error!');
-		}	
-		
-		$opts = $BWPS->saveOptions("d404_Version", BWPS_D404_VERSION);
+		}
 		
 		$opts = $BWPS->saveOptions("d404_enable", $_POST['BWPS_d404_enable']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('D404', BWPS_VERSION_D404);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}		
 	}
@@ -28,7 +27,7 @@
 		
 		while (list($key, $value) = each($_POST)) {
 			if (strstr($key,"lo")) {
-				$wpdb->query("DELETE FROM " . $opts['d404_table_lockouts'] . " WHERE lockout_ID = " . $value . ";");
+				$wpdb->query("DELETE FROM " . BWPS_TABLE_LOCKOUTS . " WHERE lockout_ID = " . $value . " AND mode = 1;");
 			}
 		}
 	}

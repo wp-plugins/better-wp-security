@@ -1,7 +1,7 @@
 <?php
 if ( !function_exists('wp_authenticate') ) {
 	function wp_authenticate($username, $password) {
-		global $BWPS_limitlogin, $BWPS;
+		global $BWPS;
 		
 		$opts = $BWPS->getOptions();
 
@@ -12,8 +12,8 @@ if ( !function_exists('wp_authenticate') ) {
 			wp_redirect(get_option('siteurl'));
 		}
 		
-		if ($BWPS_limitlogin->isOn() && $BWPS_limitlogin->checkLock($username)) {
-			if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
+		if ($BWPS->isOn('ll') && $BWPS->ll_checkLock($username)) {
+			if ($opts['ll_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 				wp_redirect(get_option('siteurl'));
 			} else {
 				unset($opts);
@@ -29,27 +29,27 @@ if ( !function_exists('wp_authenticate') ) {
 
 		$ignore_codes = array('empty_username', 'empty_password');
 		
-		if ($BWPS_limitlogin->isOn()) {
+		if ($BWPS->isOn('ll')) {
 			if (isset($_POST['wp-submit']) && is_wp_error($user)) {
 
-				if ($opts['limitlogin_maxattemptsuser'] >= $BWPS_limitlogin->countAttempts($username)) {
-					$BWPS_limitlogin->logAttempt($username);	
+				if ($opts['ll_maxattemptsuser'] >= $BWPS->ll_countAttempts($username)) {
+					$BWPS->ll_logAttempt($username);	
 				} else {	
-					$BWPS_limitlogin->logAttempt();
+					$BWPS->ll_logAttempt();
 				}
 				
-				if ($opts['limitlogin_maxattemptshost'] <= $BWPS_limitlogin->countAttempts()) {
-					$BWPS_limitlogin->lockOut();
+				if ($opts['ll_maxattemptshost'] <= $BWPS->ll_countAttempts()) {
+					$BWPS->ll_lockOut();
 					$locked = true;
 				}
 				
-				if ($opts['limitlogin_maxattemptsuser'] <= $BWPS_limitlogin->countAttempts($username)) {
-					$BWPS_limitlogin->lockOut($username);
+				if ($opts['ll_maxattemptsuser'] <= $BWPS->ll_countAttempts($username)) {
+					$BWPS->ll_lockOut($username);
 					$locked = true;
 				} 
 			
 				if ($locked == true) {
-					if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
+					if ($opts['ll_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 						wp_redirect(get_option('siteurl'));
 					} else {
 						unset($opts);
@@ -57,24 +57,24 @@ if ( !function_exists('wp_authenticate') ) {
 					}
 				}
 			} elseif (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
-				if ($opts['limitlogin_maxattemptsuser'] >= $BWPS_limitlogin->countAttempts($username)) {
-					$BWPS_limitlogin->logAttempt($username);	
+				if ($opts['ll_maxattemptsuser'] >= $BWPS->ll_countAttempts($username)) {
+					$BWPS->ll_logAttempt($username);	
 				} else {	
-					$BWPS_limitlogin->logAttempt();
+					$BWPS->ll_logAttempt();
 				}
 			
-				if ($opts['limitlogin_maxattemptshost'] <= $BWPS_limitlogin->countAttempts()) {
-					$BWPS_limitlogin->lockOut();
+				if ($opts['ll_maxattemptshost'] <= $BWPS->ll_countAttempts()) {
+					$BWPS->ll_lockOut();
 					$locked = true;
 				}
 				
-				if ($opts['limitlogin_maxattemptsuser'] <= $BWPS_limitlogin->countAttempts($username)) {
-					$BWPS_limitlogin->lockOut($username);
+				if ($opts['ll_maxattemptsuser'] <= $BWPS->ll_countAttempts($username)) {
+					$BWPS->ll_lockOut($username);
 					$locked = true;
 				} 
 			
 				if ($locked == true) {
-					if ($opts['limitlogin_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
+					if ($opts['ll_denyaccess'] == 1 || $opts['general_removeLoginMessages'] == 1) {
 						wp_redirect(get_option('siteurl'));
 					} else {
 						unset($opts);

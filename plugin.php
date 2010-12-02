@@ -72,7 +72,7 @@ function menu_items() {
 	add_submenu_page('BWPS', __('Better WP Security - Database Prefix'), __('Database Prefix'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS', __('Better WP Security - Hide Backend Options'), __('Hide Backend'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS', __('Better WP Security - .htaccess Options'), __('.htaccess Options'), 'manage_options', 'BWPS-htaccess', 'htaccess_options');
-	add_submenu_page('BWPS', __('Better WP Security - Limit Logins Options'), __('Limit Logins'), 'manage_options', 'BWPS-limitlogin', 'limitlogin_options');
+	add_submenu_page('BWPS', __('Better WP Security - Limit Logins Options'), __('Limit Logins'), 'manage_options', 'BWPS-ll', 'll_options');
 	add_submenu_page('BWPS', __('Better WP Security - System Tweaks'), __('System Tweaks'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
 }
 
@@ -144,8 +144,8 @@ function htaccess_options() {
  * Define the limit bad logins options page
  * @return null 
  */	
-function limitlogin_options() {
-	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/limitlogin.php');
+function ll_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/ll.php');
 }
 
 /**
@@ -204,9 +204,8 @@ register_deactivation_hook(__file__, 'BWPS_uninstall');
  * @global object 
  * @global object 
  */
-global $BWPS, $BWPS_limitlogin, $BWPS_tweaks;
+global $BWPS, $BWPS_tweaks;
 
 //create BWPS objects
 $BWPS = new BWPS();
-$BWPS_limitlogin = new BWPS_limitlogin();
 $BWPS_tweaks = new BWPS_tweaks();
