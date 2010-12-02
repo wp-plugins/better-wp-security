@@ -33,6 +33,9 @@
 //Require the code to the rest of the plugin
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/bwps.php');
 
+//access the wpdb object
+global $wpdb;
+
 //Define section versions
 define('BWPS_VERSION_AWAY','1');
 define('BWPS_VERSION_BANIPS','1');
@@ -46,8 +49,6 @@ define('BWPS_VERSION_TWEAKS','10');
 define('BWPS_VERSION_TABLE_D404','0');
 define('BWPS_VERSION_TABLE_LL','0');
 define('BWPS_VERSION_TABLE_LOCKOUTS','0');
-
-global $wpdb;
 
 //Define table names
 define('BWPS_TABLE_D404', $wpdb->prefix . 'BWPS_d404');
@@ -177,11 +178,11 @@ add_action('admin_menu',  'menu_items');
 function BWPS_plugin_action_links($links, $file) {
 	static $this_plugin;
 			
-	if (!$this_plugin ) {
+	if (!$this_plugin ) { //make sure plugin is active
 		$this_plugin = plugin_basename(__FILE__);
 	 }
 	 
-	if ($file == $this_plugin) {
+	if ($file == $this_plugin) { //if plugin is active add a link
 		$settings_link = '<a href="/wp-admin/admin.php?page=BWPS">' . __('Setup') . '</a>';
 		array_unshift($links, $settings_link);
 	}
