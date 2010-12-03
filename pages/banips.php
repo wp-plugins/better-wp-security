@@ -1,6 +1,4 @@
 <?php
-	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/banips.php');
-	
 	global $BWPS;
 	
 	$opts = $BWPS->getOptions();
