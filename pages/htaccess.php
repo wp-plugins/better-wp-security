@@ -1,21 +1,17 @@
 <?php
-	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/htaccess.php');
+	global $BWPS;
 	
-	$BWPS_htaccess = new BWPS_htaccess();
-	
-	$opts = $BWPS_htaccess->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_htaccess_save'])) {
 		
 		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_htaccess_save')) {
 			die('Security error!');
 		}	
-		
-		$opts = $BWPS_htaccess->saveOptions("htaccess_Version", BWPS_HTACCESS_VERSION);
 				
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
-		if (!$BWPS_htaccess->can_write($htaccess)) { 
+		if (!$BWPS->can_write($htaccess)) { 
 			
 			if (!$errorHandler) {
 				$errorHandler = new WP_Error();
@@ -25,28 +21,28 @@
 			
 		} else {
 		
-			$opts = $BWPS_htaccess->saveOptions("htaccess_protectht",$_POST['BWPS_protectht']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_protectwpc",$_POST['BWPS_protectwpc']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_dirbrowse",$_POST['BWPS_dirbrowse']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_hotlink",$_POST['BWPS_hotlink']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_request",$_POST['BWPS_request']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_qstring",$_POST['BWPS_qstring']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_protectreadme",$_POST['BWPS_protectreadme']);
-			$opts = $BWPS_htaccess->saveOptions("htaccess_protectinstall",$_POST['BWPS_protectinstall']);
+			$opts = $BWPS->saveOptions("htaccess_protectht",$_POST['BWPS_protectht']);
+			$opts = $BWPS->saveOptions("htaccess_protectwpc",$_POST['BWPS_protectwpc']);
+			$opts = $BWPS->saveOptions("htaccess_dirbrowse",$_POST['BWPS_dirbrowse']);
+			$opts = $BWPS->saveOptions("htaccess_hotlink",$_POST['BWPS_hotlink']);
+			$opts = $BWPS->saveOptions("htaccess_request",$_POST['BWPS_request']);
+			$opts = $BWPS->saveOptions("htaccess_qstring",$_POST['BWPS_qstring']);
+			$opts = $BWPS->saveOptions("htaccess_protectreadme",$_POST['BWPS_protectreadme']);
+			$opts = $BWPS->saveOptions("htaccess_protectinstall",$_POST['BWPS_protectinstall']);
 			
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect wp-config');
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Request Methods');
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
+			$BWPS->remove_section($htaccess, 'Better WP Security Protect wp-config');
+			$BWPS->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
+			$BWPS->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
+			$BWPS->remove_section($htaccess, 'Better WP Security Filter Request Methods');
+			$BWPS->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 			
-			$BWPS_htaccess->remove_section($htaccess, 'Better WP Security Protect htaccess');
+			$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
 			
 			$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
-			$BWPS_htaccess->remove_section($htaccess, 'WordPress');
+			$BWPS->remove_section($htaccess, 'WordPress');
 			
-			insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS_htaccess->genRules()));
+			insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS->htaccess_genRules()));
 			insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));	
 			
 		}
@@ -54,6 +50,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('HTACCESS', BWPS_VERSION_HTACCESS);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 	}
@@ -123,7 +120,7 @@
 				<h3>Current .htaccess</h3>	
 				<div class="inside">
 					<p>Here are the current contents of your .htaccess file.</p>
-					<?php $BWPS_htaccess->showContents(); ?>
+					<?php $BWPS->htaccess_showContents(); ?>
 				</div>
 			</div>
 		</div>

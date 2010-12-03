@@ -46,37 +46,37 @@ class BWPS {
 
 		//display random number for wordpress version if turned on
 		if ($opts['tweaks_randomVersion'] == 1) {
-			$this->randomVersion();
+			$this->tweaks_randomVersion();
 		}
 		
 		//remove theme update notifications if turned on
 		if ($opts['tweaks_themeUpdates'] == 1) {
-			add_action('init', array(&$this, 'themeupdates'), 1);
+			add_action('init', array(&$this, 'tweaks_themeupdates'), 1);
 		}
 		
 		//remove plugin update notifications if turned on
 		if ($opts['tweaks_pluginUpdates'] == 1) {
-			add_action('init', array(&$this, 'pluginupdates'), 1);
+			add_action('init', array(&$this, 'tweaks_pluginupdates'), 1);
 		}
 		
 		//remove core update notifications if turned on
 		if ($opts['tweaks_coreUpdates'] == 1) {
-			add_action('init', array(&$this, 'coreupdates'), 1);
+			add_action('init', array(&$this, 'tweaks_coreupdates'), 1);
 		}
 		
 		//remove wlmanifest link if turned on
 		if ($opts['tweaks_removewlm'] == 1) {
-			remove_action('wp_head', 'wlwmanifest_link');
+			remove_action('wp_head', 'tweaks_wlwmanifest_link');
 		}
 		
 		//remove rsd link from header if turned on
 		if ($opts['tweaks_removersd'] == 1) {
-			remove_action('wp_head', 'rsd_link');
+			remove_action('wp_head', 'tweaks_rsd_link');
 		}
 		
 		//require strong passwords if turned on
 		if ($opts['tweaks_strongpass'] == 1) {
-			add_action( 'user_profile_update_errors',  array(&$this, 'strongpass'), 0, 3 ); 
+			add_action( 'user_profile_update_errors',  array(&$this, 'tweaks_strongpass'), 0, 3 ); 
 		}
 		
 		//ban extra-long urls if turned on
@@ -298,7 +298,9 @@ class BWPS {
 	}
 	
 	/**
-	 * 
+	 *  Returns domain without subdomain
+	 * @return String
+	 * @param String
 	 */
 	function uDomain($address) {
 		preg_match("/^(http:\/\/)?([^\/]+)/i", $address, $matches);
@@ -690,7 +692,7 @@ class BWPS {
 	/**
 	 * Set wordpress version to a random integer between 100 and 500
 	 */
-	function randomVersion() {
+	function tweaks_randomVersion() {
 		global $wp_version;
 
 		$newVersion = rand(100,500);
@@ -704,7 +706,7 @@ class BWPS {
 	/**
 	 * Disble plugin update notifications
 	 */
-	function pluginupdates() {
+	function tweaks_pluginupdates() {
 		//don't remove for super admins
 		if (!is_super_admin()) {
 			remove_action( 'load-update-core.php', 'wp_update_plugins' );
@@ -716,7 +718,7 @@ class BWPS {
 	/**
 	 * Diable theme update notifications
 	 */
-	function themeupdates() {
+	function tweaks_themeupdates() {
 		if (!is_super_admin()) {
 			remove_action( 'load-update-core.php', 'wp_update_themes' );
 			add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
@@ -727,7 +729,7 @@ class BWPS {
 	/**
 	 * Disable core update notifications
 	 */
-	function coreupdates() {
+	function tweaks_coreupdates() {
 		if (!is_super_admin()) {
 			remove_action('admin_notices', 'update_nag', 3);
 			add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
@@ -740,7 +742,7 @@ class BWPS {
 	 * @return object
 	 * @param object
 	 */
-	function strongpass( $errors ) {  
+	function tweaks_strongpass( $errors ) {  
 		$opts = $this->getOptions();
 		
 		//determine the minimum role for enforcement
@@ -779,7 +781,7 @@ class BWPS {
 		}  
 		
 		//add to error array if the password does not meet requirements
-		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
+		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->tweaks_pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
 			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' ) );  
 		}  
 		
@@ -796,7 +798,7 @@ class BWPS {
 	 * @param string
 	 * @param string
 	 */
-	function pwordstrength( $i, $f ) {  
+	function tweaks_pwordstrength( $i, $f ) {  
 		$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null;  
 		if ( strlen( $i ) < 4 )  
 			return $h;  
@@ -823,11 +825,210 @@ class BWPS {
 	 * Check to see if ssl is requirement for all admin and logins
 	 * @return Boolean
 	 */
-	function checkSSL() {
+	function tweaks_checkSSL() {
 		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	/**
+	 * Generate htaccess rules for hidebe
+	 * @return String
+	 */
+	function hidebe_getRules() {
+	
+		$opts = $this->getOptions();
+		
+		$siteurl = explode('/',trailingslashit(get_option('siteurl')));
+		
+		unset($siteurl[0]); unset($siteurl[1]); unset($siteurl[2]);
+		
+		$dir = implode('/',$siteurl);
+		
+		$login_slug = $opts['hidebe_login_slug'];
+		$logout_slug = $opts['hidebe_logout_slug'];
+		$admin_slug = $opts['hidebe_admin_slug'];
+		$register_slug = $opts['hidebe_register_slug'];
+				
+		$supsec_key = $this->hidebe_secKey();
+		
+		$reDomain = $this->uDomain(get_option('siteurl'));
+		
+		if (get_option('users_can_register') == 1) {
+			$regEn = "RewriteCond %{QUERY_STRING} !^action=register\n";
+		} else {
+			$regEn = "";
+		}
+		
+		$theRules = "<IfModule mod_rewrite.c>\n" . 
+			"RewriteEngine On\n" . 
+			"RewriteBase /\n" . 
+			"RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" .
+			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+			"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" .
+			"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" .
+			"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $supsec_key . "&action=register [R,L]\n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
+			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
+			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
+			"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
+			$regEn . 
+			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+			"RewriteRule ^wp-login\.php not_found [L]\n" .
+			"</IfModule>\n";
+		
+		unset($opts);
+		
+		return $theRules;
+	}
+	
+	/**
+	 * Generates a random string to be used as a key
+	 * @return String
+	 */
+	function hidebe_secKey() {	
+		$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		srand((double)microtime()*1000000);
+		$pass = '' ;		
+		for ($i = 0; $i <= 20; $i++) {
+			$num = rand() % 33;
+			$tmp = substr($chars, $num, 1);
+			$pass = $pass . $tmp;
+		}
+		return $pass;	
+	}
+		
+	/**
+	 * Checks to see if the saved htaccess rules are correct
+	 * @return String
+	 */
+	function hidebe_confirmRules() {
+		
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+			
+		$curRules = $this->hidebe_getRules();
+		$savedRules = implode("\n", extract_from_markers($htaccess, 'Better WP Security Hide Backend' ));
+			
+		if (strlen($curRules) != strlen($savedRules)) {
+			return "#ffebeb";
+		} else {
+			return "#fff";
+		}
+			
+	}
+	
+	/**
+	 * Echos currect htaccess contents
+	 */
+	function htaccess_showContents() {
+	
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		
+		$fh = fopen($htaccess, 'r');
+		
+		$contents = fread($fh, filesize($htaccess));
+		
+		fclose($fh);
+		
+		echo "<pre>" . $contents . "</pre>";
+	
+	}
+	
+	/**
+	 * Generate htaccess rules for protect htaccess
+	 * @return String
+	 */
+	function htaccess_genRules() {
+	
+		$opts = $this->getOptions();
+		
+		$rules = "";
+		
+		if ($_POST['BWPS_dirbrowse'] == 1 || $opts['htaccess_protectht'] == 1) { 
+			$rules .= "Options All -Indexes\n\n";	
+		} 
+	
+		if ($_POST['BWPS_protectht'] == 1 || $opts['htaccess_protectht'] == 1) { 
+			$rules .= "<files .htaccess>\n" .
+				"Order allow,deny\n" . 
+				"Deny from all\n" .
+				"</files>\n\n";
+		}
+		
+		if ($_POST['BWPS_protectreadme'] == 1 || $opts['htaccess_protectreadme'] == 1) { 
+			$rules .= "<files readme.html>\n" .
+				"Order allow,deny\n" . 
+				"Deny from all\n" .
+				"</files>\n\n";
+		}
+		
+		if ($_POST['BWPS_protectinstall'] == 1 || $opts['htaccess_protectinstall'] == 1) { 
+			$rules .= "<files install.php>\n" .
+				"Order allow,deny\n" . 
+				"Deny from all\n" .
+				"</files>\n\n";
+		}
+				
+		if ($_POST['BWPS_protectwpc'] == 1 || $opts['htaccess_protectwpc'] == 1) { 
+			$rules .= "<files wp-config.php>\n" .
+				"Order allow,deny\n" . 
+				"Deny from all\n" .
+				"</files>\n\n";
+		}
+		
+		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $_POST['BWPS_hotlink'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['htaccess_hotlink'] == 1) { 
+			$rules .= "<IfModule mod_rewrite.c>\n" . 
+				"RewriteEngine On\n" . 
+				"RewriteBase /\n\n";
+		}
+			
+		if ($_POST['BWPS_request'] == 1 || $opts['htaccess_request'] == 1) { 
+			$rules .= "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
+				"RewriteRule ^(.*)$ - [F,L]\n";
+		}
+			
+		if ($_POST['BWPS_qstring'] == 1 || $opts['htaccess_qstring'] == 1) { 
+			$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} http\:  [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} https\:  [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]\n" .  
+				"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
+				"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare).* [NC]\n" . 
+				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+				"RewriteRule ^(.*)$ - [F,L]\n\n";
+		}
+		
+		if ($_POST['BWPS_hotlink'] == 1 || $opts['htaccess_hotlink'] == 1) { 
+				
+			$reDomain = $this->uDomain(get_option('siteurl'));
+				
+			$rules .= "RewriteCond %{HTTP_REFERER} !^$\n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/.*$ [NC]\n" .
+				"RewriteRule .(jpg|jpeg|png|gif|pdf|doc)$ - [F]\n\n";
+				
+		}
+		
+		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $_POST['BWPS_hotlink'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['htaccess_hotlink'] == 1) { 
+			$rules .= "</IfModule>\n";
+		}
+		
+		unset($opts);
+		return $rules;
+	}
+
+	
 }

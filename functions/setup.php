@@ -40,32 +40,27 @@ function BWPS_install() {
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta($BWPSinstall);
 	
-	delete_option("BWPS_versions");
-	update_option("BWPS_versions", serialize($vers));
-	unset($vers);
-	
 	$BWPS = new BWPS();
 	
+	$opts = $BWPS->getOptions();
+		
 	$htaccess = trailingslashit(ABSPATH).'.htaccess';
 	
 	if (!$BWPS->can_write($htaccess)) {
 		echo "Unable to update htaccess rules";
 	} else {
-	
-		$BWPSohide = get_option('BWPS_oldRules1');
-		$BWPSoht = get_option('BWPS_oldRules2');
 		
 		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
-				
 		$BWPS->remove_section($htaccess, 'WordPress');
-		
-		insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPSoht));
-		insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPSohide));
+			
+		insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS->htaccess_genRules()));
+		if ($opts['hidebe_enable'] == 1 ) {
+			insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS->hidebe_getRules()));
+		}
 		insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));
-		
-		delete_option('BWPS_oldRules1');
-		delete_option('BWPS_oldRules2');
 	}
+	
+	unset($opts);
 }
 	
 function BWPS_uninstall() {
@@ -78,22 +73,8 @@ function BWPS_uninstall() {
 	if (!$BWPS->can_write($htaccess)) {
 		echo "Unable to update htaccess rules";
 	} else {
-	
-		$BWPSohide = implode("\n", extract_from_markers($htaccess, 'Better WP Security Hide Backend' ));
-		$BWPSoht = implode("\n", extract_from_markers($htaccess, 'Better WP Security Protect htaccess' ));
 		
-		update_option("BWPS_oldRules1", $BWPSohide);
-		update_option("BWPS_oldRules2", $BWPSoht);
-		
-		$BWPS->remove_section($htaccess, 'Better WP Security Hide Admin');
-		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
-		$BWPS->remove_section($htaccess, 'Better WP Security Protect wp-config');
-		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Directory Browsing');
-		$BWPS->remove_section($htaccess, 'Better WP Security Prevent Hotlinking');
-		$BWPS->remove_section($htaccess, 'Better WP Security Filter Request Methods');
-		$BWPS->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
-		
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 		
 		$del_d404 = 'DROP TABLE '. BWPS_TABLE_D404 . ';';

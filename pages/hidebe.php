@@ -1,9 +1,7 @@
 <?php
-	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/hidebe.php');
+	global $BWPS;
 	
-	$BWPS_hidebe = new BWPS_hidebe();
-	
-	$opts = $BWPS_hidebe->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_hidebe_save'])) {
 		
@@ -11,28 +9,26 @@
 			die('Security error!');
 		}	
 		
-		$opts = $BWPS_hidebe->saveOptions("hidebe_Version", BWPS_HIDEBE_VERSION);
-		
 		$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
 		$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
 		$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
 		
-		$opts = $BWPS_hidebe->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_login_slug", $login_slug);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_admin_slug", $admin_slug);
-		$opts = $BWPS_hidebe->saveOptions("hidebe_register_slug", $register_slug);
+		$opts = $BWPS->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
+		$opts = $BWPS->saveOptions("hidebe_login_slug", $login_slug);
+		$opts = $BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
+		$opts = $BWPS->saveOptions("hidebe_register_slug", $register_slug);
 		
 		if (get_option('users_can_register')) {
-			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","1");
+			$opts = $BWPS->saveOptions("hidebe_canregister","1");
 		} else {
-			$opts = $BWPS_hidebe->saveOptions("hidebe_canregister","0");
+			$opts = $BWPS->saveOptions("hidebe_canregister","0");
 		}
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
-		if (!$BWPS_hidebe->can_write($htaccess)) {
+		if (!$BWPS->can_write($htaccess)) {
 			
-			$opts = $BWPS_hidebe->saveOptions("hidebe_enable","0");
+			$opts = $BWPS->saveOptions("hidebe_enable","0");
 			
 			if (!$errorHandler) {
 				$errorHandler = new WP_Error();
@@ -46,15 +42,15 @@
 			
 				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 				
-				$BWPS_hidebe->remove_section($htaccess, 'WordPress');
-				$BWPS_hidebe->remove_section($htaccess, 'Better WP Security Hide Backend');
+				$BWPS->remove_section($htaccess, 'WordPress');
+				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 				
-				insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS_hidebe->getRules()));
+				insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS->hidebe_getRules()));
 				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));			
 				
 			} else {
 			
-				$BWPS_hidebe->remove_section($htaccess, 'Better WP Security Hide Backend');
+				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 				
 			}
 			
@@ -63,6 +59,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$BWPS->saveVersions('HIDEBE', BWPS_VERSION_HIDEBE);
 			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
 		}
 		
@@ -141,7 +138,7 @@
 			<div class="clear"></div>
 		
 			<?php
-				$bgColor = $BWPS_hidebe->confirmRules();
+				$bgColor = $BWPS->hidebe_confirmRules();
 			?>
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
@@ -152,7 +149,7 @@
 								echo "<h4 style=\"text-align: center;\">Your htaccess rules have a problem. Please save this form to fix them</h4>";
 							}
 						?>
-						<pre><?php echo $BWPS_hidebe->getRules(); ?></pre>
+						<pre><?php echo $BWPS->hidebe_getRules(); ?></pre>
 					</div>
 				</div>
 			</div>
