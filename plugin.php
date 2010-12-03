@@ -32,6 +32,8 @@
 
 //Require the code to the rest of the plugin
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/bwps.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
 
 //access the wpdb object
 global $wpdb;
@@ -46,9 +48,9 @@ define('BWPS_VERSION_LL','1');
 define('BWPS_VERSION_TWEAKS','10');
 
 //Defing table versions
-define('BWPS_VERSION_TABLE_D404','0');
-define('BWPS_VERSION_TABLE_LL','0');
-define('BWPS_VERSION_TABLE_LOCKOUTS','0');
+define('BWPS_VERSION_TABLE_D404','1');
+define('BWPS_VERSION_TABLE_LL','1');
+define('BWPS_VERSION_TABLE_LOCKOUTS','1');
 
 //Define table names
 define('BWPS_TABLE_D404', $wpdb->prefix . 'BWPS_d404');

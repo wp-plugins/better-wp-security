@@ -1,7 +1,5 @@
 <?php
-	require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/status.php');
-	
-	$BWPS_status = new BWPS_status();
+	global $BWPS;
 ?>
 
 <div class="wrap" >
@@ -14,7 +12,7 @@
 			<div class="postbox opened">
 				<h3>Better WP Security System Status</h3>
 				<div class="inside">
-					<?php $BWPS_status->getStatus(); ?>
+					<?php $BWPS->status_getStatus(); ?>
 				</div>
 			</div>
 		</div>

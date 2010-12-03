@@ -4,10 +4,6 @@
  *
  * @package BWPS
  */
- 
- //Require files for related subclasses
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
-require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
 
 class BWPS {
 
@@ -847,21 +843,26 @@ class BWPS {
 		
 		$dir = implode('/',$siteurl);
 		
+		//get the slugs
 		$login_slug = $opts['hidebe_login_slug'];
 		$logout_slug = $opts['hidebe_logout_slug'];
 		$admin_slug = $opts['hidebe_admin_slug'];
 		$register_slug = $opts['hidebe_register_slug'];
 				
+		//generate the key
 		$supsec_key = $this->hidebe_secKey();
 		
+		//get the domain without subdomain
 		$reDomain = $this->uDomain(get_option('siteurl'));
 		
+		//see if user registration is allowed
 		if (get_option('users_can_register') == 1) {
 			$regEn = "RewriteCond %{QUERY_STRING} !^action=register\n";
 		} else {
 			$regEn = "";
 		}
 		
+		//create string of rules
 		$theRules = "<IfModule mod_rewrite.c>\n" . 
 			"RewriteEngine On\n" . 
 			"RewriteBase /\n" . 
@@ -1030,20 +1031,28 @@ class BWPS {
 		return $rules;
 	}
 
+	/**
+	 * Generates htaccess rules from a given array of ip addresses
+	 * @return Boolean
+	 * @param array
+	 */
 	function banips_createRules($ipArray) {
 		global $theRules; 
 		
 		$goodAddress = true;
+		
+		//get current ip address
 		$myIp = getenv("REMOTE_ADDR");
-				
+		
+		//run through each ip
 		for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) {
 			$ipArray[$i] = trim($ipArray[$i]);
 			if (strlen($ipArray[$i]) > 0 && (!$this->banips_checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) {
-				$goodAddress = false;
+				$goodAddress = false; //we have a bad ip
 			}
 		}
 	
-		if ($goodAddress == true) {
+		if ($goodAddress == true) { //if we don't have any bad ips create the string
 			
 			$ipList = implode(" ",$ipArray);
 	
@@ -1059,16 +1068,25 @@ class BWPS {
 		}
 	}
 	
+	/**
+	 * Return the htaccess rules in string format
+	 * @return String
+	 */
 	function banips_getList() {
 		global $theRules; 
 		
-		if (strlen($theRules) < 1) {
+		if (strlen($theRules) < 1) { //if $theRules isn't set check htaccess
 			return implode("\n", extract_from_markers($htaccess, 'Better WP Security Ban IPs' ));
 		} else {
 			return $theRules;
 		}
 	}
 
+	/**
+	 * Validate IP address
+	 * @return Boolean
+	 * @param string
+	 */
 	function banips_checkIps($address) {
 		if (preg_match( "/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/", $address)) {
 			return true;
@@ -1077,6 +1095,10 @@ class BWPS {
 		}
 	}
 		
+	/**
+	 * Confirmed banip rules in htaccess are correct
+	 * @return String
+	 */
 	function banips_confirmRules() {
 		global $theRules; 
 		
@@ -1084,12 +1106,273 @@ class BWPS {
 			
 		$savedRules = implode("\n", extract_from_markers($htaccess, 'Better WP Security Ban IPs' ));
 			
-		if (strlen($theRules) != strlen($savedRules)) {
+		if (strlen($theRules) != strlen($savedRules)) { //if the rules aren't correct
 			return "#ffebeb";
-		} else {
+		} else { //rules are correct
 			return "#fff";
 		}
 			
 	}
 	
+	function status_getStatus() {
+		$this->status_checkWPVersion();
+		$this->status_checkAdminUser();
+		$this->status_checkTablePre();
+		$this->status_checkhtaccess();
+		$this->status_checkLimitlogin();
+		$this->status_checkAway();
+		$this->status_checkhidebe();
+		$this->status_checkStrongPass();
+		$this->status_checkHead();
+		$this->status_checkUpdates();
+		$this->status_checklongurls();
+		$this->status_checkranver();
+		$this->status_check404();
+		$this->status_checkSSL();
+		$this->status_checkContentDir();
+	}
+	
+	function status_checkContentDir() {
+		echo "<p>\n";
+		if (!strstr(WP_CONTENT_DIR,'wp-content') || !strstr(WP_CONTENT_URL,'wp-content')) {
+			echo "<span style=\"color: green;\">You have renamed the wp-content directory of your site.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">You should rename the wp-content directory of your site. <a href=\"admin.php?page=BWPS-content\">Click here to do so</a>.</span>\n";
+		}
+		echo "</p>\n";
+	}
+	
+	function status_checkSSL() {
+		echo "<p>\n";
+		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
+			echo "<span style=\"color: green;\">You are requiring a secure connection for logins and the admin area.</span>\n";
+		} else {
+			echo "<span style=\"color: orange;\">You are not requiring a secure connection for longs or the admin area. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+	}
+	
+	function status_check404() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['d404_enable'] == 1) {
+			echo "<span style=\"color: green;\">Your site is secured from attacks by XSS.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your site is still vulnerable to some XSS attacks. <a href=\"admin.php?page=BWPS-d404\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkranver() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_randomVersion'] == 1) {
+			echo "<span style=\"color: green;\">Version information is obscured to all non admin users.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Users may still be able to get version information from various plugins and themes. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checklongurls() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_longurls'] == 1) {
+			echo "<span style=\"color: green;\">Your installation does not accept long URLs.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkLogin() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['tweaks_removeLoginMessages'] == 1) {
+			echo "<span style=\"color: green;\">No error messages are displayed on failed login.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Error messages are displayed to users on failed login. <a href=\"admin.php?page=BWPS-tweaks\">Click here to remove them</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkUpdates() {
+		$opts = $this->getOptions();
+		
+		$hcount = intval($opts["tweaks_themeUpdates"]) + intval($opts["tweaks_pluginUpdates"]) + intval($opts["tweaks_coreUpdates"]);
+	
+		echo "<p>\n";
+		if ($hcount == 3) {
+			echo "<span style=\"color: green;\">Non-administrators cannot see available updates.</span>\n";
+		} elseif ($hcount > 0) {
+			echo "<span style=\"color: orange;\">Non-administrators can see some updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Non-administrators can see all updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkHead() {
+		$opts = $this->getOptions();
+		
+		$hcount = intval($opts["tweaks_removeGenerator"]) + intval($opts["tweaks_removersd"]) + intval($opts["tweaks_removewlm"]);
+	
+		echo "<p>\n";
+		if ($hcount == 3) {
+			echo "<span style=\"color: green;\">Your Wordpress header is revealing as little information as possible.</span>\n";
+		} elseif ($hcount > 0) {
+			echo "<span style=\"color: orange;\">Your Wordpress header is still revealing some information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your Wordpress header is showing too much information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkStrongPass() {
+		$opts = $this->getOptions();
+		
+		$isOn = $opts['tweaks_strongpass'];
+		$role = $opts['tweaks_strongpassrole']; 
+	
+		echo "<p>\n";
+		if ($isOn == 1 && $role == 'subscriber') {
+			echo "<span style=\"color: green;\">You are enforcing strong passwords for all users</span>\n";
+		} elseif ($isOn == 1) {
+			echo "<span style=\"color: orange;\">You are enforcing strong passwords, but not for all users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">You are not enforcing strong passwords. <a href=\"admin.php?page=BWPS-tweaks\">Click here to enforce strong passwords.</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkhidebe() {
+		$opts = $this->getOptions();
+			
+		echo "<p>\n";
+		if ($opts['hidebe_enable'] == 1) {
+			echo "<span style=\"color: green;\">Your Wordpress admin area is hidden.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">Your Wordpress admin area  file is NOT hidden. <a href=\"admin.php?page=BWPS-hidebe\">Click here to secure it</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkWPVersion() {
+		global $wp_version;
+		
+		$currVersion = "3.0.1";
+		
+		echo "<p>\n";
+		
+		if (!is_numeric(intval($wp_version))) {
+			echo "<span style=\"color: orange;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> Your using a non-stable version of Wordpress. Switch to a stable version to avoid potential security issues.</span>\n";
+		} else {
+			if ($wp_version >= $currVersion) {
+				echo "<span style=\"color: green;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> Your Wordpress version is stable and current.</span>\n";
+			} else {
+				echo "<span style=\"color: red;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> You need version " . $currVersion . ".  You should <a href=\"http://wordpress.org/download/\">upgrade</a> immediately.</span>\n";
+			}
+		}
+		echo "</p>\n";
+	}
+	
+	function status_checkTablePre(){
+		global $wpdb;
+		
+		echo "<p>\n";
+
+		if ($table_prefix == 'wp_') {
+			echo "<span style=\"color: red;\">" . __('Your table prefix should not be <em>wp_</em>.') . "  <a href=\"admin.php?page=BWPS-database\">" . __('Click here to change it') . "</a>.</span>\n";
+		}else{
+			echo "<span style=\"color: green;\">" . __('Your table prefix is') . " <em>" . $wpdb->prefix . "</em>.</span>\n";
+		}
+
+		echo "</p>\n";
+	}
+	
+	function status_checkAdminUser() {
+		global $wpdb;
+
+		$adminUser = $wpdb->get_var("SELECT user_login FROM " . $wpdb->users . " WHERE user_login='admin'");
+		
+		echo "<p>\n";
+		
+		if ($adminUser =="admin") {
+			echo "<span style=\"color: red;\">" . __('The <em>admin</em> user still exists.') . "  <a href=\"admin.php?page=BWPS-adminuser\">" . __('Click here to rename it') . "</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: green;\">" . __('The <em>admin</em> user has been removed.') . "</span>\n";
+		}
+		
+		echo "</p>\n";
+	}
+	
+	function status_checkhtaccess() {
+	
+		$opts = $this->getOptions();
+		
+		$htcount = intval($opts["htaccess_protectht"]) + intval($opts["htaccess_protectwpc"]) + intval($opts["htaccess_dirbrowse"]) + intval($opts["htaccess_hotlink"]) + intval($opts["htaccess_request"]) + intval($opts["htaccess_qstring"]) + intval($opts["htaccess_protectreadme"]) + intval($opts["htaccess_protectinstall"]);
+	
+		echo "<p>\n";
+		if ($htcount == 8) {
+			echo "<span style=\"color: green;\">" . __('Your .htaccess file is fully secured.') . "</span>\n";
+		} elseif ($htcount > 0) {
+			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to fully secure it') . "</a>.</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">" . __('Your .htaccess file is NOT secured.') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to secure it') . "</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkLimitlogin() {
+	
+		$opts = $this->getOptions();
+	
+		echo "<p>\n";
+		if ($opts['limitlogin_enable'] == 1) {
+			echo "<span style=\"color: green;\">" . __('Your site is not vulnerable to brute force attacks.') . "</span>\n";
+		} else {
+			echo "<span style=\"color: red;\">" . __('Your site is vulnerable to brute force attacks.') . " <a href=\"admin.php?page=BWPS-limitlogin\">" . __('Click here to secure it') . "</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
+	
+	function status_checkAway() {
+	
+		$opts = $this->getOptions();
+	
+		echo "<p>\n";
+		
+		if ($opts['away_enable'] == 1) {
+			echo "<span style=\"color: green;\">" . __('Your Wordpress admin area is not available when you will not be needing it.') . "</span>\n";
+		} else {
+			echo "<span style=\"color: orange;\">" . __('Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?') . " <a href=\"admin.php?page=BWPS-away\">" . __('Click here to limit admin availability') . "</a>.</span>\n";
+		}
+		echo "</p>\n";
+		
+		unset($opts);
+	}
 }
