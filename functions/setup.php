@@ -52,12 +52,18 @@ function BWPS_install() {
 		
 		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 		$BWPS->remove_section($htaccess, 'WordPress');
-			
+		
 		insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS->htaccess_genRules()));
 		if ($opts['hidebe_enable'] == 1 ) {
 			insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS->hidebe_getRules()));
 		}
 		insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));
+		
+		if ($opts['banips_enable'] == 1 ) {
+			$ipArray = explode("\n",$opts['banips_iplist']);
+			$BWPS->banips_createRules($ipArray);
+			insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $BWPS->banips_getList()));
+		}
 	}
 	
 	unset($opts);
@@ -74,6 +80,7 @@ function BWPS_uninstall() {
 		echo "Unable to update htaccess rules";
 	} else {
 		
+		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
 		

@@ -3,9 +3,7 @@
 	
 	global $BWPS;
 	
-	$BWPS_banips = new BWPS_banips();
-	
-	$opts = $BWPS_banips->getOptions();
+	$opts = $BWPS->getOptions();
 	
 	if (isset($_POST['BWPS_banips_save'])) {
 		
@@ -13,7 +11,7 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS_banips->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
+		$opts = $BWPS->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
 				
 		if (strlen($_POST['BWPS_banips_iplist']) > 0) {
 		
@@ -21,24 +19,24 @@
 		
 			$ipArray = explode("\n", $ipInput);	
 			
-			if (!$BWPS_banips->createRules($ipArray)) {
+			if (!$BWPS->banips_createRules($ipArray)) {
 				if (!$errorHandler) {
 					$errorHandler = new WP_Error();
 				}
 				$errorHandler->add("1", __("You entered a bad IP address"));
 			}  else {
-				$opts = $BWPS_banips->saveOptions("banips_iplist",$ipInput);
+				$opts = $BWPS->saveOptions("banips_iplist",$ipInput);
 			}
 		} else {
-			$opts = $BWPS_banips->saveOptions("banips_enable","0");
-			$opts = $BWPS_banips->saveOptions("banips_iplist","");
+			$opts = $BWPS->saveOptions("banips_enable","0");
+			$opts = $BWPS->saveOptions("banips_iplist","");
 		}
 		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
-		if (!$BWPS_banips->can_write($htaccess)) {
+		if (!$BWPS->can_write($htaccess)) {
 
-			$opts = $BWPS_banips->saveOptions("banips_enable","0");
+			$opts = $BWPS->saveOptions("banips_enable","0");
 			
 			if (!$errorHandler) {
 				$errorHandler = new WP_Error();
@@ -49,13 +47,13 @@
 		} else {
 		
 			if ($_POST['BWPS_banips_enable'] == 1 && $opts['banips_iplist'] != "") {
-				$BWPS_banips->remove_section($htaccess, 'Better WP Security Ban IPs');
-				insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $BWPS_banips->getList()));
+				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
+				insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $BWPS->banips_getList()));
 
 			} else {
 			
-				$opts = $BWPS_banips->saveOptions("banips_enable","0");
-				$BWPS_banips->remove_section($htaccess, 'Better WP Security Ban IPs');
+				$opts = $BWPS->saveOptions("banips_enable","0");
+				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 				
 			}		
 			
@@ -131,7 +129,7 @@
 			<div class="clear"></div>
 		
 			<?php
-				$bgColor = $BWPS_banips->confirmRules();
+				$bgColor = $BWPS->banips_confirmRules();
 			?>
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
@@ -142,7 +140,7 @@
 								echo "<h4 style=\"text-align: center;\">Your htaccess rules have a problem. Please save this form to fix them</h4>";
 							}
 						?>
-						<pre><?php echo $BWPS_banips->getList(); ?></pre>
+						<pre><?php echo $BWPS->banips_getList(); ?></pre>
 					</div>
 				</div>
 			</div>
