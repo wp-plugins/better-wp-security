@@ -157,7 +157,7 @@
 								<h4>SSL Tweaks</h4>
 								<p>
 									<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4><br />
-									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS->checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
+									<input type="checkbox" name="BWPS_enforceSSL" id="BWPS_enforceSSL" value="1" <?php if ($sslon == "1" || $BWPS->tweaks_checkSSL()) echo "checked"; ?> /> <label for="BWPS_enforceSSL"><strong>Enforce SSL</strong></label><br />
 									Prevents error messages from being displayed to a user upon a failed login attempt.
 								</p>
 							</tbody>
