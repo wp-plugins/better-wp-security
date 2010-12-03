@@ -1350,10 +1350,10 @@ class BWPS {
 		$opts = $this->getOptions();
 	
 		echo "<p>\n";
-		if ($opts['limitlogin_enable'] == 1) {
+		if ($opts['ll_enable'] == 1) {
 			echo "<span style=\"color: green;\">" . __('Your site is not vulnerable to brute force attacks.') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __('Your site is vulnerable to brute force attacks.') . " <a href=\"admin.php?page=BWPS-limitlogin\">" . __('Click here to secure it') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('Your site is vulnerable to brute force attacks.') . " <a href=\"admin.php?page=BWPS-ll\">" . __('Click here to secure it') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
