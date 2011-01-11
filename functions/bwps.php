@@ -1114,6 +1114,9 @@ class BWPS {
 			
 	}
 	
+	/**
+	 * Execute functions to check security status.
+	 */
 	function status_getStatus() {
 		$this->status_checkWPVersion();
 		$this->status_checkAdminUser();
@@ -1132,12 +1135,15 @@ class BWPS {
 		$this->status_checkContentDir();
 	}
 	
+	/**
+	 * Check that the wp-content is renamed
+	 */
 	function status_checkContentDir() {
 		echo "<p>\n";
 		if (!strstr(WP_CONTENT_DIR,'wp-content') || !strstr(WP_CONTENT_URL,'wp-content')) {
-			echo "<span style=\"color: green;\">You have renamed the wp-content directory of your site.</span>\n";
+			echo "<span style=\"color: green;\">" . __("You have renamed the wp-content directory of your site.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">You should rename the wp-content directory of your site. <a href=\"admin.php?page=BWPS-content\">Click here to do so</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("You should rename the wp-content directory of your site.") . " <a href=\"admin.php?page=BWPS-content\">" . __("Click here to do so") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}
@@ -1145,9 +1151,9 @@ class BWPS {
 	function status_checkSSL() {
 		echo "<p>\n";
 		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
-			echo "<span style=\"color: green;\">You are requiring a secure connection for logins and the admin area.</span>\n";
+			echo "<span style=\"color: green;\">" . __("You are requiring a secure connection for logins and the admin area.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: orange;\">You are not requiring a secure connection for longs or the admin area. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("You are not requiring a secure connection for longs or the admin area.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}
@@ -1157,9 +1163,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['d404_enable'] == 1) {
-			echo "<span style=\"color: green;\">Your site is secured from attacks by XSS.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your site is secured from attacks by XSS.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Your site is still vulnerable to some XSS attacks. <a href=\"admin.php?page=BWPS-d404\">Click here to fix this</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.") . " <a href=\"admin.php?page=BWPS-d404\">" . __("Click here to fix this") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1171,9 +1177,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_randomVersion'] == 1) {
-			echo "<span style=\"color: green;\">Version information is obscured to all non admin users.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Version information is obscured to all non admin users.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Users may still be able to get version information from various plugins and themes. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Users may still be able to get version information from various plugins and themes.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1185,9 +1191,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_longurls'] == 1) {
-			echo "<span style=\"color: green;\">Your installation does not accept long URLs.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your installation does not accept long URLs.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix this</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1199,9 +1205,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_removeLoginMessages'] == 1) {
-			echo "<span style=\"color: green;\">No error messages are displayed on failed login.</span>\n";
+			echo "<span style=\"color: green;\">" . __("No error messages are displayed on failed login.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Error messages are displayed to users on failed login. <a href=\"admin.php?page=BWPS-tweaks\">Click here to remove them</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Error messages are displayed to users on failed login.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to remove them") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1215,11 +1221,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($hcount == 3) {
-			echo "<span style=\"color: green;\">Non-administrators cannot see available updates.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Non-administrators cannot see available updates.") . "</span>\n";
 		} elseif ($hcount > 0) {
-			echo "<span style=\"color: orange;\">Non-administrators can see some updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("Non-administrators can see some updates.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it") . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Non-administrators can see all updates. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Non-administrators can see all updates.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1233,11 +1239,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($hcount == 3) {
-			echo "<span style=\"color: green;\">Your Wordpress header is revealing as little information as possible.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your Wordpress header is revealing as little information as possible.") . "</span>\n";
 		} elseif ($hcount > 0) {
-			echo "<span style=\"color: orange;\">Your Wordpress header is still revealing some information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fully fix it</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("Your Wordpress header is still revealing some information to users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it") . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Your Wordpress header is showing too much information to users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix it</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your Wordpress header is showing too much information to users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1252,11 +1258,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($isOn == 1 && $role == 'subscriber') {
-			echo "<span style=\"color: green;\">You are enforcing strong passwords for all users</span>\n";
+			echo "<span style=\"color: green;\">" . __("You are enforcing strong passwords for all users") . "</span>\n";
 		} elseif ($isOn == 1) {
-			echo "<span style=\"color: orange;\">You are enforcing strong passwords, but not for all users. <a href=\"admin.php?page=BWPS-tweaks\">Click here to fix</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("You are enforcing strong passwords, but not for all users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix") . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">You are not enforcing strong passwords. <a href=\"admin.php?page=BWPS-tweaks\">Click here to enforce strong passwords.</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("You are not enforcing strong passwords.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to enforce strong passwords.") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1268,9 +1274,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['hidebe_enable'] == 1) {
-			echo "<span style=\"color: green;\">Your Wordpress admin area is hidden.</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your Wordpress admin area is hidden.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">Your Wordpress admin area  file is NOT hidden. <a href=\"admin.php?page=BWPS-hidebe\">Click here to secure it</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your Wordpress admin area  file is NOT hidden.") . " <a href=\"admin.php?page=BWPS-hidebe\">" . __("Click here to secure it") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1280,17 +1286,17 @@ class BWPS {
 	function status_checkWPVersion() {
 		global $wp_version;
 		
-		$currVersion = "3.0.1";
+		$currVersion = "3.0.4";
 		
 		echo "<p>\n";
 		
 		if (!is_numeric(intval($wp_version))) {
-			echo "<span style=\"color: orange;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> Your using a non-stable version of Wordpress. Switch to a stable version to avoid potential security issues.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong> " . __("Your using a non-stable version of Wordpress. Switch to a stable version to avoid potential security issues.") . "</span>\n";
 		} else {
 			if ($wp_version >= $currVersion) {
-				echo "<span style=\"color: green;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> Your Wordpress version is stable and current.</span>\n";
+				echo "<span style=\"color: green;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong>" . __(" Your Wordpress version is stable and current.") . "</span>\n";
 			} else {
-				echo "<span style=\"color: red;\">Your WordPress version: <strong><em>" . $wp_version . "</em></strong> You need version " . $currVersion . ".  You should <a href=\"http://wordpress.org/download/\">upgrade</a> immediately.</span>\n";
+				echo "<span style=\"color: red;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong> " . __("You need version") . " " . $currVersion . ".  " . __("You should") . " <a href=\"http://wordpress.org/download/\">" . __("upgrade") . "</a> " . __("immediately") . ".</span>\n";
 			}
 		}
 		echo "</p>\n";
