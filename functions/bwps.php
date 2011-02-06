@@ -181,9 +181,9 @@ class BWPS {
  	 */
 	function can_write($path) {		 
 		if ($path{strlen($path)-1} == '/') { //if we have a dir with a trailing slash
-			return BWPS_can_write($path.uniqid(mt_rand()).'.tmp');
+			return can_write($path.uniqid(mt_rand()).'.tmp');
 		} elseif (is_dir($path)) { //now make sure we have a directory
-			return BWPS_can_write($path.'/'.uniqid(mt_rand()).'.tmp');
+			return can_write($path.'/'.uniqid(mt_rand()).'.tmp');
 		}
 
 		$rm = file_exists($path);
@@ -209,7 +209,7 @@ class BWPS {
  	 * @param String
  	 */
 	function remove_section($filename, $marker) {
-		if (!file_exists($filename) || $this->can_write($filename)) { //make sure the file is valid and writable
+		if (file_exists($filename) && $this->can_write($filename)) { //make sure the file is valid and writable
 	
 			$markerdata = explode("\n", implode( '', file( $filename))); //parse each line of file into array
 
@@ -696,7 +696,18 @@ class BWPS {
 		//always show real version to site administrators
 		if (!is_admin()) {
 			$wp_version = $newVersion;
+			add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
+			add_filter( 'style_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
 		}
+	}
+	
+	/**
+	 * Completely remove version number from scripts and css links
+	 * Thank you to Dave <night-vision@xs4all.nl> for this bit of code
+	 */
+	function tweaks_remove_script_version( $src ){
+       		$parts = explode( '?', $src );
+       		return $parts[0];
 	}
 	
 	/**
@@ -1118,7 +1129,6 @@ class BWPS {
 	 * Execute functions to check security status.
 	 */
 	function status_getStatus() {
-		$this->status_checkWPVersion();
 		$this->status_checkAdminUser();
 		$this->status_checkTablePre();
 		$this->status_checkhtaccess();
@@ -1283,31 +1293,12 @@ class BWPS {
 		unset($opts);
 	}
 	
-	function status_checkWPVersion() {
-		global $wp_version;
-		
-		$currVersion = "3.0.4";
-		
-		echo "<p>\n";
-		
-		if (!is_numeric(intval($wp_version))) {
-			echo "<span style=\"color: orange;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong> " . __("Your using a non-stable version of Wordpress. Switch to a stable version to avoid potential security issues.") . "</span>\n";
-		} else {
-			if ($wp_version >= $currVersion) {
-				echo "<span style=\"color: green;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong>" . __(" Your Wordpress version is stable and current.") . "</span>\n";
-			} else {
-				echo "<span style=\"color: red;\">" . __("Your WordPress version:") . " <strong><em>" . $wp_version . "</em></strong> " . __("You need version") . " " . $currVersion . ".  " . __("You should") . " <a href=\"http://wordpress.org/download/\">" . __("upgrade") . "</a> " . __("immediately") . ".</span>\n";
-			}
-		}
-		echo "</p>\n";
-	}
-	
 	function status_checkTablePre(){
 		global $wpdb;
 		
 		echo "<p>\n";
 
-		if ($table_prefix == 'wp_') {
+		if ($wpdb->prefix == 'wp_') {
 			echo "<span style=\"color: red;\">" . __('Your table prefix should not be <em>wp_</em>.') . "  <a href=\"admin.php?page=BWPS-database\">" . __('Click here to change it') . "</a>.</span>\n";
 		}else{
 			echo "<span style=\"color: green;\">" . __('Your table prefix is') . " <em>" . $wpdb->prefix . "</em>.</span>\n";
@@ -1380,5 +1371,47 @@ class BWPS {
 		echo "</p>\n";
 		
 		unset($opts);
+	}
+	
+	function getDir() {
+		if (defined('WP_CONTENT_DIR') && defined('WP_CONTENT_URL')) {
+		$dir = WP_CONTENT_DIR;
+		$ls =  strripos($dir,'/') + 1;
+		$dir = substr($dir, $ls, strlen($dir));
+		} else {
+			$dir = 'wp-content';
+		}
+		return $dir;
+	}
+	
+	function renameContent($newDirectory) {
+		global $wpdb;
+		$olddir = $this->getDir();
+		$newdir = $wpdb->escape($newDirectory);
+		
+		rename(trailingslashit(ABSPATH) . $olddir, trailingslashit(ABSPATH) . $newdir);
+		
+		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$scanText = "/* That's all, stop editing! Happy blogging. */";
+		$newText = "define('WP_CONTENT_DIR', '" . trailingslashit(ABSPATH) . $newdir . "');\r\ndefine('WP_CONTENT_URL', '" . trailingslashit(get_option('siteurl')) . $newdir . "');\r\n\r\n/* That's all, stop editing! Happy blogging. */";
+		chmod($conf_f, 0755);
+		$handle = @fopen($conf_f, "r+");
+		if ($handle) {
+			while (!feof($handle)) {
+				$lines[] = fgets($handle, 4096);
+			}
+			fclose($handle);
+			$handle = @fopen($conf_f, "w+");
+			foreach ($lines as $line) {
+				if (strstr($line,"WP_CONTENT_DIR") || strstr($line,"WP_CONTENT_URL") ) {
+					$line = str_replace($line, "", $line);
+				}
+				if (strstr($line, $scanText)) {
+					$line = str_replace($scanText, $newText, $line);
+				}
+				fwrite($handle, $line);
+			} 
+			fclose($handle);
+		}
 	}
 }

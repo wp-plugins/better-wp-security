@@ -46,9 +46,7 @@ function BWPS_install() {
 		
 	$htaccess = trailingslashit(ABSPATH).'.htaccess';
 	
-	if (!$BWPS->can_write($htaccess)) {
-		echo "Unable to update htaccess rules";
-	} else {
+	if ($BWPS->can_write($htaccess)) {
 		
 		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
 		$BWPS->remove_section($htaccess, 'WordPress');
@@ -90,6 +88,7 @@ function BWPS_uninstall() {
 		$wpdb->query($del_d404);
 		$wpdb->query($del_ll);
 		$wpdb->query($del_lockouts);
+		$BWPS->renameContent('wp-content');
 	}
 }
 

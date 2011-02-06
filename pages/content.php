@@ -1,5 +1,5 @@
 <?php
-	global $wpdb;
+	global $BWPS;
 	
 	if (isset($_POST['BWPS_content_save'])) {
 		
@@ -7,33 +7,7 @@
 			die('Security error!');
 		}
 		
-		$olddir = getDir();
-		$newdir = $wpdb->escape($_POST['newdir']);
-		
-		rename(trailingslashit(ABSPATH) . $olddir, trailingslashit(ABSPATH) . $newdir);
-		
-		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
-		$scanText = "/* That's all, stop editing! Happy blogging. */";
-		$newText = "define('WP_CONTENT_DIR', '" . trailingslashit(ABSPATH) . $newdir . "');\r\ndefine('WP_CONTENT_URL', '" . trailingslashit(get_option('siteurl')) . $newdir . "');\r\n\r\n/* That's all, stop editing! Happy blogging. */";
-		chmod($conf_f, 0755);
-		$handle = @fopen($conf_f, "r+");
-		if ($handle) {
-			while (!feof($handle)) {
-				$lines[] = fgets($handle, 4096);
-			}
-			fclose($handle);
-			$handle = @fopen($conf_f, "w+");
-			foreach ($lines as $line) {
-				if (strstr($line,"WP_CONTENT_DIR") || strstr($line,"WP_CONTENT_URL") ) {
-					$line = str_replace($line, "", $line);
-				}
-				if (strstr($line, $scanText)) {
-					$line = str_replace($scanText, $newText, $line);
-				}
-				fwrite($handle, $line);
-			} 
-			fclose($handle);
-		}
+		$BWPS->renameContent($_POST['newdir']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -41,18 +15,7 @@
 			echo '<div id="message" class="updated"><p><em>content</em> directory successfully changed.</p></div>';
 		}
 	}
-	
-	function getDir() {
-		if (defined('WP_CONTENT_DIR') && defined('WP_CONTENT_URL')) {
-		$dir = WP_CONTENT_DIR;
-		$ls =  strripos($dir,'/') + 1;
-		$dir = substr($dir, $ls, strlen($dir));
-		} else {
-			$dir = 'wp-content';
-		}
-		return $dir;
-	}
-		
+			
 	if (!isset($_POST['BWPS_content_save'])) {
 ?>
 
@@ -68,7 +31,7 @@
 						<p>Select a new name for the content directory.</p>
 						<form method="post">
 							<?php wp_nonce_field('BWPS_content_save','wp_nonce') ?>
-							<label for="newdir">Directory Name: </label> <input id="newdir" name="newdir" type="text" value="<?php echo getDir(); ?>">
+							<label for="newdir">Directory Name: </label> <input id="newdir" name="newdir" type="text" value="<?php echo $BWPS->getDir(); ?>">
 							<p class="submit"><input type="submit" name="BWPS_content_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 						</form>
 					</div>

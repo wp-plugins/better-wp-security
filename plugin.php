@@ -9,11 +9,11 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 	Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-	Version: 0.9.BETA
+	Version: 0.10.BETA
 	Author: ChrisWiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
-	Copyright 2010  ChrisWiegman  (email : chris@chriswiegman.com)
+	Copyright 2011  ChrisWiegman  (email : chris@chriswiegman.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU tweaks Public License as published by

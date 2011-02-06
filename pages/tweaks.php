@@ -148,7 +148,7 @@
 								</p>
 								<p>
 									<input type="checkbox" name="BWPS_randomVersion" id="BWPS_randomVersion" value="1" <?php if ($opts['tweaks_randomVersion'] == 1) echo "checked"; ?> /> <label for="BWPS_randomVersion"><strong>Display random version number to all non-administrative users</strong></label><br />
-									Displays a random version number to non-administrator users in all places where version number must be used.
+									Displays a random version number to non-administrator users in all places where version number must be used and removes the version completely from where it can.
 								</p>
 								<p>
 									<input type="checkbox" name="BWPS_longurls" id="BWPS_longurls" value="1" <?php if ($opts['tweaks_longurls'] == 1) echo "checked"; ?> /> <label for="BWPS_longurls"><strong>Prevent long URL strings.</strong></label><br />
