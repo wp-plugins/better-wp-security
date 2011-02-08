@@ -703,7 +703,7 @@ class BWPS {
 	
 	/**
 	 * Completely remove version number from scripts and css links
-	 * Thank you to Dave <night-vision@xs4all.nl> for this bit of code
+	 * Thank you to Dave for this bit of code
 	 */
 	function tweaks_remove_script_version( $src ){
        		$parts = explode( '?', $src );

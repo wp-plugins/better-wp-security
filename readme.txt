@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0.4
 Tested up to: 3.0.4
-Stable tag: 0.10.BETA
+Stable tag: 0.11.BETA
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -67,12 +67,15 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
+= 0.11.BETA - February 8, 2011 =
+* Update to project homepage and other minor changes
+
 = 0.10.BETA - February 6, 2011 =
 * Removed WP version check from status page as it was redundant
 * On uninstall wp-content location will be returned to default
 * Fixed setup error
 * Error checking now correctly identifies database table prefix
-* Rendom version # generator now removes version number from scripts and css where it can (thanks to Dave <night-vision@xs4all.nl> for this)
+* Rendom version # generator now removes version number from scripts and css where it can (thanks to Dave for this)
 
 = 0.9.BETA - January 11, 2011 =
 * Bug fixes
