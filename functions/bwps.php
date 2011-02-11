@@ -1393,6 +1393,7 @@ class BWPS {
 		
 		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
 		$scanText = "/* That's all, stop editing! Happy blogging. */";
+		$altScan = "/* Stop editing */";
 		$newText = "define('WP_CONTENT_DIR', '" . trailingslashit(ABSPATH) . $newdir . "');\r\ndefine('WP_CONTENT_URL', '" . trailingslashit(get_option('siteurl')) . $newdir . "');\r\n\r\n/* That's all, stop editing! Happy blogging. */";
 		chmod($conf_f, 0755);
 		$handle = @fopen($conf_f, "r+");
@@ -1408,6 +1409,9 @@ class BWPS {
 				}
 				if (strstr($line, $scanText)) {
 					$line = str_replace($scanText, $newText, $line);
+				}
+				if (strstr($line, $altScan)) {
+					$line = str_replace($altScan, $newText, $line);
 				}
 				fwrite($handle, $line);
 			} 
