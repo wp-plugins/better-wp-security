@@ -1409,8 +1409,7 @@ class BWPS {
 				}
 				if (strstr($line, $scanText)) {
 					$line = str_replace($scanText, $newText, $line);
-				}
-				if (strstr($line, $altScan)) {
+				} else if (strstr($line, $altScan)) {
 					$line = str_replace($altScan, $newText, $line);
 				}
 				fwrite($handle, $line);
