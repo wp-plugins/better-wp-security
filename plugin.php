@@ -9,7 +9,7 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 	Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-	Version: 0.13.BETA
+	Version: 0.14.BETA
 	Author: ChrisWiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
@@ -43,7 +43,7 @@ define('BWPS_VERSION_AWAY','1');
 define('BWPS_VERSION_BANIPS','1');
 define('BWPS_VERSION_D404','2');
 define('BWPS_VERSION_HIDEBE','3');
-define('BWPS_VERSION_HTACCESS','3');
+define('BWPS_VERSION_HTACCESS','4');
 define('BWPS_VERSION_LL','1');
 define('BWPS_VERSION_TWEAKS','10');
 

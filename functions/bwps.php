@@ -993,7 +993,7 @@ class BWPS {
 				"</files>\n\n";
 		}
 		
-		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $_POST['BWPS_hotlink'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['htaccess_hotlink'] == 1) { 
+		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1) { 
 			$rules .= "<IfModule mod_rewrite.c>\n" . 
 				"RewriteEngine On\n" . 
 				"RewriteBase /\n\n";
@@ -1024,17 +1024,7 @@ class BWPS {
 				"RewriteRule ^(.*)$ - [F,L]\n\n";
 		}
 		
-		if ($_POST['BWPS_hotlink'] == 1 || $opts['htaccess_hotlink'] == 1) { 
-				
-			$reDomain = $this->uDomain(get_option('siteurl'));
-				
-			$rules .= "RewriteCond %{HTTP_REFERER} !^$\n" .
-				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/.*$ [NC]\n" .
-				"RewriteRule .(jpg|jpeg|png|gif|pdf|doc)$ - [F]\n\n";
-				
-		}
-		
-		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $_POST['BWPS_hotlink'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['htaccess_hotlink'] == 1) { 
+		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1) { 
 			$rules .= "</IfModule>\n";
 		}
 		
@@ -1327,10 +1317,10 @@ class BWPS {
 	
 		$opts = $this->getOptions();
 		
-		$htcount = intval($opts["htaccess_protectht"]) + intval($opts["htaccess_protectwpc"]) + intval($opts["htaccess_dirbrowse"]) + intval($opts["htaccess_hotlink"]) + intval($opts["htaccess_request"]) + intval($opts["htaccess_qstring"]) + intval($opts["htaccess_protectreadme"]) + intval($opts["htaccess_protectinstall"]);
+		$htcount = intval($opts["htaccess_protectht"]) + intval($opts["htaccess_protectwpc"]) + intval($opts["htaccess_dirbrowse"]) + intval($opts["htaccess_request"]) + intval($opts["htaccess_qstring"]) + intval($opts["htaccess_protectreadme"]) + intval($opts["htaccess_protectinstall"]);
 	
 		echo "<p>\n";
-		if ($htcount == 8) {
+		if ($htcount == 7) {
 			echo "<span style=\"color: green;\">" . __('Your .htaccess file is fully secured.') . "</span>\n";
 		} elseif ($htcount > 0) {
 			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to fully secure it') . "</a>.</span>\n";

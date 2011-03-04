@@ -92,10 +92,6 @@
 									Prevents users from seeing a list of files in a directory when no index file is present
 								</p>
 								<p>
-									<input type="checkbox" name="BWPS_hotlink" id="BWPS_hotlink" value="1" <?php if ($opts['htaccess_hotlink'] == 1) echo "checked"; ?> /> <label for="BWPS_hotlink"><strong>Prevent Hotlinking</strong></label><br />
-									Prevents visitors from being able to directly link to images, documents, and other files which could hurt your bandwidth.
-								</p>
-								<p>
 									<input type="checkbox" name="BWPS_request" id="BWPS_request" value="1" <?php if ($opts['htaccess_request'] == 1) echo "checked"; ?> /> <label for="BWPS_request"><strong>Filter Request Methods</strong></label><br />
 									Filter out hits with the head, trace, delete, or track request methods.
 								</p>

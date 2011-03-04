@@ -129,7 +129,6 @@ function BWPS_defaults() {
 		"htaccess_protectht" => "0",
 		"htaccess_protectwpc" => "0",
 		"htaccess_dirbrowse" => "0",
-		"htaccess_hotlink" => "0",
 		"htaccess_request" => "0",
 		"htaccess_qstring" => "0",
 		"htaccess_protectreadme" => "0",
