@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.1
 Tested up to: 3.1
-Stable tag: 0.14.BETA
+Stable tag: 0.15.BETA
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -67,6 +67,9 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
+
+= 0.15.BETA - March 5, 2011 =
+* Fixed error for potential conflicts with old htaccess rules
 
 = 0.14.BETA - March 5, 2011 =
 * Removed hotlinking protection as it has been deemed to be outside the scope of this project
