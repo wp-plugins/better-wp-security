@@ -19,7 +19,11 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 		
-		if ($opts['d404_enable'] == 1) { //if detect 404 mode is enabled
+		if(!function_exists('is_user_logged_in')) {
+			require(ABSPATH . WPINC . '/pluggable.php');
+		}
+		
+		if ($opts['d404_enable'] == 1 && !is_user_logged_in()) { //if detect 404 mode is enabled
 		
 			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
 			
