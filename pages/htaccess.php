@@ -36,14 +36,7 @@
 			$BWPS->remove_section($htaccess, 'Better WP Security Filter Request Methods');
 			$BWPS->remove_section($htaccess, 'Better WP Security Filter Query String Exploits');
 			
-			$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
-			
-			$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
-				
-			$BWPS->remove_section($htaccess, 'WordPress');
-			
-			insert_with_markers($htaccess,'Better WP Security Protect htaccess', explode( "\n", $BWPS->htaccess_genRules()));
-			insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));	
+			$BWPS->createhtaccess();	
 			
 		}
 		

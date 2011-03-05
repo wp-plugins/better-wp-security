@@ -9,21 +9,6 @@
 			die('Security error!');
 		}	
 		
-		$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
-		$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
-		$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
-		
-		$opts = $BWPS->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
-		$opts = $BWPS->saveOptions("hidebe_login_slug", $login_slug);
-		$opts = $BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
-		$opts = $BWPS->saveOptions("hidebe_register_slug", $register_slug);
-		
-		if (get_option('users_can_register')) {
-			$opts = $BWPS->saveOptions("hidebe_canregister","1");
-		} else {
-			$opts = $BWPS->saveOptions("hidebe_canregister","0");
-		}
-		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
 		if (!$BWPS->can_write($htaccess)) {
@@ -38,21 +23,16 @@
 			
 		} else {
 		
-			if ($_POST['BWPS_hidebe_enable'] == 1) {
-			
-				$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
-				
-				$BWPS->remove_section($htaccess, 'WordPress');
-				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
-				
-				insert_with_markers($htaccess,'Better WP Security Hide Backend', explode( "\n", $BWPS->hidebe_getRules()));
-				insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));			
-				
-			} else {
-			
-				$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
-				
-			}
+			$login_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_login_slug']));
+			$admin_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_admin_slug']));
+			$register_slug = sanitize_title(esc_html__($_POST['BWPS_hidebe_register_slug']));
+		
+			$opts = $BWPS->saveOptions("hidebe_enable",$_POST['BWPS_hidebe_enable']);
+			$opts = $BWPS->saveOptions("hidebe_login_slug", $login_slug);
+			$opts = $BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
+			$opts = $BWPS->saveOptions("hidebe_register_slug", $register_slug);
+		
+			$BWPS->createhtaccess();	
 			
 		}
 		
@@ -101,19 +81,15 @@
 									</td>
 								</tr>
 		                            	
-								<?php if (get_option('users_can_register')) { ?>
-									<tr valign="top">
-										<th scope="row">
-											<label for="register_slug">Register Slug</label>
-										</th>
-										<td>
-											<input type="text" name="BWPS_hidebe_register_slug" id="register_slug" value="<?php echo $opts['hidebe_register_slug']; ?>" /><br />
-											<em><span style="color: #666666;"><strong>Register URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_register_slug']; ?></span></em>
-										</td>
-									</tr>
-								<?php } else { ?>
-									<input type="hidden" name="BWPS_hidebe_register_slug" id="register_slug" value="<?php echo $opts['hidebe_register_slug']; ?>" />
-								<?php } ?>
+								<tr valign="top">
+									<th scope="row">
+										<label for="register_slug">Register Slug</label>
+									</th>
+									<td>
+										<input type="text" name="BWPS_hidebe_register_slug" id="register_slug" value="<?php echo $opts['hidebe_register_slug']; ?>" /><br />
+										<em><span style="color: #666666;"><strong>Register URL:</strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_register_slug']; ?></span></em>
+									</td>
+								</tr>
 	
 								<tr valign="top">
 									<th scope="row">
@@ -137,19 +113,12 @@
 		<?php if ($opts['hidebe_enable'] == 1) { ?>
 			<div class="clear"></div>
 		
-			<?php
-				$bgColor = $BWPS->hidebe_confirmRules();
-			?>
 			<div class="postbox-container" style="width:70%">
-				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
-					<h3>Hide Backend Rewrite Rules</h3>	
+				<div class="postbox opened">
+					<h3>Current .htaccess</h3>	
 					<div class="inside">
-						<?php
-							if ($bgColor == "#ffebeb") {
-								echo "<h4 style=\"text-align: center;\">Your htaccess rules have a problem. Please save this form to fix them</h4>";
-							}
-						?>
-						<pre><?php echo $BWPS->hidebe_getRules(); ?></pre>
+						<p>Here are the current contents of your .htaccess file.</p>
+						<?php $BWPS->htaccess_showContents(); ?>
 					</div>
 				</div>
 			</div>

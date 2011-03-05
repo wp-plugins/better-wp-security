@@ -299,10 +299,11 @@ class BWPS {
 	 * @param String
 	 */
 	function uDomain($address) {
+	
 		preg_match("/^(http:\/\/)?([^\/]+)/i", $address, $matches);
 		$host = $matches[2];
 		preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
-		$newAddress =  "http://(.*)" . $matches[0] ;
+		$newAddress =  "(.*)" . $matches[0] ;
 		
 		return $newAddress;
 	}
@@ -844,8 +845,10 @@ class BWPS {
 	 * Generate htaccess rules for hidebe
 	 * @return String
 	 */
-	function hidebe_getRules() {
+	function createhtaccess($ssl = 0) {
 	
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+
 		$opts = $this->getOptions();
 		
 		$siteurl = explode('/',trailingslashit(get_option('siteurl')));
@@ -853,159 +856,62 @@ class BWPS {
 		unset($siteurl[0]); unset($siteurl[1]); unset($siteurl[2]);
 		
 		$dir = implode('/',$siteurl);
-		
-		//get the slugs
-		$login_slug = $opts['hidebe_login_slug'];
-		$logout_slug = $opts['hidebe_logout_slug'];
-		$admin_slug = $opts['hidebe_admin_slug'];
-		$register_slug = $opts['hidebe_register_slug'];
-				
-		//generate the key
-		$supsec_key = $this->hidebe_secKey();
-		
-		//get the domain without subdomain
-		$reDomain = $this->uDomain(get_option('siteurl'));
-		
-		//see if user registration is allowed
-		if (get_option('users_can_register') == 1) {
-			$regEn = "RewriteCond %{QUERY_STRING} !^action=register\n";
-		} else {
-			$regEn = "";
-		}
-		
-		//create string of rules
-		$theRules = "<IfModule mod_rewrite.c>\n" . 
-			"RewriteEngine On\n" . 
-			"RewriteBase /\n" . 
-			"RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" .
-			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-			"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" .
-			"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" .
-			"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $supsec_key . "&action=register [R,L]\n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
-			"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
-			"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
-			"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
-			$regEn . 
-			"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-			"RewriteRule ^wp-login\.php not_found [L]\n" .
-			"</IfModule>\n";
-		
-		unset($opts);
-		
-		return $theRules;
-	}
 	
-	/**
-	 * Generates a random string to be used as a key
-	 * @return String
-	 */
-	function hidebe_secKey() {	
-		$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		srand((double)microtime()*1000000);
-		$pass = '' ;		
-		for ($i = 0; $i <= 20; $i++) {
-			$num = rand() % 33;
-			$tmp = substr($chars, $num, 1);
-			$pass = $pass . $tmp;
-		}
-		return $pass;	
-	}
-		
-	/**
-	 * Checks to see if the saved htaccess rules are correct
-	 * @return String
-	 */
-	function hidebe_confirmRules() {
-		
-		$htaccess = trailingslashit(ABSPATH).'.htaccess';
-			
-		$curRules = $this->hidebe_getRules();
-		$savedRules = implode("\n", extract_from_markers($htaccess, 'Better WP Security Hide Backend' ));
-			
-		if (strlen($curRules) != strlen($savedRules)) {
-			return "#ffebeb";
-		} else {
-			return "#fff";
-		}
-			
-	}
+		$theRules = '';
 	
-	/**
-	 * Echos currect htaccess contents
-	 */
-	function htaccess_showContents() {
-	
-		$htaccess = trailingslashit(ABSPATH).'.htaccess';
-		
-		$fh = fopen($htaccess, 'r');
-		
-		$contents = fread($fh, filesize($htaccess));
-		
-		fclose($fh);
-		
-		echo "<pre>" . $contents . "</pre>";
-	
-	}
-	
-	/**
-	 * Generate htaccess rules for protect htaccess
-	 * @return String
-	 */
-	function htaccess_genRules() {
-	
-		$opts = $this->getOptions();
-		
-		$rules = "";
-		
-		if ($_POST['BWPS_dirbrowse'] == 1 || $opts['htaccess_protectht'] == 1) { 
-			$rules .= "Options All -Indexes\n\n";	
+		//Disable directory browsing
+		if ($opts['htaccess_protectht'] == 1) { 
+			$theRules .= "Options All -Indexes\n\n";	
 		} 
 	
-		if ($_POST['BWPS_protectht'] == 1 || $opts['htaccess_protectht'] == 1) { 
-			$rules .= "<files .htaccess>\n" .
+		//protect .htaccess
+		if ($opts['htaccess_protectht'] == 1) { 
+			$theRules .= "<files .htaccess>\n" .
 				"Order allow,deny\n" . 
 				"Deny from all\n" .
 				"</files>\n\n";
 		}
-		
-		if ($_POST['BWPS_protectreadme'] == 1 || $opts['htaccess_protectreadme'] == 1) { 
-			$rules .= "<files readme.html>\n" .
+	
+		//protect readme.html	
+		if ($opts['htaccess_protectreadme'] == 1) { 
+			$theRules .= "<files readme.html>\n" .
 				"Order allow,deny\n" . 
 				"Deny from all\n" .
 				"</files>\n\n";
 		}
-		
-		if ($_POST['BWPS_protectinstall'] == 1 || $opts['htaccess_protectinstall'] == 1) { 
-			$rules .= "<files install.php>\n" .
+	
+		//protect install.php	
+		if ($opts['htaccess_protectinstall'] == 1) { 
+			$theRules .= "<files install.php>\n" .
 				"Order allow,deny\n" . 
 				"Deny from all\n" .
 				"</files>\n\n";
 		}
-				
-		if ($_POST['BWPS_protectwpc'] == 1 || $opts['htaccess_protectwpc'] == 1) { 
-			$rules .= "<files wp-config.php>\n" .
+	
+		//protect wp-config.php			
+		if ($opts['htaccess_protectwpc'] == 1) { 
+			$theRules .= "<files wp-config.php>\n" .
 				"Order allow,deny\n" . 
 				"Deny from all\n" .
 				"</files>\n\n";
 		}
-		
-		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1) { 
-			$rules .= "<IfModule mod_rewrite.c>\n" . 
+	
+		//open rewrite rules	
+		if ($opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['hidebe_enable'] == 1) { 
+			$theRules .= "<IfModule mod_rewrite.c>\n" . 
 				"RewriteEngine On\n" . 
 				"RewriteBase /\n\n";
 		}
-			
-		if ($_POST['BWPS_request'] == 1 || $opts['htaccess_request'] == 1) { 
-			$rules .= "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
+	
+		//ignore invalid http requests	
+		if ($opts['htaccess_request'] == 1) { 
+			$theRules .= "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
 				"RewriteRule ^(.*)$ - [F,L]\n";
 		}
-			
-		if ($_POST['BWPS_qstring'] == 1 || $opts['htaccess_qstring'] == 1) { 
-			$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
+	
+		//protect against invalid query strings		
+		if ($opts['htaccess_qstring'] == 1) { 
+			$theRules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
 				"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
 				"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
 				"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
@@ -1024,12 +930,93 @@ class BWPS {
 				"RewriteRule ^(.*)$ - [F,L]\n\n";
 		}
 		
-		if ($_POST['BWPS_request'] == 1 || $_POST['BWPS_qstring'] == 1 || $opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1) { 
-			$rules .= "</IfModule>\n";
-		}
+		if ($opts['hidebe_enable'] == 1) { 
 		
+			//get the slugs
+			$login_slug = $opts['hidebe_login_slug'];
+			$logout_slug = $opts['hidebe_logout_slug'];
+			$admin_slug = $opts['hidebe_admin_slug'];
+			$register_slug = $opts['hidebe_register_slug'];
+				
+			//generate the key
+			$supsec_key = $this->hidebe_secKey();
+		
+			//get the domain without subdomain
+			$reDomain = $this->uDomain(get_option('siteurl'));
+					
+			//see if user registration is allowed
+			if (get_option('users_can_register') == 1) {
+				$regEn = "RewriteCond %{QUERY_STRING} !^action=register\n";
+			} else {
+				$regEn = "";
+			}
+	
+			//hide wordpress backend
+			$theRules .= "RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" .
+				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+				"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" .
+				"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" .
+				"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $supsec_key . "&action=register [R,L]\n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
+				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
+				"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
+				"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
+				$regEn . 
+				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+				"RewriteRule ^wp-login\.php not_found [L]\n";
+		}
+	
+		//end rewrite rules
+		if ($opts['htaccess_request'] == 1 || $opts['htaccess_qstring'] == 1 || $opts['hidebe_enable'] == 1) { 
+			$theRules .= "</IfModule>\n";
+		}
+	
 		unset($opts);
-		return $rules;
+
+		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
+				
+		$this->remove_section($htaccess, 'WordPress');
+		$this->remove_section($htaccess, 'Better WP Security');
+				
+		insert_with_markers($htaccess,'Better WP Security', explode( "\n", $theRules));
+		insert_with_markers($htaccess,'WordPress', explode( "\n", $wprules));		
+
+	}
+	
+	/**
+	 * Generates a random string to be used as a key
+	 * @return String
+	 */
+	function hidebe_secKey() {	
+		$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		srand((double)microtime()*1000000);
+		$pass = '' ;		
+		for ($i = 0; $i <= 20; $i++) {
+			$num = rand() % 33;
+			$tmp = substr($chars, $num, 1);
+			$pass = $pass . $tmp;
+		}
+		return $pass;	
+	}
+	
+	/**
+	 * Echos currect htaccess contents
+	 */
+	function htaccess_showContents() {
+	
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		
+		$fh = fopen($htaccess, 'r');
+		
+		$contents = fread($fh, filesize($htaccess));
+		
+		fclose($fh);
+		
+		echo "<pre>" . $contents . "</pre>";
+	
 	}
 
 	/**

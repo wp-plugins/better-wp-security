@@ -20,50 +20,65 @@
 		$opts = $BWPS->saveOptions("tweaks_strongpass",$_POST['BWPS_strongpass']);
 		$opts = $BWPS->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
 		$opts = $BWPS->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
-
-		if (isset($_POST['BWPS_enforceSSL'])) {
-			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
-			$scanText = "/* That's all, stop editing! Happy blogging. */";
-			$newText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n\r\n/* That's all, stop editing! Happy blogging. */";
-			chmod($conf_f, 0755);
-			$handle = @fopen($conf_f, "r+");
-			if ($handle) {
-				while (!feof($handle)) {
-					$lines[] = fgets($handle, 4096);
-				}
-				fclose($handle);
-				$handle = @fopen($conf_f, "w+");
-				foreach ($lines as $line) {
-					if (strstr($line, $scanText)) {
-						$line = str_replace($scanText, $newText, $line);
-					}
-					fwrite($handle, $line);
-				}
-				fclose($handle);
+		
+		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		
+		if (!$BWPS->can_write($htaccess)) {
+			
+			$opts = $BWPS->saveOptions("hidebe_enable","0");
+			
+			if (!$errorHandler) {
+				$errorHandler = new WP_Error();
 			}
-			$sslon = "1";
+			
+			$errorHandler->add("2", __("Unable to update htaccess rules"));
+			
 		} else {
-			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
-			$scanText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n";
-			$newText = "";
-			chmod($conf_f, 0755);
-			$handle = @fopen($conf_f, "r+");
-			if ($handle) {
-				while (!feof($handle)) {
-					$lines[] = fgets($handle, 4096);
-				}
-				fclose($handle);
-				$handle = @fopen($conf_f, "w+");
-				foreach ($lines as $line) {
-					if (strstr($line, $scanText)) {
-						$line = str_replace($scanText, $newText, $line);
+
+			if (isset($_POST['BWPS_enforceSSL'])) {
+				$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+				$scanText = "/* That's all, stop editing! Happy blogging. */";
+				$newText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n\r\n/* That's all, stop editing! Happy blogging. */";
+				chmod($conf_f, 0755);
+				$handle = @fopen($conf_f, "r+");
+				if ($handle) {
+					while (!feof($handle)) {
+						$lines[] = fgets($handle, 4096);
 					}
-					fwrite($handle, $line);
+					fclose($handle);
+					$handle = @fopen($conf_f, "w+");
+					foreach ($lines as $line) {
+						if (strstr($line, $scanText)) {
+							$line = str_replace($scanText, $newText, $line);
+						}
+						fwrite($handle, $line);
+					}
+					fclose($handle);
 				}
-				fclose($handle);
-			}
-			$sslon = "0";
-		} 
+				$sslon = "1";
+			} else {
+				$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+				$scanText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n";
+				$newText = "";
+				chmod($conf_f, 0755);
+				$handle = @fopen($conf_f, "r+");
+				if ($handle) {
+					while (!feof($handle)) {
+						$lines[] = fgets($handle, 4096);
+					}
+					fclose($handle);
+					$handle = @fopen($conf_f, "w+");
+					foreach ($lines as $line) {
+						if (strstr($line, $scanText)) {
+							$line = str_replace($scanText, $newText, $line);
+						}
+						fwrite($handle, $line);
+					}
+					fclose($handle);
+				}
+				$sslon = "0";
+			} 
+		}
 
 		
 		if (isset($errorHandler)) {
