@@ -842,10 +842,10 @@ class BWPS {
 	}
 	
 	/**
-	 * Generate htaccess rules for hidebe
+	 * Generate htaccess rules
 	 * @return String
 	 */
-	function createhtaccess($ssl = 0) {
+	function createhtaccess() {
 	
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 
@@ -858,6 +858,16 @@ class BWPS {
 		$dir = implode('/',$siteurl);
 	
 		$theRules = '';
+	
+		if ($opts['banips_enable'] == 1) {
+		
+			$ipList = $opts['banips_iplist'];
+	
+			$theRules .= "order allow,deny\n" . 
+				"deny from " . $ipList . "\n" . 
+				"allow from all\n";
+				
+		}
 	
 		//Disable directory browsing
 		if ($opts['htaccess_protectht'] == 1) { 
@@ -1020,57 +1030,6 @@ class BWPS {
 	}
 
 	/**
-	 * Generates htaccess rules from a given array of ip addresses
-	 * @return Boolean
-	 * @param array
-	 */
-	function banips_createRules($ipArray) {
-		global $theRules; 
-		
-		$goodAddress = true;
-		
-		//get current ip address
-		$myIp = getenv("REMOTE_ADDR");
-		
-		//run through each ip
-		for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) {
-			$ipArray[$i] = trim($ipArray[$i]);
-			if (strlen($ipArray[$i]) > 0 && (!$this->banips_checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) {
-				$goodAddress = false; //we have a bad ip
-			}
-		}
-	
-		if ($goodAddress == true) { //if we don't have any bad ips create the string
-			
-			$ipList = implode(" ",$ipArray);
-	
-			$theRules = "order allow,deny\n" . 
-				"deny from " . $ipList . "\n" . 
-				"allow from all\n";
-			return true;
-				
-		} else {
-			
-			return false;
-				
-		}
-	}
-	
-	/**
-	 * Return the htaccess rules in string format
-	 * @return String
-	 */
-	function banips_getList() {
-		global $theRules; 
-		
-		if (strlen($theRules) < 1) { //if $theRules isn't set check htaccess
-			return implode("\n", extract_from_markers($htaccess, 'Better WP Security Ban IPs' ));
-		} else {
-			return $theRules;
-		}
-	}
-
-	/**
 	 * Validate IP address
 	 * @return Boolean
 	 * @param string
@@ -1081,25 +1040,6 @@ class BWPS {
 		} else {
 			return false;
 		}
-	}
-		
-	/**
-	 * Confirmed banip rules in htaccess are correct
-	 * @return String
-	 */
-	function banips_confirmRules() {
-		global $theRules; 
-		
-		$htaccess = trailingslashit(ABSPATH).'.htaccess';
-			
-		$savedRules = implode("\n", extract_from_markers($htaccess, 'Better WP Security Ban IPs' ));
-			
-		if (strlen($theRules) != strlen($savedRules)) { //if the rules aren't correct
-			return "#ffebeb";
-		} else { //rules are correct
-			return "#fff";
-		}
-			
 	}
 	
 	/**

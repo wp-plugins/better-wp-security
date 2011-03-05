@@ -9,27 +9,6 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
-				
-		if (strlen($_POST['BWPS_banips_iplist']) > 0) {
-		
-			$ipInput = esc_html__($_POST['BWPS_banips_iplist']);
-		
-			$ipArray = explode("\n", $ipInput);	
-			
-			if (!$BWPS->banips_createRules($ipArray)) {
-				if (!$errorHandler) {
-					$errorHandler = new WP_Error();
-				}
-				$errorHandler->add("1", __("You entered a bad IP address"));
-			}  else {
-				$opts = $BWPS->saveOptions("banips_iplist",$ipInput);
-			}
-		} else {
-			$opts = $BWPS->saveOptions("banips_enable","0");
-			$opts = $BWPS->saveOptions("banips_iplist","");
-		}
-		
 		$htaccess = trailingslashit(ABSPATH).'.htaccess';
 		
 		if (!$BWPS->can_write($htaccess)) {
@@ -43,18 +22,48 @@
 			$errorHandler->add("2", __("Unable to update htaccess rules"));
 			
 		} else {
-		
-			if ($_POST['BWPS_banips_enable'] == 1 && $opts['banips_iplist'] != "") {
-				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
-				insert_with_markers($htaccess,'Better WP Security Ban IPs', explode( "\n", $BWPS->banips_getList()));
-
-			} else {
-			
-				$opts = $BWPS->saveOptions("banips_enable","0");
-				$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 				
-			}		
+			if (strlen($_POST['BWPS_banips_iplist']) > 0) {
+		
+				$ipInput = esc_html__($_POST['BWPS_banips_iplist']);
+		
+				$ipArray = explode("\n", $ipInput);	
+				
+				$goodAddress = true;
+				
+				//get current ip address
+				$myIp = getenv("REMOTE_ADDR");
+				
+				for ($i = 0; $i < sizeof($ipArray) && $goodAddress == true; $i++) {
+					$ipArray[$i] = trim($ipArray[$i]);
+					if (strlen($ipArray[$i]) > 0 && (!$BWPS->banips_checkIps($ipArray[$i]) || $ipArray[$i] == $myIp)) {
+						$goodAddress = false; //we have a bad ip
+					}
+				}
+				
+				if ($goodAddress == true) {
+					$opts = $BWPS->saveOptions("banips_enable",$_POST['BWPS_banips_enable']);
+					$opts = $BWPS->saveOptions("banips_iplist",implode(' ',$ipArray));
+				} else {
+					if (!$errorHandler) {
+						$errorHandler = new WP_Error();
+					}
 			
+					$errorHandler->add("2", __("You have entered an invalid IP address"));
+				}
+			
+			} else {
+				$opts = $BWPS->saveOptions("banips_enable","0");
+				$opts = $BWPS->saveOptions("banips_iplist","");
+			}
+		
+			if ($_POST['BWPS_banips_enable'] == 1 && $opts['banips_iplist'] == "") {
+				$opts = $BWPS->saveOptions("banips_enable","0");
+			} 
+			
+			if (!$errorHandler) {
+				$BWPS->createhtaccess();		
+			}
 		} 
 		
 		if (isset($errorHandler)) {
@@ -126,19 +135,12 @@
 		<?php if ($opts['banips_enable'] == 1) { ?>
 			<div class="clear"></div>
 		
-			<?php
-				$bgColor = $BWPS->banips_confirmRules();
-			?>
 			<div class="postbox-container" style="width:70%">
-				<div class="postbox opened" style="background-color: <?php echo $bgColor; ?>;">
-					<h3>Hide Backend Rewrite Rules</h3>	
+				<div class="postbox opened">
+					<h3>Current .htaccess</h3>	
 					<div class="inside">
-						<?php
-							if ($bgColor == "#ffebeb") {
-								echo "<h4 style=\"text-align: center;\">Your htaccess rules have a problem. Please save this form to fix them</h4>";
-							}
-						?>
-						<pre><?php echo $BWPS->banips_getList(); ?></pre>
+						<p>Here are the current contents of your .htaccess file.</p>
+						<?php $BWPS->htaccess_showContents(); ?>
 					</div>
 				</div>
 			</div>
