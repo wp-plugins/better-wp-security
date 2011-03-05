@@ -991,7 +991,12 @@ class BWPS {
 		unset($opts);
 
 		$wprules = implode("\n", extract_from_markers($htaccess, 'WordPress' ));
-				
+		
+		//Remove old htaccess sections to avoid conflicts		
+		$this->remove_section($htaccess, 'Better WP Security Protect htaccess');
+		$this->remove_section($htaccess, 'Better WP Security Hide Backend');
+		$this->remove_section($htaccess, 'Better WP Security Ban IPs');
+
 		$this->remove_section($htaccess, 'WordPress');
 		$this->remove_section($htaccess, 'Better WP Security');
 				
