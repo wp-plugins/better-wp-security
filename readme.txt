@@ -70,6 +70,8 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 = 0.14.BETA - =
 * Removed hotlinking protection as it has been deemed to be outside the scope of this project
+* Removed protocol from hide backend htaccess rules for consistency between http and https
+* Combined all httaccess rules into single Better WP Security Block
 
 = 0.13.BETA - February 11, 2011 =
 * Fixed a bug that could erase part of the wp-config file
