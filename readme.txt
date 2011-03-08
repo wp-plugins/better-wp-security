@@ -1,11 +1,11 @@
 
 === Better WP Security ===
 Contributors: ChrisWiegman
-Donate link: http://www.chriswiegman.com/projects/wordpress/better-wp-security/
+Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.1
 Tested up to: 3.1
-Stable tag: 0.15.BETA
+Stable tag: 0.16.BETA
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -67,6 +67,8 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Changelog ==
 
+= 0.15.BETA - March 8, 2011 =
+* Updated Homepage
 
 = 0.15.BETA - March 5, 2011 =
 * Fixed error for potential conflicts with old htaccess rules
@@ -201,4 +203,4 @@ If upgrading from a version prior to ALPHA 5 you MUST deactivate the plugin manu
 
 == Support ==
 
-Please visit the <a href="http://www.chriswiegman.com/projects/wordpress/better-wp-security/">Homepage</a> for support and more
+Please visit the <a href="http://www.chriswiegman.com/projects/better-wp-security/">Homepage</a> for support and more
