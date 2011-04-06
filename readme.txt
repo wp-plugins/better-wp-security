@@ -3,9 +3,9 @@
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
-Requires at least: 3.1
-Tested up to: 3.1
-Stable tag: 0.16.BETA
+Requires at least: 3.0
+Tested up to: 3.1.1
+Stable tag: 1.0
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -14,9 +14,9 @@ Released under the terms of the GNU General Public License.
 
 == Description ==
 
-NOTE: This plugin is not yet ready for production and should be used only to test features and provide feedback!!!!
-
 Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
+
+NOTE: It is quite possible (maybe even probable) that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 = Current features =
 
@@ -50,24 +50,25 @@ Better WP Security takes the best Wordpress security features and techniques and
 
 == Frequently Asked Questions ==
 
-= When will this plugin be officially released? =
-* Better WP Security will be released officially when all known bugs are fixed and documentation is complete.
-
-= Why release it at all before it is finished? =
-* As this is a rather complex program I am releasing it early to get feedback from the Wordpress community. This will help insure that when it is fully released it will be the most stable and comprehensive security solution available for Wordpress.
-
-= Will you keep developing this after the initial release? =
+= Are you still developing this plugin? =
 * Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
 
 = Can I help? =
 * Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization.
 
 = Will this break my site? =
-* Until it is officially released it is quite possible (maybe even probable) that something will break. I will not release this officially until I am completely convinced that the code is stable and usable over as many systems as possible. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
+* It is quite possible (maybe even probable) that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
+* Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
 
 == Changelog ==
 
-= 0.15.BETA - March 8, 2011 =
+= 1.0 - April 6, 2011 =
+* More code documentation
+* Added warnings to changing content directory (until I can find a good way to update all existing content)
+* Added options to clean old entries out of the database
+* Fixed minor typos throughout
+
+= 0.16.BETA - March 8, 2011 =
 * Updated Homepage
 
 = 0.15.BETA - March 5, 2011 =
@@ -199,7 +200,7 @@ First alpha release including simple featureset.
 
 == Upgrade Notice ==
 
-If upgrading from a version prior to ALPHA 5 you MUST deactivate the plugin manually first. Failure to do so may result in an inability to access the backend.
+None
 
 == Support ==
 

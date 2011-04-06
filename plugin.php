@@ -9,7 +9,7 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://www.chriswiegman.com/projects/better-wp-security/
 	Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-	Version: 0.16.BETA
+	Version: 1.0
 	Author: ChrisWiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
@@ -77,6 +77,7 @@ function menu_items() {
 	add_submenu_page('BWPS', __('Better WP Security - .htaccess Options'), __('.htaccess Options'), 'manage_options', 'BWPS-htaccess', 'htaccess_options');
 	add_submenu_page('BWPS', __('Better WP Security - Limit Logins Options'), __('Limit Logins'), 'manage_options', 'BWPS-ll', 'll_options');
 	add_submenu_page('BWPS', __('Better WP Security - System Tweaks'), __('System Tweaks'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
+	add_submenu_page('BWPS', __('Better WP Security - Clean Database'), __('Clean Database'), 'manage_options', 'BWPS-clean', 'clean_options');
 }
 
 /**
@@ -165,6 +166,14 @@ function status_options() {
  */		
 function tweaks_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/tweaks.php');
+}
+
+/**
+ * Define the clean database page
+ * @return null 
+ */		
+function clean_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/clean.php');
 }
 
 //Register the admin menu

@@ -67,6 +67,8 @@ function BWPS_uninstall() {
 	} else {
 		
 		$BWPS->remove_section($htaccess, 'Better WP Security');
+		
+		//remove legacy sections
 		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
 		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
 		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');

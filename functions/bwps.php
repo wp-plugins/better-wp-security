@@ -1084,16 +1084,22 @@ class BWPS {
 		echo "</p>\n";
 	}
 	
+	/**
+	 * Check that the ssl is enabled
+	 */
 	function status_checkSSL() {
 		echo "<p>\n";
 		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
 			echo "<span style=\"color: green;\">" . __("You are requiring a secure connection for logins and the admin area.") . "</span>\n";
 		} else {
-			echo "<span style=\"color: orange;\">" . __("You are not requiring a secure connection for longs or the admin area.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("You are not requiring a secure connection for logins or for the admin area.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}
 	
+	/**
+	 * Check if 404 detection is enabled
+	 */
 	function status_check404() {
 		$opts = $this->getOptions();
 			
@@ -1108,6 +1114,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that random version is enabled
+	 */
 	function status_checkranver() {
 		$opts = $this->getOptions();
 			
@@ -1122,6 +1131,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that long URLs are note allowed
+	 */
 	function status_checklongurls() {
 		$opts = $this->getOptions();
 			
@@ -1136,6 +1148,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that error messages are not displayed on login (users will see only an empty red box
+	 */
 	function status_checkLogin() {
 		$opts = $this->getOptions();
 			
@@ -1150,6 +1165,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that non-admin users cannot see updates
+	 */
 	function status_checkUpdates() {
 		$opts = $this->getOptions();
 		
@@ -1168,6 +1186,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that the wordpress headers have been removed
+	 */
 	function status_checkHead() {
 		$opts = $this->getOptions();
 		
@@ -1186,6 +1207,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that strong passwords are required
+	 */
 	function status_checkStrongPass() {
 		$opts = $this->getOptions();
 		
@@ -1205,6 +1229,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that the backend of Wordpress is hidden
+	 */
 	function status_checkhidebe() {
 		$opts = $this->getOptions();
 			
@@ -1219,6 +1246,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that the table prefix is not wp_
+	 */
 	function status_checkTablePre(){
 		global $wpdb;
 		
@@ -1233,6 +1263,9 @@ class BWPS {
 		echo "</p>\n";
 	}
 	
+	/**
+	 * Check that no user has the name "admin"
+	 */
 	function status_checkAdminUser() {
 		global $wpdb;
 
@@ -1249,6 +1282,9 @@ class BWPS {
 		echo "</p>\n";
 	}
 	
+	/**
+	 * Check that all htaccess protections have been enabled
+	 */
 	function status_checkhtaccess() {
 	
 		$opts = $this->getOptions();
@@ -1268,6 +1304,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that logins are limited
+	 */
 	function status_checkLimitlogin() {
 	
 		$opts = $this->getOptions();
@@ -1283,6 +1322,9 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Check that away mode is enabled
+	 */
 	function status_checkAway() {
 	
 		$opts = $this->getOptions();
@@ -1299,17 +1341,24 @@ class BWPS {
 		unset($opts);
 	}
 	
+	/**
+	 * Get name of content directory
+	 */
 	function getDir() {
+		//if it is defined in wp-config.php it is propably not standard
 		if (defined('WP_CONTENT_DIR') && defined('WP_CONTENT_URL')) {
-		$dir = WP_CONTENT_DIR;
-		$ls =  strripos($dir,'/') + 1;
-		$dir = substr($dir, $ls, strlen($dir));
-		} else {
+			$dir = WP_CONTENT_DIR;
+			$ls =  strripos($dir,'/') + 1;
+			$dir = substr($dir, $ls, strlen($dir));
+		} else { //if not defined we can assume the standard location
 			$dir = 'wp-content';
 		}
 		return $dir;
 	}
 	
+	/**
+	 * Rename content directory 
+	 */
 	function renameContent($newDirectory) {
 		global $wpdb;
 		$olddir = $this->getDir();

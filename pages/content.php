@@ -29,6 +29,7 @@
 					<h3>Change Content Directory</h3>	
 					<div class="inside">
 						<p>Select a new name for the content directory.</p>
+						<p><strong>NOTICE: Use this only on new installs. Using this on sites with existing content will break links!</strong></p>
 						<form method="post">
 							<?php wp_nonce_field('BWPS_content_save','wp_nonce') ?>
 							<label for="newdir">Directory Name: </label> <input id="newdir" name="newdir" type="text" value="<?php echo $BWPS->getDir(); ?>">
