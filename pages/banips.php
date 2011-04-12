@@ -85,40 +85,40 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - Ban IPs Options</h2>
+	<h2><?php _e('Better WP Security - Ban IPs Options'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3>Ban IPs Options</h3>	
+				<h3><?php _e('Ban IPs Options'); ?></h3>	
 				<div class="inside">
-					<p>List below the IP addresses you would like to ban from your site. These will be banned in .htaccess.</p>
+					<p><?php _e('List below the IP addresses you would like to ban from your site. These will be banned in .htaccess.'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_banips_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banips_enable">Enable Ban IPs</label>
+										<label for="BWPS_banips_enable"><?php _e('Enable Ban IPs'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_banips_enable" id="BWPS_banips_enable" value="1" <?php if ($opts['banips_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_banips_enable" value="0" <?php if ($opts['banips_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label>
+										<label><input name="BWPS_banips_enable" id="BWPS_banips_enable" value="1" <?php if ($opts['banips_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
+										<label><input name="BWPS_banips_enable" value="0" <?php if ($opts['banips_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banips_iplist">IP List</label>
+										<label for="BWPS_banips_iplist"><?php _e('IP List'); ?></label>
 									</th>
 									<td>
 										<textarea rows="10" cols="50" name="BWPS_banips_iplist" id="BWPS_banips_iplist"><?php echo $banips_iplist; ?></textarea><br />
 										<p><em>
-											IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).<br />
-											<a href="http://ip-lookup.net/domain-lookup.php" target="_blank">Lookup IP Address.</a><br />
-											Enter only 1 IP address per line.<br />
-											You may NOT ban your own IP address
+											<?php _e('IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).'); ?><br />
+											<a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.'); ?></a><br />
+											<?php _e('Enter only 1 IP address per line.'); ?><br />
+											<?php _e('You may NOT ban your own IP address'); ?>
 										</em></p>
 									</td>
 								</tr>
@@ -137,9 +137,9 @@
 		
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
-					<h3>Current .htaccess</h3>	
+					<h3><?php _e('Current .htaccess'); ?></h3>	
 					<div class="inside">
-						<p>Here are the current contents of your .htaccess file.</p>
+						<p><?php _e('Here are the current contents of your .htaccess file.'); ?></p>
 						<?php $BWPS->htaccess_showContents(); ?>
 					</div>
 				</div>
