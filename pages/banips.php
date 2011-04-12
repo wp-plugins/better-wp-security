@@ -49,7 +49,7 @@
 						$errorHandler = new WP_Error();
 					}
 			
-					$errorHandler->add("2", __("You have entered an invalid IP address, 'better-wp-security'"));
+					$errorHandler->add("2", __("You have entered an invalid IP address,", 'better-wp-security'));
 				}
 			
 			} else {
