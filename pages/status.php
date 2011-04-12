@@ -4,13 +4,13 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - System Status</h2>
+	<h2><?php _e('Better WP Security - System Status'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 	
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3>Better WP Security System Status</h3>
+				<h3><?php _e('Better WP Security System Status'); ?></h3>
 				<div class="inside">
 					<?php $BWPS->status_getStatus(); ?>
 				</div>
@@ -23,9 +23,9 @@
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3>Support</h3>
+				<h3><?php _e('Support'); ?></h3>
 				<div class="inside">
-					<p>Please visit the <a href="http://www.chriswiegman.com/projects/better-wp-security/">Better WP Security</a> homepage for support and change-log</p>
+					<p><?php _e('Please visit the'); ?> <a href="http://www.chriswiegman.com/projects/better-wp-security/">Better WP Security</a> <?php _e('homepage for support and change-log'); ?></p>
 				</div>
 			</div>
 		</div>

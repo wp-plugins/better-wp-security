@@ -12,7 +12,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
-			echo '<div id="message" class="updated"><p><em>content</em> directory successfully changed.</p></div>';
+			echo '<div id="message" class="updated"><p><em>content</em> ' . __('directory successfully changed.') . '</p></div>';
 		}
 	}
 			
@@ -21,18 +21,18 @@
 
 	<div class="wrap" >
 
-		<h2>Better WP Security - Content Directory</h2>
+		<h2><?php _e('Better WP Security - Content Directory'); ?></h2>
 	
 		<div id="poststuff" class="ui-sortable">	
 			<div class="postbox-container" style="width:70%">	
 				<div class="postbox opened">
-					<h3>Change Content Directory</h3>	
+					<h3><?php _e('Change Content Directory'); ?></h3>	
 					<div class="inside">
-						<p>Select a new name for the content directory.</p>
-						<p><strong>NOTICE: Use this only on new installs. Using this on sites with existing content will break links!</strong></p>
+						<p><?php _e('Select a new name for the content directory.'); ?></p>
+						<p><strong><?php _e('NOTICE: Use this only on new installs. Using this on sites with existing content will break links!'); ?></strong></p>
 						<form method="post">
 							<?php wp_nonce_field('BWPS_content_save','wp_nonce') ?>
-							<label for="newdir">Directory Name: </label> <input id="newdir" name="newdir" type="text" value="<?php echo $BWPS->getDir(); ?>">
+							<label for="newdir"><?php _e('Directory Name:'); ?> </label> <input id="newdir" name="newdir" type="text" value="<?php echo $BWPS->getDir(); ?>">
 							<p class="submit"><input type="submit" name="BWPS_content_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
 						</form>
 					</div>
@@ -46,14 +46,14 @@
 <?php } else { ?>
 	<div class="wrap" >
 
-		<h2>Better WP Security - Content Directory</h2>
+		<h2><?php _e('Better WP Security - Content Directory'); ?></h2>
 	
 		<div id="poststuff" class="ui-sortable">	
 			<div class="postbox-container" style="width:100%">	
 				<div class="postbox opened">
-					<h3>Change Content Directory</h3>	
+					<h3><?php _e('Change Content Directory'); ?></h3>	
 					<div class="inside">
-						<p>The directory has been changed please reload this page if you wish to change it again.</p>
+						<p><?php _e('The directory has been changed please reload this page if you wish to change it again.'); ?></p>
 					</div>
 				</div>
 			</div>

@@ -50,7 +50,7 @@
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			$BWPS->saveVersions('LL', BWPS_VERSION_LL);
-			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Settings Saved') . '</p></div>';
 		}
 		
 		$ledisplay = $_POST['BWPS_ll_enable'];
@@ -90,99 +90,99 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - Limit Logins Options</h2>
+	<h2><?php _e('Better WP Security - Limit Logins Options'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3>Limit Logins Options</h3>	
+				<h3><?php _e('Limit Logins Options'); ?></h3>	
 				<div class="inside">
-					<p>Set options below to limit the number of bad login attempts. Once this limit is reached, the host or computer attempting to login will be banned from the site for the specified "lockout length" period.</p>
+					<p><?php _e('Set options below to limit the number of bad login attempts. Once this limit is reached, the host or computer attempting to login will be banned from the site for the specified "lockout length" period.'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_ll_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_enable">Enable Limit Bad Login Attempts</label>
+										<label for="BWPS_ll_enable"><?php _e('Enable Limit Bad Login Attempts'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_ll_enable" id="BWPS_ll_enable" value="1" <?php if ($ledisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_ll_enable" value="0" <?php if ($ledisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label>
+										<label><input name="BWPS_ll_enable" id="BWPS_ll_enable" value="1" <?php if ($ledisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
+										<label><input name="BWPS_ll_enable" value="0" <?php if ($ledisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label>
 									</td>
 								</tr>
 
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_maxattemptshost">Max Login Attempts Per Host</label>
+										<label for="BWPS_ll_maxattemptshost"><?php _e('Max Login Attempts Per Host'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_ll_maxattemptshost" id="BWPS_ll_maxattemptshost" value="<?php echo $mahdisplay; ?>" type="text">
 										<p>
-											The number of login attempts a user has before their host or computer is locked out of the system.
+											<?php _e('The number of login attempts a user has before their host or computer is locked out of the system.'); ?>
 										</p>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_maxattemptsuser">Max Login Attempts Per User</label>
+										<label for="BWPS_ll_maxattemptsuser"><?php _e('Max Login Attempts Per User'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_ll_maxattemptsuser" id="BWPS_ll_maxattemptsuser" value="<?php echo $maudisplay; ?>" type="text">
 										<p>
-											The number of login attempts a user has before their username is locked out of the system.
+											<?php _e('The number of login attempts a user has before their username is locked out of the system.'); ?>
 										</p>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_checkinterval">Login Time Period (minutes)</label>
+										<label for="BWPS_ll_checkinterval"><?php _e('Login Time Period (minutes)'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_ll_checkinterval" id="BWPS_ll_checkinterval" value="<?php echo $cidsplay; ?>" type="text"><br />
 										<p>
-											The number of minutes in which bad logins should be remembered.
+											<?php _e('The number of minutes in which bad logins should be remembered.'); ?>
 										</p>
 									</td>
 								</tr>
 		
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_banperiod">Lockout Time Period (minutes)</label>
+										<label for="BWPS_ll_banperiod"><?php _e('Lockout Time Period (minutes)'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_ll_banperiod" id="BWPS_ll_banperiod" value="<?php echo $bpdisplay; ?>" type="text"><br />
 										<p>
-											The length of time a host or computer will be banned from this site after hitting the limit of bad logins.
+											<?php _e('The length of time a host or computer will be banned from this site after hitting the limit of bad logins.'); ?>
 										</p>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_denyaccess">Deny All Site Access To Locked Out Hosts.</label>
+										<label for="BWPS_ll_denyaccess"><?php _e('Deny All Site Access To Locked Out Hosts.'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_ll_denyaccess" id="BWPS_ll_denyaccess" value="1" <?php if ($dadisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_ll_denyaccess" value="0" <?php if ($dadisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
+										<label><input name="BWPS_ll_denyaccess" id="BWPS_ll_denyaccess" value="1" <?php if ($dadisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
+										<label><input name="BWPS_ll_denyaccess" value="0" <?php if ($dadisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label><br />
 										<p>
-											If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout.
+											<?php _e('If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout.'); ?>
 										</p>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_ll_emailnotify">Enable Email Notifications.</label>
+										<label for="BWPS_ll_emailnotify"><?php _e('Enable Email Notifications.'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_ll_emailnotify" id="BWPS_ll_emailnotify" value="1" <?php if ($endisplay == 1) echo 'checked="checked"'; ?> type="radio" /> On</label>
-										<label><input name="BWPS_ll_emailnotify" value="0" <?php if ($endisplay == 0) echo 'checked="checked"'; ?> type="radio" /> Off</label><br />
+										<label><input name="BWPS_ll_emailnotify" id="BWPS_ll_emailnotify" value="1" <?php if ($endisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
+										<label><input name="BWPS_ll_emailnotify" value="0" <?php if ($endisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label><br />
 										<p>
-											Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.
+											<?php _e('Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.'); ?>
 										</p>
 									</td>
 								</tr>
@@ -202,15 +202,15 @@
 		
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
-					<h3>Active Lockouts</h3>	
+					<h3><?php _e('Active Lockouts'); ?></h3>	
 					<div class="inside">
-						<p>Select a host or computer and click remove to release the lockout and allow them to log into the system.</p>
+						<p><?php _e('Select a host or computer and click remove to release the lockout and allow them to log into the system.'); ?></p>
 						<table width="100%" border="1">
 							<tbody>
 								<thead>
 									<tr valign="top">
-										<th>Locked Out Hosts</th>
-										<th>Locked Out Users</th>	
+										<th><?php _e('Locked Out Hosts'); ?></th>
+										<th><?php _e('Locked Out Users'); ?></th>	
 									</tr>
 								</thead>
 								<tr valign="top">
@@ -222,11 +222,11 @@
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {
-														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS->dispRem(($item['lockout_date'] + ($opts['ll_banperiod'] * 60))) . "</span></label>\n";
+														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in:') . " " . $BWPS->dispRem(($item['lockout_date'] + ($opts['ll_banperiod'] * 60))) . "</span></label>\n";
 													}
-													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"Release Selected Lockouts\"></p>\n";
+													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"" . __('Release Selected Lockouts') . "\"></p>\n";
 												} else {
-													echo "<p style=\"text-align: center;\">There are no hosts currently locked out.</p>\n";
+													echo "<p style=\"text-align: center;\">" . __('There are no hosts currently locked out.') . "</p>\n";
 												}
 											?>
 										</td>
@@ -236,11 +236,11 @@
 												
 												if (sizeof($lockedList) > 0) {
 													foreach ($lockedList as $item) {
-														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">Expires in: " . $BWPS->dispRem(($item['lockout_date'] + ($opts['ll_banperiod'] * 60))) . "</span></label>\n";
+														echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['loLabel'] . " <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in:') . " " . $BWPS->dispRem(($item['lockout_date'] + ($opts['ll_banperiod'] * 60))) . "</span></label>\n";
 													}
-													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"Release Selected Lockouts\"></p>\n";
+													echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"" . __('Release Selected Lockouts') . "\"></p>\n";
 												} else {
-													echo "<p style=\"text-align: center;\">There are no users currently locked out.</p>\n";
+													echo "<p style=\"text-align: center;\">" . __('There are no hosts currently locked out.') . "</p>\n";
 												}
 											?>
 										</td>

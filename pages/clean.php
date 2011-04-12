@@ -24,7 +24,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
-			echo '<div id="message" class="updated"><p>Old Data Has Been Cleared From The Database.</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Old Data Has Been Cleared From The Database') . '.</p></div>';
 		}
 	}
 	
@@ -67,22 +67,22 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - Clean Database</h2>
+	<h2><?php _e('Better WP Security - Clean Database'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3>Old Data</h3>
+				<h3><?php _e('Old Data'); ?></h3>
 				<div class="inside">
-					<p>Below is old security data still in your Wordpress database. Data is considered old when the lockout has expired or the attempt will no longer be used to generate a lockout.</p>
-					<p>This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.</p>
+					<p><?php _e('Below is old security data still in your Wordpress database. Data is considered old when the lockout has expired or the attempt will no longer be used to generate a lockout.'); ?></p>
+					<p><?php _e('This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_clean_save','wp_nonce') ?>
-						<p>Check the box next to the data you would like to clear and then press the "Remove Old Data" button.</p>
+						<p><?php _e('Check the box next to the data you would like to clear and then press the "Remove Old Data" button.'); ?></p>
 						<ul>
-							<li> <input type="checkbox" name="BWPS_remove404" id="BWPS_remove404" value="1" /> <label for="BWPS_remove404">Your database contains <strong><?php d404_count(); ?> 404 (page not found) errors.</label></strong></li>
-							<li> <input type="checkbox" name="BWPS_removeLogin" id="BWPS_removeLogin" value="1" /> <label for="BWPS_removeLogin">Your database contains <strong><?php logins_count(); ?> bad login attempts.</label></strong></li>
-							<li> <input type="checkbox" name="BWPS_removeLockouts" id="BWPS_removeLockouts" value="1" /> <label for="BWPS_removeLockouts">Your database contains <strong><?php old_lockouts(); ?> old lockouts.</label></strong></li>
+							<li> <input type="checkbox" name="BWPS_remove404" id="BWPS_remove404" value="1" /> <label for="BWPS_remove404"><?php _e('Your database contains'); ?> <strong><?php d404_count(); ?> <?php _e('404 (page not found) errors.'); ?></label></strong></li>
+							<li> <input type="checkbox" name="BWPS_removeLogin" id="BWPS_removeLogin" value="1" /> <label for="BWPS_removeLogin"><?php _e('Your database contains'); ?> <strong><?php logins_count(); ?> <?php _e('bad login attempts.'); ?></label></strong></li>
+							<li> <input type="checkbox" name="BWPS_removeLockouts" id="BWPS_removeLockouts" value="1" /> <label for="BWPS_removeLockouts"><?php _e('Your database contains'); ?> <strong><?php old_lockouts(); ?> <?php _e('old lockouts.'); ?></label></strong></li>
 						</ul>
 					
 						<p class="submit"><input type="submit" name="BWPS_clean_save" value="<?php _e('Remove Old Data', 'better-wp-security'); ?>"></p>
