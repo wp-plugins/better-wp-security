@@ -17,14 +17,14 @@ if ( !function_exists('wp_authenticate') ) {
 				wp_redirect(get_option('siteurl'));
 			} else {
 				unset($opts);
-				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+				return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later.", 'better-wp-security'));
 			}
 		}
 
 		$user = apply_filters('authenticate', null, $username, $password);
 
 		if ( $user == null ) {
-			$user = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.'));
+			$user = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.', 'better-wp-security'));
 		}
 
 		$ignore_codes = array('empty_username', 'empty_password');
@@ -53,7 +53,7 @@ if ( !function_exists('wp_authenticate') ) {
 						wp_redirect(get_option('siteurl'));
 					} else {
 						unset($opts);
-						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later.", 'better-wp-security'));
 					}
 				}
 			} elseif (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
@@ -78,7 +78,7 @@ if ( !function_exists('wp_authenticate') ) {
 						wp_redirect(get_option('siteurl'));
 					} else {
 						unset($opts);
-						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."));
+						return new WP_Error('incorrect_password', __("<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later.", 'better-wp-security'));
 					}
 				}
 			}

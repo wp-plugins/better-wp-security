@@ -63,21 +63,21 @@ define('BWPS_TABLE_LOCKOUTS', $wpdb->prefix . 'BWPS_lockouts');
  */
 function menu_items() {
 	//Add main menu page
-	add_menu_page(__('Better Security - System Status and Support'), __('Security'), 'manage_options', 'BWPS', 'status_options');
+	add_menu_page(__('Better Security - System Status and Support', 'better-wp-security'), __('Security', 'better-wp-security'), 'manage_options', 'BWPS', 'status_options');
 	
 	//Add submenu pages
-	add_submenu_page('BWPS', __('Better WP Security - System Status and Support'), __('Better WP Security'), 'manage_options', 'BWPS', 'status_options');
-	add_submenu_page('BWPS', __('Better WP Security - Admin User'), __('Admin User'), 'manage_options', 'BWPS-adminuser', 'admin_options');
-	add_submenu_page('BWPS', __('Better WP Security - Away Mode'), __('Away Mode'), 'manage_options', 'BWPS-away', 'away_options');
-	add_submenu_page('BWPS', __('Better WP Security - Ban IPs Options'), __('Ban IPs'), 'manage_options', 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS', __('Better WP Security - Block 404s'), __('Block 404s'), 'manage_options', 'BWPS-d404', 'd404_options');
-	add_submenu_page('BWPS', __('Better WP Security - Content Directory'), __('Content Directory'), 'manage_options', 'BWPS-content', 'content_options');
-	add_submenu_page('BWPS', __('Better WP Security - Database Prefix'), __('Database Prefix'), 'manage_options', 'BWPS-database', 'database_options');
-	add_submenu_page('BWPS', __('Better WP Security - Hide Backend Options'), __('Hide Backend'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
-	add_submenu_page('BWPS', __('Better WP Security - .htaccess Options'), __('.htaccess Options'), 'manage_options', 'BWPS-htaccess', 'htaccess_options');
-	add_submenu_page('BWPS', __('Better WP Security - Limit Logins Options'), __('Limit Logins'), 'manage_options', 'BWPS-ll', 'll_options');
-	add_submenu_page('BWPS', __('Better WP Security - System Tweaks'), __('System Tweaks'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
-	add_submenu_page('BWPS', __('Better WP Security - Clean Database'), __('Clean Database'), 'manage_options', 'BWPS-clean', 'clean_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('System Status and Support', 'better-wp-security'),'Better WP Security', 'manage_options', 'BWPS', 'status_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Admin User', 'better-wp-security'), __('Admin User', 'better-wp-security'), 'manage_options', 'BWPS-adminuser', 'admin_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Away Mode', 'better-wp-security'), __('Away Mode', 'better-wp-security'), 'manage_options', 'BWPS-away', 'away_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Ban IPs Options', 'better-wp-security'), __('Ban IPs', 'better-wp-security'), 'manage_options', 'BWPS-banips', 'banips_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Block 404s', 'better-wp-security'), __('Block 404s', 'better-wp-security'), 'manage_options', 'BWPS-d404', 'd404_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Content Directory', 'better-wp-security'), __('Content Directory', 'better-wp-security'), 'manage_options', 'BWPS-content', 'content_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Database Prefix', 'better-wp-security'), __('Database Prefix', 'better-wp-security'), 'manage_options', 'BWPS-database', 'database_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Hide Backend Options', 'better-wp-security'), __('Hide Backend', 'better-wp-security'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('.htaccess Options', 'better-wp-security'), __('.htaccess Options', 'better-wp-security'), 'manage_options', 'BWPS-htaccess', 'htaccess_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Limit Logins Options', 'better-wp-security'), __('Limit Logins', 'better-wp-security'), 'manage_options', 'BWPS-ll', 'll_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('System Tweaks', 'better-wp-security'), __('System Tweaks', 'better-wp-security'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Clean Database', 'better-wp-security'), __('Clean Database', 'better-wp-security'), 'manage_options', 'BWPS-clean', 'clean_options');
 }
 
 /**
@@ -194,7 +194,7 @@ function BWPS_plugin_action_links($links, $file) {
 	 }
 	 
 	if ($file == $this_plugin) { //if plugin is active add a link
-		$settings_link = '<a href="/wp-admin/admin.php?page=BWPS">' . __('Settings') . '</a>';
+		$settings_link = '<a href="/wp-admin/admin.php?page=BWPS">' . __('Settings', 'better-wp-security') . '</a>';
 		array_unshift($links, $settings_link);
 	}
 	

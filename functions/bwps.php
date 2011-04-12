@@ -258,29 +258,29 @@ class BWPS {
  		 */
  		 if (!function_exists('upWarning')) {
 			function upWarning() {
-				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your') . ' <strong>';
+				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your', 'better-wp-security') . ' <strong>';
 				$postMess = '</strong></p></div>';
 	
 				if ($vers['AWAY'] != BWPS_VERSION_AWAY && $vers['AWAY'] > 0 && !isset($_POST['BWPS_away_save'])) { //see if away section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . __('Better WP Security - Away Mode Settings.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . __('Better WP Security - Away Mode Settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['BANIPS'] != BWPS_VERSION_BANIPS && $vers['BANIPS'] > 0 && !isset($_POST['BWPS_banips_save'])) { //see if banips section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . __('Better WP Security - Ban IPs Settings.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . __('Better WP Security - Ban IPs Settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['TWEAKS'] != BWPS_VERSION_TWEAKS && $vers['TWEAKS'] > 0 && !isset($_POST['BWPS_tweaks_save'])) { //see if tweaks section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . __('Better WP Security - System Tweaks.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . __('Better WP Security - System Tweaks.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['HIDEBE'] != BWPS_VERSION_HIDEBE && $vers['HIDEBE'] > 0 && !isset($_POST['BWPS_hidebe_save'])) { //see if hidebe section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['LL'] != BWPS_VERSION_LL && $vers['LL'] > 0 && !isset($_POST['BWPS_ll_save'])) { //see if ll section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-ll">' . __('Better WP Security - Limit Login Settings.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-ll">' . __('Better WP Security - Limit Login Settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['D404'] != BWPS_VERSION_D404 && $vers['D404'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.', 'better-wp-security') . '</a>' . $postMess;
 				}
 			}
 		}
@@ -600,7 +600,7 @@ class BWPS {
 			unset($user);	
 			$wpdb->query($lUser);
 				
-			$mesEmail = __("A Wordpress user, " . $username . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.");
+			$mesEmail = __("A Wordpress user", 'better-wp-security') . ", " . $username . ", " . __('has been locked out of the Wordpress site at', 'better-wp-security') . " " . get_bloginfo('url') . " " . __('until', 'better-wp-security') . " " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " " . __('due to too many failed login attempts. You may login to the site to manually release the lock if necessary.', 'better-wp-security');
 				
 		} else { //just lock out the host
 			$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
@@ -608,13 +608,13 @@ class BWPS {
 					
 			$wpdb->query($lHost);
 				
-			$mesEmail = __("A computer, " . $this->computer_id . ", has been locked out of the Wordpress site at "	. get_bloginfo('url') . " until " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " due to too many failed login attempts. You may login to the site to manually release the lock if necessary.");
+			$mesEmail = __("A computer", 'better-wp-security') . ", " .$this->computer_id . ", " . __('has been locked out of the Wordpress site at', 'better-wp-security') . " " . get_bloginfo('url') . " " . __('until', 'better-wp-security') . " " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " " . __('due to too many failed login attempts. You may login to the site to manually release the lock if necessary.', 'better-wp-security');
 				
 		}
 		
 		if ($opts['ll_emailnotify'] == 1) { //email the site admin if necessary
 			$toEmail = get_site_option("admin_email");
-			$subEmail = get_bloginfo('name') . ": Site Lockout Notification";
+			$subEmail = get_bloginfo('name') . ' ' . __('Site Lockout Notification', 'better-wp-security');
 			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
 			
 			$sendMail = wp_mail($toEmail, $subEmail, $mesEmail, $headers);
@@ -794,7 +794,7 @@ class BWPS {
 		
 		//add to error array if the password does not meet requirements
 		if ( $enforce && !$errors->get_error_data("pass") && $_POST["pass1"] && $this->tweaks_pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
-			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' ) );  
+			$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , 'better-wp-security') );  
 		}  
 		
 		//cleanup
@@ -1077,9 +1077,9 @@ class BWPS {
 	function status_checkContentDir() {
 		echo "<p>\n";
 		if (!strstr(WP_CONTENT_DIR,'wp-content') || !strstr(WP_CONTENT_URL,'wp-content')) {
-			echo "<span style=\"color: green;\">" . __("You have renamed the wp-content directory of your site.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("You have renamed the wp-content directory of your site.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("You should rename the wp-content directory of your site.") . " <a href=\"admin.php?page=BWPS-content\">" . __("Click here to do so") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("You should rename the wp-content directory of your site.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-content\">" . __("Click here to do so", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}
@@ -1090,9 +1090,9 @@ class BWPS {
 	function status_checkSSL() {
 		echo "<p>\n";
 		if (FORCE_SSL_ADMIN == true && FORCE_SSL_LOGIN == true) {
-			echo "<span style=\"color: green;\">" . __("You are requiring a secure connection for logins and the admin area.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("You are requiring a secure connection for logins and the admin area.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: orange;\">" . __("You are not requiring a secure connection for logins or for the admin area.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("You are not requiring a secure connection for logins or for the admin area.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}
@@ -1105,9 +1105,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['d404_enable'] == 1) {
-			echo "<span style=\"color: green;\">" . __("Your site is secured from attacks by XSS.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your site is secured from attacks by XSS.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.") . " <a href=\"admin.php?page=BWPS-d404\">" . __("Click here to fix this") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-d404\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1122,9 +1122,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_randomVersion'] == 1) {
-			echo "<span style=\"color: green;\">" . __("Version information is obscured to all non admin users.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Version information is obscured to all non admin users.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Users may still be able to get version information from various plugins and themes.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Users may still be able to get version information from various plugins and themes.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1139,9 +1139,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_longurls'] == 1) {
-			echo "<span style=\"color: green;\">" . __("Your installation does not accept long URLs.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your installation does not accept long URLs.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1156,9 +1156,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['tweaks_removeLoginMessages'] == 1) {
-			echo "<span style=\"color: green;\">" . __("No error messages are displayed on failed login.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("No error messages are displayed on failed login.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Error messages are displayed to users on failed login.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to remove them") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Error messages are displayed to users on failed login.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to remove them", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1175,11 +1175,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($hcount == 3) {
-			echo "<span style=\"color: green;\">" . __("Non-administrators cannot see available updates.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Non-administrators cannot see available updates.", 'better-wp-security') . "</span>\n";
 		} elseif ($hcount > 0) {
-			echo "<span style=\"color: orange;\">" . __("Non-administrators can see some updates.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it") . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("Non-administrators can see some updates.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it", 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Non-administrators can see all updates.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Non-administrators can see all updates.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1196,11 +1196,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($hcount == 3) {
-			echo "<span style=\"color: green;\">" . __("Your Wordpress header is revealing as little information as possible.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your Wordpress header is revealing as little information as possible.", 'better-wp-security') . "</span>\n";
 		} elseif ($hcount > 0) {
-			echo "<span style=\"color: orange;\">" . __("Your Wordpress header is still revealing some information to users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it") . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("Your Wordpress header is still revealing some information to users.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fully fix it", 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Your Wordpress header is showing too much information to users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your Wordpress header is showing too much information to users.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix it", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1218,11 +1218,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($isOn == 1 && $role == 'subscriber') {
-			echo "<span style=\"color: green;\">" . __("You are enforcing strong passwords for all users") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("You are enforcing strong passwords for all users", 'better-wp-security') . "</span>\n";
 		} elseif ($isOn == 1) {
-			echo "<span style=\"color: orange;\">" . __("You are enforcing strong passwords, but not for all users.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix") . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __("You are enforcing strong passwords, but not for all users.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix", 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("You are not enforcing strong passwords.") . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to enforce strong passwords.") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("You are not enforcing strong passwords.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to enforce strong passwords.", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1237,9 +1237,9 @@ class BWPS {
 			
 		echo "<p>\n";
 		if ($opts['hidebe_enable'] == 1) {
-			echo "<span style=\"color: green;\">" . __("Your Wordpress admin area is hidden.") . "</span>\n";
+			echo "<span style=\"color: green;\">" . __("Your Wordpress admin area is hidden.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Your Wordpress admin area  file is NOT hidden.") . " <a href=\"admin.php?page=BWPS-hidebe\">" . __("Click here to secure it") . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your Wordpress admin area  file is NOT hidden.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-hidebe\">" . __("Click here to secure it", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1255,9 +1255,9 @@ class BWPS {
 		echo "<p>\n";
 
 		if ($wpdb->prefix == 'wp_') {
-			echo "<span style=\"color: red;\">" . __('Your table prefix should not be <em>wp_</em>.') . "  <a href=\"admin.php?page=BWPS-database\">" . __('Click here to change it') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('Your table prefix should not be <em>wp_</em>.', 'better-wp-security') . "  <a href=\"admin.php?page=BWPS-database\">" . __('Click here to change it', 'better-wp-security') . "</a>.</span>\n";
 		}else{
-			echo "<span style=\"color: green;\">" . __('Your table prefix is') . " <em>" . $wpdb->prefix . "</em>.</span>\n";
+			echo "<span style=\"color: green;\">" . __('Your table prefix is', 'better-wp-security') . " <em>" . $wpdb->prefix . "</em>.</span>\n";
 		}
 
 		echo "</p>\n";
@@ -1274,9 +1274,9 @@ class BWPS {
 		echo "<p>\n";
 		
 		if ($adminUser =="admin") {
-			echo "<span style=\"color: red;\">" . __('The <em>admin</em> user still exists.') . "  <a href=\"admin.php?page=BWPS-adminuser\">" . __('Click here to rename it') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('The <em>admin</em> user still exists.', 'better-wp-security') . "  <a href=\"admin.php?page=BWPS-adminuser\">" . __('Click here to rename it', 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: green;\">" . __('The <em>admin</em> user has been removed.') . "</span>\n";
+			echo "<span style=\"color: green;\">" . __('The <em>admin</em> user has been removed.', 'better-wp-security') . "</span>\n";
 		}
 		
 		echo "</p>\n";
@@ -1293,11 +1293,11 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($htcount == 7) {
-			echo "<span style=\"color: green;\">" . __('Your .htaccess file is fully secured.') . "</span>\n";
+			echo "<span style=\"color: green;\">" . __('Your .htaccess file is fully secured.', 'better-wp-security') . "</span>\n";
 		} elseif ($htcount > 0) {
-			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to fully secure it') . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to fully secure it', 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __('Your .htaccess file is NOT secured.') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to secure it') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('Your .htaccess file is NOT secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to secure it', 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1313,9 +1313,9 @@ class BWPS {
 	
 		echo "<p>\n";
 		if ($opts['ll_enable'] == 1) {
-			echo "<span style=\"color: green;\">" . __('Your site is not vulnerable to brute force attacks.') . "</span>\n";
+			echo "<span style=\"color: green;\">" . __('Your site is not vulnerable to brute force attacks.', 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __('Your site is vulnerable to brute force attacks.') . " <a href=\"admin.php?page=BWPS-ll\">" . __('Click here to secure it') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('Your site is vulnerable to brute force attacks.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-ll\">" . __('Click here to secure it', 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
@@ -1332,9 +1332,9 @@ class BWPS {
 		echo "<p>\n";
 		
 		if ($opts['away_enable'] == 1) {
-			echo "<span style=\"color: green;\">" . __('Your Wordpress admin area is not available when you will not be needing it.') . "</span>\n";
+			echo "<span style=\"color: green;\">" . __('Your Wordpress admin area is not available when you will not be needing it.', 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: orange;\">" . __('Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?') . " <a href=\"admin.php?page=BWPS-away\">" . __('Click here to limit admin availability') . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __('Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-away\">" . __('Click here to limit admin availability', 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		

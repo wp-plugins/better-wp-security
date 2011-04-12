@@ -28,11 +28,11 @@
 			}
 			
 			if (!checkdate($_POST['BWPS_away_startmonth'], $_POST['BWPS_away_startday'], $_POST['BWPS_away_startyear'])) {
-				$errorHandler->add("1", __("<strong>You MUST enter a valid date for start time."));
+				$errorHandler->add("1", __("<strong>You MUST enter a valid date for start time.", 'better-wp-security'));
 			}
 			
 			if (!checkdate($_POST['BWPS_away_endmonth'], $_POST['BWPS_away_endday'], $_POST['BWPS_away_endyear'])) {
-				$errorHandler->add("2", __("<strong>You MUST enter a valid date for end time."));
+				$errorHandler->add("2", __("<strong>You MUST enter a valid date for end time.", 'better-wp-security'));
 			}
 		
 		}
@@ -41,7 +41,7 @@
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			$BWPS->saveVersions('AWAY', BWPS_VERSION_AWAY);
-			echo '<div id="message" class="updated"><p>' . __('Settings Saved') . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Settings Saved', 'better-wp-security') . '</p></div>';
 		}
 		
 		$aedisplay = $_POST['BWPS_away_enable'];
@@ -102,45 +102,45 @@
 
 <div class="wrap" >
 
-	<h2><?php _e('Better WP Security - Away Options'); ?></h2>
+	<h2>Better WP Security - <?php _e('Away Options', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3><?php _e('Away Mode Options'); ?></h3>	
+				<h3><?php _e('Away Mode Options', 'better-wp-security'); ?></h3>	
 				<div class="inside">
-					<p><?php _e('As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period.'); ?></p>
+					<p><?php _e('As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period.', 'better-wp-security'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_away_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_away_enable"><?php _e('Enable Away Mode'); ?></label>
+										<label for="BWPS_away_enable"><?php _e('Enable Away Mode', 'better-wp-security'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_away_enable" id="BWPS_away_enable" value="1" <?php if ($aedisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
-										<label><input name="BWPS_away_enable" value="0" <?php if ($aedisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label>
+										<label><input name="BWPS_away_enable" id="BWPS_away_enable" value="1" <?php if ($aedisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_away_enable" value="0" <?php if ($aedisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_away_enable"><?php _e('Type of Restriction'); ?></label>
+										<label for="BWPS_away_enable"><?php _e('Type of Restriction', 'better-wp-security'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_away_mode" id="BWPS_away_mode" value="1" <?php if ($modisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Daily'); ?></label>
-										<label><input name="BWPS_away_mode" value="0" <?php if ($modisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('One Time'); ?></label>
+										<label><input name="BWPS_away_mode" id="BWPS_away_mode" value="1" <?php if ($modisplay == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Daily', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_away_mode" value="0" <?php if ($modisplay == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('One Time', 'better-wp-security'); ?></label>
 										<p>
-										<?php _e('Selecting <em>"One Time"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>"Daily"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time.'); ?>
+										<?php _e('Selecting <em>"One Time"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>"Daily"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time.', 'better-wp-security'); ?>
 										</p>
 									</td>
 								</tr>
 							
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_away_start"><?php _e('Start Date and Time'); ?></label>
+										<label for="BWPS_away_start"><?php _e('Start Date and Time', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<select name="BWPS_away_startmonth" id="BWPS_away_start">
@@ -213,14 +213,14 @@
 											<option value="pm"<?php if ($ssdisplay == "pm") echo " selected"; ?>>pm</option>
 										</select>
 										<p>
-										<?php _e('Select the date and time at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected the date will be ignored and access will be banned each day at the specified time.'); ?>
+										<?php _e('Select the date and time at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected the date will be ignored and access will be banned each day at the specified time.', 'better-wp-security'); ?>
 										</p>
 									</td>
 								</tr>
 
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_away_end"><?php _e('End Date and Time'); ?></label>
+										<label for="BWPS_away_end"><?php _e('End Date and Time', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<select name="BWPS_away_endmonth" id="BWPS_away_end">
@@ -293,7 +293,7 @@
 											<option value="pm"<?php if ($esdisplay == "pm") echo " selected"; ?>>pm</option>
 										</select>
 										<p>
-										<?php _e('Select the date and time at which access to the backend of this site will be restored. Note that if <em>"Daily"</em> mode is selected the date will be ignored and access will be restored each day at the specified time.'); ?>
+										<?php _e('Select the date and time at which access to the backend of this site will be restored. Note that if <em>"Daily"</em> mode is selected the date will be ignored and access will be restored each day at the specified time.', 'better-wp-security'); ?>
 										</p>
 									</td>
 								</tr>
@@ -324,8 +324,8 @@
 								$etime = "<strong><em>" . date('l, F jS, Y \a\\t g:i a', $opts['away_end']) . "</em></strong>";
 							}
 						?>
-						<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable'); ?><?php echo $freq; ?> <?php _e('from'); ?> <?php echo $stime; ?> <?php _e('until'); ?> <?php echo $etime; ?>.</p>
-						<p><?php _e('Please note that according to your'); ?> <a href="options-general.php"><?php _e('Wordpress timezone settings'); ?></a> <?php _e('your local time is'); ?> <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS->getLocalTime()); ?></em></strong>. <?php _e('If this is incorrect please correct it on the'); ?> <a href="options-general.php"><?php _e('Wordpress general settings page'); ?></a> <?php _e('by setting the appropriate time zone. Failure to do so may result in unintended lockouts.'); ?></p>
+						<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable', 'better-wp-security'); ?><?php echo $freq; ?> <?php _e('from', 'better-wp-security'); ?> <?php echo $stime; ?> <?php _e('until'); ?> <?php echo $etime; ?>.</p>
+						<p><?php _e('Please note that according to your', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress timezone settings', 'better-wp-security'); ?></a> <?php _e('your local time is', 'better-wp-security'); ?> <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS->getLocalTime()); ?></em></strong>. <?php _e('If this is incorrect please correct it on the', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress general settings page', 'better-wp-security'); ?></a> <?php _e('by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', 'better-wp-security'); ?></p>
 					</div>
 				</div>
 			</div>

@@ -19,7 +19,7 @@
 				$errorHandler = new WP_Error();
 			}
 			
-			$errorHandler->add("2", __("Unable to update htaccess rules"));
+			$errorHandler->add("2", __("Unable to update htaccess rules", 'better-wp-security'));
 			
 		} else {
 		
@@ -40,7 +40,7 @@
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			$BWPS->saveVersions('HIDEBE', BWPS_VERSION_HIDEBE);
-			echo '<div id="message" class="updated"><p>' . __('Settings Saved') . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Settings Saved', 'better-wp-security') . '</p></div>';
 		}
 		
 	}
@@ -48,56 +48,56 @@
 
 <div class="wrap" >
 
-	<h2><?php _e('Better WP Security - Hide Backend Options'); ?></h2>
+	<h2>Better WP Security - <?php _e('Hide Backend Options', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3><?php _e('Hide Backend Options'); ?></h3>	
+				<h3><?php _e('Hide Backend Options', 'better-wp-security'); ?></h3>	
 				<div class="inside">
-					<p><?php _e('The options below allow you to "hide" the backed of Wordpress replacing known URLs of important areas with ones of your choosing. This is useful if slowing bots and keeping away other nosy users especially on closed or private systems.'); ?></p>
+					<p><?php _e('The options below allow you to "hide" the backed of Wordpress replacing known URLs of important areas with ones of your choosing. This is useful if slowing bots and keeping away other nosy users especially on closed or private systems.', 'better-wp-security'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_hidebe_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_hidebe_enable"><?php _e('Enable Hide Backend'); ?></label>
+										<label for="BWPS_hidebe_enable"><?php _e('Enable Hide Backend', 'better-wp-security'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_hidebe_enable" id="BWPS_hidebe_enable" value="1" <?php if ($opts['hidebe_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
-										<label><input name="BWPS_hidebe_enable" value="0" <?php if ($opts['hidebe_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label>
+										<label><input name="BWPS_hidebe_enable" id="BWPS_hidebe_enable" value="1" <?php if ($opts['hidebe_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_hidebe_enable" value="0" <?php if ($opts['hidebe_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label>
 									</td>
 								</tr>
      
 								<tr valign="top">
 									<th scope="row">
-										<label for="login_slug"><?php _e('Login Slug'); ?></label>
+										<label for="login_slug"><?php _e('Login Slug', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_hidebe_login_slug" id="login_slug" value="<?php echo $opts['hidebe_login_slug']; ?>" type="text"><br />
-										<em><span style="color: #666666;"><strong><?php _e('Login URL:'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_login_slug']; ?>	</span></em>
+										<em><span style="color: #666666;"><strong><?php _e('Login URL:', 'better-wp-security'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_login_slug']; ?>	</span></em>
 									</td>
 								</tr>
 		                            	
 								<tr valign="top">
 									<th scope="row">
-										<label for="register_slug"><?php _e('Register Slug'); ?></label>
+										<label for="register_slug"><?php _e('Register Slug', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<input type="text" name="BWPS_hidebe_register_slug" id="register_slug" value="<?php echo $opts['hidebe_register_slug']; ?>" /><br />
-										<em><span style="color: #666666;"><strong><?php _e('Register URL:'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_register_slug']; ?></span></em>
+										<em><span style="color: #666666;"><strong><?php _e('Register URL:', 'better-wp-security'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_register_slug']; ?></span></em>
 									</td>
 								</tr>
 	
 								<tr valign="top">
 									<th scope="row">
-										<label for="admin_slug"><?php _e('Admin Slug'); ?></label>
+										<label for="admin_slug"><?php _e('Admin Slug', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<input name="BWPS_hidebe_admin_slug" id="admin_slug" value="<?php echo $opts['hidebe_admin_slug']; ?>" type="text"><br />
-										<em><span style="color: #666666;"><strong><?php _e('Admin URL:'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_admin_slug']; ?></span></em>
+										<em><span style="color: #666666;"><strong><?php _e('Admin URL:', 'better-wp-security'); ?></strong> <?php echo trailingslashit( get_option('siteurl') ); ?></span><span style="color: #4AA02C"><?php echo $opts['hidebe_admin_slug']; ?></span></em>
 									</td>
 								</tr>
 							</tbody>
@@ -115,9 +115,9 @@
 		
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
-					<h3><?php _e('Current .htaccess'); ?></h3>	
+					<h3><?php _e('Current .htaccess', 'better-wp-security'); ?></h3>	
 					<div class="inside">
-						<p><?php _e('Here are the current contents of your .htaccess file.'); ?></p>
+						<p><?php _e('Here are the current contents of your .htaccess file.', 'better-wp-security'); ?></p>
 						<?php $BWPS->htaccess_showContents(); ?>
 					</div>
 				</div>

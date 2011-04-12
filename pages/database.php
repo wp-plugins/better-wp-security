@@ -32,7 +32,7 @@
 						$errorHandler = new WP_Error();
 					}
 			
-					$errorHandler->add("2", __("Could not create table \"" . $newPrefix . $table . "\"."));
+					$errorHandler->add("2", __("Could not create table.", 'better-wp-security'));
 				} else {
 					
 					$sql = 'INSERT INTO `' . $newPrefix . $table . '` SELECT * FROM `' . $wpdb->prefix . $table . '`;';
@@ -44,7 +44,7 @@
 							$errorHandler = new WP_Error();
 						}
 			
-						$errorHandler->add("2", __("Could not copy table \"" . $wpdb->prefix . $table . "\" to \"" . $newPrefix . $table . "\"."));
+						$errorHandler->add("2", __("Could not copy table.", 'better-wp-security'));
 					} else {
 							$tablesCopied[] = $table;
 					}
@@ -61,7 +61,7 @@
 						$errorHandler = new WP_Error();
 					}
 			
-					$errorHandler->add("2", __("Could not update prefix refences in \"" . $newPrefix . "options\" table."));
+					$errorHandler->add("2", __("Could not update prefix refences in options table.", 'better-wp-security'));
 				} else {
 					$fields = array(
 						'user_level',
@@ -79,7 +79,7 @@
 								$errorHandler = new WP_Error();
 							}
 			
-							$errorHandler->add("2", __("Could not update prefix refences in \"" . $newPrefix . "usermeta\" table."));
+							$errorHandler->add("2", __("Could not update prefix refences in usermeta table.", 'better-wp-security'));
 						}
 					}
 				}
@@ -100,7 +100,7 @@
 					if (!$errorHandler) {
 						$errorHandler = new WP_Error();
 					}
-					$errorHandler->add("2", __("Could not drop table \"" . $table . "\""));
+					$errorHandler->add("2", __("Could not drop table.", 'better-wp-security'));
 				} else {
 					$tablesDropped[] = $table;
 				}
@@ -129,7 +129,7 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
-			echo '<div id="message" class="updated"><p>' . __('Database Prefix Changed.') . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Database Prefix Changed.', 'better-wp-security') . '</p></div>';
 		}
 	}
 	
@@ -147,7 +147,7 @@
 
 <div class="wrap" >
 
-	<h2><?php _e('Better WP Security - Database Prefix'); ?></h2>
+	<h2>Better WP Security - <?php _e('Database Prefix', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
@@ -160,13 +160,12 @@
 		?>
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened" style="background-color: <?php echo $bgcolor; ?>;">
-				<h3><?php _e('Rename Admin User'); ?></h3>	
+				<h3><?php _e('Rename Admin User', 'better-wp-security'); ?></h3>	
 				<div class="inside">
-				<?php if ($isForm) {echo "Good"; } ?>
-				<p><?php _e('Use the form below to change the table prefix for your Wordpress Database.'); ?></p>
-				<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!'); ?></p>
+				<p><?php _e('Use the form below to change the table prefix for your Wordpress Database.', 'better-wp-security'); ?></p>
+				<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!', 'better-wp-security'); ?></p>
 					<?php if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) { ?>
-						<p><strong><?php _e('Your database is using the default table prefix'); ?> <em>wp_</em>. <?php _e('You should change this.'); ?></strong></p>
+						<p><strong><?php _e('Your database is using the default table prefix', 'better-wp-security'); ?> <em>wp_</em>. <?php _e('You should change this.', 'better-wp-security'); ?></strong></p>
 					<?php } else { ?>
 						<?php 
 							if (isset($_POST['BWPS_database_save']) && !isset($errorHandler)) {
@@ -175,11 +174,11 @@
 								$pre = $wpdb->prefix;
 							}
 						?>
-						<p><?php _e('Your current database table prefix is'); ?> <strong><em><?php echo $pre; ?></em></strong></p>
+						<p><?php _e('Your current database table prefix is', 'better-wp-security'); ?> <strong><em><?php echo $pre; ?></em></strong></p>
 					<?php } ?>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_database_save','wp_nonce') ?>
-						<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.'); ?></p>
+						<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'better-wp-security'); ?></p>
 						<p class="submit"><input type="submit" name="BWPS_database_save" value="<?php _e('Change Database Table Prefix', 'better-wp-security'); ?>"></p>
 					</form>
 				</div>

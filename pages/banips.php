@@ -49,7 +49,7 @@
 						$errorHandler = new WP_Error();
 					}
 			
-					$errorHandler->add("2", __("You have entered an invalid IP address"));
+					$errorHandler->add("2", __("You have entered an invalid IP address, 'better-wp-security'"));
 				}
 			
 			} else {
@@ -70,7 +70,7 @@
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
 			$BWPS->saveVersions('BANIPS', BWPS_VERSION_BANIPS);
-			echo '<div id="message" class="updated"><p>Settings Saved</p></div>';
+			echo '<div id="message" class="updated"><p>' . __('Settings Saved', 'better-wp-security') . '</p></div>';
 		}
 		
 		$banips_iplist = $_POST['BWPS_banips_iplist'];
@@ -85,40 +85,40 @@
 
 <div class="wrap" >
 
-	<h2><?php _e('Better WP Security - Ban IPs Options'); ?></h2>
+	<h2>Better WP Security - <?php _e('Ban IPs Options', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3><?php _e('Ban IPs Options'); ?></h3>	
+				<h3><?php _e('Ban IPs Options', 'better-wp-security'); ?></h3>	
 				<div class="inside">
-					<p><?php _e('List below the IP addresses you would like to ban from your site. These will be banned in .htaccess.'); ?></p>
+					<p><?php _e('List below the IP addresses you would like to ban from your site. These will be banned in .htaccess.', 'better-wp-security'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_banips_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banips_enable"><?php _e('Enable Ban IPs'); ?></label>
+										<label for="BWPS_banips_enable"><?php _e('Enable Ban IPs', 'better-wp-security'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_banips_enable" id="BWPS_banips_enable" value="1" <?php if ($opts['banips_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On'); ?></label>
-										<label><input name="BWPS_banips_enable" value="0" <?php if ($opts['banips_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off'); ?></label>
+										<label><input name="BWPS_banips_enable" id="BWPS_banips_enable" value="1" <?php if ($opts['banips_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_banips_enable" value="0" <?php if ($opts['banips_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label>
 									</td>
 								</tr>
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banips_iplist"><?php _e('IP List'); ?></label>
+										<label for="BWPS_banips_iplist"><?php _e('IP List', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<textarea rows="10" cols="50" name="BWPS_banips_iplist" id="BWPS_banips_iplist"><?php echo $banips_iplist; ?></textarea><br />
 										<p><em>
-											<?php _e('IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).'); ?><br />
-											<a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.'); ?></a><br />
-											<?php _e('Enter only 1 IP address per line.'); ?><br />
-											<?php _e('You may NOT ban your own IP address'); ?>
+											<?php _e('IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).', 'better-wp-security'); ?><br />
+											<a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', 'better-wp-security'); ?></a><br />
+											<?php _e('Enter only 1 IP address per line.', 'better-wp-security'); ?><br />
+											<?php _e('You may NOT ban your own IP address', 'better-wp-security'); ?>
 										</em></p>
 									</td>
 								</tr>
@@ -137,9 +137,9 @@
 		
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
-					<h3><?php _e('Current .htaccess'); ?></h3>	
+					<h3><?php _e('Current .htaccess', 'better-wp-security'); ?></h3>	
 					<div class="inside">
-						<p><?php _e('Here are the current contents of your .htaccess file.'); ?></p>
+						<p><?php _e('Here are the current contents of your .htaccess file.', 'better-wp-security'); ?></p>
 						<?php $BWPS->htaccess_showContents(); ?>
 					</div>
 				</div>
