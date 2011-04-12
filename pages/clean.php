@@ -12,12 +12,12 @@
 		}
 		
 		if ($_POST['BWPS_removeLogin'] == 1) {
-			$wpdb->query("DELETE FROM " . BWPS_TABLE_LOCKOUTS . " WHERE attempt_date < '" . (time() - 1800) . "';");
+			$wpdb->query("DELETE FROM " . BWPS_TABLE_LL . " WHERE attempt_date < '" . (time() - 1800) . "';");
 		}
 		
 		if ($_POST['BWPS_removeLockouts'] == 1) {
 			$opts = $BWPS->getOptions();
-			$wpdb->query("DELETE FROM " . BWPS_TABLE_LL . " WHERE attempt_date < '" . (time() - ($opts['ll_checkinterval'] * 60)) . "';");
+			$wpdb->query("DELETE FROM " . BWPS_TABLE_LOCKOUTS . " WHERE lockout_date < '" . (time() - ($opts['ll_checkinterval'] * 60)) . "';");
 			unset($opts);
 		}
 		

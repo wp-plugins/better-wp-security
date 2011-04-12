@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
 Tested up to: 3.1.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -61,6 +61,9 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
 
 == Changelog ==
+
+= 1.1 - April 12, 2011 =
+*Fixed bug that prevented cleaning old lockouts from database
 
 = 1.0 - April 6, 2011 =
 * More code documentation
