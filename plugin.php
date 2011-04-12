@@ -208,6 +208,10 @@ add_filter('plugin_action_links','BWPS_plugin_action_links', 10, 2 );
 register_activation_hook(__file__, 'BWPS_install');
 register_deactivation_hook(__file__, 'BWPS_uninstall');
 
+//Register languages
+$lang_dir = trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/languages/';
+load_plugin_textdomain( 'better-wp-security', null, $lang_dir );
+
 /**
  * Define BWPS globals
  *
