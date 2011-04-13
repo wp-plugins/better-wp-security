@@ -62,102 +62,102 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
-= 1.2 - April 12, 2011 =
+= 1.2 - Apr 12, 2011 =
 * Finished support for localization
 
-= 1.1 - April 12, 2011 =
+= 1.1 - Apr 12, 2011 =
 *Fixed bug that prevented cleaning old lockouts from database
 
-= 1.0 - April 6, 2011 =
+= 1.0 - Apr 6, 2011 =
 * More code documentation
 * Added warnings to changing content directory (until I can find a good way to update all existing content)
 * Added options to clean old entries out of the database
 * Fixed minor typos throughout
 
-= 0.16.BETA - March 8, 2011 =
+= 0.16.BETA - Mar 8, 2011 =
 * Updated Homepage
 
-= 0.15.BETA - March 5, 2011 =
+= 0.15.BETA - Mar 5, 2011 =
 * Fixed error for potential conflicts with old htaccess rules
 
-= 0.14.BETA - March 5, 2011 =
+= 0.14.BETA - Mar 5, 2011 =
 * Removed hotlinking protection as it has been deemed to be outside the scope of this project
 * Removed protocol from hide backend htaccess rules for consistency between http and https
 * Combined all httaccess rules into single Better WP Security Block
 * 404 check now ignores all logged in users
 
-= 0.13.BETA - February 11, 2011 =
+= 0.13.BETA - Feb 11, 2011 =
 * Fixed a bug that could erase part of the wp-config file
 
-= 0.12.BETA - February 11, 2011 =
+= 0.12.BETA - Feb 11, 2011 =
 * Changing content directories should no longer break sites that were upgraded from versions prior to 3.0
 
-= 0.11.BETA - February 8, 2011 =
+= 0.11.BETA - Feb 8, 2011 =
 * Update to project homepage and other minor changes
 
-= 0.10.BETA - February 6, 2011 =
+= 0.10.BETA - Feb 6, 2011 =
 * Removed WP version check from status page as it was redundant
 * On uninstall wp-content location will be returned to default
 * Fixed setup error
 * Error checking now correctly identifies database table prefix
 * Rendom version # generator now removes version number from scripts and css where it can (thanks to Dave for this)
 
-= 0.9.BETA - January 11, 2011 =
+= 0.9.BETA - Jan 11, 2011 =
 * Bug fixes
 * Internationalization improvements
 
-= 0.8.BETA - December 2, 2010 =
+= 0.8.BETA - Dec 2, 2010 =
 * Fixed more critical bugs
 
-= 0.7.BETA - December 2, 2010 =
+= 0.7.BETA - Dec 2, 2010 =
 * Fixed more critical bugs
 
-= 0.6.BETA - December 2, 2010 =
+= 0.6.BETA - Dec 2, 2010 =
 * Fixed 2 critical bugs
 
-= 0.5.BETA - December 2, 2010 =
+= 0.5.BETA - Dec 2, 2010 =
 * Major refactoring
 * Streamline database tables
 * Numerous bugfixes
 * Code documentation and continued internationalization prep
 
-= 0.4.BETA - December 1, 2010 =
+= 0.4.BETA - Dec 1, 2010 =
 * Changed the main menu name to "Security"
 * Minimum requirement raised to 3.0.2
 * Begun code documentation and intl prep
 
-= 0.3.BETA - November 21, 2010 =
+= 0.3.BETA - Nov 21, 2010 =
 * Numerous bugfixes
 * 404 check will NOT ban logged in users
 * Lockdown rules no longer apply to logged in users
 
-= 0.2.BETA - November 15, 2010 =
+= 0.2.BETA - Nov 15, 2010 =
 * Updated hidebe to handle standard logout links
 * Numerous other bugfixes
 
-= 0.1.BETA - November 7, 2010 = 
+= 0.1.BETA - Nov 7, 2010 = 
 * Finished status reporting
 * Force SSL for admin pages (on supporting servers)
 * Change wp-content path
 
-= ALPHA 11 - November 6, 2010 =
+= ALPHA 11 - Nov 6, 2010 =
 * Added security checklist
 * Added option to rename existing admin account
 * Added option to change DB table prefix
 * Various bugfixes
 
-= ALPHA 10 - November 3, 2010 =
+= ALPHA 10 - Nov 3, 2010 =
 * Added more htaccess security options
 * All htaccess options have been moved to their own page
 * Added simple intrusion detection based on 404s
 * Bugfixes and code optimization
 
-= ALPHA 9 - November 2, 2010 =
+= ALPHA 9 - Nov 2, 2010 =
 * Deactivating now removes all htaccess areas and turns off associated options
 * Enforce strong passwords for all users of a given minimum role
 * Minor bug fixes
 
-= ALPHA 8 - November 1, 2010 =
+= ALPHA 8 - Nov 1, 2010 =
 * Added various .htaccess options to strengthen file security
 * Modified "hide backend" rewrite rules to work with multi-site
 * Removed non-security hide-backend options
@@ -166,17 +166,17 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Added more options to clean up Wordpress headers
 * Added options to remove plugin notifications from non-super admin users
 
-= ALPHA 7 - October 31, 2010 =
+= ALPHA 7 - Oct 31, 2010 =
 * Continued code refactoring and bug-fixes
 * Improved error handling and upgrade support
 * Combined status and support options pages
 
-= ALPHA 6 - October 30, 2010 =
+= ALPHA 6 - Oct 30, 2010 =
 * Added sanitization and validation to user input
 * Added "away mode" to limit backend access by time
 * Script no longer dies when logged out and instead returns to homepage.
 
-= ALPHA 5 - October 28, 2010 =
+= ALPHA 5 - Oct 28, 2010 =
 * Complete refactor of the existing code
 * Divided settings sections for better UX
 * Added htaccess checks
@@ -185,28 +185,24 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Added email notifications for login limiter
 * Added complete access blocker for login limiter
 
-= ALPHA 4 - October 26, 2010 =
+= ALPHA 4 - Oct 26, 2010 =
 * Added login limiter to limit invalid attempts
 * various Bug fixes
 
-= ALPHA 3 - October 25, 2010 =
+= ALPHA 3 - Oct 25, 2010 =
 * Corrected error display
 * Added registration rules regardless of whether registrations are on or off.
 * Added "Display random version to non-admins"
 * Fixed rewrite rules on hide admin urls so going to the admin slug will work whether the user is logged in or not
 * Added crude upgrade warning to warn of old (not so great) rewrite rules
 
-= ALPHA 2 - October 24, 2010 =
+= ALPHA 2 - Oct 24, 2010 =
 * Optimized and commented code
 * Added uninstall function
 * Numerous fixes to bugs and logic
 
-= 0.1 ALPHA - October 22, 2010 =
+= 0.1 ALPHA - Oct 22, 2010 =
 First alpha release including simple featureset. 
-
-== Upgrade Notice ==
-
-None
 
 == Support ==
 
