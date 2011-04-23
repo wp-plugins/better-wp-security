@@ -80,9 +80,9 @@
 						<?php wp_nonce_field('BWPS_clean_save','wp_nonce') ?>
 						<p><?php _e('Check the box next to the data you would like to clear and then press the "Remove Old Data" button.', 'better-wp-security'); ?></p>
 						<ul>
-							<li> <input type="checkbox" name="BWPS_remove404" id="BWPS_remove404" value="1" /> <label for="BWPS_remove404"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php d404_count(); ?> <?php _e('404 (page not found) errors.', 'better-wp-security'); ?></label></strong></li>
-							<li> <input type="checkbox" name="BWPS_removeLogin" id="BWPS_removeLogin" value="1" /> <label for="BWPS_removeLogin"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php logins_count(); ?> <?php _e('bad login attempts.', 'better-wp-security'); ?></label></strong></li>
-							<li> <input type="checkbox" name="BWPS_removeLockouts" id="BWPS_removeLockouts" value="1" /> <label for="BWPS_removeLockouts"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php old_lockouts(); ?> <?php _e('old lockouts.', 'better-wp-security'); ?></label></strong></li>
+							<li> <input type="checkbox" name="BWPS_remove404" id="BWPS_remove404" value="1" /> <label for="BWPS_remove404"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php d404_count(); ?> <?php _e('404 (page not found) errors.', 'better-wp-security'); ?></strong></label></li>
+							<li> <input type="checkbox" name="BWPS_removeLogin" id="BWPS_removeLogin" value="1" /> <label for="BWPS_removeLogin"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php logins_count(); ?> <?php _e('bad login attempts.', 'better-wp-security'); ?></strong></label></li>
+							<li> <input type="checkbox" name="BWPS_removeLockouts" id="BWPS_removeLockouts" value="1" /> <label for="BWPS_removeLockouts"><?php _e('Your database contains', 'better-wp-security'); ?> <strong><?php old_lockouts(); ?> <?php _e('old lockouts.', 'better-wp-security'); ?></strong></label></li>
 						</ul>
 					
 						<p class="submit"><input type="submit" name="BWPS_clean_save" value="<?php _e('Remove Old Data', 'better-wp-security'); ?>"></p>
