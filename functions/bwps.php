@@ -277,7 +277,7 @@ class BWPS {
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-ll">' . __('Better WP Security - Limit Login Settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-htaccess">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hta">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['D404'] != BWPS_VERSION_D404 && $vers['D404'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.', 'better-wp-security') . '</a>' . $postMess;
