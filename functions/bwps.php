@@ -79,6 +79,15 @@ class BWPS {
 			add_action( 'user_profile_update_errors',  array(&$this, 'tweaks_strongpass'), 0, 3 ); 
 		}
 		
+		//Rewrite meta widget for new backend if necessary
+		if ($opts['hidebe_enable'] == 1) {
+			add_action( 'widgets_init', function() {
+				require_once 'meta.php';
+				unregister_widget('WP_Widget_Meta');
+				register_widget('BWPS_Widget_Meta');
+			} , 99 );
+		}
+		
 		//ban extra-long urls if turned on
 		if ($opts['tweaks_longurls'] == 1 && !is_admin()) {
 			if (strlen($_SERVER['REQUEST_URI']) > 255 ||
