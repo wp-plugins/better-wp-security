@@ -66,7 +66,7 @@ class BWPS {
 		
 		//remove wlmanifest link if turned on
 		if ($opts['tweaks_removewlm'] == 1) {
-			remove_action('wp_head', 'tweaks_wlwmanifest_link');
+			remove_action('wp_head', 'wlwmanifest_link');
 		}
 		
 		//remove rsd link from header if turned on

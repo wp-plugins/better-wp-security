@@ -23,18 +23,18 @@ class BWPS_Widget_Meta extends WP_Widget {
 			<?php
 				if ( ! is_user_logged_in() ) {
 					if ( get_option('users_can_register') )
-						$link = '<li><a href="' . site_url($opts['hidebe_register_slug']) . '">' . __('Register') . '</a></li>';
+						$link = '<li><a rel="nofollow" href="' . site_url($opts['hidebe_register_slug']) . '">' . __('Register') . '</a></li>';
 					else
 						$link = '';
 					} else {
-						$link = '<li><a href="' . site_url($opts['hidebe_admin_slug']) . '">' . __('Site Admin') . '</a></li>';
+						$link = '<li><a rel="nofollow" href="' . site_url($opts['hidebe_admin_slug']) . '">' . __('Site Admin') . '</a></li>';
 					}
 				echo apply_filters('register', $link);
 				
 				if ( ! is_user_logged_in() ) {
-					$link = '<li><a href="' . site_url($opts['hidebe_login_slug']) . '">' . __('Log in') . '</a></li>';
+					$link = '<li><a rel="nofollow" href="' . site_url($opts['hidebe_login_slug']) . '">' . __('Log in') . '</a></li>';
 				} else {
-					$link = '<li><a href="' . esc_url(wp_logout_url(site_url())) . '">' . __('Log out') . '</a></li>';
+					$link = '<li><a rel="nofollow" href="' . esc_url(wp_logout_url(site_url())) . '">' . __('Log out') . '</a></li>';
 				}
 				echo apply_filters('loginout', $link);
 			?>

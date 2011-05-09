@@ -62,6 +62,11 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
+= 1.6 - =
+* Fixed WLManifest link removal from header
+* Added nofollow to all meta links
+* "Away Mode" page now displays current time even when feature has not been enabled
+
 = 1.5 - May 8, 2011 =
 * Meta links update correctly when changing backend links
 

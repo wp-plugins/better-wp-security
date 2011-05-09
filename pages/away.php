@@ -111,6 +111,7 @@
 				<h3><?php _e('Away Mode Options', 'better-wp-security'); ?></h3>	
 				<div class="inside">
 					<p><?php _e('As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period.', 'better-wp-security'); ?></p>
+					<p><strong><?php _e('Please note that according to your', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress timezone settings', 'better-wp-security'); ?></a> <?php _e('your local time is', 'better-wp-security'); ?> <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS->getLocalTime()); ?></em></strong>. <?php _e('If this is incorrect please correct it on the', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress general settings page', 'better-wp-security'); ?></a> <?php _e('by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', 'better-wp-security'); ?></strong></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_away_save','wp_nonce') ?>
 						<table class="form-table">
@@ -325,7 +326,6 @@
 							}
 						?>
 						<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable', 'better-wp-security'); ?><?php echo $freq; ?> <?php _e('from', 'better-wp-security'); ?> <?php echo $stime; ?> <?php _e('until'); ?> <?php echo $etime; ?>.</p>
-						<p><?php _e('Please note that according to your', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress timezone settings', 'better-wp-security'); ?></a> <?php _e('your local time is', 'better-wp-security'); ?> <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', $BWPS->getLocalTime()); ?></em></strong>. <?php _e('If this is incorrect please correct it on the', 'better-wp-security'); ?> <a href="options-general.php"><?php _e('Wordpress general settings page', 'better-wp-security'); ?></a> <?php _e('by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', 'better-wp-security'); ?></p>
 					</div>
 				</div>
 			</div>
