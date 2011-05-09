@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
 Tested up to: 3.1.1
-Stable tag: 1.5
+Stable tag: 1.6
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
 
@@ -62,10 +62,13 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
-= 1.6 - =
+= 1.6 - May 8, 2011 =
 * Fixed WLManifest link removal from header
 * Added nofollow to all meta links
 * "Away Mode" page now displays current time even when feature has not been enabled
+* Status page now shows system information
+* htaccess contents moved to status page
+* fixed fatal activation error affecting php 5.2 users
 
 = 1.5 - May 8, 2011 =
 * Meta links update correctly when changing backend links

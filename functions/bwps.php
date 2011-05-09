@@ -81,11 +81,7 @@ class BWPS {
 		
 		//Rewrite meta widget for new backend if necessary
 		if ($opts['hidebe_enable'] == 1) {
-			add_action( 'widgets_init', function() {
-				require_once 'meta.php';
-				unregister_widget('WP_Widget_Meta');
-				register_widget('BWPS_Widget_Meta');
-			} , 99 );
+			add_action( 'widgets_init', array(&$this, 'hidebe_meta_init'), 99 );
 		}
 		
 		//ban extra-long urls if turned on
@@ -1028,6 +1024,15 @@ class BWPS {
 			$pass = $pass . $tmp;
 		}
 		return $pass;	
+	}
+	
+	/**
+	 * Initialize replacement meta widget
+	 */
+	function hidebe_meta_init() {
+		require_once 'meta.php';
+		unregister_widget('WP_Widget_Meta');
+		register_widget('BWPS_Widget_Meta');
 	}
 	
 	/**

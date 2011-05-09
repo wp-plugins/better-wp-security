@@ -102,17 +102,5 @@
 			
 		<?php include_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/donate.php'); ?>
 		
-		<div class="clear"></div>
-		
-		<div class="postbox-container" style="width:70%">
-			<div class="postbox opened">
-				<h3><?php _e('Current .htaccess', 'better-wp-security'); ?></h3>	
-				<div class="inside">
-					<p><?php _e('Here are the current contents of your .htaccess file.', 'better-wp-security'); ?></p>
-					<?php $BWPS->htaccess_showContents(); ?>
-				</div>
-			</div>
-		</div>
-		
 	</div>
 </div>
