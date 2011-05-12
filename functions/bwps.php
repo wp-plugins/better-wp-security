@@ -252,7 +252,7 @@ class BWPS {
 	}
 
 	/**
-	 * Check supsection versions and prompt user if update is needed.
+	 * Check subsection versions and prompt user if update is needed.
 	 */	
 	function checkVersions() {
 	
@@ -263,7 +263,7 @@ class BWPS {
  		 */
  		 if (!function_exists('upWarning')) {
 			function upWarning() {
-				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your', 'better-wp-security') . ' <strong>';
+				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your ', 'better-wp-security') . ' <strong>';
 				$postMess = '</strong></p></div>';
 	
 				if ($vers['AWAY'] != BWPS_VERSION_AWAY && $vers['AWAY'] > 0 && !isset($_POST['BWPS_away_save'])) { //see if away section needs updating
@@ -285,7 +285,7 @@ class BWPS {
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hta">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
 				}
 				if ($vers['D404'] != BWPS_VERSION_D404 && $vers['D404'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-d404">' . __('Better WP Security - Detect d404 Options.', 'better-wp-security') . '</a>' . $postMess;
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-idetect">' . __('Better WP Security - Intrusion Detection settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 			}
 		}
@@ -1121,7 +1121,7 @@ class BWPS {
 		if ($opts['d404_enable'] == 1) {
 			echo "<span style=\"color: green;\">" . __("Your site is secured from attacks by XSS.", 'better-wp-security') . "</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-d404\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-idetect\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		

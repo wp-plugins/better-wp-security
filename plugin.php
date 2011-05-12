@@ -9,7 +9,7 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://www.chriswiegman.com/projects/better-wp-security/
 	Description: A collection of numerous security fixes and modifications to help protect a standard wordpress installation.
-	Version: 1.6
+	Version: 1.7
 	Author: ChrisWiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
@@ -70,11 +70,11 @@ function menu_items() {
 	add_submenu_page('BWPS','Better WP Security - ' . __('Admin User', 'better-wp-security'), __('Admin User', 'better-wp-security'), 'manage_options', 'BWPS-adminuser', 'admin_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Away Mode', 'better-wp-security'), __('Away Mode', 'better-wp-security'), 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Ban IPs Options', 'better-wp-security'), __('Ban IPs', 'better-wp-security'), 'manage_options', 'BWPS-banips', 'banips_options');
-	add_submenu_page('BWPS','Better WP Security - ' . __('Block 404s', 'better-wp-security'), __('Block 404s', 'better-wp-security'), 'manage_options', 'BWPS-d404', 'd404_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Content Directory', 'better-wp-security'), __('Content Directory', 'better-wp-security'), 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Database Prefix', 'better-wp-security'), __('Database Prefix', 'better-wp-security'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Hide Backend Options', 'better-wp-security'), __('Hide Backend', 'better-wp-security'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('.htaccess Options', 'better-wp-security'), __('.htaccess Options', 'better-wp-security'), 'manage_options', 'BWPS-hta', 'hta_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Intrusion Detection', 'better-wp-security'), __('Intrusion Detection', 'better-wp-security'), 'manage_options', 'BWPS-idetect', 'idetect_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Limit Logins Options', 'better-wp-security'), __('Limit Logins', 'better-wp-security'), 'manage_options', 'BWPS-ll', 'll_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('System Tweaks', 'better-wp-security'), __('System Tweaks', 'better-wp-security'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Clean Database', 'better-wp-security'), __('Clean Database', 'better-wp-security'), 'manage_options', 'BWPS-clean', 'clean_options');
@@ -116,8 +116,8 @@ function content_options() {
  * Define the detect 404 options page
  * @return null 
  */
-function d404_options() {
-	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/d404.php');
+function idetect_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/idetect.php');
 }
 
 /**

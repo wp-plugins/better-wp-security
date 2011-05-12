@@ -35,13 +35,13 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - <?php _e('Detect 404s Options', 'better-wp-security'); ?></h2>
+	<h2>Better WP Security - <?php _e('Intrusion Detection', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3><?php _e('Detect 404s Options', 'better-wp-security'); ?></h3>	
+				<h3><?php _e('Detect 404s', 'better-wp-security'); ?></h3>	
 				<div class="inside">
 					<p><?php _e('Use the options below to enable 404 detection.', 'better-wp-security'); ?></p>
 					<form method="post">

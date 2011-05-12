@@ -62,6 +62,10 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
+= 1.7 =
+* Renamed detect 404s section to intrusion detection to include upcoming features
+* general spelling and grammer corrections
+
 = 1.6 - May 8, 2011 =
 * Fixed WLManifest link removal from header
 * Added nofollow to all meta links
