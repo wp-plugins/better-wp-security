@@ -16,6 +16,11 @@
 				$errorHandler->add("2", $newuser . __(" already exists. Please try again", 'better-wp-security'));
 			} else {
 				$wpdb->query("UPDATE " . $wpdb->users . " SET user_login = '" . $newuser . "' WHERE user_login='admin'");
+				if (is_multisite()) { 
+					$oldAdmins = $wpdb->get_var("SELECT meta_value FROM " . $wpdb->sitemeta . " WHERE meta_key='site_admins'");
+					$newAdmins = str_replace('5:"admin"',strlen($newuser) . ':"' . $newuser . '"',$oldAdmins);
+					$wpdb->query("UPDATE " . $wpdb->sitemeta . " SET meta_value = '" . $newAdmins . "' WHERE meta_key='site_admins'");
+				}
 			}
 		} else {
 			if (!$errorHandler) {

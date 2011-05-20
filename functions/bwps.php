@@ -5,7 +5,7 @@
  * @package BWPS
  */
 
-class BWPS {
+class BWPS { 
 
 	private $computer_id;
 
@@ -19,16 +19,10 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 		
-		if(!function_exists('is_user_logged_in')) {
-			require(ABSPATH . WPINC . '/pluggable.php');
-		}
+		if ($opts['d404_enable'] == 1) { //if detect 404 mode is enabled
 		
-		if ($opts['d404_enable'] == 1 && !is_user_logged_in()) { //if detect 404 mode is enabled
-		
-			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
-			
 			if ($this->d404_checkLock($computer_id)) { //if locked out
-				die(__('Please come back later'));
+				add_action('wp_head', array(&$this,'d404_denyaccess')); //register action
 			}
 			
 			add_action('wp_head', array(&$this,'d404_check')); //register action
@@ -140,10 +134,19 @@ class BWPS {
 		$opts = $this->getOptions(); 
 			
 		$opts[$opt] = $val;
-				
-		delete_option("BWPS_options");
-		update_option("BWPS_options", serialize($opts));
-			
+		
+		if (is_multisite()) {
+			$blogs = get_blog_list( 0, 'all' ); //need to find a non-deprecated alternative
+			if( is_array( $blogs ) ) {
+				foreach( $blogs as $details ) {
+					delete_blog_option($details['blog_id'],"BWPS_options");
+					update_blog_option($details['blog_id'],"BWPS_options", serialize($opts));
+				}
+			}
+		} else {
+			delete_option("BWPS_options");
+			update_option("BWPS_options", serialize($opts));
+		}	
 		return $this->getOptions();;
 	}
 	
@@ -418,10 +421,9 @@ class BWPS {
 		global $wpdb;
 		
 		if (is_404()) { //if we're on a 404 page
-			$computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']);
-			$this->d404_log($computer_id);
-			if ($this->d404_countAttempts($computer_id) >= 20 && !$this->d404_checkLock($computer_id) && !is_user_logged_in()) { //if we've seen too many 404s from an anonymous user lock them out
-				$this->d404_lockout($computer_id);
+			$this->d404_log($this->computer_id);
+			if ($this->d404_countAttempts($this->computer_id) >= 20 && !$this->d404_checkLock($this->computer_id) && !is_user_logged_in()) { //if we've seen too many 404s from an anonymous user lock them out
+				$this->d404_lockout($this->computer_id);
 			}
 		}
 	}
@@ -431,7 +433,7 @@ class BWPS {
 	 * @return Boolean
 	 * @param String
 	 */
-	function d404_log($computer_id) {
+	function d404_log() {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
@@ -439,7 +441,7 @@ class BWPS {
 		$qstring = $wpdb->escape($_SERVER['REQUEST_URI']);
 					
 		$hackQuery = "INSERT INTO " . BWPS_TABLE_D404 . " (computer_id, qstring, attempt_date)
-			VALUES ('" . $computer_id . "', '" . $qstring . "', " . time() . ");";
+			VALUES ('" . $this->computer_id . "', '" . $qstring . "', " . time() . ");";
 			
 		unset($opts);		
 		return $wpdb->query($hackQuery);
@@ -450,7 +452,7 @@ class BWPS {
 	 * @return integer
 	 * @param String
 	 */
-	function d404_countAttempts($computer_id) {
+	function d404_countAttempts() {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
@@ -460,7 +462,7 @@ class BWPS {
 		$count = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . BWPS_TABLE_D404 . "
 			WHERE attempt_date +
 			" . $reTime . " >'" . time() . "' AND
-			computer_id = '" . $computer_id . "';"
+			computer_id = '" . $this->computer_id . "';"
 		);
 		
 		unset($opts);
@@ -473,13 +475,13 @@ class BWPS {
 	 * Lock out the host
 	 * @param String
 	 */
-	function d404_lockOut($computer_id) {
+	function d404_lockOut() {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
 				
 		$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
-			VALUES ('" . $computer_id . "', " . time() . ", 1)";
+			VALUES ('" . $this->computer_id . "', " . time() . ", 1)";
 					
 		$wpdb->query($lHost);			
 		
@@ -492,13 +494,13 @@ class BWPS {
 	 * @return Boolean
 	 * @param String
 	 */
-	function d404_checkLock($computer_id) {
+	function d404_checkLock() {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
 		
 		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . 
-			" WHERE lockout_date < " . (time() + 1800) . " AND computer_id = '" . $computer_id . "' AND mode = 1;");
+			" WHERE lockout_date < " . (time() + 900) . " AND computer_id = '" . $this->computer_id . "' AND mode = 1;");
 		
 		unset($opts);
 		
@@ -506,6 +508,18 @@ class BWPS {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	/**
+	 * List locked out users
+	 * @return array
+	 */
+	function d404_denyaccess() {
+		global $wpdb;
+		
+		if (!is_user_logged_in()) {
+			die(__('Please come back later'));
 		}
 	}
 	

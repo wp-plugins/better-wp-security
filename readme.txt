@@ -4,7 +4,7 @@ Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
-Tested up to: 3.1.1
+Tested up to: 3.2
 Stable tag: 1.6
 
 A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
@@ -53,6 +53,9 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 = Are you still developing this plugin? =
 * Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
 
+= Does this work with netowork or multisite installations? =
+* Yes, as of version 1.7 it should work fine with multisite installations.
+
 = Can I help? =
 * Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization.
 
@@ -65,6 +68,8 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 = 1.7 =
 * Renamed detect 404s section to intrusion detection to include upcoming features
 * general spelling and grammer corrections
+* Moved configuration to network dashboard for multisite installations
+* Improved multisite support
 
 = 1.6 - May 8, 2011 =
 * Fixed WLManifest link removal from header

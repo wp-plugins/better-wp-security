@@ -53,9 +53,14 @@ define('BWPS_VERSION_TABLE_LL','1');
 define('BWPS_VERSION_TABLE_LOCKOUTS','1');
 
 //Define table names
-define('BWPS_TABLE_D404', $wpdb->prefix . 'BWPS_d404');
-define('BWPS_TABLE_LL', $wpdb->prefix . 'BWPS_ll');
-define('BWPS_TABLE_LOCKOUTS', $wpdb->prefix . 'BWPS_lockouts');
+if (is_multisite()) {
+	$dpre = substr($wpdb->prefix,0,strpos($wpdb->prefix,'_') + 1);
+} else {
+	$dpre =  $wpdb->prefix;
+}
+define('BWPS_TABLE_D404', $dpre . 'BWPS_d404');
+define('BWPS_TABLE_LL', $dpre . 'BWPS_ll');
+define('BWPS_TABLE_LOCKOUTS', $dpre . 'BWPS_lockouts');
 
 /**
  * Adds the admin menu pages
@@ -177,7 +182,11 @@ function clean_options() {
 }
 
 //Register the admin menu
-add_action('admin_menu',  'menu_items');
+if (is_multisite()) { 
+	add_action( 'network_admin_menu', 'menu_items' ); 
+} else {
+	add_action('admin_menu',  'menu_items');
+}
 
 /**
  * Defines the plugin action link to appear on the plugin menu
