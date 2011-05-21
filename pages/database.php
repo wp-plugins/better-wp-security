@@ -58,36 +58,48 @@
 			}
 				
 			if (count($tablesCopied) == count($tables)) {
-				$sql = 'UPDATE `' . $newPrefix . 'options` SET `option_name` = "' . $newPrefix . 'user_roles" WHERE `option_name` = "' . $dpre . 'user_roles" LIMIT 1;';
+			
+				$upOpts = true;
+				if (is_multisite()) {
+					$blogs = get_blog_list( 0, 'all' ); //need to find a non-deprecated alternative
+					if( is_array( $blogs ) ) {
+						foreach( $blogs as $details ) {
+							$results = $wpdb->query('UPDATE ' . $newPrefix . $details['blog_id'] . '_options SET option_name = "' . $newPrefix . $details['blog_id'] . '_user_roles" WHERE option_name = "' . $dpre . $details['blog_id'] . '_user_roles" LIMIT 1;');
+							if ($results === false) {
+								$upOpts = false;
+							}
+						}
+					}
+				} else {
+					$upOpts = $wpdb->query('UPDATE ' . $newPrefix . 'options SET option_name = "' . $newPrefix . 'user_roles" WHERE option_name = "' . $dpre . 'user_roles" LIMIT 1;');
+				}
 							
-				$upOpts = $wpdb->query($sql);
-							
-				if ($upOpts === false) {
+				if ($upOpts === false && !is_multisite()) {
 					if (!$errorHandler) {
 						$errorHandler = new WP_Error();
 					}
 			
 					$errorHandler->add("2", __("Could not update prefix refences in options table.", 'better-wp-security'));
-				} else {
-					$rows = $wpdb->get_results('SELECT * FROM ' . $newPrefix . 'usermeta');
-					$upMeta = true;
-					foreach ($rows as $row) {
-						if (substr($row->meta_key,0,strlen($dpre)) == $dpre) {
-							$pos = $newPrefix . substr($row->meta_key, strlen($dpre), strlen($row->meta_key));
-							$result = $wpdb->query('UPDATE ' . $newPrefix . 'usermeta SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
-						}
-						if ($result == false) {
-							$upMeta = false;
-						}
+				}
+					
+				$rows = $wpdb->get_results('SELECT * FROM ' . $newPrefix . 'usermeta');
+				$upMeta = true;
+				foreach ($rows as $row) {
+					if (substr($row->meta_key,0,strlen($dpre)) == $dpre) {
+						$pos = $newPrefix . substr($row->meta_key, strlen($dpre), strlen($row->meta_key));
+						$result = $wpdb->query('UPDATE ' . $newPrefix . 'usermeta SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
 					}
+					if ($result == false) {
+						$upMeta = false;
+					}
+				}
 
-					if ($upMetar === FALSE) {
-						if (!$errorHandler) {
-							$errorHandler = new WP_Error();
-						}
-			
-						$errorHandler->add("2", __("Could not update prefix refences in usermeta table.", 'better-wp-security'));
+				if ($upMetar === FALSE) {
+					if (!$errorHandler) {
+						$errorHandler = new WP_Error();
 					}
+			
+					$errorHandler->add("2", __("Could not update prefix refences in usermeta table.", 'better-wp-security'));
 				}
 			}
 		}
