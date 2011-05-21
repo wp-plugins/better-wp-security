@@ -199,13 +199,11 @@ class BWPS {
 		}
 
 		$rm = file_exists($path);
-		$f = @fopen($path, 'a');
+		$f = is_writable($path);
 	
-		if ($f===false) { //if we can't open the file
+		if ($f === false) { //if we can't open the file
 			return false;
 		}
-	
-		fclose($f);
 	
 		if (!$rm) { //make sure to delete any temp files
 			unlink($path);
@@ -287,7 +285,7 @@ class BWPS {
 				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hta">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
 				}
-				if ($vers['D404'] != BWPS_VERSION_D404 && $vers['D404'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
+				if ($vers['IDETECT'] != BWPS_VERSION_IDETECT && $vers['IDETECT'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
 					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-idetect">' . __('Better WP Security - Intrusion Detection settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 			}

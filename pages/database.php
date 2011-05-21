@@ -1,5 +1,5 @@
 <?php
-	global $wpdb;
+	global $wpdb, $BWPS;
 	
 	if (is_multisite()) {
 		$dpre = substr($wpdb->prefix,0,strpos($wpdb->prefix,'_') + 1);
@@ -168,41 +168,51 @@
 	<h2>Better WP Security - <?php _e('Database Prefix', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
-		
-		<?php 
-			if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) {
-				$bgcolor = "#ffebeb";
-			} else {
-				$bgcolor = "#fff";
-			}
-		?>
-		<div class="postbox-container" style="width:70%">	
-			<div class="postbox opened" style="background-color: <?php echo $bgcolor; ?>;">
-				<h3><?php _e('Rename Admin User', 'better-wp-security'); ?></h3>	
-				<div class="inside">
-				<p><?php _e('Use the form below to change the table prefix for your Wordpress Database.', 'better-wp-security'); ?></p>
-				<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!', 'better-wp-security'); ?></p>
-					<?php if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) { ?>
-						<p><strong><?php _e('Your database is using the default table prefix', 'better-wp-security'); ?> <em>wp_</em>. <?php _e('You should change this.', 'better-wp-security'); ?></strong></p>
-					<?php } else { ?>
-						<?php 
-							if (isset($_POST['BWPS_database_save']) && !isset($errorHandler)) {
-								$pre = $newPrefix;
-							} else {
-								$pre = $dpre;
-							}
-						?>
-						<p><?php _e('Your current database table prefix is', 'better-wp-security'); ?> <strong><em><?php echo $pre; ?></em></strong></p>
-					<?php } ?>
-					<form method="post">
-						<?php wp_nonce_field('BWPS_database_save','wp_nonce') ?>
-						<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'better-wp-security'); ?></p>
-						<p class="submit"><input type="submit" name="BWPS_database_save" value="<?php _e('Change Database Table Prefix', 'better-wp-security'); ?>"></p>
-					</form>
+	
+		<?php if (!$BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { ?>
+			<?php 
+				if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) {
+					$bgcolor = "#ffebeb";
+				} else {
+					$bgcolor = "#fff";
+				}
+			?>
+			<div class="postbox-container" style="width:70%">	
+				<div class="postbox opened" style="background-color: <?php echo $bgcolor; ?>;">
+					<h3><?php _e('Database Prefix', 'better-wp-security'); ?></h3>	
+					<div class="inside">
+					<p><?php _e('Use the form below to change the table prefix for your Wordpress Database.', 'better-wp-security'); ?></p>
+					<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!', 'better-wp-security'); ?></p>
+						<?php if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) { ?>
+							<p><strong><?php _e('Your database is using the default table prefix', 'better-wp-security'); ?> <em>wp_</em>. <?php _e('You should change this.', 'better-wp-security'); ?></strong></p>
+						<?php } else { ?>
+							<?php 
+								if (isset($_POST['BWPS_database_save']) && !isset($errorHandler)) {
+									$pre = $newPrefix;
+								} else {
+									$pre = $dpre;
+								}
+							?>
+							<p><?php _e('Your current database table prefix is', 'better-wp-security'); ?> <strong><em><?php echo $pre; ?></em></strong></p>
+						<?php } ?>
+						<form method="post">
+							<?php wp_nonce_field('BWPS_database_save','wp_nonce') ?>
+							<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'better-wp-security'); ?></p>
+							<p class="submit"><input type="submit" name="BWPS_database_save" value="<?php _e('Change Database Table Prefix', 'better-wp-security'); ?>"></p>
+						</form>
+					</div>
 				</div>
 			</div>
-		</div>
-			
+		<?php } else { ?>
+			<div class="postbox-container" style="width:70%">	
+				<div class="postbox opened" style="background-color: #ffebeb;">
+					<h3><?php _e('Database Prefix', 'better-wp-security'); ?></h3>	
+					<div class="inside">
+						<h3><?php _e('Warning: Better WP Security cannot write to your <em>wp-config.php</em> file. You must fix this error before continuing.','better-wp-security'); ?></h3>
+					</div>
+				</div>
+			</div>
+		<?php } ?>		
 		<?php include_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/donate.php'); ?>
 		
 	</div>

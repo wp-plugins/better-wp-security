@@ -94,7 +94,7 @@ function BWPS_versions() {
 		'HIDEBE' => '0',
 		'LL' => '0',
 		'HTACCESS' => '0',
-		'D404' => '0'
+		'IDETECT' => '0'
 	);
 	
 	return $vers;
