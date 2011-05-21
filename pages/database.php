@@ -1,13 +1,19 @@
 <?php
 	global $wpdb;
 	
+	if (is_multisite()) {
+		$dpre = substr($wpdb->prefix,0,strpos($wpdb->prefix,'_') + 1);
+	} else {
+		$dpre =  $wpdb->prefix;
+	}
+	
 	if (isset($_POST['BWPS_database_save'])) {
 		
 		if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_database_save')) {
 			die('Security error!');
 		}
 		
-		 $checkPreExists = $wpdb->prefix;
+		 $checkPreExists = $dpre;
 		
 		while ($checkPreExists) {
 			$prelength = rand(3,5);
@@ -15,15 +21,15 @@
 			$checkPreExists = $wpdb->get_results('SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N);
 		}
 		
-		$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $wpdb->prefix . '%"', ARRAY_N);
+		$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $dpre . '%"', ARRAY_N);
 					
 		if ($tables) {
 			$tablesCopied = array();
 						
 			foreach ($tables as $table) {
-				$table = substr($table[0], strlen($wpdb->prefix), strlen($table[0]));
+				$table = substr($table[0], strlen($dpre), strlen($table[0]));
 							
-				$sql = 'CREATE TABLE `' . $newPrefix . $table . '`LIKE `' . $wpdb->prefix . $table . '`;';
+				$sql = 'CREATE TABLE `' . $newPrefix . $table . '`LIKE `' . $dpre . $table . '`;';
 					
 				$createTable = $wpdb->query($sql);
 			
@@ -35,7 +41,7 @@
 					$errorHandler->add("2", __("Could not create table.", 'better-wp-security'));
 				} else {
 					
-					$sql = 'INSERT INTO `' . $newPrefix . $table . '` SELECT * FROM `' . $wpdb->prefix . $table . '`;';
+					$sql = 'INSERT INTO `' . $newPrefix . $table . '` SELECT * FROM `' . $dpre . $table . '`;';
 								
 					$popTable = $wpdb->query($sql);
 								
@@ -52,41 +58,41 @@
 			}
 				
 			if (count($tablesCopied) == count($tables)) {
-				$sql = 'UPDATE `' . $newPrefix . 'options` SET `option_name` = "' . $newPrefix . 'user_roles" WHERE `option_name` = "' . $wpdb->prefix . 'user_roles" LIMIT 1;';
+				$sql = 'UPDATE `' . $newPrefix . 'options` SET `option_name` = "' . $newPrefix . 'user_roles" WHERE `option_name` = "' . $dpre . 'user_roles" LIMIT 1;';
 							
 				$upOpts = $wpdb->query($sql);
 							
-				if ($upOpts === FALSE) {
+				if ($upOpts === false) {
 					if (!$errorHandler) {
 						$errorHandler = new WP_Error();
 					}
 			
 					$errorHandler->add("2", __("Could not update prefix refences in options table.", 'better-wp-security'));
 				} else {
-					$fields = array(
-						'user_level',
-						'capabilities',
-						'autosave_draft_ids'
-					);
-
-					foreach ($fields as $field) {
-						$sql = 'UPDATE `' . $newPrefix . 'usermeta` SET `meta_key` = "' . $newPrefix . 'capabilities" WHERE `meta_key` = "' . $wpdb->prefix . 'capabilities" LIMIT 1;';
-
-						$upMeta = $wpdb->query($sql);
-
-						if ($upMetar === FALSE) {
-							if (!$errorHandler) {
-								$errorHandler = new WP_Error();
-							}
-			
-							$errorHandler->add("2", __("Could not update prefix refences in usermeta table.", 'better-wp-security'));
+					$rows = $wpdb->get_results('SELECT * FROM ' . $newPrefix . 'usermeta');
+					$upMeta = true;
+					foreach ($rows as $row) {
+						if (substr($row->meta_key,0,strlen($dpre)) == $dpre) {
+							$pos = $newPrefix . substr($row->meta_key, strlen($dpre), strlen($row->meta_key));
+							$result = $wpdb->query('UPDATE ' . $newPrefix . 'usermeta SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
 						}
+						if ($result == false) {
+							$upMeta = false;
+						}
+					}
+
+					if ($upMetar === FALSE) {
+						if (!$errorHandler) {
+							$errorHandler = new WP_Error();
+						}
+			
+						$errorHandler->add("2", __("Could not update prefix refences in usermeta table.", 'better-wp-security'));
 					}
 				}
 			}
 		}
 		
-		$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $wpdb->prefix . '%"', ARRAY_N);
+		$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $dpre . '%"', ARRAY_N);
 					
 		if ($tables) {
 			$tablesDropped = array();
@@ -96,7 +102,7 @@
 							
 				$dropTable = $wpdb->query('DROP TABLE `' . $table . '`;');
 							
-				if ($dropTabler === FALSE) {
+				if ($dropTable === false) {
 					if (!$errorHandler) {
 						$errorHandler = new WP_Error();
 					}
@@ -118,8 +124,8 @@
 			fclose($handle);
 			$handle = @fopen($conf_f, "w+");
 			foreach ($lines as $line) {
-				if (strpos($line, $wpdb->prefix)) {
-					$line = str_replace($wpdb->prefix, $newPrefix, $line);
+				if (strpos($line, $dpre)) {
+					$line = str_replace($dpre, $newPrefix, $line);
 				}
 				fwrite($handle, $line);
 			}
@@ -136,7 +142,7 @@
 	function checkTablePre(){
 		global $wpdb;
 		
-		if ($wpdb->prefix == 'wp_') {
+		if ($dpre == 'wp_') {
 			return true;
 		}else{
 			echo false;
@@ -171,7 +177,7 @@
 							if (isset($_POST['BWPS_database_save']) && !isset($errorHandler)) {
 								$pre = $newPrefix;
 							} else {
-								$pre = $wpdb->prefix;
+								$pre = $dpre;
 							}
 						?>
 						<p><?php _e('Your current database table prefix is', 'better-wp-security'); ?> <strong><em><?php echo $pre; ?></em></strong></p>
