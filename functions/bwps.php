@@ -1048,23 +1048,6 @@ class BWPS {
 		unregister_widget('WP_Widget_Meta');
 		register_widget('BWPS_Widget_Meta');
 	}
-	
-	/**
-	 * Echos currect htaccess contents
-	 */
-	function htaccess_showContents() {
-	
-		$htaccess = trailingslashit(ABSPATH).'.htaccess';
-		
-		$fh = fopen($htaccess, 'r');
-		
-		$contents = fread($fh, filesize($htaccess));
-		
-		fclose($fh);
-		
-		echo "<pre>" . $contents . "</pre>";
-	
-	}
 
 	/**
 	 * Validate IP address

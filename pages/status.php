@@ -29,7 +29,8 @@
 						<li>
 							<h4><?php _e('User Information', 'better-wp-security'); ?></h4>
 							<ul>
-								<li><?php _e('Public IP / Your Computer IP Address', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['REMOTE_ADDR']; ?></strong></li>
+								<li><?php _e('Public IP Address', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['REMOTE_ADDR']; ?></strong></li>
+								<li><?php _e('User Agent', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['HTTP_USER_AGENT']; ?></strong></li>
 							</ul>
 						</li>
 						
@@ -274,14 +275,36 @@
 		
 		<div class="postbox-container" style="width:70%">
 				<div class="postbox opened">
-					<h3><?php _e('Current .htaccess', 'better-wp-security'); ?></h3>	
+					<h3><?php _e('Current .htaccess Contents', 'better-wp-security'); ?></h3>	
 					<div class="inside">
-						<p><?php _e('Here are the current contents of your .htaccess file.', 'better-wp-security'); ?></p>
-						<?php $BWPS->htaccess_showContents(); ?>
+						<style type="text/css">
+							code {
+								 overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+								 overflow-y: hidden;
+								 background-color: transparent;
+								 white-space: pre-wrap; /* css-3 */
+								 white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+								 white-space: -pre-wrap; /* Opera 4-6 */
+								 white-space: -o-pre-wrap; /* Opera 7 */
+								 /* width: 99%; */
+								 word-wrap: break-word; /* Internet Explorer 5.5+ */
+								 
+							}
+						</style>
+						<?php 
+							$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		
+							$fh = fopen($htaccess, 'r');
+		
+							$contents = fread($fh, filesize($htaccess));
+		
+							fclose($fh);
+							
+							echo highlight_string($contents,true);
+						?>
 					</div>
 				</div>
 			</div>
-		
 		<div class="clear"></div>
 		
 		<div class="postbox-container" style="width:70%">	
