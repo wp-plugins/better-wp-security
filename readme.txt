@@ -71,6 +71,7 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Moved configuration to network dashboard for multisite installations
 * Improved multisite support
 * Warns if .htaccess or wp-config.php files aren't writable where needed
+* Added icon to menu for easier identification
 
 = 1.6 - May 8, 2011 =
 * Fixed WLManifest link removal from header

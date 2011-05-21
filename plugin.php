@@ -68,7 +68,7 @@ define('BWPS_TABLE_LOCKOUTS', $dpre . 'BWPS_lockouts');
  */
 function menu_items() {
 	//Add main menu page
-	add_menu_page(__('Better Security - System Status and Support', 'better-wp-security'), __('Security', 'better-wp-security'), 'manage_options', 'BWPS', 'status_options');
+	add_menu_page(__('Better Security - System Status and Support', 'better-wp-security'), __('Security', 'better-wp-security'), 'manage_options', 'BWPS', 'status_options', plugin_dir_url(__FILE__) . 'images/padlock.png');
 	
 	//Add submenu pages
 	add_submenu_page('BWPS','Better WP Security - ' . __('System Status and Support', 'better-wp-security'),'Better WP Security', 'manage_options', 'BWPS', 'status_options');
