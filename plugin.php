@@ -10,7 +10,7 @@
 	Plugin URI: http://www.chriswiegman.com/projects/better-wp-security/
 	Description: Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 	Version: Dev
-	Author: ChrisWiegman
+	Author: Chris Wiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
 	Copyright 2011  ChrisWiegman  (email : chris@chriswiegman.com)
