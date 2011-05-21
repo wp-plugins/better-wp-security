@@ -169,7 +169,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 	
-		<?php if (!$BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { ?>
+		<?php if ($BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { ?>
 			<?php 
 				if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) {
 					$bgcolor = "#ffebeb";
@@ -208,7 +208,7 @@
 				<div class="postbox opened" style="background-color: #ffebeb;">
 					<h3><?php _e('Database Prefix', 'better-wp-security'); ?></h3>	
 					<div class="inside">
-						<h3><?php _e('Warning: Better WP Security cannot write to your <em>wp-config.php</em> file. You must fix this error before continuing.','better-wp-security'); ?></h3>
+						<h4><?php _e('Warning: Better WP Security cannot write to your <em>wp-config.php</em> file. You must fix this error before continuing.','better-wp-security'); ?></h4>
 					</div>
 				</div>
 			</div>

@@ -78,7 +78,7 @@ function menu_items() {
 	add_submenu_page('BWPS','Better WP Security - ' . __('Content Directory', 'better-wp-security'), __('Content Directory', 'better-wp-security'), 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Database Prefix', 'better-wp-security'), __('Database Prefix', 'better-wp-security'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Hide Backend Options', 'better-wp-security'), __('Hide Backend', 'better-wp-security'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
-	add_submenu_page('BWPS','Better WP Security - ' . __('.htaccess Options', 'better-wp-security'), __('.htaccess Options', 'better-wp-security'), 'manage_options', 'BWPS-hta', 'hta_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('.htaccess Protection', 'better-wp-security'), __('.htaccess Protection', 'better-wp-security'), 'manage_options', 'BWPS-hta', 'hta_protection');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Intrusion Detection', 'better-wp-security'), __('Intrusion Detection', 'better-wp-security'), 'manage_options', 'BWPS-idetect', 'idetect_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Limit Logins Options', 'better-wp-security'), __('Limit Logins', 'better-wp-security'), 'manage_options', 'BWPS-ll', 'll_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('System Tweaks', 'better-wp-security'), __('System Tweaks', 'better-wp-security'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
@@ -145,7 +145,7 @@ function hidebe_options() {
  * Define the protect .htacces options page
  * @return null 
  */
-function hta_options() {
+function hta_protection() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/hta.php');
 }
 

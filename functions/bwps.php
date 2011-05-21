@@ -192,24 +192,26 @@ class BWPS {
  	 * @param String file 
  	 */
 	function can_write($path) {		 
-		if ($path{strlen($path)-1} == '/') { //if we have a dir with a trailing slash
-			return can_write($path.uniqid(mt_rand()).'.tmp');
-		} elseif (is_dir($path)) { //now make sure we have a directory
-			return can_write($path.'/'.uniqid(mt_rand()).'.tmp');
+		if ($path{strlen($path)-1}=='/') { // recursively return a temporary file path
+			return $this->can_write($path.uniqid(mt_rand()).'.tmp');
+		} else if (is_dir($path)) {
+			return $this->can_write($path.'/'.uniqid(mt_rand()).'.tmp');
 		}
-
+		
+		// check tmp file for read/write capabilities
 		$rm = file_exists($path);
-		$f = is_writable($path);
-	
-		if ($f === false) { //if we can't open the file
+		$f = @fopen($path, 'a');
+    
+		if ($f===false) {
 			return false;
-		}
-	
-		if (!$rm) { //make sure to delete any temp files
+    	}
+    	
+		fclose($f);
+		
+		if (!$rm) {
 			unlink($path);
-		}
-	
-		return true; //return true
+    	}
+		return true;
 	}
 
 	/**

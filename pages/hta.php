@@ -51,14 +51,14 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - <?php _e('.htaccess Options', 'better-wp-security'); ?></h2>
+	<h2>Better WP Security - <?php _e('.htaccess Protection', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
-		<?php if (!$BWPS->can_write(ABSPATH . WPINC . '/.htaccess')) { ?>
+		<?php if ($BWPS->can_write(ABSPATH . WPINC . '/.htaccess')) { ?>
 			<div class="postbox-container" style="width:70%">	
 				<div class="postbox opened">
-					<h3><?php _e('htaccess Options', 'better-wp-security'); ?></h3>	
+					<h3><?php _e('htaccess Protection', 'better-wp-security'); ?></h3>	
 					<div class="inside">
 						<p></p>
 						<form method="post">
@@ -104,9 +104,9 @@
 			<?php } else { ?>
 				<div class="postbox-container" style="width:70%">	
 					<div class="postbox opened" style="background-color: #ffebeb;">
-						<h3><?php _e('.htaccess Options', 'better-wp-security'); ?></h3>	
+						<h3><?php _e('.htaccess Protection', 'better-wp-security'); ?></h3>	
 						<div class="inside">
-							<h3><?php _e('Warning: Better WP Security cannot write to your <em>.htaccess</em> file. You must fix this error before continuing.','better-wp-security'); ?></h3>
+							<h4><?php _e('Warning: Better WP Security cannot write to your <em>.htaccess</em> file. You must fix this error before continuing.','better-wp-security'); ?></h4>
 						</div>
 					</div>
 			</div>
