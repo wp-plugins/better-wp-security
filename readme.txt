@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 1.6
+Stable tag: 1.7
 
 Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 
@@ -65,7 +65,7 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
-= 1.7 =
+= 1.7 May 21, 2011 =
 * Renamed detect 404s section to intrusion detection to include upcoming features
 * general spelling and grammer corrections
 * Moved configuration to network dashboard for multisite installations
