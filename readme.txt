@@ -7,7 +7,7 @@ Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: 1.6
 
-A collection of numerous security fixes and modifications to help protect a standard Wordpress installation.
+Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
