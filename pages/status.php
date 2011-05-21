@@ -29,7 +29,7 @@
 						<li>
 							<h4><?php _e('User Information', 'better-wp-security'); ?></h4>
 							<ul>
-								<li><?php _e('Public IP Address', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['REMOTE_ADDR']; ?></strong></li>
+								<li><?php _e('Public IP Address', 'better-wp-security'); ?>: <strong><a target="_blank" title="<?php _e('Get more information on this address', 'better-wp-security'); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['REMOTE_ADDR']; ?>"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></li>
 								<li><?php _e('User Agent', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['HTTP_USER_AGENT']; ?></strong></li>
 							</ul>
 						</li>
@@ -98,7 +98,7 @@
 						<li>
 							<h4><?php _e('Server Information', 'better-wp-security'); ?></h4>
 							<ul>
-								<li><?php _e('Server / Website IP Address', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['SERVER_ADDR']; ?></strong></li>
+								<li><?php _e('Server / Website IP Address', 'better-wp-security'); ?>: <strong><a target="_blank" title="<?php _e('Get more information on this address', 'better-wp-security'); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['SERVER_ADDR']; ?>"><?php echo $_SERVER['SERVER_ADDR']; ?></a></strong></li>
   								<li><?php _e('Server Type', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['SERVER_SOFTWARE']; ?></strong></li>
   								<li><?php _e('Operating System', 'better-wp-security'); ?>: <strong><?php echo PHP_OS; ?></strong></li>
   								<li><?php _e('Browser Compression Supported', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['HTTP_ACCEPT_ENCODING']; ?></strong></li>
