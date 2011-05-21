@@ -65,6 +65,9 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
+= Dev =
+* Changed plugin description
+
 = 1.7 May 21, 2011 =
 * Renamed detect 404s section to intrusion detection to include upcoming features
 * general spelling and grammer corrections
