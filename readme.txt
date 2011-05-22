@@ -2,7 +2,7 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
-Tags: security, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
+Tags: security, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: 1.7
