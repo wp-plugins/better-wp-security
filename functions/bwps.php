@@ -157,10 +157,12 @@ class BWPS {
 				foreach( $blogs as $details ) {
 					delete_blog_option($details['blog_id'],"BWPS_options");
 					update_blog_option($details['blog_id'],"BWPS_options", serialize($opts));
+					delete_blog_option($details['blog_id'],'BWPS_update');
 				}
 			}
 		} else {
 			delete_option("BWPS_options");
+			delete_option("BWPS_update");
 			update_option("BWPS_options", serialize($opts));
 		}	
 		return $this->getOptions();;
@@ -238,8 +240,7 @@ class BWPS {
 	 * Check subsection versions and prompt user if update is needed.
 	 */	
 	function checkVersions() {
-	
-		if (get_option('BWPS_update') == '1') {
+		if (get_option('BWPS_update') == '1' && !isset($_POST) && (!is_admin() || !is_super_admin())) {
  			 if (!function_exists('upWarning')) {
 				function upWarning() {
 					$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your ', 'better-wp-security') . ' <strong>';
@@ -1114,8 +1115,23 @@ class BWPS {
 	 * Check that the Wordpress theme and plugin file editor is disabled
 	 */
 	function status_checknnofileedit() {
+		$nofileedit = "0";
+		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$scanText = "define('DISALLOW_FILE_EDIT', true);";
+		$handle = @fopen($conf_f, "r");
+		if ($handle) {
+			while (!feof($handle)) {
+				$lines[] = fgets($handle, 4096);
+			}
+			fclose($handle);
+			foreach ($lines as $line) {
+				if (strstr($line, $scanText)) {
+					$nofileedit = "1";
+				}
+			}
+		}
 		echo "<p>\n";
-		if (DISALLOW_FILE_EDIT == true) {
+		if ($nofileedit == 1) {
 			echo "<span style=\"color: green;\">" . __("You are not allowing users to edit theme and plugin files from the Wordpress backend.", 'better-wp-security') . "</span>\n";
 		} else {
 			echo "<span style=\"color: orange;\">" . __("You are allowing users to edit theme and plugin files from the Wordpress backend.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";

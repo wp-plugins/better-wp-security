@@ -110,22 +110,22 @@
 
 <div class="wrap" >
 
-	<h2>Better WP Security - <?php _e('Ban IPs Options', 'better-wp-security'); ?></h2>
+	<h2>Better WP Security - <?php _e('Ban Users Options', 'better-wp-security'); ?></h2>
 	
 	<div id="poststuff" class="ui-sortable">
 		
 		<div class="postbox-container" style="width:70%">	
 			<div class="postbox opened">
-				<h3><?php _e('Ban IPs Options', 'better-wp-security'); ?></h3>	
+				<h3><?php _e('Ban User Options', 'better-wp-security'); ?></h3>	
 				<div class="inside">
-					<p><?php _e('List below the IP addresses you would like to ban from your site. These will be banned in .htaccess.', 'better-wp-security'); ?></p>
+					<p><?php _e('List below the addresses of users you would like to ban from your site.', 'better-wp-security'); ?></p>
 					<form method="post">
 						<?php wp_nonce_field('BWPS_banvisits_save','wp_nonce') ?>
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banvisits_enable"><?php _e('Enable Ban IPs', 'better-wp-security'); ?></label>
+										<label for="BWPS_banvisits_enable"><?php _e('Enable Ban Users', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<label><input name="BWPS_banvisits_enable" id="BWPS_banvisits_enable" value="1" <?php if ($opts['banvisits_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
@@ -135,16 +135,19 @@
 								
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_banvisits_banlist"><?php _e('IP List', 'better-wp-security'); ?></label>
+										<label for="BWPS_banvisits_banlist"><?php _e('User List', 'better-wp-security'); ?></label>
 									</th>
 									<td>
 										<textarea rows="10" cols="50" name="BWPS_banvisits_banlist" id="BWPS_banvisits_banlist"><?php echo $banvisits_banlist; ?></textarea><br />
-										<p><em>
-											<?php _e('IP addesses must be in IPV4 standard format (i.e. ###.###.###.###).', 'better-wp-security'); ?><br />
-											<a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', 'better-wp-security'); ?></a><br />
-											<?php _e('Enter only 1 IP address per line.', 'better-wp-security'); ?><br />
-											<?php _e('You may NOT ban your own IP address', 'better-wp-security'); ?>
-										</em></p>
+										<ul><em>
+											<li><?php _e('You may ban users by individual IP address, IP address range, or hostname.', 'better-wp-security'); ?></li>
+											<li><?php _e('Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better-wp-security'); ?></li>
+											<li><?php _e('IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', 'better-wp-security'); ?></li>
+											<li><?php _e('Hostnames may be specified individually do NOT include slashes (/), http://, or any other extra information.', 'better-wp-security'); ?></li>
+											<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', 'better-wp-security'); ?></a></li>
+											<li><?php _e('Enter only 1 IP address per line.', 'better-wp-security'); ?></li>
+											<li><?php _e('You may NOT ban your own IP address', 'better-wp-security'); ?></li>
+										</em></ul>
 									</td>
 								</tr>
 							</tbody>

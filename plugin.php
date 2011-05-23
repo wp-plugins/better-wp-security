@@ -9,7 +9,7 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://www.chriswiegman.com/projects/better-wp-security/
 	Description: Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
-	Version: Dev
+	Version: 1.8
 	Text Domain: better-wp-security
 	Domain Path: /languages
 	Author: Chris Wiegman
@@ -42,7 +42,7 @@ global $wpdb;
 
 //Define section versions
 define('BWPS_VERSION_AWAY','1');
-define('BWPS_VERSION_BANIPS','1');
+define('BWPS_VERSION_BANUSERS','1');
 define('BWPS_VERSION_IDETECT','2');
 define('BWPS_VERSION_HIDEBE','3');
 define('BWPS_VERSION_HTACCESS','4');
@@ -76,7 +76,7 @@ function menu_items() {
 	add_submenu_page('BWPS','Better WP Security - ' . __('System Status and Support', 'better-wp-security'),'Better WP Security', 'manage_options', 'BWPS', 'status_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Admin User', 'better-wp-security'), __('Admin User', 'better-wp-security'), 'manage_options', 'BWPS-adminuser', 'admin_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Away Mode', 'better-wp-security'), __('Away Mode', 'better-wp-security'), 'manage_options', 'BWPS-away', 'away_options');
-	add_submenu_page('BWPS','Better WP Security - ' . __('Ban IPs Options', 'better-wp-security'), __('Ban IPs', 'better-wp-security'), 'manage_options', 'BWPS-banips', 'banips_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Ban Users Options', 'better-wp-security'), __('Ban Users', 'better-wp-security'), 'manage_options', 'BWPS-banusers', 'banusers_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Content Directory', 'better-wp-security'), __('Content Directory', 'better-wp-security'), 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Database Prefix', 'better-wp-security'), __('Database Prefix', 'better-wp-security'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Hide Backend Options', 'better-wp-security'), __('Hide Backend', 'better-wp-security'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
@@ -104,11 +104,11 @@ function away_options() {
 }
 
 /**
- * Define the ban ip options page
+ * Define the ban users options page
  * @return null 
  */	
-function banips_options() {
-	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/banips.php');
+function banusers_options() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/banusers.php');
 }
 
 /**

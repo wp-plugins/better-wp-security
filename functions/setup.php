@@ -64,18 +64,12 @@ function BWPS_uninstall() {
 		
 		$BWPS->remove_section($htaccess, 'Better WP Security');
 		
-		//remove legacy sections
-		$BWPS->remove_section($htaccess, 'Better WP Security Ban IPs');
-		$BWPS->remove_section($htaccess, 'Better WP Security Protect htaccess');
-		$BWPS->remove_section($htaccess, 'Better WP Security Hide Backend');
-		
 		$del_d404 = 'DROP TABLE '. BWPS_TABLE_D404 . ';';
 		$del_ll = 'DROP TABLE '. BWPS_TABLE_LL . ';';
 		$del_lockouts = 'DROP TABLE '. BWPS_TABLE_LOCKOUTS . ';';
 		$wpdb->query($del_d404);
 		$wpdb->query($del_ll);
 		$wpdb->query($del_lockouts);
-		$BWPS->renameContent('wp-content');
 	}
 }
 
