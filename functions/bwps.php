@@ -1079,6 +1079,7 @@ class BWPS {
 		$this->status_checkranver();
 		$this->status_check404();
 		$this->status_checkSSL();
+		$this->status_checknnofileedit();
 		$this->status_checkContentDir();
 	}
 	
@@ -1091,6 +1092,19 @@ class BWPS {
 			echo "<span style=\"color: green;\">" . __("You have renamed the wp-content directory of your site.", 'better-wp-security') . "</span>\n";
 		} else {
 			echo "<span style=\"color: red;\">" . __("You should rename the wp-content directory of your site.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-content\">" . __("Click here to do so", 'better-wp-security') . "</a>.</span>\n";
+		}
+		echo "</p>\n";
+	}
+	
+	/**
+	 * Check that the Wordpress theme and plugin file editor is disabled
+	 */
+	function status_checknnofileedit() {
+		echo "<p>\n";
+		if (DISALLOW_FILE_EDIT == true) {
+			echo "<span style=\"color: green;\">" . __("You are not allowing users to edit theme and plugin files from the Wordpress backend.", 'better-wp-security') . "</span>\n";
+		} else {
+			echo "<span style=\"color: orange;\">" . __("You are allowing users to edit theme and plugin files from the Wordpress backend.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-tweaks\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 	}

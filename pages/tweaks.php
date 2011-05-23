@@ -21,50 +21,56 @@
 		$opts = $BWPS->saveOptions("tweaks_strongpassrole",$_POST['BWPS_strongpassrole']);
 		$opts = $BWPS->saveOptions("tweaks_longurls",$_POST['BWPS_longurls']);
 		
-		if (isset($_POST['BWPS_enforceSSL'])) {
-			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
-			$scanText = "/* That's all, stop editing! Happy blogging. */";
-			$newText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n\r\n/* That's all, stop editing! Happy blogging. */";
-			chmod($conf_f, 0755);
-			$handle = @fopen($conf_f, "r+");
-			if ($handle) {
-				while (!feof($handle)) {
-					$lines[] = fgets($handle, 4096);
-				}
-				fclose($handle);
-				$handle = @fopen($conf_f, "w+");
-				foreach ($lines as $line) {
-					if (strstr($line, $scanText)) {
-						$line = str_replace($scanText, $newText, $line);
-					}
-					fwrite($handle, $line);
-				}
-				fclose($handle);
-			}
-			$sslon = "1";
-		} else {
-			$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
-			$scanText = "define('FORCE_SSL_LOGIN', true);\r\ndefine('FORCE_SSL_ADMIN', true);\r\n";
-			$newText = "";
-			chmod($conf_f, 0755);
-			$handle = @fopen($conf_f, "r+");
-			if ($handle) {
-				while (!feof($handle)) {
-					$lines[] = fgets($handle, 4096);
-				}
-				fclose($handle);
-				$handle = @fopen($conf_f, "w+");
-				foreach ($lines as $line) {
-					if (strstr($line, $scanText)) {
-						$line = str_replace($scanText, $newText, $line);
-					}
-					fwrite($handle, $line);
-				}
-				fclose($handle);
-			}
-			$sslon = "0";
-		} 
 		
+		$wpText = "/* That's all, stop editing! Happy blogging. */";
+		$sslText1 = "define('FORCE_SSL_LOGIN', true);";
+		$sslText2 = "define('FORCE_SSL_ADMIN', true);";
+		$editText = "define('DISALLOW_FILE_EDIT', true);";
+		$configFile = trailingslashit(ABSPATH).'/wp-config.php';
+			
+		//Read wp-config.php into an array
+		$handle = @fopen($configFile, "r+");
+		if ($handle) {
+			while (!feof($handle)) {
+				$lines[] = fgets($handle, 4096);
+			}
+			fclose($handle);
+		}
+			
+		$handle = fopen($configFile, "w+");
+		if (isset($_POST['BWPS_enforceSSL']) || isset($_POST['BWPS_nofileedit'])) {
+			$sslon = '0';
+			$nofileedit = '0';
+						
+			//rewrite wp-config.php	
+			foreach ($lines as $line) {
+				if (strstr($line, $sslText1) || strstr($line, $sslText2) || strstr($line, $editText)) {
+					$line = str_replace($line, '', $line);
+				}
+				if (strstr($line, $wpText)) {
+					$line = $wpText;
+					if (isset($_POST['BWPS_enforceSSL'])) {
+						$line = $sslText1 . "\r\n" . $sslText2 . "\r\n" . $line;
+						$sslon = '1';
+					}
+					if (isset($_POST['BWPS_nofileedit'])) {
+						$line = $editText . "\r\n" . $line;
+					$nofileedit = '1';
+					}					
+				}
+				fwrite($handle, $line);
+			}
+		
+		} else {
+			foreach ($lines as $line) {
+				if (!stristr($line, $sslText1) && !stristr($line, $sslText2) && !stristr($line, $editText)) {
+					fwrite($handle, $line);
+				}
+			}
+		}
+		
+		fclose($handle);
+
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
@@ -77,6 +83,21 @@
 			$sslon = "1";
 		} else {
 			$sslon = "0";
+		}
+		$nofileedit = "0";
+		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$scanText = "define('DISALLOW_FILE_EDIT', true);";
+		$handle = @fopen($conf_f, "r");
+		if ($handle) {
+			while (!feof($handle)) {
+				$lines[] = fgets($handle, 4096);
+			}
+			fclose($handle);
+			foreach ($lines as $line) {
+				if (strstr($line, $scanText)) {
+					$nofileedit = "1";
+				}
+			}
 		}
 	}
 	
@@ -153,6 +174,10 @@
 									<p>
 										<input type="checkbox" name="BWPS_longurls" id="BWPS_longurls" value="1" <?php if ($opts['tweaks_longurls'] == 1) echo "checked"; ?> /> <label for="BWPS_longurls"><strong><?php _e('Prevent long URL strings.', 'better-wp-security'); ?></strong></label><br />
 										<?php _e('Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'better-wp-security'); ?>
+									</p>
+									<p>
+										<input type="checkbox" name="BWPS_nofileedit" id="BWPS_nofileedit" value="1" <?php if ($nofileedit == 1) echo "checked"; ?> /> <label for="BWPS_nofileedit"><strong><?php _e('Turn of file editor in Wordpress Back-end.', 'better-wp-security'); ?></strong></label><br />
+										<?php _e('Disables the file editor for plugins and themes requiring users to have access to the file system to modify files.', 'better-wp-security'); ?>
 									</p>
 									<h4><?php _e('SSL Tweaks'); ?></h4>
 									<p>

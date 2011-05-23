@@ -2,43 +2,45 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
-Tags: security, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
+Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
 Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: 1.7
 
-Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
+Helps secure Wordpress by protecting your single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
 
 == Description ==
 
-Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
+#1 WORDPRESS SECURITY PLUGIN
 
-NOTE: It is quite possible (maybe even probable) that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
+Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
 
 = Current features =
 
-* Remove the meta "Generator" tag
-* Removes login error messages
-* Change the urls for backend functions including login, admin, and more
-* Limit admin access to specified IP or range of IP addresses
-* Ban troublesome bots and other hosts
-* Completely turn off the ability to login for a given time period (away mode)
-* Prevent brute force attacks by banning hosts and users with too many invalid login attempts
-* Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
-* Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
-* Remove Windows Live Write header information
-* Remove RSD header information
-* Strengthen .htaccess settings
-* Enforce strong passwords for all accounts of a configurable minimum role
-* Basic Intrusion detection (based on 404 logging)
-* Rename "admin" account
-* Security checker
-* Allow for changing the Wordpress table prefix where necessary
-* Force SSL for admin pages (on supporting servers)
-* Change wp-content path
+1. Remove the meta "Generator" tag
+2. Removes login error messages
+3. Change the urls for backend functions including login, admin, and more
+4. Limit admin access to specified IP or range of IP addresses
+5. Ban troublesome bots and other hosts
+6. Completely turn off the ability to login for a given time period (away mode)
+7. Prevent brute force attacks by banning hosts and users with too many invalid login attempts
+8. Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
+9. Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
+10. Remove Windows Live Write header information
+11. Remove RSD header information
+12. Strengthen .htaccess settings
+13. Enforce strong passwords for all accounts of a configurable minimum role
+14. Detect attempts to attack your site
+15. Rename "admin" account
+16. Security checker
+17. Change the Wordpress database table prefix
+18. Force SSL for admin pages (on supporting servers)
+19. Change wp-content path
+20. Turn off file editing from within Wordpress admin area
+20. Works on multi-site (network) and single site installations
 
 == Installation ==
 
@@ -47,6 +49,8 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 3. Unzip
 4. Activate the plugin through the 'Plugins' menu in WordPress
 5. Visit the Better security menu for checklist and options
+
+NOTE: It is quite possible (maybe even probable) that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 == Frequently Asked Questions ==
 
@@ -67,6 +71,8 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 = Dev =
 * Changed plugin description
+* Improved translation support
+* Added Turn off file editor in Wordpress backend
 
 = 1.7 May 21, 2011 =
 * Renamed detect 404s section to intrusion detection to include upcoming features

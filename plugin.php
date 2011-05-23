@@ -10,6 +10,8 @@
 	Plugin URI: http://www.chriswiegman.com/projects/better-wp-security/
 	Description: Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 	Version: Dev
+	Text Domain: better-wp-security
+	Domain Path: /languages
 	Author: Chris Wiegman
 	Author URI: http://www.chriswiegman.com
 	License: GPLv2
@@ -217,9 +219,20 @@ add_filter('plugin_action_links','BWPS_plugin_action_links', 10, 2 );
 register_activation_hook(__file__, 'BWPS_install');
 register_deactivation_hook(__file__, 'BWPS_uninstall');
 
-//Register languages
-$lang_dir = trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/languages/';
-load_plugin_textdomain( 'better-wp-security', null, $lang_dir );
+/**
+  * activate translations
+  */
+function BWPS_languages() {
+	if ( function_exists('load_plugin_textdomain') ) {
+		if ( !defined('WP_PLUGIN_DIR') ) {
+			load_plugin_textdomain('better-wp-security', str_replace( ABSPATH, '', dirname(__FILE__) ) . '/languages');
+		} else {
+			load_plugin_textdomain('better-wp-security', false, dirname( plugin_basename(__FILE__) ) . '/languages');
+		}
+	}
+}
+
+add_action('init', 'BWPS_languages');
 
 /**
  * Define BWPS globals
