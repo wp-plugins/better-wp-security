@@ -3,11 +3,7 @@
 function BWPS_install() {
 	global $wpdb;
 	
-	if (get_option("BWPS_versions")) {
-		$vers = unserialize(get_option("BWPS_versions"));
-	} else {
-		$vers = BWPS_versions();
-	}
+	BWPS_checkVersions();
 	
 	$BWPSinstall = "CREATE TABLE " . BWPS_TABLE_D404 . " (
 		`attempt_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -83,13 +79,28 @@ function BWPS_uninstall() {
 	}
 }
 
+function BWPS_checkVersions() {
+	if (get_option("BWPS_versions")) {
+		$oldVers = unserialize(get_option("BWPS_versions"));
+		$vers = BWPS_versions();
+		if(count(array_diff($oldVers,$vers)) > 0) {
+			delete_option('BWPS_versions');
+			update_option('BWPS_update', '1');
+		}
+	} else {
+		$vers = BWPS_versions();
+		update_option('BWPS_update', '1');
+	}
+	update_option('BWPS_versions', serialize($vers));
+}
+
 function BWPS_versions() {
 	$vers = array(
 		'TABLE_D404' => '0',
 		'TABLE_LL' => '0',
 		'TABLE_LOCKOUTS' => '0',
 		'AWAY' => '0',
-		'BANIPS' => '0',
+		'BANVISITS' => '0',
 		'TWEAKS' => '0',
 		'HIDEBE' => '0',
 		'LL' => '0',
@@ -136,8 +147,8 @@ function BWPS_defaults() {
 		"ll_banperiod" => "60",
 		"ll_denyaccess" => "1",
 		"ll_emailnotify" => "1",
-		"banips_enable" => "0",
-		"banips_iplist" => "",
+		"banvisits_enable" => "0",
+		"banvisits_banlist" => "",
 		"d404_enable" => "0"
 	);
 	

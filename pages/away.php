@@ -40,7 +40,6 @@
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
-			$BWPS->saveVersions('AWAY', BWPS_VERSION_AWAY);
 			echo '<div id="message" class="updated"><p>' . __('Settings Saved', 'better-wp-security') . '</p></div>';
 		}
 		

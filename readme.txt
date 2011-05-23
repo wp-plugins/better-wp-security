@@ -73,6 +73,7 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Changed plugin description
 * Improved translation support
 * Added Turn off file editor in Wordpress backend
+* Improved accuracy of version checking when upgrading
 
 = 1.7 May 21, 2011 =
 * Renamed detect 404s section to intrusion detection to include upcoming features

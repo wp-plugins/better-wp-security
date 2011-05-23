@@ -7,7 +7,7 @@
 
 class BWPS { 
 
-	private $computer_id;
+	public $computer_id;
 
 	/**
 	 * Execute startup tasks
@@ -18,6 +18,11 @@ class BWPS {
 		$this->computer_id = $wpdb->escape($_SERVER['REMOTE_ADDR']); //get the visitor's ip address
 		
 		$opts = $this->getOptions();
+		
+		//stop site for banned users
+		if ($opts['banvisits_enable'] == 1) {
+			add_action('init', array(&$this,'banvisits_banvistor'));
+		}
 		
 		if ($opts['d404_enable'] == 1) { //if detect 404 mode is enabled
 		
@@ -112,11 +117,22 @@ class BWPS {
 	function getOptions() {
 		global $wpdb;
 		
+		$defaults = BWPS_defaults();
+		
 		if (!get_option("BWPS_options")) { //if options are not in the database retreive default options
-			$opts = BWPS_defaults();
+			$opts = $defaults;
 			update_option("BWPS_options", serialize($opts));
 		} else { //get options from database and add db prefix to tablenames
 			$opts = unserialize(get_option("BWPS_options"));
+			$extra = array_diff_key($opts,$defaults);
+			$missing = array_diff_key($defaults,$opts);
+			foreach ($extra as $key => $value) {
+   				unset($opts[$key]);
+			}
+			foreach ($missing as $key => $value) {
+   				$opts[$key] = $value;
+			}
+			
 		}
 		
 		return $opts;
@@ -150,42 +166,6 @@ class BWPS {
 		return $this->getOptions();;
 	}
 	
-	/**
- 	 * Returns the array of BWPS version numbers
- 	 * @return object 
- 	 */
-	function getVersions() {
-		global $wpdb;
-		
-		if (!get_option("BWPS_versions")) { //if options are not in the database retreive default options
-			$vers = BWPS_versions();
-			update_option("BWPS_versions", serialize($opts));
-		} else { //get options from database and add db prefix to tablenames
-			$vers = unserialize(get_option("BWPS_versions"));
-		}
-		
-		return $vers;
-	}
-		
-	/**
- 	 * Saves a new option to the database and returns an updated array of version numbers
- 	 * @return object 
- 	 * @param String
- 	 * @param String
- 	 */
-	function saveVersions($ver, $val) {
-		global $wpdb;
-		
-		$vers = $this->getVersions(); 
-			
-		$vers[$ver] = $val;
-				
-		delete_option("BWPS_versions");
-		update_option("BWPS_versions", serialize($vers));
-			
-		return $this->getVersions();;
-	}
-
 	/**
  	 * Check $path and return whether it is writable
  	 * @return Boolean
@@ -259,42 +239,17 @@ class BWPS {
 	 */	
 	function checkVersions() {
 	
-		$vers = $this->getVersions();
-		
-		/**
-	 	 * Display warning message
- 		 */
- 		 if (!function_exists('upWarning')) {
-			function upWarning() {
-				$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your ', 'better-wp-security') . ' <strong>';
-				$postMess = '</strong></p></div>';
-	
-				if ($vers['AWAY'] != BWPS_VERSION_AWAY && $vers['AWAY'] > 0 && !isset($_POST['BWPS_away_save'])) { //see if away section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-away">' . __('Better WP Security - Away Mode Settings.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['BANIPS'] != BWPS_VERSION_BANIPS && $vers['BANIPS'] > 0 && !isset($_POST['BWPS_banips_save'])) { //see if banips section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-banips">' . __('Better WP Security - Ban IPs Settings.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['TWEAKS'] != BWPS_VERSION_TWEAKS && $vers['TWEAKS'] > 0 && !isset($_POST['BWPS_tweaks_save'])) { //see if tweaks section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-tweaks">' . __('Better WP Security - System Tweaks.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['HIDEBE'] != BWPS_VERSION_HIDEBE && $vers['HIDEBE'] > 0 && !isset($_POST['BWPS_hidebe_save'])) { //see if hidebe section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hidebe">' . __('Better WP Security - Hide Backend Settings.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['LL'] != BWPS_VERSION_LL && $vers['LL'] > 0 && !isset($_POST['BWPS_ll_save'])) { //see if ll section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-ll">' . __('Better WP Security - Limit Login Settings.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['HTACCESS'] != BWPS_VERSION_HTACCESS && $vers['HTACCESS'] > 0 && !isset($_POST['BWPS_htaccess_save'])) { //see if htaccess section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-hta">' . __('Better WP Security - .htaccess Options.', 'better-wp-security') . '</a>' . $postMess;
-				}
-				if ($vers['IDETECT'] != BWPS_VERSION_IDETECT && $vers['IDETECT'] > 0 && !isset($_POST['BWPS_d404_save'])) { //see if d404 section needs updating
-					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS-idetect">' . __('Better WP Security - Intrusion Detection settings.', 'better-wp-security') . '</a>' . $postMess;
+		if (get_option('BWPS_update') == '1') {
+ 			 if (!function_exists('upWarning')) {
+				function upWarning() {
+					$preMess = '<div id="message" class="error"><p>' . __('Due to changes in the latest Better WP Security release you must update your ', 'better-wp-security') . ' <strong>';
+					$postMess = '</strong></p></div>';
+					echo $preMess . '<a href="/wp-admin/admin.php?page=BWPS">' . __('Better WP Security settings.', 'better-wp-security') . '</a>' . $postMess;
 				}
 			}
-		}
 		
-		add_action('admin_notices', 'upWarning'); //register wordpress action
-		unset($vers);
+			add_action('admin_notices', 'upWarning'); //register wordpress action
+		}
 	}
 		
 	/**
@@ -882,9 +837,9 @@ class BWPS {
 	
 		$theRules = '';
 	
-		if ($opts['banips_enable'] == 1) {
+		if ($opts['banvisits_enable'] == 1) {
 		
-			$ipList = $opts['banips_iplist'];
+			$ipList = $opts['banvisits_iplist'];
 	
 			$theRules .= "order allow,deny\n" . 
 				"deny from " . $ipList . "\n" . 
@@ -1050,16 +1005,75 @@ class BWPS {
 	}
 
 	/**
-	 * Validate IP address
+	 * See if IP address is in given range
 	 * @return Boolean
 	 * @param string
+	 * @param string
+	 * @param string
 	 */
-	function banips_checkIps($address) {
-		if (preg_match( "/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/", $address)) {
+	function banvisits_ipinrange($ip, $range_start, $range_end) {
+		$range_start = ip2long($range_start);
+		$range_end = ip2long($range_end);
+		$ip = ip2long($ip);
+		if($ip !== false && $ip >= $range_start && $ip <= $range_end) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
+	}
+	
+	/**
+	 * ban the user if in ban list
+	 */
+	function banvisits_banvistor() {
+		$opts = $this->getOptions();	
+		$banList = explode("\n",$opts['banvisits_banlist']);
+		foreach($banList as $item) {
+			if (strlen($item) > 0) {
+				if (strstr($item,' - ') || strstr($item,'*') ) {
+					if (strstr($item,' - ')) {
+						$range = explode('-', $item);
+						$start = trim($range[0]);
+						$end = trim($range[1]);
+					} else {
+						$parts = explode('.', $item);
+						foreach ($parts as $part) {
+							if (trim($part) == '*') {
+								$startA[] = '0';
+								$endA[] = '255';
+							} else {
+								$startA[] = trim($part);
+								$endA[] = trim($part);
+							}
+						}
+						$start = implode('.',$startA);
+						$end = implode('.',$endA);
+					}
+					if($this->banvisits_ipinrange($this->computer_id, $start, $end)) {
+						//$this->banvisits_ban();
+					} 
+						
+				} else {
+						if(ip2long($item) == false) {
+							if (trim(gethostbyname($item)) == trim($this->computer_id)) {
+								//$this->banvisits_ban($this->computer_id);
+							}
+						} else {
+							if (trim($item) == trim($this->computer_id)) {
+								//$this->banvisits_ban();
+							}
+						}
+				}
+			}
+		}	
+		
+		unset($opts);
+	}
+	
+	/**
+	 * Kill the site if the user is banned
+	 */
+	function banvisits_ban() {
+		die('error');
 	}
 	
 	/**
