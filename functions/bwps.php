@@ -99,7 +99,7 @@ class BWPS {
 		
 		//see if they're locked out and banned from the site
 		if ($opts['ll_denyaccess'] == 1 && $this->ll_checkLock()) {
-			die('Security error!');
+			die(__('error'));
 		}
 			
 		//check versions if user is admin
@@ -475,7 +475,7 @@ class BWPS {
 		global $wpdb;
 		
 		if (!is_user_logged_in()) {
-			die(__('Please come back later'));
+			die(__('error'));
 		}
 	}
 	
@@ -1074,7 +1074,7 @@ class BWPS {
 	 * Kill the site if the user is banned
 	 */
 	function banvisits_ban() {
-		die('error');
+		die(__('error'));
 	}
 	
 	/**

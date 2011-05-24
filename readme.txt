@@ -70,6 +70,7 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 == Changelog ==
 
 = Dev =
+* Error message on lockouts more ambiguous
 
 = 1.8.1 - May 24, 2011 = 
 * Minor bug fixes
