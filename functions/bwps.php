@@ -24,7 +24,7 @@ class BWPS {
 			add_action('init', array(&$this,'banvisits_banvistor'));
 		}
 		
-		if ($opts['d404_enable'] == 1) { //if detect 404 mode is enabled
+		if ($opts['idetect_d404enable'] == 1) { //if detect 404 mode is enabled
 		
 			if ($this->d404_checkLock($computer_id)) { //if locked out
 				add_action('wp_head', array(&$this,'d404_denyaccess')); //register action
@@ -439,7 +439,16 @@ class BWPS {
 		$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
 			VALUES ('" . $this->computer_id . "', " . time() . ", 1)";
 					
-		$wpdb->query($lHost);			
+		$wpdb->query($lHost);	
+		
+		if ($opts['idetect_emailnotify'] == 1) { //email the site admin if necessary
+			$mesEmail = __("A computer", 'better-wp-security') . ", " .$this->computer_id . ", " . __('has been locked out of the Wordpress site at', 'better-wp-security') . " " . get_bloginfo('url') . " " . __('until', 'better-wp-security') . " " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " " . __('due to too attempts to open a page that doesn\'t exist. You may login to the site to manually release the lock if necessary.', 'better-wp-security');
+			$toEmail = get_site_option("admin_email");
+			$subEmail = get_bloginfo('name') . ' ' . __('Site Lockout Notification', 'better-wp-security');
+			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
+			
+			$sendMail = wp_mail($toEmail, $subEmail, $mesEmail, $headers);
+		}		
 		
 		unset($opts);
 			
@@ -1159,7 +1168,7 @@ class BWPS {
 		$opts = $this->getOptions();
 			
 		echo "<p>\n";
-		if ($opts['d404_enable'] == 1) {
+		if ($opts['idetect_d404enable'] == 1) {
 			echo "<span style=\"color: green;\">" . __("Your site is secured from attacks by XSS.", 'better-wp-security') . "</span>\n";
 		} else {
 			echo "<span style=\"color: red;\">" . __("Your site is still vulnerable to some XSS attacks.", 'better-wp-security') . " <a href=\"admin.php?page=BWPS-idetect\">" . __("Click here to fix this", 'better-wp-security') . "</a>.</span>\n";

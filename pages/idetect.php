@@ -9,7 +9,8 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS->saveOptions("d404_enable", $_POST['BWPS_d404_enable']);
+		$opts = $BWPS->saveOptions("idetect_d404enable", $_POST['BWPS_idetect_d404enable']);
+		$opts = $BWPS->saveOptions("idetect_emailnotify", $_POST['BWPS_idetect_emailnotify']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -49,11 +50,23 @@
 							<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="BWPS_d404_enable"><?php _e('Enable 404 Detection', 'better-wp-security'); ?></label>
+										<label for="BWPS_idetect_d404enable"><?php _e('Enable 404 Detection', 'better-wp-security'); ?></label>
 									</th>
 									<td>
-										<label><input name="BWPS_d404_enable" id="BWPS_d404_enable" value="1" <?php if ($opts['d404_enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
-										<label><input name="BWPS_d404_enable" value="0" <?php if ($opts['d404_enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_idetect_d404enable" id="BWPS_idetect_d404enable" value="1" <?php if ($opts['idetect_d404enable'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_idetect_d404enable" value="0" <?php if ($opts['idetect_d404enable'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label>
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="BWPS_idetect_emailnotify"><?php _e('Enable Email Notifications.', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<label><input name="BWPS_idetect_emailnotify" id="BWPS_idetect_emailnotify" value="1" <?php if ($opts['idetect_emailnotify'] == 1) echo 'checked="checked"'; ?> type="radio" /> <?php _e('On', 'better-wp-security'); ?></label>
+										<label><input name="BWPS_idetect_emailnotify" value="0" <?php if ($opts['idetect_emailnotify'] == 0) echo 'checked="checked"'; ?> type="radio" /> <?php _e('Off', 'better-wp-security'); ?></label><br />
+										<p>
+											<?php _e('Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.', 'better-wp-security'); ?>
+										</p>
 									</td>
 								</tr>
 							</tbody>
@@ -67,7 +80,7 @@
 		<?php include_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/donate.php'); ?>
 		
 		
-		<?php if ($opts['d404_enable'] == 1) { ?>
+		<?php if ($opts['idetect_d404enable'] == 1) { ?>
 			<div class="clear"></div>
 		
 			<div class="postbox-container" style="width:70%">

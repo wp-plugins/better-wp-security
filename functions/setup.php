@@ -99,7 +99,7 @@ function BWPS_versions() {
 		'HIDEBE' => '0',
 		'LL' => '0',
 		'HTACCESS' => '0',
-		'IDETECT' => '0'
+		'IDETECT' => '1'
 	);
 	
 	return $vers;
@@ -143,7 +143,8 @@ function BWPS_defaults() {
 		"ll_emailnotify" => "1",
 		"banvisits_enable" => "0",
 		"banvisits_banlist" => "",
-		"d404_enable" => "0"
+		"idetect_d404enable" => "0",
+		"idetect_emailnotify" => "1",
 	);
 	
 	return $opts;

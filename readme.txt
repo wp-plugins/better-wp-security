@@ -2,7 +2,7 @@
 === Better WP Security ===
 Contributors: ChrisWiegman
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
-Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure
+Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: 1.8.1
@@ -69,13 +69,14 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 = I've enabled the Enforce SSL option and it broke my site. How do I get back in?
 * Open your wp-config.php file in a text editor and remove the following 2 lines:
-* * define('FORCE_SSL_LOGIN', true);;
-* * define('FORCE_SSL_ADMIN', true);;
+* define('FORCE_SSL_LOGIN', true);;
+* define('FORCE_SSL_ADMIN', true);;
 
 == Changelog ==
 
 = Dev =
 * Error message on lockouts more ambiguous
+* Added email notification for intrusion detection
 
 = 1.8.1 - May 24, 2011 = 
 * Minor bug fixes
