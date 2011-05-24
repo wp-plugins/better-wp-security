@@ -67,6 +67,11 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * It is quite possible (maybe even probable) that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
 
+= I've enabled the Enforce SSL option and it broke my site. How do I get back in?
+* Open your wp-config.php file in a text editor and remove the following 2 lines:
+* * define('FORCE_SSL_LOGIN', true);;
+* * define('FORCE_SSL_ADMIN', true);;
+
 == Changelog ==
 
 = Dev =
