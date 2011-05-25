@@ -5,7 +5,7 @@ Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 1.8.1
+Stable tag: 1.9
 
 Helps secure Wordpress by protecting your single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 
@@ -77,7 +77,7 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
-= Dev =
+= 1.9 - May 25, 2011 =
 * Error message on lockouts more ambiguous
 * Added email notification for intrusion detection lockouts
 * Added Bahasa Indonesia (Indonesian) translation by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
