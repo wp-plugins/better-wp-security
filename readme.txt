@@ -42,6 +42,9 @@ Better WP Security takes the best Wordpress security features and techniques and
 20. Turn off file editing from within Wordpress admin area
 20. Works on multi-site (network) and single site installations
 
+= Translations =
+Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
+
 == Installation ==
 
 1. Backup your Wordpress database, config file, and .htaccess file
@@ -76,7 +79,8 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 = Dev =
 * Error message on lockouts more ambiguous
-* Added email notification for intrusion detection
+* Added email notification for intrusion detection lockouts
+* Added Bahasa Indonesia (Indonesian) translation by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
 
 = 1.8.1 - May 24, 2011 = 
 * Minor bug fixes
