@@ -77,6 +77,9 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
+= Dev =
+* Fixed typos
+
 = 1.9 - May 25, 2011 =
 * Error message on lockouts more ambiguous
 * Added email notification for intrusion detection lockouts

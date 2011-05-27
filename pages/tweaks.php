@@ -175,7 +175,7 @@
 										<?php _e('Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'better-wp-security'); ?>
 									</p>
 									<p>
-										<input type="checkbox" name="BWPS_nofileedit" id="BWPS_nofileedit" value="1" <?php if ($nofileedit == 1) echo "checked"; ?> /> <label for="BWPS_nofileedit"><strong><?php _e('Turn of file editor in Wordpress Back-end.', 'better-wp-security'); ?></strong></label><br />
+										<input type="checkbox" name="BWPS_nofileedit" id="BWPS_nofileedit" value="1" <?php if ($nofileedit == 1) echo "checked"; ?> /> <label for="BWPS_nofileedit"><strong><?php _e('Turn off file editor in Wordpress Back-end.', 'better-wp-security'); ?></strong></label><br />
 										<?php _e('Disables the file editor for plugins and themes requiring users to have access to the file system to modify files.', 'better-wp-security'); ?>
 									</p>
 									<h4><?php _e('SSL Tweaks'); ?></h4>
