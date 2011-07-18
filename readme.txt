@@ -1,6 +1,6 @@
 
 === Better WP Security ===
-Contributors: ChrisWiegman
+Contributors: ChrisWiegman, Bit51
 Donate link: http://www.chriswiegman.com/projects/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.0
