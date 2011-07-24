@@ -903,7 +903,7 @@ class BWPS {
 	
 		//ignore invalid http requests	
 		if ($opts['htaccess_request'] == 1) { 
-			$theRules .= "RewriteCond %{REQUEST_METHOD} ^(HEAD|TRACE|DELETE|TRACK) [NC]\n" . 
+			$theRules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]\n" . 
 				"RewriteRule ^(.*)$ - [F,L]\n";
 		}
 	

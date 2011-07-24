@@ -311,7 +311,7 @@
 			<div class="clear"></div>
 			<div class="postbox-container" style="width:70%">
 				<div class="postbox opened" style="background-color: lightYellow;">
-					<h3><?php _e('Access time rules.'); ?></h3>	
+					<h3><?php _e('Access time rules.', 'better-wp-security'); ?></h3>	
 					<div class="inside">
 						<?php
 							if ($opts['away_mode'] == 1) {
@@ -324,7 +324,7 @@
 								$etime = "<strong><em>" . date('l, F jS, Y \a\\t g:i a', $opts['away_end']) . "</em></strong>";
 							}
 						?>
-						<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable', 'better-wp-security'); ?><?php echo $freq; ?> <?php _e('from', 'better-wp-security'); ?> <?php echo $stime; ?> <?php _e('until'); ?> <?php echo $etime; ?>.</p>
+						<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable', 'better-wp-security'); ?><?php echo $freq; ?> <?php _e('from', 'better-wp-security'); ?> <?php echo $stime; ?> <?php _e('until', 'better-wp-security'); ?> <?php echo $etime; ?>.</p>
 					</div>
 				</div>
 			</div>

@@ -246,9 +246,9 @@
 							<ul>
         						<?php
   									if ( is_multisite() ) { 
-	  									$multSite = __('Multisite is enabled');
+	  									$multSite = __('Multisite is enabled', 'better-wp-security');
 									} else {
-										$multSite = __('Multisite is NOT enabled');
+										$multSite = __('Multisite is NOT enabled', 'better-wp-security');
 									}
   								?>
   								<li><?php _e('	Multisite', 'better-wp-security');?>:  <strong><?php echo $multSite; ?></strong></li>

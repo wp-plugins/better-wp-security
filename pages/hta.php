@@ -70,7 +70,7 @@
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_protectreadme" id="BWPS_protectreadme" value="1" <?php if ($opts['htaccess_protectreadme'] == 1) echo "checked"; ?> /> <label for="BWPS_protectreadme"><strong><?php _e('Protect Readme.html', 'better-wp-security'); ?></strong></label><br />
-										<?php _e('Remove access to', 'better-wp-security'); ?> <a href="/readme.html" target="_blank">readme.html</a> <?php _e('which can give away your Wordpress version.'); ?>
+										<?php _e('Remove access to', 'better-wp-security'); ?> <a href="/readme.html" target="_blank">readme.html</a> <?php _e('which can give away your Wordpress version.', 'better-wp-security'); ?>
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_protectinstall" id="BWPS_protectinstall" value="1" <?php if ($opts['htaccess_protectinstall'] == 1) echo "checked"; ?> /> <label for="BWPS_protectinstall"><strong><?php _e('Protect Wordpress installer script', 'better-wp-security'); ?></strong></label><br />
@@ -82,7 +82,7 @@
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_dirbrowse" id="BWPS_dirbrowse" value="1" <?php if ($opts['htaccess_dirbrowse'] == 1) echo "checked"; ?> /> <label for="BWPS_dirbrowse"><strong><?php _e('Disable directory browsing', 'better-wp-security'); ?></strong></label><br />
-										<?php _e('Prevents users from seeing a list of files in a directory when no index file is present'); ?>
+										<?php _e('Prevents users from seeing a list of files in a directory when no index file is present', 'better-wp-security'); ?>
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_request" id="BWPS_request" value="1" <?php if ($opts['htaccess_request'] == 1) echo "checked"; ?> /> <label for="BWPS_request"><strong><?php _e('Filter Request Methods', 'better-wp-security'); ?></strong></label><br />
