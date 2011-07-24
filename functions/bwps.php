@@ -1359,9 +1359,9 @@ class BWPS {
 		if ($htcount == 7) {
 			echo "<span style=\"color: green;\">" . __('Your .htaccess file is fully secured.', 'better-wp-security') . "</span>\n";
 		} elseif ($htcount > 0) {
-			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to fully secure it', 'better-wp-security') . "</a>.</span>\n";
+			echo "<span style=\"color: orange;\">" . __('Your .htaccess file is partially secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-hta\">" . __('Click here to fully secure it', 'better-wp-security') . "</a>.</span>\n";
 		} else {
-			echo "<span style=\"color: red;\">" . __('Your .htaccess file is NOT secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-htaccess\">" . __('Click here to secure it', 'better-wp-security') . "</a>.</span>\n";
+			echo "<span style=\"color: red;\">" . __('Your .htaccess file is NOT secured.', 'better-wp-security') . " <a href=\"admin.php?page=BWPS-hta\">" . __('Click here to secure it', 'better-wp-security') . "</a>.</span>\n";
 		}
 		echo "</p>\n";
 		
