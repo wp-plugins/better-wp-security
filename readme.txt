@@ -43,7 +43,8 @@ Better WP Security takes the best Wordpress security features and techniques and
 20. Works on multi-site (network) and single site installations
 
 = Translations =
-Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
+* Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
+* French by Claude ALTAYRAC
 
 == Installation ==
 
