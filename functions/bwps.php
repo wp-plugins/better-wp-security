@@ -114,6 +114,18 @@ class BWPS {
 		
 		unset($opts);
 	}
+	
+	/**
+	 * Returns the path to wp-config.php
+	 * @return string
+	 */
+	function getConfig() {
+		if (file_exists(trailingslashit(ABSPATH) . 'wp-config.php')) {
+			return trailingslashit(ABSPATH) . 'wp-config.php';
+		} else {
+			return trailingslashit(dirname(ABSPATH)) . 'wp-config.php';
+		}
+	}
 
 	/**
  	 * Returns the array of BWPS options
@@ -1134,7 +1146,7 @@ class BWPS {
 	 */
 	function status_checknnofileedit() {
 		$nofileedit = "0";
-		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$conf_f = $this->getConfig();
 		$scanText = "define('DISALLOW_FILE_EDIT', true);";
 		$handle = @fopen($conf_f, "r");
 		if ($handle) {
@@ -1439,7 +1451,7 @@ class BWPS {
 		
 		rename(trailingslashit(ABSPATH) . $olddir, trailingslashit(ABSPATH) . $newdir);
 		
-		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$conf_f = $this->getConfig();
 		$scanText = "/* That's all, stop editing! Happy blogging. */";
 		$altScan = "/* Stop editing */";
 		$newText = "define('WP_CONTENT_DIR', '" . trailingslashit(ABSPATH) . $newdir . "');\r\ndefine('WP_CONTENT_URL', '" . trailingslashit(get_option('siteurl')) . $newdir . "');\r\n\r\n/* That's all, stop editing! Happy blogging. */";

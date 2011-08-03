@@ -26,7 +26,7 @@
 		$sslText1 = "define('FORCE_SSL_LOGIN', true);";
 		$sslText2 = "define('FORCE_SSL_ADMIN', true);";
 		$editText = "define('DISALLOW_FILE_EDIT', true);";
-		$configFile = trailingslashit(ABSPATH).'/wp-config.php';
+		$configFile = $BWPS->getConfig();
 			
 		//Read wp-config.php into an array
 		$handle = @fopen($configFile, "r+");

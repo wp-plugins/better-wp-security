@@ -125,7 +125,7 @@
 			}
 		}
 		
-		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$conf_f = $BWPS->getConfig();
 
 		chmod($conf_f, 0755);
 		$handle = @fopen($conf_f, "r+");
@@ -169,7 +169,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 	
-		<?php if ($BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { ?>
+		<?php if ($BWPS->can_write($BWPS->getConfig())) { ?>
 			<?php 
 				if ((checkTablePre() && !isset($_POST['BWPS_database_save'])) || (!checkTablePre() && isset($_POST['BWPS_database_save']) && isset($errorHandler))) {
 					$bgcolor = "#ffebeb";

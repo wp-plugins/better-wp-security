@@ -53,7 +53,7 @@
 								?>
 								<li><?php _e('.htaccess File is Writable', 'better-wp-security'); ?>: <strong><?php echo $copen . $htaw . $cclose; ?></strong></li>
 								<?php 
-									if ($BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { 
+									if ($BWPS->can_write($BWPS->getConfig())) { 
 										$copen = '';
 										$cclose = '';
 										$wconf = __('Yes', 'better-wp-security'); 
@@ -265,13 +265,13 @@
 									}
 								?>
 								<li><?php _e('WP Permalink Structure', 'better-wp-security'); ?>: <strong> <?php echo $copen . $permalink_structure . $cclose; ?></strong></li>
+								<li><?php _e('Wp-config Location', 'better-wp-security');?>:  <strong><?php echo $BWPS->getConfig(); ?></strong></li>
 							</ul>
 						</li>
-						
 						<li>
     	    				<h4><?php _e('Better WP Security variables', 'better-wp-security'); ?></h4>
 							<ul>
-  								<li><?php _e('	Hide Backend Key', 'better-wp-security');?>:  <strong><?php echo $opts['hidebe_key']; ?></strong></li>
+  								<li><?php _e('Hide Backend Key', 'better-wp-security');?>:  <strong><?php echo $opts['hidebe_key']; ?></strong></li>
 							</ul>
 						</li>
 					</ul>

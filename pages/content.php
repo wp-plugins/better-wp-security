@@ -24,7 +24,7 @@
 		<h2>Better WP Security - <?php _e('Content Directory', 'better-wp-security'); ?></h2>
 	
 		<div id="poststuff" class="ui-sortable">	
-			<?php if ($BWPS->can_write(ABSPATH . WPINC . '/wp-config.php') && $BWPS->can_write(ABSPATH . $BWPS->getDir() . '/')) { ?>
+			<?php if ($BWPS->can_write($BWPS->getConfig()) && $BWPS->can_write(ABSPATH . $BWPS->getDir() . '/')) { ?>
 				<div class="postbox-container" style="width:70%">	
 					<div class="postbox opened">
 						<h3><?php _e('Change Content Directory', 'better-wp-security'); ?></h3>	
