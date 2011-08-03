@@ -96,7 +96,7 @@ function BWPS_versions() {
 		'AWAY' => '0',
 		'BANVISITS' => '0',
 		'TWEAKS' => '0',
-		'HIDEBE' => '0',
+		'HIDEBE' => '1',
 		'LL' => '0',
 		'HTACCESS' => '0',
 		'IDETECT' => '2'
@@ -134,6 +134,7 @@ function BWPS_defaults() {
 		"hidebe_admin_slug" => "admin",
 		"hidebe_register_slug" => "register",
 		"hidebe_canregister" => get_option('users_can_register'),
+		"hidebe_key" => "",
 		"ll_enable" => "0",
 		"ll_maxattemptshost" => "5",
 		"ll_maxattemptsuser" => "10",

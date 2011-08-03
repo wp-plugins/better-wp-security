@@ -19,6 +19,11 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 		
+		//make sure the hidebe key exists and is usable
+		if (strlen($opts['hidebe_key'] < 1)) {
+			$opts = $this->saveOptions("hidebe_key",$this->hidebe_genKey());
+		}
+		
 		//stop site for banned users
 		if ($opts['banvisits_enable'] == 1) {
 			add_action('init', array(&$this,'banvisits_banvistor'));
@@ -941,7 +946,7 @@ class BWPS {
 			$register_slug = $opts['hidebe_register_slug'];
 				
 			//generate the key
-			$supsec_key = $this->hidebe_secKey();
+			$hidebe_key = $opts['hidebe_key'];
 		
 			//get the domain without subdomain
 			$reDomain = $this->uDomain(get_option('siteurl'));
@@ -954,17 +959,17 @@ class BWPS {
 			}
 	
 			//hide wordpress backend
-			$theRules .= "RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $supsec_key . " [R,L]\n" .
+			$theRules .= "RewriteRule ^" . $login_slug . " ".$dir."wp-login.php?" . $hidebe_key . " [R,L]\n" .
 				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-				"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $supsec_key . "&redirect_to=/wp-admin/ [R,L]\n" .
-				"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $supsec_key . " [R,L]\n" .
-				"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $supsec_key . "&action=register [R,L]\n" .
+				"RewriteRule ^" . $admin_slug . " ".$dir."wp-login.php?" . $hidebe_key . "&redirect_to=/wp-admin/ [R,L]\n" .
+				"RewriteRule ^" . $admin_slug . " ".$dir."wp-admin/?" . $hidebe_key . " [R,L]\n" .
+				"RewriteRule ^" . $register_slug . " " . $dir . "wp-login.php?" . $hidebe_key . "&action=register [R,L]\n" .
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-admin \n" .
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/wp-login\.php \n" .
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $login_slug . " \n" .
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $admin_slug . " \n" .
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
-				"RewriteCond %{QUERY_STRING} !^" . $supsec_key . " \n" .
+				"RewriteCond %{QUERY_STRING} !^" . $hidebe_key . " \n" .
 				"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
 				$regEn . 
 				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
@@ -997,7 +1002,7 @@ class BWPS {
 	 * Generates a random string to be used as a key
 	 * @return String
 	 */
-	function hidebe_secKey() {	
+	function hidebe_genKey() {	
 		$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		srand((double)microtime()*1000000);
 		$pass = '' ;		

@@ -62,6 +62,16 @@
 								<tbody>
 									<tr valign="top">
 										<th scope="row">
+											<label for="BWPS_hidebe_enable"><?php _e('Hide Backend Secret Key', 'better-wp-security'); ?></label>
+										</th>
+										<td>
+											<strong><?php echo $opts['hidebe_key']; ?></strong><br />
+											<em><span style="color: #666666;"><?php _e('Keep this key in a safe place. You can use it to manually fix plugins that link to wp-login.php. Once turning on this feature and plugins linking to wp-login.php will fail without adding ?[the key]& after wp-login.php', 'better-wp-security'); ?></span></em>
+										</td>
+									</tr>
+									
+									<tr valign="top">
+										<th scope="row">
 											<label for="BWPS_hidebe_enable"><?php _e('Enable Hide Backend', 'better-wp-security'); ?></label>
 										</th>
 										<td>

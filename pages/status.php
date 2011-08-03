@@ -1,5 +1,6 @@
 <?php
 	global $BWPS, $wpdb;
+	$opts = $BWPS->getOptions();
 ?>
 
 <div class="wrap" >
@@ -264,6 +265,13 @@
 									}
 								?>
 								<li><?php _e('WP Permalink Structure', 'better-wp-security'); ?>: <strong> <?php echo $copen . $permalink_structure . $cclose; ?></strong></li>
+							</ul>
+						</li>
+						
+						<li>
+    	    				<h4><?php _e('Better WP Security variables', 'better-wp-security'); ?></h4>
+							<ul>
+  								<li><?php _e('	Hide Backend Key', 'better-wp-security');?>:  <strong><?php echo $opts['hidebe_key']; ?></strong></li>
 							</ul>
 						</li>
 					</ul>
