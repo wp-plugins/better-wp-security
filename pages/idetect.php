@@ -11,6 +11,9 @@
 		
 		$opts = $BWPS->saveOptions("idetect_d404enable", $_POST['BWPS_idetect_d404enable']);
 		$opts = $BWPS->saveOptions("idetect_emailnotify", $_POST['BWPS_idetect_emailnotify']);
+		$opts = $BWPS->saveOptions("idetect_checkint", ($_POST['BWPS_idetect_checkint'] * 60));
+		$opts = $BWPS->saveOptions("idetect_locount", $_POST['BWPS_idetect_locount']);
+		$opts = $BWPS->saveOptions("idetect_lolength", ($_POST['BWPS_idetect_lolength'] * 60));
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -29,7 +32,7 @@
 			if (strstr($key,"lo")) {
 				$reHost = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_ID = " . $value . " AND mode = 1;");
 				$wpdb->query("DELETE FROM " . BWPS_TABLE_LOCKOUTS . " WHERE lockout_ID = " . $value . " AND mode = 1;");
-				$wpdb->query("DELETE FROM " . BWPS_TABLE_D404 . " WHERE computer_id = '" . $reHost . "'  AND attempt_date > " . (time() - 300) . ";");
+				$wpdb->query("DELETE FROM " . BWPS_TABLE_D404 . " WHERE computer_id = '" . $reHost . "'  AND attempt_date > " . (time() - $opts['idetect_checkint']) . ";");
 			}
 		}
 	}
@@ -71,6 +74,30 @@
 										</p>
 									</td>
 								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="BWPS_idetect_checkint"><?php _e('How many minutes should Better WP Security remember a bad page?', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<input name="BWPS_idetect_checkint" id="BWPS_idetect_checkint" value="<?php echo ($opts['idetect_checkint'] / 60); ?>" type="text">
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="BWPS_idetect_locount"><?php _e('How many 404 errors (bad pages) should trigger a lockout?', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<input name="BWPS_idetect_locount" id="BWPS_idetect_locount" value="<?php echo $opts['idetect_locount']; ?>" type="text">
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="BWPS_idetect_lolength"><?php _e('For how many minutes should an offending host be locked out?', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<input name="BWPS_idetect_lolength" id="BWPS_idetect_lolength" value="<?php echo ($opts['idetect_lolength'] / 60); ?>" type="text">
+									</td>
+								</tr>
 							</tbody>
 						</table>	
 						<p class="submit"><input type="submit" name="BWPS_d404_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
@@ -98,7 +125,7 @@
 		
 							if (sizeof($lockedList) > 0) {
 								foreach ($lockedList as $item) {
-									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block; float: left\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\"><a href=\"http://whois.domaintools.com/" . $item['computer_id'] . "\" target=\"_blank\">" . $item['computer_id'] . "</a> <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in', 'better-wp-security') . ": " . $BWPS->dispRem(($item['lockout_date'] + 900)) . "</span></label></span>\n";
+									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block; float: left\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\"><a href=\"http://whois.domaintools.com/" . $item['computer_id'] . "\" target=\"_blank\">" . $item['computer_id'] . "</a> <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in', 'better-wp-security') . ": " . $BWPS->dispRem(($item['lockout_date'] + $opts['idetect_lolength'])) . "</span></label></span>\n";
 								}
 								echo "<div style=\"clear: both;\"></div>\n";
 								echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"" . __('Release Selected Lockouts', 'better-wp-security') . "\"></p>\n";
