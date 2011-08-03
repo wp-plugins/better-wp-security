@@ -8,6 +8,9 @@
 		}
 		
 		$BWPS->renameContent($_POST['newdir']);
+		if (function_exists('apc_store')) { 
+			apc_clear_cache();
+		}
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
