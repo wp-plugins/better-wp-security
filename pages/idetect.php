@@ -27,7 +27,9 @@
 		
 		while (list($key, $value) = each($_POST)) {
 			if (strstr($key,"lo")) {
+				$reHost = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_ID = " . $value . " AND mode = 1;");
 				$wpdb->query("DELETE FROM " . BWPS_TABLE_LOCKOUTS . " WHERE lockout_ID = " . $value . " AND mode = 1;");
+				$wpdb->query("DELETE FROM " . BWPS_TABLE_D404 . " WHERE computer_id = '" . $reHost . "'  AND attempt_date > " . (time() - 300) . ";");
 			}
 		}
 	}
@@ -96,8 +98,9 @@
 		
 							if (sizeof($lockedList) > 0) {
 								foreach ($lockedList as $item) {
-									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block;\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\">" . $item['computer_id'] . " <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in', 'better-wp-security') . ": " . $BWPS->dispRem(($item['lockout_date'] + 1800)) . "</span></label>\n";
-													}
+									echo "<span style=\"border-bottom: 1px solid #ccc; padding: 2px; margin: 2px 10px 2px 10px; display: block; float: left\"><input type=\"checkbox\" name=\"" . "lo" . $item['lockout_ID'] . "\" id=\"" . "lo" . $item['lockout_ID'] . "\" value=\"" . $item['lockout_ID'] . "\" /> <label for=\"" . "lo" . $item['lockout_ID'] . "\"><a href=\"http://whois.domaintools.com/" . $item['computer_id'] . "\" target=\"_blank\">" . $item['computer_id'] . "</a> <span style=\"color: #ccc; font-style:italic;\">" . __('Expires in', 'better-wp-security') . ": " . $BWPS->dispRem(($item['lockout_date'] + 900)) . "</span></label></span>\n";
+								}
+								echo "<div style=\"clear: both;\"></div>\n";
 								echo "<p class=\"submit\"><input type=\"submit\" name=\"BWPS_releasesave\" value=\"" . __('Release Selected Lockouts', 'better-wp-security') . "\"></p>\n";
 							} else {
 								echo "<p style=\"text-align: center;\">" . __('There are no hosts currently locked out.', 'better-wp-security') . "</p>\n";

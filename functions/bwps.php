@@ -26,7 +26,7 @@ class BWPS {
 		
 		if ($opts['idetect_d404enable'] == 1) { //if detect 404 mode is enabled
 		
-			if ($this->d404_checkLock($computer_id)) { //if locked out
+			if ($this->d404_checkLock()) { //if locked out
 				add_action('wp_head', array(&$this,'d404_denyaccess')); //register action
 			}
 			
@@ -413,11 +413,11 @@ class BWPS {
 		
 		$opts = $this->getOptions();
 			
-		$reTime = 300;
+		$checkInt = 300;
 				
 		$count = $wpdb->get_var("SELECT COUNT(attempt_ID) FROM " . BWPS_TABLE_D404 . "
 			WHERE attempt_date +
-			" . $reTime . " >'" . time() . "' AND
+			" . $checkInt . " >'" . time() . "' AND
 			computer_id = '" . $this->computer_id . "';"
 		);
 		
@@ -435,14 +435,16 @@ class BWPS {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
+		
+		$lockTime = time();
 				
 		$lHost = "INSERT INTO " . BWPS_TABLE_LOCKOUTS . " (computer_id, lockout_date, mode)
-			VALUES ('" . $this->computer_id . "', " . time() . ", 1)";
+			VALUES ('" . $this->computer_id . "', " . $lockTime . ", 1)";
 					
 		$wpdb->query($lHost);	
 		
 		if ($opts['idetect_emailnotify'] == 1) { //email the site admin if necessary
-			$mesEmail = __("A computer", 'better-wp-security') . ", " .$this->computer_id . ", " . __('has been locked out of the Wordpress site at', 'better-wp-security') . " " . get_bloginfo('url') . " " . __('until', 'better-wp-security') . " " . date("l, F jS, Y \a\\t g:i:s a e",$reTime) . " " . __('due to too attempts to open a page that doesn\'t exist. You may login to the site to manually release the lock if necessary.', 'better-wp-security');
+			$mesEmail = __("A computer", 'better-wp-security') . ", " .$this->computer_id . ", " . __('has been locked out of the Wordpress site at', 'better-wp-security') . " " . get_bloginfo('url') . " " . __('until', 'better-wp-security') . " " . date("l, F jS, Y \a\\t g:i:s a e",($lockTime + 900)) . " " . __('due to too attempts to open a page that doesn\'t exist. You may login to the site to manually release the lock if necessary.', 'better-wp-security');
 			$toEmail = get_site_option("admin_email");
 			$subEmail = get_bloginfo('name') . ' ' . __('Site Lockout Notification', 'better-wp-security');
 			$mailHead = 'From: ' . get_bloginfo('name')  . ' <' . $toEmail . '>' . "\r\n\\";
@@ -465,7 +467,7 @@ class BWPS {
 		$opts = $this->getOptions();
 		
 		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . 
-			" WHERE lockout_date < " . (time() + 900) . " AND computer_id = '" . $this->computer_id . "' AND mode = 1;");
+			" WHERE lockout_date + 900 > " . time() . " AND computer_id = '" . $this->computer_id . "' AND mode = 1;");
 		
 		unset($opts);
 		
@@ -498,7 +500,7 @@ class BWPS {
 		$opts = $this->getOptions();
 			
 
-		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date < " . (time() + 1800) . " AND mode = 1;", ARRAY_A);
+		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date  + 900 > " . time() . " AND mode = 1;", ARRAY_A);
 					
 		unset($opts);
 		return $lockList;
