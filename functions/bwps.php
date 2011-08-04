@@ -700,11 +700,9 @@ class BWPS {
 		global $wp_version;
 
 		$newVersion = rand(100,500);
-		
-		require_once(ABSPATH . '/wp-includes/pluggable.php');
 
 		//always show real version to site administrators
-		if (!is_admin() || !current_user_can('administrator')) {
+		if (!is_admin()) {
 			$wp_version = $newVersion;
 			add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
 			add_filter( 'style_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
