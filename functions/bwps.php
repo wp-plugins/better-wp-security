@@ -1030,7 +1030,7 @@ class BWPS {
 	 * Initialize replacement meta widget
 	 */
 	function hidebe_meta_init() {
-		require_once 'meta.php';
+		require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/meta.php');
 		unregister_widget('WP_Widget_Meta');
 		register_widget('BWPS_Widget_Meta');
 	}
