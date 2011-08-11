@@ -84,7 +84,7 @@
 			$sslon = "0";
 		}
 		$nofileedit = "0";
-		$conf_f = trailingslashit(ABSPATH).'/wp-config.php';
+		$conf_f = getConfig();
 		$scanText = "define('DISALLOW_FILE_EDIT', true);";
 		$handle = @fopen($conf_f, "r");
 		if ($handle) {
@@ -108,7 +108,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 	
-		<?php if ($BWPS->can_write(ABSPATH . WPINC . '/wp-config.php')) { ?>
+		<?php if ($BWPS->getConfig()) { ?>
 			<div class="postbox-container" style="width:70%">	
 				<div class="postbox opened">
 					<h3><?php _e('tweaks Options', 'better-wp-security'); ?></h3>	

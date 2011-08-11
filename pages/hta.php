@@ -9,7 +9,7 @@
 			die('Security error!');
 		}	
 				
-		$htaccess = trailingslashit(ABSPATH).'.htaccess';
+		$htaccess = trailingslashit(ABSPATH) . '.htaccess';
 		
 		if (!$BWPS->can_write($htaccess)) { 
 			
@@ -54,7 +54,7 @@
 	
 	<div id="poststuff" class="ui-sortable">
 		
-		<?php if ($BWPS->can_write(ABSPATH . WPINC . '/.htaccess')) { ?>
+		<?php if ($BWPS->can_write(ABSPATH . '/.htaccess')) { ?>
 			<div class="postbox-container" style="width:70%">	
 				<div class="postbox opened">
 					<h3><?php _e('htaccess Protection', 'better-wp-security'); ?></h3>	
