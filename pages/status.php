@@ -41,7 +41,7 @@
 								<li><?php _e('Website Root Folder', 'better-wp-security'); ?>: <strong><?php echo get_site_url(); ?></strong></li>
 								<li><?php _e('Document Root Path', 'better-wp-security'); ?>: <strong><?php echo $_SERVER['DOCUMENT_ROOT']; ?></strong></li>
 								<?php 
-									if ($BWPS->can_write(ABSPATH . WPINC . '/.htaccess')) { 
+									if ($BWPS->can_write(ABSPATH . '.htaccess')) { 
 										$copen = '';
 										$cclose = '';
 										$htaw = __('Yes', 'better-wp-security'); 

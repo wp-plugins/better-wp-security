@@ -190,27 +190,24 @@ class BWPS {
  	 * @return Boolean
  	 * @param String file 
  	 */
-	function can_write($path) {		 
-		if ($path{strlen($path)-1}=='/') { // recursively return a temporary file path
-			return $this->can_write($path.uniqid(mt_rand()).'.tmp');
-		} else if (is_dir($path)) {
-			return $this->can_write($path.'/'.uniqid(mt_rand()).'.tmp');
-		}
-		
-		// check tmp file for read/write capabilities
-		$rm = file_exists($path);
-		$f = @fopen($path, 'a');
-    
-		if ($f===false) {
+	function can_write($path) {
+		if (is_dir($path)) {
+			$tf = 'test.tmp';
+			if (@fopen($path . $tf, 'a') === false) {
+				return false;
+			} else {
+				unlink($path . $tf);
+				return true;
+			}
+		} elseif (file_exists($path)) {
+			if (@fopen($path, 'a') === false) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
 			return false;
-    	}
-    	
-		fclose($f);
-		
-		if (!$rm) {
-			unlink($path);
-    	}
-		return true;
+		}
 	}
 
 	/**
