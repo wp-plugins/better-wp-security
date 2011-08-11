@@ -84,7 +84,7 @@
 			$sslon = "0";
 		}
 		$nofileedit = "0";
-		$conf_f = getConfig();
+		$conf_f = $BWPS->getConfig();
 		$scanText = "define('DISALLOW_FILE_EDIT', true);";
 		$handle = @fopen($conf_f, "r");
 		if ($handle) {
