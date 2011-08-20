@@ -44,6 +44,7 @@
 			$opts = $BWPS->saveOptions("ll_banperiod", $bainput);
 			$opts = $BWPS->saveOptions("ll_denyaccess", $_POST['BWPS_ll_denyaccess']);
 			$opts = $BWPS->saveOptions("ll_emailnotify", $_POST['BWPS_ll_emailnotify']);
+			$opts = $BWPS->saveOptions("ll_error_message", $_POST['BWPS_ll_error_message']);
 		}
 		
 		if (isset($errorHandler)) {
@@ -59,6 +60,7 @@
 		$bpdisplay = $_POST['BWPS_ll_banperiod'];
 		$dadisplay = $_POST['BWPS_ll_denyaccess'];
 		$endisplay = $_POST['BWPS_ll_emailnotify'];
+		$errormessage = $_POST['BWPS_ll_error_message'];
 		
 	} else {
 		
@@ -69,6 +71,7 @@
 		$bpdisplay = $opts['ll_banperiod'];
 		$dadisplay = $opts['ll_denyaccess'];
 		$endisplay = $opts['ll_emailnotify'];
+		$errormessage = $opts['ll_error_message'];
 		
 	}
 	
@@ -185,6 +188,16 @@
 										</p>
 									</td>
 								</tr>
+								
+								<tr valign="top">
+										<th scope="row">
+											<label for="BWPS_ll_error_message"><?php _e('Default Error Message', 'better-wp-security'); ?></label>
+										</th>
+										<td>
+											<input name="BWPS_ll_error_message" id="error_message" value="<?php echo $errormessage; ?>" type="text"><br />
+											<em><?php _e('The message that will display when someone has been locked out.'); ?></em>
+										</td>
+									</tr>
 							</tbody>
 						</table>	
 						<p class="submit"><input type="submit" name="BWPS_ll_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>

@@ -135,6 +135,7 @@ function BWPS_defaults() {
 		"hidebe_register_slug" => "register",
 		"hidebe_canregister" => get_option('users_can_register'),
 		"hidebe_key" => "",
+		"ll_error_message" => "error",
 		"ll_enable" => "0",
 		"ll_maxattemptshost" => "5",
 		"ll_maxattemptsuser" => "10",
@@ -149,6 +150,7 @@ function BWPS_defaults() {
 		"idetect_checkint" => "300",
 		"idetect_locount" => "20",
 		"idetect_lolength" => "900",
+		"idetect_error_message" => "error",
 		
 	);
 	

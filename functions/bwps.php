@@ -104,7 +104,7 @@ class BWPS {
 		
 		//see if they're locked out and banned from the site
 		if ($opts['ll_denyaccess'] == 1 && $this->ll_checkLock()) {
-			die(__('error'));
+			die($opts['ll_error_message']);
 		}
 			
 		//check versions if user is admin
@@ -499,8 +499,10 @@ class BWPS {
 	function d404_denyaccess() {
 		global $wpdb;
 		
+		$opts = $this->getOptions();
+		
 		if (!is_user_logged_in()) {
-			die(__('error'));
+			die($opts['idetect_error_message']);
 		}
 	}
 	

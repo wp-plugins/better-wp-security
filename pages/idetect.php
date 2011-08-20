@@ -14,6 +14,7 @@
 		$opts = $BWPS->saveOptions("idetect_checkint", ($_POST['BWPS_idetect_checkint'] * 60));
 		$opts = $BWPS->saveOptions("idetect_locount", $_POST['BWPS_idetect_locount']);
 		$opts = $BWPS->saveOptions("idetect_lolength", ($_POST['BWPS_idetect_lolength'] * 60));
+		$opts = $BWPS->saveOptions("idetect_error_message", $_POST['BWPS_idetect_error_message']);
 		
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
@@ -98,6 +99,15 @@
 										<input name="BWPS_idetect_lolength" id="BWPS_idetect_lolength" value="<?php echo ($opts['idetect_lolength'] / 60); ?>" type="text">
 									</td>
 								</tr>
+								<tr valign="top">
+										<th scope="row">
+											<label for="BWPS_idetect_error_message"><?php _e('Default Error Message', 'better-wp-security'); ?></label>
+										</th>
+										<td>
+											<input name="BWPS_idetect_error_message" id="error_message" value="<?php echo $opts['idetect_error_message']; ?>" type="text"><br />
+											<em><?php _e('The message that will display when someone has been locked out.'); ?></em>
+										</td>
+									</tr>
 							</tbody>
 						</table>	
 						<p class="submit"><input type="submit" name="BWPS_d404_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>
