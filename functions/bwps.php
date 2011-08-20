@@ -980,6 +980,7 @@ class BWPS {
 				"RewriteCond %{HTTP_REFERER} !^" . $reDomain . "/" . $register_slug . " \n" .
 				"RewriteCond %{QUERY_STRING} !^" . $hidebe_key . " \n" .
 				"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
+				"RewriteCond %{QUERY_STRING} !^action=rp\n" . 
 				$regEn . 
 				"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
 				"RewriteRule ^wp-login\.php not_found [L]\n";
