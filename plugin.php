@@ -77,14 +77,15 @@ function menu_items() {
 	add_submenu_page('BWPS','Better WP Security - ' . __('Admin User', 'better-wp-security'), __('Admin User', 'better-wp-security'), 'manage_options', 'BWPS-adminuser', 'admin_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Away Mode', 'better-wp-security'), __('Away Mode', 'better-wp-security'), 'manage_options', 'BWPS-away', 'away_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Ban Users Options', 'better-wp-security'), __('Ban Users', 'better-wp-security'), 'manage_options', 'BWPS-banusers', 'banusers_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Clean Database', 'better-wp-security'), __('Clean Database', 'better-wp-security'), 'manage_options', 'BWPS-clean', 'clean_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Content Directory', 'better-wp-security'), __('Content Directory', 'better-wp-security'), 'manage_options', 'BWPS-content', 'content_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Database Prefix', 'better-wp-security'), __('Database Prefix', 'better-wp-security'), 'manage_options', 'BWPS-database', 'database_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Hide Backend Options', 'better-wp-security'), __('Hide Backend', 'better-wp-security'), 'manage_options', 'BWPS-hidebe', 'hidebe_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('.htaccess Protection', 'better-wp-security'), __('.htaccess Protection', 'better-wp-security'), 'manage_options', 'BWPS-hta', 'hta_protection');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Intrusion Detection', 'better-wp-security'), __('Intrusion Detection', 'better-wp-security'), 'manage_options', 'BWPS-idetect', 'idetect_options');
 	add_submenu_page('BWPS','Better WP Security - ' . __('Limit Logins Options', 'better-wp-security'), __('Limit Logins', 'better-wp-security'), 'manage_options', 'BWPS-ll', 'll_options');
+	add_submenu_page('BWPS','Better WP Security - ' . __('Support', 'better-wp-security'), __('Support', 'better-wp-security'), 'manage_options', 'BWPS-support', 'support');
 	add_submenu_page('BWPS','Better WP Security - ' . __('System Tweaks', 'better-wp-security'), __('System Tweaks', 'better-wp-security'), 'manage_options', 'BWPS-tweaks', 'tweaks_options');
-	add_submenu_page('BWPS','Better WP Security - ' . __('Clean Database', 'better-wp-security'), __('Clean Database', 'better-wp-security'), 'manage_options', 'BWPS-clean', 'clean_options');
 }
 
 /**
@@ -182,6 +183,15 @@ function tweaks_options() {
 function clean_options() {
 	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/clean.php');
 }
+
+/**
+ * Define the support page
+ * @return null 
+ */		
+function support() {
+	include(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/pages/support.php');
+}
+
 
 //Register the admin menu
 if (is_multisite()) { 

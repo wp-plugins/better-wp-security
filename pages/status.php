@@ -313,16 +313,6 @@
 					</div>
 				</div>
 			</div>
-		<div class="clear"></div>
-		
-		<div class="postbox-container" style="width:70%">	
-			<div class="postbox opened">
-				<h3><?php _e('Support', 'better-wp-security'); ?></h3>
-				<div class="inside">
-					<p><?php _e('Please visit the', 'better-wp-security'); ?> <a href="http://bit51.com/software/better-wp-security/">Better WP Security</a> <?php _e('homepage for support and change-log', 'better-wp-security'); ?></p>
-				</div>
-			</div>
-		</div>
 		
 	</div>
 	

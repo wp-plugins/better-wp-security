@@ -45,6 +45,7 @@ Better WP Security takes the best Wordpress security features and techniques and
 = Translations =
 * Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
 * French by Claude ALTAYRAC
+* Italian by Paolo Stivanin
 
 = More Information =
 * <a href="http://bit51.com/2011/09/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
