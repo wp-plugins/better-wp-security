@@ -46,6 +46,10 @@ Better WP Security takes the best Wordpress security features and techniques and
 * Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
 * French by Claude ALTAYRAC
 
+= More Information =
+* <a href="http://bit51.com/2011/09/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
+* <a href="http://bit51.com/2011/09/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
+
 == Installation ==
 
 1. Backup your Wordpress database, config file, and .htaccess file
