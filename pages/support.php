@@ -14,10 +14,10 @@
 				<h3><?php _e('Support', 'better-wp-security'); ?></h3>
 				<div class="inside">
 					<p><?php _e('Please visit the', 'better-wp-security'); ?> <a href="http://bit51.com/software/better-wp-security/">Better WP Security</a> <?php _e('homepage for support and change-log', 'better-wp-security'); ?></p>
-					<h4><?php _e('Support Articles'); ?></h4>
+					<h4><?php _e('Support Articles', 'better-wp-security'); ?></h4>
 					<ul>
-						<li><a href="http://bit51.com/2011/09/what-is-changed-by-better-wp-security/" target="_blank"><?php _e('What is Changed By Better WP Security'); ?></a></li>
-						<li><a href="http://bit51.com/2011/09/fixing-better-wp-security-lockouts/" target="_blank"><?php _e('Fixing Better WP Security Lockouts'); ?></a></li>
+						<li><a href="http://bit51.com/2011/09/what-is-changed-by-better-wp-security/" target="_blank"><?php _e('What is Changed By Better WP Security', 'better-wp-security'); ?></a></li>
+						<li><a href="http://bit51.com/2011/09/fixing-better-wp-security-lockouts/" target="_blank"><?php _e('Fixing Better WP Security Lockouts', 'better-wp-security'); ?></a></li>
 					</ul>
 				</div>
 			</div>
