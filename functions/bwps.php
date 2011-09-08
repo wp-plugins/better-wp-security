@@ -1080,17 +1080,17 @@ class BWPS {
 						$end = implode('.',$endA);
 					}
 					if($this->banvisits_ipinrange($this->computer_id, $start, $end)) {
-						//$this->banvisits_ban();
+						$this->banvisits_ban();
 					} 
 						
 				} else {
 						if(ip2long($item) == false) {
 							if (trim(gethostbyname($item)) == trim($this->computer_id)) {
-								//$this->banvisits_ban($this->computer_id);
+								$this->banvisits_ban($this->computer_id);
 							}
 						} else {
 							if (trim($item) == trim($this->computer_id)) {
-								//$this->banvisits_ban();
+								$this->banvisits_ban();
 							}
 						}
 				}
