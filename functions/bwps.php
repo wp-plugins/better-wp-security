@@ -641,7 +641,7 @@ class BWPS {
 			$user = get_userdatabylogin($username);
 
 			if ($user) {
-				$userCheck = $wpdb->get_var("SELECT user_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE SUM(lockout_date+" . ($opts['ll_banperiod'] * 60) . ") < " . time(). " AND user_id = '$user->ID' AND mode = 2");
+				$userCheck = $wpdb->get_var("SELECT user_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date + " . $opts['ll_banperiod'] * 60 . " > " . time(). " AND user_id = '$user->ID' AND mode = 2");
 				unset($user);
 			}
 		} else { //no username to be locked out
@@ -649,7 +649,7 @@ class BWPS {
 		}
 		
 		//see if the host is locked out
-		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE SUM(lockout_date+" . ($opts['ll_banperiod'] * 60) . ") < " . time(). " AND computer_id = '$this->computer_id' AND mode = 2");
+		$hostCheck = $wpdb->get_var("SELECT computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date + " . $opts['ll_banperiod'] * 60 . " > " . time(). " AND computer_id = '$this->computer_id' AND mode = 2");
 		
 		//return false if both the user and the host are not locked out	
 		if (!$userCheck && !$hostCheck) {
@@ -677,7 +677,7 @@ class BWPS {
 			$checkField = "computer_id";
 		}
 
-		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, " . $checkField . " AS loLabel FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE SUM(lockout_date+" . ($opts['ll_banperiod'] * 60) . ") < " . time(). " AND " . $checkField . " != '' AND mode = 2", ARRAY_A);
+		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, " . $checkField . " AS loLabel FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date + " . $opts['ll_banperiod'] * 60 . " > " . time(). " AND " . $checkField . " != '' AND mode = 2", ARRAY_A);
 		
 		//get the users's name if needed
 		if ($ltype == "users" && sizeof($lockList) > 0) {
