@@ -1,0 +1,1654 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+# Paolo <admin@polslinux.it>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2011-08-03 22:10:48+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bits\n"
+"PO-Revision-Date: 2011-08-30 14:13+0200\n"
+"Last-Translator: Paolo <admin@polslinux.it>\n"
+"Language-Team: Italiano <admin@polslinux.it>\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: pages/hta.php:20 pages/hidebe.php:22
+msgid "Unable to update htaccess rules"
+msgstr "Impossibile aggiornare regole htaccess"
+
+#: pages/hta.php:46 pages/hidebe.php:42 pages/ll.php:52 pages/idetect.php:21
+#: pages/away.php:43 pages/tweaks.php:77 pages/banusers.php:92
+msgid "Settings Saved"
+msgstr "Impostazioni salvate"
+
+#: pages/hta.php:53 pages/hta.php:106 plugin.php:83
+msgid ".htaccess Protection"
+msgstr "Protezione .htaccess"
+
+#: pages/hta.php:60
+msgid "htaccess Protection"
+msgstr "Protezione htaccess"
+
+#: pages/hta.php:68
+msgid "Protect .htaccess"
+msgstr "Proteggi .htaccess"
+
+#: pages/hta.php:69
+msgid "Add extra protection to the .htaccess file."
+msgstr "Aggiunge protezione extra al file .htaccess"
+
+#: pages/hta.php:72
+msgid "Protect Readme.html"
+msgstr "Proteggi Readme.html"
+
+#: pages/hta.php:73 pages/hta.php:77
+msgid "Remove access to"
+msgstr "Rimouvi accesso a"
+
+#: pages/hta.php:73
+msgid "which can give away your Wordpress version."
+msgstr "il quale può fornire la versione di Wordpress"
+
+#: pages/hta.php:76
+msgid "Protect Wordpress installer script"
+msgstr "Proteggi lo script di installazione di Wordpress"
+
+#: pages/hta.php:80
+msgid "Protect wp-config.php"
+msgstr "Proteggi wp-config.php"
+
+#: pages/hta.php:81
+msgid "Prevents access to the wp-config.php file"
+msgstr "Previene accessi al file wp-config.php"
+
+#: pages/hta.php:84
+msgid "Disable directory browsing"
+msgstr "Disabilita il directory browsing"
+
+#: pages/hta.php:85
+msgid ""
+"Prevents users from seeing a list of files in a directory when no index file "
+"is present"
+msgstr ""
+"Previene la possibilità che gli utenti possano vedere i files presenti nella "
+"cartella quando il file index.php non è presente"
+
+#: pages/hta.php:88
+msgid "Filter Request Methods"
+msgstr "Filtra i Metodi di Richiesta"
+
+#: pages/hta.php:89
+msgid "Filter out hits with the head, trace, delete, or track request methods."
+msgstr ""
+"Filtra le visite con i metodi di richiesta \"head\", \"trace\", \"delete\" "
+"oppure \"track\""
+
+#: pages/hta.php:92
+msgid "Filter suspicious query strings"
+msgstr "Filtra le query sospette"
+
+#: pages/hta.php:93
+msgid "Filter out suspicious query strings in the URL."
+msgstr "Filtra le query sospette negli URL"
+
+#: pages/hta.php:97 pages/hidebe.php:114 pages/ll.php:190
+#: pages/idetect.php:103 pages/admin.php:76 pages/away.php:302
+#: pages/tweaks.php:189 pages/banusers.php:155 pages/content.php:40
+msgid "save"
+msgstr "salva"
+
+#: pages/hta.php:108 pages/hidebe.php:125
+msgid ""
+"Warning: Better WP Security cannot write to your <em>.htaccess</em> file. "
+"You must fix this error before continuing."
+msgstr ""
+"Attenzione: Better WP Security non può scrivere nel tuo file <em>.htaccess</"
+"em>. Devi risolvere questo problema prima di continuare."
+
+#: pages/hidebe.php:50 pages/hidebe.php:56 pages/hidebe.php:123 plugin.php:82
+msgid "Hide Backend Options"
+msgstr "Nasconde le opzioni dell'area di amministrazione"
+
+#: pages/hidebe.php:58
+msgid ""
+"The options below allow you to \"hide\" the backed of Wordpress replacing "
+"known URLs of important areas with ones of your choosing. This is useful if "
+"slowing bots and keeping away other nosy users especially on closed or "
+"private systems."
+msgstr ""
+"Le opzioni qui sotto ti permetteranno di nascondere l'area di "
+"amministrazione di Wordpress cambiando gli URLs di default con URLs a tua "
+"scelta. Questo è molto utile per impedire a bot e utenti sconosciuti di "
+"accedere a risorse private."
+
+#: pages/hidebe.php:65
+msgid "Hide Backend Secret Key"
+msgstr "Nascondi la chiave segreta dell'area di amministrazione"
+
+#: pages/hidebe.php:69
+msgid ""
+"Keep this key in a safe place. You can use it to manually fix plugins that "
+"link to wp-login.php. Once turning on this feature and plugins linking to wp-"
+"login.php will fail without adding ?[the key]& after wp-login.php"
+msgstr ""
+"Conserva questa chiave in un posto sicuro. Potrai usarla per riparare "
+"manualmente plugin che linkano a wp-login.php. Una volta abilitata questa "
+"feature i plugins che punteranno a wp-login.php falliranno se non "
+"aggiungerai ?[the key]& dopo wp-login.php"
+
+#: pages/hidebe.php:75
+msgid "Enable Hide Backend"
+msgstr "Abilita Amministrazione Nascosta"
+
+#: pages/hidebe.php:78 pages/ll.php:110 pages/ll.php:168 pages/ll.php:181
+#: pages/idetect.php:61 pages/idetect.php:70 pages/away.php:123
+#: pages/banusers.php:131 pages/status.php:140 pages/status.php:148
+#: pages/status.php:156 pages/status.php:164 pages/status.php:172
+#: pages/status.php:180 pages/status.php:188 pages/status.php:204
+#: pages/status.php:212
+msgid "On"
+msgstr "On"
+
+#: pages/hidebe.php:79 pages/ll.php:111 pages/ll.php:169 pages/ll.php:182
+#: pages/idetect.php:62 pages/idetect.php:71 pages/away.php:124
+#: pages/banusers.php:132 pages/status.php:93 pages/status.php:142
+#: pages/status.php:150 pages/status.php:158 pages/status.php:166
+#: pages/status.php:174 pages/status.php:182 pages/status.php:190
+#: pages/status.php:206 pages/status.php:214
+msgid "Off"
+msgstr "Off"
+
+#: pages/hidebe.php:85
+msgid "Login Slug"
+msgstr "URL Login Personalizzato"
+
+#: pages/hidebe.php:89
+msgid "Login URL:"
+msgstr "URL di Login:"
+
+#: pages/hidebe.php:95
+msgid "Register Slug"
+msgstr "URL Registrazione Personalizzato"
+
+#: pages/hidebe.php:99
+msgid "Register URL:"
+msgstr "URL di registrazione:"
+
+#: pages/hidebe.php:105
+msgid "Admin Slug"
+msgstr "URL Amministrazione Personalizzato:"
+
+#: pages/hidebe.php:109
+msgid "Admin URL:"
+msgstr "URL Amministrazione:"
+
+#: pages/ll.php:24
+msgid ""
+"<strong>Max Login Attempts Per Host</strong> MUST be a positive integer."
+msgstr ""
+"<strong>Max tentativi di accesso Per Host</strong> DEVE essere un intero "
+"positivo."
+
+#: pages/ll.php:28
+msgid ""
+"<strong>Max Login Attempts Per User</strong> MUST be a positive integer."
+msgstr ""
+"<strong>Max tentativi di Login Per Utente</strong> DEVE essere un intero "
+"positivo."
+
+#: pages/ll.php:32
+msgid ""
+"<strong>Login Time Period (minutes)</strong> MUST be a positive integer."
+msgstr ""
+"<strong>Periodo di Login (minuti)</strong> DEVE essere un intero positivo."
+
+#: pages/ll.php:36
+msgid ""
+"<strong>Lockout Time Period (minutes)</strong> MUST be a positive integer."
+msgstr ""
+"<strong>Periodo di blocco (minuti)</strong> DEVE essere un intero positivo."
+
+#: pages/ll.php:92 pages/ll.php:98 plugin.php:85
+msgid "Limit Logins Options"
+msgstr "Opzioni Limiti Logins"
+
+#: pages/ll.php:100
+msgid ""
+"Set options below to limit the number of bad login attempts. Once this limit "
+"is reached, the host or computer attempting to login will be banned from the "
+"site for the specified \"lockout length\" period."
+msgstr ""
+"Imposta le opzioni qui sotto per limitare il numero di tentativi di login "
+"errati. Quando il limite sarà raggiunto, l'host o il computer saranno "
+"bannati dal sito per il periodo specificato in \"Durata del Blocco\""
+
+#: pages/ll.php:107
+msgid "Enable Limit Bad Login Attempts"
+msgstr "Abilita Tentativi di Accesso Errati"
+
+#: pages/ll.php:117
+msgid "Max Login Attempts Per Host"
+msgstr "Max Tentativi di Login Per Host"
+
+#: pages/ll.php:122
+msgid ""
+"The number of login attempts a user has before their host or computer is "
+"locked out of the system."
+msgstr ""
+"Numero di tentativi di login che un utente può effettuare prima che il suo "
+"host o computer vengano bloccati dal sistema."
+
+#: pages/ll.php:129
+msgid "Max Login Attempts Per User"
+msgstr "Max Tentativi di Login Per Utente"
+
+#: pages/ll.php:134
+msgid ""
+"The number of login attempts a user has before their username is locked out "
+"of the system."
+msgstr ""
+"Numero di tentativi di login che ogni utente può effettuare prima che il suo "
+"nome utente venga bloccato dal sistema."
+
+#: pages/ll.php:141
+msgid "Login Time Period (minutes)"
+msgstr "Periodo di Login (minuti)"
+
+#: pages/ll.php:146
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "Numero in minuti per cui i logins errati devono essere ricordati"
+
+#: pages/ll.php:153
+msgid "Lockout Time Period (minutes)"
+msgstr "Durata del Blocco (minuti)"
+
+#: pages/ll.php:158
+msgid ""
+"The length of time a host or computer will be banned from this site after "
+"hitting the limit of bad logins."
+msgstr ""
+"La durata del tempo per cui un host o un computer verranno bannati dal sito "
+"dopo aver raggiunto il limite di tentativi errati."
+
+#: pages/ll.php:165
+msgid "Deny All Site Access To Locked Out Hosts."
+msgstr "Impedisci l'Accesso al Sito Agli Hosts Bloccati."
+
+#: pages/ll.php:171
+msgid ""
+"If the host is locked out it will be completely banned from the site and "
+"unable to access either content or the backend for the duration of the "
+"logout."
+msgstr ""
+"Se l'host è bloccato sarà completamente bannato dal sito e non potrà quindi "
+"accedere nè al contenuto nè all'area di amministrazione del sito stesso."
+
+#: pages/ll.php:178 pages/idetect.php:67
+msgid "Enable Email Notifications."
+msgstr "Abilita notifiche mail."
+
+#: pages/ll.php:184 pages/idetect.php:73
+msgid ""
+"Enabling this feature will trigger an email to be sent to the website "
+"administrator whenever a host or user is locked out of the system."
+msgstr ""
+"Abilitando questa funzione una mail sarà inviata all'amministratore del sito "
+"ogniqualvolta un host o un utente saranno bloccati dal sistema."
+
+#: pages/ll.php:204 pages/idetect.php:117
+msgid "Active Lockouts"
+msgstr "Blocchi attivi"
+
+#: pages/ll.php:206
+msgid ""
+"Select a host or computer and click remove to release the lockout and allow "
+"them to log into the system."
+msgstr ""
+"Seleziona un host o un computer e clicca per rimuovere il blocco e quindi "
+"permettere loro di entrare nel sito."
+
+#: pages/ll.php:211
+msgid "Locked Out Hosts"
+msgstr "Hosts Bloccati"
+
+#: pages/ll.php:212
+msgid "Locked Out Users"
+msgstr "Utenti Bloccati"
+
+#: pages/ll.php:224 pages/ll.php:238
+msgid "Expires in:"
+msgstr "Scade in:"
+
+#: pages/ll.php:226 pages/ll.php:240 pages/idetect.php:131
+msgid "Release Selected Lockouts"
+msgstr "Rilascia i blocchi Selezionati"
+
+#: pages/ll.php:228 pages/ll.php:242 pages/idetect.php:133
+msgid "There are no hosts currently locked out."
+msgstr "Non ci sono hosts bloccati."
+
+#: pages/idetect.php:43 plugin.php:84
+msgid "Intrusion Detection"
+msgstr "Rivela Intrusioni"
+
+#: pages/idetect.php:49
+msgid "Detect 404s"
+msgstr "Individua 404s"
+
+#: pages/idetect.php:51
+msgid "Use the options below to enable 404 detection."
+msgstr ""
+"Usa l'opzione di seguito per abilitare l'individuazione degli errori 404."
+
+#: pages/idetect.php:58
+msgid "Enable 404 Detection"
+msgstr "Abilita l'individuazione degli errori 404"
+
+#: pages/idetect.php:79
+msgid "How many minutes should Better WP Security remember a bad page?"
+msgstr "Per quanti minuti Better WP Security deve ricordare una pagina errata?"
+
+#: pages/idetect.php:87
+msgid "How many 404 errors (bad pages) should trigger a lockout?"
+msgstr "Quanti errori 404 (pagine errate) innescano il blocco?"
+
+#: pages/idetect.php:95
+msgid "For how many minutes should an offending host be locked out?"
+msgstr "Per quanti minuti un host offensivo deve essere bloccato?"
+
+#: pages/idetect.php:119
+msgid ""
+"Select a host and click remove to release the lockout and allow them to log "
+"into the system."
+msgstr ""
+"Selezione un host e clicca per rimuovere il blocco e quindi permettergli di "
+"entrare nel sito."
+
+#: pages/idetect.php:128
+msgid "Expires in"
+msgstr "Scade in"
+
+#: pages/donate.php:3
+msgid "Please Donate"
+msgstr "Per favore Dona"
+
+#: pages/donate.php:6
+msgid "If you find this plugin useful please consider a small donation."
+msgstr ""
+"Se trovi questo plugin utile per favore considera una piccola donazione."
+
+#: pages/donate.php:10
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "PayPal - Il modo sicuro e veloce per pagare online!"
+
+#: pages/donate.php:13
+msgid ""
+"Users who have made a donation will receive priority for both support and "
+"feature requests."
+msgstr ""
+"Gli utenti che hanno effettuato una donazione riceveranno una maggiore "
+"priorità sia per il supporto che per la richiesta di nuove caratteristiche."
+
+#: pages/admin.php:16
+msgid " already exists. Please try again"
+msgstr "esiste già. Per favore riprova"
+
+#: pages/admin.php:30
+msgid " is not a valid username. Please try again"
+msgstr "non è un nome utente valide. Per favore riprova"
+
+#: pages/admin.php:36
+msgid "username changed"
+msgstr "nome utente cambiato"
+
+#: pages/admin.php:56 plugin.php:77
+msgid "Admin User"
+msgstr "Utente Admin"
+
+#: pages/admin.php:69
+msgid "Rename Admin User"
+msgstr "Rinomina Utente Admin"
+
+#: pages/admin.php:72
+msgid "Select a new name to use instead of <em>admin</em>"
+msgstr "Selezione un nuovo nome da usare al posto di <em>admin</em>"
+
+#: pages/admin.php:75
+msgid "Username:"
+msgstr "Nome utente:"
+
+#: pages/admin.php:80
+msgid ""
+"Congratulations, the <em>admin</em> user has already been removed. You do "
+"not need to take further action on this page."
+msgstr ""
+"Congratulazioni, l'utente <em>admin</em> è gia stato rimosso. Non devi fare "
+"nient'altro su questa pagina."
+
+#: pages/away.php:31
+msgid "<strong>You MUST enter a valid date for start time."
+msgstr "<strong>DEVI scrivere una data valida per il tempo di inizio."
+
+#: pages/away.php:35
+msgid "<strong>You MUST enter a valid date for end time."
+msgstr "<strong>DEVI scrivere una data valida per il tempo di fine."
+
+#: pages/away.php:104
+msgid "Away Options"
+msgstr "Opzioni Away"
+
+#: pages/away.php:110
+msgid "Away Mode Options"
+msgstr "Opzioni Modalità Away"
+
+#: pages/away.php:112
+msgid ""
+"As many of us update our sites on a general schedule it is not always "
+"necessary to permit site access all of the time. The options below will "
+"disable the backend of the site for the specified period."
+msgstr ""
+"Dato che molti di noi aggiornano i propri siti ad un orario generico non è "
+"sempre necessario che l'area di amministrazione sia sempre visibile. Le "
+"opzioni qui sotto disabiliteranno l'aera di amministrazione del sito per il "
+"periodo specificato."
+
+#: pages/away.php:113
+msgid "Please note that according to your"
+msgstr "Si prega di notare che in base alle proprie"
+
+#: pages/away.php:113
+msgid "Wordpress timezone settings"
+msgstr "impostazioni di fuso orario di Wordpress"
+
+#: pages/away.php:113
+msgid "your local time is"
+msgstr "la tua ora locale è"
+
+#: pages/away.php:113
+msgid "If this is incorrect please correct it on the"
+msgstr "Se questo non è corretto per favore correggilo tramite"
+
+#: pages/away.php:113
+msgid "Wordpress general settings page"
+msgstr "la pagina delle impostazioni generali di Wordpress"
+
+#: pages/away.php:113
+msgid ""
+"by setting the appropriate time zone. Failure to do so may result in "
+"unintended lockouts."
+msgstr ""
+"settando l'appropriato fuso orario. Sbagliare questo passaggio renderà non "
+"disponibile l'area di amministrazione ad orari non voluti."
+
+#: pages/away.php:120
+msgid "Enable Away Mode"
+msgstr "Abilita Modalità Away"
+
+#: pages/away.php:130
+msgid "Type of Restriction"
+msgstr "Tipo di Restrinzioni"
+
+#: pages/away.php:133
+msgid "Daily"
+msgstr "Giornaliera"
+
+#: pages/away.php:134
+msgid "One Time"
+msgstr "Una Volta"
+
+#: pages/away.php:136
+msgid ""
+"Selecting <em>\"One Time\"</em> will lock out the backend of your site from "
+"the start date and time to the end date and time. Selecting <em>\"Daily\"</"
+"em> will ignore the start and and dates and will disable your site backend "
+"from the start time to the end time."
+msgstr ""
+"Selezionando <em>\"Una volta\"</em> l'area di amministrazione del tuo sito "
+"sarà bloccata partendo dalla data di inizio fino alla data fine. "
+"Selezionando <em>\"Giornalmente\"</em> il giorno di inizio e il giorno di "
+"fine saranno ignorati e sarà disabilitata l'area di amministrazione ogni "
+"giorno alle ore prestabilite."
+
+#: pages/away.php:143
+msgid "Start Date and Time"
+msgstr "Data d'inizio e Ora"
+
+#: pages/away.php:216
+msgid ""
+"Select the date and time at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected the date will be "
+"ignored and access will be banned each day at the specified time."
+msgstr ""
+"Seleziona il giorno e l'ora per cui l'accesso all'area di amministrazione "
+"del tuo sito sarà disabilitato. Nota che se è stata selezionata la modalità "
+"<em>\"Giornalmente\"</em> la data sarà ignorata e l'area di amministrazione "
+"sarà non disponibile ogni giorno alle ore specificate."
+
+#: pages/away.php:223
+msgid "End Date and Time"
+msgstr "Data di Fine e Ora"
+
+#: pages/away.php:296
+msgid ""
+"Select the date and time at which access to the backend of this site will be "
+"restored. Note that if <em>\"Daily\"</em> mode is selected the date will be "
+"ignored and access will be restored each day at the specified time."
+msgstr ""
+"Seleziona la data e l'ora per cui l'accesso all'area di amministrazione del "
+"sito sarà ripristinato. Nota che se hai scelto la modalità <em>\"Giornalmente"
+"\"</em> la data sarà ignorata e l'accesso sarà ripristinato ogni giorno "
+"all'ora prestabilita."
+
+#: pages/away.php:314
+msgid "Access time rules."
+msgstr "Regole per l'ora di accesso."
+
+#: pages/away.php:318
+msgid "every day"
+msgstr "ogni giorno"
+
+#: pages/away.php:327
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "La sezione amministrativa del sito (wp-admin) sarà non disponibile"
+
+#: pages/away.php:327
+msgid "from"
+msgstr "da"
+
+#: pages/away.php:327 functions/bwps.php:464 functions/bwps.php:606
+#: functions/bwps.php:614
+msgid "until"
+msgstr "fino a"
+
+#: pages/tweaks.php:107 pages/tweaks.php:198
+msgid "Security Tweaks"
+msgstr "Tweaks di Sicurezza"
+
+#: pages/tweaks.php:114
+msgid "tweaks Options"
+msgstr "Opzioni Tweaks"
+
+#: pages/tweaks.php:129
+msgid "Header Tweaks"
+msgstr "Tweaks Testata (header)"
+
+#: pages/tweaks.php:131
+msgid "Remove Wordpress Generator Meta Tag"
+msgstr "Rimouve il Wordpress Generator Meta Tag"
+
+#: pages/tweaks.php:132
+msgid "Removes the"
+msgstr "Rimuove il"
+
+#: pages/tweaks.php:132
+msgid ""
+"meta tag from your sites header. This process hides version information from "
+"a potential attacker making it more difficult to determine vulnerabilities."
+msgstr ""
+"meta tag dall'header del tuo sito. Questo processo nasconde la versione in "
+"uso così un potenziale attaccante avrà più difficoltà nel determinare le "
+"vulnerabilità."
+
+#: pages/tweaks.php:135 pages/tweaks.php:139
+msgid "Remove"
+msgstr "Rimuovere"
+
+#: pages/tweaks.php:135 pages/tweaks.php:139
+msgid "header"
+msgstr "header"
+
+#: pages/tweaks.php:136
+msgid ""
+"Removes the Windows Live Writer header. This is not needed if you do not use "
+"Windows Live Writer."
+msgstr ""
+"Rimuove l'header di Windows Live Writer. Questo non è necessario se non usi "
+"Windows Live Writer."
+
+#: pages/tweaks.php:140
+msgid ""
+"Removes the RSD (Really Simple Discovery) header. If you don't integrate "
+"your blog with external XML-RPC services such as Flickr then the \"RSD\" "
+"function is pretty much useless to you."
+msgstr ""
+"Rimuove l'header RSD (Really Simple Discovery). Se non integri il tuo blog "
+"con servizi XML-RPC esterni come Flickr allora la funzione \"RSD\" non ti "
+"servirà."
+
+#: pages/tweaks.php:142
+msgid "Dashboard Tweaks"
+msgstr "Miglioramenti Dashboard"
+
+#: pages/tweaks.php:144
+msgid "Hide Theme Update Notifications"
+msgstr "Nasconde notifiche aggiornamento tema"
+
+#: pages/tweaks.php:145
+msgid ""
+"Hides theme update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Nasconde le notifiche di aggiornamento temi dagli utenti che non possono "
+"aggiornarli. Nota: questo torna utile solo sulle installazioni multi-sito."
+
+#: pages/tweaks.php:148
+msgid "Hide Plugin Update Notifications"
+msgstr "Nasconde notifiche aggiornamento plugin"
+
+#: pages/tweaks.php:149
+msgid ""
+"Hides plugin update notifications from users who cannot update themes. "
+"Please note that this only makes a difference in multi-site installations."
+msgstr ""
+"Nasconde la notifica di aggiornamento dei plugin agli utenti che non possono "
+"aggiornarli. Nota: questo torna utile solo sulle installazioni multi-sito."
+
+#: pages/tweaks.php:152
+msgid "Hide Core Update Notifications"
+msgstr "Nasconde notifiche aggiornamento Wordpress"
+
+#: pages/tweaks.php:153
+msgid ""
+"Hides core update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Nasconde le notifiche di aggiornamento dei componenti Core dagli utenti che "
+"non possono aggiornarli. Nota: questo torna utile solo sulle installazioni "
+"multi-sito."
+
+#: pages/tweaks.php:155
+msgid "Strong Password Tweaks"
+msgstr "Tweaks Password Robuste"
+
+#: pages/tweaks.php:157
+msgid "Enable strong password enforcement"
+msgstr "Abilita l'obbligo di uso di password robuste"
+
+#: pages/tweaks.php:158
+msgid ""
+"Enforce strong passwords for all users with at least the role specified "
+"below."
+msgstr ""
+"Imponi l'uso di password robuste agli utenti con almeno il ruolo specificato "
+"di seguito."
+
+#: pages/tweaks.php:161
+msgid "Strong Password Role"
+msgstr "Ruolo Password Robuste"
+
+#: pages/tweaks.php:162
+msgid ""
+"Minimum role at which a user must choose a strong password. For more "
+"information on Wordpress roles and capabilities please see"
+msgstr ""
+"Ruolo minimo per cui un utente deve scegliere una password robusta. Per "
+"maggiori informazioni sui ruoli di Wordpress guardare"
+
+#: pages/tweaks.php:164
+msgid "Other Tweaks"
+msgstr "Altri Miglioramenti"
+
+#: pages/tweaks.php:166
+msgid "Remove Wordpress Login Error Messages"
+msgstr "Rimuove Messaggi di Errore del Login di Wordpress"
+
+#: pages/tweaks.php:167 pages/tweaks.php:185
+msgid ""
+"Prevents error messages from being displayed to a user upon a failed login "
+"attempt."
+msgstr ""
+"Previene la visualizzazione del messaggio di errore all'utente che ha appena "
+"fallito il tentativo di login."
+
+#: pages/tweaks.php:170
+msgid "Display random version number to all non-administrative users"
+msgstr "Visualizza un numero casuale agli utenti non amministratori."
+
+#: pages/tweaks.php:171
+msgid ""
+"Displays a random version number to non-administrator users in all places "
+"where version number must be used and removes the version completely from "
+"where it can."
+msgstr ""
+"Visualizza un numero di versione casuale agli utenti non amministratori in "
+"tutti i posti in cui un numero di versione deve essere usato e rimuove "
+"completamente la versione dove questo è possibile."
+
+#: pages/tweaks.php:174
+msgid "Prevent long URL strings."
+msgstr "Previene l'uso di long URLs."
+
+#: pages/tweaks.php:175
+msgid ""
+"Limits the number of characters that can be sent in the URL. Hackers often "
+"take advantage of long URLs to try to inject information into your database."
+msgstr ""
+"Limita il numero di caratteri che possono essere usati nell'URL. Gli Hackers "
+"spesso traggono vantaggi dall'uso di URLs lunghi per provare a \"iniettare\" "
+"informazioni nel tuo database (SQL Injection)."
+
+#: pages/tweaks.php:178
+msgid "Turn off file editor in Wordpress Back-end."
+msgstr "Disabilita l'editor di file dall'area di amministrazione di Wordpress."
+
+#: pages/tweaks.php:179
+msgid ""
+"Disables the file editor for plugins and themes requiring users to have "
+"access to the file system to modify files."
+msgstr ""
+"Disabilita l'editor di file per i plugin e i temi che richiedono l'utente "
+"per aver accesso al file system per modificare i files."
+
+#: pages/tweaks.php:181
+msgid "SSL Tweaks"
+msgstr "Tweaks SSL"
+
+#: pages/tweaks.php:183
+msgid ""
+"WARNING: You're server MUST support SSL to use this feature. Using this "
+"feature without SSL support will cause the backend of your site to become "
+"unavailable."
+msgstr ""
+"ATTENZIONE: Il tuo server DEVE supportare SSL per poter usare questa "
+"funzionalità. Usando questa caratteristica senza il supporto SSL si causerà "
+"l'impossibilità di accedere alla tua area di amministrazione."
+
+#: pages/tweaks.php:184
+msgid "Enforce SSL"
+msgstr "Imponi uso SSL"
+
+#: pages/tweaks.php:200 pages/database.php:211 pages/content.php:51
+msgid ""
+"Warning: Better WP Security cannot write to your <em>wp-config.php</em> "
+"file. You must fix this error before continuing."
+msgstr ""
+"Attenzione: Better WP Security non può scrivere il tuo file <em>wp-config."
+"php<em>. DEVI risolvere questo errore manualmente prima di continuare."
+
+#: pages/banusers.php:113 plugin.php:79
+msgid "Ban Users Options"
+msgstr "Opzioni Ban Utenti"
+
+#: pages/banusers.php:119
+msgid "Ban User Options"
+msgstr "Opzioni Ban Utente"
+
+#: pages/banusers.php:121
+msgid "List below the addresses of users you would like to ban from your site."
+msgstr "Elenca qui sotto gli utenti che vorresti bannare dal tuo sito."
+
+#: pages/banusers.php:128
+msgid "Enable Ban Users"
+msgstr "Abilita Ban Btenti"
+
+#: pages/banusers.php:138
+msgid "User List"
+msgstr "Lista Utenti"
+
+#: pages/banusers.php:143
+msgid ""
+"You may ban users by individual IP address, IP address range, or hostname."
+msgstr ""
+"Puoi bannare gli utenti tramite indirizzo IP singolo, tramite un range di IP "
+"o tramite hostname"
+
+#: pages/banusers.php:144
+msgid ""
+"Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
+"###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr ""
+"L'indirizzo IP deve essere in formato IPv4 (es ###.###.###.###). Sono "
+"accettate le \"wildcards\" (*) per specificare un range di indirizzi IP"
+
+#: pages/banusers.php:145
+msgid ""
+"IP Address ranges may also be specified using the format ###.###.###.### - "
+"###.###.###.###. Wildcards cannot be used in addresses specified like this."
+msgstr ""
+"Anche i range di indirizzi IP dovrebbero essere specificati usando il "
+"formato ###.###.###.### - ###.###.###.###. Le wildcards non sono ammesse in "
+"questo caso."
+
+#: pages/banusers.php:146
+msgid ""
+"Hostnames may be specified individually do NOT include slashes (/), http://, "
+"or any other extra information."
+msgstr ""
+"L'hostname dovrebbe essere specificato individualmente e non deve includere "
+"slashes (/), http://, oppure altre informazioni."
+
+#: pages/banusers.php:147
+msgid "Lookup IP Address."
+msgstr "Ricerca Indirizzo IP."
+
+#: pages/banusers.php:148
+msgid "Enter only 1 IP address per line."
+msgstr "Immetti solo 1 indirizzo IP per riga."
+
+#: pages/banusers.php:149
+msgid "You may NOT ban your own IP address"
+msgstr "Non dovresti bannare il tuo stesso indirizzo IP"
+
+#: pages/clean.php:27
+msgid "Old Data Has Been Cleared From The Database"
+msgstr "I vecchi dati sono stati rimossi dal database"
+
+#: pages/clean.php:70 plugin.php:87
+msgid "Clean Database"
+msgstr "Pulisci Database"
+
+#: pages/clean.php:75
+msgid "Old Data"
+msgstr "Vecchi dati"
+
+#: pages/clean.php:77
+msgid ""
+"Below is old security data still in your Wordpress database. Data is "
+"considered old when the lockout has expired or the attempt will no longer be "
+"used to generate a lockout."
+msgstr ""
+"Sotto ci sono i vecchi dati che esistono ancora nel tuo database. I dati "
+"vengono considerati vecchi quando il blocco finisce oppure quando il "
+"tentativo non sarà più utilizzato per generare un blocco."
+
+#: pages/clean.php:78
+msgid ""
+"This data is not automatically deleted so that it may be used for analysis. "
+"You may delete this data with the form below. To see the actual data you "
+"will need to access your database directly."
+msgstr ""
+"Questi dati non sono automaticamente cancellati quindi possono essere "
+"utilizzati per analisi. Puoi cancellare questi dati con il form qui sotto. "
+"Per vedere i dati attuali devi accedere direttamente al tuo database."
+
+#: pages/clean.php:81
+msgid ""
+"Check the box next to the data you would like to clear and then press the "
+"\"Remove Old Data\" button."
+msgstr ""
+"Spunta la casella a fianco del dato che vuoi pulire e quindi premi il "
+"pulsante \"Rimuovi Vecchi Dati\"."
+
+#: pages/clean.php:83 pages/clean.php:84 pages/clean.php:85
+msgid "Your database contains"
+msgstr "Il tuo database contiene"
+
+#: pages/clean.php:83
+msgid "404 (page not found) errors."
+msgstr "Errori 404 (pagina non trovata)."
+
+#: pages/clean.php:84
+msgid "bad login attempts."
+msgstr "Tentativi di accesso errati."
+
+#: pages/clean.php:85
+msgid "old lockouts."
+msgstr "Vecchi blocchi."
+
+#: pages/clean.php:88
+msgid "Remove Old Data"
+msgstr "Rimuovi vecchi dati"
+
+#: pages/database.php:41
+msgid "Could not create table."
+msgstr "Impossibile creare la tabella."
+
+#: pages/database.php:53
+msgid "Could not copy table."
+msgstr "Impossibile copiare la tabella."
+
+#: pages/database.php:82
+msgid "Could not update prefix refences in options table."
+msgstr "Impossibile aggiornare i riferimenti nelle tabella \"options\""
+
+#: pages/database.php:102
+msgid "Could not update prefix refences in usermeta table."
+msgstr "Impossibile aggiornare i riferimenti nella tabella \"usermeta\""
+
+#: pages/database.php:121
+msgid "Could not drop table."
+msgstr "Impossibile eliminare la tabella."
+
+#: pages/database.php:150
+msgid "Database Prefix Changed."
+msgstr "Prefisso Database Cambiato."
+
+#: pages/database.php:168 pages/database.php:182 pages/database.php:209
+#: plugin.php:81
+msgid "Database Prefix"
+msgstr "Prefisso Database"
+
+#: pages/database.php:184
+msgid ""
+"Use the form below to change the table prefix for your Wordpress Database."
+msgstr ""
+"Usa il form di seguito per cambiare il prefisso delle tabelle del tuo "
+"database."
+
+#: pages/database.php:185
+msgid "WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!"
+msgstr "ATTENZIONE: FAI UN BACKUP DEL TUO DATABASE PRIMA DI USARE QUESTO TOOL!"
+
+#: pages/database.php:187
+msgid "Your database is using the default table prefix"
+msgstr "Le tabelle del tuo database stanno usando il prefisso predefinito"
+
+#: pages/database.php:187
+msgid "You should change this."
+msgstr "Dovresti cambiare questo."
+
+#: pages/database.php:196
+msgid "Your current database table prefix is"
+msgstr "Il prefisso attuale delle tabelle del tuo database è"
+
+#: pages/database.php:200
+msgid ""
+"Press the button below to generate a random database prefix value and update "
+"all of your tables accordingly."
+msgstr ""
+"Premi il pulsante qui sotto per generare ed assegnare un nome casuale come "
+"prefisso alle tabelle del tuo database."
+
+#: pages/database.php:201
+msgid "Change Database Table Prefix"
+msgstr "Cambia il prefisso delle tabelle del database"
+
+#: pages/content.php:18
+msgid "directory successfully changed."
+msgstr "directory cambiata con successo."
+
+#: pages/content.php:27 pages/content.php:64 plugin.php:80
+msgid "Content Directory"
+msgstr "Cartella wp-content"
+
+#: pages/content.php:33 pages/content.php:49 pages/content.php:69
+msgid "Change Content Directory"
+msgstr "Cambiare cartella Content (wp-content)"
+
+#: pages/content.php:35
+msgid "Select a new name for the content directory."
+msgstr "Seleziona un nuovo nome per la cartella wp-content."
+
+#: pages/content.php:36
+msgid ""
+"NOTICE: Use this only on new installs. Using this on sites with existing "
+"content will break links!"
+msgstr ""
+"ATTENZIONE: usare questa opzione solo sulle nuove installazioni. Usare "
+"questa opzione su un'installazione già esistente causerà la rottura dei "
+"collegamenti!"
+
+#: pages/content.php:39
+msgid "Directory Name:"
+msgstr "Nome cartella:"
+
+#: pages/content.php:71
+msgid ""
+"The directory has been changed please reload this page if you wish to change "
+"it again."
+msgstr ""
+"La directory è cambiata prego aggiornare la pagina se si desidera cambiarla "
+"di nuovo."
+
+#: pages/status.php:8
+msgid "System Status"
+msgstr "Stato del Sistema"
+
+#: pages/status.php:14
+msgid "Better WP Security System Status"
+msgstr "Better WP Security Stato Sistema"
+
+#: pages/status.php:27
+msgid "System Information"
+msgstr "Informazioni Sistema"
+
+#: pages/status.php:31
+msgid "User Information"
+msgstr "Informazioni Utente"
+
+#: pages/status.php:33
+msgid "Public IP Address"
+msgstr "Indirizzo IP Pubblico"
+
+#: pages/status.php:33 pages/status.php:102
+msgid "Get more information on this address"
+msgstr "Ottieni maggiori informazioni a questo indirizzo"
+
+#: pages/status.php:34
+msgid "User Agent"
+msgstr "User Agent"
+
+#: pages/status.php:39
+msgid "File System Information"
+msgstr "Informazioni File System"
+
+#: pages/status.php:41
+msgid "Website Root Folder"
+msgstr "Cartella di root del sito"
+
+#: pages/status.php:42
+msgid "Document Root Path"
+msgstr "Percorso Document Root"
+
+#: pages/status.php:47 pages/status.php:59 pages/status.php:71
+#: pages/status.php:220 pages/status.php:228 pages/status.php:236
+msgid "Yes"
+msgstr "Si"
+
+#: pages/status.php:51 pages/status.php:63
+msgid ""
+"No. Better WP Security will be severely limited in it's ability to secure "
+"your site"
+msgstr ""
+"No. Better WP Security sarà fortemente limitato nelle sue abilità di "
+"proteggere il vostro sito"
+
+#: pages/status.php:54
+msgid ".htaccess File is Writable"
+msgstr "Il file .htaccess è scrivibile"
+
+#: pages/status.php:66
+msgid "wp-config.php File is Writable"
+msgstr "Il file wp-config.php è scrivibile"
+
+#: pages/status.php:75
+msgid ""
+"No. Better WP Security will be limited in it's ability to secure your site"
+msgstr ""
+"No. Better WP Security sarà limitato nelle sue abilità di proteggere il "
+"vostro sito"
+
+#: pages/status.php:78
+msgid "Content directory can be renamed"
+msgstr "La directory Content può essere rinominata"
+
+#: pages/status.php:83
+msgid "Database Information"
+msgstr "Informazioni Database"
+
+#: pages/status.php:85
+msgid "MySQL Database Version"
+msgstr "Versione Database MySQL"
+
+#: pages/status.php:86
+msgid "MySQL Client Version"
+msgstr "Versione Client MySQL"
+
+#: pages/status.php:87
+msgid "Database Host"
+msgstr "Database Host"
+
+#: pages/status.php:88
+msgid "Database Name"
+msgstr "Nome Database"
+
+#: pages/status.php:89
+msgid "Database User"
+msgstr "Utente Database"
+
+#: pages/status.php:92
+msgid "Not Set"
+msgstr "Non Impostato"
+
+#: pages/status.php:95
+msgid "SQL Mode"
+msgstr "Modalità SQL"
+
+#: pages/status.php:100
+msgid "Server Information"
+msgstr "Informazioni Server"
+
+#: pages/status.php:102
+msgid "Server / Website IP Address"
+msgstr "Indirizzo IP del Server / Website"
+
+#: pages/status.php:103
+msgid "Server Type"
+msgstr "Tipo Server"
+
+#: pages/status.php:104
+msgid "Operating System"
+msgstr "Sistema Operativo"
+
+#: pages/status.php:105
+msgid "Browser Compression Supported"
+msgstr "Compressione Browser Supportata"
+
+#: pages/status.php:110
+msgid "PHP Information"
+msgstr "Informazioni PHP"
+
+#: pages/status.php:112
+msgid "PHP Version"
+msgstr "Versione PHP"
+
+#: pages/status.php:113
+msgid "PHP Memory Usage"
+msgstr "Uso Memoria PHP"
+
+#: pages/status.php:113
+msgid " MB"
+msgstr "MB"
+
+#: pages/status.php:118 pages/status.php:126 pages/status.php:134
+#: pages/status.php:198
+msgid "N/A"
+msgstr "N/A"
+
+#: pages/status.php:121
+msgid "PHP Memory Limit"
+msgstr "PHP Memory Limit"
+
+#: pages/status.php:129
+msgid "PHP Max Upload Size"
+msgstr "PHP Max Upload Size"
+
+#: pages/status.php:137
+msgid "PHP Max Post Size"
+msgstr "PHP Max Post Size"
+
+#: pages/status.php:145
+msgid "PHP Safe Mode"
+msgstr "PHP Safe Mode"
+
+#: pages/status.php:153
+msgid "PHP Allow URL fopen"
+msgstr "PHP Allow URL fopen"
+
+#: pages/status.php:161
+msgid "PHP Allow URL Include"
+msgstr "PHP Allow URL Include"
+
+#: pages/status.php:169
+msgid "PHP Display Errors"
+msgstr "PHP Display Errors"
+
+#: pages/status.php:177
+msgid "PHP Display Startup Errors"
+msgstr "PHP Display Startup Errors"
+
+#: pages/status.php:185
+msgid "PHP Expose PHP"
+msgstr "PHP Expose PHP"
+
+#: pages/status.php:193
+msgid "PHP Register Globals"
+msgstr "PHP Register Globals"
+
+#: pages/status.php:201
+msgid "PHP Max Script Execution Time"
+msgstr "PHP Max Script Execution Time"
+
+#: pages/status.php:201
+msgid "Seconds"
+msgstr "Secondi"
+
+#: pages/status.php:209
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP Magic Quotes GPC"
+
+#: pages/status.php:217
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: pages/status.php:222 pages/status.php:230 pages/status.php:238
+msgid "No"
+msgstr "No"
+
+#: pages/status.php:225
+msgid "PHP XML Support"
+msgstr "PHP XML Support"
+
+#: pages/status.php:233
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC Support"
+
+#: pages/status.php:241
+msgid "PHP Exif Support"
+msgstr "PHP Exif Support"
+
+#: pages/status.php:246
+msgid "Wordpress Configuration"
+msgstr "Configurazione Wordpress"
+
+#: pages/status.php:250
+msgid "Multisite is enabled"
+msgstr "Multisito abilitato"
+
+#: pages/status.php:252
+msgid "Multisite is NOT enabled"
+msgstr "Multisito non è abilitato"
+
+#: pages/status.php:255
+msgid "\tMultisite"
+msgstr "\tMultisito"
+
+#: pages/status.php:260
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: pages/status.php:264
+msgid ""
+"WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better "
+"WP Security to function correctly"
+msgstr ""
+"ATTENZIONE! I permalinks NON sono abilitati. DEVI abilitarli perchè Better "
+"WP Security funzioni correttamente"
+
+#: pages/status.php:267
+msgid "WP Permalink Structure"
+msgstr "Struttura Permalink WP"
+
+#: pages/status.php:268
+msgid "Wp-config Location"
+msgstr "Locazione wp-config"
+
+#: pages/status.php:272
+msgid "Better WP Security variables"
+msgstr "Variabili Better WP Security"
+
+#: pages/status.php:274
+msgid "Hide Backend Key"
+msgstr "Nascondi chiave amministrazione"
+
+#: pages/status.php:286
+msgid "Current .htaccess Contents"
+msgstr "Attuale Contenuto del file .htaccess"
+
+#: pages/status.php:320
+msgid "Support"
+msgstr "Supporto"
+
+#: pages/status.php:322
+msgid "Please visit the"
+msgstr "Per favore visita"
+
+#: pages/status.php:322
+msgid "homepage for support and change-log"
+msgstr "per il supporto e il change-log"
+
+#: plugin.php:73
+msgid "Better Security - System Status and Support"
+msgstr "Better Security - Stato del Sistema e Supporto"
+
+#: plugin.php:73
+msgid "Security"
+msgstr "Sicurezza"
+
+#: plugin.php:76
+msgid "System Status and Support"
+msgstr "Stato del Sistema e Supporto"
+
+#: plugin.php:78
+msgid "Away Mode"
+msgstr "Modalità Away"
+
+#: plugin.php:79
+msgid "Ban Users"
+msgstr "Ban Utenti"
+
+#: plugin.php:82
+msgid "Hide Backend"
+msgstr "Nascondi amministrazione"
+
+#: plugin.php:85
+msgid "Limit Logins"
+msgstr "Limiti Login"
+
+#: plugin.php:86
+msgid "System Tweaks"
+msgstr "Tweaks Sistema"
+
+#: plugin.php:208
+msgid "Settings"
+msgstr "Opzioni"
+
+#: functions/auth.php:20 functions/auth.php:56 functions/auth.php:81
+msgid ""
+"<strong>ERROR</strong>: We're sorry , but this computer has been blocked due "
+"to too many recent failed login attempts.<br /><br />Please try again later."
+msgstr ""
+"<strong>ERRORE</strong>: Siamo spiacenti ma il questo computer è stato "
+"bloccato a causa dei numerosi tentativi di accesso falliti.<br /><br />Per "
+"favore riprova più tardi."
+
+#: functions/auth.php:27
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>ERRORE</strong>: Nome utente invalido o password errata."
+
+#: functions/bwps.php:107 functions/bwps.php:506 functions/bwps.php:1107
+msgid "error"
+msgstr "errore"
+
+#: functions/bwps.php:263
+msgid ""
+"Due to changes in the latest Better WP Security release you must update your "
+msgstr "A causa degli ultimi cambiamenti devi aggiornare"
+
+#: functions/bwps.php:265
+msgid "Better WP Security settings."
+msgstr "le impostazioni di Better WP Security."
+
+#: functions/bwps.php:464 functions/bwps.php:614
+msgid "A computer"
+msgstr "Un computer"
+
+#: functions/bwps.php:464 functions/bwps.php:606 functions/bwps.php:614
+msgid "has been locked out of the Wordpress site at"
+msgstr "è stato bloccato dal sito a"
+
+#: functions/bwps.php:464
+msgid ""
+"due to too attempts to open a page that doesn't exist. You may login to the "
+"site to manually release the lock if necessary."
+msgstr ""
+"causa dei troppi tentativi di accesso a pagine che non esistono. Per "
+"sbloccarlo manualmente devi entrare nel sito."
+
+#: functions/bwps.php:466 functions/bwps.php:620
+msgid "Site Lockout Notification"
+msgstr "Notifiche di ban dal sito"
+
+#: functions/bwps.php:606
+msgid "A Wordpress user"
+msgstr "Un utente Wordpress"
+
+#: functions/bwps.php:606 functions/bwps.php:614
+msgid ""
+"due to too many failed login attempts. You may login to the site to manually "
+"release the lock if necessary."
+msgstr ""
+"a causa di troppi tentativi di accesso falliti. Per sbloccarlo devi entrare "
+"nel sito e farlo manualmente."
+
+#: functions/bwps.php:802
+msgid ""
+"<strong>ERROR</strong>: You MUST Choose a password that rates at least "
+"<em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr ""
+"<strong>ERRORE</strong>: DEVI scegliere una password che ottenga almeno "
+"<em>Robusta</em> nella valutazione. Le tue impostazioni NON sono state "
+"salvate."
+
+#: functions/bwps.php:1137
+msgid "You have renamed the wp-content directory of your site."
+msgstr "Hai rinominato la cartella wp-content del tuo sito."
+
+#: functions/bwps.php:1139
+msgid "You should rename the wp-content directory of your site."
+msgstr "Dovresti rinominare la cartella wp-content del tuo sito."
+
+#: functions/bwps.php:1139
+msgid "Click here to do so"
+msgstr "Clicca qui per farlo"
+
+#: functions/bwps.php:1165
+msgid ""
+"You are not allowing users to edit theme and plugin files from the Wordpress "
+"backend."
+msgstr ""
+"Gli utenti non possono modificare i temi e i plugin dal backend di Wordpress."
+
+#: functions/bwps.php:1167
+msgid ""
+"You are allowing users to edit theme and plugin files from the Wordpress "
+"backend."
+msgstr ""
+"Gli utenti possono modificare i temi e i plugin dal backend di Wordpress."
+
+#: functions/bwps.php:1167 functions/bwps.php:1180 functions/bwps.php:1195
+#: functions/bwps.php:1212 functions/bwps.php:1229
+msgid "Click here to fix this"
+msgstr "Premi qui per risolvere"
+
+#: functions/bwps.php:1178
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr ""
+"Stai richiedendo una connessione sicura per i logins e l'area di "
+"amministrazione."
+
+#: functions/bwps.php:1180
+msgid ""
+"You are not requiring a secure connection for logins or for the admin area."
+msgstr ""
+"Non stai richiedendo una connessione sicura per i logins e per l'area di "
+"amministrazione."
+
+#: functions/bwps.php:1193
+msgid "Your site is secured from attacks by XSS."
+msgstr "Il tuo sito è sicuro da attacchi di tipo XSS."
+
+#: functions/bwps.php:1195
+msgid "Your site is still vulnerable to some XSS attacks."
+msgstr "Il tuo sito è vulnerabile ad attacchi di tipo XSS."
+
+#: functions/bwps.php:1210
+msgid "Version information is obscured to all non admin users."
+msgstr "Il numero di versione è nascosto agli utenti non amministratori."
+
+#: functions/bwps.php:1212
+msgid ""
+"Users may still be able to get version information from various plugins and "
+"themes."
+msgstr ""
+"Gli utenti possono ancora ottenere informazioni sulle versioni di temi e "
+"plugins."
+
+#: functions/bwps.php:1227
+msgid "Your installation does not accept long URLs."
+msgstr "La tua installazione non accetta long URLs."
+
+#: functions/bwps.php:1229
+msgid ""
+"Your installation accepts long (over 255 character) URLS. This can lead to "
+"vulnerabilities."
+msgstr ""
+"La tua installazione accetta long URLs (sopra i 255 caratteri). Questo può "
+"rappresentare una vulnerabilità."
+
+#: functions/bwps.php:1244
+msgid "No error messages are displayed on failed login."
+msgstr "Non sono visualizzati errori in caso di login fallito."
+
+#: functions/bwps.php:1246
+msgid "Error messages are displayed to users on failed login."
+msgstr "Sono visualizzati messaggi di errore in caso di login fallito."
+
+#: functions/bwps.php:1246
+msgid "Click here to remove them"
+msgstr "Premi qui per rimuoverli"
+
+#: functions/bwps.php:1263
+msgid "Non-administrators cannot see available updates."
+msgstr ""
+"Gli utenti non amministratori non possono vedere gli aggiornamenti "
+"disponibili."
+
+#: functions/bwps.php:1265
+msgid "Non-administrators can see some updates."
+msgstr ""
+"Gli utenti non-amministratori possono vedere alcuni aggiornamenti "
+"disponibili."
+
+#: functions/bwps.php:1265 functions/bwps.php:1286
+msgid "Click here to fully fix it"
+msgstr "Premi qui per risolvere completamente"
+
+#: functions/bwps.php:1267
+msgid "Non-administrators can see all updates."
+msgstr ""
+"Gli utenti non-amministratori possono vedere tutti gli aggiornamenti "
+"disponibili."
+
+#: functions/bwps.php:1267 functions/bwps.php:1288
+msgid "Click here to fix it"
+msgstr "Premi qui per risolvere"
+
+#: functions/bwps.php:1284
+msgid "Your Wordpress header is revealing as little information as possible."
+msgstr ""
+"L'header del tuo Wordpress sta rivelando le minori informazioni possibili."
+
+#: functions/bwps.php:1286
+msgid "Your Wordpress header is still revealing some information to users."
+msgstr ""
+"L'header del tuo Wordpress sta rivelando ancora alcune informazioni agli "
+"utenti."
+
+#: functions/bwps.php:1288
+msgid "Your Wordpress header is showing too much information to users."
+msgstr ""
+"L'header del tuo Wordpress sta mostrando troppe informazioni agli utenti."
+
+#: functions/bwps.php:1306
+msgid "You are enforcing strong passwords for all users"
+msgstr "Stai forzando l'uso di password robuste a tutti gli utenti."
+
+#: functions/bwps.php:1308
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "Stai forzando l'uso di password robuste, ma non a tutti gli utenti."
+
+#: functions/bwps.php:1308
+msgid "Click here to fix"
+msgstr "Premi qui per risolvere"
+
+#: functions/bwps.php:1310
+msgid "You are not enforcing strong passwords."
+msgstr "Non stai forzando l'uso di password robuste."
+
+#: functions/bwps.php:1310
+msgid "Click here to enforce strong passwords."
+msgstr "Clicca qui per forzare l'uso di password robuste."
+
+#: functions/bwps.php:1325
+msgid "Your Wordpress admin area is hidden."
+msgstr "L'area di amministrazione di Wordpress è nascosta."
+
+#: functions/bwps.php:1327
+msgid "Your Wordpress admin area  file is NOT hidden."
+msgstr "L'area di amministrazione di Wordpress NON è nascosta."
+
+#: functions/bwps.php:1327 functions/bwps.php:1385 functions/bwps.php:1403
+msgid "Click here to secure it"
+msgstr "Clicca qui per proteggerlo"
+
+#: functions/bwps.php:1343
+msgid "Your table prefix should not be <em>wp_</em>."
+msgstr "Il prefisso della tua tabella non dovrebbe essere <em>wp_</em>"
+
+#: functions/bwps.php:1343
+msgid "Click here to change it"
+msgstr "Clicca qui per cambiarlo"
+
+#: functions/bwps.php:1345
+msgid "Your table prefix is"
+msgstr "Il prefisso della tua tabella è"
+
+#: functions/bwps.php:1362
+msgid "The <em>admin</em> user still exists."
+msgstr "L'utente <em>admin</em> esiste ancora."
+
+#: functions/bwps.php:1362
+msgid "Click here to rename it"
+msgstr "Clicca qui per rinominarlo"
+
+#: functions/bwps.php:1364
+msgid "The <em>admin</em> user has been removed."
+msgstr "L'utente <em>admin</em> è stato rimosso."
+
+#: functions/bwps.php:1381
+msgid "Your .htaccess file is fully secured."
+msgstr "Il tuo file .htaccess è completamente protetto."
+
+#: functions/bwps.php:1383
+msgid "Your .htaccess file is partially secured."
+msgstr "Il tuo file .htaccess è parzialmente protetto."
+
+#: functions/bwps.php:1383
+msgid "Click here to fully secure it"
+msgstr "Clicca qui per proteggerlo completamente"
+
+#: functions/bwps.php:1385
+msgid "Your .htaccess file is NOT secured."
+msgstr "Il tuo file .htaccess NON è protetto."
+
+#: functions/bwps.php:1401
+msgid "Your site is not vulnerable to brute force attacks."
+msgstr "Il tuo sito non è vulnerabile agli attacchi di tipo brute force"
+
+#: functions/bwps.php:1403
+msgid "Your site is vulnerable to brute force attacks."
+msgstr "Il tuo sito è vulnerabile agli attacchi di tipo brute force"
+
+#: functions/bwps.php:1420
+msgid ""
+"Your Wordpress admin area is not available when you will not be needing it."
+msgstr ""
+"L'area di amministrazione del tuo sito non sarà disponibile quando non ne "
+"avrai bisogno."
+
+#: functions/bwps.php:1422
+msgid ""
+"Your Wordpress admin area is available 24/7. Do you really update 24 hours a "
+"day?"
+msgstr ""
+"L'area di amministrazione del tuo sito è disponibile 24/7. Ne hai davvero "
+"bisogno tutto il giorno?"
+
+#: functions/bwps.php:1422
+msgid "Click here to limit admin availability"
+msgstr "Clicca qui per limitare la disponibilità dell'amministrazione"
+
+#: functions/meta.php:6
+msgid "Log in/out, admin, feed and WordPress links"
+msgstr "Log in/out,admin,feed e Wordpress links"
+
+#: functions/meta.php:7 functions/meta.php:16
+msgid "Meta"
+msgstr "Meta"
+
+#: functions/meta.php:26
+msgid "Register"
+msgstr "Registare"
+
+#: functions/meta.php:30
+msgid "Site Admin"
+msgstr "Amministrazione Sito"
+
+#: functions/meta.php:35
+msgid "Log in"
+msgstr "Log in"
+
+#: functions/meta.php:37
+msgid "Log out"
+msgstr "Log out"
+
+#: functions/meta.php:41
+msgid "Syndicate this site using RSS 2.0"
+msgstr "Segui questo sito usando RSS 2.0"
+
+#: functions/meta.php:41
+msgid "Entries <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "Feed <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+#: functions/meta.php:42
+msgid "The latest comments to all posts in RSS"
+msgstr "Gli ultimi commenti a tutti i post in RSS"
+
+#: functions/meta.php:42
+msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "Commenti <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+#: functions/meta.php:43
+msgid ""
+"Powered by WordPress, state-of-the-art semantic personal publishing platform."
+msgstr ""
+"Powered by Wordpress, la piattaforma di pubblicazione personale allo stato "
+"dell'arte."
+
+#: functions/meta.php:61
+msgid "Title:"
+msgstr "Titolo:"
