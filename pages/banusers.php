@@ -67,7 +67,7 @@
 							$parts = explode(".",$item);
 							$goodHost = true;
     						foreach($parts as $part) {
-								if (!preg_match('/^[a-z\d][a-z\d-]{0,62}$/i', $part) || preg_match('/-$/', $part) ) {
+								if (!preg_match('/^[a-z\d][a-z\d-]{0,62}$/i', trim($part)) || preg_match('/-$/', trim($part)) ) {
            							$goodHost = false;
         						} 
         					}
