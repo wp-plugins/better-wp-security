@@ -409,9 +409,13 @@ class BWPS {
 		$opts = $this->getOptions();
 		
 		$qstring = $wpdb->escape($_SERVER['REQUEST_URI']);
+		
+		foreach ($_SERVER as $key => $value) {
+    		echo "Key: $key; Value: $value<br />\n";
+		}
 					
-		$hackQuery = "INSERT INTO " . BWPS_TABLE_D404 . " (computer_id, qstring, attempt_date)
-			VALUES ('" . $this->computer_id . "', '" . $qstring . "', " . time() . ");";
+		$hackQuery = "INSERT INTO " . BWPS_TABLE_D404 . " (computer_id, qstring, referrer, attempt_date)
+			VALUES ('" . $this->computer_id . "', '" . $qstring . "', '" . $_SERVER['HTTP_REFERER'] . "', " . time() . ");";
 			
 		unset($opts);		
 		return $wpdb->query($hackQuery);

@@ -10,6 +10,7 @@ function BWPS_install() {
 		`computer_id` varchar(20),
 		`attempt_date` int(10),
 		`qstring` varchar(255),
+		`referrer` varchar(255),
 		PRIMARY KEY  (`attempt_id`)
 		);";
 		$vers['TABLE_D404'] = BWPS_VERSION_TABLE_D404;
