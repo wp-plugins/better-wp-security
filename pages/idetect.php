@@ -9,18 +9,88 @@
 			die('Security error!');
 		}
 		
-		$opts = $BWPS->saveOptions("idetect_d404enable", $_POST['BWPS_idetect_d404enable']);
-		$opts = $BWPS->saveOptions("idetect_emailnotify", $_POST['BWPS_idetect_emailnotify']);
-		$opts = $BWPS->saveOptions("idetect_checkint", ($_POST['BWPS_idetect_checkint'] * 60));
-		$opts = $BWPS->saveOptions("idetect_locount", $_POST['BWPS_idetect_locount']);
-		$opts = $BWPS->saveOptions("idetect_lolength", ($_POST['BWPS_idetect_lolength'] * 60));
-		$opts = $BWPS->saveOptions("idetect_error_message", $_POST['BWPS_idetect_error_message']);
-		
+		$whiteList = explode("\n", $_POST['BWPS_idetect_whitelist']);
+		$whiteitems = array();
+	
+		if(!empty($whiteList)) {
+			foreach($whiteList as $item) {
+				if (strlen($item) > 0) {
+					if (strstr($item,' - ')) {
+						$range = explode('-', $item);
+						$start = trim($range[0]);
+						$end = trim($range[1]);
+						if (ip2long($end) == false) {
+							if (!$errorHandler) {
+								$errorHandler = new WP_Error();
+							}
+							$errorHandler->add("1", __($item . " contains an invalid ip (" . $end . ").", 'better-wp-security'));
+						}
+						if (ip2long($start) == false ) {
+							if (!$errorHandler) {
+								$errorHandler = new WP_Error();
+							}
+							$errorHandler->add("1", __($item . " contains an invalid ip (" . $start . ").", 'better-wp-security'));
+						}	else {
+							$whiteitems[] = trim($item);
+						}	
+						
+					} else {
+						$ipParts = explode('.',$item);
+						$isIP = 0;
+						foreach ($ipParts as $part) {
+							if (is_numeric(trim($part)) || trim($part) == '*') {
+								$isIP++;
+							}
+						}
+						if($isIP == 4) {
+							if (ip2long(trim(str_replace('*', '0', $item))) == false) {
+								if (!$errorHandler) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " is not a valid ip.", 'better-wp-security'));
+							} else {
+								$whiteitems[] = trim($item);
+							}
+						} else {
+							$parts = explode(".",$item);
+							$goodHost = true;
+    						foreach($parts as $part) {
+								if (!preg_match('/^[a-z\d][a-z\d-]{0,62}$/i', trim($part)) || preg_match('/-$/', trim($part)) ) {
+           							$goodHost = false;
+        						} 
+        					}
+        					if ($goodHost == true) {
+        						$whiteitems[] = trim($item);
+        					} else {
+        						if (!$errorHandler) {
+										$errorHandler = new WP_Error();
+									}
+									$errorHandler->add("1", __($item . " is note a valid hostname.", 'better-wp-security'));
+        					}
+						}
+					}
+				}
+			}
+		}
+				
 		if (isset($errorHandler)) {
 			echo '<div id="message" class="error"><p>' . $errorHandler->get_error_message() . '</p></div>';
 		} else {
+			$opts = $BWPS->saveOptions("idetect_d404enable", $_POST['BWPS_idetect_d404enable']);
+			$opts = $BWPS->saveOptions("idetect_emailnotify", $_POST['BWPS_idetect_emailnotify']);
+			$opts = $BWPS->saveOptions("idetect_checkint", ($_POST['BWPS_idetect_checkint'] * 60));
+			$opts = $BWPS->saveOptions("idetect_locount", $_POST['BWPS_idetect_locount']);
+			$opts = $BWPS->saveOptions("idetect_lolength", ($_POST['BWPS_idetect_lolength'] * 60));
+			$opts = $BWPS->saveOptions("idetect_error_message", $_POST['BWPS_idetect_error_message']);
+			$opts = $BWPS->saveOptions("idetect_whitelist",implode("\n",$whiteitems));	
+	
 			echo '<div id="message" class="updated"><p>' . __('Settings Saved', 'better-wp-security') . '</p></div>';
 		}		
+		
+		$idetect_whitelist = $_POST['BWPS_idetect_whitelist'];
+		
+	} else {
+		$idetect_whitelist = $opts['idetect_whitelist'];
 	}
 	
 	if (isset($_POST['BWPS_releasesave'])) {
@@ -100,14 +170,31 @@
 									</td>
 								</tr>
 								<tr valign="top">
-										<th scope="row">
-											<label for="BWPS_idetect_error_message"><?php _e('Default Error Message', 'better-wp-security'); ?></label>
-										</th>
-										<td>
-											<input name="BWPS_idetect_error_message" id="error_message" value="<?php echo $opts['idetect_error_message']; ?>" type="text"><br />
-											<em><?php _e('The message that will display when someone has been locked out.'); ?></em>
-										</td>
-									</tr>
+									<th scope="row">
+										<label for="BWPS_idetect_error_message"><?php _e('Default Error Message', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<input name="BWPS_idetect_error_message" id="error_message" value="<?php echo $opts['idetect_error_message']; ?>" type="text"><br />
+										<em><?php _e('The message that will display when someone has been locked out.'); ?></em>
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="BWPS_idetect_whitelist"><?php _e('White List', 'better-wp-security'); ?></label>
+									</th>
+									<td>
+										<textarea rows="10" cols="50" name="BWPS_idetect_whitelist" id="BWPS_idetect_whitelist"><?php echo $idetect_whitelist; ?></textarea><br />
+										<ul><em>
+											<li><?php _e('You may whitelist users by individual IP address, IP address range, or hostname.', 'better-wp-security'); ?></li>
+											<li><?php _e('Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better-wp-security'); ?></li>
+											<li><?php _e('IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', 'better-wp-security'); ?></li>
+											<li><?php _e('Hostnames may be specified individually do NOT include slashes (/), http://, or any other extra information.', 'better-wp-security'); ?></li>
+											<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', 'better-wp-security'); ?></a></li>
+											<li><?php _e('Enter only 1 IP address per line.', 'better-wp-security'); ?></li>
+											<li><?php _e('404 errors will still be logged for users on the whitelist. Only the lockout will be prevented', 'better-wp-security'); ?></li>
+										</em></ul>
+									</td>
+								</tr>
 							</tbody>
 						</table>	
 						<p class="submit"><input type="submit" name="BWPS_d404_save" value="<?php _e('save', 'better-wp-security'); ?>"></p>

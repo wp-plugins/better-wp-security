@@ -91,7 +91,7 @@ function BWPS_checkVersions() {
 
 function BWPS_versions() {
 	$vers = array(
-		'TABLE_D404' => '0',
+		'TABLE_D404' => '1',
 		'TABLE_LL' => '0',
 		'TABLE_LOCKOUTS' => '0',
 		'AWAY' => '0',
@@ -100,7 +100,7 @@ function BWPS_versions() {
 		'HIDEBE' => '1',
 		'LL' => '0',
 		'HTACCESS' => '0',
-		'IDETECT' => '2'
+		'IDETECT' => '3'
 	);
 	
 	return $vers;
@@ -152,7 +152,7 @@ function BWPS_defaults() {
 		"idetect_locount" => "20",
 		"idetect_lolength" => "900",
 		"idetect_error_message" => "error",
-		
+		"idetect_whitelist" => ""
 	);
 	
 	return $opts;
