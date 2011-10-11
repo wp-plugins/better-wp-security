@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
-"POT-Creation-Date: 2011-09-07 14:33:41+00:00\n"
+"POT-Creation-Date: 2011-10-11 01:54:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,251 +80,251 @@ msgstr ""
 msgid "Better WP Security settings."
 msgstr ""
 
-#: functions/bwps.php:461 functions/bwps.php:613
+#: functions/bwps.php:508 functions/bwps.php:660
 msgid "A computer"
 msgstr ""
 
-#: functions/bwps.php:461 functions/bwps.php:605 functions/bwps.php:613
+#: functions/bwps.php:508 functions/bwps.php:652 functions/bwps.php:660
 msgid "has been locked out of the Wordpress site at"
 msgstr ""
 
-#: functions/bwps.php:461 functions/bwps.php:605 functions/bwps.php:613
+#: functions/bwps.php:508 functions/bwps.php:652 functions/bwps.php:660
 #: pages/away.php:327
 msgid "until"
 msgstr ""
 
-#: functions/bwps.php:461
+#: functions/bwps.php:508
 msgid ""
 "due to too attempts to open a page that doesn't exist. You may login to the "
 "site to manually release the lock if necessary."
 msgstr ""
 
-#: functions/bwps.php:463 functions/bwps.php:619
+#: functions/bwps.php:510 functions/bwps.php:666
 msgid "Site Lockout Notification"
 msgstr ""
 
-#: functions/bwps.php:605
+#: functions/bwps.php:652
 msgid "A Wordpress user"
 msgstr ""
 
-#: functions/bwps.php:605 functions/bwps.php:613
+#: functions/bwps.php:652 functions/bwps.php:660
 msgid ""
 "due to too many failed login attempts. You may login to the site to manually "
 "release the lock if necessary."
 msgstr ""
 
-#: functions/bwps.php:801
+#: functions/bwps.php:847
 msgid ""
 "<strong>ERROR</strong>: You MUST Choose a password that rates at least "
 "<em>Strong</em> on the meter. Your setting have NOT been saved."
 msgstr ""
 
-#: functions/bwps.php:1107
+#: functions/bwps.php:1153
 msgid "error"
 msgstr ""
 
-#: functions/bwps.php:1137
+#: functions/bwps.php:1183
 msgid "You have renamed the wp-content directory of your site."
 msgstr ""
 
-#: functions/bwps.php:1139
+#: functions/bwps.php:1185
 msgid "You should rename the wp-content directory of your site."
 msgstr ""
 
-#: functions/bwps.php:1139
+#: functions/bwps.php:1185
 msgid "Click here to do so"
 msgstr ""
 
-#: functions/bwps.php:1165
+#: functions/bwps.php:1211
 msgid ""
 "You are not allowing users to edit theme and plugin files from the Wordpress "
 "backend."
 msgstr ""
 
-#: functions/bwps.php:1167
+#: functions/bwps.php:1213
 msgid ""
 "You are allowing users to edit theme and plugin files from the Wordpress "
 "backend."
 msgstr ""
 
-#: functions/bwps.php:1167 functions/bwps.php:1180 functions/bwps.php:1195
-#: functions/bwps.php:1212 functions/bwps.php:1229
+#: functions/bwps.php:1213 functions/bwps.php:1226 functions/bwps.php:1241
+#: functions/bwps.php:1258 functions/bwps.php:1275
 msgid "Click here to fix this"
 msgstr ""
 
-#: functions/bwps.php:1178
+#: functions/bwps.php:1224
 msgid "You are requiring a secure connection for logins and the admin area."
 msgstr ""
 
-#: functions/bwps.php:1180
+#: functions/bwps.php:1226
 msgid ""
 "You are not requiring a secure connection for logins or for the admin area."
 msgstr ""
 
-#: functions/bwps.php:1193
+#: functions/bwps.php:1239
 msgid "Your site is secured from attacks by XSS."
 msgstr ""
 
-#: functions/bwps.php:1195
+#: functions/bwps.php:1241
 msgid "Your site is still vulnerable to some XSS attacks."
 msgstr ""
 
-#: functions/bwps.php:1210
+#: functions/bwps.php:1256
 msgid "Version information is obscured to all non admin users."
 msgstr ""
 
-#: functions/bwps.php:1212
+#: functions/bwps.php:1258
 msgid ""
 "Users may still be able to get version information from various plugins and "
 "themes."
 msgstr ""
 
-#: functions/bwps.php:1227
+#: functions/bwps.php:1273
 msgid "Your installation does not accept long URLs."
 msgstr ""
 
-#: functions/bwps.php:1229
+#: functions/bwps.php:1275
 msgid ""
 "Your installation accepts long (over 255 character) URLS. This can lead to "
 "vulnerabilities."
 msgstr ""
 
-#: functions/bwps.php:1244
+#: functions/bwps.php:1290
 msgid "No error messages are displayed on failed login."
 msgstr ""
 
-#: functions/bwps.php:1246
+#: functions/bwps.php:1292
 msgid "Error messages are displayed to users on failed login."
 msgstr ""
 
-#: functions/bwps.php:1246
+#: functions/bwps.php:1292
 msgid "Click here to remove them"
 msgstr ""
 
-#: functions/bwps.php:1263
+#: functions/bwps.php:1309
 msgid "Non-administrators cannot see available updates."
 msgstr ""
 
-#: functions/bwps.php:1265
+#: functions/bwps.php:1311
 msgid "Non-administrators can see some updates."
 msgstr ""
 
-#: functions/bwps.php:1265 functions/bwps.php:1286
+#: functions/bwps.php:1311 functions/bwps.php:1332
 msgid "Click here to fully fix it"
 msgstr ""
 
-#: functions/bwps.php:1267
+#: functions/bwps.php:1313
 msgid "Non-administrators can see all updates."
 msgstr ""
 
-#: functions/bwps.php:1267 functions/bwps.php:1288
+#: functions/bwps.php:1313 functions/bwps.php:1334
 msgid "Click here to fix it"
 msgstr ""
 
-#: functions/bwps.php:1284
+#: functions/bwps.php:1330
 msgid "Your Wordpress header is revealing as little information as possible."
 msgstr ""
 
-#: functions/bwps.php:1286
+#: functions/bwps.php:1332
 msgid "Your Wordpress header is still revealing some information to users."
 msgstr ""
 
-#: functions/bwps.php:1288
+#: functions/bwps.php:1334
 msgid "Your Wordpress header is showing too much information to users."
 msgstr ""
 
-#: functions/bwps.php:1306
+#: functions/bwps.php:1352
 msgid "You are enforcing strong passwords for all users"
 msgstr ""
 
-#: functions/bwps.php:1308
+#: functions/bwps.php:1354
 msgid "You are enforcing strong passwords, but not for all users."
 msgstr ""
 
-#: functions/bwps.php:1308
+#: functions/bwps.php:1354
 msgid "Click here to fix"
 msgstr ""
 
-#: functions/bwps.php:1310
+#: functions/bwps.php:1356
 msgid "You are not enforcing strong passwords."
 msgstr ""
 
-#: functions/bwps.php:1310
+#: functions/bwps.php:1356
 msgid "Click here to enforce strong passwords."
 msgstr ""
 
-#: functions/bwps.php:1325
+#: functions/bwps.php:1371
 msgid "Your Wordpress admin area is hidden."
 msgstr ""
 
-#: functions/bwps.php:1327
+#: functions/bwps.php:1373
 msgid "Your Wordpress admin area  file is NOT hidden."
 msgstr ""
 
-#: functions/bwps.php:1327 functions/bwps.php:1385 functions/bwps.php:1403
+#: functions/bwps.php:1373 functions/bwps.php:1431 functions/bwps.php:1449
 msgid "Click here to secure it"
 msgstr ""
 
-#: functions/bwps.php:1343
+#: functions/bwps.php:1389
 msgid "Your table prefix should not be <em>wp_</em>."
 msgstr ""
 
-#: functions/bwps.php:1343
+#: functions/bwps.php:1389
 msgid "Click here to change it"
 msgstr ""
 
-#: functions/bwps.php:1345
+#: functions/bwps.php:1391
 msgid "Your table prefix is"
 msgstr ""
 
-#: functions/bwps.php:1362
+#: functions/bwps.php:1408
 msgid "The <em>admin</em> user still exists."
 msgstr ""
 
-#: functions/bwps.php:1362
+#: functions/bwps.php:1408
 msgid "Click here to rename it"
 msgstr ""
 
-#: functions/bwps.php:1364
+#: functions/bwps.php:1410
 msgid "The <em>admin</em> user has been removed."
 msgstr ""
 
-#: functions/bwps.php:1381
+#: functions/bwps.php:1427
 msgid "Your .htaccess file is fully secured."
 msgstr ""
 
-#: functions/bwps.php:1383
+#: functions/bwps.php:1429
 msgid "Your .htaccess file is partially secured."
 msgstr ""
 
-#: functions/bwps.php:1383
+#: functions/bwps.php:1429
 msgid "Click here to fully secure it"
 msgstr ""
 
-#: functions/bwps.php:1385
+#: functions/bwps.php:1431
 msgid "Your .htaccess file is NOT secured."
 msgstr ""
 
-#: functions/bwps.php:1401
+#: functions/bwps.php:1447
 msgid "Your site is not vulnerable to brute force attacks."
 msgstr ""
 
-#: functions/bwps.php:1403
+#: functions/bwps.php:1449
 msgid "Your site is vulnerable to brute force attacks."
 msgstr ""
 
-#: functions/bwps.php:1420
+#: functions/bwps.php:1466
 msgid ""
 "Your Wordpress admin area is not available when you will not be needing it."
 msgstr ""
 
-#: functions/bwps.php:1422
+#: functions/bwps.php:1468
 msgid ""
 "Your Wordpress admin area is available 24/7. Do you really update 24 hours a "
 "day?"
 msgstr ""
 
-#: functions/bwps.php:1422
+#: functions/bwps.php:1468
 msgid "Click here to limit admin availability"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgid "Username:"
 msgstr ""
 
 #: pages/admin.php:76 pages/away.php:302 pages/hidebe.php:114 pages/hta.php:97
-#: pages/banusers.php:155 pages/ll.php:203 pages/idetect.php:113
+#: pages/banusers.php:155 pages/ll.php:203 pages/idetect.php:200
 #: pages/content.php:40 pages/tweaks.php:189
 msgid "save"
 msgstr ""
@@ -429,7 +429,7 @@ msgid "<strong>You MUST enter a valid date for end time."
 msgstr ""
 
 #: pages/away.php:43 pages/hidebe.php:42 pages/hta.php:46
-#: pages/banusers.php:92 pages/ll.php:53 pages/idetect.php:22
+#: pages/banusers.php:92 pages/ll.php:53 pages/idetect.php:87
 #: pages/tweaks.php:77
 msgid "Settings Saved"
 msgstr ""
@@ -483,8 +483,8 @@ msgstr ""
 #: pages/status.php:156 pages/status.php:164 pages/status.php:172
 #: pages/status.php:180 pages/status.php:188 pages/status.php:204
 #: pages/status.php:212 pages/hidebe.php:78 pages/banusers.php:131
-#: pages/ll.php:113 pages/ll.php:171 pages/ll.php:184 pages/idetect.php:62
-#: pages/idetect.php:71
+#: pages/ll.php:113 pages/ll.php:171 pages/ll.php:184 pages/idetect.php:132
+#: pages/idetect.php:141
 msgid "On"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr ""
 #: pages/status.php:174 pages/status.php:182 pages/status.php:190
 #: pages/status.php:206 pages/status.php:214 pages/hidebe.php:79
 #: pages/banusers.php:132 pages/ll.php:114 pages/ll.php:172 pages/ll.php:185
-#: pages/idetect.php:63 pages/idetect.php:72
+#: pages/idetect.php:133 pages/idetect.php:142
 msgid "Off"
 msgstr ""
 
@@ -1050,29 +1050,29 @@ msgid ""
 "You may ban users by individual IP address, IP address range, or hostname."
 msgstr ""
 
-#: pages/banusers.php:144
+#: pages/banusers.php:144 pages/idetect.php:189
 msgid ""
 "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
 "###). Wildcards (*) are allowed to specify a range of ip addresses."
 msgstr ""
 
-#: pages/banusers.php:145
+#: pages/banusers.php:145 pages/idetect.php:190
 msgid ""
 "IP Address ranges may also be specified using the format ###.###.###.### - "
 "###.###.###.###. Wildcards cannot be used in addresses specified like this."
 msgstr ""
 
-#: pages/banusers.php:146
+#: pages/banusers.php:146 pages/idetect.php:191
 msgid ""
 "Hostnames may be specified individually do NOT include slashes (/), http://, "
 "or any other extra information."
 msgstr ""
 
-#: pages/banusers.php:147
+#: pages/banusers.php:147 pages/idetect.php:192
 msgid "Lookup IP Address."
 msgstr ""
 
-#: pages/banusers.php:148
+#: pages/banusers.php:148 pages/idetect.php:193
 msgid "Enter only 1 IP address per line."
 msgstr ""
 
@@ -1188,25 +1188,25 @@ msgid ""
 "logout."
 msgstr ""
 
-#: pages/ll.php:181 pages/idetect.php:68
+#: pages/ll.php:181 pages/idetect.php:138
 msgid "Enable Email Notifications."
 msgstr ""
 
-#: pages/ll.php:187 pages/idetect.php:74
+#: pages/ll.php:187 pages/idetect.php:144
 msgid ""
 "Enabling this feature will trigger an email to be sent to the website "
 "administrator whenever a host or user is locked out of the system."
 msgstr ""
 
-#: pages/ll.php:194 pages/idetect.php:104
+#: pages/ll.php:194 pages/idetect.php:174
 msgid "Default Error Message"
 msgstr ""
 
-#: pages/ll.php:198 pages/idetect.php:108
+#: pages/ll.php:198 pages/idetect.php:178
 msgid "The message that will display when someone has been locked out."
 msgstr ""
 
-#: pages/ll.php:217 pages/idetect.php:127
+#: pages/ll.php:217 pages/idetect.php:214
 msgid "Active Lockouts"
 msgstr ""
 
@@ -1228,50 +1228,81 @@ msgstr ""
 msgid "Expires in:"
 msgstr ""
 
-#: pages/ll.php:239 pages/ll.php:253 pages/idetect.php:141
+#: pages/ll.php:239 pages/ll.php:253 pages/idetect.php:228
 msgid "Release Selected Lockouts"
 msgstr ""
 
-#: pages/ll.php:241 pages/ll.php:255 pages/idetect.php:143
+#: pages/ll.php:241 pages/ll.php:255 pages/idetect.php:230
 msgid "There are no hosts currently locked out."
 msgstr ""
 
-#: pages/idetect.php:44 plugin.php:85
+#: pages/idetect.php:114 plugin.php:85
 msgid "Intrusion Detection"
 msgstr ""
 
-#: pages/idetect.php:50
+#: pages/idetect.php:120
 msgid "Detect 404s"
 msgstr ""
 
-#: pages/idetect.php:52
+#: pages/idetect.php:122
 msgid "Use the options below to enable 404 detection."
 msgstr ""
 
-#: pages/idetect.php:59
+#: pages/idetect.php:129
 msgid "Enable 404 Detection"
 msgstr ""
 
-#: pages/idetect.php:80
+#: pages/idetect.php:150
 msgid "How many minutes should Better WP Security remember a bad page?"
 msgstr ""
 
-#: pages/idetect.php:88
+#: pages/idetect.php:158
 msgid "How many 404 errors (bad pages) should trigger a lockout?"
 msgstr ""
 
-#: pages/idetect.php:96
+#: pages/idetect.php:166
 msgid "For how many minutes should an offending host be locked out?"
 msgstr ""
 
-#: pages/idetect.php:129
+#: pages/idetect.php:183
+msgid "White List"
+msgstr ""
+
+#: pages/idetect.php:188
+msgid ""
+"You may whitelist users by individual IP address, IP address range, or "
+"hostname."
+msgstr ""
+
+#: pages/idetect.php:194
+msgid ""
+"404 errors will still be logged for users on the whitelist. Only the lockout "
+"will be prevented"
+msgstr ""
+
+#: pages/idetect.php:216
 msgid ""
 "Select a host and click remove to release the lockout and allow them to log "
 "into the system."
 msgstr ""
 
-#: pages/idetect.php:138
+#: pages/idetect.php:225
 msgid "Expires in"
+msgstr ""
+
+#: pages/idetect.php:242
+msgid "Current 404 Errors"
+msgstr ""
+
+#: pages/idetect.php:244
+msgid ""
+"Here is a list of the 404 errors this plugin has encountered. You may want "
+"to try to fix them as if this plugin is seeing them, so are the search "
+"engines."
+msgstr ""
+
+#: pages/idetect.php:265
+msgid "There are no 404 errors in the database."
 msgstr ""
 
 #: pages/content.php:18
