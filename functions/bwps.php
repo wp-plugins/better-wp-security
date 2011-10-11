@@ -409,16 +409,25 @@ class BWPS {
 		$opts = $this->getOptions();
 		
 		$qstring = $wpdb->escape($_SERVER['REQUEST_URI']);
-		
-		foreach ($_SERVER as $key => $value) {
-    		echo "Key: $key; Value: $value<br />\n";
-		}
 					
 		$hackQuery = "INSERT INTO " . BWPS_TABLE_D404 . " (computer_id, qstring, referrer, attempt_date)
 			VALUES ('" . $this->computer_id . "', '" . $qstring . "', '" . $_SERVER['HTTP_REFERER'] . "', " . time() . ");";
 			
 		unset($opts);		
 		return $wpdb->query($hackQuery);
+	}
+	
+	/**
+	 * List logged 404 errors
+	 * @return Boolean
+	 * @param String
+	 */
+	function d404_list404s() {
+		global $wpdb;
+		
+		$d404list = $wpdb->get_results("SELECT computer_id, qstring, referrer FROM " . BWPS_TABLE_D404, ARRAY_A);
+				
+		return $d404list;
 	}
 	
 	/**
@@ -518,7 +527,6 @@ class BWPS {
 		global $wpdb;
 		
 		$opts = $this->getOptions();
-			
 
 		$lockList = $wpdb->get_results("SELECT lockout_ID, lockout_date, computer_id FROM " . BWPS_TABLE_LOCKOUTS  . " WHERE lockout_date  + " . $opts['idetect_lolength'] . " > " . time() . " AND mode = 1;", ARRAY_A);
 					

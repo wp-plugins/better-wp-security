@@ -147,7 +147,42 @@
 					</div>
 				</div>
 			</div>
+	
+			<div class="clear"></div>
+		
+			<div class="postbox-container" style="width:100%">
+				<div class="postbox opened">
+					<h3><?php _e('Current 404 Errors', 'better-wp-security'); ?></h3>	
+					<div class="inside">
+						<p><?php _e('Here is a list of the 404 errors this plugin has encountered. You may want to try to fix them as if this plugin is seeing them, so are the search engines.', 'better-wp-security'); ?></p>
+						<?php 
+							$d404list = $BWPS->d404_list404s();
+		
+							if (sizeof($d404list) > 0) {
+								echo "<table width=\"100%\">\n" . 
+									"<tr>\n" .
+									"<th>Page</th>\n" .
+									"<th>Referrer</th>\n" .
+									"<th>Host</th>\n" .
+									"</tr>\n";
+								foreach ($d404list as $item) {
+									echo "<tr>\n" . 
+										"<td>" . $item['qstring'] . "</td>\n" . 
+										"<td>" . $item['referrer'] . "</td>\n" .
+										"<td>" . $item['computer_id'] . "</td>\n" .
+										"</tr>\n";
+								}
+								echo "</table>\n" . 
+									"<div style=\"clear:both;\"></div>\n";
+							} else {
+								echo "<p style=\"text-align: center;\">" . __('There are no 404 errors in the database.', 'better-wp-security') . "</p>\n";
+							}
+						?>
+					</div>
+				</div>
+			</div>
 		<?php } ?>
+
 		
 	</div>
 </div>
