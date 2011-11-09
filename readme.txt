@@ -53,6 +53,9 @@ Better WP Security takes the best Wordpress security features and techniques and
 * <a href="http://bit51.com/2011/09/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
 * <a href="http://bit51.com/2011/09/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
 
+= Warning =
+Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
+
 == Installation ==
 
 1. Backup your Wordpress database, config file, and .htaccess file
@@ -64,6 +67,13 @@ Better WP Security takes the best Wordpress security features and techniques and
 NOTE: It is quite possible (maybe even probable) that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 == Frequently Asked Questions ==
+
+= Is this only for new sites or can I use it on existing sites too? =
+* Many of the changes made by this plugin are complex and can break existing sites. While it can be installed in either a new or existing site I cannot stress enough the importance of making a backup of your existing site before applying any of the options in this plugin.
+
+= Will this work on all servers and hosts? =
+* Better WP Security requires Apache and mod_rewrite to work. That said, I am considering a port for nginx but doing so is not currently something I have the time for.
+* While this plugin should work on all hosts with Apache and mod_rewrite it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 
 = Are you still developing this plugin? =
 * Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
