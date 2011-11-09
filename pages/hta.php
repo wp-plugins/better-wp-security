@@ -86,7 +86,7 @@
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_request" id="BWPS_request" value="1" <?php if ($opts['htaccess_request'] == 1) echo "checked"; ?> /> <label for="BWPS_request"><strong><?php _e('Filter Request Methods', 'better-wp-security'); ?></strong></label><br />
-										<?php _e('Filter out hits with the head, trace, delete, or track request methods.', 'better-wp-security'); ?>
+										<?php _e('Filter out hits with the trace, delete, or track request methods.', 'better-wp-security'); ?>
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_qstring" id="BWPS_qstring" value="1" <?php if ($opts['htaccess_qstring'] == 1) echo "checked"; ?> /> <label for="BWPS_qstring"><strong><?php _e('Filter suspicious query strings', 'better-wp-security'); ?></strong></label><br />
