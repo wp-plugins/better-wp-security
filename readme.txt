@@ -68,6 +68,9 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Frequently Asked Questions ==
 
+= Will this completely stop all attacks on my site? =
+* Of course not. Better WP Security is designed to help improve the security of your WordPress installation from many common attack methods. It can no way prevent every possible attack on your website. Nothing replaces diligence and good practice. This plugin just makes it a little easier for you to apply both.
+
 = Is this only for new sites or can I use it on existing sites too? =
 * Many of the changes made by this plugin are complex and can break existing sites. While it can be installed in either a new or existing site I cannot stress enough the importance of making a backup of your existing site before applying any of the options in this plugin.
 
