@@ -15,7 +15,7 @@
 	Author: Bit51.com
 	Author URI: http://bit51.com
 	License: GPLv2
-	Copyright 2011  Bit51.com  (email : chris@bit51.com)
+	Copyright 2012 Bit51.com  (email : chris@bit51.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU tweaks Public License as published by
