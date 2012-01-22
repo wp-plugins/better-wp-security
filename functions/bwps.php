@@ -157,6 +157,7 @@ class BWPS {
 		}
 		
 		//update login urls for display
+		
 		add_filter('site_url',  'wplogin_filter', 10, 3);
 		if (!function_exists('wplogin_filter')) {
 			function wplogin_filter( $url, $path, $orig_scheme ) {
@@ -815,7 +816,8 @@ class BWPS {
 		
 		if(!function_exists('bwps_process_ver')) {
 			function bwps_process_ver(){
-				if (is_user_logged_in() && (!is_admin() || (!is_multisite() && !current_user_can('administrator')))) {
+				if (is_user_logged_in() && (is_admin() || (is_multisite() && current_user_can('administrator')))) {
+				echo "test" . is_user_logged_in();
 					$wp_version = $newVersion;
 					add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
 					add_filter( 'style_loader_src', array(&$this, 	'tweaks_remove_script_version'), 15, 1 );
