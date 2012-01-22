@@ -31,6 +31,12 @@
 			$opts = $BWPS->saveOptions("hidebe_login_slug", $login_slug);
 			$opts = $BWPS->saveOptions("hidebe_admin_slug", $admin_slug);
 			$opts = $BWPS->saveOptions("hidebe_register_slug", $register_slug);
+			
+			if ($_POST['BWPS_hidebe_enable'] == 1) {
+				update_option('BWPS_Login_Slug', $login_slug);
+			} else {
+				delete_option('BWPS_Login_Slug');
+			}
 		
 			$BWPS->createhtaccess();	
 			

@@ -9,7 +9,7 @@
 	Plugin Name: Better WP Security
 	Plugin URI: http://bit51.com/software/better-wp-security/
 	Description: Helps protect your Wordpress single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
-	Version: Dev
+	Version: 2.11
 	Text Domain: better-wp-security
 	Domain Path: /languages
 	Author: Bit51.com
@@ -36,6 +36,7 @@
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/bwps.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/auth.php');
 require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/setup.php');
+require_once(trailingslashit(WP_PLUGIN_DIR) . 'better-wp-security/functions/newuser.php');
 
 //access the wpdb object
 global $wpdb;
