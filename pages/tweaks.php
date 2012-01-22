@@ -168,7 +168,7 @@
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_randomVersion" id="BWPS_randomVersion" value="1" <?php if ($opts['tweaks_randomVersion'] == 1) echo "checked"; ?> /> <label for="BWPS_randomVersion"><strong><?php _e('Display random version number to all non-administrative users', 'better-wp-security'); ?></strong></label><br />
-										<?php _e('Displays a random version number to non-administrator users in all places where version number must be used and removes the version completely from where it can.', 'better-wp-security'); ?>
+										<?php _e('Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', 'better-wp-security'); ?>
 									</p>
 									<p>
 										<input type="checkbox" name="BWPS_longurls" id="BWPS_longurls" value="1" <?php if ($opts['tweaks_longurls'] == 1) echo "checked"; ?> /> <label for="BWPS_longurls"><strong><?php _e('Prevent long URL strings.', 'better-wp-security'); ?></strong></label><br />
