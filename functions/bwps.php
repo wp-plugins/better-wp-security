@@ -117,7 +117,11 @@ class BWPS {
 			$loginslug = $opts['hidebe_login_slug'];
 			
 			//diable password reset (until I can find a better way to handle it)
-			function disable_password_reset() { return false; }
+			if (!function_exists('disable_password_reset')) {
+				function disable_password_reset() { 
+					return false; 
+				}
+			}
 			add_filter ('allow_password_reset', 'disable_password_reset');
 			
 			//add login slug to new user registration email 
@@ -154,22 +158,23 @@ class BWPS {
 		
 		//update login urls for display
 		add_filter('site_url',  'wplogin_filter', 10, 3);
-		function wplogin_filter( $url, $path, $orig_scheme ) {
-			global $loginslug;
+		if (!function_exists('wplogin_filter')) {
+			function wplogin_filter( $url, $path, $orig_scheme ) {
+				global $loginslug;
 			
-			$currentFile = $_SERVER["REQUEST_URI"];
-			$parts = Explode('/', $currentFile);
-			$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
+				$currentFile = $_SERVER["REQUEST_URI"];
+				$parts = Explode('/', $currentFile);
+				$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
 			
-		    if (!is_user_logged_in() && !$currentFile == 'wp-login.php') {
-				$old  = array("/(wp-login\.php)/");
-				$new  = array($loginslug);
-				return preg_replace($old, $new, $url, 1);
-			} else {
-				return $url;
+			    if (!is_user_logged_in() && !$currentFile == 'wp-login.php') {
+					$old  = array("/(wp-login\.php)/");
+					$new  = array($loginslug);
+					return preg_replace($old, $new, $url, 1);
+				} else {
+					return $url;
+				}
 			}
 		}
-		
 		
 		unset($opts);
 	}
@@ -806,13 +811,15 @@ class BWPS {
 		$newVersion = rand(100,500);
 
 		//always show real version to site administrators
-		add_action('init', 'process_ver');
+		add_action('init', 'bwps_process_ver');
 		
-		function process_ver(){
-			if (is_user_logged_in() && (!is_admin() || (!is_multisite() && !current_user_can('administrator')))) {
-				$wp_version = $newVersion;
-				add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
-				add_filter( 'style_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
+		if(!function_exists('bwps_process_ver')) {
+			function bwps_process_ver(){
+				if (is_user_logged_in() && (!is_admin() || (!is_multisite() && !current_user_can('administrator')))) {
+					$wp_version = $newVersion;
+					add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
+					add_filter( 'style_loader_src', array(&$this, 	'tweaks_remove_script_version'), 15, 1 );
+				}
 			}
 		}
 	}
