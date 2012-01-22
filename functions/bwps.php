@@ -26,7 +26,7 @@ class BWPS {
 		
 		//stop site for banned users
 		if ($opts['banvisits_enable'] == 1) {
-			add_action('init', array(&$this,'banvisits_banvistor'));
+			$this->banvisits_banvistor();
 		}
 		
 		if ($opts['idetect_d404enable'] == 1) { //if detect 404 mode is enabled
@@ -55,17 +55,17 @@ class BWPS {
 		
 		//remove theme update notifications if turned on
 		if ($opts['tweaks_themeUpdates'] == 1) {
-			add_action('init', array(&$this, 'tweaks_themeupdates'), 1);
+			$this->tweaks_themeupdates();
 		}
 		
 		//remove plugin update notifications if turned on
 		if ($opts['tweaks_pluginUpdates'] == 1) {
-			add_action('init', array(&$this, 'tweaks_pluginupdates'), 1);
+			$this->tweaks_pluginupdates();
 		}
 		
 		//remove core update notifications if turned on
 		if ($opts['tweaks_coreUpdates'] == 1) {
-			add_action('init', array(&$this, 'tweaks_coreupdates'), 1);
+			$this->tweaks_coreupdates();
 		}
 		
 		//remove wlmanifest link if turned on
@@ -157,16 +157,15 @@ class BWPS {
 		}
 		
 		//update login urls for display
-		
 		add_filter('site_url',  'wplogin_filter', 10, 3);
 		if (!function_exists('wplogin_filter')) {
 			function wplogin_filter( $url, $path, $orig_scheme ) {
 				global $loginslug;
-			
+	
 				$currentFile = $_SERVER["REQUEST_URI"];
 				$parts = Explode('/', $currentFile);
 				$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
-			
+	
 			    if (!is_user_logged_in() && !$currentFile == 'wp-login.php') {
 					$old  = array("/(wp-login\.php)/");
 					$new  = array($loginslug);
@@ -812,16 +811,10 @@ class BWPS {
 		$newVersion = rand(100,500);
 
 		//always show real version to site administrators
-		add_action('init', 'bwps_process_ver');
-		
-		if(!function_exists('bwps_process_ver')) {
-			function bwps_process_ver(){
-				if (!is_user_logged_in()) {
-					$wp_version = $newVersion;
-					add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
-					add_filter( 'style_loader_src', array(&$this, 	'tweaks_remove_script_version'), 15, 1 );
-				}
-			}
+		if (!is_user_logged_in()) {
+			$wp_version = $newVersion;
+			add_filter( 'script_loader_src', array(&$this, 'tweaks_remove_script_version'), 15, 1 );
+			add_filter( 'style_loader_src', array(&$this, 	'tweaks_remove_script_version'), 15, 1 );
 		}
 	}
 	
