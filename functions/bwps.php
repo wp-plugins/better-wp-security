@@ -157,7 +157,7 @@ class BWPS {
 				$parts = Explode('/', $currentFile);
 				$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
 	
-			    if (!is_user_logged_in() && !$currentFile == 'wp-login.php' && !$loginslug == '') {
+			    if (!is_user_logged_in() && !$currentFile == 'wp-login.php' && isset($loginslug) && strlen($loginslug) > 0) {
 					$old  = array("/(wp-login\.php)/");
 					$new  = array($loginslug);
 					return preg_replace($old, $new, $url, 1);
