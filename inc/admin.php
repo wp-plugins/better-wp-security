@@ -31,25 +31,161 @@ if (!class_exists('bwps_admin')) {
 		 * Register page settings
 		 */
 		function register_settings_page() {
-			add_options_page($this->pluginname, $this->pluginname, $this->accesslvl, $this->hook, array(&$this,'rat_admin_init'));
+			add_menu_page(
+				__($this->pluginname, $this->hook) . ' - ' . __('Dashboard', 'better-wp-security'),
+				__('Security', 'better-wp-security'),
+				$this->accesslvl,
+				$this->hook,
+				array(&$this, 'admin_dashboard'),
+				$this->pluginurl . 'images/padlock.png'
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Change Admin User', $this->hook),
+				__('Admin User', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-adminuser',
+				array(&$this, 'admin_adminuser')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Away Mode', $this->hook),
+				__('Away Mode', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-awaymode',
+				array(&$this, 'admin_awaymode')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Ban Users', $this->hook),
+				__('Ban Users', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-banusers',
+				array(&$this, 'admin_banusers')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Change Content Directory', $this->hook),
+				__('Content Directory', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-contentdirectory',
+				array(&$this, 'admin_contentdirectory')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Change Database Prefix', $this->hook),
+				__('Database Prefix', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-databaseprefix',
+				array(&$this, 'admin_databaseprefix')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Hide Backend', $this->hook),
+				__('Hide Backend', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-hidebackend',
+				array(&$this, 'admin_hidebackend')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Intrusion Detection', $this->hook),
+				__('Intrusion Detection', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-intrusiondetection',
+				array(&$this, 'admin_intrusiondetection')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Limit Login Attempts', $this->hook),
+				__('Limit Logins', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-limitlogins',
+				array(&$this, 'admin_limitlogins')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('WordPress System Tweaks', $this->hook),
+				__('System Tweaks', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-systemtweaks',
+				array(&$this, 'admin_systemtweaks')
+			);
+			add_submenu_page(
+				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('View Logs', $this->hook),
+				__('Ban Users', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-logs',
+				array(&$this, 'admin_logs')
+			);
+			
+			global $submenu;
+			if (isset($submenu[$this->hook])) {
+				$submenu[$this->hook][0][0] = __('Dashboard', $this->hook);
+			}
 		}	
 		
 		/**
 		 * Register admin page main content
 		 * To add more boxes to the admin page add a 2nd inner array item with title and callback function or content
 		 */
-		function rat_admin_init() {
-			$this->admin_page($this->pluginname . ' Options', 
+		function admin_dashboard() {
+			$this->admin_page($this->pluginname  . ' - ' .  __('System Dashboard', $this->hook),
 				array(
-					array(__('Enable/Disable Content Filter', $this->hook), 'options_content') //primary admin page content
+					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content') //primary admin page content
 				)
 			);
+		}
+		
+		function admin_adminuser() {
+			$this->admin_page($this->pluginname  . ' - ' .  __('Change Admin User', $this->hook),
+				array(
+					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content') //primary admin page content
+				)
+			);
+		}
+		
+		function admin_awaymode() {
+		
+		}
+		
+		function admin_banusers() {
+		
+		}
+		
+		function admin_contentdirectory() {
+		
+		}
+		
+		function admin_databaseprefix() {
+		
+		}
+		
+		function admin_hidebackend() {
+		
+		}
+		
+		function admin_intrusiondetection() {
+		
+		}
+		
+		function admin_limitlogins() {
+		
+		}
+		
+		function admin_systemtweaks() {
+		
+		}
+		
+		function admin_logs() {
+		
 		}
 		
 		/**
 		 * Create admin page main content
 		 */
-		function options_content() {
+		function dashboard_content() {
 			?>
 			<form method="post" action="options.php">
 			<?php settings_fields('bit51_rat_options'); //use main settings group ?>
@@ -73,7 +209,7 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * Validate input
 		 */
-		function rat_val_options($input) {
+		function bwps_val_options($input) {
 			$input['enabled'] = ($input['enabled'] == 1 ? 1 : 0);
 		    
 		    return $input;

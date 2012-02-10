@@ -44,7 +44,7 @@ if (!class_exists('bit51_bwps')) {
 		var $settings			= array(
 			'bit51_bwps_options' => array(
 				'bit51_bwps' => array(
-					'callback' => 'rat_val_options',
+					'callback' => 'bwps_val_options',
 					'enabled' => '1'
 				)
 			)
