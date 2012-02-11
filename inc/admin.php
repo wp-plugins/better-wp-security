@@ -9,14 +9,17 @@ if (!class_exists('bwps_admin')) {
 		 */
 		function __construct() {
 		
-			if (is_admin()) {
+			if (is_admin() || (is_multisite() && is_network_admin())) {
 			
 				//add scripts and css
 				add_action('admin_print_scripts', array(&$this, 'config_page_scripts'));
 				add_action('admin_print_styles', array(&$this, 'config_page_styles'));
 			
-				//add menu items
-				add_action('admin_menu', array(&$this, 'register_settings_page'));
+				if (is_multisite()) { 
+					add_action('network_admin_menu', array(&$this, 'register_settings_page')); 
+				} else {
+					add_action('admin_menu',  array(&$this, 'register_settings_page'));
+				}
 			
 				//add settings
 				add_action('admin_init', array(&$this, 'register_settings'));
