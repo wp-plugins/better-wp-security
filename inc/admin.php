@@ -23,7 +23,7 @@ if (!class_exists('bwps_admin')) {
 			add_filter('plugin_action_links', array(&$this, 'add_action_link'), 10, 2);
 			
 			//add donation reminder
-			add_action('admin_init', array(&$this, 'ask'));
+			add_action('admin_init', array(&$this, 'ask'));	
 			
 		}
 	
@@ -120,6 +120,7 @@ if (!class_exists('bwps_admin')) {
 				array(&$this, 'admin_logs')
 			);
 			
+			//Make the dashboard the first submenu item and the item to appear when clicking the parent.
 			global $submenu;
 			if (isset($submenu[$this->hook])) {
 				$submenu[$this->hook][0][0] = __('Dashboard', $this->hook);
@@ -133,7 +134,7 @@ if (!class_exists('bwps_admin')) {
 		function admin_dashboard() {
 			$this->admin_page($this->pluginname  . ' - ' .  __('System Dashboard', $this->hook),
 				array(
-					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content') //primary admin page content
+					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content_1') //primary admin page content
 				)
 			);
 		}
@@ -141,7 +142,8 @@ if (!class_exists('bwps_admin')) {
 		function admin_adminuser() {
 			$this->admin_page($this->pluginname  . ' - ' .  __('Change Admin User', $this->hook),
 				array(
-					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content') //primary admin page content
+					array(__('Before You Begin', $this->hook), 'adminuser_content_1'), //information to prevent the user from getting in trouble
+					array(__('Change The Admin User', $this->hook), 'adminuser_content_2') //adminuser options
 				)
 			);
 		}
@@ -185,7 +187,7 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * Create admin page main content
 		 */
-		function dashboard_content() {
+		function dashboard_content_1() {
 			?>
 			<form method="post" action="options.php">
 			<?php settings_fields('bit51_rat_options'); //use main settings group ?>
@@ -207,12 +209,33 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		/**
+		 * Introduction text for change admin user page
+		 **/
+		function adminuser_content_1() {
+			?>
+			<p><?php _e('By default WordPress initially creates a username with the username of "admin." This is insecure as this user has full rights to your WordPress system and a potential hacker already knows that it is there. All an attacker would need to do at that point is guess the password. Changing this username will force a potential attacker to have to guess both your username and your password which makes some attacks significantly more difficult.', $this->hook); ?></p>
+			<p><?php _e('Note that this function will only work if you chose a username other than "admin" when installing WordPress.', $this->hook); ?></p>
+			<?php
+		}
+		
+		/**
+		 * Options form for change admin user page
+		 **/
+		function adminuser_content_2() {
+
+		}
+		
+		/**
 		 * Validate input
 		 */
 		function bwps_val_options($input) {
 			$input['enabled'] = ($input['enabled'] == 1 ? 1 : 0);
 		    
 		    return $input;
+		}
+		
+		function process_form() {
+		
 		}
 	}
 }

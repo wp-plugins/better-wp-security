@@ -17,7 +17,7 @@ if (!class_exists('Bit51')) {
 		 * Register admin javascripts (only for plugin admin page)
 		 */
 		function config_page_scripts() {
-			if (isset($_GET['page']) && strpos($_GET['page'], $this->hook)) {
+			if (isset($_GET['page']) && strpos($_GET['page'], $this->hook) !== false) {
 				wp_enqueue_script('postbox');
 				wp_enqueue_script('dashboard');
 				wp_enqueue_script('thickbox');
@@ -29,7 +29,7 @@ if (!class_exists('Bit51')) {
 		 * Register admin css styles (only for plugin admin page)
 		 */
 		function config_page_styles() {
-			if (isset($_GET['page']) && strpos($_GET['page'], $this->hook)) {
+			if (isset($_GET['page']) && strpos($_GET['page'], $this->hook) !== false) {
 				wp_enqueue_style('dashboard');
 				wp_enqueue_style('thickbox');
 				wp_enqueue_style('global');

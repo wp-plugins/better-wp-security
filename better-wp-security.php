@@ -21,6 +21,7 @@ load_plugin_textdomain('better_wp_security', false, dirname(plugin_basename( __F
 
 //Require common Bit51 library
 require_once(plugin_dir_path(__FILE__) . 'lib/bit51/bit51.php');
+require_once(plugin_dir_path(__FILE__) . 'inc/bwpsglobal.php');
 
 if (!class_exists('bit51_bwps')) {
 
