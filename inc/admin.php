@@ -8,23 +8,34 @@ if (!class_exists('bwps_admin')) {
 		 * Initialize admin function
 		 */
 		function __construct() {
+		
+			if (is_admin()) {
 			
-			//add scripts and css
-			add_action('admin_print_scripts', array(&$this, 'config_page_scripts'));
-			add_action('admin_print_styles', array(&$this, 'config_page_styles'));
+				//add scripts and css
+				add_action('admin_print_scripts', array(&$this, 'config_page_scripts'));
+				add_action('admin_print_styles', array(&$this, 'config_page_styles'));
 			
-			//add menu items
-			add_action('admin_menu', array(&$this, 'register_settings_page'));
+				//add menu items
+				add_action('admin_menu', array(&$this, 'register_settings_page'));
 			
-			//add settings
-			add_action('admin_init', array(&$this, 'register_settings'));
+				//add settings
+				add_action('admin_init', array(&$this, 'register_settings'));
 			
-			//add action link
-			add_filter('plugin_action_links', array(&$this, 'add_action_link'), 10, 2);
+				//add action link
+				add_filter('plugin_action_links', array(&$this, 'add_action_link'), 10, 2);
 			
-			//add donation reminder
-			add_action('admin_init', array(&$this, 'ask'));	
+				//add donation reminder
+				add_action('admin_init', array(&$this, 'ask'));	
 			
+				if (isset($_POST['bwps_page'])) {
+				
+					switch ($_POST['bwps_page']) {
+						case 'adminuser':
+							add_action('admin_init', array(&$this, 'adminuser_process'));
+							break;
+					}
+				}
+			}			
 		}
 	
 		/**
@@ -222,7 +233,92 @@ if (!class_exists('bwps_admin')) {
 		 * Options form for change admin user page
 		 **/
 		function adminuser_content_2() {
-
+			if ($this->user_exists('admin')) { //only show form if user 'admin' exists
+				?>
+				<form method="post" action="">
+					<?php wp_nonce_field('BWPS_adminuser_save','wp_nonce') ?>
+					<input type="hidden" name="bwps_page" value="adminuser" />
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row">
+								<label for "newuser"><?php _e('Enter Username', $this->hook); ?></label>
+							</th>
+							<td>
+								<?php //username field ?>
+								<input id="newuser" name="newuser" type="text" />
+								<p><?php _e('Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', $this->hook); ?></p>
+							</td>
+						</tr>
+					</table>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes', $this->hook) ?>" /></p>
+				</form>
+				<?php
+			} else { //if their is no admin user display a note 
+				?>
+					<p><?php _e('Congratulations! You do not have a user named "admin" in your WordPress installation. No further action is available on this page.', $this->hook); ?></p>
+				<?
+			}
+		}
+		
+		/**
+		 * process changing admin username
+		 **/
+		function adminuser_process() {
+			global $wpdb;
+			$errorHandler = '';
+			
+			//verify nonce
+			if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_adminuser_save')) {
+				die('Security error!');
+			}
+			
+			//sanitize the username
+			$newuser = $wpdb->escape($_POST['newuser']);
+			
+			if (strlen($newuser) < 1) { //if the field was left blank set an error message
+			
+				$errorHandler = new WP_Error();
+				$errorHandler->add("2", $newuser . __("You must enter a valid username. Please try again", $this->hook));
+				
+			} else {	
+			
+				if (validate_username($newuser)) { //make sure username is valid
+				
+					if ($this->user_exists($newuser)) { //if the user already exists set an error
+					
+						if (!is_wp_error($errorHandler)) {
+							$errorHandler = new WP_Error();
+						}
+						
+						$errorHandler->add("2", $newuser . __(" already exists. Please try again", $this->hook));
+						
+					} else {
+						
+						//query main user table
+						$wpdb->query("UPDATE `" . $wpdb->users . "` SET user_login = '" . $newuser . "' WHERE user_login='admin'");
+						
+						if (is_multisite()) { //process sitemeta if we're in a multi-site situation
+						
+							$oldAdmins = $wpdb->get_var("SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'");
+							$newAdmins = str_replace('5:"admin"',strlen($newuser) . ':"' . $newuser . '"',$oldAdmins);
+							$wpdb->query("UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $newAdmins . "' WHERE meta_key='site_admins'");
+							
+						}
+						
+					}
+					
+				} else {
+				
+					if (!is_wp_error($errorHandler)) { //set an error for invalid username
+						$errorHandler = new WP_Error();
+					}
+				
+					$errorHandler->add("2", $newuser . __(" is not a valid username. Please try again", $this->hook));
+				}
+			}
+			
+			$this-> showmessages($errorHandler); //finally show messages
+			
 		}
 		
 		/**
