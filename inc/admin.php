@@ -345,9 +345,7 @@ if (!class_exists('bwps_admin')) {
 		 **/
 		 
 		 function databaseprefix_content_2() {
-		 	?>
-		 		<p>Count = <?php echo $this->is_new_site(); ?></p>
-		 	<?php 
+
 		 }
 		
 		/**

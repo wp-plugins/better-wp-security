@@ -53,11 +53,15 @@ if (!class_exists('bwps')) {
 			
 			if (is_multisite()) {
 				$blogcount = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "blogs`");
+			} else {
+				$blogcount = 1;
 			}
 			
-			return $blogcount;
-			
-		
+			if ($lastpost > 3 || $blogcount > 1) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}	
 }
