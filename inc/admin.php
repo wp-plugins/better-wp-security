@@ -31,6 +31,11 @@ if (!class_exists('bwps_admin')) {
 				add_action('admin_init', array(&$this, 'ask'));	
 			
 				if (isset($_POST['bwps_page'])) {
+					
+					//verify nonce
+					if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_admin_save')) {
+						die('Security error!');
+					}
 				
 					switch ($_POST['bwps_page']) {
 						case 'adminuser':
@@ -175,7 +180,12 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function admin_databaseprefix() {
-		
+			$this->admin_page($this->pluginname  . ' - ' .  __('Change Database Prefix', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'databaseprefix_content_1'), //information to prevent the user from getting in trouble
+					array(__('Change The Database Prefix', $this->hook), 'databaseprefix_content_2') //adminuser options
+				)
+			);
 		}
 		
 		function admin_hidebackend() {
@@ -239,7 +249,7 @@ if (!class_exists('bwps_admin')) {
 			if ($this->user_exists('admin')) { //only show form if user 'admin' exists
 				?>
 				<form method="post" action="">
-					<?php wp_nonce_field('BWPS_adminuser_save','wp_nonce') ?>
+					<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
 					<input type="hidden" name="bwps_page" value="adminuser" />
 					<table class="form-table">
 						<tr valign="top">
@@ -269,11 +279,6 @@ if (!class_exists('bwps_admin')) {
 		function adminuser_process() {
 			global $wpdb;
 			$errorHandler = '';
-			
-			//verify nonce
-			if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_adminuser_save')) {
-				die('Security error!');
-			}
 			
 			//sanitize the username
 			$newuser = $wpdb->escape($_POST['newuser']);
@@ -325,16 +330,33 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		/**
+		 * Intro for change database prefix page
+		 **/
+		function databaseprefix_content_1() {
+			?>
+			<p><?php _e('By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', $this->hook); ?></p>
+			<p><?php _e('Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', $this->hook); ?></p>
+			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!', $this->hook); ?></p>
+			<?php
+		}
+		
+		/**
+		 * form for change database prefix page
+		 **/
+		 
+		 function databaseprefix_content_2() {
+		 	?>
+		 		<p>Count = <?php echo $this->is_new_site(); ?></p>
+		 	<?php 
+		 }
+		
+		/**
 		 * Validate input
 		 */
 		function bwps_val_options($input) {
 			$input['enabled'] = ($input['enabled'] == 1 ? 1 : 0);
 		    
 		    return $input;
-		}
-		
-		function process_form() {
-		
 		}
 	}
 }

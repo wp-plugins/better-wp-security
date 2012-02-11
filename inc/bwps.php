@@ -47,6 +47,16 @@ if (!class_exists('bwps')) {
 		 * Determines if site is a fresh install or existing site.
 		 */
 		function is_new_site() {
+			global $wpdb;
+			
+			$lastpost = $wpdb->get_var("SELECT MAX(ID) FROM `" . $wpdb->posts . "`");
+			
+			if (is_multisite()) {
+				$blogcount = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "blogs`");
+			}
+			
+			return $blogcount;
+			
 		
 		}
 	}	
