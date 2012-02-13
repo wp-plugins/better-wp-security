@@ -63,6 +63,18 @@ if (!class_exists('bwps')) {
 				return true;
 			}
 		}
+		
+		/**
+		 * Returns the path to wp-config.php
+		 * @return string
+		 */
+		function getConfig() {
+			if (file_exists(trailingslashit(ABSPATH) . 'wp-config.php')) {
+				return trailingslashit(ABSPATH) . 'wp-config.php';
+			} else {
+				return trailingslashit(dirname(ABSPATH)) . 'wp-config.php';
+			}
+		}
 	}	
 }
 

@@ -31,17 +31,7 @@ if (!class_exists('bwps_admin')) {
 				add_action('admin_init', array(&$this, 'ask'));	
 			
 				if (isset($_POST['bwps_page'])) {
-					
-					//verify nonce
-					if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_admin_save')) {
-						die('Security error!');
-					}
-				
-					switch ($_POST['bwps_page']) {
-						case 'adminuser':
-							add_action('admin_init', array(&$this, 'adminuser_process'));
-							break;
-					}
+					add_action('admin_init', array(&$this, 'form_dispatcher'));
 				}
 			}			
 		}
@@ -332,6 +322,7 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * Intro for change database prefix page
 		 **/
+				
 		function databaseprefix_content_1() {
 			?>
 			<p><?php _e('By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', $this->hook); ?></p>
@@ -344,9 +335,156 @@ if (!class_exists('bwps_admin')) {
 		 * form for change database prefix page
 		 **/
 		 
-		 function databaseprefix_content_2() {
+		function databaseprefix_content_2() {
+			global $wpdb;
+			?>
+			<?php if ($wpdb->base_prefix == 'wp_') { ?>
+				<p><strong><?php _e('Your database is using the default table prefix', $this->hook); ?> <em>wp_</em>. <?php _e('You should change this.', $this->hook); ?></strong></p>
+			<?php } else { ?>
+				<p><?php _e('Your current database table prefix is', $this->hook); ?> <strong><em><?php echo $wpdb->base_prefix; ?></em></strong></p>
+			<?php } ?>
+			<form method="post" action="">
+				<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+				<input type="hidden" name="bwps_page" value="databaseprefix" />
+				<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.', $this->hook); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Change Database Table Prefix', $this->hook) ?>" /></p>			
+			</form>
+			<?php
+		}
+		
+		/**
+		 * Process changing table names and associated data
+		 **/
+		function databaseprefix_process() {
+			global $wpdb;
+			$errorHandler = '';			
+	
+			$checkPrefix = true;//Assume the first prefix we generate is unique
+			
+			while ($checkPrefix) {
+				
+				$newPrefix = substr(md5(rand()), rand(0, (32 - $prelength)), rand(3,5)) . '_'; //Generate a random prefix between 3 and 5 characters
+				
+				$checkPrefix = $wpdb->get_results('SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N); //if there are no tables with that prefix in the database set checkPrefix to false
+				
+			}
+			
+			$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N); //retrieve a list of all tables in the DB
+			
+			//Rename each table
+			foreach ($tables as $table) {
+			
+				$table = substr($table[0], strlen($wpdb->base_prefix), strlen($table[0])); //Get the table name without the old prefix
 
-		 }
+				//rename the table and generate an error if there is a problem
+				if ($wpdb->query('RENAME TABLE `' . $wpdb->base_prefix . $table . '` TO `' . $newPrefix . $table . '`;') === false) {
+
+					if (!is_wp_error($errorHandler)) { //set an error for invalid username
+						$errorHandler = new WP_Error();
+					}
+
+					$errorHandler->add('2', __('Error: Could not rename table ', $this->hook) . $wpdb->base_prefix . __('. You may have to rename the table manually.', $this->hook));	
+					
+				}
+				
+			}
+			
+			$upOpts = true; //assume we've successfully updated all options to start
+			
+			if (is_multisite()) {
+				
+				$blogs = $wpdb->get_col("SELECT blog_id FROM `" . $wpdb->blogs . "` WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' ORDER BY blog_id DESC"); //get list of blog id's
+				
+				if (is_array($blogs)) { //make sure there are other blogs to update
+				
+					//update each blog's user_roles option
+					foreach ($blogs as $blog) {
+					
+						$results = $wpdb->query('UPDATE `' . $newPrefix . $blog . '_options` SET option_name = "' . $newPrefix . $blog . '_user_roles" WHERE option_name = "' . $wpdb->base_prefix . $blog . '_user_roles" LIMIT 1;');
+						
+						if ($results === false) { //if there's an error upOpts should equal false
+							$upOpts = false;
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+			$upOpts = $wpdb->query('UPDATE `' . $newPrefix . 'options` SET option_name = "' . $newPrefix . 'user_roles" WHERE option_name = "' . $wpdb->base_prefix . 'user_roles" LIMIT 1;'); //update options table and set flag to false if there's an error
+										
+			if ($upOpts === false) { //set an error
+
+				if (!$errorHandler) {
+					$errorHandler = new WP_Error();
+				}
+					
+				$errorHandler->add('2', __('Could not update prefix refences in options tables.', $this->hook));
+				
+			}
+								
+			$rows = $wpdb->get_results('SELECT * FROM `' . $newPrefix . 'usermeta`');
+			
+			foreach ($rows as $row) {
+			
+				if (substr($row->meta_key, 0, strlen($wpdb->base_prefix)) == $wpdb->base_prefix) {
+				
+					$pos = $newPrefix . substr($row->meta_key, strlen($wpdb->base_prefix), strlen($row->meta_key));
+					
+					$result = $wpdb->query('UPDATE `' . $newPrefix . 'usermeta` SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
+					
+					if ($result == false) {
+						
+						if (!$errorHandler) {
+							$errorHandler = new WP_Error();
+						}
+								
+						$errorHandler->add('2', __('Could not update prefix refences in usermeta table.', $this->hook));
+						
+					}
+					
+				}
+				
+			}
+			
+			$wpconfig = $this->getConfig(); //get the path for the config file
+			
+			chmod($wpconfig, 0755); //make sure the config file is writable
+			
+			$handle = @fopen($wpconfig, "r+"); //open for reading
+			
+			if ($handle) {
+			
+				//read each line into an array
+				while ($lines[] = fgets($handle, 4096)){}
+				
+				fclose($handle); //close reader
+				
+				$handle = @fopen($wpconfig, "w+"); //open writer
+				
+				foreach ($lines as $line) { //process each line
+				
+					//if the prefix is in the line
+					if (strpos($line, $wpdb->base_prefix)) {
+					
+						$line = str_replace($wpdb->base_prefix, $newPrefix, $line);
+						
+					}
+					
+					fwrite($handle, $line); //write the line
+					
+				}
+				
+				fclose($handle); //close the config file
+				
+				$wpdb->base_prefix = $newPrefix; //update the prefix
+				
+			}
+			
+			$this-> showmessages($errorHandler); //finally show messages
+			
+		}
 		
 		/**
 		 * Validate input
@@ -355,6 +493,25 @@ if (!class_exists('bwps_admin')) {
 			$input['enabled'] = ($input['enabled'] == 1 ? 1 : 0);
 		    
 		    return $input;
+		}
+		
+		/**
+		 * Send form processor to correct function
+		 **/
+		function form_dispatcher() {
+			//verify nonce
+			if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_admin_save')) {
+				die('Security error!');
+			}
+			
+			switch ($_POST['bwps_page']) {
+				case 'adminuser':
+					$this->adminuser_process();
+					break;
+				case 'databaseprefix':
+					$this->databaseprefix_process();
+					break;
+			}
 		}
 	}
 }
