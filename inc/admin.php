@@ -462,7 +462,7 @@ if (!class_exists('bwps_admin')) {
 			
 			$wpconfig = $this->getConfig(); //get the path for the config file
 			
-			chmod($wpconfig, 0755); //make sure the config file is writable
+			chmod($wpconfig, 0644); //make sure the config file is writable
 			
 			$handle = @fopen($wpconfig, "r+"); //open for reading
 			
@@ -490,7 +490,7 @@ if (!class_exists('bwps_admin')) {
 				
 				fclose($handle); //close the config file
 				
-				chmod($wpconfig, 0644); //make sure the config file is no longer writable
+				chmod($wpconfig, 0444); //make sure the config file is no longer writable
 				
 				$wpdb->base_prefix = $newPrefix; //update the prefix
 				
