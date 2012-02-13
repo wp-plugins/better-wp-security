@@ -65,6 +65,6 @@ require_once(plugin_dir_path(__FILE__) . 'inc/admin.php');
 
 //require setup information
 require_once(plugin_dir_path(__FILE__) . 'inc/setup.php');
-register_activation_hook( __FILE__, array('rat_setup', 'on_activate'));
-register_deactivation_hook( __FILE__, array('rat_setup', 'on_deactivate'));
-register_uninstall_hook( __FILE__, array('rat_setup', 'on_uninstall'));
+register_activation_hook( __FILE__, array('bwps_setup', 'on_activate'));
+register_deactivation_hook( __FILE__, array('bwps_setup', 'on_deactivate'));
+register_uninstall_hook( __FILE__, array('bwps_setup', 'on_uninstall'));
