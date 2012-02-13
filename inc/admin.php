@@ -362,8 +362,18 @@ if (!class_exists('bwps_admin')) {
 			$checkPrefix = true;//Assume the first prefix we generate is unique
 			
 			while ($checkPrefix) {
+			
+				$avail = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 				
-				$newPrefix = substr(md5(rand()), rand(0, (32 - $prelength)), rand(3,5)) . '_'; //Generate a random prefix between 3 and 5 characters
+				$newPrefix = $avail[rand(0, 51)];
+				
+				$prelength = rand(4, 9);
+				
+				for ($i = 0; $i < $prelength; $i++) {
+					$newPrefix .= $avail[rand(0, 61)];
+				}
+				
+				$newPrefix .= '_';
 				
 				$checkPrefix = $wpdb->get_results('SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N); //if there are no tables with that prefix in the database set checkPrefix to false
 				
@@ -424,8 +434,10 @@ if (!class_exists('bwps_admin')) {
 				
 			}
 								
-			$rows = $wpdb->get_results('SELECT * FROM `' . $newPrefix . 'usermeta`');
+			$rows = $wpdb->get_results('SELECT * FROM `' . $newPrefix . 'usermeta`'); //get all rows in usermeta
 			
+			
+			//update all prefixes in usermeta
 			foreach ($rows as $row) {
 			
 				if (substr($row->meta_key, 0, strlen($wpdb->base_prefix)) == $wpdb->base_prefix) {
@@ -478,11 +490,15 @@ if (!class_exists('bwps_admin')) {
 				
 				fclose($handle); //close the config file
 				
+				chmod($wpconfig, 0644); //make sure the config file is no longer writable
+				
 				$wpdb->base_prefix = $newPrefix; //update the prefix
 				
 			}
 			
 			$this-> showmessages($errorHandler); //finally show messages
+			add_action( 'admin_notices', 'site_admin_notice' );
+			add_action( 'network_admin_notices', 'site_admin_notice' );
 			
 		}
 		
