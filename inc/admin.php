@@ -141,11 +141,7 @@ if (!class_exists('bwps_admin')) {
 		 * To add more boxes to the admin page add a 2nd inner array item with title and callback function or content
 		 */
 		function admin_dashboard() {
-			$this->admin_page($this->pluginname  . ' - ' .  __('System Dashboard', $this->hook),
-				array(
-					array(__('Enable/Disable Content Filter', $this->hook), 'dashboard_content_1') //primary admin page content
-				)
-			);
+			
 		}
 		
 		function admin_adminuser() {
@@ -166,7 +162,12 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function admin_contentdirectory() {
-		
+			$this->admin_page($this->pluginname  . ' - ' .  __('Change wp-content Directory', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'contentdirectory_content_1'), //information to prevent the user from getting in trouble
+					array(__('Change The wp-content Directory', $this->hook), 'contentdirectory_content_2') //adminuser options
+				)
+			);
 		}
 		
 		function admin_databaseprefix() {
@@ -202,24 +203,7 @@ if (!class_exists('bwps_admin')) {
 		 * Create admin page main content
 		 */
 		function dashboard_content_1() {
-			?>
-			<form method="post" action="options.php">
-			<?php settings_fields('bit51_rat_options'); //use main settings group ?>
-			<?php $options = get_option('bit51_rat'); //use settings fields ?>
-				<table class="form-table">
-					<tr valign="top">
-						<th scope="row">
-							<label for "enable"><?php _e('Enable Filter', $this->hook); ?></label>
-						</th>
-						<td>
-							<input id="enable" name="bit51_rat[enabled]" type="checkbox" value="1" <?php checked('1', $options['enabled']); ?> />
-							<p><?php _e('Uncheck to disable content filter (this will disable plugin functionality).', $this->hook); ?></p>
-						</td>
-					</tr>
-				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
-			</form>
-			<?php
+			
 		}
 		
 		/**
@@ -263,61 +247,45 @@ if (!class_exists('bwps_admin')) {
 			}
 		}
 		
-		/**
-		 * process changing admin username
-		 **/
-		function adminuser_process() {
-			global $wpdb;
-			$errorHandler = '';
-			
-			//sanitize the username
-			$newuser = $wpdb->escape($_POST['newuser']);
-			
-			if (strlen($newuser) < 1) { //if the field was left blank set an error message
-			
-				$errorHandler = new WP_Error();
-				$errorHandler->add("2", $newuser . __("You must enter a valid username. Please try again", $this->hook));
-				
-			} else {	
-			
-				if (validate_username($newuser)) { //make sure username is valid
-				
-					if ($this->user_exists($newuser)) { //if the user already exists set an error
-					
-						if (!is_wp_error($errorHandler)) {
-							$errorHandler = new WP_Error();
-						}
-						
-						$errorHandler->add("2", $newuser . __(" already exists. Please try again", $this->hook));
-						
-					} else {
-						
-						//query main user table
-						$wpdb->query("UPDATE `" . $wpdb->users . "` SET user_login = '" . $newuser . "' WHERE user_login='admin'");
-						
-						if (is_multisite()) { //process sitemeta if we're in a multi-site situation
-						
-							$oldAdmins = $wpdb->get_var("SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'");
-							$newAdmins = str_replace('5:"admin"',strlen($newuser) . ':"' . $newuser . '"',$oldAdmins);
-							$wpdb->query("UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $newAdmins . "' WHERE meta_key='site_admins'");
-							
-						}
-						
-					}
-					
-				} else {
-				
-					if (!is_wp_error($errorHandler)) { //set an error for invalid username
-						$errorHandler = new WP_Error();
-					}
-				
-					$errorHandler->add("2", $newuser . __(" is not a valid username. Please try again", $this->hook));
-				}
-			}
-			
-			$this-> showmessages($errorHandler); //finally show messages
-			
+		
+		function contentdirectory_content_1() {
+			?>
+			<p><?php _e('By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', $this->hook); ?></p>
+			<p><?php _e('Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed. In order to avoid accidently breaking a site later on.', $this->hook); ?></p>
+			<p><?php _e('Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', $this->hook); ?></p>
+			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', $this->hook); ?></p>
+			<?php
 		}
+		
+		function contentdirectory_content_2() {
+			if (strpos(WP_CONTENT_DIR, 'wp-content')) { //only show form if user the content directory hasn't already been changed
+				?>
+				<form method="post" action="">
+					<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+					<input type="hidden" name="bwps_page" value="contentdirectory" />
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row">
+								<label for "dirname"><?php _e('Directory Name', $this->hook); ?></label>
+							</th>
+							<td>
+								<?php //username field ?>
+								<input id="dirname" name="dirname" type="text" value="wp-content" />
+								<p><?php _e('Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', $this->hook); ?></p>
+							</td>
+						</tr>
+					</table>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes', $this->hook) ?>" /></p>
+				</form>
+				<?php
+			} else { //if their is no admin user display a note 
+				?>
+					<p><?php _e('Congratulations! You have already renamed your "wp-content" directory.', $this->hook); ?></p>
+					<p><?php _e('Your current content directory is: ', $this->hook); ?><strong><?php echo substr(WP_CONTENT_DIR, strrpos(WP_CONTENT_DIR, '/') + 1); ?></strong></p>
+					<p><?php _e('No further actions are available on this page.', $this->hook); ?></p>
+				<?
+			}
+		}		
 		
 		/**
 		 * Intro for change database prefix page
@@ -353,156 +321,6 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		/**
-		 * Process changing table names and associated data
-		 **/
-		function databaseprefix_process() {
-			global $wpdb;
-			$errorHandler = '';			
-	
-			$checkPrefix = true;//Assume the first prefix we generate is unique
-			
-			while ($checkPrefix) {
-			
-				$avail = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-				
-				$newPrefix = $avail[rand(0, 51)];
-				
-				$prelength = rand(4, 9);
-				
-				for ($i = 0; $i < $prelength; $i++) {
-					$newPrefix .= $avail[rand(0, 61)];
-				}
-				
-				$newPrefix .= '_';
-				
-				$checkPrefix = $wpdb->get_results('SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N); //if there are no tables with that prefix in the database set checkPrefix to false
-				
-			}
-			
-			$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N); //retrieve a list of all tables in the DB
-			
-			//Rename each table
-			foreach ($tables as $table) {
-			
-				$table = substr($table[0], strlen($wpdb->base_prefix), strlen($table[0])); //Get the table name without the old prefix
-
-				//rename the table and generate an error if there is a problem
-				if ($wpdb->query('RENAME TABLE `' . $wpdb->base_prefix . $table . '` TO `' . $newPrefix . $table . '`;') === false) {
-
-					if (!is_wp_error($errorHandler)) { //set an error for invalid username
-						$errorHandler = new WP_Error();
-					}
-
-					$errorHandler->add('2', __('Error: Could not rename table ', $this->hook) . $wpdb->base_prefix . __('. You may have to rename the table manually.', $this->hook));	
-					
-				}
-				
-			}
-			
-			$upOpts = true; //assume we've successfully updated all options to start
-			
-			if (is_multisite()) {
-				
-				$blogs = $wpdb->get_col("SELECT blog_id FROM `" . $wpdb->blogs . "` WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' ORDER BY blog_id DESC"); //get list of blog id's
-				
-				if (is_array($blogs)) { //make sure there are other blogs to update
-				
-					//update each blog's user_roles option
-					foreach ($blogs as $blog) {
-					
-						$results = $wpdb->query('UPDATE `' . $newPrefix . $blog . '_options` SET option_name = "' . $newPrefix . $blog . '_user_roles" WHERE option_name = "' . $wpdb->base_prefix . $blog . '_user_roles" LIMIT 1;');
-						
-						if ($results === false) { //if there's an error upOpts should equal false
-							$upOpts = false;
-						}
-						
-					}
-					
-				}
-				
-			}
-			
-			$upOpts = $wpdb->query('UPDATE `' . $newPrefix . 'options` SET option_name = "' . $newPrefix . 'user_roles" WHERE option_name = "' . $wpdb->base_prefix . 'user_roles" LIMIT 1;'); //update options table and set flag to false if there's an error
-										
-			if ($upOpts === false) { //set an error
-
-				if (!$errorHandler) {
-					$errorHandler = new WP_Error();
-				}
-					
-				$errorHandler->add('2', __('Could not update prefix refences in options tables.', $this->hook));
-				
-			}
-								
-			$rows = $wpdb->get_results('SELECT * FROM `' . $newPrefix . 'usermeta`'); //get all rows in usermeta
-			
-			
-			//update all prefixes in usermeta
-			foreach ($rows as $row) {
-			
-				if (substr($row->meta_key, 0, strlen($wpdb->base_prefix)) == $wpdb->base_prefix) {
-				
-					$pos = $newPrefix . substr($row->meta_key, strlen($wpdb->base_prefix), strlen($row->meta_key));
-					
-					$result = $wpdb->query('UPDATE `' . $newPrefix . 'usermeta` SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
-					
-					if ($result == false) {
-						
-						if (!$errorHandler) {
-							$errorHandler = new WP_Error();
-						}
-								
-						$errorHandler->add('2', __('Could not update prefix refences in usermeta table.', $this->hook));
-						
-					}
-					
-				}
-				
-			}
-			
-			$wpconfig = $this->getConfig(); //get the path for the config file
-			
-			chmod($wpconfig, 0644); //make sure the config file is writable
-			
-			$handle = @fopen($wpconfig, "r+"); //open for reading
-			
-			if ($handle) {
-			
-				//read each line into an array
-				while ($lines[] = fgets($handle, 4096)){}
-				
-				fclose($handle); //close reader
-				
-				$handle = @fopen($wpconfig, "w+"); //open writer
-				
-				foreach ($lines as $line) { //process each line
-				
-					//if the prefix is in the line
-					if (strpos($line, $wpdb->base_prefix)) {
-					
-						$line = str_replace($wpdb->base_prefix, $newPrefix, $line);
-						
-					}
-					
-					fwrite($handle, $line); //write the line
-					
-				}
-				
-				fclose($handle); //close the config file
-				
-				chmod($wpconfig, 0444); //make sure the config file is no longer writable
-				
-				$wpdb->base_prefix = $newPrefix; //update the prefix
-				
-			}
-			
-			$this-> showmessages($errorHandler); //finally show messages
-			add_action( 'admin_notices', 'site_admin_notice' );
-			add_action( 'network_admin_notices', 'site_admin_notice' );
-			
-		}
-		
-		/**
 		 * Validate input
 		 */
 		function bwps_val_options($input) {
@@ -524,11 +342,226 @@ if (!class_exists('bwps_admin')) {
 				case 'adminuser':
 					$this->adminuser_process();
 					break;
+				case 'contentdirectory':
+					$this->contentdirectory_process();
+					break;
 				case 'databaseprefix':
 					$this->databaseprefix_process();
 					break;
 			}
 		}
+		
+		/**
+		 * process changing admin username
+		 **/
+		function adminuser_process() {
+			global $wpdb;
+			$errorHandler = '';
+			
+			//sanitize the username
+			$newuser = $wpdb->escape($_POST['newuser']);
+			
+			if (strlen($newuser) < 1) { //if the field was left blank set an error message
+			
+				$errorHandler = new WP_Error();
+				$errorHandler->add("2", $newuser . __("You must enter a valid username. Please try again", $this->hook));
+				
+			} else {	
+			
+				if (validate_username($newuser)) { //make sure username is valid
+				
+					if ($this->user_exists($newuser)) { //if the user already exists set an error
+					
+						if (!is_wp_error($errorHandler)) {
+							$errorHandler = new WP_Error();
+						}
+								
+						$errorHandler->add("2", $newuser . __(" already exists. Please try again", $this->hook));
+								
+					} else {
+								
+						//query main user table
+						$wpdb->query("UPDATE `" . $wpdb->users . "` SET user_login = '" . $newuser . "' WHERE user_login='admin'");
+						
+						if (is_multisite()) { //process sitemeta if we're in a multi-site situation
+						
+							$oldAdmins = $wpdb->get_var("SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'");
+							$newAdmins = str_replace('5:"admin"',strlen($newuser) . ':"' . $newuser . '"',$oldAdmins);
+							$wpdb->query("UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $newAdmins . "' WHERE meta_key='site_admins'");
+							
+						}
+						
+					}
+					
+				} else {
+				
+					if (!is_wp_error($errorHandler)) { //set an error for invalid username
+						$errorHandler = new WP_Error();
+					}
+				
+					$errorHandler->add("2", $newuser . __(" is not a valid username. Please try again", $this->hook));
+				}
+			}
+			
+			$this-> showmessages($errorHandler); //finally show messages
+			
+		}
+		
+		/**
+		 * Function to change the wp-content directory
+		 **/
+		function contentdirectory_process() {
+		
+		}
+		
+		/**
+		 * Process changing table names and associated data
+		 **/
+		function databaseprefix_process() {
+			global $wpdb;
+			$errorHandler = '';			
+	
+			$checkPrefix = true;//Assume the first prefix we generate is unique
+			
+			while ($checkPrefix) {
+			
+				$avail = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+				
+				$newPrefix = $avail[rand(0, 51)];
+				
+				$prelength = rand(4, 9);
+				
+				for ($i = 0; $i < $prelength; $i++) {
+					$newPrefix .= $avail[rand(0, 61)];
+				}
+				
+				$newPrefix .= '_';
+						
+				$checkPrefix = $wpdb->get_results('SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N); //if there are no tables with that prefix in the database set checkPrefix to false
+					
+			}
+					
+			$tables = $wpdb->get_results('SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N); //retrieve a list of all tables in the DB
+					
+			//Rename each table
+			foreach ($tables as $table) {
+					
+				$table = substr($table[0], strlen($wpdb->base_prefix), strlen($table[0])); //Get the table name without the old prefix
+		
+				//rename the table and generate an error if there is a problem
+				if ($wpdb->query('RENAME TABLE `' . $wpdb->base_prefix . $table . '` TO `' . $newPrefix . $table . '`;') === false) {
+		
+					if (!is_wp_error($errorHandler)) { //set an error for invalid username
+						$errorHandler = new WP_Error();
+					}
+		
+					$errorHandler->add('2', __('Error: Could not rename table ', $this->hook) . $wpdb->base_prefix . __('. You may have to rename the table manually.', $this->hook));	
+						
+				}
+						
+			}
+					
+			$upOpts = true; //assume we've successfully updated all options to start
+					
+			if (is_multisite()) {
+						
+				$blogs = $wpdb->get_col("SELECT blog_id FROM `" . $wpdb->blogs . "` WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' ORDER BY blog_id DESC"); //get list of blog id's
+					
+				if (is_array($blogs)) { //make sure there are other blogs to update
+						
+					//update each blog's user_roles option
+					foreach ($blogs as $blog) {
+							
+						$results = $wpdb->query('UPDATE `' . $newPrefix . $blog . '_options` SET option_name = "' . $newPrefix . $blog . '_user_roles" WHERE option_name = "' . $wpdb->base_prefix . $blog . '_user_roles" LIMIT 1;');
+								
+						if ($results === false) { //if there's an error upOpts should equal false
+							$upOpts = false;
+						}
+								
+					}
+							
+				}
+						
+			}
+					
+			$upOpts = $wpdb->query('UPDATE `' . $newPrefix . 'options` SET option_name = "' . $newPrefix . 'user_roles" WHERE option_name = "' . $wpdb->base_prefix . 'user_roles" LIMIT 1;'); //update options table and set flag to false if there's an error
+										
+			if ($upOpts === false) { //set an error
+		
+				if (!$errorHandler) {
+					$errorHandler = new WP_Error();
+				}
+							
+				$errorHandler->add('2', __('Could not update prefix refences in options tables.', $this->hook));
+						
+			}
+										
+			$rows = $wpdb->get_results('SELECT * FROM `' . $newPrefix . 'usermeta`'); //get all rows in usermeta
+										
+			//update all prefixes in usermeta
+			foreach ($rows as $row) {
+					
+				if (substr($row->meta_key, 0, strlen($wpdb->base_prefix)) == $wpdb->base_prefix) {
+						
+					$pos = $newPrefix . substr($row->meta_key, strlen($wpdb->base_prefix), strlen($row->meta_key));
+							
+					$result = $wpdb->query('UPDATE `' . $newPrefix . 'usermeta` SET meta_key="' . $pos . '" WHERE meta_key= "' . $row->meta_key . '" LIMIT 1;');
+							
+					if ($result == false) {
+								
+						if (!$errorHandler) {
+							$errorHandler = new WP_Error();
+						}
+										
+						$errorHandler->add('2', __('Could not update prefix refences in usermeta table.', $this->hook));
+								
+					}
+							
+				}
+						
+			}
+					
+			$wpconfig = $this->getConfig(); //get the path for the config file
+					
+			chmod($wpconfig, 0644); //make sure the config file is writable
+					
+			$handle = @fopen($wpconfig, "r+"); //open for reading
+					
+			if ($handle) {
+					
+				//read each line into an array
+				while ($lines[] = fgets($handle, 4096)){}
+						
+				fclose($handle); //close reader
+						
+				$handle = @fopen($wpconfig, "w+"); //open writer
+						
+				foreach ($lines as $line) { //process each line
+						
+					//if the prefix is in the line
+					if (strpos($line, $wpdb->base_prefix)) {
+							
+						$line = str_replace($wpdb->base_prefix, $newPrefix, $line);
+								
+					}
+							
+					fwrite($handle, $line); //write the line
+							
+				}
+						
+				fclose($handle); //close the config file
+						
+				chmod($wpconfig, 0444); //make sure the config file is no longer writable
+						
+				$wpdb->base_prefix = $newPrefix; //update the prefix
+						
+			}
+					
+			$this-> showmessages($errorHandler); //finally show messages
+			add_action( 'admin_notices', 'site_admin_notice' );
+			add_action( 'network_admin_notices', 'site_admin_notice' );
+					
+		}		
 	}
 }
 
