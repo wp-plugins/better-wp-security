@@ -82,6 +82,14 @@ if (!class_exists('bwps_admin')) {
 			);
 			add_submenu_page(
 				$this->hook, 
+				__($this->pluginname, $this->hook) . ' - ' . __('Backup WordPress Database', $this->hook),
+				__('Database Backup', $this->hook),
+				$this->accesslvl,
+				$this->hook . '-databasebackup',
+				array(&$this, 'admin_databasebackup')
+			);
+			add_submenu_page(
+				$this->hook, 
 				__($this->pluginname, $this->hook) . ' - ' . __('Change Database Prefix', $this->hook),
 				__('Database Prefix', $this->hook),
 				$this->accesslvl,
@@ -166,6 +174,15 @@ if (!class_exists('bwps_admin')) {
 				array(
 					array(__('Before You Begin', $this->hook), 'contentdirectory_content_1'), //information to prevent the user from getting in trouble
 					array(__('Change The wp-content Directory', $this->hook), 'contentdirectory_content_2') //adminuser options
+				)
+			);
+		}
+		
+		function admin_databasebackup() {
+			$this->admin_page($this->pluginname  . ' - ' .  __('Backup WordPress Database', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'databasebackup_content_1'), //information to prevent the user from getting in trouble
+					array(__('Backup Your WordPress Database', $this->hook), 'databasebackup_content_2') //adminuser options
 				)
 			);
 		}
@@ -290,7 +307,24 @@ if (!class_exists('bwps_admin')) {
 					<p><?php _e('No further actions are available on this page.', $this->hook); ?></p>
 				<?
 			}
-		}		
+		}
+		
+		function databasebackup_content_1() {
+			?>
+			<p><?php _e('While this plugin goes a long way to helping secure your website nothing can give you a 100% guarantee that your site won\'t be the victim of an attack. When something goes wrong one of the easiest ways of getting your site back is to restore the database from a backup and replace the files with fresh ones. Use the button below to download a full backup of your database for this purpose.', $this->hook); ?></p>
+			<?php		
+		}
+		
+		function databasebackup_content_2() {
+			?>
+			<form method="post" action="">
+				<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+				<input type="hidden" name="bwps_page" value="databasebackup" />
+				<p><?php _e('Press the button below to download a backup of your WordPress database.', $this->hook); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Download Database Backup', $this->hook) ?>" /></p>			
+			</form>
+			<?php
+		}	
 		
 		/**
 		 * Intro for change database prefix page
@@ -300,7 +334,7 @@ if (!class_exists('bwps_admin')) {
 			?>
 			<p><?php _e('By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', $this->hook); ?></p>
 			<p><?php _e('Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', $this->hook); ?></p>
-			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!', $this->hook); ?></p>
+			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: <a href="?page=better_wp_security-databasebackup">BACKUP YOUR DATABASE</a> BEFORE USING THIS TOOL!', $this->hook); ?></p>
 			<?php
 		}
 		
@@ -349,6 +383,9 @@ if (!class_exists('bwps_admin')) {
 					break;
 				case 'contentdirectory':
 					$this->contentdirectory_process();
+					break;
+				case 'databasebackup':
+					$this->databasebackup_process();
 					break;
 				case 'databaseprefix':
 					$this->databaseprefix_process();
@@ -484,6 +521,13 @@ if (!class_exists('bwps_admin')) {
 			}
 			
 			$this-> showmessages($errorHandler); //finally show messages
+		}
+		
+		/**
+		 * Process database backup
+		 **/
+		function databasebackup_process() {
+		
 		}
 		
 		/**
