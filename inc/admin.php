@@ -251,14 +251,14 @@ if (!class_exists('bwps_admin')) {
 		function contentdirectory_content_1() {
 			?>
 			<p><?php _e('By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', $this->hook); ?></p>
-			<p><?php _e('Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed. In order to avoid accidently breaking a site later on.', $this->hook); ?></p>
+			<p><?php _e('Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', $this->hook); ?></p>
 			<p><?php _e('Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', $this->hook); ?></p>
 			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e('WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', $this->hook); ?></p>
 			<?php
 		}
 		
 		function contentdirectory_content_2() {
-			if (strpos(WP_CONTENT_DIR, 'wp-content')) { //only show form if user the content directory hasn't already been changed
+			if (!isset($_POST['bwps_page']) && strpos(WP_CONTENT_DIR, 'wp-content')) { //only show form if user the content directory hasn't already been changed
 				?>
 				<form method="post" action="">
 					<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
@@ -279,9 +279,14 @@ if (!class_exists('bwps_admin')) {
 				</form>
 				<?php
 			} else { //if their is no admin user display a note 
+				if (isset($_POST['bwps_page'])) {
+					$dirname = $_POST['dirname'];
+				} else {
+					$dirname = substr(WP_CONTENT_DIR, strrpos(WP_CONTENT_DIR, '/') + 1);
+				}
 				?>
 					<p><?php _e('Congratulations! You have already renamed your "wp-content" directory.', $this->hook); ?></p>
-					<p><?php _e('Your current content directory is: ', $this->hook); ?><strong><?php echo substr(WP_CONTENT_DIR, strrpos(WP_CONTENT_DIR, '/') + 1); ?></strong></p>
+					<p><?php _e('Your current content directory is: ', $this->hook); ?><strong><?php echo $dirname ?></strong></p>
 					<p><?php _e('No further actions are available on this page.', $this->hook); ?></p>
 				<?
 			}
@@ -411,7 +416,76 @@ if (!class_exists('bwps_admin')) {
 		 * Function to change the wp-content directory
 		 **/
 		function contentdirectory_process() {
-		
+			global $wpdb;
+			$errorHandler = '';
+			
+			$oldDir = WP_CONTENT_DIR;
+			$newDir = trailingslashit(ABSPATH) . $wpdb->escape($_POST['dirname']);
+			
+			$renamed = rename($oldDir, $newDir);
+			
+			if (!$renamed) {
+			
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", $newuser . __("Unable to rename the wp-content folder. Operation cancelled.", $this->hook));
+				
+				die('Old Dir = ' . $oldDir . ', New Dir = ' . $newDir);
+				
+			}
+			
+			$wpconfig = $this->getConfig(); //get the path for the config file
+					
+			chmod($wpconfig, 0644); //make sure the config file is writable
+					
+			$handle = @fopen($wpconfig, 'r+'); //open for reading
+					
+			if ($handle && $renamed) {
+			
+				$scanText = "/* That's all, stop editing! Happy blogging. */";
+				$altScan = "/* Stop editing */";
+				$newText = "define('WP_CONTENT_DIR', '" . $newDir . "');\r\ndefine('WP_CONTENT_URL', '" . trailingslashit(get_option('siteurl')) . $wpdb->escape($_POST['dirname']) . "');\r\n\r\n/* That's all, stop editing! Happy blogging. */\r\n";
+					
+				//read each line into an array
+				while ($lines[] = fgets($handle, 4096)){}
+						
+				fclose($handle); //close reader
+						
+				$handle = @fopen($wpconfig, 'w+'); //open writer
+						
+				foreach ($lines as $line) { //process each line
+						
+					if (strstr($line,'WP_CONTENT_DIR') || strstr($line,'WP_CONTENT_URL') ) {
+					
+						$line = str_replace($line, '', $line);
+
+					}
+
+					if (strstr($line, $scanText)) {
+					
+						$line = str_replace($scanText, $newText, $line);
+					
+					} else if (strstr($line, $altScan)) {
+					
+						$line = str_replace($altScan, $newText, $line);
+					
+					}
+							
+					fwrite($handle, $line); //write the line
+							
+				}
+						
+				fclose($handle); //close the config file
+						
+				chmod($wpconfig, 0444); //make sure the config file is no longer writable
+						
+				$wpdb->base_prefix = $newPrefix; //update the prefix
+						
+			}
+			
+			$this-> showmessages($errorHandler); //finally show messages
 		}
 		
 		/**
@@ -419,7 +493,7 @@ if (!class_exists('bwps_admin')) {
 		 **/
 		function databaseprefix_process() {
 			global $wpdb;
-			$errorHandler = '';			
+			$errorHandler = '';	
 	
 			$checkPrefix = true;//Assume the first prefix we generate is unique
 			
@@ -558,8 +632,8 @@ if (!class_exists('bwps_admin')) {
 			}
 					
 			$this-> showmessages($errorHandler); //finally show messages
-			add_action( 'admin_notices', 'site_admin_notice' );
-			add_action( 'network_admin_notices', 'site_admin_notice' );
+			remove_action('admin_notices', 'site_admin_notice');
+			remove_action('network_admin_notices', 'site_admin_notice');
 					
 		}		
 	}

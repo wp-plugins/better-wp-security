@@ -33,6 +33,11 @@ if (!class_exists('bwps')) {
 		 * Show error messages or settings saved message.
 		 **/
 		function showmessages($errors) {
+			
+			if (function_exists('apc_store')) { 
+				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
+			}
+			
 			if (is_wp_error($errors)) { //see if object is even an error
 				$errors = $errors->get_error_messages(); //get all errors if it is
 				foreach ($errors as $error => $string) {
