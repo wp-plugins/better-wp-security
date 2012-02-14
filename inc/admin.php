@@ -527,7 +527,21 @@ if (!class_exists('bwps_admin')) {
 		 * Process database backup
 		 **/
 		function databasebackup_process() {
-		
+			global $wpdb;
+			$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups/';
+			
+			@require($this->pluginpath . 'lib/phpmysqlautobackup/run.php');
+			
+			$wpdb->query('DROP TABLE `phpmysqlautobackup`;');
+			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
+			
+			$files = scandir($backuppath);
+
+			foreach ($files as $file) {
+				if (strpos($file, '.sql.gz')) {
+				}
+			}
+			
 		}
 		
 		/**
