@@ -497,14 +497,14 @@ if (!class_exists('bwps_admin')) {
 			
 			while ($checkPrefix) {
 			
-				$avail = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+				$avail = 'abcdefghijklmnopqrstuvwxyz0123456789';
 				
-				$newPrefix = $avail[rand(0, 51)];
+				$newPrefix = $avail[rand(0, 25)];
 				
 				$prelength = rand(4, 9);
 				
 				for ($i = 0; $i < $prelength; $i++) {
-					$newPrefix .= $avail[rand(0, 61)];
+					$newPrefix .= $avail[rand(0, 35)];
 				}
 				
 				$newPrefix .= '_';
@@ -611,7 +611,7 @@ if (!class_exists('bwps_admin')) {
 				foreach ($lines as $line) { //process each line
 						
 					//if the prefix is in the line
-					if (strpos($line, $wpdb->base_prefix)) {
+					if (strpos($line, 'table_prefix')) {
 							
 						$line = str_replace($wpdb->base_prefix, $newPrefix, $line);
 								
