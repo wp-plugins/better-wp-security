@@ -481,8 +481,6 @@ if (!class_exists('bwps_admin')) {
 						
 				chmod($wpconfig, 0444); //make sure the config file is no longer writable
 						
-				$wpdb->base_prefix = $newPrefix; //update the prefix
-						
 			}
 			
 			$this-> showmessages($errorHandler); //finally show messages
