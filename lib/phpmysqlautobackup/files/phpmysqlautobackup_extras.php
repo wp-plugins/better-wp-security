@@ -34,7 +34,7 @@ function xmail ($to_emailaddress,$from_emailaddress, $subject, $content, $file_n
                        .chunk_split(base64_encode($content)).$newline;
  $mail_attached .= "--".$boundary."--$newline";
  $add_header ="MIME-Version: 1.0".$newline."Content-Type: multipart/mixed;$newline boundary=\"$boundary\" $newline";
- $mail_content="--".$boundary.$newline."Content-Type: text/plain; $newline charset=\"iso-8859-1\"$newline"."Content-Transfer-Encoding: 7bit$newline $newline BACKUP Successful...$newline $newline Please see attached for your zipped Backup file; $backup_type $newline If this is the first backup then you should test it restores correctly to a test server.$newline $newline phpMySQLAutoBackup (version $ver) is developed by http://www.dwalker.co.uk/ $newline $newline Have a good day now you have a backup of your MySQL db  :-) $newline $newline Please consider making a donation at: $newline http://www.dwalker.co.uk/make_a_donation.php $newline (every penny or cent helps)$newline".$mail_attached;
+ $mail_content="--".$boundary.$newline."Content-Type: text/plain; $newline charset=\"iso-8859-1\"$newline"."Content-Transfer-Encoding: 7bit$newline $newline BACKUP Successful...$newline $newline Please see attached for your zipped Backup file; $backup_type $newline ".$mail_attached;
  return mail($to_emailaddress, $subject, $mail_content, "From: $from_emailaddress".$newline."Reply-To:$from_emailaddress".$newline.$add_header);
 }
 

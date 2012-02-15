@@ -182,7 +182,9 @@ if (!class_exists('bwps_admin')) {
 			$this->admin_page($this->pluginname  . ' - ' .  __('Backup WordPress Database', $this->hook),
 				array(
 					array(__('Before You Begin', $this->hook), 'databasebackup_content_1'), //information to prevent the user from getting in trouble
-					array(__('Backup Your WordPress Database', $this->hook), 'databasebackup_content_2') //adminuser options
+					array(__('Backup Your WordPress Database', $this->hook), 'databasebackup_content_2'), //backup switch
+					array(__('Schedule Automated Backups', $this->hook), 'databasebackup_content_3'),
+					array(__('Download Backups', $this->hook), 'databasebackup_content_4'),
 				)
 			);
 		}
@@ -215,14 +217,7 @@ if (!class_exists('bwps_admin')) {
 		function admin_logs() {
 		
 		}
-		
-		/**
-		 * Create admin page main content
-		 */
-		function dashboard_content_1() {
 			
-		}
-		
 		/**
 		 * Introduction text for change admin user page
 		 **/
@@ -241,7 +236,7 @@ if (!class_exists('bwps_admin')) {
 				?>
 				<form method="post" action="">
 					<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
-					<input type="hidden" name="bwps_page" value="adminuser" />
+					<input type="hidden" name="bwps_page" value="adminuser_1" />
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row">
@@ -279,7 +274,7 @@ if (!class_exists('bwps_admin')) {
 				?>
 				<form method="post" action="">
 					<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
-					<input type="hidden" name="bwps_page" value="contentdirectory" />
+					<input type="hidden" name="bwps_page" value="contentdirectory_1" />
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row">
@@ -311,7 +306,7 @@ if (!class_exists('bwps_admin')) {
 		
 		function databasebackup_content_1() {
 			?>
-			<p><?php _e('While this plugin goes a long way to helping secure your website nothing can give you a 100% guarantee that your site won\'t be the victim of an attack. When something goes wrong one of the easiest ways of getting your site back is to restore the database from a backup and replace the files with fresh ones. Use the button below to download a full backup of your database for this purpose.', $this->hook); ?></p>
+			<p><?php _e('While this plugin goes a long way to helping secure your website nothing can give you a 100% guarantee that your site won\'t be the victim of an attack. When something goes wrong one of the easiest ways of getting your site back is to restore the database from a backup and replace the files with fresh ones. Use the button below to create a full backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', $this->hook); ?></p>
 			<?php		
 		}
 		
@@ -319,12 +314,78 @@ if (!class_exists('bwps_admin')) {
 			?>
 			<form method="post" action="">
 				<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
-				<input type="hidden" name="bwps_page" value="databasebackup" />
-				<p><?php _e('Press the button below to download a backup of your WordPress database.', $this->hook); ?></p>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Download Database Backup', $this->hook) ?>" /></p>			
+				<input type="hidden" name="bwps_page" value="databasebackup_1" />
+				<p><?php _e('Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', $this->hook); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Create Database Backup', $this->hook) ?>" /></p>			
 			</form>
 			<?php
 		}	
+		
+		function databasebackup_content_3() {
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+			<input type="hidden" name="bwps_page" value="databasebackup_2" />
+			<?php $options = get_option('bit51_bwps'); //use settings fields ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "backup_enabled"><?php _e('Enable Scheduled Backups', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="backup_enabled" name="backup_enabled" type="checkbox" value="1" <?php checked('1', $options['backup_enabled']); ?> />
+							<p><?php _e('Check this box to enable scheduled backups which will be emailed to the address below.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "backup_int"><?php _e('Backup Interval', $this->hook); ?></label>
+						</th>
+						<td>
+							<select id="backup_int" name="backup_int">
+								<option value="1" <?php selected( $options['backup_int'], 1 ); ?>>1 Hour</option>
+								<option value="24" <?php selected( $options['backup_int'], 24 ); ?>>1 Day</option>
+								<option value="168" <?php selected( $options['backup_int'], 168 ); ?>>1 Week</option>
+							</select>
+							<p><?php _e('Select the frequency of automated backups.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "backup_email"><?php _e('Send Backups by Email', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="backup_email" name="backup_email" type="checkbox" value="1" <?php checked('1', $options['backup_email']); ?> />
+							<p><?php _e('Email backups to the current site admin.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "backups_to_retain"><?php _e('Backups to Keep', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="backups_to_retain" name="backups_to_retain" type="text" value="<?php echo $options['backups_to_retain']; ?>" />
+							<p><?php _e('Number of backup files to retain. Enter 0 to keep all files.', $this->hook); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+			</form>
+			<?php
+		}
+		
+		function databasebackup_content_4() {
+			$options = get_option('bit51_bwps');
+			if ($options['backup_email'] == 1) {
+				?>
+				<p><?php _e('Database backups are NOT saved to the server and instead will be emailed to the site admin\'s email address. To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook); ?></p>
+				<?php
+			} else {
+				?>
+				<p><?php _e('Please note that for security backups are not available for direct download. You will need to go to ', $this->hook); ?><strong><em><?php echo $this->pluginpath . 'lib/phpmysqlautobackup/backups'; ?></em></strong><?php _e(' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook); ?></p>
+				<?php
+			}
+		}
 		
 		/**
 		 * Intro for change database prefix page
@@ -352,20 +413,11 @@ if (!class_exists('bwps_admin')) {
 			<?php } ?>
 			<form method="post" action="">
 				<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
-				<input type="hidden" name="bwps_page" value="databaseprefix" />
+				<input type="hidden" name="bwps_page" value="databaseprefix_1" />
 				<p><?php _e('Press the button below to generate a random database prefix value and update all of your tables accordingly.', $this->hook); ?></p>
 				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Change Database Table Prefix', $this->hook) ?>" /></p>			
 			</form>
 			<?php
-		}
-		
-		/**
-		 * Validate input
-		 */
-		function bwps_val_options($input) {
-			$input['enabled'] = ($input['enabled'] == 1 ? 1 : 0);
-		    
-		    return $input;
 		}
 		
 		/**
@@ -378,17 +430,20 @@ if (!class_exists('bwps_admin')) {
 			}
 			
 			switch ($_POST['bwps_page']) {
-				case 'adminuser':
-					$this->adminuser_process();
+				case 'adminuser_1':
+					$this->adminuser_process_1();
 					break;
-				case 'contentdirectory':
-					$this->contentdirectory_process();
+				case 'contentdirectory_1':
+					$this->contentdirectory_process_1();
 					break;
-				case 'databasebackup':
-					$this->databasebackup_process();
+				case 'databasebackup_1':
+					$this->databasebackup_process_1();
 					break;
-				case 'databaseprefix':
-					$this->databaseprefix_process();
+				case 'databasebackup_2':
+					$this->databasebackup_process_2();
+					break;
+				case 'databaseprefix_1':
+					$this->databaseprefix_process_1();
 					break;
 			}
 		}
@@ -396,7 +451,7 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * process changing admin username
 		 **/
-		function adminuser_process() {
+		function adminuser_process_1() {
 			global $wpdb;
 			$errorHandler = '';
 			
@@ -452,7 +507,7 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * Function to change the wp-content directory
 		 **/
-		function contentdirectory_process() {
+		function contentdirectory_process_1() {
 			global $wpdb;
 			$errorHandler = '';
 			
@@ -526,28 +581,55 @@ if (!class_exists('bwps_admin')) {
 		/**
 		 * Process database backup
 		 **/
-		function databasebackup_process() {
+		function databasebackup_process_1() {
 			global $wpdb;
+			$this->errorHandler = '';
+			
 			$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups/';
+			
+			$options = get_option('bit51_bwps');
 			
 			@require($this->pluginpath . 'lib/phpmysqlautobackup/run.php');
 			
 			$wpdb->query('DROP TABLE `phpmysqlautobackup`;');
 			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
 			
-			$files = scandir($backuppath);
-
-			foreach ($files as $file) {
-				if (strpos($file, '.sql.gz')) {
+			$this->showmessages($errorHandler);		
+			
+		}
+		
+		/**
+		 * Validate input
+		 */
+		function databasebackup_process_2() {
+			
+			$options = get_option('bit51_bwps'); //load the options
+			
+			$options['backup_email'] = ($_POST['backup_email'] == 1 ? 1 : 0);
+			$options['backup_enabled'] = ($_POST['backup_enabled'] == 1 ? 1 : 0);
+			$options['backups_to_retain'] = abs(intval($_POST['backups_to_retain']));
+			$options['backup_int'] = $_POST['backup_int'];
+						
+			update_option('bit51_bwps',$options);
+			
+			if ($options['backup_email'] == 1) {
+			
+				$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups';
+				$files = scandir($backuppath);
+			
+				foreach ($files as $file) {
+					unlink($backuppath . '/' . $file);			
 				}
 			}
+			
+			$this-> showmessages($errorHandler);
 			
 		}
 		
 		/**
 		 * Process changing table names and associated data
 		 **/
-		function databaseprefix_process() {
+		function databaseprefix_process_1() {
 			global $wpdb;
 			$errorHandler = '';	
 	

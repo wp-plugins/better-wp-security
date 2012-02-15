@@ -22,18 +22,18 @@ $db = DB_NAME; // your MySQL database name
 $mysql_username = DB_USER;  // your MySQL username
 $mysql_password = DB_PASSWORD;  // your MySQL password
 
-$from_emailaddress = "";// your email address to show who the email is from (should be different $to_emailaddress)
-$report_emailaddress = "";//address to send reports, not the backup just details on last backups (can be same as above)
-$to_emailaddress = ""; // your email address to send backup files to
+$from_emailaddress = get_option('admin_email');// your email address to show who the email is from (should be different $to_emailaddress)
+$report_emailaddress = get_option('admin_email');//address to send reports, not the backup just details on last backups (can be same as above)
+$to_emailaddress = get_option('admin_email'); // your email address to send backup files to
                        //best to specify an email address on a different server than the MySQL db  ;-)
 
-$send_email_backup=0;//set to 1 and will send the backup file attached to the email address above
+$send_email_backup=$options['backup_email'];//set to 1 and will send the backup file attached to the email address above
 $send_email_report=0;//set to 1 and will send an email report to the email address above
 
 define('LOG_REPORTS_MAX', 0);//the total number of reports to retain - set this to any number you wish (better to keep below 50 as all reports are included in the email)
 
 //interval between backups - stops malicious attempts at bringing down your server by making multiple requests to run the backup
-$time_interval=3600;// 3600 = one hour - only allow the backup to run once each hour
+$time_interval=10;// 3600 = one hour - only allow the backup to run once each hour
 
 //DEBUGGING
 define('DEBUG', 0);//set to 0 when done testing
@@ -46,9 +46,9 @@ define('DEBUG', 0);//set to 0 when done testing
 //$ftp_path="/public_html/"; // can be just "/" or "/public_html/securefoldername/"
 
 
-$save_backup_zip_file_to_server = 1; // if set to 1 then the backup files will be saved in the folder: /phpMySQLAutoBackup/backups/
+$save_backup_zip_file_to_server = $options['backup_email'] == 1 ? 0 : 1; // if set to 1 then the backup files will be saved in the folder: /phpMySQLAutoBackup/backups/
                                     //(you must also chmod this folder for write access to allow for file creation)
-define('TOTAL_BACKUP_FILES_TO_RETAIN',10);//the total number of backups files to retain, e.g. 10. the 10 most recent files mtime (modified date) are kept, older versions are deleted
+define('TOTAL_BACKUP_FILES_TO_RETAIN',$options['backups_to_retain']);//the total number of backups files to retain, e.g. 10. the 10 most recent files mtime (modified date) are kept, older versions are deleted
 
 /****************************************************************************************
 The settings below are for the more the more advanced user  - in the majority of cases no changes will be required below. */

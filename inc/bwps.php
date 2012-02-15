@@ -41,11 +41,14 @@ if (!class_exists('bwps')) {
 			if (is_wp_error($errors)) { //see if object is even an error
 				$errors = $errors->get_error_messages(); //get all errors if it is
 				foreach ($errors as $error => $string) {
-					echo '<div id="message" class="error"><p>' . $string . '</p></div>';
+					$message = '<div id="message" class="error"><p>' . $string . '</p></div>';
 				}			
 			} else { //no errors so display settings saved message
-				echo '<div id="message" class="updated"><p><strong>' . __('Settings Saved.', 'better-wp-security') . '</strong></p></div>';
+				$message = '<div id="message" class="updated"><p><strong>' . __('Settings Saved.', $this->hook) . '</strong></p></div>';
 			}
+			
+			add_action('admin_notices', function($message) use ($message) { echo $message; });
+			add_action('network_admin_notices', function($message) use ($message) { echo $message; });
 		}
 		
 		/**

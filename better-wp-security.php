@@ -43,10 +43,12 @@ if (!class_exists('bit51_bwps')) {
 		var $plugindata 		= 'bit51_bwps_data';
 		var $primarysettings	= 'bit51_bwps';
 		var $settings			= array(
-			'bit51_bwps_options' => array(
-				'bit51_bwps' => array(
-					'callback' => 'bwps_val_options',
-					'enabled' => '1'
+			'bit51_bwps_options'	=> array(
+				'bit51_bwps' 			=> array(
+					'backup_email' 			=> '1',
+					'backup_int' 			=> '24',
+					'backup_enabled'		=> '0',
+					'backups_to_retain'		=> '10'
 				)
 			)
 		);
