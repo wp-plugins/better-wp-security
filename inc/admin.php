@@ -318,9 +318,9 @@ if (!class_exists('bwps_admin')) {
 						</th>
 						<td>
 							<select id="backup_int" name="backup_int">
-								<option value="1" <?php selected( $options['backup_int'], 1 ); ?>>1 Hour</option>
-								<option value="24" <?php selected( $options['backup_int'], 24 ); ?>>1 Day</option>
-								<option value="168" <?php selected( $options['backup_int'], 168 ); ?>>1 Week</option>
+								<option value="hourly" <?php selected( $options['backup_int'], 'hourly' ); ?>>Hourly</option>
+								<option value="twicedaily" <?php selected( $options['backup_int'], 'twicedaily' ); ?>>Twice Daily</option>
+								<option value="daily" <?php selected( $options['backup_int'], 'daily' ); ?>>Daily</option>
 							</select>
 							<p><?php _e('Select the frequency of automated backups.', $this->hook); ?></p>
 						</td>
@@ -590,6 +590,10 @@ if (!class_exists('bwps_admin')) {
 				foreach ($files as $file) {
 					unlink($backuppath . '/' . $file);			
 				}
+			}
+			
+			if (wp_next_scheduled('bwps_backup')) {
+				wp_clear_scheduled_hook('bwps_backup');
 			}
 			
 			$this-> showmessages($errorHandler);

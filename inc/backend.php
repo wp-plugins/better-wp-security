@@ -5,7 +5,7 @@ if (!class_exists('bwps_backend')) {
 	class bwps_backend extends bwps_admin {
 	
 		function __construct() {
-			
+						
 			if (is_admin() || (is_multisite() && is_network_admin())) {
 			
 				//add scripts and css
@@ -29,6 +29,26 @@ if (!class_exists('bwps_backend')) {
 			
 				if (isset($_POST['bwps_page'])) {
 					add_action('admin_init', array(&$this, 'form_dispatcher'));
+				}
+			}
+			
+			add_action('init', array(&$this, 'backup_scheduler'));
+						
+		}
+		
+		function backup_scheduler() {
+		
+			add_action('bwps_backup', array(&$this, 'db_backup'));
+			
+			$options = get_option('bit51_bwps');
+			
+			if ($options['backup_enabled'] == 1) {
+				if (!wp_next_scheduled('bwps_backup')) {
+					wp_schedule_event(time(), $options['backup_int'], 'bwps_backup');
+				}
+			} else {
+				if (wp_next_scheduled('bwps_backup')) {
+					wp_clear_scheduled_hook('bwps_backup');
 				}
 			}
 		}

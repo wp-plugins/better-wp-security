@@ -36,7 +36,7 @@ if (!class_exists('bit51_bwps')) {
 			'bit51_bwps_options'	=> array(
 				'bit51_bwps' 			=> array(
 					'backup_email' 			=> '1',
-					'backup_int' 			=> '24',
+					'backup_int' 			=> 'daily',
 					'backup_enabled'		=> '0',
 					'backups_to_retain'		=> '10'
 				)
