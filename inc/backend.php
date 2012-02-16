@@ -40,7 +40,7 @@ if (!class_exists('bwps_backend')) {
 		
 			add_action('bwps_backup', array(&$this, 'db_backup'));
 			
-			$options = get_option('bit51_bwps');
+			$options = get_option($this->primarysettings);
 			
 			if ($options['backup_enabled'] == 1) {
 				if (!wp_next_scheduled('bwps_backup')) {
@@ -59,7 +59,7 @@ if (!class_exists('bwps_backend')) {
 			
 			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
 			
-			$options = get_option('bit51_bwps');
+			$options = get_option($this->primarysettings);
 			
 			@require(BWPS_PP . 'lib/phpmysqlautobackup/run.php');
 			

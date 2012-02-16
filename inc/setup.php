@@ -40,7 +40,7 @@ if (!class_exists('bwps_setup')) {
 		 */
 		function on_deactivate() {
 	
-			$devel = false; //set to true to uninstall for development
+			$devel = true; //set to true to uninstall for development
 		
 			if ($devel) {
 				$case = 'uninstall';
@@ -66,9 +66,36 @@ if (!class_exists('bwps_setup')) {
 		 * Execute activation functions
 		 */
 		function activate_execute() {
+			global $wpdb;
+			
 			$this->default_settings(); //verify and set default options
 			
 			$options = get_option($this->plugindata);
+			
+			//Set up tables
+			$tables = "CREATE TABLE `" . $wpdb->base_prefix . "bwps_log` (
+				`id` bigint(20) NOT NULL AUTO_INCREMENT,
+				`type` int(1) NOT NULL,
+				`timestamp` int(10) NOT NULL,
+				`host` varchar(20),
+				`user` bigint(20),
+				`url` varchar(255),
+				`referrer` varchar(255),
+				PRIMARY KEY (`id`)
+				);";
+			$tables .= "CREATE TABLE `" . $wpdb->base_prefix . "bwps_lockouts` (
+				`id` bigint(20) NOT NULL AUTO_INCREMENT,
+				`type` int(1) NOT NULL,
+				`active` int(1) NOT NULL,
+				`starttime` int(10) NOT NULL,
+				`exptime` int(10) NOT NULL,
+				`host` varchar(20),
+				`user` bigint(20),
+				PRIMARY KEY (`id`)
+				);";
+			
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			dbDelta($tables);
 			
 			//update if version numbers don't match
 			if (isset($options['version']) && $options['version'] != $this->pluginversion) {
@@ -109,7 +136,13 @@ if (!class_exists('bwps_setup')) {
 		 * Execute uninstall functions
 		 */
 		function uninstall_execute() {
-		
+			global $wpdb;
+			
+			$this->deactivate_execute();
+			
+			$wpdb->query("DROP TABLE `" . $wpdb->base_prefix . "bwps_lockouts`;");
+			$wpdb->query("DROP TABLE `" . $wpdb->base_prefix . "bwps_log`;");
+			
 			//remove all settings
 			foreach($this->settings as $settings) {
 				foreach ($settings as $setting => $option) {

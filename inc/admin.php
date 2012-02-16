@@ -307,7 +307,7 @@ if (!class_exists('bwps_admin')) {
 			<form method="post" action="">
 			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
 			<input type="hidden" name="bwps_page" value="databasebackup_2" />
-			<?php $options = get_option('bit51_bwps'); //use settings fields ?>
+			<?php $options = get_option($this->primarysettings); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
@@ -356,7 +356,7 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function databasebackup_content_4() {
-			$options = get_option('bit51_bwps');
+			$options = get_option($this->primarysettings);
 			if ($options['backup_email'] == 1) {
 				?>
 				<p><?php echo __('Database backups are NOT saved to the server and instead will be emailed to', $this->hook) . ' <strong>' . get_option('admin_email') . '</strong>. ' . __('To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook); ?></p>
@@ -414,7 +414,7 @@ if (!class_exists('bwps_admin')) {
 			<form method="post" action="">
 			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
 			<input type="hidden" name="bwps_page" value="loginlimits_1" />
-			<?php $options = get_option('bit51_bwps'); //use settings fields ?>
+			<?php $options = get_option($this->primarysettings); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
@@ -680,14 +680,14 @@ if (!class_exists('bwps_admin')) {
 		function databasebackup_process_2() {
 			$errorHandler = __('Settings Saved', $this->hook);
 			
-			$options = get_option('bit51_bwps'); //load the options
+			$options = get_option($this->primarysettings); //load the options
 			
 			$options['backup_email'] = ($_POST['backup_email'] == 1 ? 1 : 0);
 			$options['backup_enabled'] = ($_POST['backup_enabled'] == 1 ? 1 : 0);
 			$options['backups_to_retain'] = absint($_POST['backups_to_retain']);
 			$options['backup_int'] = $_POST['backup_int'];
 						
-			update_option('bit51_bwps',$options);
+			update_option($this->primarysettings,$options);
 			
 			if ($options['backup_email'] == 1) {
 			
@@ -859,7 +859,7 @@ if (!class_exists('bwps_admin')) {
 		function loginlimits_process_1() {
 			$errorHandler = __('Settings Saved', $this->hook);
 			
-			$options = get_option('bit51_bwps'); //load the options
+			$options = get_option($this->primarysettings); //load the options
 			
 			$options['ll_enabled'] = ($_POST['ll_enabled'] == 1 ? 1 : 0);
 			$options['ll_denyaccess'] = ($_POST['ll_denyaccess'] == 1 ? 1 : 0);
@@ -904,7 +904,7 @@ if (!class_exists('bwps_admin')) {
 			
 			
 			if (!is_wp_error($errorHandler)) {
-				update_option('bit51_bwps',$options);
+				update_option($this->primarysettings,$options);
 			}
 						
 			$this-> showmessages($errorHandler);
