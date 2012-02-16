@@ -455,7 +455,7 @@ if (!class_exists('bwps_admin')) {
 		 **/
 		function adminuser_process_1() {
 			global $wpdb;
-			$errorHandler = '';
+			$errorHandler = __('Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing.', $this->hook);
 			
 			//sanitize the username
 			$newuser = $wpdb->escape($_POST['newuser']);
@@ -511,7 +511,7 @@ if (!class_exists('bwps_admin')) {
 		 **/
 		function contentdirectory_process_1() {
 			global $wpdb;
-			$errorHandler = '';
+			$errorHandler = __('Settings Saved', $this->hook);
 			
 			$oldDir = WP_CONTENT_DIR;
 			$newDir = trailingslashit(ABSPATH) . $wpdb->escape($_POST['dirname']);
@@ -584,6 +584,8 @@ if (!class_exists('bwps_admin')) {
 		 * Process database backup
 		 **/
 		function databasebackup_process_1() {
+			$errorHandler = __('Database Backup Completed.', $this->hook);
+			
 			$this->db_backup();
 			
 			$this->showmessages($errorHandler);		
@@ -594,6 +596,7 @@ if (!class_exists('bwps_admin')) {
 		 * Validate input
 		 */
 		function databasebackup_process_2() {
+			$errorHandler = __('Settings Saved', $this->hook);
 			
 			$options = get_option('bit51_bwps'); //load the options
 			
@@ -623,7 +626,7 @@ if (!class_exists('bwps_admin')) {
 		 **/
 		function databaseprefix_process_1() {
 			global $wpdb;
-			$errorHandler = '';	
+			$errorHandler = __('Database Prefix Changed', $this->hook);	
 	
 			$checkPrefix = true;//Assume the first prefix we generate is unique
 			
