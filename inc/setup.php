@@ -100,6 +100,9 @@ if (!class_exists('bwps_setup')) {
 		 * Execute deactivation functions
 		 */
 		function deactivate_execute() {
+			if (wp_next_scheduled('bwps_backup')) {
+				wp_clear_scheduled_hook('bwps_backup');
+			}
 		}
 
 		/**

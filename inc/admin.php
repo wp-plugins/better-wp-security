@@ -90,10 +90,10 @@ if (!class_exists('bwps_admin')) {
 			add_submenu_page(
 				$this->hook, 
 				__($this->pluginname, $this->hook) . ' - ' . __('Limit Login Attempts', $this->hook),
-				__('Limit Logins', $this->hook),
+				__('Login Limits', $this->hook),
 				$this->accesslvl,
-				$this->hook . '-limitlogins',
-				array(&$this, 'admin_limitlogins')
+				$this->hook . '-loginlimits',
+				array(&$this, 'admin_loginlimits')
 			);
 			add_submenu_page(
 				$this->hook, 
@@ -181,8 +181,14 @@ if (!class_exists('bwps_admin')) {
 		
 		}
 		
-		function admin_limitlogins() {
-		
+		function admin_loginlimits() {
+			$this->admin_page($this->pluginname  . ' - ' .  __('Limit Login Attempts', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'loginlimits_content_1'), //information to prevent the user from getting in trouble
+					array(__('Limit Login Attempts', $this->hook), 'loginlimits_content_2'), //adminuser options
+					array(__('Active Lockouts', $this->hook), 'loginlimits_content_3') //adminuser options
+				)
+			);
 		}
 		
 		function admin_systemtweaks() {
@@ -353,7 +359,7 @@ if (!class_exists('bwps_admin')) {
 			$options = get_option('bit51_bwps');
 			if ($options['backup_email'] == 1) {
 				?>
-				<p><?php _e('Database backups are NOT saved to the server and instead will be emailed to the site admin\'s email address. To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook); ?></p>
+				<p><?php echo __('Database backups are NOT saved to the server and instead will be emailed to', $this->hook) . ' <strong>' . get_option('admin_email') . '</strong>. ' . __('To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook); ?></p>
 				<?php
 			} else {
 				?>
@@ -397,6 +403,101 @@ if (!class_exists('bwps_admin')) {
 			<?php
 		}
 		
+		function loginlimits_content_1() {
+			?>
+			<p><?php _e('If one had unlimited time and wanted to try an unlimited number of password combimations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try agin. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshhold has been reached.', $this->hook); ?></p>
+			<?php		
+		}
+		
+		function loginlimits_content_2() {
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+			<input type="hidden" name="bwps_page" value="loginlimits_1" />
+			<?php $options = get_option('bit51_bwps'); //use settings fields ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_enabled"><?php _e('Enable Login Limits', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_enabled" name="ll_enabled" type="checkbox" value="1" <?php checked('1', $options['ll_enabled']); ?> />
+							<p><?php _e('Check this box to enable login limits on this site.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_maxattemptshost"><?php _e('Max Login Attempts Per Host', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_maxattemptshost" name="ll_maxattemptshost" type="text" value="<?php echo $options['ll_maxattemptshost']; ?>" />
+							<p><?php _e('The number of login attempts a user has before their host or computer is locked out of the system.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_maxattemptsuser"><?php _e('Max Login Attempts Per User', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_maxattemptsuser" name="ll_maxattemptsuser" type="text" value="<?php echo $options['ll_maxattemptsuser']; ?>" />
+							<p><?php _e('The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_checkinterval"><?php _e('Login Time Period (minutes)', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_checkinterval" name="ll_checkinterval" type="text" value="<?php echo $options['ll_checkinterval']; ?>" />
+							<p><?php _e('The number of minutes in which bad logins should be remembered.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_banperiod"><?php _e('Lockout Time Period (minutes)', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_banperiod" name="ll_banperiod" type="text" value="<?php echo $options['ll_banperiod']; ?>" />
+							<p><?php _e('The length of time a host or computer will be banned from this site after hitting the limit of bad logins.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_denyaccess"><?php _e('Deny All Access', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_denyaccess" name="ll_denyaccess" type="checkbox" value="1" <?php checked('1', $options['ll_denyaccess']); ?> />
+							<p><?php _e('If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout. Check this box to activate.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_emailnotify"><?php _e('Email Notifications', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked('1', $options['ll_emailnotify']); ?> />
+							<p><?php _e('Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_error_message"><?php _e('Default Error Message', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="ll_error_message" name="ll_error_message" type="text" value="<?php echo $options['ll_error_message']; ?>" />
+							<p><?php _e('The message that will display when someone has been locked out.', $this->hook); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+			</form>
+			<?php
+		}
+		
+		function loginlimits_content_3() {
+		
+		}
+		
 		/**
 		 * Send form processor to correct function
 		 **/
@@ -422,6 +523,12 @@ if (!class_exists('bwps_admin')) {
 				case 'databaseprefix_1':
 					$this->databaseprefix_process_1();
 					break;
+				case 'loginlimits_1':
+					$this->loginlimits_process_1();
+					break;
+				case 'loginlimits_2':
+					$this->loginlimits_process_2();
+					break;
 			}
 		}
 		
@@ -433,7 +540,7 @@ if (!class_exists('bwps_admin')) {
 			$errorHandler = __('Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing.', $this->hook);
 			
 			//sanitize the username
-			$newuser = $wpdb->escape($_POST['newuser']);
+			$newuser = wp_strip_all_tags($_POST['newuser']);
 			
 			if (strlen($newuser) < 1) { //if the field was left blank set an error message
 			
@@ -577,7 +684,7 @@ if (!class_exists('bwps_admin')) {
 			
 			$options['backup_email'] = ($_POST['backup_email'] == 1 ? 1 : 0);
 			$options['backup_enabled'] = ($_POST['backup_enabled'] == 1 ? 1 : 0);
-			$options['backups_to_retain'] = abs(intval($_POST['backups_to_retain']));
+			$options['backups_to_retain'] = absint($_POST['backups_to_retain']);
 			$options['backup_int'] = $_POST['backup_int'];
 						
 			update_option('bit51_bwps',$options);
@@ -747,6 +854,65 @@ if (!class_exists('bwps_admin')) {
 			remove_action('admin_notices', 'site_admin_notice');
 			remove_action('network_admin_notices', 'site_admin_notice');
 					
-		}		
+		}	
+		
+		function loginlimits_process_1() {
+			$errorHandler = __('Settings Saved', $this->hook);
+			
+			$options = get_option('bit51_bwps'); //load the options
+			
+			$options['ll_enabled'] = ($_POST['ll_enabled'] == 1 ? 1 : 0);
+			$options['ll_denyaccess'] = ($_POST['ll_denyaccess'] == 1 ? 1 : 0);
+			$options['ll_emailnotify'] = ($_POST['ll_emailnotify'] == 1 ? 1 : 0);
+			$options['ll_maxattemptshost'] = absint($_POST['ll_maxattemptshost']);
+			$options['ll_maxattemptsuser'] = absint($_POST['ll_maxattemptsuser']);
+			$options['ll_checkinterval'] = absint($_POST['ll_checkinterval']);
+			$options['ll_banperiod'] = absint($_POST['ll_banperiod']);
+			$options['ll_error_message'] = wp_strip_all_tags($_POST['ll_error_message']);
+			
+			if ($options['ll_banperiod'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Lockout time period needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			if ($options['ll_checkinterval'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Login time period needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			if ($options['ll_maxattemptshost'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Max login attempts per host needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			if ($options['ll_maxattemptsuser'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Max login attempts per user needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			
+			if (!is_wp_error($errorHandler)) {
+				update_option('bit51_bwps',$options);
+			}
+						
+			$this-> showmessages($errorHandler);
+			
+		}
+		
+		function loginlimits_process_2() {
+		
+		}	
 	}
 }
