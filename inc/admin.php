@@ -382,7 +382,9 @@ if (!class_exists('bwps_admin')) {
 				<?php
 			} else {
 				?>
-				<p><?php _e('Please note that for security backups are not available for direct download. You will need to go to ', $this->hook); ?><strong><em><?php echo $this->pluginpath . 'lib/phpmysqlautobackup/backups'; ?></em></strong><?php _e(' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook); ?></p>
+				<p><?php _e('Please note that for security backups are not available for direct download. You will need to go to ', $this->hook); ?></p>
+				<p><strong><em><?php echo $this->pluginpath . 'lib/phpmysqlautobackup/backups'; ?></em></strong></p>
+				<p><?php _e(' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook); ?></p>
 				<?php
 			}
 		}
@@ -582,17 +584,7 @@ if (!class_exists('bwps_admin')) {
 		 * Process database backup
 		 **/
 		function databasebackup_process_1() {
-			global $wpdb;
-			$this->errorHandler = '';
-			
-			$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups/';
-			
-			$options = get_option('bit51_bwps');
-			
-			@require($this->pluginpath . 'lib/phpmysqlautobackup/run.php');
-			
-			$wpdb->query('DROP TABLE `phpmysqlautobackup`;');
-			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
+			$this->db_backup();
 			
 			$this->showmessages($errorHandler);		
 			

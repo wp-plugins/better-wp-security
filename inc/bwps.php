@@ -8,6 +8,20 @@ if (!class_exists('bwps')) {
 		
 		}
 		
+		function db_backup() {
+			global $wpdb;
+			$this->errorHandler = '';
+			
+			$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups/';
+			
+			$options = get_option('bit51_bwps');
+			
+			@require($this->pluginpath . 'lib/phpmysqlautobackup/run.php');
+			
+			$wpdb->query('DROP TABLE `phpmysqlautobackup`;');
+			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
+		}
+		
 		/**
 		 * Function to determine whether a given username exists
 		 **/
@@ -49,27 +63,6 @@ if (!class_exists('bwps')) {
 			
 			add_action('admin_notices', function($message) use ($message) { echo $message; });
 			add_action('network_admin_notices', function($message) use ($message) { echo $message; });
-		}
-		
-		/**
-		 * Determines if site is a fresh install or existing site.
-		 */
-		function is_new_site() {
-			global $wpdb;
-			
-			$lastpost = $wpdb->get_var("SELECT MAX(ID) FROM `" . $wpdb->posts . "`");
-			
-			if (is_multisite()) {
-				$blogcount = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "blogs`");
-			} else {
-				$blogcount = 1;
-			}
-			
-			if ($lastpost > 3 || $blogcount > 1) {
-				return false;
-			} else {
-				return true;
-			}
 		}
 		
 		/**
