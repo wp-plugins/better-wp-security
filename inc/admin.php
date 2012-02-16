@@ -8,32 +8,7 @@ if (!class_exists('bwps_admin')) {
 		 * Initialize admin function
 		 */
 		function __construct() {
-		
-			if (is_admin() || (is_multisite() && is_network_admin())) {
-			
-				//add scripts and css
-				add_action('admin_print_scripts', array(&$this, 'config_page_scripts'));
-				add_action('admin_print_styles', array(&$this, 'config_page_styles'));
-			
-				if (is_multisite()) { 
-					add_action('network_admin_menu', array(&$this, 'register_settings_page')); 
-				} else {
-					add_action('admin_menu',  array(&$this, 'register_settings_page'));
-				}
-			
-				//add settings
-				add_action('admin_init', array(&$this, 'register_settings'));
-			
-				//add action link
-				add_filter('plugin_action_links', array(&$this, 'add_action_link'), 10, 2);
-			
-				//add donation reminder
-				add_action('admin_init', array(&$this, 'ask'));	
-			
-				if (isset($_POST['bwps_page'])) {
-					add_action('admin_init', array(&$this, 'form_dispatcher'));
-				}
-			}			
+							
 		}
 	
 		/**
@@ -46,7 +21,7 @@ if (!class_exists('bwps_admin')) {
 				$this->accesslvl,
 				$this->hook,
 				array(&$this, 'admin_dashboard'),
-				$this->pluginurl . 'images/padlock.png'
+				BWPS_PU . 'images/padlock.png'
 			);
 			add_submenu_page(
 				$this->hook, 
@@ -383,7 +358,7 @@ if (!class_exists('bwps_admin')) {
 			} else {
 				?>
 				<p><?php _e('Please note that for security backups are not available for direct download. You will need to go to ', $this->hook); ?></p>
-				<p><strong><em><?php echo $this->pluginpath . 'lib/phpmysqlautobackup/backups'; ?></em></strong></p>
+				<p><strong><em><?php echo BWPS_PP . 'lib/phpmysqlautobackup/backups'; ?></em></strong></p>
 				<p><?php _e(' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook); ?></p>
 				<?php
 			}
@@ -609,7 +584,7 @@ if (!class_exists('bwps_admin')) {
 			
 			if ($options['backup_email'] == 1) {
 			
-				$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups';
+				$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups';
 				$files = scandir($backuppath);
 			
 				foreach ($files as $file) {
@@ -771,5 +746,3 @@ if (!class_exists('bwps_admin')) {
 		}		
 	}
 }
-
-new bwps_admin();

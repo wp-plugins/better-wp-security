@@ -12,37 +12,27 @@
 	Copyright 2012 Bit51.com  (email : info@bit51.com)
 */
 
-//define some paths right in the beginning
-define('BWPS_URL', plugin_dir_url(__FILE__));
-define('BWPS_PATH', plugin_dir_path(__FILE__));
-
-//load the text domain
-load_plugin_textdomain('better_wp_security', false, dirname(plugin_basename( __FILE__ )) . '/languages');
-
 //Require common Bit51 library
 require_once(plugin_dir_path(__FILE__) . 'lib/bit51/bit51.php');
-require_once(plugin_dir_path(__FILE__) . 'inc/bwps.php');
 
 if (!class_exists('bit51_bwps')) {
 
-	class bit51_bwps extends bwps {
+	class bit51_bwps extends bit51 {
 	
-		var $pluginversion 	= '3.0'; //current plugin version
+		public $pluginversion 	= '3.0'; //current plugin version
 	
 		//important plugin information
-		var $hook 				= 'better_wp_security';
-		var $pluginpath			= BWPS_PATH;
-		var $pluginbase			= 'better-wp-security/better-wp-security.php';
-		var $pluginurl			= BWPS_URL;
-		var $pluginname			= 'Better WP Security';
-		var $homepage			= 'http://bit51.com/software/better-wp-security/';
-		var $supportpage 		= 'http://forums.bit51.com/topic/better-wp-security/';
-		var $wppage 			= 'http://wordpress.org/extend/plugins/better-wp-security/';
-		var $accesslvl			= 'manage_options';
-		var $paypalcode			= 'QD87YEWSUYL7E';
-		var $plugindata 		= 'bit51_bwps_data';
-		var $primarysettings	= 'bit51_bwps';
-		var $settings			= array(
+		public $hook 				= 'better_wp_security';
+		public $pluginbase			= 'better-wp-security/better-wp-security.php';
+		public $pluginname			= 'Better WP Security';
+		public $homepage			= 'http://bit51.com/software/better-wp-security/';
+		public $supportpage 		= 'http://forums.bit51.com/topic/better-wp-security/';
+		public $wppage 			= 'http://wordpress.org/extend/plugins/better-wp-security/';
+		public $accesslvl			= 'manage_options';
+		public $paypalcode			= 'QD87YEWSUYL7E';
+		public $plugindata 		= 'bit51_bwps_data';
+		public $primarysettings	= 'bit51_bwps';
+		public $settings			= array(
 			'bit51_bwps_options'	=> array(
 				'bit51_bwps' 			=> array(
 					'backup_email' 			=> '1',
@@ -54,6 +44,27 @@ if (!class_exists('bit51_bwps')) {
 		);
 
 		function __construct() {
+		
+			//set path information
+			define('BWPS_PP', plugin_dir_path(__FILE__));
+			define('BWPS_PU', plugin_dir_url(__FILE__));
+		
+			//load the text domain
+			load_plugin_textdomain('better_wp_security', false, dirname(plugin_basename( __FILE__ )) . '/languages');
+		
+			//require admin page
+			require_once(plugin_dir_path(__FILE__) . 'inc/admin.php');
+			require_once(plugin_dir_path(__FILE__) . 'inc/backend.php');
+			new bwps_backend();
+			
+			//require setup information
+			require_once(plugin_dir_path(__FILE__) . 'inc/setup.php');
+			register_activation_hook( __FILE__, array('bwps_setup', 'on_activate'));
+			register_deactivation_hook( __FILE__, array('bwps_setup', 'on_deactivate'));
+			register_uninstall_hook( __FILE__, array('bwps_setup', 'on_uninstall'));
+			
+			require_once(plugin_dir_path(__FILE__) . 'inc/secure.php');
+			new bwps_secure();
 			
 		}	
 	}
@@ -62,11 +73,5 @@ if (!class_exists('bit51_bwps')) {
 //create plugin object
 new bit51_bwps();
 
-//require admin page
-require_once(plugin_dir_path(__FILE__) . 'inc/admin.php');
-
 //require setup information
-require_once(plugin_dir_path(__FILE__) . 'inc/setup.php');
-register_activation_hook( __FILE__, array('bwps_setup', 'on_activate'));
-register_deactivation_hook( __FILE__, array('bwps_setup', 'on_deactivate'));
-register_uninstall_hook( __FILE__, array('bwps_setup', 'on_uninstall'));
+

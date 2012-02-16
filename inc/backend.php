@@ -1,22 +1,47 @@
 <?php
 
-if (!class_exists('bwps')) {
+if (!class_exists('bwps_backend')) {
 
-	abstract class bwps extends bit51 {
+	class bwps_backend extends bwps_admin {
 	
 		function __construct() {
-		
+			
+			if (is_admin() || (is_multisite() && is_network_admin())) {
+			
+				//add scripts and css
+				add_action('admin_print_scripts', array(&$this, 'config_page_scripts'));
+				add_action('admin_print_styles', array(&$this, 'config_page_styles'));
+			
+				if (is_multisite()) { 
+					add_action('network_admin_menu', array(&$this, 'register_settings_page')); 
+				} else {
+					add_action('admin_menu',  array(&$this, 'register_settings_page'));
+				}
+			
+				//add settings
+				add_action('admin_init', array(&$this, 'register_settings'));
+			
+				//add action link
+				add_filter('plugin_action_links', array(&$this, 'add_action_link'), 10, 2);
+			
+				//add donation reminder
+				add_action('admin_init', array(&$this, 'ask'));	
+			
+				if (isset($_POST['bwps_page'])) {
+					add_action('admin_init', array(&$this, 'form_dispatcher'));
+				}
+			}
 		}
 		
 		function db_backup() {
 			global $wpdb;
 			$this->errorHandler = '';
 			
-			$backuppath = $this->pluginpath . 'lib/phpmysqlautobackup/backups/';
+			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
 			
 			$options = get_option('bit51_bwps');
 			
-			@require($this->pluginpath . 'lib/phpmysqlautobackup/run.php');
+			@require(BWPS_PP . 'lib/phpmysqlautobackup/run.php');
 			
 			$wpdb->query('DROP TABLE `phpmysqlautobackup`;');
 			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
