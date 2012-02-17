@@ -463,29 +463,11 @@ if (!class_exists('bwps_admin')) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "ll_denyaccess"><?php _e('Deny All Access', $this->hook); ?></label>
-						</th>
-						<td>
-							<input id="ll_denyaccess" name="ll_denyaccess" type="checkbox" value="1" <?php checked('1', $options['ll_denyaccess']); ?> />
-							<p><?php _e('If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout. Check this box to activate.', $this->hook); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
 							<label for "ll_emailnotify"><?php _e('Email Notifications', $this->hook); ?></label>
 						</th>
 						<td>
 							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked('1', $options['ll_emailnotify']); ?> />
 							<p><?php _e('Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.', $this->hook); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for "ll_error_message"><?php _e('Default Error Message', $this->hook); ?></label>
-						</th>
-						<td>
-							<input id="ll_error_message" name="ll_error_message" type="text" value="<?php echo $options['ll_error_message']; ?>" />
-							<p><?php _e('The message that will display when someone has been locked out.', $this->hook); ?></p>
 						</td>
 					</tr>
 				</table>
@@ -862,13 +844,11 @@ if (!class_exists('bwps_admin')) {
 			$options = get_option($this->primarysettings); //load the options
 			
 			$options['ll_enabled'] = ($_POST['ll_enabled'] == 1 ? 1 : 0);
-			$options['ll_denyaccess'] = ($_POST['ll_denyaccess'] == 1 ? 1 : 0);
 			$options['ll_emailnotify'] = ($_POST['ll_emailnotify'] == 1 ? 1 : 0);
 			$options['ll_maxattemptshost'] = absint($_POST['ll_maxattemptshost']);
 			$options['ll_maxattemptsuser'] = absint($_POST['ll_maxattemptsuser']);
 			$options['ll_checkinterval'] = absint($_POST['ll_checkinterval']);
 			$options['ll_banperiod'] = absint($_POST['ll_banperiod']);
-			$options['ll_error_message'] = wp_strip_all_tags($_POST['ll_error_message']);
 			
 			if ($options['ll_banperiod'] == 0) {
 				if (!is_wp_error($errorHandler)) {

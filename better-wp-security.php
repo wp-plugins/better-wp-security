@@ -39,13 +39,11 @@ if (!class_exists('bit51_bwps')) {
 					'backup_int' 			=> 'daily',
 					'backup_enabled'		=> '0',
 					'backups_to_retain'		=> '10',
-					"ll_error_message" => "error",
 					"ll_enabled" => "0",
 					"ll_maxattemptshost" => "5",
 					"ll_maxattemptsuser" => "10",
 					"ll_checkinterval" => "5",
-					"ll_banperiod" => "60",
-					"ll_denyaccess" => "1",
+					"ll_banperiod" => "15",
 					"ll_emailnotify" => "1"
 				)
 			)
