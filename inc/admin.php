@@ -35,11 +35,11 @@ if (!class_exists('bwps_admin')) {
 			);
 			add_submenu_page(
 				$this->hook, 
-				__($this->pluginname, $this->hook) . ' - ' . __('Ban Users', $this->hook),
-				__('Ban Users', $this->hook),
+				__($this->pluginname, $this->hook) . ' - ' . __('Ban Hosts', $this->hook),
+				__('Ban Hosts', $this->hook),
 				$this->accesslvl,
-				$this->hook . '-banusers',
-				array(&$this, 'admin_banusers')
+				$this->hook . '-banhosts',
+				array(&$this, 'admin_banhosts')
 			);
 			add_submenu_page(
 				$this->hook, 
@@ -130,8 +130,13 @@ if (!class_exists('bwps_admin')) {
 		
 		}
 		
-		function admin_banusers() {
-		
+		function admin_banhosts() {
+			$this->admin_page($this->pluginname  . ' - ' .  __('Ban Hosts', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'banhosts_content_1'), //information to prevent the user from getting in trouble
+					array(__('Banned Hosts Configuration', $this->hook), 'banhosts_content_2') //banhosts options
+				)
+			);
 		}
 		
 		function admin_contentdirectory() {
@@ -226,6 +231,52 @@ if (!class_exists('bwps_admin')) {
 					<p><?php _e('Congratulations! You do not have a user named "admin" in your WordPress installation. No further action is available on this page.', $this->hook); ?></p>
 				<?
 			}
+		}
+		
+		function banhosts_content_1() {
+			?>
+			<p><?php _e('This feature allows you to ban hosts from your site completely using individual or groups of IP addresses without having to manage any configuration of your server. Any IP found in the list below will not be allowed any access to your site.', $this->hook); ?></p>
+			<p><?php _e('Please note this feature works using the WordPress database and PHP. That said, it is not nearly as effecient as banning hosts via your server configuration. I recommend keeping the list here short or using it only for temporary bans to avoid performance issues.', $this->hook); ?></p>
+			<?php
+		}
+		
+		function banhosts_content_2() {
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+			<input type="hidden" name="bwps_page" value="banhosts_1" />
+			<?php $options = get_option($this->primarysettings); //use settings fields ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "bh_enabled"><?php _e('Enable Banned Hosts', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="bh_enabled" name="bh_enabled" type="checkbox" value="1" <?php checked('1', $options['bh_enabled']); ?> />
+							<p><?php _e('Check this box to enable the banned hosts feature.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "bh_banlist"><?php _e('Ban List', $this->hook); ?></label>
+						</th>
+						<td>
+							<textarea id="bh_banlist" rows="10" cols="50" name="bh_banlist"><?php echo isset($_POST['bh_banlist']) ? $_POST['bh_banlist'] : $options['bh_banlist']; ?></textarea>
+							<p><?php _e('Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook); ?></p>
+							<ul><em>
+								<li><?php _e('You may ban users by individual IP address or IP address range.', $this->hook); ?></li>
+								<li><?php _e('Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', $this->hook); ?></li>
+								<li><?php _e('IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', $this->hook); ?></li>
+								<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', $this->hook); ?></a></li>
+								<li><?php _e('Enter only 1 IP address or 1 IP address range per line.', $this->hook); ?></li>
+							</em></ul>
+						</td>
+					</tr>
+					
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+			</form>
+			<?php
 		}
 		
 		function contentdirectory_content_1() {
@@ -446,9 +497,9 @@ if (!class_exists('bwps_admin')) {
 						</th>
 						<td>
 							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset($_POST['id_whitelist']) ? $_POST['id_whitelist'] : $options['id_whitelist']; ?></textarea>
-							<p><?php _e('Use the guidelines below to enter hosts that will never be logged out. This could be useful for Google, etc.', $this->hook); ?></p>
+							<p><?php _e('Use the guidelines below to enter hosts that will never be locked out due to too many 404 errors. This could be useful for Google, etc.', $this->hook); ?></p>
 							<ul><em>
-								<li><?php _e('You may whitelist users by individual IP address, IP address range, or hostname.', $this->hook); ?></li>
+								<li><?php _e('You may whitelist users by individual IP address or IP address range.', $this->hook); ?></li>
 								<li><?php _e('Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', $this->hook); ?></li>
 								<li><?php _e('IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', $this->hook); ?></li>
 								<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', $this->hook); ?></a></li>
@@ -547,6 +598,9 @@ if (!class_exists('bwps_admin')) {
 				case 'adminuser_1':
 					$this->adminuser_process_1();
 					break;
+				case 'banhosts_1':
+					$this->banhosts_process_1();
+					break;
 				case 'contentdirectory_1':
 					$this->contentdirectory_process_1();
 					break;
@@ -622,6 +676,84 @@ if (!class_exists('bwps_admin')) {
 			
 			$this-> showmessages($errorHandler); //finally show messages
 			
+		}
+		
+		function banhosts_process_1() {
+			global $bwps; 
+			
+			$errorHandler = __('Settings Saved', $this->hook);
+			
+			$options = get_option($this->primarysettings);
+			
+			$options['bh_enabled'] = ($_POST['bh_enabled'] == 1 ? 1 : 0);
+			
+			$banlist = explode("\n", $_POST['bh_banlist']);
+			$banitems = array();
+			
+			if(!empty($banlist)) {
+				foreach($banlist as $item) {
+					if (strlen($item) > 0) {
+						if (strstr($item,' - ')) {
+							$range = explode('-', $item);
+							$start = trim($range[0]);
+							$end = trim($range[1]);
+							if (ip2long($end) == false) {
+								if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " contains an invalid ip (" . $end . ").", $this->hook));
+							}
+							if (ip2long($start) == false ) {
+								if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " contains an invalid ip (" . $start . ").", $this->hook));
+							} else {
+								$banitems[] = trim($item);
+							}	
+								
+						} else {
+							$ipParts = explode('.',$item);
+							$isIP = 0;
+							foreach ($ipParts as $part) {
+								if ((is_numeric(trim($part)) && trim($part) <= 255 && trim($part) >= 0) || trim($part) == '*') {
+									$isIP++;
+								}
+							}
+							if($isIP == 4) {
+								if (ip2long(trim(str_replace('*', '0', $item))) == false) {
+									if (!is_wp_error($errorHandler)) {
+										$errorHandler = new WP_Error();
+									}
+									$errorHandler->add("1", __($item . " is not a valid ip.", $this->hook));
+								} else {
+									$banitems[] = trim($item);
+								}
+							} else {
+								if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " is note a valid ip.", $this->hook));
+							}
+						}
+					}
+				}
+			}
+			
+			$options['bh_banlist'] = implode("\n",$banitems);
+			
+			if ($bwps->checklist($options['bh_banlist'])) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+				$errorHandler->add("1", __("You cannot ban yourself. Please try again.", $this->hook));
+			}
+			
+			if (!is_wp_error($errorHandler)) {
+				update_option($this->primarysettings,$options);
+			}
+						
+			$this-> showmessages($errorHandler);
 		}
 		
 		function contentdirectory_process_1() {

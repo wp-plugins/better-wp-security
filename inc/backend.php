@@ -67,9 +67,14 @@ if (!class_exists('bwps_backend')) {
 			$wpdb->query('DROP TABLE `phpmysqlautobackup_log`;');
 		}
 		
-		/**
-		 * Function to determine whether a given username exists
-		 **/
+		function getConfig() {
+			if (file_exists(trailingslashit(ABSPATH) . 'wp-config.php')) {
+				return trailingslashit(ABSPATH) . 'wp-config.php';
+			} else {
+				return trailingslashit(dirname(ABSPATH)) . 'wp-config.php';
+			}
+		}
+		
 		function user_exists($username) {
 			global $wpdb;
 			
@@ -86,19 +91,8 @@ if (!class_exists('bwps_backend')) {
 			} else {
 				return false;
 			}
-		}
+		}	
 		
-		/**
-		 * Returns the path to wp-config.php
-		 * @return string
-		 */
-		function getConfig() {
-			if (file_exists(trailingslashit(ABSPATH) . 'wp-config.php')) {
-				return trailingslashit(ABSPATH) . 'wp-config.php';
-			} else {
-				return trailingslashit(dirname(ABSPATH)) . 'wp-config.php';
-			}
-		}
 	}	
 }
 
