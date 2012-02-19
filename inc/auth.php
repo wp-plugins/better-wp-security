@@ -4,6 +4,10 @@ if (!function_exists('wp_authenticate')) {
 
 	function wp_authenticate($username, $password) {
 		global $bwps;
+		
+		if($bwps->checkaway()) {
+			wp_redirect(get_option('siteurl'));
+		}
 	
 		$options = get_option('bit51_bwps');
 	

@@ -19,6 +19,34 @@ if (!class_exists('bwps_secure')) {
 			}
 		}
 		
+		function checkaway() {
+			$options = get_option($this->primarysettings);
+			
+			$cTime = strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())));
+			
+			if ($options['am_type'] == 1) {
+			
+				if ($options['am_starttime'] < $options['am_endtime']) {
+					$start = strtotime(date('n/j/y', time()) . ' ' . date('g:i a', $options['am_starttime']));
+					$end = strtotime(date('n/j/y', time()) . ' ' . date('g:i a', $options['am_endtime']));
+				} else {
+					$start = strtotime(date('n/j/y', time()) . ' ' . date('g:i a', $options['am_starttime']));
+					$end = strtotime(date('n/j/y', (time() + 86400)) . ' ' . date('g:i a', $options['am_endtime']));
+				}
+				
+			} else {
+			
+				$start = strtotime(date('n/j/y', $options['am_startdate']) . ' ' . date('g:i a', $options['am_starttime']));
+				$end = strtotime(date('n/j/y', $options['am_enddate']) . ' ' . date('g:i a', $options['am_endtime']));
+			
+			}
+				
+			if ($options['am_enabled'] == 1 && $start <= $cTime && $end >= $cTime) { //if away mode is enabled continue
+				return true;
+			}
+			return false; //they are allowed to log in
+		}
+		
 		function checklist($list, $rawhost = '') {
 			global $wpdb;
 			
@@ -211,12 +239,8 @@ if (!class_exists('bwps_secure')) {
 			
 			$options = get_option($this->primarysettings);
 			
-			if (($options['id_enabled'] == 1 ||$options['ll_enabled'] == 1) && $this->checklock($current_user->user_login)) {
-				wp_clear_auth_cookie();
-				die(__('error', $this->hook));
-			}
 			
-			if ($options['bh_enabled'] == 1 && $this->checklist($options['bh_banlist'])) {
+			if ((($options['id_enabled'] == 1 ||$options['ll_enabled'] == 1) && $this->checklock($current_user->user_login)) || ($options['bh_enabled'] == 1 && $this->checklist($options['bh_banlist']))) {
 				wp_clear_auth_cookie();
 				die(__('error', $this->hook));
 			}

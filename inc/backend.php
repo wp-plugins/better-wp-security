@@ -30,10 +30,20 @@ if (!class_exists('bwps_backend')) {
 				if (isset($_POST['bwps_page'])) {
 					add_action('admin_init', array(&$this, 'form_dispatcher'));
 				}
+				
+				add_action('admin_init', array(&$this, 'awaycheck'));
 			}
 			
 			add_action('init', array(&$this, 'backup_scheduler'));
 						
+		}
+		
+		function awaycheck() {
+			global $bwps;
+			
+			if($bwps->checkaway()) {
+				wp_redirect(get_option('siteurl'));
+			}
 		}
 		
 		function backup_scheduler() {
