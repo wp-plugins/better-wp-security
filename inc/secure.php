@@ -146,7 +146,7 @@ if (!class_exists('bwps_secure')) {
 									'active' => 1,
 									'starttime' => $currtime,
 									'exptime' => $exptime,
-									'host' => '',
+									'host' => 0,
 									'user' => $user
 								)
 							);
