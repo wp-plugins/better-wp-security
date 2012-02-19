@@ -27,11 +27,11 @@ if (!class_exists('bit51_bwps')) {
 		public $pluginname			= 'Better WP Security';
 		public $homepage			= 'http://bit51.com/software/better-wp-security/';
 		public $supportpage 		= 'http://forums.bit51.com/topic/better-wp-security/';
-		public $wppage 			= 'http://wordpress.org/extend/plugins/better-wp-security/';
+		public $wppage 				= 'http://wordpress.org/extend/plugins/better-wp-security/';
 		public $accesslvl			= 'manage_options';
 		public $paypalcode			= 'QD87YEWSUYL7E';
-		public $plugindata 		= 'bit51_bwps_data';
-		public $primarysettings	= 'bit51_bwps';
+		public $plugindata 			= 'bit51_bwps_data';
+		public $primarysettings		= 'bit51_bwps';
 		public $settings			= array(
 			'bit51_bwps_options'	=> array(
 				'bit51_bwps' 			=> array(
@@ -39,12 +39,18 @@ if (!class_exists('bit51_bwps')) {
 					'backup_int' 			=> 'daily',
 					'backup_enabled'		=> '0',
 					'backups_to_retain'		=> '10',
-					"ll_enabled" => "0",
-					"ll_maxattemptshost" => "5",
-					"ll_maxattemptsuser" => "10",
-					"ll_checkinterval" => "5",
-					"ll_banperiod" => "15",
-					"ll_emailnotify" => "1"
+					'll_enabled' 			=> '0',
+					'll_maxattemptshost' 	=> '5',
+					'll_maxattemptsuser' 	=> '10',
+					'll_checkinterval' 		=> '5',
+					'll_banperiod' 			=> '15',
+					'll_emailnotify' 		=> '1',
+					'id_enabled' 			=> '0',
+					'id_emailnotify' 		=> '1',
+					'id_checkinterval' 		=> '5',
+					'id_threshold' 			=> '20',
+					'id_banperiod' 			=> '15',
+					'id_whitelist' 			=> ''
 				)
 			)
 		);

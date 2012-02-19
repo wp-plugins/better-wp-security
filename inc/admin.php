@@ -404,6 +404,60 @@ if (!class_exists('bwps_admin')) {
 							<p><?php _e('Check this box to enable instrustion detection.', $this->hook); ?></p>
 						</td>
 					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_emailnotify"><?php _e('Email Notifications', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked('1', $options['id_emailnotify']); ?> />
+							<p><?php _e('Enabling this feature will trigger an email to be sent to the website administrator whenever a host is locked out of the system.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_checkinterval"><?php _e('Check Period', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="id_checkinterval" name="id_checkinterval" type="text" value="<?php echo $options['id_checkinterval']; ?>" />
+							<p><?php _e('The number of minutes in which 404 errors should be remembered. Setting this too long can cause legitimate users to be banned.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_threshold"><?php _e('Error Threshold', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="id_threshold" name="id_threshold" type="text" value="<?php echo $options['id_threshold']; ?>" />
+							<p><?php _e('The numbers of errors (within the check period timeframe) that will trigger a lockout.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_banperiod"><?php _e('Lockout Period', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="id_banperiod" name="id_banperiod" type="text" value="<?php echo $options['id_banperiod']; ?>" />
+							<p><?php _e('The number of minutes a host will be banned from the site after triggering a lockout.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_whitelist"><?php _e('White List', $this->hook); ?></label>
+						</th>
+						<td>
+							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset($_POST['id_whitelist']) ? $_POST['id_whitelist'] : $options['id_whitelist']; ?></textarea>
+							<p><?php _e('Use the guidelines below to enter hosts that will never be logged out. This could be useful for Google, etc.', $this->hook); ?></p>
+							<ul><em>
+								<li><?php _e('You may whitelist users by individual IP address, IP address range, or hostname.', $this->hook); ?></li>
+								<li><?php _e('Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', $this->hook); ?></li>
+								<li><?php _e('IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', $this->hook); ?></li>
+								<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e('Lookup IP Address.', $this->hook); ?></a></li>
+								<li><?php _e('Enter only 1 IP address or 1 IP address range per line.', $this->hook); ?></li>
+								<li><?php _e('404 errors will still be logged for users on the whitelist. Only the lockout will be prevented', $this->hook); ?></li>
+							</em></ul>
+						</td>
+					</tr>
+					
 				</table>
 				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
 			</form>
@@ -751,7 +805,7 @@ if (!class_exists('bwps_admin')) {
 										
 			if ($upOpts === false) { //set an error
 		
-				if (!$errorHandler) {
+				if (!is_wp_error($errorHandler)) {
 					$errorHandler = new WP_Error();
 				}
 							
@@ -772,7 +826,7 @@ if (!class_exists('bwps_admin')) {
 							
 					if ($result == false) {
 								
-						if (!$errorHandler) {
+						if (!is_wp_error($errorHandler)) {
 							$errorHandler = new WP_Error();
 						}
 										
@@ -827,6 +881,100 @@ if (!class_exists('bwps_admin')) {
 		}	
 		
 		function intrusiondetection_process_1() {
+			$errorHandler = __('Settings Saved', $this->hook);
+			
+			$options = get_option($this->primarysettings);
+			
+			$options['id_enabled'] = ($_POST['id_enabled'] == 1 ? 1 : 0);
+			$options['id_emailnotify'] = ($_POST['id_emailnotify'] == 1 ? 1 : 0);
+			$options['id_checkinterval'] = absint($_POST['id_checkinterval']);
+			$options['id_banperiod'] = absint($_POST['id_banperiod']);
+			$options['id_threshold'] = absint($_POST['id_threshold']);
+			
+			if ($options['id_banperiod'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Lockout time period needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			if ($options['id_checkinterval'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("Login time period needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			if ($options['id_threshold'] == 0) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __("The error threshold needs to be aan integer greater than 0.", $this->hook));
+			}
+			
+			$whiteList = explode("\n", $_POST['id_whitelist']);
+			$whiteitems = array();
+			
+			if(!empty($whiteList)) {
+				foreach($whiteList as $item) {
+					if (strlen($item) > 0) {
+						if (strstr($item,' - ')) {
+							$range = explode('-', $item);
+							$start = trim($range[0]);
+							$end = trim($range[1]);
+							if (ip2long($end) == false) {
+								if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " contains an invalid ip (" . $end . ").", $this->hook));
+							}
+							if (ip2long($start) == false ) {
+								if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " contains an invalid ip (" . $start . ").", $this->hook));
+							} else {
+								$whiteitems[] = trim($item);
+							}	
+								
+						} else {
+							$ipParts = explode('.',$item);
+							$isIP = 0;
+							foreach ($ipParts as $part) {
+								if ((is_numeric(trim($part)) && trim($part) <= 255 && trim($part) >= 0) || trim($part) == '*') {
+									$isIP++;
+								}
+							}
+							if($isIP == 4) {
+								if (ip2long(trim(str_replace('*', '0', $item))) == false) {
+									if (!is_wp_error($errorHandler)) {
+										$errorHandler = new WP_Error();
+									}
+									$errorHandler->add("1", __($item . " is not a valid ip.", $this->hook));
+								} else {
+									$whiteitems[] = trim($item);
+								}
+							} else {
+	    						if (!is_wp_error($errorHandler)) {
+									$errorHandler = new WP_Error();
+								}
+								$errorHandler->add("1", __($item . " is note a valid ip.", $this->hook));
+							}
+						}
+					}
+				}
+			}
+			
+			$options['id_whitelist'] = implode("\n",$whiteitems);
+			
+			if (!is_wp_error($errorHandler)) {
+				update_option($this->primarysettings,$options);
+			}
+						
+			$this-> showmessages($errorHandler);
 		
 		}
 		
