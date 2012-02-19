@@ -108,7 +108,6 @@ if (!class_exists('bwps_secure')) {
 		
 				if ($user) {
 					$userCheck = $wpdb->get_var("SELECT `user` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . time(). " AND `user` = " . $user->ID . " AND `active` = 1;");
-					unset($user);
 				}
 			} else { //no username to be locked out
 				$userCheck = false;
@@ -138,7 +137,21 @@ if (!class_exists('bwps_secure')) {
 						$exptime = $currtime + (60 * $options['id_banperiod']);
 					}
 					
-					if ($type == 1 || $this->checklist($options['id_whitelist']) == false) {
+					if ($type == 1 || ($type == 2 && !is_user_logged_in() && $this->checklist($options['id_whitelist']) == false)) {
+						if ($user != '') {
+							$wpdb->insert(
+								$wpdb->base_prefix . 'bwps_lockouts',
+								array(
+									'type' => $type,
+									'active' => 1,
+									'starttime' => $currtime,
+									'exptime' => $exptime,
+									'host' => '',
+									'user' => $user
+								)
+							);
+						}
+						
 						$wpdb->insert(
 							$wpdb->base_prefix . 'bwps_lockouts',
 							array(
@@ -147,7 +160,7 @@ if (!class_exists('bwps_secure')) {
 								'starttime' => $currtime,
 								'exptime' => $exptime,
 								'host' => $wpdb->escape($_SERVER['REMOTE_ADDR']),
-								'user' => $user
+								'user' => ''
 							)
 						);
 					
