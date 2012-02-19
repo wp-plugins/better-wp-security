@@ -4,16 +4,10 @@ if (!class_exists('bwps_admin')) {
 
 	class bwps_admin extends bit51_bwps {
 		
-		/**
-		 * Initialize admin function
-		 */
 		function __construct() {
 							
 		}
 	
-		/**
-		 * Register page settings
-		 */
 		function register_settings_page() {
 			add_menu_page(
 				__($this->pluginname, $this->hook) . ' - ' . __('Dashboard', 'better-wp-security'),
@@ -106,7 +100,7 @@ if (!class_exists('bwps_admin')) {
 			add_submenu_page(
 				$this->hook, 
 				__($this->pluginname, $this->hook) . ' - ' . __('View Logs', $this->hook),
-				__('Ban Users', $this->hook),
+				__('View Logs', $this->hook),
 				$this->accesslvl,
 				$this->hook . '-logs',
 				array(&$this, 'admin_logs')
@@ -119,10 +113,6 @@ if (!class_exists('bwps_admin')) {
 			}
 		}	
 		
-		/**
-		 * Register admin page main content
-		 * To add more boxes to the admin page add a 2nd inner array item with title and callback function or content
-		 */
 		function admin_dashboard() {
 			
 		}
@@ -148,7 +138,7 @@ if (!class_exists('bwps_admin')) {
 			$this->admin_page($this->pluginname  . ' - ' .  __('Change wp-content Directory', $this->hook),
 				array(
 					array(__('Before You Begin', $this->hook), 'contentdirectory_content_1'), //information to prevent the user from getting in trouble
-					array(__('Change The wp-content Directory', $this->hook), 'contentdirectory_content_2') //adminuser options
+					array(__('Change The wp-content Directory', $this->hook), 'contentdirectory_content_2') //contentdirectory options
 				)
 			);
 		}
@@ -158,8 +148,8 @@ if (!class_exists('bwps_admin')) {
 				array(
 					array(__('Before You Begin', $this->hook), 'databasebackup_content_1'), //information to prevent the user from getting in trouble
 					array(__('Backup Your WordPress Database', $this->hook), 'databasebackup_content_2'), //backup switch
-					array(__('Schedule Automated Backups', $this->hook), 'databasebackup_content_3'),
-					array(__('Download Backups', $this->hook), 'databasebackup_content_4'),
+					array(__('Schedule Automated Backups', $this->hook), 'databasebackup_content_3'), //scheduled backup options
+					array(__('Download Backups', $this->hook), 'databasebackup_content_4') //where to find downloads
 				)
 			);
 		}
@@ -168,7 +158,7 @@ if (!class_exists('bwps_admin')) {
 			$this->admin_page($this->pluginname  . ' - ' .  __('Change Database Prefix', $this->hook),
 				array(
 					array(__('Before You Begin', $this->hook), 'databaseprefix_content_1'), //information to prevent the user from getting in trouble
-					array(__('Change The Database Prefix', $this->hook), 'databaseprefix_content_2') //adminuser options
+					array(__('Change The Database Prefix', $this->hook), 'databaseprefix_content_2') //databaseprefix options
 				)
 			);
 		}
@@ -178,15 +168,19 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function admin_intrusiondetection() {
-		
+			$this->admin_page($this->pluginname  . ' - ' .  __('Intrusion Detection', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'intrusiondetection_content_1'), //information to prevent the user from getting in trouble
+					array(__('Intrusion Detection', $this->hook), 'intrusiondetection_content_2') //intrusiondetection options
+				)
+			);
 		}
 		
 		function admin_loginlimits() {
 			$this->admin_page($this->pluginname  . ' - ' .  __('Limit Login Attempts', $this->hook),
 				array(
 					array(__('Before You Begin', $this->hook), 'loginlimits_content_1'), //information to prevent the user from getting in trouble
-					array(__('Limit Login Attempts', $this->hook), 'loginlimits_content_2'), //adminuser options
-					array(__('Active Lockouts', $this->hook), 'loginlimits_content_3') //adminuser options
+					array(__('Limit Login Attempts', $this->hook), 'loginlimits_content_2') //loginlimit options
 				)
 			);
 		}
@@ -199,9 +193,6 @@ if (!class_exists('bwps_admin')) {
 		
 		}
 			
-		/**
-		 * Introduction text for change admin user page
-		 **/
 		function adminuser_content_1() {
 			?>
 			<p><?php _e('By default WordPress initially creates a username with the username of "admin." This is insecure as this user has full rights to your WordPress system and a potential hacker already knows that it is there. All an attacker would need to do at that point is guess the password. Changing this username will force a potential attacker to have to guess both your username and your password which makes some attacks significantly more difficult.', $this->hook); ?></p>
@@ -209,9 +200,6 @@ if (!class_exists('bwps_admin')) {
 			<?php
 		}
 		
-		/**
-		 * Options form for change admin user page
-		 **/
 		function adminuser_content_2() {
 			if ($this->user_exists('admin')) { //only show form if user 'admin' exists
 				?>
@@ -239,7 +227,6 @@ if (!class_exists('bwps_admin')) {
 				<?
 			}
 		}
-		
 		
 		function contentdirectory_content_1() {
 			?>
@@ -369,11 +356,7 @@ if (!class_exists('bwps_admin')) {
 				<?php
 			}
 		}
-		
-		/**
-		 * Intro for change database prefix page
-		 **/
-				
+			
 		function databaseprefix_content_1() {
 			?>
 			<p><?php _e('By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', $this->hook); ?></p>
@@ -382,10 +365,6 @@ if (!class_exists('bwps_admin')) {
 			<?php
 		}
 		
-		/**
-		 * form for change database prefix page
-		 **/
-		 
 		function databaseprefix_content_2() {
 			global $wpdb;
 			?>
@@ -403,10 +382,38 @@ if (!class_exists('bwps_admin')) {
 			<?php
 		}
 		
+		function intrusiondetection_content_1() {
+			?>
+			<p><?php _e('Currently intrusion detection looks only at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', $this->hook); ?></p>
+			<?php
+		}
+		
+		function intrusiondetection_content_2() {
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+			<input type="hidden" name="bwps_page" value="intrusiondetection_1" />
+			<?php $options = get_option($this->primarysettings); //use settings fields ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_enabled"><?php _e('Enable Instrusion Detection', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked('1', $options['id_enabled']); ?> />
+							<p><?php _e('Check this box to enable instrustion detection.', $this->hook); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+			</form>
+			<?php
+		}
+		
 		function loginlimits_content_1() {
 			?>
 			<p><?php _e('If one had unlimited time and wanted to try an unlimited number of password combimations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try agin. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshhold has been reached.', $this->hook); ?></p>
-			<?php		
+			<?php	
 		}
 		
 		function loginlimits_content_2() {
@@ -476,13 +483,6 @@ if (!class_exists('bwps_admin')) {
 			<?php
 		}
 		
-		function loginlimits_content_3() {
-		
-		}
-		
-		/**
-		 * Send form processor to correct function
-		 **/
 		function form_dispatcher() {
 			//verify nonce
 			if (!wp_verify_nonce($_POST['wp_nonce'], 'BWPS_admin_save')) {
@@ -505,6 +505,9 @@ if (!class_exists('bwps_admin')) {
 				case 'databaseprefix_1':
 					$this->databaseprefix_process_1();
 					break;
+				case 'intrusiondetection_1':
+					$this->intrusiondetection_process_1();
+					break;
 				case 'loginlimits_1':
 					$this->loginlimits_process_1();
 					break;
@@ -514,9 +517,6 @@ if (!class_exists('bwps_admin')) {
 			}
 		}
 		
-		/**
-		 * process changing admin username
-		 **/
 		function adminuser_process_1() {
 			global $wpdb;
 			$errorHandler = __('Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing.', $this->hook);
@@ -570,9 +570,6 @@ if (!class_exists('bwps_admin')) {
 			
 		}
 		
-		/**
-		 * Function to change the wp-content directory
-		 **/
 		function contentdirectory_process_1() {
 			global $wpdb;
 			$errorHandler = __('Settings Saved', $this->hook);
@@ -644,9 +641,6 @@ if (!class_exists('bwps_admin')) {
 			$this-> showmessages($errorHandler); //finally show messages
 		}
 		
-		/**
-		 * Process database backup
-		 **/
 		function databasebackup_process_1() {
 			$errorHandler = __('Database Backup Completed.', $this->hook);
 			
@@ -656,9 +650,6 @@ if (!class_exists('bwps_admin')) {
 			
 		}
 		
-		/**
-		 * Validate input
-		 */
 		function databasebackup_process_2() {
 			$errorHandler = __('Settings Saved', $this->hook);
 			
@@ -689,9 +680,6 @@ if (!class_exists('bwps_admin')) {
 			
 		}
 		
-		/**
-		 * Process changing table names and associated data
-		 **/
 		function databaseprefix_process_1() {
 			global $wpdb;
 			$errorHandler = __('Database Prefix Changed', $this->hook);	
@@ -837,6 +825,10 @@ if (!class_exists('bwps_admin')) {
 			remove_action('network_admin_notices', 'site_admin_notice');
 					
 		}	
+		
+		function intrusiondetection_process_1() {
+		
+		}
 		
 		function loginlimits_process_1() {
 			$errorHandler = __('Settings Saved', $this->hook);
