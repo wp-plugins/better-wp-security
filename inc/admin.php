@@ -127,7 +127,13 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function admin_awaymode() {
-		
+			$this->admin_page($this->pluginname  . ' - ' .  __('Administor Away Mode', $this->hook),
+				array(
+					array(__('Before You Begin', $this->hook), 'awaymode_content_1'), //information to prevent the user from getting in trouble
+					array(__('Away Mode Options', $this->hook), 'awaymode_content_2'), //awaymode options
+					array(__('Away Mode Rules', $this->hook), 'awaymode_content_3')
+				)
+			);
 		}
 		
 		function admin_banhosts() {
@@ -231,6 +237,274 @@ if (!class_exists('bwps_admin')) {
 					<p><?php _e('Congratulations! You do not have a user named "admin" in your WordPress installation. No further action is available on this page.', $this->hook); ?></p>
 				<?
 			}
+		}
+		
+		function awaymode_content_1() {
+			?>
+			<p><?php _e('As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->hook); ?></p>
+			<p><?php _e('Please note that according to your', $this->hook); ?> <a href="options-general.php"><?php _e('Wordpress timezone settings', $this->hook); ?></a> <?php _e('your local time is', $this->hook); ?> <strong><em><?php echo date('l, F jS, Y \a\\t g:i a', strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())))); ?></em></strong>. <?php _e('If this is incorrect please correct it on the', $this->hook); ?> <a href="options-general.php"><?php _e('Wordpress general settings page', $this->hook); ?></a> <?php _e('by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook); ?></p>
+			<?php
+		}
+		
+		function awaymode_content_2() {
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
+			<input type="hidden" name="bwps_page" value="awaymode_1" />
+			<?php $options = get_option($this->primarysettings); //use settings fields ?>
+			<?php 
+				$cDate = strtotime(date('n/j/y 12:00 \a\m', time()));
+				$sTime = $options['am_starttime'];
+				$eTime = $options['am_endtime'];
+				$sDate = $options['am_startdate'];
+				$eDate = $options['am_enddate'];
+				$shdisplay = date('g', $sTime);
+				$sidisplay = date('i', $sTime);
+				$ssdisplay = date('a', $sTime);
+				$ehdisplay = date('g', $eTime);
+				$eidisplay = date('i', $eTime);
+				$esdisplay = date('a', $eTime);
+				
+				if ($options['am_enabled'] == 1 && $eDate > $cDate) {	
+					$smdisplay = date('n', $sDate);
+					$sddisplay = date('j', $sDate);
+					$sydisplay = date('Y', $sDate);
+					
+					$emdisplay = date('n', $eDate);
+					$eddisplay = date('j', $eDate);
+					$eydisplay = date('Y', $eDate);
+					
+				} else {
+					$sDate = strtotime(get_date_from_gmt(date('Y-m-d H:i:s', time() + 86400)));
+					$eDate = strtotime(get_date_from_gmt(date('Y-m-d H:i:s', time() + (86400 * 2))));
+					$smdisplay = date('n', $sDate);
+					$sddisplay = date('j', $sDate);
+					$sydisplay = date('Y', $sDate);
+					
+					$emdisplay = date('n', $eDate);
+					$eddisplay = date('j', $eDate);
+					$eydisplay = date('Y', $eDate);
+				}
+			?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "am_enabled"><?php _e('Enable Away Mode', $this->hook); ?></label>
+						</th>
+						<td>
+							<input id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked('1', $options['am_enabled']); ?> />
+							<p><?php _e('Check this box to enable away mode.', $this->hook); ?></p>
+						</td>
+					</tr>	
+					<tr valign="top">
+						<th scope="row">
+							<label for="am_type"><?php _e('Type of Restriction', $this->hook); ?></label>
+						</th>
+						<td>
+							<label><input name="am_type" id="am_type" value="1" <?php checked('1', $options['am_type']); ?> type="radio" /> <?php _e('Daily', $this->hook); ?></label>
+							<label><input name="am_type" value="0" <?php checked('0', $options['am_type']); ?> type="radio" /> <?php _e('One Time', $this->hook); ?></label>
+							<p><?php _e('Selecting <em>"One Time"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>"Daily"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time.', $this->hook); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="am_startdate"><?php _e('Start Date', $this->hook); ?></label>
+						</th>
+						<td>
+							<select name="am_startmonth" id="am_startdate">
+								<?php
+									for ($i = 1; $i <= 12; $i++) {
+										if ($smdisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . date("F", strtotime($i . "/1/" . date("Y",time()))) . "</option>";
+									}
+								?>
+							</select> 
+							<select name="am_startday">
+								<?php
+									for ($i = 1; $i <= 31; $i++) {
+										if ($sddisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . date("jS", strtotime("1/" . $i . "/" . date("Y",time()))) . "</option>";
+									}
+								?>
+							</select>, 
+							<select name="am_startyear">
+								<?php
+									for ($i = date("Y",time()); $i < (date("Y",time()) + 2); $i++) {
+										if ($sydisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . $i . "</option>";
+									}
+								?>
+							</select>
+							<p><?php _e('Select the date at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected this field will be ignored and access will be banned every day at the specified time.', $this->hook); ?>
+							</p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="am_enddate"><?php _e('End Date', $this->hook); ?></label>
+						</th>
+						<td>
+							<select name="am_endmonth" id="am_enddate">
+								<?php
+									for ($i = 1; $i <= 12; $i++) {
+										if ($emdisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . date("F", strtotime($i . "/1/" . date("Y",time()))) . "</option>";
+									}
+								?>
+							</select> 
+							<select name="am_endday">
+								<?php
+									for ($i = 1; $i <= 31; $i++) {
+										if ($eddisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . date("jS", strtotime("1/" . $i . "/" . date("Y",time()))) . "</option>";
+									}
+								?>
+							</select>, 
+							<select name="am_endyear">
+								<?php
+									for ($i = date("Y",time()); $i < (date("Y",time()) + 2); $i++) {
+										if ($eydisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . $i . "</option>";
+									}
+								?>
+							</select>
+							<p><?php _e('Select the date at which access to the backend of this site will be re-enabled. Note that if <em>"Daily"</em> mode is selected this field will be ignored and access will be banned every day at the specified time.', $this->hook); ?>
+							</p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="am_starttime"><?php _e('Start Time', $this->hook); ?></label>
+						</th>
+						<td>
+							<select name="am_starthour"  id="am_starttime">
+								<?php
+									for ($i = 1; $i <= 12; $i++) {
+										if ($shdisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . $i . "</option>";
+									}
+								?>
+							</select> : 
+							<select name="am_startmin">
+								<?php
+									for ($i = 0; $i < 60; $i++) {
+										if ($sidisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										if ($i < 10) {
+											$val = "0" . $i;
+										} else {
+											$val = $i;
+										}
+										echo "<option value='" . $val . "'" . $selected . ">" . $val . "</option>";
+									}
+								?>
+							</select> 
+							<select name="am_starthalf">											
+								<option value="am"<?php if ($ssdisplay == "am") echo " selected"; ?>>am</option>
+								<option value="pm"<?php if ($ssdisplay == "pm") echo " selected"; ?>>pm</option>
+							</select>
+							<p><?php _e('Select the time at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook); ?>
+							</p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="am_endtime"><?php _e('End Time', $this->hook); ?></label>
+						</th>
+						<td>
+							<select name="am_endhour"  id="am_endtime">
+								<?php
+									for ($i = 1; $i <= 12; $i++) {
+										if ($ehdisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										echo "<option value='" . $i . "'" . $selected . ">" . $i . "</option>";
+									}
+								?>
+							</select> : 
+							<select name="am_endmin">
+								<?php
+									for ($i = 0; $i < 60; $i++) {
+										if ($eidisplay == $i) {
+											$selected = " selected";
+										} else {
+											$selected = "";
+										}
+										if ($i < 10) {
+											$val = "0" . $i;
+										} else {
+											$val = $i;
+										}
+										echo "<option value='" . $val . "'" . $selected . ">" . $val . "</option>";
+									}
+								?>
+							</select> 
+							<select name="am_endhalf">											
+								<option value="am"<?php if ($esdisplay == "am") echo " selected"; ?>>am</option>
+								<option value="pm"<?php if ($esdisplay == "pm") echo " selected"; ?>>pm</option>
+							</select>
+							<p><?php _e('Select the time at which access to the backend of this site will be re-enabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook); ?>
+							</p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /></p>
+			</form>
+			<?php
+		}
+		
+		function awaymode_content_3() {
+			$options = get_option($this->primarysettings); //use settings fields 
+			
+			if ($options['am_type'] == 1) {
+				$freq = " <strong><em>" . __('every day') . "</em></strong>";
+				$stime = "<strong><em>" . date('g:i a', $options['am_starttime']) . "</em></strong>";
+				$etime = "<strong><em>" . date('g:i a', $options['am_endtime']) . "</em></strong>";
+			} else {
+				$freq = "";
+				$stime = '<strong><em>' . date('l, F jS, Y', $options['am_startdate']) . __(' at ', $this->hook) . date('g:i a', $options['am_starttime']) . '</em></strong>';
+				$etime = '<strong><em>' . date('l, F jS, Y', $options['am_enddate']) . __(' at ', $this->hook) . date('g:i a', $options['am_endtime']) . '</em></strong>';
+			}
+			if ($options['am_enabled'] == 1) {
+				?>
+				<p style="font-size: 150%; text-align: center;"><?php _e('The backend (administrative section) of this site will be unavailable', $this->hook); ?><?php echo $freq; ?> <?php _e('from', $this->hook); ?> <?php echo $stime; ?> <?php _e('until', $this->hook); ?> <?php echo $etime; ?>.</p>
+				<?php } else { ?>
+					<p><?php _e('Away mode is currently diabled', $this->hook); ?></p>
+				<?php
+			}	
 		}
 		
 		function banhosts_content_1() {
@@ -598,6 +872,9 @@ if (!class_exists('bwps_admin')) {
 				case 'adminuser_1':
 					$this->adminuser_process_1();
 					break;
+				case 'awaymode_1':
+					$this->awaymode_process_1();
+					break;
 				case 'banhosts_1':
 					$this->banhosts_process_1();
 					break;
@@ -675,6 +952,42 @@ if (!class_exists('bwps_admin')) {
 			}
 			
 			$this-> showmessages($errorHandler); //finally show messages
+			
+		}
+		
+		function awaymode_process_1() {
+			$errorHandler = __('Settings Saved', $this->hook);
+			
+			$options = get_option($this->primarysettings);
+			
+			$options['am_enabled'] = ($_POST['am_enabled'] == 1 ? 1 : 0);
+			$options['am_type'] = ($_POST['am_type'] == 1 ? 1 : 0);
+			
+			$startDate = $_POST['am_startmonth'] . "/" . $_POST['am_startday'] . "/" . $_POST['am_startyear'];
+			$endDate = $_POST['am_endmonth'] . "/" . $_POST['am_endday'] . "/" . $_POST['am_endyear'];
+			
+			if ($endDate <= $startDate) {
+				if (!is_wp_error($errorHandler)) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add("2", __('The ending date must be after the current date.', $this->hook));
+			}
+			
+			$startTime = $_POST['am_starthour'] . ":" . $_POST['am_startmin'] . " " . $_POST['am_starthalf'];
+			$endTime = $_POST['am_endhour'] . ":" . $_POST['am_endmin'] . " " . $_POST['am_endhalf'];
+			
+			
+			$options['am_startdate'] = strtotime($startDate . ' 12:01 am');
+			$options['am_enddate'] = strtotime($endDate . ' 12:01 am');
+			$options['am_starttime'] = strtotime('1/1/1970 ' . $startTime);
+			$options['am_endtime'] = strtotime('1/1/1970 ' . $endTime);
+			
+			if (!is_wp_error($errorHandler)) {
+				update_option($this->primarysettings,$options);
+			}
+						
+			$this-> showmessages($errorHandler);
 			
 		}
 		
