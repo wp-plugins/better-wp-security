@@ -897,10 +897,10 @@ if (!class_exists('bwps_admin')) {
 							<p><?php _e('This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.', $this->hook); ?></p>
 							<p><?php _e('Check the box next to the data you would like to clear and then press the "Remove Old Data" button.', $this->hook); ?></p>
 							<ul>
-								<li> <input type="checkbox" name="badlogins" id="badlogins" value="1" /> <label for="badlogins"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $countlogin; ?> <?php _e('bad login entries.', $this->hook); ?></strong></label></li>
-								<li> <input type="checkbox" name="404s" id="404s" value="1" /> <label for="404s"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $count404; ?> <?php _e('404 errors.', $this->hook); ?></strong><br />
+								<li style="list-style: none;"> <input type="checkbox" name="badlogins" id="badlogins" value="1" /> <label for="badlogins"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $countlogin; ?> <?php _e('bad login entries.', $this->hook); ?></strong></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="404s" id="404s" value="1" /> <label for="404s"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $count404; ?> <?php _e('404 errors.', $this->hook); ?></strong><br />
 								<em><?php _e('This will clear the 404 log below.', $this->hook); ?></em></label></li>
-								<li> <input type="checkbox" name="lockouts" id="lockouts" value="1" /> <label for="lockouts"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $countlockout; ?> <?php _e('old lockouts.', $this->hook); ?></strong></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="lockouts" id="lockouts" value="1" /> <label for="lockouts"><?php _e('Your database contains', $this->hook); ?> <strong><?php echo $countlockout; ?> <?php _e('old lockouts.', $this->hook); ?></strong></label></li>
 							</ul>
 						</td>
 					</tr>
@@ -915,10 +915,11 @@ if (!class_exists('bwps_admin')) {
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field('BWPS_admin_save','wp_nonce') ?>
-			<input type="hidden" name="bwps_page" value="log_1" />
+			<input type="hidden" name="bwps_page" value="log_2" />
 			<?php $options = get_option($this->primarysettings); //use settings fields ?>
 			<?php 
-				
+				$hostLocks = $wpdb->get_results("SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `host` != 0;", ARRAY_A);
+				$userLocks = $wpdb->get_results("SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `user` != 0;", ARRAY_A);
 			 ?>
 				<table class="form-table">
 					<tr valign="top">
@@ -926,19 +927,71 @@ if (!class_exists('bwps_admin')) {
 							<?php _e('Locked out hosts', $this->hook); ?>
 						</th>
 						<td>
+							<?php if (sizeof($hostLocks) > 0) { ?>
 							<ul>
-								<li></li>
+								<?php foreach ($hostLocks as $host) { ?>
+									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $host['id']; ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo $host['host']; ?></strong> - Expires <em><?php echo get_date_from_gmt(date('Y-m-d H:i:s', $host['exptime'])); ?></em></label></li>
+								<?php } ?>
 							</ul>
+							<?php } else { ?>
+								<p><?php _e('Currently no hosts are locked out of this website.', $this->hook); ?></p>
+							<?php } ?>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<?php _e('Locked out users', $this->hook); ?>
+						</th>
+						<td>
+							<?php if (sizeof($userLocks) > 0) { ?>
+							<ul>
+								<?php foreach ($userLocks as $user) { ?>
+									<?php $userdata = get_userdata($user['user']); ?>
+									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $user['id']; ?>" id="lo_<?php echo $user['id']; ?>" value="<?php echo $user['id']; ?>" /> <label for="lo_<?php echo $user['id']; ?>"><strong><?php echo $userdata->user_login; ?></strong> - Expires <em><?php echo get_date_from_gmt(date('Y-m-d H:i:s', $user['exptime'])); ?></em></label></li>
+								<?php } ?>
+							</ul>
+							<?php } else { ?>
+								<p><?php _e('Currently no users are locked out of this website.', $this->hook); ?></p>
+							<?php } ?>
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Remove Data') ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Release Lockout') ?>" /></p>
 			</form>
 			<?php
 		}
 		
 		function logs_content_4() {
-		
+			global $wpdb;
+			
+			$errors = $wpdb->get_results("SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;", ARRAY_A);
+			$grouped = array();
+			foreach ($errors as $error) {
+				if (isset($grouped[$error['url']])) {
+					$grouped[$error['url']]['count'] = $grouped[$error['url']]['count'] + 1;
+					$grouped[$error['url']]['last'] = $grouped[$error['url']]['last'] > $error['timestamp'] ? $grouped[$error['url']]['last'] : $error['timestamp'];
+				} else {
+					$grouped[$error['url']]['count'] = 1;
+					$grouped[$error['url']]['last'] = $error['timestamp'];
+				} 
+			}
+			if (sizeof($grouped) > 0) {
+			?>
+			<p><?php _e('The following is a list of 404 errors found on your site with the relative url listed first, the number of times the error was encountered in parenthases, and the last time the error was encounterd given last.', $this->hook); ?></p>
+			<?php
+				foreach ($grouped as $url => $data) {
+					?>
+					<li><?php echo $url; ?> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt(date('Y-m-d H:i:s', $data['last'])); ?></li>
+					<?php
+				}
+			?>
+			
+			<?php
+			} else {
+			?>
+				<p><?php _e('There are currently no 404 errors in the log', $this->hook); ?></p>
+			<?php 
+			}
 		}
 		
 		function form_dispatcher() {
@@ -1585,7 +1638,26 @@ if (!class_exists('bwps_admin')) {
 		}
 		
 		function log_process_2() {
-		
+			global $wpdb;
+			
+			$errorHandler = __('The selected lockouts have been cleared.', $this->hook);
+			
+			foreach ($_POST as $key => $value) {
+				if (strstr($key,"lo_")) {
+					$wpdb->update(
+						$wpdb->base_prefix . 'bwps_lockouts',
+						array(
+							'active' => 0
+						),
+						array(
+							'id' => $value
+						)
+					);
+				}
+			}
+			
+			$this-> showmessages($errorHandler);
+			
 		}
 	}
 }

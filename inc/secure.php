@@ -22,7 +22,7 @@ if (!class_exists('bwps_secure')) {
 		function checkaway() {
 			$options = get_option($this->primarysettings);
 			
-			$cTime = strtotime(get_date_from_gmt(date('Y-m-d H:i:s',time())));
+			$cTime = strtotime(get_date_from_gmt(date('Y-m-d H:i:s', time())));
 			
 			if ($options['am_type'] == 1) {
 			
