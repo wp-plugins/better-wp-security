@@ -105,5 +105,3 @@ if (!class_exists('bwps_backend')) {
 		
 	}	
 }
-
-?>

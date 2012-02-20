@@ -4,9 +4,6 @@ if (!class_exists('bwps_setup')) {
 
 	class bwps_setup extends bit51_bwps {
 
-		/**
-		 * Verify case is set correctly and continue or die
-		 */
 		function __construct($case = false) {
 	
 			if (!$case) {
@@ -28,16 +25,10 @@ if (!class_exists('bwps_setup')) {
 			}
 		}
 
-		/**
-		 * Entrypoint for activation
-		 */
 		function on_activate() {
 			new bwps_setup('activate');
 		}
 
-		/**
-		 * Entrypoint for deactivation
-		 */
 		function on_deactivate() {
 	
 			$devel = true; //set to true to uninstall for development
@@ -51,9 +42,6 @@ if (!class_exists('bwps_setup')) {
 			new bwps_setup($case);
 		}
 
-		/**
-		 * Entrypoint for uninstall
-		 */
 		function on_uninstall() {
 			if ( __FILE__ != WP_UNINSTALL_PLUGIN) { //verify they actually clicked uninstall
 				return;
@@ -62,9 +50,6 @@ if (!class_exists('bwps_setup')) {
 			new bwps_setup('uninstall');
 		}
 
-		/**
-		 * Execute activation functions
-		 */
 		function activate_execute() {
 			global $wpdb;
 			
@@ -116,25 +101,17 @@ if (!class_exists('bwps_setup')) {
 			
 			update_option($this->plugindata, $options); //save new plugin data
 		}
-		
-		/**
-		 * Execute update functions
-		 */
+
 		function update_execute() {
+		
 		}
 
-		/**
-		 * Execute deactivation functions
-		 */
 		function deactivate_execute() {
 			if (wp_next_scheduled('bwps_backup')) {
 				wp_clear_scheduled_hook('bwps_backup');
 			}
 		}
 
-		/**
-		 * Execute uninstall functions
-		 */
 		function uninstall_execute() {
 			global $wpdb;
 			
@@ -153,5 +130,6 @@ if (!class_exists('bwps_setup')) {
 			//delete plugin information (version, etc)
 			delete_option($this->plugindata);
 		}
+		
 	}
 }

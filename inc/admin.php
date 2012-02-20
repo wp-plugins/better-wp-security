@@ -1659,5 +1659,6 @@ if (!class_exists('bwps_admin')) {
 			$this-> showmessages($errorHandler);
 			
 		}
+		
 	}
 }

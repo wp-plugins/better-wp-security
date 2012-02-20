@@ -261,5 +261,4 @@ if (!class_exists('bwps_secure')) {
 		}
 		
 	}
-
 }
