@@ -13,9 +13,9 @@
 */
 
 //Require common Bit51 library
-require_once(plugin_dir_path(__FILE__) . 'lib/bit51/bit51.php');
+require_once( plugin_dir_path( __FILE__ ) . 'lib/bit51/bit51.php' );
 
-if (!class_exists('bit51_bwps')) {
+if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
@@ -65,36 +65,36 @@ if (!class_exists('bit51_bwps')) {
 		);
 
 		function __construct() {
+		
 			global $bwps;
 		
 			//set path information
-			define('BWPS_PP', plugin_dir_path(__FILE__));
-			define('BWPS_PU', plugin_dir_url(__FILE__));
+			define( 'BWPS_PP', plugin_dir_path( __FILE__ ) );
+			define( 'BWPS_PU', plugin_dir_url( __FILE__ ) );
 		
 			//load the text domain
-			load_plugin_textdomain('better_wp_security', false, dirname(plugin_basename( __FILE__ )) . '/languages');
+			load_plugin_textdomain( 'better_wp_security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
 			//require admin page
-			require_once(plugin_dir_path(__FILE__) . 'inc/admin.php');
-			require_once(plugin_dir_path(__FILE__) . 'inc/backend.php');
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/backend.php' );
 			new bwps_backend();
 			
 			//require setup information
-			require_once(plugin_dir_path(__FILE__) . 'inc/setup.php');
-			register_activation_hook( __FILE__, array('bwps_setup', 'on_activate'));
-			register_deactivation_hook( __FILE__, array('bwps_setup', 'on_deactivate'));
-			register_uninstall_hook( __FILE__, array('bwps_setup', 'on_uninstall'));
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/setup.php' );
+			register_activation_hook( __FILE__, array( 'bwps_setup', 'on_activate' ) );
+			register_deactivation_hook( __FILE__, array( 'bwps_setup', 'on_deactivate' ) );
+			register_uninstall_hook( __FILE__, array( 'bwps_setup', 'on_uninstall' ) );
 			
-			require_once(plugin_dir_path(__FILE__) . 'inc/auth.php');
-			require_once(plugin_dir_path(__FILE__) . 'inc/secure.php');
+			require_once(plugin_dir_path( __FILE__ ) . 'inc/auth.php' );
+			require_once(plugin_dir_path( __FILE__ ) . 'inc/secure.php' );
 			$bwps = new bwps_secure();
 			
 		}	
+		
 	}
+	
 }
 
 //create plugin object
 new bit51_bwps();
-
-//require setup information
-
