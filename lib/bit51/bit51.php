@@ -6,7 +6,7 @@
  * Thanks to Yoast (http://www.yoast.com), W3 Total Cache and Ozh Richard (http://planetozh.com) for a lot of the inspiration and some code snipets used in the rewrite of this plugin. Many of the ideas for this class as well as some of the functions of it's functions and the associated CSS are borrowed from the work of these great developers (I don't think anything is verbatim but some is close as I didn't feel it necessary to reinvent the wheel, in particular with regards to admin page layout).
  */
 
-if (!class_exists('Bit51')) {
+if ( ! class_exists( 'Bit51' ) ) {
 
 	class Bit51 {
 	
