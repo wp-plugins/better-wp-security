@@ -186,7 +186,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		function admin_hidebackend() {
-		
+			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Hide WordPress Backend', $this->hook ),
+				array(
+					array( __( 'Before You Begin', $this->hook ), 'hidebackend_content_1' ), //information to prevent the user from getting in trouble
+					array( __( 'Hide Backend Options', $this->hook ), 'hidebackend_content_2' ), //hidebackend options
+					array( __( 'Secret Key', $this->hook ), 'hidebackend_content_3' ) //hidebackend secret key information 
+				)
+			);
 		}
 		
 		function admin_intrusiondetection() {
@@ -724,6 +730,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', $this->hook ) ?>" /></p>			
 			</form>
 			<?php
+		}
+		
+		function hidebackend_content_1() {
+		
+		}
+		
+		function hidebackend_content_2() {
+		
+		}
+		
+		function hidebackend_content_3() {
+		
 		}
 		
 		function intrusiondetection_content_1() {
