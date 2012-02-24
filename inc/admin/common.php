@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'bwps_backend' ) ) {
+if ( ! class_exists( 'bwps_admin_common' ) ) {
 
-	class bwps_backend extends bwps_admin {
+	abstract class bwps_admin_common extends bit51_bwps {
 	
 		function __construct() {
-						
+					
 			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {
 			
 				//add scripts and css

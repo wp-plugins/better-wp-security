@@ -75,10 +75,12 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
-			//require admin page
-			require_once( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'inc/backend.php' );
-			new bwps_backend();
+			//require admin pages
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/admin/common.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/admin/content.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'inc/admin/process.php' );
+			new bwps_admin_content();
+			new bwps_admin_process();
 			
 			//require setup information
 			require_once( plugin_dir_path( __FILE__ ) . 'inc/setup.php' );
