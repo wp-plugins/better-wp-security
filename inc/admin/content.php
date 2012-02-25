@@ -1150,7 +1150,78 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		function systemtweaks_content_3() {
-		
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<input type="hidden" name="bwps_page" value="systemtweaks_2" />
+			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
+				<table class="form-table">
+					<tr>
+						<td scope="row" colspan="2">
+							<h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
+						</td>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_generator"><?php _e( 'Remove Wordpress Generator Meta Tag', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $options['st_generator'] ); ?> />
+							<p><?php _e( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_manifest"><?php _e( 'Remove wlwmanifest header', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $options['st_manifest'] ); ?> />
+							<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $options['st_edituri'] ); ?> />
+							<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" colspan="2">
+							<h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
+						</td>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_themenot"><?php _e( 'Hide Theme Update Notifications', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $options['st_themenot'] ); ?> />
+							<p><?php _e( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_pluginnot"><?php _e( 'Hide Plugin Update Notifications', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $options['st_pluginnot'] ); ?> />
+							<p><?php _e( 'Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "st_corenot"><?php _e( 'Hide Core Update Notifications', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $options['st_corenot'] ); ?> />
+							<p><?php _e( 'Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+			</form>
+			<?php
 		}
 	
 	}

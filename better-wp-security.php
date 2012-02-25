@@ -68,7 +68,13 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_ht_files'			=> '0',
 					'st_ht_browsing'		=> '0',
 					'st_ht_request'			=> '0',
-					'st_ht_query'			=> '0'
+					'st_ht_query'			=> '0',
+					'st_generator'			=> '0',
+					'st_manifest'			=> '0',
+					'st_edituri'			=> '0',
+					'st_themenot'			=> '0',
+					'st_pluginnot'			=> '0',
+					'st_corenot'			=> '0'
 				)
 			)
 		);

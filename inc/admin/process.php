@@ -855,6 +855,25 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 		function systemtweaks_process_2() {
 		
+			$errorHandler = __( 'Settings Saved', $this->hook );
+			
+			$options = get_option( $this->primarysettings ); //load the options
+			
+			$options['st_generator'] = ( $_POST['st_generator'] == 1 ? 1 : 0 );
+			$options['st_manifest'] = ( $_POST['st_manifest'] == 1 ? 1 : 0 );
+			$options['st_edituri'] = ( $_POST['st_edituri'] == 1 ? 1 : 0 );
+			$options['st_themenot'] = ( $_POST['st_themenot'] == 1 ? 1 : 0 );
+			$options['st_pluginnot'] = ( $_POST['st_pluginnot'] == 1 ? 1 : 0 );
+			$options['st_corenot'] = ( $_POST['st_corenot'] == 1 ? 1 : 0 );
+			
+			if ( ! is_wp_error( $errorHandler ) ) {
+			
+				update_option( $this->primarysettings, $options );
+				
+			}
+						
+			$this-> showmessages( $errorHandler );
+		
 		}
 	
 	}
