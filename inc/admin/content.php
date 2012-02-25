@@ -4,6 +4,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 	class bwps_admin_content extends bwps_admin_common {
 	
+		/**
+		 * Registers all WordPress admin menu items
+		 *
+		 **/
 		function register_settings_page() {
 		
 			add_menu_page(
@@ -124,10 +128,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 		}	
 		
+		/**
+		 * Registers content blocks for dashboard page
+		 *
+		 **/
 		function admin_dashboard() {
 			
 		}
 		
+		/**
+		 * Registers content blocks for change admin user page
+		 *
+		 **/
 		function admin_adminuser() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change Admin User', $this->hook ),
 				array(
@@ -137,6 +149,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for away mode page
+		 *
+		 **/
 		function admin_awaymode() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Administor Away Mode', $this->hook ),
 				array(
@@ -147,6 +163,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for ban hosts page
+		 *
+		 **/
 		function admin_banhosts() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Ban Hosts', $this->hook ),
 				array(
@@ -156,6 +176,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for content directory page
+		 *
+		 **/
 		function admin_contentdirectory() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change wp-content Directory', $this->hook ),
 				array(
@@ -165,6 +189,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for database backup page
+		 *
+		 **/
 		function admin_databasebackup() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Backup WordPress Database', $this->hook ),
 				array(
@@ -176,6 +204,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for database prefix page
+		 *
+		 **/
 		function admin_databaseprefix() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change Database Prefix', $this->hook ),
 				array(
@@ -185,6 +217,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for hide backend page
+		 *
+		 **/
 		function admin_hidebackend() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Hide WordPress Backend', $this->hook ),
 				array(
@@ -195,6 +231,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for intrusion detection page
+		 *
+		 **/
 		function admin_intrusiondetection() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Intrusion Detection', $this->hook ),
 				array(
@@ -204,6 +244,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for login limits page
+		 *
+		 **/
 		function admin_loginlimits() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Limit Login Attempts', $this->hook ),
 				array(
@@ -213,6 +257,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for system tweaks page
+		 *
+		 **/
 		function admin_systemtweaks() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Various Security Tweaks', $this->hook ),
 				array(
@@ -224,6 +272,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 		
+		/**
+		 * Registers content blocks for view logs page
+		 *
+		 **/
 		function admin_logs() {
 			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Better WP Security Logs', $this->hook ),
 				array(
@@ -235,6 +287,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 		}
 	
+		/**
+		 * Intro content for change admin user page
+		 *
+		 **/
 		function adminuser_content_1() {
 			?>
 			<p><?php _e( 'By default WordPress initially creates a username with the username of "admin." This is insecure as this user has full rights to your WordPress system and a potential hacker already knows that it is there. All an attacker would need to do at that point is guess the password. Changing this username will force a potential attacker to have to guess both your username and your password which makes some attacks significantly more difficult.', $this->hook ); ?></p>
@@ -242,6 +298,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for change andmin user page
+		 *
+		 **/
 		function adminuser_content_2() {
 			if ( $this->user_exists( 'admin' ) ) { //only show form if user 'admin' exists
 				?>
@@ -270,6 +330,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			}
 		}
 		
+		/**
+		 * Intro content for away mode page
+		 *
+		 **/
 		function awaymode_content_1() {
 			?>
 			<p><?php _e( 'As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->hook ); ?></p>
@@ -277,6 +341,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for away mode page
+		 *
+		 **/
 		function awaymode_content_2() {
 			?>
 			<form method="post" action="">
@@ -284,6 +352,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="awaymode_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php 
+				//get saved options
 				$cDate = strtotime( date( 'n/j/y 12:00 \a\m', time() ) );
 				$sTime = $options['am_starttime'];
 				$eTime = $options['am_endtime'];
@@ -297,6 +366,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$esdisplay = date( 'a', $eTime );
 				
 				if ( $options['am_enabled'] == 1 && $eDate > $cDate ) {	
+				
 					$smdisplay = date( 'n', $sDate );
 					$sddisplay = date( 'j', $sDate );
 					$sydisplay = date( 'Y', $sDate );
@@ -306,6 +376,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					$eydisplay = date( 'Y', $eDate );
 					
 				} else {
+				
 					$sDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() + 86400) ) );
 					$eDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() + ( 86400 * 2 ) ) ) );
 					$smdisplay = date( 'n', $sDate );
@@ -315,6 +386,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					$emdisplay = date( 'n', $eDate );
 					$eddisplay = date( 'j', $eDate );
 					$eydisplay = date( 'Y', $eDate );
+					
 				}
 			?>
 				<table class="form-table">
@@ -344,7 +416,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<select name="am_startmonth" id="am_startdate">
 								<?php
-									for ( $i = 1; $i <= 12; $i++ ) {
+									for ( $i = 1; $i <= 12; $i++ ) { //determine default
 										if ( $smdisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -356,7 +428,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select> 
 							<select name="am_startday">
 								<?php
-									for ( $i = 1; $i <= 31; $i++ ) {
+									for ( $i = 1; $i <= 31; $i++ ) { //determine default
 										if ( $sddisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -368,7 +440,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select>, 
 							<select name="am_startyear">
 								<?php
-									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) {
+									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) { //determine default
 										if ( $sydisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -389,7 +461,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<select name="am_endmonth" id="am_enddate">
 								<?php
-									for ( $i = 1; $i <= 12; $i++ ) {
+									for ( $i = 1; $i <= 12; $i++ ) { //determine default
 										if ( $emdisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -401,7 +473,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select> 
 							<select name="am_endday">
 								<?php
-									for ( $i = 1; $i <= 31; $i++ ) {
+									for ( $i = 1; $i <= 31; $i++ ) { //determine default
 										if ( $eddisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -413,7 +485,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select>, 
 							<select name="am_endyear">
 								<?php
-									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) {
+									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) { //determine default
 										if ( $eydisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -434,7 +506,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<select name="am_starthour"  id="am_starttime">
 								<?php
-									for ( $i = 1; $i <= 12; $i++ ) {
+									for ( $i = 1; $i <= 12; $i++ ) { //determine default
 										if ( $shdisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -446,7 +518,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select> : 
 							<select name="am_startmin">
 								<?php
-									for ( $i = 0; $i < 60; $i++ ) {
+									for ( $i = 0; $i < 60; $i++ ) { //determine default
 										if ( $sidisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -476,7 +548,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<select name="am_endhour"  id="am_endtime">
 								<?php
-									for ( $i = 1; $i <= 12; $i++ ) {
+									for ( $i = 1; $i <= 12; $i++ ) {//determine default
 										if ( $ehdisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -488,7 +560,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</select> : 
 							<select name="am_endmin">
 								<?php
-									for ( $i = 0; $i < 60; $i++ ) {
+									for ( $i = 0; $i < 60; $i++ ) { //determine default
 										if ( $eidisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -517,19 +589,29 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Selection summary block for away mode page
+		 *
+		 **/
 		function awaymode_content_3() {
 
 			$options = get_option( $this->primarysettings ); //use settings fields 
 			
+			//format times for display
 			if ( $options['am_type'] == 1 ) {
+			
 				$freq = ' <strong><em>' . __( 'every day' ) . '</em></strong>';
 				$stime = '<strong><em>' . date( 'g:i a', $options['am_starttime'] ) . '</em></strong>';
 				$etime = '<strong><em>' . date( 'g:i a', $options['am_endtime'] ) . '</em></strong>';
+				
 			} else {
+			
 				$freq = '';
 				$stime = '<strong><em>' . date( 'l, F jS, Y', $options['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $options['am_starttime'] ) . '</em></strong>';
 				$etime = '<strong><em>' . date( 'l, F jS, Y', $options['am_enddate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $options['am_endtime'] ) . '</em></strong>';
+				
 			}
+			
 			if ( $options['am_enabled'] == 1 ) {
 				?>
 				<p style="font-size: 150%; text-align: center;"><?php _e( 'The backend (administrative section) of this site will be unavailable', $this->hook ); ?><?php echo $freq; ?> <?php _e( 'from', $this->hook ); ?> <?php echo $stime; ?> <?php _e( 'until', $this->hook ); ?> <?php echo $etime; ?>.</p>
@@ -539,6 +621,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			}	
 		}
 		
+		/**
+		 * Intro block for ban hosts page
+		 *
+		 **/
 		function banhosts_content_1() {
 			?>
 			<p><?php _e( 'This feature allows you to ban hosts from your site completely using individual or groups of IP addresses without having to manage any configuration of your server. Any IP found in the list below will not be allowed any access to your site.', $this->hook ); ?></p>
@@ -546,6 +632,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for ban hosts page
+		 *
+		 **/
 		function banhosts_content_2() {
 			?>
 			<form method="post" action="">
@@ -585,6 +675,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Intro block for change content directory page 
+		 *
+		 **/
 		function contentdirectory_content_1() {
 			?>
 			<p><?php _e( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', $this->hook ); ?></p>
@@ -594,6 +688,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for change content directory page
+		 *
+		 **/
 		function contentdirectory_content_2() {
 			if ( ! isset( $_POST['bwps_page'] ) && strpos( WP_CONTENT_DIR, 'wp-content' ) ) { //only show form if user the content directory hasn't already been changed
 				?>
@@ -629,12 +727,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			}
 		}
 		
+		/**
+		 * Intro block for database backup page
+		 *
+		 **/
 		function databasebackup_content_1() {
 			?>
 			<p><?php _e( 'While this plugin goes a long way to helping secure your website nothing can give you a 100% guarantee that your site won\'t be the victim of an attack. When something goes wrong one of the easiest ways of getting your site back is to restore the database from a backup and replace the files with fresh ones. Use the button below to create a full backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', $this->hook ); ?></p>
 			<?php		
 		}
 		
+		/**
+		 * Spot backup form for database backup page
+		 *
+		 **/
 		function databasebackup_content_2() {
 			?>
 			<form method="post" action="">
@@ -646,6 +752,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}	
 		
+		/**
+		 * Options form for database backup page
+		 *
+		 **/
 		function databasebackup_content_3() {
 			?>
 			<form method="post" action="">
@@ -699,13 +809,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Backup location information for database backup page
+		 *
+		 **/
 		function databasebackup_content_4() {
 			$options = get_option( $this->primarysettings );
-			if ( $options['backup_email'] == 1 ) {
+			if ( $options['backup_email'] == 1 ) { //emailing so let them know
 				?>
 				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . get_option( 'admin_email' ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
 				<?php
-			} else {
+			} else { //saving to disk so let them know where
 				?>
 				<p><?php _e( 'Please note that for security backups are not available for direct download. You will need to go to ', $this->hook ); ?></p>
 				<p><strong><em><?php echo BWPS_PP . 'lib/phpmysqlautobackup/backups'; ?></em></strong></p>
@@ -713,7 +827,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php
 			}
 		}
-			
+		
+		/**
+		 * Intro box for change database prefix page
+		 *
+		 **/
 		function databaseprefix_content_1() {
 			?>
 			<p><?php _e( 'By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', $this->hook ); ?></p>
@@ -722,10 +840,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for change database prefix page
+		 *
+		 **/
 		function databaseprefix_content_2() {
 			global $wpdb;
 			?>
-			<?php if ( $wpdb->base_prefix == 'wp_' ) { ?>
+			<?php if ( $wpdb->base_prefix == 'wp_' ) { //using default table prefix ?>
 				<p><strong><?php _e( 'Your database is using the default table prefix', $this->hook ); ?> <em>wp_</em>. <?php _e( 'You should change this.', $this->hook ); ?></strong></p>
 			<?php } else { ?>
 				<p><?php _e( 'Your current database table prefix is', $this->hook ); ?> <strong><em><?php echo $wpdb->base_prefix; ?></em></strong></p>
@@ -739,6 +861,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Intro block for hide backend page
+		 *
+		 **/
 		function hidebackend_content_1() {
 			?>
 			<p><?php _e('The "hide backend" feature changes the URL from which you can access your WordPress backend thereby further obscuring your site to potential attackers.', $this->hook); ?></p>
@@ -746,9 +872,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Options form for hide backend page
+		 *
+		 **/
 		function hidebackend_content_2() {
 			?>
-			<?php if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) { ?>
+			<?php if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) { //don't display form if permalinks are off ?>
 				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="/wp-admin/options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
@@ -799,6 +929,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Key information for hide backend page
+		 *
+		 **/
 		function hidebackend_content_3() {
 			$options = get_option( $this->primarysettings );
 			?>
@@ -807,12 +941,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Intro form for intrusion detection page
+		 *
+		 **/
 		function intrusiondetection_content_1() {
 			?>
 			<p><?php _e( 'Currently intrusion detection looks only at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', $this->hook ); ?></p>
 			<?php
 		}
 		
+		/**
+		 * Options form for intrusion detection page
+		 *
+		 **/
 		function intrusiondetection_content_2() {
 			?>
 			<form method="post" action="">
@@ -882,19 +1024,26 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</em></ul>
 						</td>
 					</tr>
-					
 				</table>
 				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
 			</form>
 			<?php
 		}
 		
+		/**
+		 * Intro block for login limits page
+		 *
+		 **/
 		function loginlimits_content_1() {
 			?>
 			<p><?php _e( 'If one had unlimited time and wanted to try an unlimited number of password combimations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try agin. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshhold has been reached.', $this->hook ); ?></p>
 			<?php	
 		}
 		
+		/**
+		 * Options form for login limits page
+		 *
+		 **/
 		function loginlimits_content_2() {
 			?>
 			<form method="post" action="">
@@ -962,12 +1111,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Intro block for view logs page
+		 *
+		 **/
 		function logs_content_1() {
 			?>
 			<p><?php _e( 'This page contains the logs generated by Better WP Security, current lockouts (which can be cleared here) and a way to cleanup the logs to save space on the server and reduce CPU load. Please note, you must manually clear these logs, they will not do so automatically. I highly recommend you do so regularly to improve performance which can otherwise be slowed if the system has to search through large log-files on a regular basis.', $this->hook ); ?></p>
 			<?php
 		}
 		
+		/**
+		 * Clear logs form for view logs page
+		 *
+		 **/
 		function logs_content_2() {
 			global $wpdb;
 			?>
@@ -975,7 +1132,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
 			<input type="hidden" name="bwps_page" value="log_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
-			<?php 
+			<?php //get database record counts
 				$countlogin = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
 				$count404 = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . (time() - ( $options['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
 				$countlockout = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
@@ -1003,6 +1160,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Active lockouts table and form for view logs page
+		 *
+		 **/
 		function logs_content_3() {
 			global $wpdb;
 			?>
@@ -1010,7 +1171,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
 			<input type="hidden" name="bwps_page" value="log_2" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
-			<?php 
+			<?php //get locked out hosts and users from database
 				$hostLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `host` != 0;", ARRAY_A );
 				$userLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `user` != 0;", ARRAY_A );
 			 ?>
@@ -1026,7 +1187,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $host['id']; ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo $host['host']; ?></strong> - Expires <em><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $host['exptime'] ) ); ?></em></label></li>
 								<?php } ?>
 							</ul>
-							<?php } else { ?>
+							<?php } else { //no host is locked out ?>
 								<p><?php _e( 'Currently no hosts are locked out of this website.', $this->hook ); ?></p>
 							<?php } ?>
 						</td>
@@ -1043,7 +1204,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $user['id']; ?>" id="lo_<?php echo $user['id']; ?>" value="<?php echo $user['id']; ?>" /> <label for="lo_<?php echo $user['id']; ?>"><strong><?php echo $userdata->user_login; ?></strong> - Expires <em><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $user['exptime'] ) ); ?></em></label></li>
 								<?php } ?>
 							</ul>
-							<?php } else { ?>
+							<?php } else { //no user is locked out ?>
 								<p><?php _e( 'Currently no users are locked out of this website.', $this->hook ); ?></p>
 							<?php } ?>
 						</td>
@@ -1054,12 +1215,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * 404 table for view logs page
+		 *
+		 **/
 		function logs_content_4() {
 			global $wpdb;
 			
 			$errors = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;", ARRAY_A );
 			$grouped = array();
-			foreach ( $errors as $error ) {
+			foreach ( $errors as $error ) { //loop through and group 404s
 				if ( isset( $grouped[$error['url']] ) ) {
 					$grouped[$error['url']]['count'] = $grouped[$error['url']]['count'] + 1;
 					$grouped[$error['url']]['last'] = $grouped[$error['url']]['last'] > $error['timestamp'] ? $grouped[$error['url']]['last'] : $error['timestamp'];
@@ -1080,13 +1245,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			?>
 			
 			<?php
-			} else {
+			} else { //the log is empty
 			?>
 				<p><?php _e( 'There are currently no 404 errors in the log', $this->hook ); ?></p>
 			<?php 
 			}
 		}
 		
+		/**
+		 * Intro block for system tweaks page
+		 *
+		 **/
 		function systemtweaks_content_1() {
 			?>
 			<p><?php _e( 'This page contains a number of tweaks that can significantly improve the security of your system.', $this->hook ); ?></p>
@@ -1096,9 +1265,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Rewrite options for system tweaks page
+		 *
+		 **/
 		function systemtweaks_content_2() {
 			?>
-			<?php if ( $this->bwpsserver == 'unsupported' ) { ?>
+			<?php if ( $this->bwpsserver == 'unsupported' ) { //don't diplay options for unsupported server ?> 
 				<p><?php _e( 'Your webserver is unsupported. You must use Apache or NGINX to make use of these rules.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
@@ -1149,6 +1322,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 		}
 		
+		/**
+		 * Other tweaks options form for system tweaks page
+		 *
+	 	 **/
 		function systemtweaks_content_3() {
 			?>
 			<form method="post" action="">

@@ -15,7 +15,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		/**
 		 * Register admin javascripts (only for plugin admin page)
 		 *
-		 */
+		 **/
 		function config_page_scripts() {
 		
 			//make sure we're on the appropriate page
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		/**
 		 * Register admin css styles (only for plugin admin page)
 		 *
-		 */
+		 **/
 		function config_page_styles() {
 		
 			//make sure we're on the appropriate page
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Registers all settings groups defined in main plugin file
 		 *
-		 */
+		 **/
 		function register_settings() {
 			
 			foreach ( $this->settings as $group => $settings ) { //look at each main group
@@ -84,9 +84,9 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * @param object $links Array of WordPress links
 		 * @param string $file String name of current file
-		 * @return object $links Array of WordPress links
+		 * @return object Array of WordPress links
 		 *
-		 */
+		 **/
 		function add_action_link( $links, $file ) {
 			static $this_plugin;
 			
@@ -105,9 +105,9 @@ if ( ! class_exists( 'Bit51' ) ) {
 		/**
 		 * Return URL of options page
 		 *
-		 * @return object '' WordPress admin URL
+		 * @return object WordPress admin URL
 		 *
-		 */
+		 **/
 		function plugin_options_url() {
 		
 			return admin_url('options-general.php?page=' . $this->hook);
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Takes default settings defined in main plugin file and saves them as a WordPress option
 		 *
-		 */
+		 **/
 		function default_settings() {
 		
 			foreach ( $this->settings as $settings ) {
@@ -196,7 +196,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 * 
 		 * Takes care of echoing admin message when appropriate action is called
 		 *
-		 */
+		 **/
 		function dispmessage() {
 		
 			global $bwpssavemessages;
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 * @param string $id css ID for postbox
 		 * @param string $title title to display to user
 		 * @param string $content postbox content
-		 */
+		 **/
 		function postbox( $id, $title, $content ) {
 			?>
 			<div id="<?php echo $id; ?>" class="postbox">
@@ -246,9 +246,9 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * @param string $title Title of page to display to user
 		 * @param object $boxes array of primary content boxes in postbox form
-		 * @param string $icon icon file to display
+		 * @param string $icon[optional] icon file to display
 		 *
-		 */
+		 **/
 		function admin_page( $title, $boxes, $icon = '' ) {
 			?>
 				<div class="wrap">
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Displays standard tech support box in admin sidebar
 		 *
-		 */
+		 **/
 		function support() {
 		
 			$content = __('If you need help getting this plugin or have found a bug please visit our <a href="' . $this->supportpage . '" target="_blank">support forums</a>.', $this->hook);
@@ -304,7 +304,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Displays latest posts from Bit51 in admin page sidebar
 		 *
-		 */
+		 **/
 		function news() {
 		
 			include_once( ABSPATH . WPINC . '/feed.php' ); //load WordPress feed info
@@ -342,7 +342,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Displays bit51 donate box in sidebar of admin pages
 		 *
-		 */
+		 **/
 		function donate() {
 		
 			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or $100!', $this->hook );
@@ -370,7 +370,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Displays Bit51's social links on admin sidebar
 		 *
-		 */
+		 **/
 		function social() {
 		
 			$content = '<ul>';
@@ -394,7 +394,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 * Adds reminder to donate or otherwise support on dashboard
 		 *
-		 */
+		 **/
 		function ask() {
 		
 			global $blog_id; //get the current blog id
