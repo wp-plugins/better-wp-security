@@ -38,8 +38,17 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				} else {
 				
-					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-					$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+					if ( strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) ) <= $cTime ) { 
+				
+						$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
+						$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+						
+					} else {
+					
+						$start = strtotime( date( 'n/j/y', $offsettime - 86400 ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
+						$end = strtotime( date( 'n/j/y', ( $offsettime ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+					
+					}
 					
 				}
 				
