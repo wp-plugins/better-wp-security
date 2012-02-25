@@ -27,17 +27,19 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			$cTime = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() ) ) );
 			
+			$offsettime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
+			
 			if ( $options['am_type'] == 1 ) { //set up for daily
 			
 				if ( $options['am_starttime'] < $options['am_endtime'] ) { //starts and ends on same calendar day
 				
-					$start = strtotime( date( 'n/j/y', time() ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-					$end = strtotime( date( 'n/j/y', time() ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
+					$end = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
 					
 				} else {
 				
-					$start = strtotime( date( 'n/j/y', time() ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-					$end = strtotime( date( 'n/j/y', ( time() + 86400 ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
+					$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
 					
 				}
 				
@@ -330,9 +332,21 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 		function siteinit() {
 		
-			global $current_user, $bwps_login_slug;
+			global $current_user, $bwps_login_slug, $bwps_register_slug;
 			
-			$options = get_option( $this->primarysettings );
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
 			
 			if ( ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) || ( $options['bh_enabled'] == 1 && $this->checklist( $options['bh_banlist'] ) ) ) {
 			
@@ -343,35 +357,48 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			if ( $options['hb_enabled'] == 1 ) {
 			
-				$bwps_login_slug = $options['hb_login'];
+				$bwps_login_slug = '/' . $options['hb_login'];
+				$bwps_register_slug = '/' . $options['hb_register'];
 			
 				//update login urls for display
 				add_filter( 'site_url',  'wplogin_filter', 10, 3 );
 				
-				if (!function_exists('wplogin_filter')) {
+				if ( ! function_exists('wplogin_filter')) {
 				
-					function wplogin_filter( $url, $path, $orig_scheme ) {
+					function wplogin_filter( $url ) {
 	
 						global $bwps_login_slug;
 				
-						$currentFile = $_SERVER["REQUEST_URI"];
-						$parts = Explode('/', $currentFile);
-						$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
-				
-					    if ( ! is_user_logged_in() && ! strpos( $_SERVER["REQUEST_URI"], 'wp-login.php' ) ) {
+					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) {
 					    
-							$old  = array( "/(wp-login\.php)/" );
-							$new  = array( $bwps_login_slug );
-							return preg_replace( $old, $new, $url, 1 );
-							
-						} else {
+							$url = get_site_url(1) . $bwps_login_slug; // your url here
+														
+						}
 						
 							return $url;
-							
-						}
 						
 					}
 					
+				}
+				
+				add_filter( 'site_url', 'change_register_url' );
+				
+				if ( ! function_exists('change_register_url')) {
+				
+					function change_register_url( $url ) {
+				
+						global $bwps_register_slug;
+				
+						if( strpos($url, '?action=register' ) ) {
+				    
+							$url = get_site_url(1) . $bwps_register_slug; // your url here
+				        
+						}
+				        
+						return $url;
+				    
+					}
+				
 				}
 			
 			}

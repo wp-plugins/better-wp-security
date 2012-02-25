@@ -242,7 +242,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				//hide wordpress backend
 				$rules .= "RewriteRule ^" . $login . " " . $dir . "wp-login.php?" . $key . " [R,L]\n" .
 					"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-					"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ [R,L]\n" .
+					"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]\n" .
 					"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]\n" .
 					"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]\n" .
 					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin \n" .
