@@ -21,7 +21,9 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 		
 		//if away mode is currently restricting login return to homepage
 		if ( $bwps->checkaway() ) {
+		
 			wp_redirect( get_option( 'siteurl' ) );
+			
 		}
 	
 		$options = get_option( 'bit51_bwps' );

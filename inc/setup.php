@@ -110,6 +110,35 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			}
 			
 			update_option( $this->plugindata, $options ); //save new plugin data
+			
+			$options = get_option( $this->primarysettings );
+			
+			$lines = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+			
+			foreach ($lines as $line) {
+			
+				if ( strstr( $line, 'DISALLOW_FILE_EDIT' ) && strstr( $line, 'true' ) ) {
+					
+					$options['st_fileedit'] = 1;
+					
+				}
+				
+				if ( strstr( $line, 'FORCE_SSL_LOGIN' ) && strstr( $line, 'true' ) ) {
+				
+					$option['st_forceloginssl'] = 1;
+					
+				}
+				
+				if ( strstr( $line, 'FORCE_SSL_ADMIN' ) && strstr( $line, 'true' ) ) {
+				
+					$option['st_forceadminssl'] = 1;
+					
+				}
+				
+			}
+			
+			update_option( $this->primarysettings, $options ); //save new options data
+			
 		}
 
 		function update_execute() {

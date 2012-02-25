@@ -231,6 +231,24 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
+			if ( $options['st_ht_files'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]\n\n" .
+						"RewriteRule !^wp-includes/ - [S=3]\n\n" .
+						"RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]\n\n" .
+						"RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]\n\n" .
+						"RewriteRule ^wp-includes/theme-compat/ - [F,L]\n\n";
+					
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+				
+			}
+			
 			if ( $options['st_ht_request'] == 1 ) {
 			
 				if ( $this->bwpsserver == 'apache' ) {
@@ -288,6 +306,18 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				//get the domain without subdomain
 				$reDomain = $this->topdomain( get_option( 'siteurl' ) );
+				
+				$siteurl = explode( '/', get_option( 'siteurl' ) );
+
+				if ( isset ( $siteurl[3] ) ) {
+
+					$dir = '/' . $siteurl[3] . '/';
+       
+				} else {
+
+					$dir = '/';
+
+				}
 			
 				//hide wordpress backend
 				if ( $this->bwpsserver == 'apache' ) {

@@ -74,7 +74,15 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_edituri'			=> '0',
 					'st_themenot'			=> '0',
 					'st_pluginnot'			=> '0',
-					'st_corenot'			=> '0'
+					'st_corenot'			=> '0',
+					'st_enablepassword'		=> '0',
+					'st_passrole'			=> 'administrator',
+					'st_loginerror'			=> '0',
+					'st_randomversion'		=> '0',
+					'st_longurl'			=> '0',
+					'st_fileedit'			=> '0',
+					'st_forceloginssl'		=> '0',
+					'st_forceadminssl'		=> '0'
 				)
 			)
 		);

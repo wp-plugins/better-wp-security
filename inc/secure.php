@@ -60,7 +60,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 				
 			if ( $options['am_enabled'] == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
-			
+
 				return true; //time restriction is current
 				
 			}
@@ -414,12 +414,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 	
 						global $bwps_login_slug;
 				
-					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) {
+					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) {
 					    
 							$url = get_site_url(1) . $bwps_login_slug; // your url here
 														
 						}
-						
+							
 							return $url;
 						
 					}
@@ -436,7 +436,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 						if( strpos($url, '?action=register' ) ) {
 				    
-							$url = get_site_url(1) . $bwps_register_slug; // your url here
+							//$url = get_site_url(1) . $bwps_register_slug; // your url here
 				        
 						}
 				        
