@@ -64,7 +64,11 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'id_checkinterval' 		=> '5',
 					'id_threshold' 			=> '20',
 					'id_banperiod' 			=> '15',
-					'id_whitelist' 			=> ''
+					'id_whitelist' 			=> '',
+					'st_ht_files'			=> '0',
+					'st_ht_browsing'		=> '0',
+					'st_ht_request'			=> '0',
+					'st_ht_query'			=> '0'
 				)
 			)
 		);

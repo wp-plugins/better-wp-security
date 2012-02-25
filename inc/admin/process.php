@@ -47,6 +47,12 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'log_2':
 					$this->log_process_2();
 					break;
+				case 'systemtweaks_1':
+					$this->systemtweaks_process_1();
+					break;
+				case 'systemtweaks_2':
+					$this->systemtweaks_process_2();
+					break;
 			}
 		}
 		
@@ -523,7 +529,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$options = get_option( $this->primarysettings ); //load the options
 			
-			if ( get_option('permalink_structure') == '' && ! is_multisite() ) {
+			if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -543,8 +549,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
+			
 				update_option( $this->primarysettings, $options );
-				$this->writehtaccess();
+				
+				if ($this->bwpsserver == 'apache') {
+				
+					$this->writehtaccess();
+					
+				} else {
+				
+					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+				
+				}
+				
 			}
 						
 			$this-> showmessages( $errorHandler );
@@ -803,6 +820,41 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$this-> showmessages( $errorHandler );
 			
+		}
+		
+		function systemtweaks_process_1() {
+		
+			$errorHandler = __( 'Settings Saved', $this->hook );
+			
+			$options = get_option( $this->primarysettings ); //load the options
+			
+			$options['st_ht_files'] = ( $_POST['st_ht_files'] == 1 ? 1 : 0 );
+			$options['st_ht_browsing'] = ( $_POST['st_ht_browsing'] == 1 ? 1 : 0 );
+			$options['st_ht_request'] = ( $_POST['st_ht_request'] == 1 ? 1 : 0 );
+			$options['st_ht_query'] = ( $_POST['st_ht_query'] == 1 ? 1 : 0 );
+			
+			if ( ! is_wp_error( $errorHandler ) ) {
+			
+				update_option( $this->primarysettings, $options );
+				
+				if ($this->bwpsserver == 'apache') {
+				
+					$this->writehtaccess();
+					
+				} else {
+				
+					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+				
+				}
+				
+			}
+						
+			$this-> showmessages( $errorHandler );
+			
+		}
+		
+		function systemtweaks_process_2() {
+		
 		}
 	
 	}

@@ -214,7 +214,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		function admin_systemtweaks() {
-		
+			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Various Security Tweaks', $this->hook ),
+				array(
+					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
+					array( __( 'Rewrite Tweaks', $this->hook ), 'systemtweaks_content_2' ), //systemtweaks htaccess (or other rewrite) options
+					array( __( 'Other Tweaks', $this->hook ), 'systemtweaks_content_3' ) //systemtweaks other options
+					
+				)
+			);
 		}
 		
 		function admin_logs() {
@@ -741,55 +748,63 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		
 		function hidebackend_content_2() {
 			?>
-			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
-			<input type="hidden" name="bwps_page" value="hidebackend_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
-				<table class="form-table">
-					<tr valign="top">
-						<th scope="row">
-							<label for "hb_enabled"><?php _e( 'Enable Hide Backend', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $options['hb_enabled'] ); ?> />
-							<p><?php _e( 'Check this box to enable the hide backend.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for="hb_login"><?php _e( 'Login Slug', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input name="hb_login" id="hb_login" value="<?php echo $options['hb_login']; ?>" type="text"><br />
-							<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_login']; ?></span></em>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for="hb_register"><?php _e( 'Register Slug', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input name="hb_register" id="hb_register" value="<?php echo $options['hb_register']; ?>" type="text"><br />
-							<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_register']; ?></span></em>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for="hb_admin"><?php _e( 'Admin Slug', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input name="hb_admin" id="hb_admin" value="<?php echo $options['hb_admin']; ?>" type="text"><br />
-							<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_admin']; ?></span></em>
-						</td>
-					</tr>
-				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
-			</form>
+			<?php if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) { ?>
+				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="/wp-admin/options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
+			<?php } else { ?>
+				<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<input type="hidden" name="bwps_page" value="hidebackend_1" />
+				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row">
+								<label for "hb_enabled"><?php _e( 'Enable Hide Backend', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $options['hb_enabled'] ); ?> />
+								<p><?php _e( 'Check this box to enable the hide backend.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="hb_login"><?php _e( 'Login Slug', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input name="hb_login" id="hb_login" value="<?php echo $options['hb_login']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_login']; ?></span></em>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="hb_register"><?php _e( 'Register Slug', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input name="hb_register" id="hb_register" value="<?php echo $options['hb_register']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_register']; ?></span></em>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="hb_admin"><?php _e( 'Admin Slug', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input name="hb_admin" id="hb_admin" value="<?php echo $options['hb_admin']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo 	$options['hb_admin']; ?></span></em>
+							</td>
+						</tr>
+					</table>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				</form>
+			<?php } ?>
 			<?php
 		}
 		
 		function hidebackend_content_3() {
-		
+			$options = get_option( $this->primarysettings );
+			?>
+			<p><?php _e( 'Keep this key in a safe place. You can use it to manually fix plugins that link to wp-login.php. Once turning on this feature and plugins linking to wp-login.php will fail without adding ?[the key]& after wp-login.php. 99% of users will not need this key. The only place you would ever use it is to fix a bad login link in the code of a plugin or theme.', $this->hook ); ?></p>
+			<p style="font-weight: bold; text-align: center;"><?php echo $options['hb_key']; ?></p>
+			<?php
 		}
 		
 		function intrusiondetection_content_1() {
@@ -1070,6 +1085,72 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( 'There are currently no 404 errors in the log', $this->hook ); ?></p>
 			<?php 
 			}
+		}
+		
+		function systemtweaks_content_1() {
+			?>
+			<p><?php _e( 'This page contains a number of tweaks that can significantly improve the security of your system.', $this->hook ); ?></p>
+			<p><?php _e( 'Rewrite tweaks make use of rewrite rules and, in the case of Apache, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration.', $this->hook ); ?></p>
+			<p><?php _e( 'The other in some cases, make use of editing your wp-config.php file. Those that do can be manually turned off by reverting the changes that file.', $this->hook ); ?></p>
+			<p><?php _e( 'Be advsied, some of these tweaks may in fact break other plugins and themes that make use of techniques that are often seen in practice as suspicious. That said, I highly recommend turning these on one-by-one and don\'t worry if you cannot use them all.', $this->hook ); ?></p>
+			<?php
+		}
+		
+		function systemtweaks_content_2() {
+			?>
+			<?php if ( $this->bwpsserver == 'unsupported' ) { ?>
+				<p><?php _e( 'Your webserver is unsupported. You must use Apache or NGINX to make use of these rules.', $this->hook ); ?></p>
+			<?php } else { ?>
+				<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<input type="hidden" name="bwps_page" value="systemtweaks_1" />
+				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_ht_files"><?php _e( 'Protect Files', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_ht_files" name="st_ht_files" type="checkbox" value="1" <?php checked( '1', $options['st_ht_files'] ); ?> />
+								<p><?php _e( 'Prevent public access to readme.html, wp-config.php, install.php, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $options['st_ht_browsing'] ); ?> />
+								<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_ht_request"><?php _e( 'Filter Request Methods', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_ht_request" name="st_ht_request" type="checkbox" value="1" <?php checked( '1', $options['st_ht_request'] ); ?> />
+								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_ht_query"><?php _e( 'Filter Suspicious Query Strings', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $options['st_ht_request'] ); ?> />
+								<p><?php _e( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', $this->hook ); ?></p>
+							</td>
+						</tr>
+					</table>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Rewrite Changes', $this->hook ) ?>" /></p>
+				</form>
+			<?php } ?>
+			<?php
+		}
+		
+		function systemtweaks_content_3() {
+		
 		}
 	
 	}

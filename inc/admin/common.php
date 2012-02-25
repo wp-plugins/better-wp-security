@@ -4,7 +4,24 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 
 	abstract class bwps_admin_common extends bit51_bwps {
 	
+		public $bwpsserver;
+	
 		function __construct() {
+		
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+			
+				$this->bwpsserver = 'apache';
+				
+			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) {
+			
+				$this->bwpsserver = 'nginx';
+				
+			} else {
+			
+				$this->bwpsserver = 'unsupported';
+			
+			}
+			
 					
 			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {
 			
@@ -86,6 +103,55 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		function deletehtaccess( $section = 'Better WP Security' ) {
+				
+					$htaccess = ABSPATH . '.htaccess';
+						
+					$markerdata = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+		
+					if ( $markerdata ) { //as long as there are lines in the file
+					
+						$state = true;
+						
+						@chmod( $htaccess, 0644 );
+						
+						if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+							
+							return -1; //we can't write to the file
+							
+						}
+						
+						foreach ( $markerdata as $n => $markerline ) { //for each line in the file
+						
+							if ( strpos( $markerline, '# BEGIN ' . $section ) !== false ) { //if we're at the beginning of the section
+								$state = false;
+							}
+							
+							if ( $state == true ) { //as long as we're not in the section keep writing
+								if ( $n + 1 < count( $markerdata ) ) //make sure to add newline to appropriate lines
+									fwrite( $f, "{$markerline}\n" );
+								else
+									fwrite( $f, "{$markerline}" );
+							}
+							
+							if ( strpos( $markerline, '# END ' . $section ) !== false ) { //see if we're at the end of the section
+								$state = true;
+							}
+							
+						}
+						
+						fclose( $f );
+						
+						@chmod( $htaccess, 0444 );
+						
+						return 1;
+						
+					}
+				
+					return 0; //return false if we can't write the file
+					
+				}
+		
 		function getConfig() {
 		
 			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
@@ -98,6 +164,177 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+		}
+		
+		function getrules() {
+		
+			$options = get_option( $this->primarysettings );
+			
+			$rules = '';
+			
+			if ( $options['st_ht_browsing'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= "Options All -Indexes\n\n";
+				
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+				
+			}
+			
+			if ( $options['st_ht_files'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= 
+						"<files .htaccess>\n" .
+							"Order allow,deny\n" . 
+							"Deny from all\n" .
+						"</files>\n\n" .
+						"<files readme.html>\n" .
+							"Order allow,deny\n" . 
+							"Deny from all\n" .
+						"</files>\n\n" .
+						"<files install.php>\n" .
+							"Order allow,deny\n" . 
+							"Deny from all\n" .
+						"</files>\n\n" .
+						"<files wp-config.php>\n" .
+							"Order allow,deny\n" . 
+							"Deny from all\n" .
+						"</files>\n\n";
+					
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+				
+			}
+			
+			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= "<IfModule mod_rewrite.c>\n" . 
+						"RewriteEngine On\n\n";
+				
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+			
+			}
+			
+			if ( $options['st_ht_request'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]\n" . 
+						"RewriteRule ^(.*)$ - [F,L]\n\n";
+				
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+				
+			}
+			
+			if ( $options['st_ht_query'] == 1 ) {
+			
+				if ( $this->bwpsserver == 'apache' ) {
+				
+					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} http\:  [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} https\:  [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]\n" .  
+						"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
+						"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare).* [NC]\n" . 
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+						"RewriteRule ^(.*)$ - [F,L]\n\n";
+				
+				} else {
+				
+					$rules .= 'NGINX rules';
+				
+				}
+				
+			}
+				
+			if ( $options['hb_enabled'] == 1 ) {
+					
+				//get the slugs
+				$login = $options['hb_login'];
+				$admin = $options['hb_admin'];
+				$register = $options['hb_register'];
+							
+				//generate the key
+				$key = $options['hb_key'];
+					
+				//get the domain without subdomain
+				$reDomain = $this->topdomain( get_option( 'siteurl' ) );
+			
+				//hide wordpress backend
+				if ( $this->bwpsserver == 'apache' ) {
+					
+					$rules .= "RewriteRule ^" . $login . " " . $dir . "wp-login.php?" . $key . " [R,L]\n\n" .
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]\n\n" .
+						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]\n\n" .
+						"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]\n\n" .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin \n" .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php \n" .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . " \n" .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $admin . " \n" .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $register . " \n" .
+						"RewriteCond %{QUERY_STRING} !^" . $key . " \n" .
+						"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
+						"RewriteCond %{QUERY_STRING} !^action=rp\n" . 
+						"RewriteCond %{QUERY_STRING} !^action=register\n" .
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
+						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php not_found [L]\n\n" .
+						"RewriteCond %{QUERY_STRING} ^loggedout=true\n" .
+						"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]\n";
+							
+				} else {
+					
+					$rules .= 'NGINX rules';
+				
+				}
+				
+				if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
+				
+					if ( $this->bwpsserver == 'apache' ) {
+					
+						$rules .= "</IfModule>\n";
+					
+					} else {
+					
+						$rules .= 'NGINX rules';
+					
+					}
+				
+				}
+						
+			}
+				
+			return $rules;
+		
 		}
 		
 		function hidebe_genKey() {	
@@ -117,56 +354,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return $pass;	
 			
 		}
-		
-		function removehtaccess( $section = 'Better WP Security' ) {
-		
-			$htaccess = ABSPATH . '.htaccess';
 				
-			$markerdata = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
-
-			if ( $markerdata ) { //as long as there are lines in the file
-			
-				$state = true;
-				
-				@chmod( $htaccess, 0644 );
-				
-				if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
-					
-					return -1; //we can't write to the file
-					
-				}
-				
-				foreach ( $markerdata as $n => $markerline ) { //for each line in the file
-				
-					if ( strpos( $markerline, '# BEGIN ' . $section ) !== false ) { //if we're at the beginning of the section
-						$state = false;
-					}
-					
-					if ( $state == true ) { //as long as we're not in the section keep writing
-						if ( $n + 1 < count( $markerdata ) ) //make sure to add newline to appropriate lines
-							fwrite( $f, "{$markerline}\n" );
-						else
-							fwrite( $f, "{$markerline}" );
-					}
-					
-					if ( strpos( $markerline, '# END ' . $section ) !== false ) { //see if we're at the end of the section
-						$state = true;
-					}
-					
-				}
-				
-				fclose( $f );
-				
-				@chmod( $htaccess, 0444 );
-				
-				return 1;
-				
-			}
-		
-			return 0; //return false if we can't write the file
-			
-		}
-		
 		function topdomain( $address ) {
 		
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
@@ -202,13 +390,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		
 			global $wp_rewrite;
 			
-			if ( $this->removehtaccess() == -1 ) {
+			if ( $this->deletehtaccess() == -1 ) {
 			
 				return -1; //we can't write to the file
 			
 			}
-			
-			$options = get_option( $this->primarysettings );
 			
 			$htaccess = ABSPATH . '.htaccess';
 			
@@ -222,51 +408,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$dir = '/';
 			
-			}
-			
-			$rules = '';
-			
-			if ( $options['hb_enabled'] == 1 ) {
-				
-				//get the slugs
-				$login = $options['hb_login'];
-				$admin = $options['hb_admin'];
-				$register = $options['hb_register'];
+			}		
 						
-				//generate the key
-				$key = $options['hb_key'];
-				
-				//get the domain without subdomain
-				$reDomain = $this->topdomain( get_option( 'siteurl' ) );
-		
-				//hide wordpress backend
-				$rules .= "RewriteRule ^" . $login . " " . $dir . "wp-login.php?" . $key . " [R,L]\n" .
-					"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-					"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]\n" .
-					"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]\n" .
-					"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]\n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin \n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php \n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . " \n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $admin . " \n" .
-					"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $register . " \n" .
-					"RewriteCond %{QUERY_STRING} !^" . $key . " \n" .
-					"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
-					"RewriteCond %{QUERY_STRING} !^action=rp\n" . 
-					"RewriteCond %{QUERY_STRING} !^action=register\n" .
-					"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-					"RewriteRule ^.*wp-admin/?|^.*wp-login\.php not_found [L]\n" .
-					"\n" .
-					"RewriteCond %{QUERY_STRING} ^loggedout=true\n" .
-					"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]\n";
-					
-			}
-			
 			@chmod( $htaccess, 0644 );
 			
 			$ht = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
 			
-			$bwpsrules = explode( "\n", $rules );
+			$rules = $this->getrules();	
+			
+			$rulesarray = explode( "\n", $rules );
 			
 			if ( $rules == '' ) {
 			
@@ -275,15 +425,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			} else {
 			
-				$open = array(
-					"# BEGIN Better WP Security\n",
-					"RewriteEngine On\n"
-				);
+				$open = array("# BEGIN Better WP Security\n");
 				$close = array("# END Better WP Security\n");
 				
 			}
 			
-			$contents = array_merge( $open, $bwpsrules, $close, $ht );
+			$contents = array_merge( $open, $rulesarray, $close, $ht );
 				 
 			if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
 				
@@ -304,7 +451,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return 1;
 		
 		}
-		
+			
 	}	
 	
 }
