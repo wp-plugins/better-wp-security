@@ -40,7 +40,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//remove rsd link from header if turned on
 			if ( $options['st_edituri'] == 1 ) {
-				remove_action( 'wp_head', 'tweaks_rsd_link' );
+				remove_action( 'wp_head', 'rsd_link' );
 			}
 			
 			//ban extra-long urls if turned on
@@ -59,6 +59,31 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
+			}
+			
+			//require strong passwords if turned on
+			if ( $options['st_enablepassword'] == 1 ) {
+				add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 ); 
+			}
+			
+			//display random number for wordpress version if turned on
+			if ( $options['st_randomversion'] == 1 ) {
+				add_action( 'init', array( &$this, 'randomVersion' ) );
+			}
+			
+			//remove theme update notifications if turned on
+			if ( $options['st_themenot'] == 1 ) {
+				add_action( 'init', array( &$this, 'themeupdates' ) );
+			}
+			
+			//remove plugin update notifications if turned on
+			if ( $options['st_pluginnot'] == 1 ) {
+				add_action( 'init', array( &$this, 'pluginupdates' ) );
+			}
+			
+			//remove core update notifications if turned on
+			if ( $options['st_corenot'] == 1 ) {
+				add_action( 'init', array( &$this, 'coreupdates' ) );
 			}
 		
 		}
@@ -240,6 +265,18 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			} else {
 			
 				return true;
+				
+			}
+			
+		}
+		
+		function coreupdates() {
+		
+			if ( ! is_super_admin() ) {
+			
+				remove_action( 'admin_notices', 'update_nag', 3 );
+				add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+				wp_clear_scheduled_hook( 'wp_version_check' );
 				
 			}
 			
@@ -427,6 +464,77 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		function pluginupdates() {
+			//don't remove for super admins
+			if ( ! is_super_admin() ) {
+			
+				remove_action( 'load-update-core.php', 'wp_update_plugins' );
+				add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
+				wp_clear_scheduled_hook( 'wp_update_plugins' );
+				
+			}
+			
+		}
+		
+		function pwordstrength( $i, $f ) {  
+		
+			$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null; 
+			 
+			if ( strlen( $i ) < 4 )  
+				return $h;  
+				
+			if ( strtolower( $i ) == strtolower( $f ) )  
+				return $e;  
+				
+			if ( preg_match( "/[0-9]/", $i ) )  
+				$d += 10;  
+				
+			if ( preg_match( "/[a-z]/", $i ) )  
+				$d += 26;  
+				
+			if ( preg_match( "/[A-Z]/", $i ) )  
+				$d += 26;  
+				
+			if ( preg_match( "/[^a-zA-Z0-9]/", $i ) )  
+				$d += 31;  
+				
+			$g = log( pow( $d, strlen( $i ) ) );  
+			$c = $g / log( 2 );  
+			
+			if ( $c < 40 )  
+				return $e;  
+				
+			if ( $c < 56 )  
+				return $b;  
+				
+			return $a;  
+			
+		}	  
+		
+		function randomVersion() {
+		
+			global $wp_version;
+		
+			$newVersion = rand( 100,500 );
+		
+			//always show real version to site administrators
+			if ( ! current_user_can( 'manage_options' ) ) {
+			
+				$wp_version = $newVersion;
+				add_filter( 'script_loader_src', array( &$this, 'remove_script_version' ), 15, 1 );
+				add_filter( 'style_loader_src', array( &$this, 	'remove_script_version' ), 15, 1 );
+				
+			}
+			
+		}
+		
+		function remove_script_version( $src ){
+		
+			$parts = explode( '?', $src );
+			return $parts[0];
+			
+		}
+			
 		function siteinit() {
 		
 			global $current_user, $bwps_login_slug, $bwps_register_slug;
@@ -497,12 +605,87 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					}
 				
 				}
-				
-				
 			
 			}
 			
 		}
 		
+		function strongpass( $errors ) {  
+			
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
+				
+			//determine the minimum role for enforcement
+			$minRole = $options['st_passrole'];
+			
+			//all the standard roles and level equivalents
+			$availableRoles = array(
+				"administrator"	=> "8",
+				"editor" 		=> "5",
+				"author" 		=> "2",
+				"contributor" 	=> "1",
+				"subscriber" 	=> "0"
+			);
+				
+			//roles and subroles
+			$rollists = array(
+				"administrator" => array("subscriber", "author", "contributor","editor"),
+				"editor" =>  array("subscriber", "author", "contributor"),
+				"author" =>  array("subscriber", "contributor"),
+				"contributor" =>  array("subscriber"),
+				"subscriber" => array()
+			);
+				
+			$enforce = true;  
+			$args = func_get_args(); 			
+			$userID = $args[2]->ID;  
+			
+			if ( $userID ) {  //if updating an existing user
+			
+				$userInfo = get_userdata( $userID );  
+				
+				if ( $userInfo->user_level < $availableRoles[$minRole] ) {  
+					$enforce = false;  
+				}  
+				
+			} else {  //a new user
+			
+				if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
+					$enforce = false;  
+				}  
+				
+			}  
+				
+			//add to error array if the password does not meet requirements
+			if ( $enforce && !$errors->get_error_data( 'pass' ) && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
+				$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , $this->hook ) );  
+			}  
+
+			return $errors;  
+		}
+		
+		function themeupdates() {
+		
+			if ( ! is_super_admin() ) {
+			
+				remove_action( 'load-update-core.php', 'wp_update_themes' );
+				add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
+				wp_clear_scheduled_hook( 'wp_update_themes' );
+				
+			}
+			
+		}	
+			
 	}
 }

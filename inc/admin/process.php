@@ -424,9 +424,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					
 			if ( is_multisite() ) {
 						
-				$blogs = $wpdb->get_col( "SELECT blog_id FROM `" . $wpdb->blogs . "` WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' ORDER BY blog_id DESC" ); //get list of blog id's
+				$blogs = $wpdb->get_col( "SELECT blog_id FROM `" . $newPrefix . "blogs` WHERE public = '1' AND archived = '0' AND mature = '0' AND spam = '0' ORDER BY blog_id DESC" ); //get list of blog id's
 					
-				if (is_array( $blogs) ) { //make sure there are other blogs to update
+				if ( is_array( $blogs) ) { //make sure there are other blogs to update
 						
 					//update each blog's user_roles option
 					foreach ( $blogs as $blog ) {
@@ -552,7 +552,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $options );
 				
-				if ($this->bwpsserver == 'apache') {
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
 				
 					$this->writehtaccess();
 					
@@ -837,7 +837,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $options );
 				
-				if ($this->bwpsserver == 'apache') {
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
 				
 					$this->writehtaccess();
 					

@@ -162,6 +162,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			$this->deletewpconfig();
 			$this->deletehtaccess();
 			
+			if ( function_exists( 'apc_store' ) ) { 
+				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
+			}
+			
 		}
 
 		function uninstall_execute() {
@@ -183,6 +187,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			//delete plugin information (version, etc)
 			delete_option($this->plugindata);
+			
+			if ( function_exists( 'apc_store' ) ) { 
+				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
+			}
 			
 		}
 		
