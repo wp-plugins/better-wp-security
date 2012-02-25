@@ -865,10 +865,21 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['st_themenot'] = ( $_POST['st_themenot'] == 1 ? 1 : 0 );
 			$options['st_pluginnot'] = ( $_POST['st_pluginnot'] == 1 ? 1 : 0 );
 			$options['st_corenot'] = ( $_POST['st_corenot'] == 1 ? 1 : 0 );
+			$options['st_enablepassword'] = ( $_POST['st_enablepassword'] == 1 ? 1 : 0 );
+			if ( ctype_alpha( wp_strip_all_tags( $_POST['st_passrole'] ) ) ) {
+				$options['st_passrole'] = wp_strip_all_tags( $_POST['st_passrole'] );
+			}
+			$options['st_loginerror'] = ( $_POST['st_loginerror'] == 1 ? 1 : 0 );
+			$options['st_randomversion'] = ( $_POST['st_randomversion'] == 1 ? 1 : 0 );
+			$options['st_longurl'] = ( $_POST['st_longurl'] == 1 ? 1 : 0 );
+			$options['st_fileedit'] = ( $_POST['st_fileedit'] == 1 ? 1 : 0 );
+			$options['st_forceloginssl'] = ( $_POST['st_forceloginssl'] == 1 ? 1 : 0 );
+			$options['st_forceadminssl'] = ( $_POST['st_forceadminssl'] == 1 ? 1 : 0 );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
 				update_option( $this->primarysettings, $options );
+				$this->writewpconfig();
 				
 			}
 						

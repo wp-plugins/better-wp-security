@@ -35,6 +35,7 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 		if ( $options['ll_enabled'] == 1 && $bwps->checklock( $username ) ) {
 
 			$bwps->logevent( '1', $username );
+			
 			return new WP_Error( 'incorrect_password', __( '<strong>ERROR</strong>: We are sorry , your ability to login has been suspended due to too many recent failed login attempts. Please try again later.', $bwps->hook ) );
 			
 		} else {

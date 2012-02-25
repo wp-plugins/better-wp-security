@@ -4,24 +4,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 
 	abstract class bwps_admin_common extends bit51_bwps {
 	
-		public $bwpsserver;
-	
 		function __construct() {
-		
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
-			
-				$this->bwpsserver = 'apache';
-				
-			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) {
-			
-				$this->bwpsserver = 'nginx';
-				
-			} else {
-			
-				$this->bwpsserver = 'unsupported';
-			
-			}
-			
 					
 			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {
 			
@@ -105,52 +88,106 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		
 		function deletehtaccess( $section = 'Better WP Security' ) {
 				
-					$htaccess = ABSPATH . '.htaccess';
+			$htaccess = ABSPATH . '.htaccess';
 						
-					$markerdata = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+			$markerdata = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
 		
-					if ( $markerdata ) { //as long as there are lines in the file
+			if ( $markerdata ) { //as long as there are lines in the file
 					
-						$state = true;
+				$state = true;
 						
-						@chmod( $htaccess, 0644 );
+				@chmod( $htaccess, 0644 );
 						
-						if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+				if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
 							
-							return -1; //we can't write to the file
+					return -1; //we can't write to the file
 							
-						}
+				}
 						
-						foreach ( $markerdata as $n => $markerline ) { //for each line in the file
+				foreach ( $markerdata as $n => $markerline ) { //for each line in the file
 						
-							if ( strpos( $markerline, '# BEGIN ' . $section ) !== false ) { //if we're at the beginning of the section
-								$state = false;
-							}
+					if ( strpos( $markerline, '# BEGIN ' . $section ) !== false ) { //if we're at the beginning of the section
+						$state = false;
+					}
 							
-							if ( $state == true ) { //as long as we're not in the section keep writing
-								if ( $n + 1 < count( $markerdata ) ) //make sure to add newline to appropriate lines
-									fwrite( $f, "{$markerline}\n" );
-								else
-									fwrite( $f, "{$markerline}" );
-							}
+					if ( $state == true ) { //as long as we're not in the section keep writing
+						if ( $n + 1 < count( $markerdata ) ) {//make sure to add newline to appropriate lines
+						
+							fwrite( $f, "{$markerline}\n" );
 							
-							if ( strpos( $markerline, '# END ' . $section ) !== false ) { //see if we're at the end of the section
-								$state = true;
-							}
+						} else {
+						
+							fwrite( $f, "{$markerline}" );
 							
 						}
-						
-						fclose( $f );
-						
-						@chmod( $htaccess, 0444 );
-						
-						return 1;
 						
 					}
-				
-					return 0; //return false if we can't write the file
-					
+							
+					if ( strpos( $markerline, '# END ' . $section ) !== false ) { //see if we're at the end of the section
+						$state = true;
+					}
+							
 				}
+						
+				fclose( $f );
+						
+				@chmod( $htaccess, 0444 );
+						
+				return 1;
+						
+			}
+				
+			return 0; //return false if we can't write the file
+					
+		}
+		
+		function deletewpconfig() {
+		
+			$configfile = $this->getConfig();
+							
+				$lines = explode( "\n", implode( '', file( $configfile ) ) ); //parse each line of file into array
+			
+				if ( $lines ) { //as long as there are lines in the file
+						
+					$state = true;
+							
+					@chmod( $configfile, 0644 );
+							
+					if ( ! $f = @fopen( $configfile, 'w+' ) ) {
+								
+						return -1; //we can't write to the file
+								
+					}
+							
+					foreach ( $lines as $line ) { //for each line in the file
+						
+						if ( ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
+						
+							if ( $n + 1 < count( $lines ) ) {//make sure to add newline to appropriate lines
+							
+								fwrite( $f, "{$line}\n" );
+								
+							} else {
+							
+								fwrite( $f, "{$line}" );
+								
+							}
+						
+						}
+														
+					}
+							
+					fclose( $f );
+							
+					@chmod( $configfile, 0444 );
+							
+					return 1;
+							
+				}
+					
+				return 0; //return false if we can't write the file
+				
+		}
 		
 		function getConfig() {
 		
@@ -168,13 +205,27 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		
 		function getrules() {
 		
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+			
+				$bwpsserver = 'apache';
+				
+			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) {
+			
+				$bwpsserver = 'nginx';
+				
+			} else {
+			
+				$bwpsserver = 'unsupported';
+			
+			}
+		
 			$options = get_option( $this->primarysettings );
 			
 			$rules = '';
 			
 			if ( $options['st_ht_browsing'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= "Options All -Indexes\n\n";
 				
@@ -188,7 +239,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_files'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= 
 						"<files .htaccess>\n" .
@@ -218,7 +269,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= "<IfModule mod_rewrite.c>\n" . 
 						"RewriteEngine On\n\n";
@@ -233,7 +284,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_files'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]\n\n" .
 						"RewriteRule !^wp-includes/ - [S=3]\n\n" .
@@ -251,7 +302,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_request'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]\n" . 
 						"RewriteRule ^(.*)$ - [F,L]\n\n";
@@ -266,7 +317,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_query'] == 1 ) {
 			
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
 						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
@@ -320,7 +371,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				}
 			
 				//hide wordpress backend
-				if ( $this->bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' ) {
 					
 					$rules .= "RewriteRule ^" . $login . " " . $dir . "wp-login.php?" . $key . " [R,L]\n\n" .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
@@ -349,7 +400,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
 				
-					if ( $this->bwpsserver == 'apache' ) {
+					if ( $bwpsserver == 'apache' ) {
 					
 						$rules .= "</IfModule>\n";
 					
@@ -417,8 +468,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		}	
 		
 		function writehtaccess() {
-		
-			global $wp_rewrite;
 			
 			if ( $this->deletehtaccess() == -1 ) {
 			
@@ -476,7 +525,70 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			fclose( $f );
 			
-			//@chmod( $htaccess, 0444 );
+			@chmod( $htaccess, 0444 );
+			
+			return 1;
+		
+		}
+		
+		function writewpconfig() {
+			
+			if ( $this->deletewpconfig() == -1 ) {
+			
+				return -1; //we can't write to the file
+			
+			}
+			
+			$options = get_option( $this->primarysettings );
+			
+			$lines = '';
+			
+			$configfile = $this->getconfig();
+			
+			@chmod( $configfile, 0644 );
+			
+			$config = explode( "\n", implode( '', file( $configfile ) ) ); //parse each line of file into array
+			
+			if ( $options['st_fileedit'] == 1 ) {
+			
+				$lines .= "define('DISALLOW_FILE_EDIT', true);\n";
+			
+			}
+			
+			if ( $options['st_forceloginssl'] == 1 ) {
+			
+				$lines .= "define('FORCE_SSL_LOGIN', true);\n";
+			
+			}
+			
+			if ( $options['st_forceadminssl'] == 1 ) {
+			
+				$lines .= "define('FORCE_SSL_ADMIN', true);\n";
+			
+			}
+			
+			if ( ! $f = @fopen( $configfile, 'w+' ) ) {
+				
+				return -1; //we can't write to the file
+				
+			}
+			
+			
+			foreach ($config as $line) {
+			
+				if ( strstr( $line, "/* That's all, stop editing! Happy blogging. */" ) ) {
+				
+					$line = $lines . $line;
+				
+				}
+				
+				fwrite( $f, "{$line}\n" );
+				
+			}
+			
+			fclose( $f );
+			
+			@chmod( $configfile, 0444 );
 			
 			return 1;
 		

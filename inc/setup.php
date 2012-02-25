@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'bwps_setup' ) ) {
 
-	class bwps_setup extends bit51_bwps {
+	class bwps_setup extends bwps_admin_common {
 
 		function __construct( $case = false ) {
 	
@@ -31,7 +31,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 
 		function on_deactivate() {
 	
-			$devel = true; //set to true to uninstall for development
+			$devel = false; //set to true to uninstall for development
 		
 			if ( $devel ) {
 				$case = 'uninstall';
@@ -113,7 +113,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			$options = get_option( $this->primarysettings );
 			
-			$lines = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+			$lines = explode( "\n", implode( '', file( $this->getconfig() ) ) ); //parse each line of file into array
 			
 			foreach ($lines as $line) {
 			
@@ -139,6 +139,14 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			update_option( $this->primarysettings, $options ); //save new options data
 			
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+			
+				$this->writehtaccess();
+			
+			}
+			
+			$this->writewpconfig();
+			
 		}
 
 		function update_execute() {
@@ -150,6 +158,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			if ( wp_next_scheduled( 'bwps_backup' ) ) {
 				wp_clear_scheduled_hook( 'bwps_backup' );
 			}
+			
+			$this->deletewpconfig();
+			$this->deletehtaccess();
 			
 		}
 

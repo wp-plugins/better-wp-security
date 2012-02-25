@@ -5,9 +5,61 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 	class bwps_secure extends bit51_bwps {
 	
 		function __construct() {
+		
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
 			
 			add_action( 'init', array( &$this, 'siteinit' ) );
 			add_action( 'wp_head', array( &$this,'check404' ) );
+			
+			//remove wp-generator meta tag
+			if ( $options['st_generator'] == 1 ) { 
+				remove_action( 'wp_head', 'wp_generator' );
+			}
+			
+			//remove login error messages if turned on
+			if ( $options['st_loginerror'] == 1 ) {
+				add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
+			}
+			
+			//remove wlmanifest link if turned on
+			if ( $options['st_manifest'] == 1 ) {
+				remove_action( 'wp_head', 'wlwmanifest_link' );
+			}
+			
+			//remove rsd link from header if turned on
+			if ( $options['st_edituri'] == 1 ) {
+				remove_action( 'wp_head', 'tweaks_rsd_link' );
+			}
+			
+			//ban extra-long urls if turned on
+			if ( $options['st_longurl'] == 1 && ! is_admin() ) {
+			
+				if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
+				
+					strpos( $_SERVER['REQUEST_URI'], "eval(" ) ||
+					strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
+					strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
+					strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
+					@header( "HTTP/1.1 414 Request-URI Too Long" );
+					@header( "Status: 414 Request-URI Too Long" );
+					@header( "Connection: Close" );
+					@exit;
+					
+				}
+				
+			}
 		
 		}
 		
@@ -445,6 +497,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					}
 				
 				}
+				
+				
 			
 			}
 			
