@@ -148,7 +148,19 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $wpdb;
 			
-			$options = get_option( $this->primarysettings );
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
 			
 			if ( strlen( $username ) > 0 ) { //if a username was entered check to see if it's locked out
 			
@@ -185,7 +197,19 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $wpdb;
 					
-			$options = get_option( $this->primarysettings );
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
 					
 			$currtime = time();
 					
@@ -270,7 +294,19 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $wpdb;
 			
-			$options = get_option( $this->primarysettings );
+			if ( is_multisite() ) {
+			
+				switch_to_blog(1);
+			
+				$options = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+			}
 			
 			$host = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
 			$username = sanitize_user( $username );

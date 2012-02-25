@@ -51,6 +51,13 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		}
 
 		function activate_execute() {
+		
+			if ( is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
+			
+				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
+			
+			}
+			
 			global $wpdb;
 			
 			$this->default_settings(); //verify and set default options

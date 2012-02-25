@@ -399,7 +399,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		
 			global $blog_id; //get the current blog id
 			
-			if ( is_multisite() && ( ! $blog_id == 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
 				return;
 			}
 			
@@ -416,16 +416,20 @@ if ( ! class_exists( 'Bit51' ) ) {
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
 			if ( ! isset( $options['no-nag'] ) && $options['activatestamp'] < ( time() - 2952000 ) ) {
 			
-				function bit51_plugin_donate_notice(){
+				if ( ! function_exists( 'bit51_plugin_donate_notice' ) ) {
+			
+					function bit51_plugin_donate_notice(){
 				
-					global $plugname;
-					global $plughook;
-					global $plugopts;
+						global $plugname;
+						global $plughook;
+						global $plugopts;
 					
-				    echo '<div class="updated">
+					    echo '<div class="updated">
 				       <p>' . __( 'It looks like you\'ve been enjoying', $plughook ) . ' ' . $plugname . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', $plughook ) . '</p> <p><input type="button" class="button " value="' . __( 'Support This Plugin', $plughook ) . '" onclick="document.location.href=\'?bit51_lets_donate=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Rate it 5★\'s', $plughook) . '" onclick="document.location.href=\'?bit51_lets_rate=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Tell Your Followers', $plughook ) . '" onclick="document.location.href=\'?bit51_lets_tweet=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Don\'t Bug Me Again', $plughook ) . '" onclick="document.location.href=\'?bit51_donate_nag=off&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
-				    </div>';
+					    </div>';
 				    
+					}
+				
 				}
 				
 				add_action( 'admin_notices', 'bit51_plugin_donate_notice' ); //register notification
