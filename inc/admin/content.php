@@ -733,11 +733,59 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		function hidebackend_content_1() {
-		
+			?>
+			<p><?php _e('The "hide backend" feature changes the URL from which you can access your WordPress backend thereby further obscuring your site to potential attackers.', $this->hook); ?></p>
+			<p><?php _e('This feature will need to modify your site\'s .htaccess file if you use the Apache webserver or, if you use NGINX you will need to add the rules manually to your virtualhost configuration. In both cases it requires permalinks to be turned on in your settings to function.', $this->hook); ?></p>
+			<?php
 		}
 		
 		function hidebackend_content_2() {
-		
+			?>
+			<form method="post" action="">
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<input type="hidden" name="bwps_page" value="hidebackend_1" />
+			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "hb_enabled"><?php _e( 'Enable Hide Backend', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $options['hb_enabled'] ); ?> />
+							<p><?php _e( 'Check this box to enable the hide backend.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="hb_login"><?php _e( 'Login Slug', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input name="hb_login" id="hb_login" value="<?php echo $options['hb_login']; ?>" type="text"><br />
+							<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_login']; ?></span></em>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="hb_register"><?php _e( 'Register Slug', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input name="hb_register" id="hb_register" value="<?php echo $options['hb_register']; ?>" type="text"><br />
+							<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_register']; ?></span></em>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="hb_admin"><?php _e( 'Admin Slug', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input name="hb_admin" id="hb_admin" value="<?php echo $options['hb_admin']; ?>" type="text"><br />
+							<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_admin']; ?></span></em>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+			</form>
+			<?php
 		}
 		
 		function hidebackend_content_3() {

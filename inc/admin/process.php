@@ -32,6 +32,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'databaseprefix_1':
 					$this->databaseprefix_process_1();
 					break;
+				case 'hidebackend_1':
+					$this->hidebackend_process_1();
+					break;
 				case 'intrusiondetection_1':
 					$this->intrusiondetection_process_1();
 					break;
@@ -278,7 +281,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$wpconfig = $this->getConfig(); //get the path for the config file
 					
-			chmod( $wpconfig, 0644 ); //make sure the config file is writable
+			@chmod( $wpconfig, 0644 ); //make sure the config file is writable
 					
 			$handle = @fopen( $wpconfig, 'r+' ); //open for reading
 					
@@ -319,7 +322,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				fclose( $handle ); //close the config file
 						
-				chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
 						
 			}
 			
@@ -473,7 +476,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					
 			$wpconfig = $this->getConfig(); //get the path for the config file
 					
-			chmod( $wpconfig, 0644 ); //make sure the config file is writable
+			@chmod( $wpconfig, 0644 ); //make sure the config file is writable
 					
 			$handle = @fopen( $wpconfig, "r+" ); //open for reading
 					
@@ -501,7 +504,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				fclose( $handle ); //close the config file
 						
-				chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
 						
 				$wpdb->base_prefix = $newPrefix; //update the prefix
 						
@@ -513,6 +516,40 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			remove_action( 'network_admin_notices', 'site_admin_notice' );
 					
 		}	
+		
+		function hidebackend_process_1() {
+		
+			$errorHandler = __( 'Settings Saved', $this->hook );
+			
+			$options = get_option( $this->primarysettings ); //load the options
+			
+			if ( get_option('permalink_structure') == '' && ! is_multisite() ) {
+			
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+								
+				$errorHandler->add( '2', __( 'You must enable permalinks in your WordPress settings for this feature to work.', $this->hook ) );
+			
+			}
+			
+			$options['hb_enabled'] = ( $_POST['hb_enabled'] == 1 ? 1 : 0 );
+			$options['hb_login'] = sanitize_title( esc_html__( $_POST['hb_login'] ) );
+			$options['hb_admin'] = sanitize_title( esc_html__( $_POST['hb_admin'] ) );
+			$options['hb_register'] = sanitize_title( esc_html__( $_POST['hb_register'] ) );
+			
+			if ( $options['hb_key'] == '' ) {
+				$options['hb_key'] = $this->hidebe_genKey();
+			}
+			
+			if ( ! is_wp_error( $errorHandler ) ) {
+				update_option( $this->primarysettings, $options );
+				$this->writehtaccess();
+			}
+						
+			$this-> showmessages( $errorHandler );
+		
+		}
 		
 		function intrusiondetection_process_1() {
 		

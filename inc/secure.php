@@ -330,7 +330,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 		function siteinit() {
 		
-			global $current_user;
+			global $current_user, $bwps_login_slug;
 			
 			$options = get_option( $this->primarysettings );
 			
@@ -339,6 +339,41 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				wp_clear_auth_cookie();
 				die( __( 'error', $this->hook ) );
 				
+			}
+			
+			if ( $options['hb_enabled'] == 1 ) {
+			
+				$bwps_login_slug = $options['hb_login'];
+			
+				//update login urls for display
+				add_filter( 'site_url',  'wplogin_filter', 10, 3 );
+				
+				if (!function_exists('wplogin_filter')) {
+				
+					function wplogin_filter( $url, $path, $orig_scheme ) {
+	
+						global $bwps_login_slug;
+				
+						$currentFile = $_SERVER["REQUEST_URI"];
+						$parts = Explode('/', $currentFile);
+						$currentFile = substr($parts[1], 0, strpos($parts[1], '?'));
+				
+					    if ( ! is_user_logged_in() && ! strpos( $_SERVER["REQUEST_URI"], 'wp-login.php' ) ) {
+					    
+							$old  = array( "/(wp-login\.php)/" );
+							$new  = array( $bwps_login_slug );
+							return preg_replace( $old, $new, $url, 1 );
+							
+						} else {
+						
+							return $url;
+							
+						}
+						
+					}
+					
+				}
+			
 			}
 			
 		}
