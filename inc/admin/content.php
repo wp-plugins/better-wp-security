@@ -359,31 +359,126 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $isOn == 1 && $role == 'subscriber' ) { ?>
 						<span style="color: green;"><?php _e( 'You are enforcing strong passwords for all users.', $this-> hook ); ?></span>
 					<?php } elseif ( $isOn == 1 ) { ?>
-						<span style="color: orange;"><?php _e( 'You are enforcing strong passwords, but not for all users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix', $this-> hook ); ?></a>.</span>					
+						<span style="color: orange;"><?php _e( 'You are enforcing strong passwords, but not for all users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'You are not enforcing strong passwords.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix', $this-> hook ); ?></a>.</span>
+						<span style="color: red;"><?php _e( 'You are not enforcing strong passwords.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php $hcount = intval( $options['st_manifest'] ) + intval( $options['st_generator'] ) + intval( $options['st_edituri'] ); ?>
+					<?php if ( $hcount == 3 ) { ?>
+						<span style="color: green;"><?php _e( 'Your Wordpress header is revealing as little information as possible.', $this-> hook ); ?></span>
+					<?php } elseif ( $hcount > 0 ) { ?>
+						<span style="color: orange;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Your Wordpress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php $hcount = intval( $options['st_themenot'] ) + intval( $options['st_pluginnot'] ) + intval( $options['st_corenot'] ); ?>
+					<?php if ( $hcount == 3 ) { ?>
+						<span style="color: green;"><?php _e( 'Non-administrators cannot see available updates.', $this-> hook ); ?></span>
+					<?php } elseif ( $hcount > 0 ) { ?>
+						<span style="color: orange;"><?php _e( 'Non-administrators can see some updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Non-administrators can see all updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
 					<?php $adminUser = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='admin';" ); ?>
 					<?php if ( $adminUser =="admin" ) { ?>
-						<span style="color: red;"><?php _e( 'The <em>admin</em> user still exists.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-adminuser"><?php _e( 'Click here to rename admin', $this-> hook ); ?></a>.</span>
+						<span style="color: red;"><?php _e( 'The <em>admin</em> user still exists.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-adminuser"><?php _e( 'Click here to rename admin.', $this-> hook ); ?></a></span>
 					<?php } else { ?>
 						<span style="color: green;"><?php _e( 'The <em>admin</em> user has been removed.', $this-> hook ); ?></span>
 					<?php } ?>
 				</li>
 				<li>
 					<?php if ( $wpdb->base_prefix == 'wp_' ) { ?>
-						<span style="color: red;"><?php _e( 'Your table prefix should not be ', $this->hook ); ?><em>wp_</em>. <a href="admin.php?page=better_wp_security-databaseprefix"><?php _e( 'Click here to rename it', $this->hook ); ?></a>.</span>
+						<span style="color: red;"><?php _e( 'Your table prefix should not be ', $this->hook ); ?><em>wp_</em>. <a href="admin.php?page=better_wp_security-databaseprefix"><?php _e( 'Click here to rename it.', $this->hook ); ?></a></span>
 					<?php } else { ?>
 						<span style="color: green;"><?php echo __( 'Your table prefix is', $this->hook ) . ' ' . $wpdb->base_prefix; ?></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) { ?>
-						<span style="color: green;"><?php _e( 'You have renamed the wp-content directory of your site.', $this->hook ); ?>. </span>
+					<?php if ( $options['backup_enabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'You have scheduled regular backups of your WordPress database.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'You should rename the wp-content directory of your site.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-contentdirectory"><?php _e( 'Click here to do so', $this->hook ); ?></a>.</span>
+						<span style="color: orange;"><?php _e( 'You are not scheduling regular backups of your WordPress database.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-databasebackup"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['am_enabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your Wordpress admin area is not available when you will not be needing it.', $this->hook ); ?>. </span>
+					<?php } else { ?>
+						<span style="color: orange;"><?php _e( 'Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?', $this->hook ); ?> <a href="admin.php?page=better_wp_security-awaymode"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['ll_enabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your login area is protected from brute force attacks.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Your login area is not protected from brute force attacks.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-loginlimits"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['hb_enabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your Wordpress admin area is hidden.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'Your Wordpress admin area is not hidden.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-hidebackend"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php $hcount = intval( $options['st_ht_files'] ) + intval( $options['st_ht_browsing'] ) + intval( $options['st_ht_request'] ) + intval( $options['st_ht_query'] ); ?>
+					<?php if ( $hcount == 4 ) { ?>
+						<span style="color: green;"><?php _e( 'Your .htaccess file is fully secured.', $this-> hook ); ?></span>
+					<?php } elseif ( $hcount > 0 ) { ?>
+						<span style="color: blue;"><?php _e( 'Your .htaccess file is partially secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Your .htaccess file is NOT secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['id_enabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your installation is actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Your installation is not actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['st_longurl'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your installation does not accept long URLs.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-contentdirectory"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['st_fileedit'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'You are not allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $options['st_randomversion'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Version information is obscured to all non admin users.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'Users may still be able to get version information from various plugins and themes.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) { ?>
+						<span style="color: green;"><?php _e( 'You have renamed the wp-content directory of your site.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'You should rename the wp-content directory of your site.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-contentdirectory"><?php _e( 'Click here to do so.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
+						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
+					<?php } elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) { ?>
+						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 			</ol>
