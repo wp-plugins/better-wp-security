@@ -29,6 +29,12 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'contentdirectory_1':
 					$this->contentdirectory_process_1();
 					break;
+				case 'dashboard_1':
+					$this->dashboard_process_1();
+					break;
+				case 'dashboard_2':
+					$this->dashboard_process_2();
+					break;
 				case 'databasebackup_1':
 					$this->databasebackup_process_1();
 					break;
@@ -60,6 +66,52 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					$this->systemtweaks_process_2();
 					break;
 			}
+		}
+		
+		/**
+		 * Process dashboard initial site backup
+		 *
+		 **/
+		function dashboard_process_1() {
+		
+			global $wpdb;
+		
+			$errorHandler = __( 'Database Backup Completed.', $this->hook );
+			
+			//find backup library
+			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
+			
+			$options = get_option( $this->primarysettings );
+			
+			@require( BWPS_PP . 'lib/phpmysqlautobackup/run.php' );
+			
+			$wpdb->query( 'DROP TABLE `phpmysqlautobackup`;' );
+			$wpdb->query( 'DROP TABLE `phpmysqlautobackup_log`;' );
+			
+			$options['initial_backup'] = 1;
+			
+			update_option( $this->primarysettings, $options );
+			
+			$this->showmessages( $errorHandler );		
+			
+		}
+		
+		/**
+		 * Process dashboard initial site backup ignore
+		 *
+		 **/
+		function dashboard_process_2() {
+		
+			$errorHandler = __( 'Database Backup Ignored.', $this->hook );
+			
+			$options = get_option( $this->primarysettings );
+			
+			$options['initial_backup'] = 1;
+			
+			update_option( $this->primarysettings, $options );
+			
+			$this->showmessages( $errorHandler );		
+			
 		}
 		
 		/**

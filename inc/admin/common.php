@@ -467,7 +467,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					}
 				
 				}
-						
+	
+			}
+			
+			//add markers if we have rules
+			if ( $rules != '' ) {
+				$rules = "# BEGIN Better WP Security\n" . $rules . "# END Better WP Security\n";
 			}
 				
 			return $rules;
@@ -590,21 +595,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$rulesarray = explode( "\n", $rules );
 			
-			
-			//if there are rules to write set header and footer
-			if ( $rules == '' ) {
-			
-				$open = array();
-				$close = array();
-				
-			} else {
-			
-				$open = array("# BEGIN Better WP Security\n");
-				$close = array("# END Better WP Security\n");
-				
-			}
-			
-			$contents = array_merge( $open, $rulesarray, $close, $ht );
+			$contents = array_merge( $rulesarray, $ht );
 			 
 			if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
 				

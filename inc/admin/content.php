@@ -134,6 +134,29 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function admin_dashboard() {
 			
+			$options = get_option( $this->primarysettings );
+			
+			if ( $options['initial_backup'] == 1 ) { //they've backed up their database or ignored the warning
+			
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+					array(
+						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_2' ), //One-click protection
+						array( __( 'System Status', $this->hook ), 'dashboard_content_3' ), //Better WP Security System Status
+						array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_4' ), //Better WP Security Rewrite Rules
+						array( __( 'System Information', $this->hook ), 'dashboard_content_5' ) //Generic System Information
+					)
+				);
+			
+			} else { //if they haven't backed up their database or ignored the warning
+			
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+					array(
+						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
+					)
+				);
+			
+			}
+			
 		}
 		
 		/**
@@ -141,7 +164,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_adminuser() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change Admin User', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Admin User', $this->hook ), 'adminuser_content_2' ) //adminuser options
@@ -154,7 +177,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_awaymode() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Administor Away Mode', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Administor Away Mode', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'awaymode_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Away Mode Options', $this->hook ), 'awaymode_content_2' ), //awaymode options
@@ -168,7 +191,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_banhosts() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Ban Hosts', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Hosts', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'banhosts_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Banned Hosts Configuration', $this->hook ), 'banhosts_content_2' ) //banhosts options
@@ -181,7 +204,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_contentdirectory() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change wp-content Directory', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Change wp-content Directory', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'contentdirectory_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The wp-content Directory', $this->hook ), 'contentdirectory_content_2' ) //contentdirectory options
@@ -194,7 +217,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_databasebackup() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Backup WordPress Database', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Backup WordPress Database', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
@@ -209,7 +232,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_databaseprefix() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Change Database Prefix', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Change Database Prefix', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databaseprefix_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Database Prefix', $this->hook ), 'databaseprefix_content_2' ) //databaseprefix options
@@ -222,7 +245,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_hidebackend() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Hide WordPress Backend', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Hide WordPress Backend', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'hidebackend_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Hide Backend Options', $this->hook ), 'hidebackend_content_2' ), //hidebackend options
@@ -236,7 +259,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_intrusiondetection() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Intrusion Detection', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_2' ) //intrusiondetection options
@@ -249,7 +272,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_loginlimits() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Limit Login Attempts', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Limit Login Attempts', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'loginlimits_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Limit Login Attempts', $this->hook ), 'loginlimits_content_2' ) //loginlimit options
@@ -262,7 +285,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_systemtweaks() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Various Security Tweaks', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Rewrite Tweaks', $this->hook ), 'systemtweaks_content_2' ), //systemtweaks htaccess (or other rewrite) options
@@ -277,7 +300,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_logs() {
-			$this->admin_page( $this->pluginname  . ' - ' .  __( 'Better WP Security Logs', $this->hook ),
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Better WP Security Logs', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'logs_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
@@ -285,6 +308,385 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( '404 Errors', $this->hook ), 'logs_content_4' ) //404 Errors
 				)
 			);
+		}
+		
+		/**
+		 * Dashboard intro prior to first backup
+		 *
+		 **/
+		function dashboard_content_1() {
+			?>
+			<p><?php _e( 'Welcome to Better WP Security!', $this->hook ); ?></p>
+			<p><?php echo __( 'Before we begin it is extremely important that you make a backup of your database. This will make sure you can get your site back to the way it is right now should something go wrong. Click the button below to make a backup which will be emailed to the website administrator at ', $this->hook ) . '<strong>' . get_option( 'admin_email' ) . '</strong>'; ?></p>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<input type="hidden" name="bwps_page" value="dashboard_1" />
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Create Database Backup', $this->hook ) ?>" /></p>			
+			</form>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<input type="hidden" name="bwps_page" value="dashboard_2" />
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'No, thanks. I already have a backup', $this->hook ) ?>" /></p>			
+			</form>
+			<?php
+		}
+		
+		/**
+		 * One-click mode
+		 *
+		 * Information and form to turn on basic security with 1-click
+		 *
+		 **/
+		function dashboard_content_2() {
+		
+		}
+		
+		/**
+		 * Better WP Security System Status
+		 *
+		 **/
+		function dashboard_content_3() {
+			global $wpdb;
+			
+			$options = get_option( $this->primarysettings );
+			?>
+			<ol>
+				<li>
+					<?php 
+						$isOn = $options['st_enablepassword'];
+						$role = $options['st_passrole']; 
+					?>
+					<?php if ( $isOn == 1 && $role == 'subscriber' ) { ?>
+						<span style="color: green;"><?php _e( 'You are enforcing strong passwords for all users.', $this-> hook ); ?></span>
+					<?php } elseif ( $isOn == 1 ) { ?>
+						<span style="color: orange;"><?php _e( 'You are enforcing strong passwords, but not for all users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix', $this-> hook ); ?></a>.</span>					
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'You are not enforcing strong passwords.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix', $this-> hook ); ?></a>.</span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php $adminUser = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='admin';" ); ?>
+					<?php if ( $adminUser =="admin" ) { ?>
+						<span style="color: red;"><?php _e( 'The <em>admin</em> user still exists.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-adminuser"><?php _e( 'Click here to rename admin', $this-> hook ); ?></a>.</span>
+					<?php } else { ?>
+						<span style="color: green;"><?php _e( 'The <em>admin</em> user has been removed.', $this-> hook ); ?></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $wpdb->base_prefix == 'wp_' ) { ?>
+						<span style="color: red;"><?php _e( 'Your table prefix should not be ', $this->hook ); ?><em>wp_</em>. <a href="admin.php?page=better_wp_security-databaseprefix"><?php _e( 'Click here to rename it', $this->hook ); ?></a>.</span>
+					<?php } else { ?>
+						<span style="color: green;"><?php echo __( 'Your table prefix is', $this->hook ) . ' ' . $wpdb->base_prefix; ?></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) { ?>
+						<span style="color: green;"><?php _e( 'You have renamed the wp-content directory of your site.', $this->hook ); ?>. </span>
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'You should rename the wp-content directory of your site.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-contentdirectory"><?php _e( 'Click here to do so', $this->hook ); ?></a>.</span>
+					<?php } ?>
+				</li>
+			</ol>
+			<?php
+		}
+		
+		/**
+		 * Rewrite rules
+		 *
+		 * Rewrite rules generated by better wp security
+		 *
+		 **/
+		function dashboard_content_4() {
+			
+			$rules = $this->getrules();
+			
+			if ( $rules == '') {
+				?>
+				<p><?php _e( 'No rules have been generated. Turn on more features to see rewrite rules.', $this->hook ); ?></p>
+				<?php
+			} else {
+				?>
+				<pre><?php echo $rules; ?></pre>
+				<?php
+			}
+			
+		}
+		
+		/**
+		 * General System Information
+		 *
+		 **/
+		function dashboard_content_5() {
+			global $wpdb;
+			$options = get_option( $this->primarysettings );
+			?>
+			<ul>
+				<li>
+					<h4><?php _e( 'User Information', $this->hook ); ?></h4>
+					<ul>
+						<li><?php _e( 'Public IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['REMOTE_ADDR']; ?>"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></li>
+						<li><?php _e( 'User Agent', $this->hook ); ?>: <strong><?php echo $_SERVER['HTTP_USER_AGENT']; ?></strong></li>
+					</ul>
+				</li>
+				
+				<li>
+					<h4><?php _e( 'File System Information', $this->hook ); ?></h4>
+					<ul>
+						<li><?php _e( 'Website Root Folder', $this->hook ); ?>: <strong><?php echo get_site_url(); ?></strong></li>
+						<li><?php _e( 'Document Root Path', $this->hook ); ?>: <strong><?php echo $_SERVER['DOCUMENT_ROOT']; ?></strong></li>
+						<?php 
+							$htaccess = ABSPATH . '.htaccess';
+							@chmod( $htaccess, 0644 );
+							
+							if ( $f = fopen( $htaccess, 'a' ) ) { 
+							
+								fclose( $f );
+								$copen = '';
+								$cclose = '';
+								$htaw = __( 'Yes', $this->hook ); 
+								
+							} else {
+							
+								$copen = '<font color="red">';
+								$cclose = '</font>';
+								$htaw = __( 'No. Better WP Security will be severely limited in it\'s ability to secure your site', $this->hook ); 
+								
+							}
+							
+							@chmod( $htaccess, 0444 );
+						?>
+						<li><?php _e( '.htaccess File is Writable', $this->hook ); ?>: <strong><?php echo $copen . $htaw . $cclose; ?></strong></li>
+						<?php 
+							$conffile = $this->getConfig();
+							@chmod( $conffile, 0644 );
+							
+							if ( $f = fopen( $conffile, 'a' ) ) { 
+							
+								fclose( $f );
+								$copen = '';
+								$cclose = '';
+								$wconf = __( 'Yes', $this->hook ); 
+								
+							} else {
+							
+								$copen = '<font color="red">';
+								$cclose = '</font>';
+								$wconf = __( 'No. Better WP Security will be severely limited in it\'s ability to secure your site', $this->hook ); 
+								
+							}
+							
+							@chmod( $conffile, 0444 );
+						?>
+						<li><?php _e( 'wp-config.php File is Writable', $this->hook ); ?>: <strong><?php echo $copen . $wconf . $cclose; ?></strong></li>
+					</ul>
+				</li>
+			
+				<li>
+					<h4><?php _e( 'Database Information', $this->hook ); ?></h4>
+					<ul>
+						<li><?php _e( 'MySQL Database Version', $this->hook ); ?>: <?php $sqlversion = $wpdb->get_var( "SELECT VERSION() AS version" ); ?><strong><?php echo $sqlversion; ?></strong></li>
+						<li><?php _e( 'MySQL Client Version', $this->hook ); ?>: <strong><?php echo mysql_get_client_info(); ?></strong></li>
+						<li><?php _e( 'Database Host', $this->hook ); ?>: <strong><?php echo DB_HOST; ?></strong></li>
+						<li><?php _e( 'Database Name', $this->hook ); ?>: <strong><?php echo DB_NAME; ?></strong></li>
+						<li><?php _e( 'Database User', $this->hook ); ?>: <strong><?php echo DB_USER; ?></strong></li>
+						<?php $mysqlinfo = $wpdb->get_results( "SHOW VARIABLES LIKE 'sql_mode'" );
+							if ( is_array( $mysqlinfo ) ) $sql_mode = $mysqlinfo[0]->Value;
+							if ( empty( $sql_mode ) ) $sql_mode = __( 'Not Set', $this->hook );
+							else $sql_mode = __( 'Off', $this->hook );
+						?>
+						<li><?php _e( 'SQL Mode', $this->hook ); ?>: <strong><?php echo $sql_mode; ?></strong></li>
+					</ul>
+				</li>
+				
+				<li>
+					<h4><?php _e( 'Server Information', $this->hook ); ?></h4>
+					<ul>
+						<li><?php _e( 'Server / Website IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['SERVER_ADDR']; ?>"><?php echo $_SERVER['SERVER_ADDR']; ?></a></strong></li>
+							<li><?php _e( 'Server Type', $this->hook ); ?>: <strong><?php echo $_SERVER['SERVER_SOFTWARE']; ?></strong></li>
+							<li><?php _e( 'Operating System', $this->hook ); ?>: <strong><?php echo PHP_OS; ?></strong></li>
+							<li><?php _e( 'Browser Compression Supported', $this->hook ); ?>: <strong><?php echo $_SERVER['HTTP_ACCEPT_ENCODING']; ?></strong></li>
+					</ul>
+				</li>
+				
+				<li>
+					<h4><?php _e( 'PHP Information', $this->hook ); ?></h4>
+					<ul>
+						<li><?php _e( 'PHP Version', $this->hook ); ?>: <strong><?php echo PHP_VERSION; ?></strong></li>
+						<li><?php _e( 'PHP Memory Usage', $this->hook ); ?>: <strong><?php echo round(memory_get_usage() / 1024 / 1024, 2) . __( ' MB', $this->hook ); ?></strong> </li>
+						<?php 
+							if ( ini_get( 'memory_limit' ) ) {
+								$memory_limit = ini_get( 'memory_limit' ); 
+							} else {
+								$memory_limit = __( 'N/A', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Memory Limit', $this->hook ); ?>: <strong><?php echo $memory_limit; ?></strong></li>
+						<?php 
+							if ( ini_get( 'upload_max_filesize' ) ) {
+								$upload_max = ini_get( 'upload_max_filesize' );
+							} else 	{
+								$upload_max = __( 'N/A', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Max Upload Size', $this->hook ); ?>: <strong><?php echo $upload_max; ?></strong></li>
+						<?php 
+							if ( ini_get( 'post_max_size' ) ) {
+								$post_max = ini_get( 'post_max_size' );
+							} else {
+								$post_max = __( 'N/A', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Max Post Size', $this->hook ); ?>: <strong><?php echo $post_max; ?></strong></li>
+						<?php 
+							if ( ini_get( 'safe_mode' ) ) {
+								$safe_mode = __( 'On', $this->hook );
+							} else {
+								$safe_mode = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Safe Mode', $this->hook ); ?>: <strong><?php echo $safe_mode; ?></strong></li>
+						<?php 
+							if (ini_get( 'allow_url_fopen' ) ) {
+								$allow_url_fopen = __( 'On', $this->hook );
+							} else {
+								$allow_url_fopen = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Allow URL fopen', $this->hook ); ?>: <strong><?php echo $allow_url_fopen; ?></strong></li>
+						<?php 
+							if (ini_get( 'allow_url_include' ) ) {
+								$allow_url_include = __( 'On', $this->hook );
+							} else {
+								$allow_url_include = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Allow URL Include' ); ?>: <strong><?php echo $allow_url_include; ?></strong></li>
+							<?php 
+							if (ini_get( 'display_errors' ) ) {
+								$display_errors = __( 'On', $this->hook );
+							} else {
+								$display_errors = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Display Errors', $this->hook ); ?>: <strong><?php echo $display_errors; ?></strong></li>
+						<?php 
+							if (ini_get( 'display_startup_errors' ) ) {
+								$display_startup_errors = __( 'On', $this->hook );
+							} else {
+								$display_startup_errors = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Display Startup Errors', $this->hook ); ?>: <strong><?php echo $display_startup_errors; ?></strong></li>
+						<?php 
+							if (ini_get( 'expose_php' ) ) {
+								$expose_php = __( 'On', $this->hook );
+							} else {
+								$expose_php = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Expose PHP', $this->hook ); ?>: <strong><?php echo $expose_php; ?></strong></li>
+						<?php 
+							if (ini_get( 'register_globals' ) ) {
+								$register_globals = __( 'On', $this->hook );
+							} else {
+								$register_globals = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Register Globals', $this->hook ); ?>: <strong><?php echo $register_globals; ?></strong></li>
+						<?php 
+							if (ini_get( 'max_execution_time' ) ) {
+								$max_execute = ini_get( 'max_execution_time' );
+							} else {
+								$max_execute = __( 'N/A', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Max Script Execution Time' ); ?>: <strong><?php echo $max_execute; ?> <?php _e( 'Seconds' ); ?></strong></li>
+						<?php 
+							if (ini_get( 'magic_quotes_gpc' ) ) {
+								$magic_quotes_gpc = __( 'On', $this->hook );
+							} else {
+								$magic_quotes_gpc = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Magic Quotes GPC', $this->hook ); ?>: <strong><?php echo $magic_quotes_gpc; ?></strong></li>
+						<?php 
+							if (ini_get( 'open_basedir' ) ) {
+								$open_basedir = __( 'On', $this->hook );
+							} else {
+								$open_basedir = __( 'Off', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP open_basedir', $this->hook ); ?>: <strong><?php echo $open_basedir; ?></strong></li>
+						<?php 
+							if (is_callable( 'xml_parser_create' ) ) {
+								$xml = __( 'Yes', $this->hook );
+							} else {
+								$xml = __( 'No', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP XML Support', $this->hook ); ?>: <strong><?php echo $xml; ?></strong></li>
+						<?php 
+							if (is_callable( 'iptcparse' ) ) {
+								$iptc = __( 'Yes', $this->hook );
+							} else {
+								$iptc = __( 'No', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP IPTC Support', $this->hook ); ?>: <strong><?php echo $iptc; ?></strong></li>
+						<?php 
+							if (is_callable( 'exif_read_data' ) ) {
+								$exif = __( 'Yes', $this->hook ). " ( V" . substr(phpversion( 'exif' ),0,4) . ")" ;
+							} else {
+								$exif = __( 'No', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'PHP Exif Support', $this->hook ); ?>: <strong><?php echo $exif; ?></strong></li>
+					</ul>
+				</li>
+				
+				<li>
+					<h4><?php _e( 'Wordpress Configuration', $this->hook ); ?></h4>
+					<ul>
+						<?php
+							if ( is_multisite() ) { 
+								$multSite = __( 'Multisite is enabled', $this->hook );
+							} else {
+								$multSite = __( 'Multisite is NOT enabled', $this->hook );
+							}
+							?>
+							<li><?php _e( '	Multisite', $this->hook );?>: <strong><?php echo $multSite; ?></strong></li>
+						<?php
+							if ( get_option( 'permalink_structure' ) != '' ) { 
+								$copen = '';
+								$cclose = '';
+								$permalink_structure = __( 'Enabled', $this->hook ); 
+							} else {
+								$copen = '<font color="red">';
+								$cclose = '</font>';
+								$permalink_structure = __( 'WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better WP Security to function correctly', $this->hook ); 
+							}
+						?>
+						<li><?php _e( 'WP Permalink Structure', $this->hook ); ?>: <strong> <?php echo $copen . $permalink_structure . $cclose; ?></strong></li>
+						<li><?php _e( 'Wp-config Location', $this->hook );?>: <strong><?php echo $this->getConfig(); ?></strong></li>
+					</ul>
+				</li>
+				<li>
+					<h4><?php _e( 'Better WP Security variables', $this->hook ); ?></h4>
+					<ul>
+						<?php 
+							if ( $options['hb_key'] == '' ) {
+								$hbkey = __( 'Not Yet Available. Enable Hide Backend mode to generate key.', $this->hook );
+							} else {
+								$hbkey = $options['hb_key'];
+							}
+						?>
+						<li><?php _e( 'Hide Backend Key', $this->hook );?>: <strong><?php echo $hbkey; ?></strong></li>
+						<?php $options = get_option( $this->plugindata ); ?>
+						<li><?php _e( 'Better WP Security Version', $this->hook );?>: <strong><?php echo $options['version']; ?></strong></li>
+					</ul>
+				</li>
+			</ul>
+			<?php
 		}
 	
 		/**
@@ -504,7 +906,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for="am_starttime"><?php _e( 'Start Time', $this->hook ); ?></label>
 						</th>
 						<td>
-							<select name="am_starthour"  id="am_starttime">
+							<select name="am_starthour" id="am_starttime">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
 										if ( $shdisplay == $i ) {
@@ -546,7 +948,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for="am_endtime"><?php _e( 'End Time', $this->hook ); ?></label>
 						</th>
 						<td>
-							<select name="am_endhour"  id="am_endtime">
+							<select name="am_endhour" id="am_endtime">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) {//determine default
 										if ( $ehdisplay == $i ) {
@@ -684,7 +1086,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<p><?php _e( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', $this->hook ); ?></p>
 			<p><?php _e( 'Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', $this->hook ); ?></p>
 			<p><?php _e( 'Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', $this->hook ); ?></p>
-			<p style="text-align: center; font-size: 130%; font-weight: bold; color: blue;"><?php _e( 'WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', $this->hook ); ?></p>
+			<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;"><?php _e( 'WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', $this->hook ); ?></p>
+			<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;"><?php _e( 'RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT.', $this->hook ); ?></p>
 			<?php
 		}
 		
@@ -867,8 +1270,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function hidebackend_content_1() {
 			?>
-			<p><?php _e('The "hide backend" feature changes the URL from which you can access your WordPress backend thereby further obscuring your site to potential attackers.', $this->hook); ?></p>
-			<p><?php _e('This feature will need to modify your site\'s .htaccess file if you use the Apache webserver or, if you use NGINX you will need to add the rules manually to your virtualhost configuration. In both cases it requires permalinks to be turned on in your settings to function.', $this->hook); ?></p>
+			<p><?php _e( 'The "hide backend" feature changes the URL from which you can access your WordPress backend thereby further obscuring your site to potential attackers.', $this->hook); ?></p>
+			<p><?php _e( 'This feature will need to modify your site\'s .htaccess file if you use the Apache webserver or, if you use NGINX you will need to add the rules manually to your virtualhost configuration. In both cases it requires permalinks to be turned on in your settings to function.', $this->hook); ?></p>
 			<?php
 		}
 		
@@ -1306,13 +1709,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top">
+						<tr valign="top" style="border: 1px solid #ff0000;">
 							<th scope="row">
 								<label for "st_ht_query"><?php _e( 'Filter Suspicious Query Strings', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $options['st_ht_request'] ); ?> />
 								<p><?php _e( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 					</table>
@@ -1436,22 +1840,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">
 							<label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $options['st_randomversion'] ); ?> />
 							<p><?php _e( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', $this->hook ); ?></p>
+							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">
 							<label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $options['st_longurl'] ); ?> />
 							<p><?php _e( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', $this->hook ); ?></p>
+							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -1460,7 +1866,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
-							<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files.', $this->hook ); ?></p>
+							<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -1468,12 +1874,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<h4><?php _e( 'SSL Tweaks', $this->hook ); ?></h4>
 							<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4>
 						</td>
+					<?php
+					echo '<script language="javascript">';
+					echo 'function forcessl() {';
+					echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
+					echo '}';
+					echo '</script>';
+					?>
 					<tr valign="top">
 						<th scope="row">
 							<label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
+							<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
 							<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1482,7 +1895,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceadminssl'] ); ?> />
+							<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceadminssl'] ); ?> />
 							<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
 						</td>
 					</tr>

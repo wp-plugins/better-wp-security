@@ -35,6 +35,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 		public $settings			= array(
 			'bit51_bwps_options'	=> array(
 				'bit51_bwps' 			=> array(
+					'initial_backup'		=> '0',
 					'am_enabled'			=> '0',
 					'am_type' 				=> '0',
 					'am_startdate' 			=> '1',
