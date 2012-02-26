@@ -520,7 +520,21 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php
 			} else {
 				?>
-				<pre><?php echo $rules; ?></pre>
+				<style type="text/css">
+					code {
+						 overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+						 overflow-y: hidden;
+						 background-color: transparent;
+						 white-space: pre-wrap; /* css-3 */
+						 white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+						 white-space: -pre-wrap; /* Opera 4-6 */
+						 white-space: -o-pre-wrap; /* Opera 7 */
+						 /* width: 99%; */
+						 word-wrap: break-word; /* Internet Explorer 5.5+ */
+						 
+					}
+				</style>
+				<?php echo highlight_string( $rules, true ); ?>
 				<?php
 			}
 			
