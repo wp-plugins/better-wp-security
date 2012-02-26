@@ -338,13 +338,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_2() {
+			$options = get_option( $this->primarysettings );
+			if ( $options['backup_enabled'] == 1 && $options['ll_enabled'] == 1 && $options['id_enabled'] == 1 && $options['st_ht_files'] == 1 && $options['st_ht_browsing'] == 1 && $options['st_generator'] == 1 && $options['st_manifest'] == 1 && $options['st_themenot'] == 1 && $options['st_pluginnot'] == 1 && $options['st_corenot'] == 1 && $options['st_enablepassword'] == 1 && $options['st_loginerror'] == 1 ) {
 			?>
-			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
-				<input type="hidden" name="bwps_page" value="dashboard_3" />
-				<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site.', $this->hook ); ?></p>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ) ?>" /></p>			
-			</form>
+			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
+			<?php } else { ?>
+				<form method="post" action="">
+					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+					<input type="hidden" name="bwps_page" value="dashboard_3" />
+					<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ) ?>" /></p>			
+				</form>
+			<?php } ?>
 			<?php
 		}
 		

@@ -35,6 +35,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'dashboard_2':
 					$this->dashboard_process_2();
 					break;
+				case 'dashboard_3':
+					$this->dashboard_process_3();
+					break;
 				case 'databasebackup_1':
 					$this->databasebackup_process_1();
 					break;
@@ -109,6 +112,45 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['initial_backup'] = 1;
 			
 			update_option( $this->primarysettings, $options );
+			
+			$this->showmessages( $errorHandler );		
+			
+		}
+		
+		/**
+		 * Process one-click security form
+		 *
+		 **/
+		function dashboard_process_3() {
+		
+			$errorHandler = __( 'Site Secured.', $this->hook );
+			
+			$options = get_option( $this->primarysettings );
+			
+			$options['backup_enabled'] = 1;
+			$options['ll_enabled'] = 1;
+			$options['id_enabled'] = 1;
+			$options['st_ht_files'] = 1;
+			$options['st_ht_browsing'] = 1;
+			$options['st_generator'] = 1;
+			$options['st_manifest'] = 1;
+			$options['st_themenot'] = 1;
+			$options['st_pluginnot'] = 1;
+			$options['st_corenot'] = 1;
+			$options['st_enablepassword'] = 1;
+			$options['st_loginerror'] = 1;
+			
+			update_option( $this->primarysettings, $options );
+			
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if we're on Apache write rules to .htaccess
+			
+				$this->writehtaccess();
+				
+			} else { //not on apache to let them know they will have to manually enter rules
+			
+				$errorHandler = __( 'Site Secured. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+			
+			}
 			
 			$this->showmessages( $errorHandler );		
 			
@@ -372,8 +414,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['bu_banagent'] = implode( "\n", $agents );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
+			
 				update_option( $this->primarysettings, $options );
-				$this->writehtaccess();
+				
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if we're on Apache write rules to .htaccess
+				
+					$this->writehtaccess();
+					
+				} else { //not on apache to let them know they will have to manually enter rules
+				
+					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+				
+				}
+				
 			}
 						
 			$this-> showmessages( $errorHandler );
