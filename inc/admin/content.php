@@ -338,7 +338,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_2() {
-		
+			?>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<input type="hidden" name="bwps_page" value="dashboard_3" />
+				<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site.', $this->hook ); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ) ?>" /></p>			
+			</form>
+			<?php
 		}
 		
 		/**
@@ -482,6 +489,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 			</ol>
+			<hr />
+			<ul>
+				<li><span style="color: green;"><?php _e( 'Items in green are fully secured. Good Job!', $this->hook ); ?></span></li>
+				<li><span style="color: orange;"><?php _e( 'Items in orange are partially secured. Turn on more options to fully secure these areas.', $this->hook ); ?></span></li>
+				<li><span style="color: red;"><?php _e( 'Items in red are not secured. You should secure these items immediately', $this->hook ); ?></span></li>
+				<li><span style="color: blue;"><?php _e( 'Items in blue are not fully secured but may conflict with other themes, plugins, or the other operation of your site. Secure them on if you can but if you cannot do not worry about them.', $this->hook ); ?></span></li>
+			</ul>
 			<?php
 		}
 		
