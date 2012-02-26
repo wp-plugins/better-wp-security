@@ -39,11 +39,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			add_submenu_page(
 				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Ban Hosts', $this->hook ),
-				__( 'Ban Hosts', $this->hook ),
+				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Ban Users', $this->hook ),
+				__( 'Ban Users', $this->hook ),
 				$this->accesslvl,
-				$this->hook . '-banhosts',
-				array( &$this, 'admin_banhosts' )
+				$this->hook . '-banusers',
+				array( &$this, 'admin_banusers' )
 			);
 			
 			add_submenu_page(
@@ -190,11 +190,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 * Registers content blocks for ban hosts page
 		 *
 		 **/
-		function admin_banhosts() {
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Hosts', $this->hook ),
+		function admin_banusers() {
+			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Users', $this->hook ),
 				array(
-					array( __( 'Before You Begin', $this->hook ), 'banhosts_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Banned Hosts Configuration', $this->hook ), 'banhosts_content_2' ) //banhosts options
+					array( __( 'Before You Begin', $this->hook ), 'banusers_content_1' ), //information to prevent the user from getting in trouble
+					array( __( 'Banned Users Configuration', $this->hook ), 'banusers_content_2' ) //banusers options
 				)
 			);
 		}
@@ -1027,10 +1027,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 * Intro block for ban hosts page
 		 *
 		 **/
-		function banhosts_content_1() {
+		function banusers_content_1() {
 			?>
-			<p><?php _e( 'This feature allows you to ban hosts from your site completely using individual or groups of IP addresses without having to manage any configuration of your server. Any IP found in the list below will not be allowed any access to your site.', $this->hook ); ?></p>
-			<p><?php _e( 'Please note this feature works using the WordPress database and PHP. That said, it is not nearly as effecient as banning hosts via your server configuration. I recommend keeping the list here short or using it only for temporary bans to avoid performance issues.', $this->hook ); ?></p>
+			<p><?php _e( 'This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site.', $this->hook ); ?></p>
+			<p><?php _e( 'Please note banning ip address ranges works using the WordPress database and PHP in order to keep it simple to use. That said, it is not nearly as effecient as banning hosts via your server configuration. I recommend keeping the list here short or using it only for temporary bans to avoid performance issues. This applies only to ip address ranges as individual ip addresses and user agents are added directly to your site\'s .htaccess file or NGINX rewrite rules.', $this->hook ); ?></p>
 			<?php
 		}
 		
@@ -1038,28 +1038,28 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 * Options form for ban hosts page
 		 *
 		 **/
-		function banhosts_content_2() {
+		function banusers_content_2() {
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
-			<input type="hidden" name="bwps_page" value="banhosts_1" />
+			<input type="hidden" name="bwps_page" value="banusers_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
-							<label for "bh_enabled"><?php _e( 'Enable Banned Hosts', $this->hook ); ?></label>
+							<label for "bu_enabled"><?php _e( 'Enable Banned Users', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="bh_enabled" name="bh_enabled" type="checkbox" value="1" <?php checked( '1', $options['bh_enabled'] ); ?> />
-							<p><?php _e( 'Check this box to enable the banned hosts feature.', $this->hook ); ?></p>
+							<input id="bu_enabled" name="bu_enabled" type="checkbox" value="1" <?php checked( '1', $options['bu_enabled'] ); ?> />
+							<p><?php _e( 'Check this box to enable the banned users feature.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "bh_banlist"><?php _e( 'Ban List', $this->hook ); ?></label>
+							<label for "bu_banrange"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="bh_banlist" rows="10" cols="50" name="bh_banlist"><?php echo isset( $_POST['bh_banlist'] ) ? $_POST['bh_banlist'] : $options['bh_banlist']; ?></textarea>
+							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banrange"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banrange'] : $options['bu_banrange'] . "\n" . $options['bu_individual']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may ban users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -1070,7 +1070,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</em></ul>
 						</td>
 					</tr>
-					
+					<tr valign="top">
+						<th scope="row">
+							<label for "bu_banrange"><?php _e( 'Ban User Agents', $this->hook ); ?></label>
+						</th>
+						<td>
+							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banagent'] : $options['bu_banagent']; ?></textarea>
+							<p><?php _e( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', $this->hook ); ?></p>
+							<ul><em>
+								<li><?php _e( 'Enter only 1 user agent per line.', $this->hook ); ?></li>
+							</em></ul>
+						</td>
+					</tr>
 				</table>
 				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
 			</form>

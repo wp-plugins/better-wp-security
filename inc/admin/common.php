@@ -288,6 +288,37 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			//ban hosts
+			if ( $options['bu_enabled'] == 1 ) {
+			
+				$hosts = explode( "\n", $options['bu_individual'] );
+				
+				if ( ! empty( $hosts ) ) {
+				
+					if ( $bwpsserver == 'apache' ) {
+					
+						$rules .= "Order allow,deny\n" .
+						"Allow from all\n" .
+						"Deny from ";
+				
+						foreach ( $hosts as $host ) {
+						
+							$rules .= trim( $host ) . ' ';
+						
+						}
+					
+						$rules .= "\n\n";
+						
+					} else {
+					
+						$rules .= 'NGINX rules';
+					
+					}
+				
+				}
+			
+			}
+			
 			//lockdown files
 			if ( $options['st_ht_files'] == 1 ) {
 			
@@ -320,7 +351,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//start mod_rewrite rules
-			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
+			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 || ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
@@ -330,6 +361,46 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 				
 					$rules .= 'NGINX rules';
+				
+				}
+			
+			}
+			
+			//ban hosts and agents
+			if ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) {
+				
+				$agents = explode( "\n", $options['bu_banagent'] );
+				
+				if ( ! empty( $agents ) ) {
+				
+					if ( $bwpsserver == 'apache' ) {
+					
+						$count = 1;
+				
+						foreach ( $agents as $agent ) {
+							
+							$rules .= "RewriteCond %{HTTP_USER_AGENT} ^" . trim( $agent ) . "$";
+							
+							if ( $count < sizeof( $agents ) ) {
+							
+								$rules .= " [OR]\n";
+								$count++;
+							
+							} else {
+							
+								$rules .= "\n";
+							
+							}
+							
+						}
+					
+						$rules .= "RewriteRule ^(.*)$ - [F,L]\n\n";
+						
+					} else {
+					
+						$rules .= 'NGINX rules';
+					
+					}
 				
 				}
 			

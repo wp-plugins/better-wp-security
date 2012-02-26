@@ -661,7 +661,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//if they're locked out or banned die
-			if ( ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) || ( $options['bh_enabled'] == 1 && $this->checklist( $options['bh_banlist'] ) ) ) {
+			if ( ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) || ( $options['bu_enabled'] == 1 && $this->checklist( $options['bu_banrange'] ) ) ) {
 			
 				wp_clear_auth_cookie();
 				die( __( 'error', $this->hook ) );

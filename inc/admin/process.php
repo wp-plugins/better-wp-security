@@ -23,8 +23,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'awaymode_1':
 					$this->awaymode_process_1();
 					break;
-				case 'banhosts_1':
-					$this->banhosts_process_1();
+				case 'banusers_1':
+					$this->banusers_process_1();
 					break;
 				case 'contentdirectory_1':
 					$this->contentdirectory_process_1();
@@ -221,7 +221,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 * Process options form for ban hosts page
 		 *
 		 **/
-		function banhosts_process_1() {
+		function banusers_process_1() {
 		
 			global $bwps; 
 			
@@ -229,15 +229,16 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$options = get_option( $this->primarysettings );
 			
-			$options['bh_enabled'] = ( $_POST['bh_enabled'] == 1 ? 1 : 0 );
+			$options['bu_enabled'] = ( $_POST['bu_enabled'] == 1 ? 1 : 0 );
 			
 			//validate list
-			$banlist = explode("\n", $_POST['bh_banlist'] );
-			$banitems = array();
+			$banhosts = explode( "\n", $_POST['bu_banrange'] );
+			$ranges = array();
+			$ind = array();
 			
-			if(!empty( $banlist ) ) {
+			if( ! empty( $banhosts ) ) {
 			
-				foreach( $banlist as $item ) {
+				foreach( $banhosts as $item ) {
 				
 					if ( strlen( $item) > 0 ) {
 					
@@ -267,7 +268,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 								
 							} else {
 							
-								$banitems[] = trim( $item );
+								$ranges[] = trim( $item );
 								
 							}	
 								
@@ -296,7 +297,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 									
 								} else {
 								
-									$banitems[] = trim( $item );
+									if ( strpos( $item, '*' ) ) {
+								
+										$ranges[] = trim( $item );
+										
+									} else { //not a range at all so it will go in .htaccess
+									
+										$ind[] = trim( $item );
+									
+									}	
 									
 								}
 								
@@ -318,11 +327,12 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$options['bh_banlist'] = implode( "\n",$banitems );
+			$options['bu_banrange'] = implode( "\n", $ranges );
+			$options['bu_individual'] = implode( "\n", $ind );
 			
-			if ( $bwps->checklist( $options['bh_banlist'] ) ) {
+			if ( $bwps->checklist( $options['bu_banrange'] ) ) {
 			
-				if (!is_wp_error( $errorHandler) ) {
+				if ( ! is_wp_error( $errorHandler) ) {
 					$errorHandler = new WP_Error();
 				}
 				
@@ -330,8 +340,40 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			if (!is_wp_error( $errorHandler ) ) {
+			//now to process useragents
+			$banagents = explode( "\n", $_POST['bu_banagent'] );
+			$agents = array();
+			
+			if ( ! empty( $banagents ) ) {
+			
+				foreach ($banagents as $agent) {
+					
+					$text = wp_strip_all_tags( trim( $agent ) );
+					
+					//make sure user agents are alpha-numeric
+					if ( ctype_alnum( $text ) ) {
+					
+						$agents[] = $text;
+						
+					} elseif ( strlen( $text ) > 0 ) {
+					
+						if ( ! is_wp_error( $errorHandler) ) {
+							$errorHandler = new WP_Error();
+						}
+						
+						$errorHandler->add( '1', $text . __( ' is not a valid user agent. Please try again.', $this->hook ) );
+						
+					}
+					
+				}
+			
+			}
+			
+			$options['bu_banagent'] = implode( "\n", $agents );
+			
+			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $options );
+				$this->writehtaccess();
 			}
 						
 			$this-> showmessages( $errorHandler );
@@ -544,7 +586,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 										
 			if ( $upOpts === false ) { //set an error
 		
-				if (!is_wp_error( $errorHandler ) ) {
+				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
 				}
 							
@@ -692,7 +734,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			//if they set an invalid ban period set an error
 			if ( $options['id_banperiod'] == 0 ) {
 			
-				if (!is_wp_error( $errorHandler ) ) {
+				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
 				}
 						
