@@ -4,6 +4,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 
 	abstract class bwps_admin_common extends bit51_bwps {
 	
+		/**
+		 * Sets admin configuration
+		 *
+		 **/
 		function __construct() {
 					
 			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {
@@ -38,6 +42,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 		}
 		
+		/**
+		 * Redirects to homepage if awaymode is active
+		 *
+		 **/
 		function awaycheck() {
 		
 			global $bwps;
@@ -48,6 +56,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Schedules database backups
+		 *
+		 **/
 		function backup_scheduler() {
 		
 			add_action( 'bwps_backup', array( &$this, 'db_backup' ) );
@@ -60,7 +72,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					wp_schedule_event( time(), $options['backup_int'], 'bwps_backup' );
 				}
 				
-			} else {
+			} else { //no recurring backups
 			
 				if ( wp_next_scheduled( 'bwps_backup' ) ) {
 					wp_clear_scheduled_hook( 'bwps_backup' );
@@ -70,11 +82,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Executes database backup
+		 *
+		 */
 		function db_backup() {
 		
 			global $wpdb;
 			$this->errorHandler = '';
 			
+			//find backup library
 			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
 			
 			$options = get_option( $this->primarysettings );
@@ -86,6 +103,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Deletes BWPS options from .htaccess
+		 *
+		 * Deletes all possible BWPS options from .htaccess and cleans for rewrite
+		 *
+		 * @return int -1 for failure, 1 for success
+		 *
+		 **/
 		function deletehtaccess( $section = 'Better WP Security' ) {
 				
 			$htaccess = ABSPATH . '.htaccess';
@@ -137,10 +162,18 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 			}
 				
-			return 0; //return false if we can't write the file
+			return 1; //nothing to write
 					
 		}
 		
+		/**
+		 * Deletes BWPS options from wp-config
+		 *
+		 * Deletes all possible BWPS options from wp-config and cleans for rewrite
+		 *
+		 * @return int -1 for failure, 1 for success
+		 *
+		 **/
 		function deletewpconfig() {
 		
 			$configfile = $this->getConfig();
@@ -185,10 +218,18 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				}
 					
-				return 0; //return false if we can't write the file
+				return 1; //nothing to write
 				
 		}
 		
+		/**
+		 * Gets location of wp-config.php
+		 *
+		 * Finds and returns path to wp-config.php
+		 *
+		 * @return string path to wp-config.php
+		 *
+		 **/
 		function getConfig() {
 		
 			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
@@ -203,8 +244,17 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Generates rewrite rules
+		 *
+		 * Generates rewrite rules for use in Apache or NGINX
+		 *
+		 * @return string|boolean Rewrite rules or false if unsupported server
+		 *
+		 **/
 		function getrules() {
 		
+			//figure out what server they're using
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
 			
 				$bwpsserver = 'apache';
@@ -213,9 +263,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$bwpsserver = 'nginx';
 				
-			} else {
+			} else { //unsupported server
 			
-				$bwpsserver = 'unsupported';
+				return false;
 			
 			}
 		
@@ -223,6 +273,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$rules = '';
 			
+			//remove directory indexing
 			if ( $options['st_ht_browsing'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' ) {
@@ -237,6 +288,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			//lockdown files
 			if ( $options['st_ht_files'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' ) {
@@ -267,6 +319,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			//start mod_rewrite rules
 			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' ) {
@@ -315,6 +368,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			//filter suspicious queries
 			if ( $options['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' ) {
@@ -344,7 +398,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				}
 				
 			}
-				
+			
+			//hide backend rules	
 			if ( $options['hb_enabled'] == 1 ) {
 					
 				//get the slugs
@@ -398,6 +453,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				}
 				
+				//close mod_rewrite
 				if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
 				
 					if ( $bwpsserver == 'apache' ) {
@@ -418,13 +474,22 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		
 		}
 		
-		function hidebe_genKey() {	
+		/**
+		 * Generates secret key
+		 *
+		 * Generates secret key for hide backend function
+		 *
+		 * @return string key
+		 *
+		 **/
+		function hidebe_genKey() {
 		
-			$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			srand( ( double ) microtime() * 1000000 );
-			$pass = '' ;	
+			$size = 20; //length of key
+			$chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //available characters
+			srand( ( double ) microtime() * 1000000 ); //random seed
+			$pass = '' ;
 				
-			for ( $i = 0; $i <= 20; $i++ ) {
+			for ( $i = 0; $i <= $size; $i++ ) {
 			
 				$num = rand() % 33;
 				$tmp = substr( $chars, $num, 1 );
@@ -435,7 +500,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return $pass;	
 			
 		}
-				
+		
+		/**
+		 * Return primary domain from given url
+		 *
+		 * Returns primary domsin name (without subdomains) of given URL
+		 *
+		 * @param string $address address to filter
+		 * @return string domain name
+		 *
+		 **/		
 		function topdomain( $address ) {
 		
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
@@ -447,6 +521,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Checks if user exists
+		 *
+		 * Checks to see if WordPress user with given username exists
+		 *
+		 * @param string $username login username of user to check
+		 * @return bool true if user exists otherwise false
+		 *
+		 **/
 		function user_exists( $username ) {
 		
 			global $wpdb;
@@ -457,7 +540,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//queary the user table to see if the user is there
-			$user = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='" . sanitize_text_field( $username) . "';" );
+			$user = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='" . sanitize_text_field( $username ) . "';" );
 			
 			if ( $user == $username ) {
 				return true;
@@ -467,8 +550,17 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}	
 		
+		/**
+		 * Writes .htaccess options
+		 *
+		 * Writes various Better WP Security options to the .htaccess file
+		 *
+		 * @return int Write results -1 for error, 1 for success
+		 *
+		 **/
 		function writehtaccess() {
 			
+			//clean up old rules first
 			if ( $this->deletehtaccess() == -1 ) {
 			
 				return -1; //we can't write to the file
@@ -477,6 +569,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$htaccess = ABSPATH . '.htaccess';
 			
+			//get the subdirectory if it is installed in one
 			$siteurl = explode( '/', get_option( 'siteurl' ) );
 			
 			if ( isset ( $siteurl[3] ) ) {
@@ -497,6 +590,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$rulesarray = explode( "\n", $rules );
 			
+			
+			//if there are rules to write set header and footer
 			if ( $rules == '' ) {
 			
 				$open = array();
@@ -510,13 +605,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			$contents = array_merge( $open, $rulesarray, $close, $ht );
-				 
+			 
 			if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
 				
 				return -1; //we can't write to the file
 				
 			}
 			
+			//write each line to file
 			foreach ( $contents as $insertline ) {
 			
 				fwrite( $f, "{$insertline}\n" );
@@ -527,12 +623,21 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@chmod( $htaccess, 0444 );
 			
-			return 1;
+			return 1; //success
 		
 		}
 		
+		/**
+		 * Writes wp-config.php options
+		 *
+		 * Writes various Better WP Security options to the wp-config.php file
+		 *
+		 * @return int Write results -1 for error, 1 for success
+		 *
+		 **/
 		function writewpconfig() {
 			
+			//clear the old rules first
 			if ( $this->deletewpconfig() == -1 ) {
 			
 				return -1; //we can't write to the file
@@ -573,12 +678,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
-			
+			//rewrite each appropriate line
 			foreach ($config as $line) {
 			
 				if ( strstr( $line, "/* That's all, stop editing! Happy blogging. */" ) ) {
 				
-					$line = $lines . $line;
+					$line = $lines . $line; //paste ending 
 				
 				}
 				
@@ -590,7 +695,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@chmod( $configfile, 0444 );
 			
-			return 1;
+			return 1; //success
 		
 		}
 			
