@@ -4,8 +4,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 	class bwps_secure extends bit51_bwps {
 	
+		/**
+		 * Constructor for each and every page load
+		 *
+		 **/		 
 		function __construct() {
 		
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -20,6 +25,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			}
 			
+			//execute default checks
 			add_action( 'init', array( &$this, 'siteinit' ) );
 			add_action( 'wp_head', array( &$this,'check404' ) );
 			
@@ -88,6 +94,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 		}
 		
+		/**
+		 * Check if page is 404
+		 *
+		 * Checks if current resource is a 404 and logs accordingly
+		 *
+		 **/
 		function check404() {
 		
 			global $wpdb;
@@ -98,6 +110,14 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Check if away mode restrictions are active
+		 *
+		 * Checks if away mode is on and if the current time is in restrictions
+		 *
+		 * @return bool true if current time is restricted, false if not
+		 *
+		 **/
 		function checkaway() {
 		
 			$options = get_option( $this->primarysettings );
@@ -146,12 +166,24 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Check if IP is in list
+		 *
+		 * Checks a given ip against a list to see if it is present
+		 *
+		 * @param string $list List of IPs to check against delimited by \n
+		 * @param string $rawhost[optional] Hostname to check in the list or use current host
+		 * @return bool true if IP is in list, false if not
+		 *
+		 **/
 		function checklist( $list, $rawhost = '' ) {
 		
 			global $wpdb;
 			
+			//convert list to array
 			$values = explode( "\n", $list );
 			
+			//use current host if host is not provided
 			if ( $rawhost == '' ) {
 				$rawhost = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
 			}
@@ -201,13 +233,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 					if ( strcmp( $ipa, $ipb ) != 0 ) { //see if we have another range
 					
-						if( $host >= ip2long( trim( $ipa ) ) && $host <= ip2long( trim( $ipb ) ) ) {
+						if( $host >= ip2long( trim( $ipa ) ) && $host <= ip2long( trim( $ipb ) ) ) { //if host is in range
 							return true;
 						}
 						
 					} else {
 					
-						if ( trim( $rawhost ) == trim( $item ) ) {
+						if ( trim( $rawhost ) == trim( $item ) ) { //if it matches directly
 							return true;
 						} 
 						
@@ -221,10 +253,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Check for lockout
+		 *
+		 * Checks to see if specified user or current host are locked out
+		 *
+		 * @param string $username[optional] Username to check
+		 * @return bool True if locked out false if not
+		 *
+		 **/
 		function checklock( $username = '' ) {
 		
 			global $wpdb;
 			
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -270,9 +312,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Prevent non-admin users from seeing core updates
+		 *
+		 **/
 		function coreupdates() {
 		
-			if ( ! is_super_admin() ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
 			
 				remove_action( 'admin_notices', 'update_nag', 3 );
 				add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
@@ -282,10 +328,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Lockout user or host
+		 *
+		 * Locks out user or host and notifies admin if enabled
+		 *
+		 * @param int $type Type of event to log 1 for bad login, 2 for 404
+		 * @param string $username[optional] Username of bad login user (if applicable)
+		 *
+		 **/
 		function lockout( $type, $user = '' ) {
 		
 			global $wpdb;
-					
+			
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -300,7 +356,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			}
 					
-			$currtime = time();
+			$currtime = time(); //current time
 					
 			if ( $type == 1 ) { //due to too many logins
 			
@@ -311,7 +367,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$exptime = $currtime + ( 60 * $options['id_banperiod'] );
 				
 			}
-					
+			
+			//lockout user if needed	
 			if ( $type == 1 || ( $type == 2 && ! is_user_logged_in() && $this->checklist( $options['id_whitelist'] ) == false ) ) {
 			
 				if ( $user != '' ) {
@@ -329,7 +386,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					);
 					
 				}
-						
+				
+				//lockout host		
 				$wpdb->insert(
 					$wpdb->base_prefix . 'bwps_lockouts',
 					array(
@@ -341,7 +399,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						'user' => ''
 					)
 				);
-					
+				
+				//contruct and send email if necessary
 				if ( $options['ll_emailnotify'] == 1 || $options['id_emailnotify'] == 1 ) {
 					
 					$toEmail = get_site_option( 'admin_email' );
@@ -379,10 +438,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Logs security related events to the database
+		 *
+		 * Logs security related events for bad logins or 404s to the database
+		 *
+		 * @param int $type Type of event to log 1 for bad login, 2 for 404
+		 * @param string $username[optional] Username of bad login user (if applicable)
+		 *
+		 **/
 		function logevent( $type, $username='' ) {
 		
 			global $wpdb;
 			
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -397,11 +466,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			}
 			
+			//get default data
 			$host = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
 			$username = sanitize_user( $username );
 			$user = get_user_by( 'login', $username );
 			
-			if ( $type == 2 ) {
+			if ( $type == 2 ) { //get url and referrer if 404
 			
 				$url = $wpdb->escape( $_SERVER['REQUEST_URI'] );
 				$referrer = $wpdb->escape( $_SERVER['HTTP_REFERER'] );
@@ -412,7 +482,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$referrer = '';
 				
 			}
-				
+			
+			//log to database
 			$wpdb->insert(
 				$wpdb->base_prefix . 'bwps_log',
 				array(
@@ -425,13 +496,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				)
 			);
 			
-			if ( $type == 1 ) {
+			if ( $type == 1 ) { //check if we should lockout for logins
 			
 				$period = $options['ll_checkinterval'] * 60;
 				
 				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
 				
-				if ( absint( $user->ID ) > 0 ) {
+				if ( absint( $user->ID ) > 0 ) { //if we're dealing with a user
 				
 					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( time() - $period ) . ";" );					
 				} else {
@@ -442,15 +513,15 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				if ( $usercount >= $options['ll_maxattemptsuser'] ) {
 				
-					$this->lockout( 1, $user->ID );
+					$this->lockout( 1, $user->ID ); //lockout user
 					
 				} elseif  ( $hostcount >= $options['ll_maxattemptshost'] ) {
 				
-					$this->lockout( 1 );
+					$this->lockout( 1 ); //lockout host
 					
 				}
 				
-			} else {
+			} else { //check if we should lockout for 404s
 			
 				$period = $options['id_checkinterval'] * 60;
 				
@@ -464,9 +535,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Removes plugin update notification for non-admin users
+		 *
+		 **/
 		function pluginupdates() {
-			//don't remove for super admins
-			if ( ! is_super_admin() ) {
+			
+			if ( ! current_user_can( 'manage_options' ) ) {
 			
 				remove_action( 'load-update-core.php', 'wp_update_plugins' );
 				add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
@@ -476,6 +551,16 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Calculates password strength
+		 *
+		 * Calcultes strength of password entered using same algorithm
+		 * as WordPress password meter
+		 *
+		 * @param string $i password to check
+		 * @param string $f unknown
+		 * @return int numerical strength of the password entered
+		 **/
 		function pwordstrength( $i, $f ) {  
 		
 			$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null; 
@@ -511,6 +596,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}	  
 		
+		/**
+		 * Display random WordPress version
+		 *
+		 * Displays a random version number instead of the actual version to non-admins
+		 *
+		 **/
 		function randomVersion() {
 		
 			global $wp_version;
@@ -528,17 +619,33 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * removes version number on header scripts
+		 *
+		 * Removes the WordPress version number on scripts in the front-end header
+		 *
+		 * @param string $src script source link
+		 * @return string script source link without version
+		 *
+		 **/
 		function remove_script_version( $src ){
 		
 			$parts = explode( '?', $src );
 			return $parts[0];
 			
 		}
-			
+		
+		/**
+		 * Initialize functions
+		 *
+		 * Executes functions at WordPress init
+		 *
+		 **/	
 		function siteinit() {
 		
 			global $current_user, $bwps_login_slug, $bwps_register_slug;
 			
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -553,6 +660,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			}
 			
+			//if they're locked out or banned die
 			if ( ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) || ( $options['bh_enabled'] == 1 && $this->checklist( $options['bh_banlist'] ) ) ) {
 			
 				wp_clear_auth_cookie();
@@ -560,6 +668,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			}
 			
+			//if hide backend is enabled filter appropriate login and register links
 			if ( $options['hb_enabled'] == 1 ) {
 			
 				$bwps_login_slug = '/' . $options['hb_login'];
@@ -570,10 +679,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				if ( ! function_exists('wplogin_filter')) {
 				
+					/**
+					 * Replace login url
+					 *
+					 * Replaces WordPress login URL with appropriate slug
+					 *
+					 * @param string $url Url to filter
+					 * @return string url to return
+					 *
+					 **/
 					function wplogin_filter( $url ) {
 	
 						global $bwps_login_slug;
 				
+						//make sure user is logged in and not already on the login page
 					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) {
 					    
 							$url = get_site_url(1) . $bwps_login_slug; // your url here
@@ -590,13 +709,22 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				if ( ! function_exists('change_register_url')) {
 				
+					/**
+					 * Replace register url
+					 *
+					 * Replaces WordPress registration URL with appropriate slug
+					 *
+					 * @param string $url Url to filter
+					 * @return string url to return
+					 *
+					 **/
 					function change_register_url( $url ) {
 				
 						global $bwps_register_slug;
 				
 						if( strpos($url, '?action=register' ) ) {
 				    
-							//$url = get_site_url(1) . $bwps_register_slug; // your url here
+							$url = get_site_url(1) . $bwps_register_slug; // your url here
 				        
 						}
 				        
@@ -610,8 +738,18 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 		}
 		
+		/**
+		 * Require strong passwords
+		 *
+		 * Requires new passwords set are strong passwords
+		 *
+		 * @param object $errors WordPress errors
+		 * @return object WordPress error object
+		 *
+		 **/
 		function strongpass( $errors ) {  
 			
+			//get appropriate options
 			if ( is_multisite() ) {
 			
 				switch_to_blog(1);
@@ -675,9 +813,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			return $errors;  
 		}
 		
+		/**
+		 * Remove option to update themes for non admins
+		 *
+		 **/
 		function themeupdates() {
 		
-			if ( ! is_super_admin() ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
 			
 				remove_action( 'load-update-core.php', 'wp_update_themes' );
 				add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
@@ -688,4 +830,5 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		}	
 			
 	}
+	
 }

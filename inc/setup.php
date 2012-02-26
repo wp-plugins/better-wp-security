@@ -4,6 +4,14 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 
 	class bwps_setup extends bwps_admin_common {
 
+		/**
+		 * Establish setup object
+		 *
+		 * Establishes set object and calls appropriate execution function
+		 *
+		 * @param bool $case[optional] Appropriate execution module to call
+		 *
+		 **/
 		function __construct( $case = false ) {
 	
 			if ( ! $case ) {
@@ -24,11 +32,19 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					break;
 			}
 		}
-
+		
+		/**
+		 * Public function to activate
+		 *
+		 **/
 		function on_activate() {
 			new bwps_setup( 'activate' );
 		}
 
+		/**
+		 * Public function to deactivate
+		 *
+		 **/
 		function on_deactivate() {
 	
 			$devel = false; //set to true to uninstall for development
@@ -42,16 +58,27 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			new bwps_setup( $case );
 		}
 
+		/**
+		 * Public function to uninstall
+		 *
+		 **/
 		function on_uninstall() {
+		
 			if ( __FILE__ != WP_UNINSTALL_PLUGIN ) { //verify they actually clicked uninstall
 				return;
 			}
 
 			new bwps_setup( 'uninstall' );
+			
 		}
-
+		
+		/**
+		 * Activate execution
+		 *
+		 **/
 		function activate_execute() {
 		
+			//if this is multisite make sure they're network activating or die
 			if ( is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 			
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
@@ -109,12 +136,16 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				$options['activatestamp'] = time();
 			}
 			
+			//save plugin data
 			update_option( $this->plugindata, $options ); //save new plugin data
 			
+			//get plugin settings
 			$options = get_option( $this->primarysettings );
 			
+			//get contents of wp-config.php
 			$lines = explode( "\n", implode( '', file( $this->getconfig() ) ) ); //parse each line of file into array
 			
+			//set default options for wp-config stuff
 			foreach ($lines as $line) {
 			
 				if ( strstr( $line, 'DISALLOW_FILE_EDIT' ) && strstr( $line, 'true' ) ) {
@@ -139,26 +170,35 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			update_option( $this->primarysettings, $options ); //save new options data
 			
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if they're using apache write to .htaccess
 			
 				$this->writehtaccess();
 			
 			}
 			
-			$this->writewpconfig();
+			$this->writewpconfig(); //write appropriate options to wp-config.php
 			
 		}
 
+		/**
+		 * Update execution
+		 *
+		 **/
 		function update_execute() {
 		
 		}
-
+		
+		/**
+		 * Deactivate execution
+		 *
+		 **/
 		function deactivate_execute() {
 		
 			if ( wp_next_scheduled( 'bwps_backup' ) ) {
 				wp_clear_scheduled_hook( 'bwps_backup' );
 			}
 			
+			//delete options from files
 			$this->deletewpconfig();
 			$this->deletehtaccess();
 			
@@ -167,12 +207,17 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			}
 			
 		}
-
+		
+		/**
+		 * Uninstall execution
+		 *
+		 **/
 		function uninstall_execute() {
 			global $wpdb;
 			
-			$this->deactivate_execute();
+			$this->deactivate_execute(); //execute deactivation functions
 			
+			//drop database tables
 			$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "bwps_lockouts`;" );
 			$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "bwps_log`;" );
 			
