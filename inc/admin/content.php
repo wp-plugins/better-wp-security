@@ -4,6 +4,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 	class bwps_admin_content extends bwps_admin_common {
 	
+		function __construct() {
+		
+			if ( is_multisite() ) { 
+				add_action( 'network_admin_menu', array( &$this, 'register_settings_page' ) ); 
+			} else {
+				add_action( 'admin_menu',  array( &$this, 'register_settings_page' ) );
+			}
+
+			//add settings
+			add_action( 'admin_init', array( &$this, 'register_settings' ) );
+		
+		}
+	
 		/**
 		 * Registers all WordPress admin menu items
 		 *

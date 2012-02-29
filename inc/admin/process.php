@@ -4,6 +4,14 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 
 	class bwps_admin_process extends bwps_admin_common {
 	
+		function __construct() {
+		
+			if (isset( $_POST['bwps_page']) ) {
+				add_action( 'admin_init', array( &$this, 'form_dispatcher' ) );
+			}
+			
+		}
+	
 		/**
 		 * Form dispacther
 		 *
