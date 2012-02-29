@@ -1,5 +1,7 @@
 <?php
 
+require_once( plugin_dir_path( __FILE__ ) . 'admin/common.php' );
+
 if ( ! class_exists( 'bwps_setup' ) ) {
 
 	class bwps_setup extends bwps_admin_common {
