@@ -6,7 +6,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'process.php' );
 
 if ( ! class_exists( 'bwps_admin_construct' ) ) {
 
-	class bwps_admin_construct extends bit51_bwps {
+	class bwps_admin_construct extends bwps_admin_common {
 
 		/**
 		 * Sets admin configuration
