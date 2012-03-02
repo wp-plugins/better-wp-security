@@ -395,7 +395,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						$rules .= 
 							"\tif (\$http_user_agent ~* " . $alist . ") {\n" .
 							"\t\treturn 403;\n" .
-							"\t}\n\n" .
+							"\t}\n\n";
 					}
 				
 				}
