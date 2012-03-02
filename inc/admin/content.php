@@ -301,7 +301,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Rewrite Tweaks', $this->hook ), 'systemtweaks_content_2' ), //systemtweaks htaccess (or other rewrite) options
+					array( __( 'Server Tweaks', $this->hook ), 'systemtweaks_content_2' ), //systemtweaks htaccess (or other rewrite) options
 					array( __( 'Other Tweaks', $this->hook ), 'systemtweaks_content_3' ) //systemtweaks other options
 					
 				)
@@ -1849,7 +1849,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</th>
 							<td>
 								<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $options['st_ht_browsing'] ); ?> />
-								<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
+								<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present. Note this setting has no effect on NGINX.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top">

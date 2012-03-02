@@ -242,10 +242,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= "Options All -Indexes\n\n";
 				
-				} else {
-				
-					$rules .= 'NGINX rules';
-				
 				}
 				
 			}
@@ -273,7 +269,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 					} else {
 					
-						$rules .= 'NGINX rules';
+						$rules .= "NGINX rules\n\n";
 					
 					}
 				
@@ -306,8 +302,19 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				} else {
 				
-					$rules .= 'NGINX rules';
-				
+					$rules .= 
+						"\tlocation ~ /\.ht {\n" .
+						"\t\tdeny all;\n" .
+						"\t}\n\n" .
+						"\tlocation ~ wp-config.php {\n" .
+						"\t\tdeny all;\n".
+						"\t}\n\n" .
+						"\tlocation ~ readme.html {\n" .
+						"\t\tdeny all;\n" .
+						"\t}\n\n" .
+						"\tlocation ~ install.php {\n" .
+						"\t\tdeny all;\n".
+						"\t}\n\n";
 				}
 				
 			}
@@ -322,7 +329,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				} else {
 				
-					$rules .= 'NGINX rules';
+					$rules .= 
+						"\tset \$susquery 0;\n" .
+						"\tset \$rule_2 0;\n" .
+						"\tset \$rule_3 0;\n\n";
 				
 				}
 			
@@ -360,7 +370,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 					} else {
 					
-						$rules .= 'NGINX rules';
+					$rules .= "NGINX rules\n\n";
 					
 					}
 				
@@ -380,7 +390,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				} else {
 				
-					$rules .= 'NGINX rules';
+					$rules .= 
+						"\trewrite ^wp-includes/(.*).php /not_found last;\n" .
+						"\trewrite ^/wp-admin/includes(.*)$ /not_found last;\n\n";
 				
 				}
 				
@@ -395,7 +407,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				} else {
 				
-					$rules .= 'NGINX rules';
+					$rules .= 
+					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){\n" .
+					"\t\treturn 403;\n" .
+					"\t}\n\n";
 				
 				}
 				
@@ -426,8 +441,78 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				} else {
 				
-					$rules .= 'NGINX rules';
+					$rules .= 
+					
+						"\tif (\$args ~* \"\\.\\./\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .										
+						"\tif (\$args ~* \"boot.ini\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"tag=\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .										
+						"\tif (\$args ~* \"ftp:\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"http:\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"https:\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"base64_encode\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(%24&x)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(\\\"|'|<|>|\\|{||)\"){\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n" .
+						"\tif (\$args ~* \"(request|select|insert|union|declare)\") {\n" .
+						"\t\tset \$susquery 1;\n" .
+						"\t}\n\n";
 				
+				}
+				
+			}
+			
+			if ( $bwpsserver == 'nginx' ) {
+			
+				$rules .= 
+					"\tif (\$http_cookie !~* \"wordpress_logged_in_\" ) {\n" .
+					"\t\tset \$susquery \"\${susquery}2\";\n" .
+					"\t\tset \$rule_2 1;\n" .
+					"\t\tset \$rule_3 1;\n" .
+					"\t}\n\n";
+			
+			}
+			
+			if ( $options['st_ht_query'] == 1 ) {
+			
+				if ( $bwpsserver == 'nginx' ) {
+			
+					$rules .= 
+						"\tif (\$susquery = 12) {\n" .
+						"\t\treturn 403;\n" .
+						"\t}\n\n";
+						
 				}
 				
 			}
@@ -482,7 +567,43 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				} else {
 					
-					$rules .= 'NGINX rules';
+					$rules .= 
+						"\trewrite ^/" . $login . " " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
+						"\tif (\$rule_2 = 1) {\n" .
+						"\t\trewrite ^/" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;\n" .
+						"\t}\n\n" .
+						"\tif (\$rule_2 = 0) {\n" .
+						"\t\trewrite ^/" . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;\n" .
+						"\t}\n\n" .
+						"\trewrite ^/" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;\n\n" .
+						"\tif (\$http_referer !~* " . $dir . "wp-admin ) {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$http_referer !~* " . $dir . "wp-login.php ) {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$http_referer !~* " . $dir . $login . " ) {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$http_referer !~* " . $dir . $admin . " ) {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$http_referer !~* " . $dir . $register . " ) {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$args !~ \"^action=logout\") {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$args !~ \"^" . $key . "\") {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$args !~ \"^action=rp\") {\n" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
+						"\t}\n\n" .
+						"\tif (\$rule_3 = 111111111) {\n" .
+						"\t\trewrite ^(.*/)?wp-login.php /not_found last;\n" .
+						"\t\trewrite ^/wp-admin(.*)$ /not_found last;\n" .
+						"\t}\n\n";
 				
 				}
 				
@@ -492,10 +613,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					if ( $bwpsserver == 'apache' ) {
 					
 						$rules .= "</IfModule>\n";
-					
-					} else {
-					
-						$rules .= 'NGINX rules';
 					
 					}
 				
@@ -680,7 +797,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_fileedit'] == 1 ) {
 			
-				$lines .= "define('DISALLOW_FILE_EDIT', true);\n";
+				$lines .= "define('DISALLOW_FILE_EDIT', true);\n\n";
 			
 			}
 			
@@ -692,7 +809,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_forceadminssl'] == 1 ) {
 			
-				$lines .= "define('FORCE_SSL_ADMIN', true);\n";
+				$lines .= "define('FORCE_SSL_ADMIN', true);\n\n";
 			
 			}
 			
