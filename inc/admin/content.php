@@ -1913,13 +1913,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top" style="border: 1px solid #ffcc00;">
 						<th scope="row">
 							<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $options['st_edituri'] ); ?> />
 							<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
+							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr>
