@@ -568,7 +568,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 					
 					$rules .= 
-						"\trewrite ^" . $dir . $login . " " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
+						"\trewrite ^" . $dir . $login . "$ " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
 						"\tif (\$rule_2 = 1) {\n" .
 						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;\n" .
 						"\t}\n\n" .
