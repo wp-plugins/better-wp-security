@@ -271,7 +271,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 						foreach ( $hosts as $host ) {
 						
-							$rules .= "\tdeny " . trim( $host ) . "\n";
+							$rules .= "\tdeny " . trim( $host ) . ";\n";
 						
 						}
 						
