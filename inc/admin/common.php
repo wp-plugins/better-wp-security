@@ -476,7 +476,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){\n" .
 						"\t\tset \$susquery 1;\n" .
 						"\t}\n\n" .
-						"\tif (\$args ~* \"(\\\"|'|<|>|\\|{||)\"){\n" .
+						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){\n" .
 						"\t\tset \$susquery 1;\n" .
 						"\t}\n\n" .
 						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") {\n" .
