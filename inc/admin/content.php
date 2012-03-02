@@ -1967,7 +1967,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Enforce strong passwords for all users with at least the role specified below.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top" style="border: 1px solid #ffcc00;">
 						<th scope="row">
 							<label for "st_passrole"><?php _e( 'Strong Password Role', $this->hook ); ?></label>
 						</th>
@@ -1980,6 +1980,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<option value="subscriber" <?php if ($options['st_passrole'] == "subscriber") echo "selected"; ?>>Subscriber</option>
 							</select>
 							<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see', $this->hook ); ?> <a hre="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
+							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr>
