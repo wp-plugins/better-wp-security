@@ -269,7 +269,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 					} else {
 					
-						$rules .= "NGINX rules\n\n";
+						foreach ( $hosts as $host ) {
+						
+							$rules .= "\tdeny " . trim( $host ) . "\n";
+						
+						}
+						
+						$rules .= "\n";
 					
 					}
 				
@@ -370,8 +376,26 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 					} else {
 					
-					$rules .= "NGINX rules\n\n";
-					
+						$count = 1;
+						$alist = '';
+						
+						foreach ( $agents as $agent ) {
+									
+							$alist .= trim( $agent );
+									
+							if ( $count < sizeof( $agents ) ) {
+									
+								$agents .= "|";
+								$count++;
+									
+							}
+									
+						}
+							
+						$rules .= 
+							"\tif (\$http_user_agent ~* " . $alist . ") {\n" .
+							"\t\treturn 403;\n" .
+							"\t}\n\n" .
 					}
 				
 				}
