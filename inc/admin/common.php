@@ -546,7 +546,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				//hide wordpress backend
 				if ( $bwpsserver == 'apache' ) {
 					
-					$rules .= "RewriteRule ^" . $login . " " . $dir . "wp-login.php?" . $key . " [R,L]\n\n" .
+					$rules .= "RewriteRule ^" . $login . "$ " . $dir . "wp-login.php?" . $key . " [R,L]\n\n" .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
 						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]\n\n" .
 						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]\n\n" .

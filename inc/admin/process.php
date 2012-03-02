@@ -140,6 +140,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['id_enabled'] = 1;
 			$options['st_ht_files'] = 1;
 			$options['st_ht_browsing'] = 1;
+			$options['st_ht_request'] = 1;
 			$options['st_generator'] = 1;
 			$options['st_manifest'] = 1;
 			$options['st_themenot'] = 1;
@@ -219,6 +220,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			$this-> showmessages( $errorHandler ); //finally show messages
+			
+			wp_clear_auth_cookie();
 			
 		}
 		

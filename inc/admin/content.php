@@ -352,7 +352,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function dashboard_content_2() {
 			$options = get_option( $this->primarysettings );
-			if ( $options['backup_enabled'] == 1 && $options['ll_enabled'] == 1 && $options['id_enabled'] == 1 && $options['st_ht_files'] == 1 && $options['st_ht_browsing'] == 1 && $options['st_generator'] == 1 && $options['st_manifest'] == 1 && $options['st_themenot'] == 1 && $options['st_pluginnot'] == 1 && $options['st_corenot'] == 1 && $options['st_enablepassword'] == 1 && $options['st_loginerror'] == 1 ) {
+			if ( $options['backup_enabled'] == 1 && $options['ll_enabled'] == 1 && $options['id_enabled'] == 1 && $options['st_ht_files'] == 1 && $options['st_ht_browsing'] == 1 && $options['st_generator'] == 1 && $options['st_manifest'] == 1 && $options['st_themenot'] == 1 && $options['st_pluginnot'] == 1 && $options['st_corenot'] == 1 && $options['st_enablepassword'] == 1 && $options['st_loginerror'] == 1 && $options['st_ht_request'] == 1 ) {
 			?>
 			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
 			<?php } else { ?>
@@ -1843,15 +1843,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p><?php _e( 'Prevent public access to readme.html, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top">
-							<th scope="row">
-								<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
-							</th>
-							<td>
-								<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $options['st_ht_browsing'] ); ?> />
-								<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present. Note this setting has no effect on NGINX.', $this->hook ); ?></p>
-							</td>
-						</tr>
+						<?php if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { ?>
+							<tr valign="top">
+								<th scope="row">
+									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
+								</th>
+								<td>
+									<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $options['st_ht_browsing'] ); ?> />
+									<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
+								</td>
+							</tr>
+						<?php } ?>
 						<tr valign="top">
 							<th scope="row">
 								<label for "st_ht_request"><?php _e( 'Filter Request Methods', $this->hook ); ?></label>
@@ -1861,12 +1863,12 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ff0000;">
+						<tr valign="top" style="border: 1px solid #ffcc00;">
 							<th scope="row">
 								<label for "st_ht_query"><?php _e( 'Filter Suspicious Query Strings', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $options['st_ht_request'] ); ?> />
+								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $options['st_ht_query'] ); ?> />
 								<p><?php _e( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -1992,7 +1994,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top" style="border: 1px solid #ff0000;">
+					<tr valign="top" style="border: 1px solid #ffcc00;">
 						<th scope="row">
 							<label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
 						</th>
@@ -2002,7 +2004,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top" style="border: 1px solid #ff0000;">
+					<tr valign="top" style="border: 1px solid #ffcc00;">
 						<th scope="row">
 							<label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
 						</th>
@@ -2012,13 +2014,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top"  style="border: 1px solid #ffcc00;">
 						<th scope="row">
 							<label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
 							<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
+							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -2033,7 +2036,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					echo '}';
 					echo '</script>';
 					?>
-					<tr valign="top">
+					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">
 							<label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
 						</th>
@@ -2042,7 +2045,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr valign="top"  style="border: 1px solid #ff0000;">
 						<th scope="row">
 							<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
 						</th>
