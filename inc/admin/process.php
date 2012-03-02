@@ -1066,9 +1066,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			//validate options
 			$options['st_ht_files'] = ( $_POST['st_ht_files'] == 1 ? 1 : 0 );
-			$options['st_ht_browsing'] = ( $_POST['st_ht_browsing'] == 1 ? 1 : 0 );
 			$options['st_ht_request'] = ( $_POST['st_ht_request'] == 1 ? 1 : 0 );
 			$options['st_ht_query'] = ( $_POST['st_ht_query'] == 1 ? 1 : 0 );
+			
+			//always set directory browsing to 1 on nginx to prevent nag
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+				$options['st_ht_browsing'] = ( $_POST['st_ht_browsing'] == 1 ? 1 : 0 );
+			} else {
+				$options['st_ht_browsing'] = 1;
+			}	
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
