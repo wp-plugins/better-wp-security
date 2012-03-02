@@ -568,27 +568,27 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 					
 					$rules .= 
-						"\trewrite ^/" . $login . " " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
+						"\trewrite ^" . $dir . $login . " " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
 						"\tif (\$rule_2 = 1) {\n" .
-						"\t\trewrite ^/" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;\n" .
+						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;\n" .
 						"\t}\n\n" .
 						"\tif (\$rule_2 = 0) {\n" .
-						"\t\trewrite ^/" . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;\n" .
+						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;\n" .
 						"\t}\n\n" .
-						"\trewrite ^/" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;\n\n" .
-						"\tif (\$http_referer !~* " . $dir . "wp-admin ) {\n" .
+						"\trewrite ^" . $dir . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;\n\n" .
+						"\tif (\$http_referer !~* wp-admin ) {\n" .
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $dir . "wp-login.php ) {\n" .
+						"\tif (\$http_referer !~* wp-login.php ) {\n" .
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $dir . $login . " ) {\n" .
+						"\tif (\$http_referer !~* " . $login . " ) {\n" .
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $dir . $admin . " ) {\n" .
+						"\tif (\$http_referer !~* " . $admin . " ) {\n" .
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $dir . $register . " ) {\n" .
+						"\tif (\$http_referer !~* " . $register . " ) {\n" .
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
 						"\tif (\$args !~ \"^action=logout\") {\n" .
@@ -601,8 +601,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
 						"\t}\n\n" .
 						"\tif (\$rule_3 = 111111111) {\n" .
-						"\t\trewrite ^(.*/)?wp-login.php /not_found last;\n" .
-						"\t\trewrite ^/wp-admin(.*)$ /not_found last;\n" .
+						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found last;\n" .
+						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found last;\n" .
 						"\t}\n\n";
 				
 				}
