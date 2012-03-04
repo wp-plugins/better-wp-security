@@ -151,7 +151,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			if ( $options['initial_backup'] == 1 ) { //they've backed up their database or ignored the warning
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
 						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_2' ), //One-click protection
 						array( __( 'System Status', $this->hook ), 'dashboard_content_3' ), //Better WP Security System Status
@@ -163,7 +163,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			} else { //if they haven't backed up their database or ignored the warning
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
 					),
