@@ -191,7 +191,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		
 			if ( get_option( 'BWPS_options' ) != false ) {
 			
-				$oldoptions = get_option( 'BWPS_options' );
+				$oldoptions = unserialize( get_option( 'BWPS_options' ) );
 				$options = get_option( $this->primarysettings );
 				
 				$options['am_enabled'] = $oldoptions['away_enable'];
