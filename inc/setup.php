@@ -241,9 +241,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				foreach ( $items as $item ) {
 					
-					if ( strstr( $item, '-' ) {
+					if ( strstr( $item, '-' ) ) {
 					
-						$r = explode( '-', $item )
+						$r = explode( '-', $item );
 					
 						if ( ip2long( trim( str_replace( '*', '0', $r[0] ) ) ) != false && ip2long( trim( str_replace( '*', '0', $r[1] ) ) ) != false ) {
 						
@@ -251,7 +251,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 						}
 					
-					} elseif ( strstr( $item, '*' ) {
+					} elseif ( strstr( $item, '*' ) ) {
 					
 						if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) != false ) {
 						
