@@ -481,7 +481,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 									
 							if ( $count < sizeof( $agents ) ) {
 									
-								$agents .= "|";
+								$alist .= '|';
 								$count++;
 									
 							}
