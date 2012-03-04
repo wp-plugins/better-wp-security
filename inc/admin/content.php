@@ -29,7 +29,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$this->accesslvl,
 				$this->hook,
 				array( &$this, 'admin_dashboard' ),
-				BWPS_PU . 'images/padlock.png'
+				BWPS_PU . 'images/shield-small.png'
 			);
 			
 			add_submenu_page(
@@ -157,7 +157,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'System Status', $this->hook ), 'dashboard_content_3' ), //Better WP Security System Status
 						array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_4' ), //Better WP Security Rewrite Rules
 						array( __( 'System Information', $this->hook ), 'dashboard_content_5' ) //Generic System Information
-					)
+					),
+					BWPS_PU . 'images/shield-large.png'
 				);
 			
 			} else { //if they haven't backed up their database or ignored the warning
