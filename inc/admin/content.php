@@ -166,7 +166,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
 					array(
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
-					)
+					),
+					,
+					BWPS_PU . 'images/shield-large.png'
 				);
 			
 			}
