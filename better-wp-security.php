@@ -42,7 +42,6 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'am_enddate' 			=> '1',
 					'am_starttime' 			=> '1',
 					'am_endtime' 			=> '1',
-					'am_type'				=> '0',
 					'backup_email' 			=> '1',
 					'backup_int' 			=> 'daily',
 					'backup_enabled'		=> '0',
