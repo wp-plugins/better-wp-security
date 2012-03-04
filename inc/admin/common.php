@@ -53,15 +53,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			global $wpdb;
 			$this->errorHandler = '';
 			
-			//find backup library
-			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
+			$this->execute_backup();
 			
-			$options = get_option( $this->primarysettings );
 			
-			@require( BWPS_PP . 'lib/phpmysqlautobackup/run.php' );
-			
-			$wpdb->query( 'DROP TABLE `phpmysqlautobackup`;' );
-			$wpdb->query( 'DROP TABLE `phpmysqlautobackup_log`;' );
 			
 		}
 		
@@ -182,6 +176,108 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				return 1; //nothing to write
 				
+		}
+		
+		function execute_backup() {
+			global $wpdb;
+			
+			$options = get_option( $this->primarysettings );
+			
+			//get all of the tables
+			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
+			
+			//cycle through each table
+			foreach($tables as $table) {
+			
+				$result = $wpdb->get_results( 'SELECT * FROM `' . $table[0] . '`;', ARRAY_N );
+				$num_fields = sizeof( $result[0] );
+				
+				$return.= 'DROP TABLE IF EXISTS `' . $table[0] . '`;';
+				$row2 = $wpdb->get_row( 'SHOW CREATE TABLE `' . $table[0] . '`;', ARRAY_N );
+				$return.= "\n\n" . $row2[1] . ";\n\n";
+				
+				foreach( $result as $row ) {
+					
+					$return .= 'INSERT INTO `' . $table[0] . '` VALUES(';
+						
+					for( $j=0; $j < $num_fields; $j++ ) {
+						
+						$row[$j] = addslashes( $row[$j] );
+						$row[$j] = ereg_replace( "\n", "\\n", $row[$j] );
+							
+						if ( isset( $row[$j] ) ) { 
+							$return .= '"' . $row[$j] . '"' ; 
+						} else { 
+							$return.= '""'; 
+						}
+							
+						if ( $j < ( $num_fields - 1 ) ) { 
+							$return .= ','; 
+						}
+							
+					}
+						
+					$return .= ");\n";
+						
+				}
+					
+				$return .="\n\n";
+					
+			}
+				
+			$return .="\n\n\n";
+			
+			//save file
+			$file = 'database-backup-' . time();
+			$handle = fopen( BWPS_PP . '/backups/' . $file . '.sql', 'w+' );
+			fwrite( $handle, $return );
+			fclose( $handle );
+	
+			//zip the file
+			$zip = new ZipArchive();
+			$archive = $zip->open(BWPS_PP . '/backups/' . $file . '.zip', ZipArchive::CREATE);
+			$zip->addFile(BWPS_PP . '/backups/' . $file . '.sql', $file . '.sql' );
+			$zip->close();
+			
+			//delete .sql and keep zip
+			unlink(BWPS_PP . '/backups/' . $file . '.sql');
+			
+			if ( $options['backup_email'] == 1 ) {
+			
+				$to = get_option( 'admin_email' );
+				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . "\r\n";
+				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+				$attachment = array( BWPS_PP . '/backups/' . $file . '.zip' );
+				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+			
+				wp_mail( $to, $subject, $message, $headers, $attachment );
+				
+				$files = scandir( BWPS_PP . '/backups/', 1 );
+				
+				foreach ( $files as $file ) {
+					if ( strstr( $file, 'database-backup' ) ) {
+						unlink ( BWPS_PP . '/backups/' . $file );
+					}
+				}
+			
+			}
+			
+			//delete extra files
+			if ( $options['backups_to_retain'] != 0 ) {
+				$files = scandir( BWPS_PP . '/backups/', 1 );
+			
+				$count = 0;
+			
+				foreach ( $files as $file ) {
+					if ( strstr( $file, 'database-backup' ) ) {
+						if ( $count >= $options['backups_to_retain'] ) {
+							unlink ( BWPS_PP . '/backups/' . $file );
+						}
+						$count++;
+					}	
+				}
+			}
+			
 		}
 		
 		/**

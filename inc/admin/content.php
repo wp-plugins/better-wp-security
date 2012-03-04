@@ -301,8 +301,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Server Tweaks', $this->hook ), 'systemtweaks_content_2' ), //systemtweaks htaccess (or other rewrite) options
-					array( __( 'Other Tweaks', $this->hook ), 'systemtweaks_content_3' ) //systemtweaks other options
+					array( __( 'System Tweaks', $this->hook ), 'systemtweaks_content_2' ) //systemtweaks htaccess (or other rewrite) options
 					
 				)
 			);
@@ -1814,8 +1813,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function systemtweaks_content_1() {
 			?>
 			<p><?php _e( 'This page contains a number of tweaks that can significantly improve the security of your system.', $this->hook ); ?></p>
-			<p><?php _e( 'Rewrite tweaks make use of rewrite rules and, in the case of Apache, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration.', $this->hook ); ?></p>
-			<p><?php _e( 'The other in some cases, make use of editing your wp-config.php file. Those that do can be manually turned off by reverting the changes that file.', $this->hook ); ?></p>
+			<p><?php _e( 'Server tweaks make use of rewrite rules and, in the case of Apache, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration.', $this->hook ); ?></p>
+			<p><?php _e( 'The other tweaks, in some cases, make use of editing your wp-config.php file. Those that do can be manually turned off by reverting the changes that file.', $this->hook ); ?></p>
 			<p><?php _e( 'Be advsied, some of these tweaks may in fact break other plugins and themes that make use of techniques that are often seen in practice as suspicious. That said, I highly recommend turning these on one-by-one and don\'t worry if you cannot use them all.', $this->hook ); ?></p>
 			<?php
 		}
@@ -1835,6 +1834,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 					<table class="form-table">
 						<tr valign="top">
+							<tr>
+								<td scope="row" colspan="2">
+									<h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
+								</td>
+							</tr>
 							<th scope="row">
 								<label for "st_ht_files"><?php _e( 'Protect Files', $this->hook ); ?></label>
 							</th>
@@ -1873,192 +1877,179 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
+						<tr>
+							<td scope="row" colspan="2">
+								<h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_generator"><?php _e( 'Remove Wordpress Generator Meta Tag', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $options['st_generator'] ); ?> />
+								<p><?php _e( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_manifest"><?php _e( 'Remove wlwmanifest header', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $options['st_manifest'] ); ?> />
+								<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $options['st_edituri'] ); ?> />
+								<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2">
+								<h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_themenot"><?php _e( 'Hide Theme Update Notifications', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $options['st_themenot'] ); ?> />
+								<p><?php _e( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_pluginnot"><?php _e( 'Hide Plugin Update Notifications', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $options['st_pluginnot'] ); ?> />
+								<p><?php _e( 'Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_corenot"><?php _e( 'Hide Core Update Notifications', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $options['st_corenot'] ); ?> />
+								<p><?php _e( 'Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2">
+								<h4><?php _e( 'Strong Password Tweaks', $this->hook ); ?></h4>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $options['st_enablepassword'] ); ?> />
+								<p><?php _e( 'Enforce strong passwords for all users with at least the role specified below.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<label for "st_passrole"><?php _e( 'Strong Password Role', $this->hook ); ?></label>
+							</th>
+							<td>
+								<select name="st_passrole" id="st_passrole">
+									<option value="administrator" <?php if ($options['st_passrole'] == "administrator") echo "selected"; ?>>Administrator</option>
+									<option value="editor" <?php if ($options['st_passrole'] == "editor") echo "selected"; ?>>Editor</option>
+									<option value="author" <?php if ($options['st_passrole'] == "author") echo "selected"; ?>>Author</option>
+									<option value="contributor" <?php if ($options['st_passrole'] == "contributor") echo "selected"; ?>>Contributor</option>
+									<option value="subscriber" <?php if ($options['st_passrole'] == "subscriber") echo "selected"; ?>>Subscriber</option>
+								</select>
+								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see', $this->hook ); ?> <a hre="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2">
+								<h4><?php _e( 'Other Tweaks', $this->hook ); ?></h4>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $options['st_loginerror'] ); ?> />
+								<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $options['st_randomversion'] ); ?> />
+								<p><?php _e( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $options['st_longurl'] ); ?> />
+								<p><?php _e( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top"  style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
+								<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2">
+								<h4><?php _e( 'SSL Tweaks', $this->hook ); ?></h4>
+								<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4>
+							</td>
+						<?php
+						echo '<script language="javascript">';
+						echo 'function forcessl() {';
+						echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
+						echo '}';
+						echo '</script>';
+						?>
+						<tr valign="top" style="border: 1px solid #ff0000;">
+							<th scope="row">
+								<label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
+								<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top"  style="border: 1px solid #ff0000;">
+							<th scope="row">
+								<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceadminssl'] ); ?> />
+								<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
+							</td>
+						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Rewrite Changes', $this->hook ) ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
 				</form>
 			<?php } ?>
-			<?php
-		}
-		
-		/**
-		 * Other tweaks options form for system tweaks page
-		 *
-	 	 **/
-		function systemtweaks_content_3() {
-			?>
-			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
-			<input type="hidden" name="bwps_page" value="systemtweaks_2" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
-				<table class="form-table">
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
-						</td>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_generator"><?php _e( 'Remove Wordpress Generator Meta Tag', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $options['st_generator'] ); ?> />
-							<p><?php _e( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_manifest"><?php _e( 'Remove wlwmanifest header', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $options['st_manifest'] ); ?> />
-							<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top" style="border: 1px solid #ffcc00;">
-						<th scope="row">
-							<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $options['st_edituri'] ); ?> />
-							<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
-							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
-						</td>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_themenot"><?php _e( 'Hide Theme Update Notifications', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $options['st_themenot'] ); ?> />
-							<p><?php _e( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_pluginnot"><?php _e( 'Hide Plugin Update Notifications', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $options['st_pluginnot'] ); ?> />
-							<p><?php _e( 'Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_corenot"><?php _e( 'Hide Core Update Notifications', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $options['st_corenot'] ); ?> />
-							<p><?php _e( 'Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Strong Password Tweaks', $this->hook ); ?></h4>
-						</td>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $options['st_enablepassword'] ); ?> />
-							<p><?php _e( 'Enforce strong passwords for all users with at least the role specified below.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top" style="border: 1px solid #ffcc00;">
-						<th scope="row">
-							<label for "st_passrole"><?php _e( 'Strong Password Role', $this->hook ); ?></label>
-						</th>
-						<td>
-							<select name="st_passrole" id="st_passrole">
-								<option value="administrator" <?php if ($options['st_passrole'] == "administrator") echo "selected"; ?>>Administrator</option>
-								<option value="editor" <?php if ($options['st_passrole'] == "editor") echo "selected"; ?>>Editor</option>
-								<option value="author" <?php if ($options['st_passrole'] == "author") echo "selected"; ?>>Author</option>
-								<option value="contributor" <?php if ($options['st_passrole'] == "contributor") echo "selected"; ?>>Contributor</option>
-								<option value="subscriber" <?php if ($options['st_passrole'] == "subscriber") echo "selected"; ?>>Subscriber</option>
-							</select>
-							<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see', $this->hook ); ?> <a hre="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
-							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Other Tweaks', $this->hook ); ?></h4>
-						</td>
-					<tr valign="top">
-						<th scope="row">
-							<label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $options['st_loginerror'] ); ?> />
-							<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top" style="border: 1px solid #ffcc00;">
-						<th scope="row">
-							<label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $options['st_randomversion'] ); ?> />
-							<p><?php _e( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', $this->hook ); ?></p>
-							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top" style="border: 1px solid #ffcc00;">
-						<th scope="row">
-							<label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $options['st_longurl'] ); ?> />
-							<p><?php _e( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', $this->hook ); ?></p>
-							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top"  style="border: 1px solid #ffcc00;">
-						<th scope="row">
-							<label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
-							<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
-							<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'SSL Tweaks', $this->hook ); ?></h4>
-							<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4>
-						</td>
-					<?php
-					echo '<script language="javascript">';
-					echo 'function forcessl() {';
-					echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
-					echo '}';
-					echo '</script>';
-					?>
-					<tr valign="top" style="border: 1px solid #ff0000;">
-						<th scope="row">
-							<label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
-							<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top"  style="border: 1px solid #ff0000;">
-						<th scope="row">
-							<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceadminssl'] ); ?> />
-							<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
-						</td>
-					</tr>
-				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
-			</form>
 			<?php
 		}
 	

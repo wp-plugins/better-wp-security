@@ -49,7 +49,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 **/
 		function on_deactivate() {
 	
-			$devel = false; //set to true to uninstall for development
+			$devel = true; //set to true to uninstall for development
 		
 			if ( $devel ) {
 				$case = 'uninstall';

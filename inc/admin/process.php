@@ -73,9 +73,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'systemtweaks_1':
 					$this->systemtweaks_process_1();
 					break;
-				case 'systemtweaks_2':
-					$this->systemtweaks_process_2();
-					break;
 			}
 		}
 		
@@ -89,15 +86,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			//find backup library
-			$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups/';
+			//execute backup
+			$this->execute_backup();
 			
 			$options = get_option( $this->primarysettings );
-			
-			@require( BWPS_PP . 'lib/phpmysqlautobackup/run.php' );
-			
-			$wpdb->query( 'DROP TABLE `phpmysqlautobackup`;' );
-			$wpdb->query( 'DROP TABLE `phpmysqlautobackup_log`;' );
 			
 			$options['initial_backup'] = 1;
 			
@@ -1076,37 +1068,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$options['st_ht_browsing'] = 1;
 			}	
 			
-			if ( ! is_wp_error( $errorHandler ) ) {
-			
-				update_option( $this->primarysettings, $options );
-				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if they're using apache write to .htaccess
-				
-					$this->writehtaccess();
-					
-				} else { //if they're not using apache let them know to manually update rules
-				
-					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
-				
-				}
-				
-			}
-						
-			$this-> showmessages( $errorHandler );
-			
-		}
-		
-		/**
-		 * Process saving other tweaks for system tweaks page
-		 *
-		 **/
-		function systemtweaks_process_2() {
-		
-			$errorHandler = __( 'Settings Saved', $this->hook );
-			
-			$options = get_option( $this->primarysettings ); //load the options
-			
-			//set options
 			$options['st_generator'] = ( $_POST['st_generator'] == 1 ? 1 : 0 );
 			$options['st_manifest'] = ( $_POST['st_manifest'] == 1 ? 1 : 0 );
 			$options['st_edituri'] = ( $_POST['st_edituri'] == 1 ? 1 : 0 );
@@ -1124,16 +1085,25 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['st_forceloginssl'] = ( $_POST['st_forceloginssl'] == 1 ? 1 : 0 );
 			$options['st_forceadminssl'] = ( $_POST['st_forceadminssl'] == 1 ? 1 : 0 );
 			
-			//process if no errors
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
-				update_option( $this->primarysettings, $options ); //save to database
+				update_option( $this->primarysettings, $options );
 				$this->writewpconfig(); //save to wp-config.php
+				
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if they're using apache write to .htaccess
+				
+					$this->writehtaccess();
+					
+				} else { //if they're not using apache let them know to manually update rules
+				
+					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+				
+				}
 				
 			}
 						
 			$this-> showmessages( $errorHandler );
-		
+			
 		}
 	
 	}
