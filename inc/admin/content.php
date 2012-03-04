@@ -167,7 +167,6 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array(
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
 					),
-					,
 					BWPS_PU . 'images/shield-large.png'
 				);
 			
@@ -184,7 +183,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Admin User', $this->hook ), 'adminuser_content_2' ) //adminuser options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -198,7 +198,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'awaymode_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Away Mode Options', $this->hook ), 'awaymode_content_2' ), //awaymode options
 					array( __( 'Away Mode Rules', $this->hook ), 'awaymode_content_3' )
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -211,7 +212,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'banusers_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Banned Users Configuration', $this->hook ), 'banusers_content_2' ) //banusers options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -224,7 +226,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'contentdirectory_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The wp-content Directory', $this->hook ), 'contentdirectory_content_2' ) //contentdirectory options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -239,7 +242,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
 					array( __( 'Schedule Automated Backups', $this->hook ), 'databasebackup_content_3' ), //scheduled backup options
 					array( __( 'Download Backups', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -252,7 +256,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databaseprefix_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Database Prefix', $this->hook ), 'databaseprefix_content_2' ) //databaseprefix options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -266,7 +271,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'hidebackend_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Hide Backend Options', $this->hook ), 'hidebackend_content_2' ), //hidebackend options
 					array( __( 'Secret Key', $this->hook ), 'hidebackend_content_3' ) //hidebackend secret key information 
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -279,7 +285,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_2' ) //intrusiondetection options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -292,7 +299,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'loginlimits_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Limit Login Attempts', $this->hook ), 'loginlimits_content_2' ) //loginlimit options
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -306,7 +314,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'System Tweaks', $this->hook ), 'systemtweaks_content_2' ) //systemtweaks htaccess (or other rewrite) options
 					
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
@@ -321,7 +330,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
 					array( __( 'Current Lockouts', $this->hook ), 'logs_content_3' ), //Current Lockouts log
 					array( __( '404 Errors', $this->hook ), 'logs_content_4' ) //404 Errors
-				)
+				),
+				BWPS_PU . 'images/shield-large.png'
 			);
 		}
 		
