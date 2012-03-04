@@ -1376,7 +1376,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			} else { //saving to disk so let them know where
 				?>
 				<p><?php _e( 'Please note that for security backups are not available for direct download. You will need to go to ', $this->hook ); ?></p>
-				<p><strong><em><?php echo BWPS_PP . 'lib/phpmysqlautobackup/backups'; ?></em></strong></p>
+				<p><strong><em><?php echo BWPS_PP . 'backups'; ?></em></strong></p>
 				<p><?php _e( ' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook ); ?></p>
 				<?php
 			}
