@@ -416,9 +416,9 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						
 					}
 			
-					$mesEmail = __( 'A ', $bwps->this ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i:s a e", $exptime ) . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
+					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i:s a e", $exptime ) . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
 				
-					$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $headers );
+					$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $mailHead );
 					
 				}
 				

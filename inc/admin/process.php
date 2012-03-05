@@ -833,6 +833,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$whiteitems = array();
 			
 			if( ! empty( $whiteList ) ) {
+			
+				$list = array();
 					
 				foreach( $whiteList as $item ) {
 						
@@ -911,7 +913,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 							}
 											
 						}
-									
+						
 						if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) == false ) { //invalid ip 
 										
 							if ( ! is_wp_error( $errorHandler ) ) {
@@ -932,7 +934,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 			
-			$options['id_whitelist'] = implode( "\n", $whiteitems );
+			$options['id_whitelist'] = implode( "\n", $list );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $options );
