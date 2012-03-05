@@ -544,12 +544,14 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			if ( $options['backup_email'] == 1 ) { //if backups are done by email remove any files saved to the disk
 			
-				$backuppath = BWPS_PP . 'lib/phpmysqlautobackup/backups';
-				$files = scandir( $backuppath );
-			
+				$files = scandir( BWPS_PP . '/backups/', 1 );
+				
 				foreach ( $files as $file ) {
-					unlink( $backuppath . '/' . $file );			
+					if ( strstr( $file, 'database-backup' ) ) {
+						unlink ( BWPS_PP . '/backups/' . $file );
+					}
 				}
+				
 			}
 			
 			//clear any items on the schedule from cron
