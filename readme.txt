@@ -5,9 +5,9 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 2.18
+Stable tag: 3.0
 
-Helps secure Wordpress by protecting your single or multi-site installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
+The easiest, most effective way to secure your WordPress site from attackers. Improve the security of any WordPress site in seconds.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
@@ -18,29 +18,33 @@ Released under the terms of the GNU General Public License.
 
 Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
 
+With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
+
 = Current features =
 
-1. Remove the meta "Generator" tag
-2. Removes login error messages
-3. Change the urls for backend functions including login, admin, and more
-4. Limit admin access to specified IP or range of IP addresses
-5. Ban troublesome bots and other hosts
-6. Completely turn off the ability to login for a given time period (away mode)
-7. Prevent brute force attacks by banning hosts and users with too many invalid login attempts
-8. Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
-9. Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
-10. Remove Windows Live Write header information
-11. Remove RSD header information
-12. Strengthen .htaccess settings
-13. Enforce strong passwords for all accounts of a configurable minimum role
-14. Detect attempts to attack your site
-15. Rename "admin" account
-16. Security checker
-17. Change the Wordpress database table prefix
-18. Force SSL for admin pages (on supporting servers)
-19. Change wp-content path
-20. Turn off file editing from within Wordpress admin area
-20. Works on multi-site (network) and single site installations
+1. Scan your site to instantly tell where vulnerabilities are and fix them in seconds
+2. Remove the meta "Generator" tag
+3. Removes login error messages
+4. Change the urls for backend functions including login, admin, and more
+5. Create and email database backups on a schedule using wp-cron
+6. Ban troublesome bots and other hosts
+7. Completely turn off the ability to login for a given time period (away mode)
+8. Prevent brute force attacks by banning hosts and users with too many invalid login attempts
+9. Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
+10. Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
+11. Remove Windows Live Write header information
+12. Remove RSD header information
+13. Strengthen server settings
+14. Enforce strong passwords for all accounts of a configurable minimum role
+15. Detect attempts to attack your site
+16. Rename "admin" account
+17. Security checker
+18. Change the Wordpress database table prefix
+19. Force SSL for admin pages (on supporting servers)
+20. Change wp-content path
+21. Turn off file editing from within Wordpress admin area
+22. Works on multi-site (network) and single site installations
+23. Works with Apache or NGINX
 
 = Translations =
 * Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
@@ -71,12 +75,15 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 = Will this completely stop all attacks on my site? =
 * Of course not. Better WP Security is designed to help improve the security of your WordPress installation from many common attack methods. It can no way prevent every possible attack on your website. Nothing replaces diligence and good practice. This plugin just makes it a little easier for you to apply both.
 
+= Is "one-click" protection good enough? =
+* While one-click protection will go a long way to helping reduce the risk of attack on your site, the more features you can activate the better off you are. If you have a plugin or theme that conflicts with a feature of Better WP Security then just turn off the offending feature. It is better to use as much as you can than to not use anything at all.
+
 = Is this only for new sites or can I use it on existing sites too? =
 * Many of the changes made by this plugin are complex and can break existing sites. While it can be installed in either a new or existing site I cannot stress enough the importance of making a backup of your existing site before applying any of the options in this plugin.
 
 = Will this work on all servers and hosts? =
-* Better WP Security requires Apache and mod_rewrite to work. That said, I am considering a port for nginx but doing so is not currently something I have the time for.
-* While this plugin should work on all hosts with Apache and mod_rewrite it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
+* Better WP Security requires Apache and mod_rewrite or NGINX to work.
+* While this plugin should work on all hosts with Apache and mod_rewrite or NGINX it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 
 = Are you still developing this plugin? =
 * Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
@@ -96,7 +103,17 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * define('FORCE_SSL_LOGIN', true);;
 * define('FORCE_SSL_ADMIN', true);;
 
+== Screenshots ==
+
+1. Instantly scan your site and see where you can improve your security.
+2. One-click access to most features can make securing your site easy
+3. Simple informative options panels show you what you need to know about each and every option
+4. If you do get stuck help is never more than a few clicks away.
+
 == Changelog ==
+
+= 3.0 =
+* Now works with NGINX
 
 <a href="http://bit51.com/software/better-wp-security/changelog/">Click here for the full change log</a>
 
