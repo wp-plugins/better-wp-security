@@ -1209,15 +1209,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "bu_banrange"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
+							<label for "bu_banlist"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banrange"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banrange'] : $options['bu_banrange'] . "\n" . $options['bu_individual']; ?></textarea>
+							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? $_POST['bu_banlist'] : $options['bu_banlist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may ban users by individual IP address or IP address range.', $this->hook ); ?></li>
 								<li><?php _e( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', $this->hook ); ?></li>
-								<li><?php _e( 'IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', $this->hook ); ?></li>
+								<li><?php _e( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', $this->hook ); ?></li>
 								<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e( 'Lookup IP Address.', $this->hook ); ?></a></li>
 								<li><?php _e( 'Enter only 1 IP address or 1 IP address range per line.', $this->hook ); ?></li>
 							</em></ul>
@@ -1584,7 +1584,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<ul><em>
 								<li><?php _e( 'You may whitelist users by individual IP address or IP address range.', $this->hook ); ?></li>
 								<li><?php _e( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', $this->hook ); ?></li>
-								<li><?php _e( 'IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this.', $this->hook ); ?></li>
+								<li><?php _e( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', $this->hook ); ?></li>
 								<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank"><?php _e( 'Lookup IP Address.', $this->hook ); ?></a></li>
 								<li><?php _e( 'Enter only 1 IP address or 1 IP address range per line.', $this->hook ); ?></li>
 								<li><?php _e( '404 errors will still be logged for users on the whitelist. Only the lockout will be prevented', $this->hook ); ?></li>

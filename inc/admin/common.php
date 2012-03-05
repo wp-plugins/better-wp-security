@@ -360,7 +360,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//ban hosts
 			if ( $options['bu_enabled'] == 1 ) {
 			
-				$hosts = explode( "\n", $options['bu_individual'] );
+				$hosts = explode( "\n", $options['bu_banlist'] );
 				
 				if ( ! empty( $hosts ) ) {
 				
@@ -369,26 +369,53 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						$rules .= "Order allow,deny\n" .
 						"Allow from all\n" .
 						"Deny from ";
-				
-						foreach ( $hosts as $host ) {
 						
-							$rules .= trim( $host ) . ' ';
-						
-						}
+					}
 					
-						$rules .= "\n\n";
+					foreach ( $hosts as $host ) {
+							
+						if ( strstr( trim( $host ), '*' ) ) {
 						
-					} else {
-					
-						foreach ( $hosts as $host ) {
+							$parts = array_reverse ( explode( '.', trim( $host ) ) );
+							$netmask = 32;
+							
+							foreach ( $parts as $part ) {
+								
+								if ( strstr( trim( $part ), '*' ) ) {
+								
+									$netmask = $netmask - 8;
+								
+								}
+								
+							}
+
+							if ( $bwpsserver == 'apache' ) {
+							
+								$rules .= str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ' ';
+								
+							} else {
+							
+								$rules .= "\tdeny " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ";\n";
+							
+							}
 						
-							$rules .= "\tdeny " . trim( $host ) . ";\n";
+						} else {
 						
-						}
+							if ( $bwpsserver == 'apache' ) {
+							
+								$rules .= trim( $host ) . ' ';
+								
+							} else {
+							
+								$rules .= "\tdeny " . trim( $host ) . ";\n";
+							
+							}
 						
-						$rules .= "\n";
+						}				
 					
 					}
+				
+					$rules .= "\n\n";					
 				
 				}
 			

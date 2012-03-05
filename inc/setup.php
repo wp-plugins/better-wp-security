@@ -66,10 +66,6 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 **/
 		function on_uninstall() {
 		
-			if ( __FILE__ != WP_UNINSTALL_PLUGIN ) { //verify they actually clicked uninstall
-				return;
-			}
-
 			new bwps_setup( 'uninstall' );
 			
 		}
@@ -79,20 +75,18 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function activate_execute() {
+			global $wpdb;
 		
 			//if this is multisite make sure they're network activating or die
 			if ( is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 			
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
 			
-			}
-			
-			global $wpdb;
-			
-			$this->default_settings(); //verify and set default options
+			}			
 			
 			$options = get_option( $this->plugindata );
-			
+					
+			$oldversion = $options['version']; //set new version number
 			$options['version'] = $this->pluginversion; //set new version number
 			
 			//remove no support nag if it's been more than six months
@@ -110,9 +104,11 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			update_option( $this->plugindata, $options ); //save new plugin data
 			
 			//update if version numbers don't match
-			if ( ( isset( $options['version'] ) && $options['version'] != $this->pluginversion ) || get_option( 'BWPS_options' ) != false ) {
-				$this->update_execute();
+			if ( $oldversion != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
+				$this->update_execute($oldversion);
 			}
+			
+			$this->default_settings(); //verify and set default options
 			
 			//get plugin settings
 			$options = get_option( $this->primarysettings );
@@ -186,9 +182,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * Update execution
 		 *
 		 **/
-		function update_execute() {
+		function update_execute($oldversion = '') {
 			global $wpdb;
-		
+			
 			if ( get_option( 'BWPS_options' ) != false ) {
 			
 				$oldoptions = unserialize( get_option( 'BWPS_options' ) );
@@ -236,36 +232,25 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				
 				if ( isset(  $oldoptions['banvisits_banlist'] ) ) {
-					$ips = array();
-					$ranges = array();
+					$list = array();
 				
 					$items = explode ("\n", $oldoptions['banvisits_banlist'] );
 				
 					foreach ( $items as $item ) {
 					
-						if ( strstr( $item, '-' ) ) {
-					
-							$r = explode( '-', $item );
-					
-							if ( ip2long( trim( str_replace( '*', '0', $r[0] ) ) ) != false && ip2long( trim( str_replace( '*', '0', $r[1] ) ) ) != false ) {
-						
-								$ranges[] = $item;
-						
-							}
-					
-						} elseif ( strstr( $item, '*' ) ) {
+						if ( strstr( $item, '*' ) ) {
 					
 							if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) != false ) {
 						
-								$ranges[] = $item;
+								$list[] = $item;
 						
 							}
 					
-						} else {
+						} elseif ( ! strstr( $item, '-' ) ) {
 					
 							if ( ip2long( trim( $item ) ) != false ) {
 						
-								$ips[] = $item;
+								$list[] = $item;
 						
 							}
 						
@@ -273,8 +258,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 					}
 				
-					$options['bu_banrange'] = implode( "\n", $ranges );
-					$options['bu_individual'] = implode( "\n", $ips );
+					$options['bu_banlist'] = implode( "\n", $list );
 				
 				}
 				
@@ -291,6 +275,35 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				$this->deletehtaccess('Better WP Security Protect htaccess');
 				$this->deletehtaccess('Better WP Security Hide Backend');
 				$this->deletehtaccess('Better WP Security Ban IPs');
+			
+			} else {
+			
+				$options = get_option( $this->primarysettings );
+				
+				if ( str_replace( '.', '', $oldversion ) < 304 ) {
+				
+					$ranges = explode( "\n", $options['bu_banrange'] );
+					$ips = explode( "\n", $options['bu_individual'] );
+					
+					if ( sizeof( $ranges ) > 0 ) {
+					
+						for ( $i = 0; $i < sizeof( $ranges ); $i++ ) {
+					
+							if ( strstr( $ranges[$i], '-' ) ) {
+							
+								unset( $ranges[$i] );
+							
+							}
+					
+						}
+						
+						$options['bu_banlist'] = implode( "\n", array_merge( $ranges, $ips ) );
+						
+						update_option( $this->primarysettings, $options ); //save new options data
+					
+					}
+					
+				}
 			
 			}
 		

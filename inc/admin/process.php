@@ -276,105 +276,112 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['bu_enabled'] = ( isset( $_POST['bu_enabled'] ) && $_POST['bu_enabled'] == 1  ? 1 : 0 );
 			
 			//validate list
-			$banhosts = explode( "\n", $_POST['bu_banrange'] );
-			$ranges = array();
-			$ind = array();
+			$banhosts = explode( "\n", $_POST['bu_banlist'] );
+			$list = array();
 			
 			if( ! empty( $banhosts ) ) {
 			
 				foreach( $banhosts as $item ) {
 				
-					if ( strlen( $item) > 0 ) {
+					if ( strlen( $item ) > 0 ) {
 					
-						if ( strstr( $item,' - ' ) ) { //process range
+						$ipParts = explode( '.', $item );
+						$isIP = 0;
+						$partcount = 1;
+						$goodip = true;
+						$foundwild = false;
 						
-							$range = explode( '-', $item );
-							$start = trim( $range[0] );
-							$end = trim( $range[1] );
-							
-							if ( ip2long( $end ) == false ) { //invalid ip 
-							
-								if ( ! is_wp_error( $errorHandler ) ) {
-									$errorHandler = new WP_Error();
-								}
-								
-								$errorHandler->add( '1', __( $item . ' contains an invalid ip (' . $end . ').', $this->hook ) );
-								
-							}
-							
-							if ( ip2long( $start ) == false ) { //invalid ip 
-							
-								if ( ! is_wp_error( $errorHandler ) ) {
-									$errorHandler = new WP_Error();
-								}
-								
-								$errorHandler->add( '1', __( $item . ' contains an invalid ip (' . $start . ').', $this->hook ) );
-								
-							} else {
-							
-								$ranges[] = trim( $item );
-								
-							}	
-								
-						} else { //process single item
+						foreach ( $ipParts as $part ) {
 						
-							$ipParts = explode( '.',$item );
-							$isIP = 0;
-							
-							foreach ( $ipParts as $part ) {
+							if ( $goodip == true ) {
 							
 								if ( ( is_numeric( trim( $part ) ) && trim( $part ) <= 255 && trim( $part ) >= 0 ) || trim( $part ) == '*' ) {
 									$isIP++;
 								}
+															
+								switch ( $partcount ) {
 								
-							}
-							
-							if( $isIP == 4 ) {
-							
-								if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) == false ) { //invalid ip 
-								
-									if ( ! is_wp_error( $errorHandler ) ) {
-										$errorHandler = new WP_Error();
-									}
+									case 1:
 									
-									$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
-									
-								} else {
-								
-									if ( strpos( $item, '*' ) ) {
-								
-										$ranges[] = trim( $item );
+										if ( trim( $part ) == '*' ) {
 										
-									} else { //not a range at all so it will go in .htaccess
+											$goodip = false;
+								
+											if ( ! is_wp_error( $errorHandler ) ) { //invalid ip 
+												$errorHandler = new WP_Error();
+											}
+										
+											$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+										
+										}
+										
+										break;
+										
+									case 2:
 									
-										$ind[] = trim( $item );
+										if ( trim( $part ) == '*' ) {
+	
+											$foundwild = true;
+										
+										}
 									
-									}	
+										break;
+										
+									default:
+									
+										if ( trim( $part ) != '*' ) {
+									
+											if ( $foundwild == true ) {
+										
+												$goodip = false;
+											
+												if ( ! is_wp_error( $errorHandler ) ) { //invalid ip 
+													$errorHandler = new WP_Error();
+												}
+													
+												$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+											
+											}
+										
+										} else {
+									
+											$foundwild = true;	
+									
+										}
+									
+										break;
 									
 								}
-								
-							} else {
 							
-								if ( ! is_wp_error( $errorHandler ) ) { //invalid ip 
-									$errorHandler = new WP_Error();
-								}
-								
-								$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
-								
+								$partcount++;
+							
 							}
+									
+						}
 							
+						if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) == false ) { //invalid ip 
+								
+							if ( ! is_wp_error( $errorHandler ) ) {
+								$errorHandler = new WP_Error();
+							}
+									
+							$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
+									
+						} else {
+								
+							$list[] = trim( $item );
+																			
 						}
 						
 					}
-					
+						
 				}
 				
 			}
 			
-			$options['bu_banrange'] = implode( "\n", $ranges );
-			$options['bu_individual'] = implode( "\n", $ind );
+			$options['bu_banlist'] = implode( "\n", $list );
 			
-			if ( $bwps->checklist( $options['bu_banrange'] ) ) {
+			if ( $bwps->checklist( $options['bu_banlist'] ) ) {
 			
 				if ( ! is_wp_error( $errorHandler) ) {
 					$errorHandler = new WP_Error();
@@ -825,90 +832,107 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$whiteList = explode( "\n", $_POST['id_whitelist'] );
 			$whiteitems = array();
 			
-			if(!empty( $whiteList ) ) {
-			
-				foreach( $whiteList as $item ) {
-				
-					if ( strlen( $item ) > 0) {
+			if( ! empty( $whiteList ) ) {
 					
-						if ( strstr( $item,' - ' ) ) { //process range
+				foreach( $whiteList as $item ) {
 						
-							$range = explode( '-', $item );
-							$start = trim( $range[0] );
-							$end = trim( $range[1] );
+					if ( strlen( $item ) > 0 ) {
 							
-							if ( ip2long( $end ) == false ) { //if input isn't a valid IP set an error
-							
-								if ( ! is_wp_error( $errorHandler ) ) {
-									$errorHandler = new WP_Error();
-								}
+						$ipParts = explode( '.', $item );
+						$isIP = 0;
+						$partcount = 1;
+						$goodip = true;
+						$foundwild = false;
 								
-								$errorHandler->add( '1', __( $item . ' contains an invalid ip (' . $end . ').', $this->hook ) );
+						foreach ( $ipParts as $part ) {
 								
-							}
-							
-							if ( ip2long( $start ) == false ) { //if starting ip is invalid set an error
-							
-								if ( ! is_wp_error( $errorHandler ) ) {
-									$errorHandler = new WP_Error();
-								}
-								
-								$errorHandler->add( '1', __( $item . ' contains an invalid ip (' . $start . ').', $this->hook ) );
-								
-							} else {
-							
-								$whiteitems[] = trim( $item );
-								
-							}	
-								
-						} else { //process single entry
-						
-							$ipParts = explode( '.',$item );
-							$isIP = 0;
-							
-							foreach ( $ipParts as $part ) {
+							if ( $goodip == true ) {
 							
 								if ( ( is_numeric( trim( $part ) ) && trim( $part ) <= 255 && trim( $part ) >= 0 ) || trim( $part ) == '*' ) {
 									$isIP++;
 								}
-								
-							}
-							
-							if( $isIP == 4 ) { //make sure we have all 4 octets
-							
-								if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) == false ) { //make sure if we swap a wildcard for a 0 we still have a valid ip or set an error
-								
-									if ( ! is_wp_error( $errorHandler ) ) {
-										$errorHandler = new WP_Error();
-									}
-									
-									$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
-									
-								} else {
-								
-									$whiteitems[] = trim( $item );
-									
+																	
+								switch ( $partcount ) {
+										
+									case 1:
+											
+										if ( trim( $part ) == '*' ) {
+												
+											$goodip = false;
+										
+											if ( ! is_wp_error( $errorHandler ) ) { //invalid ip 
+												$errorHandler = new WP_Error();
+											}
+												
+											$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+												
+										}
+												
+										break;
+												
+									case 2:
+											
+										if ( trim( $part ) == '*' ) {
+			
+											$foundwild = true;
+												
+										}
+											
+										break;
+												
+									default:
+											
+										if ( trim( $part ) != '*' ) {
+											
+											if ( $foundwild == true ) {
+												
+												$goodip = false;
+													
+												if ( ! is_wp_error( $errorHandler ) ) { //invalid ip 
+													$errorHandler = new WP_Error();
+												}
+															
+												$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+													
+											}
+												
+										} else {
+											
+											$foundwild = true;	
+											
+										}
+											
+										break;
+											
 								}
-								
-							} else { //there isn't 4 octets so set an error
-							
-	    						if ( ! is_wp_error( $errorHandler ) ) {
-									$errorHandler = new WP_Error();
-								}
-								
-								$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
-								
+									
+								$partcount++;
+									
 							}
-							
+											
 						}
-						
+									
+						if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) == false ) { //invalid ip 
+										
+							if ( ! is_wp_error( $errorHandler ) ) {
+								$errorHandler = new WP_Error();
+							}
+											
+							$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
+											
+						} else {
+										
+							$list[] = trim( $item );
+																					
+						}
+								
 					}
-					
+								
 				}
-				
+						
 			}
 			
-			$options['id_whitelist'] = implode( "\n",$whiteitems );
+			$options['id_whitelist'] = implode( "\n", $whiteitems );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $options );

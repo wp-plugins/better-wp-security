@@ -192,59 +192,47 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			foreach ( $values as $item ) { //loop through each line of input
 			
-				if ( strstr( $item ,' - ' ) ) { //is it a range?
-				
-					$range = explode( '-', $item );
+				$ipParts = explode( '.',$item );
+				$i = 0;
+				$ipa = '';
+				$ipb = '';
 					
-					if( $host >= ip2long( trim( $range[0] ) ) && $host <= ip2long( trim( $range[1] ) ) ) {
+				foreach ( $ipParts as $part ) {
+					
+					if ( strstr( $part, '*' ) ) { //is there are wildcard
+						
+						$ipa .= '0';
+						$ipb .= '255';
+							
+					} else {
+						
+						$ipa .= $part;
+						$ipb .= $part;
+							
+					}
+						
+					if ( $i < 3 ) {
+						
+						$ipa .= '.';
+						$ipb .= '.';
+					}
+						
+					$i++;
+						
+				}
+					
+				if ( strcmp( $ipa, $ipb ) != 0 ) { //see if we have another range
+					
+					if( $host >= ip2long( trim( $ipa ) ) && $host <= ip2long( trim( $ipb ) ) ) { //if host is in range
 						return true;
 					}
+						
+				} else {
 					
-				} else { //single entry
-				
-					$ipParts = explode( '.',$item );
-					$i = 0;
-					$ipa = '';
-					$ipb = '';
-					
-					foreach ( $ipParts as $part ) {
-					
-						if ( strstr( $part, '*' ) ) { //is there are wildcard
+					if ( trim( $rawhost ) == trim( $item ) ) { //if it matches directly
+						return true;
+					} 
 						
-							$ipa .= '0';
-							$ipb .= '255';
-							
-						} else {
-						
-							$ipa .= $part;
-							$ipb .= $part;
-							
-						}
-						
-						if ( $i < 3 ) {
-						
-							$ipa .= '.';
-							$ipb .= '.';
-						}
-						
-						$i++;
-						
-					}
-					
-					if ( strcmp( $ipa, $ipb ) != 0 ) { //see if we have another range
-					
-						if( $host >= ip2long( trim( $ipa ) ) && $host <= ip2long( trim( $ipb ) ) ) { //if host is in range
-							return true;
-						}
-						
-					} else {
-					
-						if ( trim( $rawhost ) == trim( $item ) ) { //if it matches directly
-							return true;
-						} 
-						
-					}
-					
 				}
 				
 			}
@@ -474,7 +462,16 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			if ( $type == 2 ) { //get url and referrer if 404
 			
 				$url = $wpdb->escape( $_SERVER['REQUEST_URI'] );
-				$referrer = $wpdb->escape( $_SERVER['HTTP_REFERER'] );
+				
+				if ( isset( $_SERVER['HTTP_REFERER']  ) ) {
+				
+					$referrer = $wpdb->escape( $_SERVER['HTTP_REFERER'] );
+				
+				} else {
+				
+					$referrer = '';
+				
+				}
 				
 			} else {
 			
@@ -490,7 +487,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					'type' => $type,
 					'timestamp' => time(),
 					'host' => $host,
-					'user' => absint( $user->ID ) > 0 ? $user->ID : 0,
+					'user' => isset( $user->ID ) && absint( $user->ID ) > 0 ? $user->ID : 0,
 					'url' => $url,
 					'referrer' => $referrer
 				)
@@ -661,7 +658,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//if they're locked out or banned die
-			if ( ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) || ( $options['bu_enabled'] == 1 && $this->checklist( $options['bu_banrange'] ) ) ) {
+			if ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
 			
 				wp_clear_auth_cookie();
 				die( __( 'error', $this->hook ) );
