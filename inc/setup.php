@@ -194,85 +194,89 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				$oldoptions = unserialize( get_option( 'BWPS_options' ) );
 				$options = get_option( $this->primarysettings );
 				
-				$options['am_enabled'] = $oldoptions['away_enable'];
-				$options['am_type'] = $oldoptions['away_mode'];
-				$options['am_startdate'] = $oldoptions['away_start'];
-				$options['am_starttime'] = $oldoptions['away_start'];
-				$options['am_enddate'] = $oldoptions['away_end'];
-				$options['am_endtime'] = $oldoptions['away_end'];
-				$options['st_generator'] = $oldoptions['tweaks_removeGenerator'];
-				$options['st_loginerror'] = $oldoptions['tweaks_removeLoginMessages'];
-				$options['st_randomversion'] = $oldoptions['tweaks_randomVersion'];
-				$options['st_themenot'] = $oldoptions['tweaks_themeUpdates'];
-				$options['st_pluginnot'] = $oldoptions['tweaks_pluginUpdates'];
-				$options['st_corenot'] = $oldoptions['tweaks_coreUpdates'];
-				$options['st_manifest'] = $oldoptions['tweaks_removewlm'];
-				$options['st_edituri'] = $oldoptions['tweaks_removersd'];
-				$options['st_longurl'] = $oldoptions['tweaks_longurls'];
-				$options['st_enablepassword'] = $oldoptions['tweaks_strongpass'];
-				$options['st_passrole'] = $oldoptions['tweaks_strongpassrole'];
-				$options['st_ht_files'] = $oldoptions['htaccess_protectht'];
-				$options['st_ht_browsing'] = $oldoptions['htaccess_dirbrowse'];
-				$options['st_ht_request'] = $oldoptions['htaccess_request'];
-				$options['st_ht_query'] = $oldoptions['htaccess_qstring'];
-				$options['hb_enabled'] = $oldoptions['hidebe_enable'];
-				$options['hb_login'] = $oldoptions['hidebe_login_slug'];
-				$options['hb_admin'] = $oldoptions['hidebe_admin_slug'];
-				$options['hb_register'] = $oldoptions['hidebe_register_slug'];
-				$options['hb_key'] = $oldoptions['hidebe_key'];
-				$options['ll_enabled'] = $oldoptions['ll_enable'];
-				$options['ll_maxattemptshost'] = $oldoptions['ll_maxattemptshost'];
-				$options['ll_maxattemptsuser'] = $oldoptions['ll_maxattemptsuser'];
-				$options['ll_checkinterval'] = $oldoptions['ll_checkinterval'];
-				$options['ll_banperiod'] = $oldoptions['ll_banperiod'];
-				$options['ll_emailnotify'] = $oldoptions['ll_emailnotify'];
-				$options['id_enabled'] = $oldoptions['idetect_d404enable'];
-				$options['id_emailnotify'] = $oldoptions['idetect_emailnotify'];
-				$options['id_checkinterval'] = ( $oldoptions['idetect_checkint'] / 60 );
-				$options['id_threshold'] = $oldoptions['idetect_locount'];
-				$options['id_banperiod'] = ( $oldoptions['idetect_lolength'] / 60 );
-				$options['id_whitelist'] = $oldoptions['idetect_whitelist'];
-				$options['bu_enabled'] = $oldoptions['banvisits_enable'];
+				$options['am_enabled'] = isset( $oldoptions['away_enable'] ) ? $oldoptions['away_enable'] : '0';
+				$options['am_type'] = isset( $oldoptions['away_mode'] ) ? $oldoptions['away_mode'] : '0';
+				$options['am_startdate'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
+				$options['am_starttime'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
+				$options['am_enddate'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
+				$options['am_endtime'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
+				$options['st_generator'] = isset( $oldoptions['tweaks_removeGenerator'] ) ? $oldoptions['tweaks_removeGenerator'] : '0';
+				$options['st_loginerror'] = isset( $oldoptions['tweaks_removeLoginMessages'] ) ? $oldoptions['tweaks_removeLoginMessages'] : '0';
+				$options['st_randomversion'] = isset( $oldoptions['tweaks_randomVersion'] ) ? $oldoptions['tweaks_randomVersion'] : '0';
+				$options['st_themenot'] = isset( $oldoptions['tweaks_themeUpdates'] ) ? $oldoptions['tweaks_themeUpdates'] : '0';
+				$options['st_pluginnot'] = isset( $oldoptions['tweaks_pluginUpdates'] ) ? $oldoptions['tweaks_pluginUpdates'] : '0';
+				$options['st_corenot'] = isset( $oldoptions['tweaks_coreUpdates'] ) ? $oldoptions['tweaks_coreUpdates'] : '0';
+				$options['st_manifest'] = isset( $oldoptions['tweaks_removewlm'] ) ? $oldoptions['tweaks_removewlm'] : '0';
+				$options['st_edituri'] = isset( $oldoptions['tweaks_removersd'] ) ? $oldoptions['tweaks_removersd'] : '0';
+				$options['st_longurl'] = isset( $oldoptions['tweaks_longurls'] ) ? $oldoptions['tweaks_longurls'] : '0';
+				$options['st_enablepassword'] = isset( $oldoptions['tweaks_strongpass'] ) ? $oldoptions['away_enable'] : '0';
+				$options['st_passrole'] = isset( $oldoptions['tweaks_strongpassrole'] ) ? $oldoptions['away_enable'] : '0';
+				$options['st_ht_files'] = isset( $oldoptions['htaccess_protectht'] ) ? $oldoptions['away_enable'] : '0';
+				$options['st_ht_browsing'] = isset( $oldoptions['htaccess_dirbrowse'] ) ? $oldoptions['away_enable'] : '0';
+				$options['st_ht_request'] = isset( $oldoptions['htaccess_request'] ) ? $oldoptions['away_enable'] : '0';
+				$options['st_ht_query'] = isset( $oldoptions['htaccess_qstring'] ) ? $oldoptions['away_enable'] : '0';
+				$options['hb_enabled'] = isset( $oldoptions['hidebe_enable'] ) ? $oldoptions['hidebe_enable'] : '0';
+				$options['hb_login'] = isset( $oldoptions['hidebe_login_slug'] ) ? $oldoptions['hidebe_login_slug'] : 'login';
+				$options['hb_admin'] = isset( $oldoptions['hidebe_admin_slug'] ) ? $oldoptions['hidebe_admin_slug'] : 'admin';
+				$options['hb_register'] = isset( $oldoptions['hidebe_register_slug'] ) ? $oldoptions['hidebe_register_slug'] : 'register';
+				$options['hb_key'] = isset( $oldoptions['hidebe_key'] ) ? $oldoptions['hidebe_key'] : '';
+				$options['ll_enabled'] = isset( $oldoptions['ll_enable'] ) ? $oldoptions['ll_enable'] : '0';
+				$options['ll_maxattemptshost'] = isset( $oldoptions['ll_maxattemptshost'] ) ? $oldoptions['ll_maxattemptshost'] : '5';
+				$options['ll_maxattemptsuser'] = isset( $oldoptions['ll_maxattemptsuser'] ) ? $oldoptions['ll_maxattemptsuser'] : '10';
+				$options['ll_checkinterval'] = isset( $oldoptions['ll_checkinterval'] ) ? $oldoptions['ll_checkinterval'] : '5';
+				$options['ll_banperiod'] = isset( $oldoptions['ll_banperiod'] ) ? $oldoptions['ll_banperiod'] : '15';
+				$options['ll_emailnotify'] = isset( $oldoptions['ll_emailnotify'] ) ? $oldoptions['ll_emailnotify'] : '1';
+				$options['id_enabled'] = isset( $oldoptions['idetect_d404enable'] ) ? $oldoptions['idetect_d404enable'] : '0';
+				$options['id_emailnotify'] = isset( $oldoptions['idetect_emailnotify'] ) ? $oldoptions['idetect_emailnotify'] : '1';
+				$options['id_checkinterval'] = isset( $oldoptions['idetect_checkint'] ) ? ( $oldoptions['idetect_checkint'] / 60 ) : '5';
+				$options['id_threshold'] = isset( $oldoptions['idetect_locount'] ) ? $oldoptions['idetect_locount'] : '20';
+				$options['id_banperiod'] = isset( $oldoptions['idetect_lolength'] ) ? ( $oldoptions['idetect_lolength'] / 60 ) : '15';
+				$options['id_whitelist'] = isset( $oldoptions['idetect_whitelist'] ) ? $oldoptions['idetect_whitelist'] : '0';
+				$options['bu_enabled'] = isset( $oldoptions['banvisits_enable'] ) ? $oldoptions['banvisits_enable'] : '0';
 				
-				$ips = array();
-				$ranges = array();
 				
-				$items = explode ("\n", $oldoptions['banvisits_banlist'] );
+				if ( isset(  $oldoptions['banvisits_banlist'] ) ) {
+					$ips = array();
+					$ranges = array();
 				
-				foreach ( $items as $item ) {
+					$items = explode ("\n", $oldoptions['banvisits_banlist'] );
+				
+					foreach ( $items as $item ) {
 					
-					if ( strstr( $item, '-' ) ) {
+						if ( strstr( $item, '-' ) ) {
 					
-						$r = explode( '-', $item );
+							$r = explode( '-', $item );
 					
-						if ( ip2long( trim( str_replace( '*', '0', $r[0] ) ) ) != false && ip2long( trim( str_replace( '*', '0', $r[1] ) ) ) != false ) {
+							if ( ip2long( trim( str_replace( '*', '0', $r[0] ) ) ) != false && ip2long( trim( str_replace( '*', '0', $r[1] ) ) ) != false ) {
 						
-							$ranges[] = $item;
+								$ranges[] = $item;
 						
-						}
+							}
 					
-					} elseif ( strstr( $item, '*' ) ) {
+						} elseif ( strstr( $item, '*' ) ) {
 					
-						if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) != false ) {
+							if ( ip2long( trim( str_replace( '*', '0', $item ) ) ) != false ) {
 						
-							$ranges[] = $item;
+								$ranges[] = $item;
 						
-						}
+							}
 					
-					} else {
+						} else {
 					
-						if ( ip2long( trim( $item ) ) != false ) {
+							if ( ip2long( trim( $item ) ) != false ) {
 						
-							$ips[] = $item;
+								$ips[] = $item;
+						
+							}
 						
 						}
 						
 					}
-					
-				}
 				
-				$options['bu_banrange'] = implode( "\n", $ranges );
-				$options['bu_individual'] = implode( "\n", $ips );
+					$options['bu_banrange'] = implode( "\n", $ranges );
+					$options['bu_individual'] = implode( "\n", $ips );
+				
+				}
 				
 				update_option( $this->primarysettings, $options ); //save new options data
 				
@@ -281,8 +285,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				delete_option( 'BWPS_versions' );
 				
 				$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "BWPS_d404`;" );
-				$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "BWPS_ll`;" );
-				$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "BWPS_lockouts`;" );
+				$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "BWPS_ll`;" );
+				$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "BWPS_lockouts`;" );
 				
 				$this->deletehtaccess('Better WP Security Protect htaccess');
 				$this->deletehtaccess('Better WP Security Hide Backend');
@@ -322,8 +326,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			$this->deactivate_execute(); //execute deactivation functions
 			
 			//drop database tables
-			$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "bwps_lockouts`;" );
-			$wpdb->query( "DROP TABLE `" . $wpdb->base_prefix . "bwps_log`;" );
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_lockouts`;" );
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_log`;" );
 			
 			//remove all settings
 			foreach( $this->settings as $settings ) {

@@ -228,10 +228,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options = get_option( $this->primarysettings );
 			
 			//validate options
-			$options['am_enabled'] = ( $_POST['am_enabled'] == 1 ? 1 : 0 );
-			$options['am_type'] = ( $_POST['am_type'] == 1 ? 1 : 0 );
-			
-			
+			$options['am_enabled'] = ( isset( $_POST['am_enabled'] ) && $_POST['am_enabled'] == 1  ? 1 : 0 );
+			$options['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
+						
 			//form times
 			$startDate = $_POST['am_startmonth'] . "/" . $_POST['am_startday'] . "/" . $_POST['am_startyear'];
 			$endDate = $_POST['am_endmonth'] . "/" . $_POST['am_endday'] . "/" . $_POST['am_endyear'];
@@ -274,7 +273,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$options = get_option( $this->primarysettings );
 			
-			$options['bu_enabled'] = ( $_POST['bu_enabled'] == 1 ? 1 : 0 );
+			$options['bu_enabled'] = ( isset( $_POST['bu_enabled'] ) && $_POST['bu_enabled'] == 1  ? 1 : 0 );
 			
 			//validate list
 			$banhosts = explode( "\n", $_POST['bu_banrange'] );
@@ -536,8 +535,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options = get_option( $this->primarysettings ); //load the options
 			
 			//validate options
-			$options['backup_email'] = ( $_POST['backup_email'] == 1 ? 1 : 0 );
-			$options['backup_enabled'] = ( $_POST['backup_enabled'] == 1 ? 1 : 0 );
+			$options['backup_enabled'] = ( isset( $_POST['backup_enabled'] ) && $_POST['backup_enabled'] == 1  ? 1 : 0 );
+			$options['backup_email'] = ( isset( $_POST['backup_email'] ) && $_POST['backup_email'] == 1  ? 1 : 0 );
 			$options['backups_to_retain'] = absint( $_POST['backups_to_retain'] );
 			$options['backup_int'] = $_POST['backup_int'];
 						
@@ -740,7 +739,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//calidate options
-			$options['hb_enabled'] = ( $_POST['hb_enabled'] == 1 ? 1 : 0 );
+			$options['hb_enabled'] = ( isset( $_POST['hb_enabled'] ) && $_POST['hb_enabled'] == 1  ? 1 : 0 );
 			$options['hb_login'] = sanitize_title( esc_html__( $_POST['hb_login'] ) );
 			$options['hb_admin'] = sanitize_title( esc_html__( $_POST['hb_admin'] ) );
 			$options['hb_register'] = sanitize_title( esc_html__( $_POST['hb_register'] ) );
@@ -781,8 +780,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options = get_option( $this->primarysettings );
 			
 			//validate the input
-			$options['id_enabled'] = ( $_POST['id_enabled'] == 1 ? 1 : 0 );
-			$options['id_emailnotify'] = ( $_POST['id_emailnotify'] == 1 ? 1 : 0 );
+			$options['id_enabled'] = ( isset( $_POST['id_enabled'] ) && $_POST['id_enabled'] == 1  ? 1 : 0 );
+			$options['id_emailnotify'] = ( isset( $_POST['id_emailnotify'] ) && $_POST['id_emailnotify'] == 1  ? 1 : 0 );
 			$options['id_checkinterval'] = absint( $_POST['id_checkinterval'] );
 			$options['id_banperiod'] = absint( $_POST['id_banperiod'] );
 			$options['id_threshold'] = absint( $_POST['id_threshold'] );
@@ -928,8 +927,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options = get_option( $this->primarysettings ); //load the options
 			
 			//valitdate input
-			$options['ll_enabled'] = ( $_POST['ll_enabled'] == 1 ? 1 : 0 );
-			$options['ll_emailnotify'] = ( $_POST['ll_emailnotify'] == 1 ? 1 : 0 );
+			$options['ll_enabled'] = ( isset( $_POST['ll_enabled'] ) && $_POST['ll_enabled'] == 1  ? 1 : 0 );
+			$options['ll_emailnotify'] = ( isset( $_POST['ll_emailnotify'] ) && $_POST['ll_emailnotify'] == 1  ? 1 : 0 );
 			$options['ll_maxattemptshost'] = absint( $_POST['ll_maxattemptshost'] );
 			$options['ll_maxattemptsuser'] = absint( $_POST['ll_maxattemptsuser'] );
 			$options['ll_checkinterval'] = absint( $_POST['ll_checkinterval'] );
@@ -1000,15 +999,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$options = get_option( $this->primarysettings ); //load the options
 			
-			if ( $_POST['badlogins'] == 1 ) { //delete old bad logins
+			if ( isset( $_POST['badlogins'] ) && $_POST['badlogins'] == 1 ) { //delete old bad logins
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
 			}
 			
-			if ( $_POST['404s'] == 1 ) { //delete old 404s
+			if ( isset( $_POST['404s'] ) && $_POST['404s'] == 1 ) { //delete old 404s
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
 			}
 			
-			if ( $_POST['lockouts'] == 1 ) { //delete old or inactive lockouts
+			if ( isset( $_POST['lockouts'] ) && $_POST['lockouts'] == 1 ) { //delete old or inactive lockouts
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
 			}
 						
@@ -1057,34 +1056,34 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options = get_option( $this->primarysettings ); //load the options
 			
 			//validate options
-			$options['st_ht_files'] = ( $_POST['st_ht_files'] == 1 ? 1 : 0 );
-			$options['st_ht_request'] = ( $_POST['st_ht_request'] == 1 ? 1 : 0 );
-			$options['st_ht_query'] = ( $_POST['st_ht_query'] == 1 ? 1 : 0 );
-			
+			$options['st_ht_files'] = ( isset( $_POST['st_ht_files'] ) && $_POST['st_ht_files'] == 1  ? 1 : 0 );
+			$options['st_ht_request'] = ( isset( $_POST['st_ht_request'] ) && $_POST['st_ht_request'] == 1  ? 1 : 0 );
+			$options['st_ht_query'] = ( isset( $_POST['st_ht_query'] ) && $_POST['st_ht_query'] == 1  ? 1 : 0 );
+						
 			//always set directory browsing to 1 on nginx to prevent nag
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
-				$options['st_ht_browsing'] = ( $_POST['st_ht_browsing'] == 1 ? 1 : 0 );
+				$options['st_ht_browsing'] = ( isset( $_POST['st_ht_browsing'] ) && $_POST['st_ht_browsing'] == 1  ? 1 : 0 );
 			} else {
 				$options['st_ht_browsing'] = 1;
 			}	
 			
-			$options['st_generator'] = ( $_POST['st_generator'] == 1 ? 1 : 0 );
-			$options['st_manifest'] = ( $_POST['st_manifest'] == 1 ? 1 : 0 );
-			$options['st_edituri'] = ( $_POST['st_edituri'] == 1 ? 1 : 0 );
-			$options['st_themenot'] = ( $_POST['st_themenot'] == 1 ? 1 : 0 );
-			$options['st_pluginnot'] = ( $_POST['st_pluginnot'] == 1 ? 1 : 0 );
-			$options['st_corenot'] = ( $_POST['st_corenot'] == 1 ? 1 : 0 );
-			$options['st_enablepassword'] = ( $_POST['st_enablepassword'] == 1 ? 1 : 0 );
+			$options['st_generator'] = ( isset( $_POST['st_generator'] ) && $_POST['st_generator'] == 1  ? 1 : 0 );
+			$options['st_manifest'] = ( isset( $_POST['st_manifest'] ) && $_POST['st_manifest'] == 1  ? 1 : 0 );
+			$options['st_edituri'] = ( isset( $_POST['st_edituri'] ) && $_POST['st_edituri'] == 1  ? 1 : 0 );
+			$options['st_themenot'] = ( isset( $_POST['st_themenot'] ) && $_POST['st_themenot'] == 1  ? 1 : 0 );
+			$options['st_pluginnot'] = ( isset( $_POST['st_pluginnot'] ) && $_POST['st_pluginnot'] == 1  ? 1 : 0 );
+			$options['st_corenot'] = ( isset( $_POST['st_corenot'] ) && $_POST['st_corenot'] == 1  ? 1 : 0 );
+			$options['st_enablepassword'] = ( isset( $_POST['st_enablepassword'] ) && $_POST['st_enablepassword'] == 1  ? 1 : 0 );
 			if ( ctype_alpha( wp_strip_all_tags( $_POST['st_passrole'] ) ) ) {
 				$options['st_passrole'] = wp_strip_all_tags( $_POST['st_passrole'] );
 			}
-			$options['st_loginerror'] = ( $_POST['st_loginerror'] == 1 ? 1 : 0 );
-			$options['st_randomversion'] = ( $_POST['st_randomversion'] == 1 ? 1 : 0 );
-			$options['st_longurl'] = ( $_POST['st_longurl'] == 1 ? 1 : 0 );
-			$options['st_fileedit'] = ( $_POST['st_fileedit'] == 1 ? 1 : 0 );
-			$options['st_forceloginssl'] = ( $_POST['st_forceloginssl'] == 1 ? 1 : 0 );
-			$options['st_forceadminssl'] = ( $_POST['st_forceadminssl'] == 1 ? 1 : 0 );
-			
+			$options['st_loginerror'] = ( isset( $_POST['st_loginerror'] ) && $_POST['st_loginerror'] == 1  ? 1 : 0 );
+			$options['st_randomversion'] = ( isset( $_POST['st_randomversion'] ) && $_POST['st_randomversion'] == 1  ? 1 : 0 );
+			$options['st_longurl'] = ( isset( $_POST['st_longurl'] ) && $_POST['st_longurl'] == 1  ? 1 : 0 );
+			$options['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );
+			$options['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
+			$options['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
+						
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
 				update_option( $this->primarysettings, $options );

@@ -1838,7 +1838,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function systemtweaks_content_2() {
 			?>
-			<?php if ( $this->bwpsserver == 'unsupported' ) { //don't diplay options for unsupported server ?> 
+			<?php if ( ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) && ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
 				<p><?php _e( 'Your webserver is unsupported. You must use Apache or NGINX to make use of these rules.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">

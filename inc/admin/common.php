@@ -149,6 +149,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					}
 							
 					foreach ( $lines as $line ) { //for each line in the file
+					
+						$n = 1;
 						
 						if ( ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
 						
@@ -163,6 +165,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							}
 						
 						}
+						
+						$n++;
 														
 					}
 							
@@ -186,11 +190,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//get all of the tables
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
 			
+			$return = '';
+			
 			//cycle through each table
 			foreach($tables as $table) {
 			
 				$result = $wpdb->get_results( 'SELECT * FROM `' . $table[0] . '`;', ARRAY_N );
-				$num_fields = sizeof( $result[0] );
+				$num_fields = sizeof( $wpdb->get_results( 'DESCRIBE `' . $table[0] . '`;' ) );
 				
 				$return.= 'DROP TABLE IF EXISTS `' . $table[0] . '`;';
 				$row2 = $wpdb->get_row( 'SHOW CREATE TABLE `' . $table[0] . '`;', ARRAY_N );
@@ -234,20 +240,29 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			fclose( $handle );
 	
 			//zip the file
-			$zip = new ZipArchive();
-			$archive = $zip->open(BWPS_PP . '/backups/' . $file . '.zip', ZipArchive::CREATE);
-			$zip->addFile(BWPS_PP . '/backups/' . $file . '.sql', $file . '.sql' );
-			$zip->close();
+			if ( class_exists( 'ZipArchive' ) ) {
 			
-			//delete .sql and keep zip
-			unlink(BWPS_PP . '/backups/' . $file . '.sql');
+				$zip = new ZipArchive();
+				$archive = $zip->open(BWPS_PP . '/backups/' . $file . '.zip', ZipArchive::CREATE);
+				$zip->addFile(BWPS_PP . '/backups/' . $file . '.sql', $file . '.sql' );
+				$zip->close();
+			
+				//delete .sql and keep zip
+				unlink(BWPS_PP . '/backups/' . $file . '.sql');
+				$fileext = '.zip';
+				
+			} else {
+			
+				$fileext = '.sql';
+				
+			}
 			
 			if ( $options['backup_email'] == 1 ) {
 			
 				$to = get_option( 'admin_email' );
 				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . "\r\n";
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
-				$attachment = array( BWPS_PP . '/backups/' . $file . '.zip' );
+				$attachment = array( BWPS_PP . '/backups/' . $file . $fileext );
 				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 			
 				wp_mail( $to, $subject, $message, $headers, $attachment );
