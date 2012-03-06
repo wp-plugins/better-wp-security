@@ -284,8 +284,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 					$ranges = explode( "\n", $options['bu_banrange'] );
 					$ips = explode( "\n", $options['bu_individual'] );
+					$whitelist = explode( "\n", $options['id_whitelist'] );
 					
-					if ( sizeof( $ranges ) > 0 ) {
+					if ( sizeof( $ranges ) > 0 || sizeof( $whitelist ) > 0 ) {
 					
 						for ( $i = 0; $i < sizeof( $ranges ); $i++ ) {
 					
@@ -297,7 +298,25 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 						}
 						
-						$options['bu_banlist'] = implode( "\n", array_merge( $ranges, $ips ) );
+						$list = array_merge( $ranges, $ips );
+						
+						if ( ! is_array( $list ) || ( is_array( $list ) && sizeof( $list ) < 1 ) ) {
+							$options['bu_enabled'] = '0';
+						}
+						
+						$options['bu_banlist'] = implode( "\n", $list );
+					
+						for ( $i = 0; $i < sizeof( $whitelist ); $i++ ) {
+						
+							if ( strstr( $whitelist[$i], '-' ) ) {
+								
+								unset( $whitelist[$i] );
+								
+							}
+						
+						}
+						
+						$options['id_whitelist'] = implode( "\n", $whitelist );						
 						
 						update_option( $this->primarysettings, $options ); //save new options data
 					

@@ -499,7 +499,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
 				
-				if ( absint( $user->ID ) > 0 ) { //if we're dealing with a user
+				if ( isset( $user->ID ) && absint( $user->ID ) > 0 ) { //if we're dealing with a user
 				
 					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( time() - $period ) . ";" );					
 				} else {
