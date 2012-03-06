@@ -2059,7 +2059,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 				</form>
 			<?php } ?>
 			<?php
