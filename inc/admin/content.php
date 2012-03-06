@@ -1183,7 +1183,6 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function banusers_content_1() {
 			?>
 			<p><?php _e( 'This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site.', $this->hook ); ?></p>
-			<p><?php _e( 'Please note banning ip address ranges works using the WordPress database and PHP in order to keep it simple to use. That said, it is not nearly as effecient as banning hosts via your server configuration. I recommend keeping the list here short or using it only for temporary bans to avoid performance issues. This applies only to ip address ranges as individual ip addresses and user agents are added directly to your site\'s .htaccess file or NGINX rewrite rules.', $this->hook ); ?></p>
 			<?php
 		}
 		
