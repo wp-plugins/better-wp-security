@@ -344,14 +344,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<p><?php _e( 'Welcome to Better WP Security!', $this->hook ); ?></p>
 			<p><?php echo __( 'Before we begin it is extremely important that you make a backup of your database. This will make sure you can get your site back to the way it is right now should something go wrong. Click the button below to make a backup which will be emailed to the website administrator at ', $this->hook ) . '<strong>' . get_option( 'admin_email' ) . '</strong>'; ?></p>
 			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="dashboard_1" />
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Create Database Backup', $this->hook ) ?>" /></p>			
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Create Database Backup', $this->hook ); ?>" /></p>			
 			</form>
 			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="dashboard_2" />
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'No, thanks. I already have a backup', $this->hook ) ?>" /></p>			
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'No, thanks. I already have a backup', $this->hook ); ?>" /></p>			
 			</form>
 			<?php
 		}
@@ -369,10 +369,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
-					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 					<input type="hidden" name="bwps_page" value="dashboard_3" />
 					<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ) ?>" /></p>			
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ); ?>" /></p>			
 				</form>
 			<?php } ?>
 			<?php
@@ -861,7 +861,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( $this->user_exists( 'admin' ) ) { //only show form if user 'admin' exists
 				?>
 				<form method="post" action="">
-					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 					<input type="hidden" name="bwps_page" value="adminuser_1" />
 					<table class="form-table">
 						<tr valign="top">
@@ -875,7 +875,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 				</form>
 				<?php
 			} else { //if their is no admin user display a note 
@@ -903,7 +903,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function awaymode_content_2() {
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="awaymode_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php 
@@ -1139,7 +1139,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1193,7 +1193,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function banusers_content_2() {
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="banusers_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
@@ -1235,7 +1235,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1262,7 +1262,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( ! isset( $_POST['bwps_page'] ) && strpos( WP_CONTENT_DIR, 'wp-content' ) ) { //only show form if user the content directory hasn't already been changed
 				?>
 				<form method="post" action="">
-					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 					<input type="hidden" name="bwps_page" value="contentdirectory_1" />
 					<table class="form-table">
 						<tr valign="top">
@@ -1276,7 +1276,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 				</form>
 				<?php
 			} else { //if their is no admin user display a note 
@@ -1310,10 +1310,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function databasebackup_content_2() {
 			?>
 			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="databasebackup_1" />
 				<p><?php _e( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', $this->hook ); ?></p>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Create Database Backup', $this->hook ) ?>" /></p>			
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Create Database Backup', $this->hook ); ?>" /></p>			
 			</form>
 			<?php
 		}	
@@ -1325,7 +1325,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function databasebackup_content_3() {
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="databasebackup_2" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
@@ -1370,7 +1370,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1419,10 +1419,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( 'Your current database table prefix is', $this->hook ); ?> <strong><em><?php echo $wpdb->base_prefix; ?></em></strong></p>
 			<?php } ?>
 			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="databaseprefix_1" />
 				<p><?php _e( 'Press the button below to generate a random database prefix value and update all of your tables accordingly.', $this->hook ); ?></p>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', $this->hook ) ?>" /></p>			
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', $this->hook ); ?>" /></p>			
 			</form>
 			<?php
 		}
@@ -1448,7 +1448,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="/wp-admin/options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="hidebackend_1" />
 				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 					<table class="form-table">
@@ -1489,7 +1489,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 				</form>
 			<?php } ?>
 			<?php
@@ -1524,7 +1524,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function intrusiondetection_content_2() {
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="intrusiondetection_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
@@ -1591,7 +1591,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1613,7 +1613,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function loginlimits_content_2() {
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="loginlimits_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
@@ -1672,7 +1672,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1695,7 +1695,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $wpdb;
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="log_1" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php //get database record counts
@@ -1721,7 +1721,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Remove Data', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Remove Data', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1734,7 +1734,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $wpdb;
 			?>
 			<form method="post" action="">
-			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="log_2" />
 			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php //get locked out hosts and users from database
@@ -1776,7 +1776,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Release Lockout', $this->hook ) ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Release Lockout', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
@@ -1841,7 +1841,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( 'Your webserver is unsupported. You must use Apache or NGINX to make use of these rules.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ) ?>
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="systemtweaks_1" />
 				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 					<table class="form-table">
