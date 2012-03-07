@@ -70,8 +70,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		function deletehtaccess( $section = 'Better WP Security' ) {
 				
 			$htaccess = ABSPATH . '.htaccess';
+			
+			ini_set( 'auto_detect_line_endings', true );
 						
-			$markerdata = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+			$markerdata = explode( PHP_EOL, implode( '', file( $htaccess ) ) ); //parse each line of file into array
 		
 			if ( $markerdata ) { //as long as there are lines in the file
 					
@@ -92,15 +94,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					}
 							
 					if ( $state == true ) { //as long as we're not in the section keep writing
-						if ( $n + 1 < count( $markerdata ) ) {//make sure to add newline to appropriate lines
-						
-							fwrite( $f, "{$markerline}\n" );
-							
-						} else {
-						
-							fwrite( $f, "{$markerline}" );
-							
-						}
+
+						fwrite( $f, trim( $markerline ) . PHP_EOL );
 						
 					}
 							
@@ -133,57 +128,49 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		function deletewpconfig() {
 		
 			$configfile = $this->getConfig();
-							
-				$lines = explode( "\n", implode( '', file( $configfile ) ) ); //parse each line of file into array
 			
-				if ( $lines ) { //as long as there are lines in the file
+			ini_set( 'auto_detect_line_endings', true );
 						
-					$state = true;
-							
-					@chmod( $configfile, 0644 );
-							
-					if ( ! $f = @fopen( $configfile, 'w+' ) ) {
+			$lines = explode( PHP_EOL, implode( '', file( $configfile ) ) );
+			
+			if ( isset( $lines ) ) { //as long as there are lines in the file
+						
+				$state = true;
 								
-						return -1; //we can't write to the file
+				@chmod( $configfile, 0644 );
+							
+				if ( ! $f = @fopen( $configfile, 'w+b' ) ) {
 								
-					}
-							
-					foreach ( $lines as $line ) { //for each line in the file
-					
-						$n = 1;
-						
-						if ( ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
-						
-							if ( $n + 1 < count( $lines ) ) {//make sure to add newline to appropriate lines
-							
-								fwrite( $f, "{$line}\n" );
+					return -1; //we can't write to the file
 								
-							} else {
-							
-								fwrite( $f, "{$line}" );
-								
-							}
-						
-						}
-						
-						$n++;
-														
-					}
-							
-					fclose( $f );
-							
-					@chmod( $configfile, 0444 );
-							
-					return 1;
-							
 				}
+							
+				foreach ( $lines as $line ) { //for each line in the file
+											
+					if ( ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
+						
+						fwrite( $f, trim( $line ) . PHP_EOL );
+						
+					}
+														
+				}
+							
+				fclose( $f );
+							
+				@chmod( $configfile, 0444 );
+							
+				return 1;
+							
+			}
 					
-				return 1; //nothing to write
+			return 1; //nothing to write
 				
 		}
 		
 		function execute_backup() {
 			global $wpdb;
+			
+			ini_set( 'auto_detect_line_endings', true );
 			
 			$options = get_option( $this->primarysettings );
 			
@@ -200,7 +187,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				$return.= 'DROP TABLE IF EXISTS `' . $table[0] . '`;';
 				$row2 = $wpdb->get_row( 'SHOW CREATE TABLE `' . $table[0] . '`;', ARRAY_N );
-				$return.= "\n\n" . $row2[1] . ";\n\n";
+				$return.= PHP_EOL . PHP_EOL . $row2[1] . ";" . PHP_EOL . PHP_EOL;
 				
 				foreach( $result as $row ) {
 					
@@ -209,7 +196,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					for( $j=0; $j < $num_fields; $j++ ) {
 						
 						$row[$j] = addslashes( $row[$j] );
-						$row[$j] = ereg_replace( "\n", "\\n", $row[$j] );
+						$row[$j] = ereg_replace( PHP_EOL, "\n", $row[$j] );
 							
 						if ( isset( $row[$j] ) ) { 
 							$return .= '"' . $row[$j] . '"' ; 
@@ -223,15 +210,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 					}
 						
-					$return .= ");\n";
+					$return .= ");" . PHP_EOL;
 						
 				}
 					
-				$return .="\n\n";
+				$return .= PHP_EOL . PHP_EOL;
 					
 			}
 				
-			$return .="\n\n\n";
+			$return .= PHP_EOL . PHP_EOL;
 			
 			//save file
 			$file = 'database-backup-' . time();
@@ -260,7 +247,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			if ( $options['backup_email'] == 1 ) {
 			
 				$to = get_option( 'admin_email' );
-				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . "\r\n";
+				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . "\rPHP_EOL";
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 				$attachment = array( BWPS_PP . '/backups/' . $file . $fileext );
 				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
@@ -327,6 +314,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 **/
 		function getrules() {
 		
+			ini_set( 'auto_detect_line_endings', true );
+		
 			//figure out what server they're using
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
 			
@@ -351,7 +340,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
-					$rules .= "Options All -Indexes\n\n";
+					$rules .= "Options All -Indexes" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -360,14 +349,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//ban hosts
 			if ( $options['bu_enabled'] == 1 ) {
 			
-				$hosts = explode( "\n", $options['bu_banlist'] );
+				$hosts = explode( PHP_EOL, $options['bu_banlist'] );
 				
 				if ( ! empty( $hosts ) ) {
 				
 					if ( $bwpsserver == 'apache' ) {
 					
-						$rules .= "Order allow,deny\n" .
-						"Allow from all\n" .
+						$rules .= "Order allow,deny" . PHP_EOL .
+						"Allow from all" . PHP_EOL .
 						"Deny from ";
 						
 					}
@@ -395,7 +384,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 								
 							} else {
 							
-								$rules .= "\tdeny " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ";\n";
+								$rules .= "\tdeny " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ";" . PHP_EOL;
 							
 							}
 						
@@ -407,7 +396,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 								
 							} else {
 							
-								$rules .= "\tdeny " . trim( $host ) . ";\n";
+								$rules .= "\tdeny " . trim( $host ) . ";" . PHP_EOL;
 							
 							}
 						
@@ -415,7 +404,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 					}
 				
-					$rules .= "\n\n";					
+					$rules .= PHP_EOL . PHP_EOL;					
 				
 				}
 			
@@ -427,38 +416,38 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'apache' ) {
 				
 					$rules .= 
-						"<files .htaccess>\n" .
-							"Order allow,deny\n" . 
-							"Deny from all\n" .
-						"</files>\n\n" .
-						"<files readme.html>\n" .
-							"Order allow,deny\n" . 
-							"Deny from all\n" .
-						"</files>\n\n" .
-						"<files install.php>\n" .
-							"Order allow,deny\n" . 
-							"Deny from all\n" .
-						"</files>\n\n" .
-						"<files wp-config.php>\n" .
-							"Order allow,deny\n" . 
-							"Deny from all\n" .
-						"</files>\n\n";
+						"<files .htaccess>" . PHP_EOL .
+							"Order allow,deny" .  PHP_EOL .
+							"Deny from all" . PHP_EOL .
+						"</files>" . PHP_EOL . PHP_EOL .
+						"<files readme.html>" . PHP_EOL .
+							"Order allow,deny" . PHP_EOL .
+							"Deny from all" . PHP_EOL .
+						"</files>" . PHP_EOL . PHP_EOL .
+						"<files install.php>" . PHP_EOL .
+							"Order allow,deny" . PHP_EOL .
+							"Deny from all" . PHP_EOL .
+						"</files>" . PHP_EOL . PHP_EOL .
+						"<files wp-config.php>" . PHP_EOL .
+							"Order allow,deny" . PHP_EOL .
+							"Deny from all" . PHP_EOL .
+						"</files>" . PHP_EOL . PHP_EOL;
 					
 				} else {
 				
 					$rules .= 
-						"\tlocation ~ /\.ht {\n" .
-						"\t\tdeny all;\n" .
-						"\t}\n\n" .
-						"\tlocation ~ wp-config.php {\n" .
-						"\t\tdeny all;\n".
-						"\t}\n\n" .
-						"\tlocation ~ readme.html {\n" .
-						"\t\tdeny all;\n" .
-						"\t}\n\n" .
-						"\tlocation ~ install.php {\n" .
-						"\t\tdeny all;\n".
-						"\t}\n\n";
+						"\tlocation ~ /\.ht {" . PHP_EOL .
+						"\t\tdeny all;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tlocation ~ wp-config.php {" . PHP_EOL .
+						"\t\tdeny all;". PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tlocation ~ readme.html {" . PHP_EOL .
+						"\t\tdeny all;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tlocation ~ install.php {" . PHP_EOL .
+						"\t\tdeny all;". PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL;
 				}
 				
 			}
@@ -468,15 +457,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
-					$rules .= "<IfModule mod_rewrite.c>\n" . 
-						"RewriteEngine On\n\n";
+					$rules .= "<IfModule mod_rewrite.c>" . PHP_EOL .
+						"RewriteEngine On" . PHP_EOL . PHP_EOL;
 				
 				} else {
 				
 					$rules .= 
-						"\tset \$susquery 0;\n" .
-						"\tset \$rule_2 0;\n" .
-						"\tset \$rule_3 0;\n\n";
+						"\tset \$susquery 0;" . PHP_EOL .
+						"\tset \$rule_2 0;" . PHP_EOL .
+						"\tset \$rule_3 0;" . PHP_EOL . PHP_EOL;
 				
 				}
 			
@@ -485,7 +474,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//ban hosts and agents
 			if ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) {
 				
-				$agents = explode( "\n", $options['bu_banagent'] );
+				$agents = explode( PHP_EOL, $options['bu_banagent'] );
 				
 				if ( ! empty( $agents ) ) {
 				
@@ -499,18 +488,18 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 							if ( $count < sizeof( $agents ) ) {
 							
-								$rules .= " [OR]\n";
+								$rules .= " [OR]" . PHP_EOL;
 								$count++;
 							
 							} else {
 							
-								$rules .= "\n";
+								$rules .= PHP_EOL;
 							
 							}
 							
 						}
 					
-						$rules .= "RewriteRule ^(.*)$ - [F,L]\n\n";
+						$rules .= "RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 						
 					} else {
 					
@@ -531,9 +520,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						}
 							
 						$rules .= 
-							"\tif (\$http_user_agent ~* " . $alist . ") {\n" .
-							"\t\treturn 403;\n" .
-							"\t}\n\n";
+							"\tif (\$http_user_agent ~* " . $alist . ") {" . PHP_EOL .
+							"\t\treturn 403;" . PHP_EOL .
+							"\t}" . PHP_EOL . PHP_EOL;
 					}
 				
 				}
@@ -544,17 +533,17 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
-					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]\n\n" .
-						"RewriteRule !^wp-includes/ - [S=3]\n\n" .
-						"RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]\n\n" .
-						"RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]\n\n" .
-						"RewriteRule ^wp-includes/theme-compat/ - [F,L]\n\n";
+					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]" . PHP_EOL .
+						"RewriteRule !^wp-includes/ - [S=3]" . PHP_EOL .
+						"RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]" . PHP_EOL .
+						"RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]" . PHP_EOL .
+						"RewriteRule ^wp-includes/theme-compat/ - [F,L]" . PHP_EOL . PHP_EOL;
 					
 				} else {
 				
 					$rules .= 
-						"\trewrite ^wp-includes/(.*).php /not_found last;\n" .
-						"\trewrite ^/wp-admin/includes(.*)$ /not_found last;\n\n";
+						"\trewrite ^wp-includes/(.*).php /not_found last;" . PHP_EOL .
+						"\trewrite ^/wp-admin/includes(.*)$ /not_found last;" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -564,15 +553,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
-					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]\n" . 
-						"RewriteRule ^(.*)$ - [F,L]\n\n";
+					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]" . PHP_EOL .
+						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
 				
 					$rules .= 
-					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){\n" .
-					"\t\treturn 403;\n" .
-					"\t}\n\n";
+					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){" . PHP_EOL .
+					"\t\treturn 403;" . PHP_EOL .
+					"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -583,73 +572,73 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' ) {
 				
-					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} tag\= [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} http\:  [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} https\:  [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]\n" .  
-						"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]\n" . 
-						"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare).* [NC]\n" . 
-						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-						"RewriteRule ^(.*)$ - [F,L]\n\n";
+					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} tag\= [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} http\:  [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} https\:  [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]" . PHP_EOL . 
+						"RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" .  PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare).* [NC]" . PHP_EOL .
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
+						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
 				
 					$rules .= 
 					
-						"\tif (\$args ~* \"\\.\\./\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .										
-						"\tif (\$args ~* \"boot.ini\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"tag=\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .										
-						"\tif (\$args ~* \"ftp:\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"http:\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"https:\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"base64_encode\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(%24&x)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n" .
-						"\tif (\$args ~* \"(request|select|insert|union|declare)\") {\n" .
-						"\t\tset \$susquery 1;\n" .
-						"\t}\n\n";
+						"\tif (\$args ~* \"\\.\\./\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"boot.ini\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"tag=\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .			
+						"\tif (\$args ~* \"ftp:\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}PHP_EOLPHP_EOL" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"http:\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"https:\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"base64_encode\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(%24&x)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" .PHP_EOL . PHP_EOL .
+						"\tif (\$args ~* \"(request|select|insert|union|declare)\") {" . PHP_EOL .
+						"\t\tset \$susquery 1;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -658,11 +647,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			if ( $bwpsserver == 'nginx' ) {
 			
 				$rules .= 
-					"\tif (\$http_cookie !~* \"wordpress_logged_in_\" ) {\n" .
-					"\t\tset \$susquery \"\${susquery}2\";\n" .
-					"\t\tset \$rule_2 1;\n" .
-					"\t\tset \$rule_3 1;\n" .
-					"\t}\n\n";
+					"\tif (\$http_cookie !~* \"wordpress_logged_in_\" ) {" . PHP_EOL .
+					"\t\tset \$susquery \"\${susquery}2\";" . PHP_EOL .
+					"\t\tset \$rule_2 1;" . PHP_EOL .
+					"\t\tset \$rule_3 1;" . PHP_EOL .
+					"\t}" . PHP_EOL . PHP_EOL;
 			
 			}
 			
@@ -671,9 +660,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'nginx' ) {
 			
 					$rules .= 
-						"\tif (\$susquery = 12) {\n" .
-						"\t\treturn 403;\n" .
-						"\t}\n\n";
+						"\tif (\$susquery = 12) {" . PHP_EOL .
+						"\t\treturn 403;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL;
 						
 				}
 				
@@ -708,64 +697,64 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				//hide wordpress backend
 				if ( $bwpsserver == 'apache' ) {
 					
-					$rules .= "RewriteRule ^" . $login . "$ " . $dir . "wp-login.php?" . $key . " [R,L]\n\n" .
-						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]\n\n" .
-						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]\n\n" .
-						"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]\n\n" .
-						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin \n" .
-						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php \n" .
-						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . " \n" .
-						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $admin . " \n" .
-						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $register . " \n" .
-						"RewriteCond %{QUERY_STRING} !^" . $key . " \n" .
-						"RewriteCond %{QUERY_STRING} !^action=logout\n" . 
-						"RewriteCond %{QUERY_STRING} !^action=rp\n" . 
-						"RewriteCond %{QUERY_STRING} !^action=register\n" .
-						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$\n" .
-						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php not_found [L]\n\n" .
-						"RewriteCond %{QUERY_STRING} ^loggedout=true\n" .
-						"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]\n";
+					$rules .= "RewriteRule ^" . $login . "$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
+						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin" . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php" . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $admin . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $register . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^" . $key . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^action=logout" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^action=register" . PHP_EOL .
+						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$PHP_EOL" . PHP_EOL .
+						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php not_found [L]" . PHP_EOL . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^loggedout=true" . PHP_EOL .
+						"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL;
 							
 				} else {
 					
 					$rules .= 
-						"\trewrite ^" . $dir . $login . "$ " . $dir . "wp-login.php?" . $key . " redirect;\n\n" .
-						"\tif (\$rule_2 = 1) {\n" .
-						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;\n" .
-						"\t}\n\n" .
-						"\tif (\$rule_2 = 0) {\n" .
-						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;\n" .
-						"\t}\n\n" .
-						"\trewrite ^" . $dir . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;\n\n" .
-						"\tif (\$http_referer !~* wp-admin ) {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$http_referer !~* wp-login.php ) {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $login . " ) {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $admin . " ) {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$http_referer !~* " . $register . " ) {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$args !~ \"^action=logout\") {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$args !~ \"^" . $key . "\") {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$args !~ \"^action=rp\") {\n" .
-						"\t\tset \$rule_3 \"\${rule_3}1\";\n" .
-						"\t}\n\n" .
-						"\tif (\$rule_3 = 111111111) {\n" .
-						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found last;\n" .
-						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found last;\n" .
-						"\t}\n\n";
+						"\trewrite ^" . $dir . $login . "$ " . $dir . "wp-login.php?" . $key . " redirect;" . PHP_EOL . PHP_EOL .
+						"\tif (\$rule_2 = 1) {" . PHP_EOL .
+						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$rule_2 = 0) {" . PHP_EOL .
+						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\trewrite ^" . $dir . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
+						"\tif (\$http_referer !~* wp-admin ) {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$http_referer !~* wp-login.php ) {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$http_referer !~* " . $login . " ) {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$http_referer !~* " . $admin . " ) {" .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$http_referer !~* " . $register . " ) {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args !~ \"^action=logout\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args !~ \"^" . $key . "\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args !~ \"^action=rp\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$rule_3 = 111111111) {" . PHP_EOL .
+						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found last;" . PHP_EOL .
+						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found last;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -774,7 +763,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					if ( $bwpsserver == 'apache' ) {
 					
-						$rules .= "</IfModule>\n";
+						$rules .= "</IfModule>" . PHP_EOL;
 					
 					}
 				
@@ -784,7 +773,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			//add markers if we have rules
 			if ( $rules != '' ) {
-				$rules = "# BEGIN Better WP Security\n" . $rules . "# END Better WP Security\n";
+				$rules = "# BEGIN Better WP Security" . PHP_EOL . $rules . PHP_EOL . "# END Better WP Security" . PHP_EOL;
 			}
 				
 			return $rules;
@@ -901,11 +890,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 			@chmod( $htaccess, 0644 );
 			
-			$ht = explode( "\n", implode( '', file( $htaccess ) ) ); //parse each line of file into array
+			ini_set( 'auto_detect_line_endings', true );
+			
+			$ht = explode( PHP_EOL, implode( '', file( $htaccess ) ) ); //parse each line of file into array
 			
 			$rules = $this->getrules();	
 			
-			$rulesarray = explode( "\n", $rules );
+			$rulesarray = explode( PHP_EOL, $rules );
 			
 			$contents = array_merge( $rulesarray, $ht );
 			 
@@ -918,7 +909,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//write each line to file
 			foreach ( $contents as $insertline ) {
 			
-				fwrite( $f, "{$insertline}\n" );
+				fwrite( $f, trim( $insertline ) . PHP_EOL );
 				
 			}
 				
@@ -939,7 +930,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 *
 		 **/
 		function writewpconfig() {
-			
+		
 			//clear the old rules first
 			if ( $this->deletewpconfig() == -1 ) {
 			
@@ -955,23 +946,25 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@chmod( $configfile, 0644 );
 			
-			$config = explode( "\n", implode( '', file( $configfile ) ) ); //parse each line of file into array
+			ini_set( 'auto_detect_line_endings', true );
+			
+			$config = explode( PHP_EOL, implode( '', file( $configfile ) ) );
 			
 			if ( $options['st_fileedit'] == 1 ) {
 			
-				$lines .= "define('DISALLOW_FILE_EDIT', true);\n\n";
+				$lines .= "define('DISALLOW_FILE_EDIT', true);" . PHP_EOL . PHP_EOL;
 			
 			}
 			
 			if ( $options['st_forceloginssl'] == 1 ) {
 			
-				$lines .= "define('FORCE_SSL_LOGIN', true);\n";
+				$lines .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
 			
 			}
 			
 			if ( $options['st_forceadminssl'] == 1 ) {
 			
-				$lines .= "define('FORCE_SSL_ADMIN', true);\n\n";
+				$lines .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL . PHP_EOL;
 			
 			}
 			
@@ -990,7 +983,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				}
 				
-				fwrite( $f, "{$line}\n" );
+				fwrite( $f, trim( $line ) . PHP_EOL );
 				
 			}
 			

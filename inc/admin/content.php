@@ -881,7 +881,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			} else { //if their is no admin user display a note 
 				?>
 					<p><?php _e( 'Congratulations! You do not have a user named "admin" in your WordPress installation. No further action is available on this page.', $this->hook ); ?></p>
-				<?
+				<?php
 			}
 		}
 		
@@ -1289,7 +1289,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<p><?php _e( 'Congratulations! You have already renamed your "wp-content" directory.', $this->hook ); ?></p>
 					<p><?php _e( 'Your current content directory is: ', $this->hook ); ?><strong><?php echo $dirname ?></strong></p>
 					<p><?php _e( 'No further actions are available on this page.', $this->hook ); ?></p>
-				<?
+				<?php
 			}
 		}
 		
