@@ -105,7 +105,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			//update if version numbers don't match
 			if ( $oldversion != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
-				$this->update_execute($oldversion);
+				$this->update_execute( $oldversion );
 			}
 			
 			$this->default_settings(); //verify and set default options
