@@ -605,7 +605,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t}" . PHP_EOL . PHP_EOL .			
 						"\tif (\$args ~* \"ftp:\") {" . PHP_EOL .
 						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}PHP_EOLPHP_EOL" . PHP_EOL . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args ~* \"http:\") {" . PHP_EOL .
 						"\t\tset \$susquery 1;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
