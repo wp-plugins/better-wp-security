@@ -124,9 +124,9 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 **/
 		function showmessages( $errors ) {
 			
-			global $bwpssavemessages; //use global to transfer to add_action callback
+			global $savemessages; //use global to transfer to add_action callback
 			
-			$bwpssavemessages = ''; //initialize so we can get multiple error messages (if needed)
+			$savemessages = ''; //initialize so we can get multiple error messages (if needed)
 			
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
@@ -137,12 +137,12 @@ if ( ! class_exists( 'Bit51' ) ) {
 				$errors = $errors->get_error_messages(); //get all errors if it is
 				
 				foreach ( $errors as $error => $string ) {
-					$bwpssavemessages .= '<div id="message" class="error"><p>' . $string . '</p></div>';
+					$savemessages .= '<div id="message" class="error"><p>' . $string . '</p></div>';
 				}
 							
 			} else { //no errors so display settings saved message
 			
-				$bwpssavemessages .= '<div id="message" class="updated"><p><strong>' . $errors . '</strong></p></div>';
+				$savemessages .= '<div id="message" class="updated"><p><strong>' . $errors . '</strong></p></div>';
 				
 			}
 			
@@ -199,11 +199,11 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 **/
 		function dispmessage() {
 		
-			global $bwpssavemessages;
+			global $savemessages;
 			
-			echo $bwpssavemessages;
+			echo $savemessages;
 			
-			unset($bwpssavemessages); //delete any saved messages
+			unset($savemessages); //delete any saved messages
 			
 		}
 		
