@@ -940,7 +940,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( trim( $insertline ) == '' ) {
 					if ( $blank == false ) {
 					
-						fwrite( $f, trim( $insertline ) . PHP_EOL );
+						fwrite( $f, PHP_EOL . trim( $insertline ) );
 						
 					}
 					
@@ -950,7 +950,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 					$blank = false;
 					
-					fwrite( $f, trim( $insertline ) . PHP_EOL );
+					fwrite( $f, PHP_EOL . trim( $insertline ) );
 					
 				}
 				
@@ -1031,7 +1031,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( trim( $line ) == '' ) {
 					if ( $blank == false ) {
 					
-						fwrite( $f, trim( $line ) . PHP_EOL );
+						fwrite( $f, PHP_EOL . trim( $line ) );
 						
 					}
 					
@@ -1040,8 +1040,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 					
 					$blank = false;
-					
-					fwrite( $f, trim( $line ) . PHP_EOL );
+									
+					if ( strstr( $line, '<?php' ) ) {
+						fwrite( $f, trim( $line ) );
+					} else {	
+						fwrite( $f, PHP_EOL . trim( $line ) );
+					}
 					
 				}
 				
