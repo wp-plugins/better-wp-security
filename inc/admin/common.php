@@ -722,6 +722,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteCond %{SCRIPT_FILENAME} !^(.*)admin-ajax.php" . PHP_EOL . 
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin" . PHP_EOL .
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php" . PHP_EOL .
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . PHP_EOL .
@@ -747,6 +748,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\trewrite ^" . $dir . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
+						"\tif (\$uri !~ \"^(.*)admin-ajax.php\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						 "\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* wp-admin ) {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
