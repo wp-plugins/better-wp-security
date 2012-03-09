@@ -14,6 +14,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if( $bwps->checkaway() ) {
 				wp_redirect( get_option( 'siteurl' ) );
+				wp_clear_auth_cookie();
 			}
 			
 		}

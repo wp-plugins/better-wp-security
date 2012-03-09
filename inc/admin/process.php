@@ -232,10 +232,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
 						
 			//form times
-			$startDate = $_POST['am_startmonth'] . "/" . $_POST['am_startday'] . "/" . $_POST['am_startyear'];
-			$endDate = $_POST['am_endmonth'] . "/" . $_POST['am_endday'] . "/" . $_POST['am_endyear'];
+			$startDate = strtotime( $_POST['am_startmonth'] . "/" . $_POST['am_startday'] . "/" . $_POST['am_startyear'] . ' 12:01 am' );
+			$endDate = strtotime( $_POST['am_endmonth'] . "/" . $_POST['am_endday'] . "/" . $_POST['am_endyear'] . ' 12:01 am' );
 			
-			if ( $endDate <= $startDate ) { //can't have an ending date before a starting date
+			if ( $options['am_type'] == 0 && $endDate <= $startDate ) { //can't have an ending date before a starting date
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
