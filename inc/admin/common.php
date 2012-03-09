@@ -338,7 +338,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//remove directory indexing
 			if ( $options['st_ht_browsing'] == 1 ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "Options All -Indexes" . PHP_EOL . PHP_EOL;
 				
@@ -353,7 +353,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				if ( ! empty( $hosts ) ) {
 				
-					if ( $bwpsserver == 'apache' ) {
+					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
 						$rules .= "Order allow,deny" . PHP_EOL .
 						"Allow from all" . PHP_EOL .
@@ -378,7 +378,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 								
 							}
 
-							if ( $bwpsserver == 'apache' ) {
+							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 							
 								$rules .= str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ' ';
 								
@@ -390,7 +390,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 						} else {
 						
-							if ( $bwpsserver == 'apache' ) {
+							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 							
 								$rules .= trim( $host ) . ' ';
 								
@@ -413,7 +413,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//lockdown files
 			if ( $options['st_ht_files'] == 1 ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= 
 						"<files .htaccess>" . PHP_EOL .
@@ -455,7 +455,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//start mod_rewrite rules
 			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 || ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "<IfModule mod_rewrite.c>" . PHP_EOL .
 						"RewriteEngine On" . PHP_EOL . PHP_EOL;
@@ -478,7 +478,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				if ( ! empty( $agents ) ) {
 				
-					if ( $bwpsserver == 'apache' ) {
+					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
 						$count = 1;
 				
@@ -531,7 +531,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_files'] == 1 ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]" . PHP_EOL .
 						"RewriteRule !^wp-includes/ - [S=3]" . PHP_EOL .
@@ -551,7 +551,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $options['st_ht_request'] == 1 ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]" . PHP_EOL .
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
@@ -570,7 +570,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//filter suspicious queries
 			if ( $options['st_ht_query'] == 1 ) {
 			
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]" . PHP_EOL .
@@ -695,7 +695,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				}
 			
 				//hide wordpress backend
-				if ( $bwpsserver == 'apache' ) {
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
 					$rules .= "RewriteRule ^" . $login . "$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
@@ -761,7 +761,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				//close mod_rewrite
 				if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
 				
-					if ( $bwpsserver == 'apache' ) {
+					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
 						$rules .= "</IfModule>" . PHP_EOL;
 					

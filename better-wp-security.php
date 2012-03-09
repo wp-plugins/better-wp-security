@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
-		public $pluginversion 	= '3.0.7'; //current plugin version
+		public $pluginversion 	= '3.0.8'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better_wp_security';
@@ -113,6 +113,13 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			require_once(plugin_dir_path( __FILE__ ) . 'inc/auth.php' );
 			require_once(plugin_dir_path( __FILE__ ) . 'inc/secure.php' );
 			$bwps = new bwps_secure();
+			
+			//make sure update script runs
+			$options = get_option( $this->plugindata );
+			
+			if ( $options['version'] != $this->pluginversion  || get_option( 'BWPS_options' ) != false ) {
+				new bwps_setup( 'activate' );
+			}
 			
 		}	
 		

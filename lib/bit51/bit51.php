@@ -8,7 +8,7 @@
 
 if ( ! class_exists( 'Bit51' ) ) {
 
-	class Bit51 {
+	abstract class Bit51 {
 	
 		var $feed = 'http://feeds.feedburner.com/Bit51'; //current address of Bit51.com feed
 	
