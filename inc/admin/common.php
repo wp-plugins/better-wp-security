@@ -446,7 +446,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tlocation ~ readme.html {" . PHP_EOL .
 						"\t\tdeny all;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
-						"\tlocation ~ install.php {" . PHP_EOL .
+						"\tlocation ~ /install.php {" . PHP_EOL .
 						"\t\tdeny all;". PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
 				}
