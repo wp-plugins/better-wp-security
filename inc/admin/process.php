@@ -574,6 +574,22 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				wp_clear_scheduled_hook( 'bwps_backup' );
 			}
 			
+			if ( $options['backup_enabled'] == 1 ) {
+				$this->db_backup(); //execute initial backup
+				switch ( $options['backup_int'] ) { //start schedule at appropriate time
+					case 'hourly':
+						$next = 60 * 60;
+						break;
+					case 'twicedaily':
+						$next = 60 * 60 * 12;
+						break;
+					case 'daily':
+						$next = 60 * 60 * 24;
+						break;
+				}
+				wp_schedule_event( time() + $next, $options['backup_int'], 'bwps_backup' );
+			}
+			
 			$this-> showmessages( $errorHandler );
 			
 		}

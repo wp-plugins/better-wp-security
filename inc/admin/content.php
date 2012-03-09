@@ -241,7 +241,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
 					array( __( 'Schedule Automated Backups', $this->hook ), 'databasebackup_content_3' ), //scheduled backup options
-					array( __( 'Download Backups', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
+					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
 				),
 				BWPS_PU . 'images/shield-large.png'
 			);
@@ -1390,6 +1390,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( 'Please note that for security backups are not available for direct download. You will need to go to ', $this->hook ); ?></p>
 				<p><strong><em><?php echo BWPS_PP . 'backups'; ?></em></strong></p>
 				<p><?php _e( ' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook ); ?></p>
+				<?php
+			}
+			if ( $options['backup_enabled'] == 1 ) { //get backup times
+				if ( $options['backup_last'] == '' ) {
+					$lastbackup = 'Never';
+				} else {
+					$lastbackup = date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $options['backup_last'] ) ) ) );
+				}
+				?>
+				<p><strong><?php _e( 'Last Scheduled Backup:', $this->hook ); ?></strong> <?php echo $lastbackup; ?></p>
+				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', wp_next_scheduled( 'bwps_backup' ) ) ) ) ); ?></p>
 				<?php
 			}
 		}

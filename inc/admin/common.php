@@ -26,13 +26,28 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		function backup_scheduler() {
 		
 			add_action( 'bwps_backup', array( &$this, 'db_backup' ) );
-			
+						
 			$options = get_option( $this->primarysettings );
 			
 			if ( $options['backup_enabled'] == 1 ) {
 			
-				if ( ! wp_next_scheduled( 'bwps_backup' ) ) {
-					wp_schedule_event( time(), $options['backup_int'], 'bwps_backup' );
+				$nextbackup = wp_next_scheduled( 'bwps_backup' );
+			
+				if ( $nextbackup === false || strtotime( get_date_from_gmt( $nextbackup ) ) < time() ) {
+					$this->db_backup(); //execute initial backup
+					wp_clear_scheduled_hook( 'bwps_backup' );
+					switch ( $options['backup_int'] ) { //schedule backup at appropriate time
+						case 'hourly':
+							$next = 60 * 60;
+							break;
+						case 'twicedaily':
+							$next = 60 * 60 * 12;
+							break;
+						case 'daily':
+							$next = 60 * 60 * 24;
+							break;
+					}
+					wp_schedule_event( time() + $next, $options['backup_int'], 'bwps_backup' );
 				}
 				
 			} else { //no recurring backups
@@ -280,6 +295,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					}	
 				}
 			}
+			
+			$options['backup_last'] = time();
+			
+			update_option( $this->primarysettings, $options );
 			
 		}
 		

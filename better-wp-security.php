@@ -45,6 +45,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'backup_email' 			=> '1',
 					'backup_int' 			=> 'daily',
 					'backup_enabled'		=> '0',
+					'backup_last'			=> '',
 					'backups_to_retain'		=> '10',
 					'bu_enabled' 			=> '0',
 					'bu_banlist' 			=> '',
