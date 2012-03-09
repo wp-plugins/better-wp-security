@@ -40,7 +40,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function on_activate() {
+			
+			define( 'BWPS_NEW_INSTALL', true );
 			new bwps_setup( 'activate' );
+			
 		}
 
 		/**
@@ -78,7 +81,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			global $wpdb;
 		
 			//if this is multisite make sure they're network activating or die
-			if ( get_option( $this->plugindata ) === false && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
+			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 			
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
 			
