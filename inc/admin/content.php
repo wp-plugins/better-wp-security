@@ -1848,8 +1848,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function systemtweaks_content_2() {
 			?>
-			<?php if ( ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) && ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
-				<p><?php _e( 'Your webserver is unsupported. You must use Apache or NGINX to make use of these rules.', $this->hook ); ?></p>
+			<?php if ( ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) &&  ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) && ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
+				<p><?php _e( 'Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to make use of these rules.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
@@ -1870,7 +1870,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p><?php _e( 'Prevent public access to readme.html, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<?php if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { ?>
+						<?php if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { ?>
 							<tr valign="top">
 								<th scope="row">
 									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
