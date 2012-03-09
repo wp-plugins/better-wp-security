@@ -591,9 +591,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							$htaccess = ABSPATH . '.htaccess';
 							@chmod( $htaccess, 0644 );
 							
-							if ( $f = fopen( $htaccess, 'a' ) ) { 
+							if ( $f = @fopen( $htaccess, 'a' ) ) { 
 							
-								fclose( $f );
+								@fclose( $f );
 								$copen = '';
 								$cclose = '';
 								$htaw = __( 'Yes', $this->hook ); 
@@ -613,9 +613,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							$conffile = $this->getConfig();
 							@chmod( $conffile, 0644 );
 							
-							if ( $f = fopen( $conffile, 'a' ) ) { 
+							if ( $f = @fopen( $conffile, 'a' ) ) { 
 							
-								fclose( $f );
+								@fclose( $f );
 								$copen = '';
 								$cclose = '';
 								$wconf = __( 'Yes', $this->hook ); 

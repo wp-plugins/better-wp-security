@@ -123,7 +123,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				}
 						
-				fclose( $f );
+				@fclose( $f );
 						
 				@chmod( $htaccess, 0444 );
 						
@@ -173,7 +173,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 														
 				}
 							
-				fclose( $f );
+				@fclose( $f );
 							
 				@chmod( $configfile, 0444 );
 							
@@ -240,9 +240,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			//save file
 			$file = 'database-backup-' . time();
-			$handle = fopen( BWPS_PP . '/backups/' . $file . '.sql', 'w+' );
+			$handle = @fopen( BWPS_PP . '/backups/' . $file . '.sql', 'w+' );
 			fwrite( $handle, $return );
-			fclose( $handle );
+			@fclose( $handle );
 	
 			//zip the file
 			if ( class_exists( 'ZipArchive' ) ) {
@@ -932,14 +932,31 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			$blank = false;
+			
 			//write each line to file
 			foreach ( $contents as $insertline ) {
 			
-				fwrite( $f, trim( $insertline ) . PHP_EOL );
+				if ( trim( $insertline ) == '' ) {
+					if ( $blank == false ) {
+					
+						fwrite( $f, trim( $insertline ) . PHP_EOL );
+						
+					}
+					
+					$blank = true;
+				
+				} else {
+					
+					$blank = false;
+					
+					fwrite( $f, trim( $insertline ) . PHP_EOL );
+					
+				}
 				
 			}
 				
-			fclose( $f );
+			@fclose( $f );
 			
 			@chmod( $htaccess, 0444 );
 			
@@ -1000,6 +1017,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			$blank = false;
+			
 			//rewrite each appropriate line
 			foreach ($config as $line) {
 			
@@ -1009,11 +1028,26 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				}
 				
-				fwrite( $f, trim( $line ) . PHP_EOL );
+				if ( trim( $line ) == '' ) {
+					if ( $blank == false ) {
+					
+						fwrite( $f, trim( $line ) . PHP_EOL );
+						
+					}
+					
+					$blank = true;
+				
+				} else {
+					
+					$blank = false;
+					
+					fwrite( $f, trim( $line ) . PHP_EOL );
+					
+				}
 				
 			}
 			
-			fclose( $f );
+			@fclose( $f );
 			
 			@chmod( $configfile, 0444 );
 			
