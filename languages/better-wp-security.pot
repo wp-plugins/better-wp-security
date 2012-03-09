@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Better WP Security Dev\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
-"POT-Creation-Date: 2012-03-09 00:25:17+00:00\n"
+"POT-Creation-Date: 2012-03-09 00:58:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,15 +12,15 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: inc/admin/common.php:251
+#: inc/admin/common.php:252
 msgid "Site Database Backup"
 msgstr ""
 
-#: inc/admin/common.php:253
+#: inc/admin/common.php:254
 msgid "Attached is the backup file for the database powering"
 msgstr ""
 
-#: inc/admin/common.php:253
+#: inc/admin/common.php:254
 msgid " taken"
 msgstr ""
 
@@ -1716,7 +1716,7 @@ msgid ""
 "connection."
 msgstr ""
 
-#: inc/admin/process.php:87 inc/admin/process.php:527
+#: inc/admin/process.php:87 inc/admin/process.php:535
 msgid "Database Backup Completed."
 msgstr ""
 
@@ -1753,10 +1753,10 @@ msgstr ""
 msgid " is not a valid username. Please try again"
 msgstr ""
 
-#: inc/admin/process.php:226 inc/admin/process.php:272
-#: inc/admin/process.php:451 inc/admin/process.php:540
-#: inc/admin/process.php:735 inc/admin/process.php:787
-#: inc/admin/process.php:953 inc/admin/process.php:1082
+#: inc/admin/process.php:226 inc/admin/process.php:280
+#: inc/admin/process.php:459 inc/admin/process.php:548
+#: inc/admin/process.php:743 inc/admin/process.php:795
+#: inc/admin/process.php:961 inc/admin/process.php:1090
 msgid "Settings Saved"
 msgstr ""
 
@@ -1764,77 +1764,83 @@ msgstr ""
 msgid "The ending date must be after the current date."
 msgstr ""
 
-#: inc/admin/process.php:390
+#: inc/admin/process.php:256
+msgid ""
+"Your current settings would lock you out 24 hours a day. Please make sure "
+"start and end times differ."
+msgstr ""
+
+#: inc/admin/process.php:398
 msgid "You cannot ban yourself. Please try again."
 msgstr ""
 
-#: inc/admin/process.php:415
+#: inc/admin/process.php:423
 msgid " is not a valid user agent. Please try again."
 msgstr ""
 
-#: inc/admin/process.php:435 inc/admin/process.php:771
-#: inc/admin/process.php:1126
+#: inc/admin/process.php:443 inc/admin/process.php:779
+#: inc/admin/process.php:1134
 msgid ""
 "Settings Saved. You will have to manually add rewrite rules to your NGINX "
 "configuration. See the Better WP Security Dashboard for a list of the "
 "rewrite rules you will need."
 msgstr ""
 
-#: inc/admin/process.php:464
+#: inc/admin/process.php:472
 msgid "Unable to rename the wp-content folder. Operation cancelled."
 msgstr ""
 
-#: inc/admin/process.php:579
+#: inc/admin/process.php:587
 msgid "Database Prefix Changed"
 msgstr ""
 
-#: inc/admin/process.php:620
+#: inc/admin/process.php:628
 msgid "Error: Could not rename table "
 msgstr ""
 
-#: inc/admin/process.php:620
+#: inc/admin/process.php:628
 msgid ". You may have to rename the table manually."
 msgstr ""
 
-#: inc/admin/process.php:657
+#: inc/admin/process.php:665
 msgid "Could not update prefix refences in options tables."
 msgstr ""
 
-#: inc/admin/process.php:678
+#: inc/admin/process.php:686
 msgid "Could not update prefix refences in usermeta table."
 msgstr ""
 
-#: inc/admin/process.php:746
+#: inc/admin/process.php:754
 msgid ""
 "You must enable permalinks in your WordPress settings for this feature to "
 "work."
 msgstr ""
 
-#: inc/admin/process.php:805 inc/admin/process.php:972
+#: inc/admin/process.php:813 inc/admin/process.php:980
 msgid "Lockout time period needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:816 inc/admin/process.php:983
+#: inc/admin/process.php:824 inc/admin/process.php:991
 msgid "Login time period needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:827
+#: inc/admin/process.php:835
 msgid "The error threshold needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:994
+#: inc/admin/process.php:1002
 msgid "Max login attempts per host needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1005
+#: inc/admin/process.php:1013
 msgid "Max login attempts per user needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1026
+#: inc/admin/process.php:1034
 msgid "The selected records have been cleared."
 msgstr ""
 
-#: inc/admin/process.php:1052
+#: inc/admin/process.php:1060
 msgid "The selected lockouts have been cleared."
 msgstr ""
 
