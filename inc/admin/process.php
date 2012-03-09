@@ -244,14 +244,22 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$errorHandler->add( '2', __( 'The ending date must be after the current date.', $this->hook ) );
 			}
 			
-			$startTime = $_POST['am_starthour'] . ':' . $_POST['am_startmin'] . ' ' . $_POST['am_starthalf'];
-			$endTime = $_POST['am_endhour'] . ':' . $_POST['am_endmin'] . ' ' . $_POST['am_endhalf'];
+			$startTime = strtotime( '1/1/1970 ' . $_POST['am_starthour'] . ':' . $_POST['am_startmin'] . ' ' . $_POST['am_starthalf'] );
+			$endTime = strtotime( '1/1/1970 ' . $_POST['am_endhour'] . ':' . $_POST['am_endmin'] . ' ' . $_POST['am_endhalf'] );
 			
+			if ( $options['am_type'] == 1 && $startTime == $endTime ) { //can't have an ending date before a starting date
 			
-			$options['am_startdate'] = strtotime( $startDate . ' 12:01 am' );
-			$options['am_enddate'] = strtotime( $endDate . ' 12:01 am' );
-			$options['am_starttime'] = strtotime( '1/1/1970 ' . $startTime );
-			$options['am_endtime'] = strtotime( '1/1/1970 ' . $endTime );
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add( '2', __( 'Your current settings would lock you out 24 hours a day. Please make sure start and end times differ.', $this->hook ) );
+			}
+			
+			$options['am_startdate'] = $startDate;
+			$options['am_enddate'] = $endDate;
+			$options['am_starttime'] = $startTime;
+			$options['am_endtime'] = $endTime;
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $options );
