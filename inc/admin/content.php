@@ -1366,7 +1366,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="backups_to_retain" name="backups_to_retain" type="text" value="<?php echo $options['backups_to_retain']; ?>" />
-							<p><?php _e( 'Number of backup files to retain. Enter 0 to keep all files.', $this->hook ); ?></p>
+							<p><?php _e( 'Number of backup files to retain. Enter 0 to keep all files. Please note that this setting only applies if "Send Backups by Email" is not selected.', $this->hook ); ?></p>
 						</td>
 					</tr>
 				</table>
