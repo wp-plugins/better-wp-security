@@ -32,8 +32,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			if ( $options['backup_enabled'] == 1 ) {
 			
 				$nextbackup = wp_next_scheduled( 'bwps_backup' );
-			
-				if ( $nextbackup === false || strtotime( get_date_from_gmt( $nextbackup ) ) < time() ) {
+				
+				if ( $nextbackup === false || $nextbackup < time() ) {
 					$this->db_backup(); //execute initial backup
 					wp_clear_scheduled_hook( 'bwps_backup' );
 					switch ( $options['backup_int'] ) { //schedule backup at appropriate time
@@ -47,7 +47,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							$next = 60 * 60 * 24;
 							break;
 					}
+					
 					wp_schedule_event( time() + $next, $options['backup_int'], 'bwps_backup' );
+					
 				}
 				
 			} else { //no recurring backups
@@ -775,7 +777,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$args !~ \"^action=rp\") {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$rule_3 = 111111111) {" . PHP_EOL .
+						"\tif (\$rule_3 = 1111111111) {" . PHP_EOL .
 						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found last;" . PHP_EOL .
 						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found last;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
