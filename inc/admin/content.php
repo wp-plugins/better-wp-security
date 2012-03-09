@@ -396,9 +396,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $isOn == 1 && $role == 'subscriber' ) { ?>
 						<span style="color: green;"><?php _e( 'You are enforcing strong passwords for all users.', $this-> hook ); ?></span>
 					<?php } elseif ( $isOn == 1 ) { ?>
-						<span style="color: orange;"><?php _e( 'You are enforcing strong passwords, but not for all users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: orange;"><?php _e( 'You are enforcing strong passwords, but not for all users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_passrole"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'You are not enforcing strong passwords.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'You are not enforcing strong passwords.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_enablepassword"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -406,9 +406,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $hcount == 3 ) { ?>
 						<span style="color: green;"><?php _e( 'Your Wordpress header is revealing as little information as possible.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
-						<span style="color: orange;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: orange;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your Wordpress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'Your Wordpress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -416,9 +416,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $hcount == 3 ) { ?>
 						<span style="color: green;"><?php _e( 'Non-administrators cannot see available updates.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
-						<span style="color: orange;"><?php _e( 'Non-administrators can see some updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: orange;"><?php _e( 'Non-administrators can see some updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_themenot"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Non-administrators can see all updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'Non-administrators can see all updates.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_themenot"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -469,9 +469,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $hcount == 4 ) { ?>
 						<span style="color: green;"><?php _e( 'Your .htaccess file is fully secured.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
-						<span style="color: blue;"><?php _e( 'Your .htaccess file is partially secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: blue;"><?php _e( 'Your .htaccess file is partially secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_ht_files"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your .htaccess file is NOT secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'Your .htaccess file is NOT secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_ht_files"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -485,21 +485,21 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $options['st_longurl'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your installation does not accept long URLs.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-contentdirectory"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_longurl"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
 					<?php if ( $options['st_fileedit'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'You are not allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileedit"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
 					<?php if ( $options['st_randomversion'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Version information is obscured to all non admin users.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'Users may still be able to get version information from various plugins and themes.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'Users may still be able to get version information from various plugins and themes.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_randomversion"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -513,9 +513,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
 						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
 					<?php } elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) { ?>
-						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
+						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_forceloginssl"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_forceloginssl"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 			</ol>
@@ -1859,7 +1859,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<tr valign="top">
 							<tr>
 								<td scope="row" colspan="2">
-									<h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
+									<a name="st_ht_files"></a><h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
 								</td>
 							</tr>
 							<th scope="row">
@@ -1902,7 +1902,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr>
 							<td scope="row" colspan="2">
-								<h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
+								<a name="st_generator"></a><h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -1935,7 +1935,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr>
 							<td scope="row" colspan="2">
-								<h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
+								<a name="st_themenot"></a><h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -1972,7 +1972,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
-								<label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
+								<a name="st_enablepassword"></a><label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $options['st_enablepassword'] ); ?> />
@@ -2002,7 +2002,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
-								<label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
+								<a name="st_loginerror"></a><label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $options['st_loginerror'] ); ?> />
@@ -2011,7 +2011,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">
 							<th scope="row">
-								<label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
+								<a name="st_randomversion"></a><label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $options['st_randomversion'] ); ?> />
@@ -2021,7 +2021,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">
 							<th scope="row">
-								<label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
+								<a name="st_longurl"></a><label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $options['st_longurl'] ); ?> />
@@ -2031,7 +2031,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top"  style="border: 1px solid #ffcc00;">
 							<th scope="row">
-								<label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
+								<a name="st_fileedit"></a><label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
@@ -2053,7 +2053,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<tr valign="top" style="border: 1px solid #ff0000;">
 							<th scope="row">
-								<label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
+								<a name="st_forceloginssl"></a><label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
