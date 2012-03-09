@@ -737,7 +737,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$http_referer !~* " . $login . " ) {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* " . $admin . " ) {" .
+						"\tif (\$http_referer !~* " . $admin . " ) {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* " . $register . " ) {" . PHP_EOL .
