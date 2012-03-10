@@ -640,7 +640,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/	
 		function siteinit() {
 		
-			global $current_user, $bwps_login_slug, $bwps_register_slug;
+			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwps_backup;
+			
+			//execute backups
+			require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
+			$bwps_backup = new bwps_backup();
 			
 			//get appropriate options
 			if ( is_multisite() ) {
