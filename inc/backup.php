@@ -16,11 +16,12 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			
 			if ( $options['backup_enabled'] == 1 ) {
 			
-				$nextbackup = wp_next_scheduled( 'bwps_backup' );
+				$nextbackup = wp_next_scheduled( 'bwps_backup' ); //get next schedule
 				
 				if ( $nextbackup === false || $nextbackup < time() ) {
-					$this->execute_backup(); //execute initial backup
-					wp_clear_scheduled_hook( 'bwps_backup' );
+					
+					wp_clear_scheduled_hook( 'bwps_backup' ); //clear schedule if set
+					
 					switch ( $options['backup_int'] ) { //schedule backup at appropriate time
 						case 'hourly':
 							$next = 60 * 60;
@@ -34,6 +35,8 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					}
 					
 					wp_schedule_event( time() + $next, $options['backup_int'], 'bwps_backup' );
+					
+					$this->execute_backup(); //execute backup
 					
 				}
 				
