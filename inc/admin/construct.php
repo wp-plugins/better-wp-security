@@ -25,8 +25,6 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			add_action( 'admin_init', array( &$this, 'ask' ) );	
 		
 			add_action( 'admin_init', array( &$this, 'awaycheck' ) );
-			
-			add_action( 'init', array( &$this, 'backup_scheduler' ) );
 				
 		}
 	
