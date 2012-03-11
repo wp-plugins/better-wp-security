@@ -1400,7 +1400,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				}
 				?>
 				<p><strong><?php _e( 'Last Scheduled Backup:', $this->hook ); ?></strong> <?php echo $lastbackup; ?></p>
-				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', wp_next_scheduled( 'bwps_backup' ) ) ) ) ); ?></p>
+				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $options['backup_next'] ) ) ) ); ?></p>
 				<?php
 			}
 		}

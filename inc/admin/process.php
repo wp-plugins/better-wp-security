@@ -571,11 +571,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			//clear any items on the schedule from cron
-			if ( wp_next_scheduled( 'bwps_backup' ) ) {
-				wp_clear_scheduled_hook( 'bwps_backup' );
-			}
-			
 			$this-> showmessages( $errorHandler );
 			
 		}

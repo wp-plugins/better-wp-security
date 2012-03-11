@@ -326,6 +326,14 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					}
 					
 				}
+				
+				if ( str_replace( '.', '', $oldversion ) < 3012 ) {
+					
+					if ( wp_next_scheduled( 'bwps_backup' ) ) {
+						wp_clear_scheduled_hook( 'bwps_backup' );
+					}	
+					
+				}
 			
 			}
 		

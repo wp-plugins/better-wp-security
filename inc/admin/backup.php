@@ -16,11 +16,9 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			
 			if ( $options['backup_enabled'] == 1 ) {
 			
-				$nextbackup = wp_next_scheduled( 'bwps_backup' ); //get next schedule
+				$nextbackup = $options['backup_next']; //get next schedule
 				
-				if ( $nextbackup === false || $nextbackup < time() ) {
-					
-					wp_clear_scheduled_hook( 'bwps_backup' ); //clear schedule if set
+				if ( $nextbackup == '' || $nextbackup < time() ) {
 					
 					switch ( $options['backup_int'] ) { //schedule backup at appropriate time
 						case 'hourly':
@@ -34,16 +32,12 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 							break;
 					}
 					
-					wp_schedule_event( time() + $next, $options['backup_int'], 'bwps_backup' );
+					$options['backup_next'] = ( time() + $next );
+					
+					update_option( $this->primarysettings, $options );
 					
 					$this->execute_backup(); //execute backup
 					
-				}
-				
-			} else { //no recurring backups
-			
-				if ( wp_next_scheduled( 'bwps_backup' ) ) {
-					wp_clear_scheduled_hook( 'bwps_backup' );
 				}
 				
 			}
