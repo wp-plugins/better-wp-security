@@ -97,9 +97,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			//handle login limits
 			if ( $options['ll_enabled'] == 1 ) {
 				add_action('wp_login_failed', array( &$this, 'limitlogins_fail' ) );
-				//add_filter( 'wp_authenticate_user', array( &$this, 'limitlogins_auth_user' ), 99999, 2 );
-//				add_filter('shake_error_codes', 'limit_login_failure_shake');
-//				add_action('login_head', 'limit_login_add_error_message');
 				add_action( 'login_errors', array( &$this, 'limitlogins_errors' ) );
 				add_action( 'authenticate', array( &$this, 'limitlogins_auth' ), 10, 2 );
 			}
