@@ -394,6 +394,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= "RewriteRule ^wp-admin/includes/ - [F,L]" . PHP_EOL .
 						"RewriteRule !^wp-includes/ - [S=3]" . PHP_EOL .
+						"RewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php" . PHP_EOL .
 						"RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]" . PHP_EOL .
 						"RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]" . PHP_EOL .
 						"RewriteRule ^wp-includes/theme-compat/ - [F,L]" . PHP_EOL . PHP_EOL;
