@@ -329,7 +329,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'logs_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
 					array( __( 'Current Lockouts', $this->hook ), 'logs_content_3' ), //Current Lockouts log
-					array( __( '404 Errors', $this->hook ), 'logs_content_4' ) //404 Errors
+					array( __( '404 Errors', $this->hook ), 'logs_content_4' ), //404 Errors
+					array( __( 'All Lockouts', $this->hook ), 'logs_content_5' ) //404 Errors
 				),
 				BWPS_PU . 'images/shield-large.png'
 			);
@@ -1816,7 +1817,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 				foreach ( $grouped as $url => $data ) {
 					?>
-					<li><?php echo $url; ?> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></li>
+					<li><strong><?php echo $url; ?></strong> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></li>
 					<?php
 				}
 			?>
@@ -1825,6 +1826,30 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			} else { //the log is empty
 			?>
 				<p><?php _e( 'There are currently no 404 errors in the log', $this->hook ); ?></p>
+			<?php 
+			}
+		}
+		
+		/**
+		 * Lockout table log
+		 *
+		 **/
+		function logs_content_5() {
+			global $wpdb;
+			
+			$lockouts = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` ORDER BY starttime DESC;", ARRAY_A );
+			
+			if ( sizeof( $lockouts ) > 0 ) {
+				?>
+				<p><?php _e( 'The following is a log of all lockouts in the system.', $this->hook ); ?></p>
+				<?php foreach ( $lockouts as $lockout ) { ?>
+					<?php $lockuser = get_user_by( 'id', $lockout['user'] ); ?>
+					<li><em>Time:</em> <strong><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $lockout['starttime'] ) ); ?></strong> <em>Reason:</em> <strong><?php echo $lockout['type'] == 2 ? 'Too many 404s' : 'Bad Logins'; ?></strong> <em>Host:</em> <strong><?php echo $lockout['host']; ?></strong> <?php echo $lockuser != false ? '<em>User:</em> <strong>' . $lockuser->user_login . '</strong>' : ''; ?></li>
+				<?php } ?>
+			<?php
+			} else { //the log is empty
+			?>
+				<p><?php _e( 'There are currently no lockouts in the database.', $this->hook ); ?></p>
 			<?php 
 			}
 		}
