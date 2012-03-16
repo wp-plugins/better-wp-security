@@ -1111,6 +1111,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$options['st_passrole'] = wp_strip_all_tags( $_POST['st_passrole'] );
 			}
 			$options['st_loginerror'] = ( isset( $_POST['st_loginerror'] ) && $_POST['st_loginerror'] == 1  ? 1 : 0 );
+			$options['st_fileperm'] = ( isset( $_POST['st_fileperm'] ) && $_POST['st_fileperm'] == 1  ? 1 : 0 );
 			$options['st_randomversion'] = ( isset( $_POST['st_randomversion'] ) && $_POST['st_randomversion'] == 1  ? 1 : 0 );
 			$options['st_longurl'] = ( isset( $_POST['st_longurl'] ) && $_POST['st_longurl'] == 1  ? 1 : 0 );
 			$options['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );

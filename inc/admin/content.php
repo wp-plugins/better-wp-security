@@ -497,6 +497,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
+					<?php if ( $options['st_fileperm'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'wp-config.php and .htacess are not writeable.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'wp-config.php and .htacess are writeable.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileperm"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
 					<?php if ( $options['st_randomversion'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Version information is obscured to all non admin users.', $this->hook ); ?></span>
 					<?php } else { ?>
@@ -1861,7 +1868,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function systemtweaks_content_1() {
 			?>
 			<p><?php _e( 'This page contains a number of tweaks that can significantly improve the security of your system.', $this->hook ); ?></p>
-			<p><?php _e( 'Server tweaks make use of rewrite rules and, in the case of Apache, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration.', $this->hook ); ?></p>
+			<p><?php _e( 'Server tweaks make use of rewrite rules and, in the case of Apache or LiteSpeed, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration.', $this->hook ); ?></p>
 			<p><?php _e( 'The other tweaks, in some cases, make use of editing your wp-config.php file. Those that do can be manually turned off by reverting the changes that file.', $this->hook ); ?></p>
 			<p><?php _e( 'Be advsied, some of these tweaks may in fact break other plugins and themes that make use of techniques that are often seen in practice as suspicious. That said, I highly recommend turning these on one-by-one and don\'t worry if you cannot use them all.', $this->hook ); ?></p>
 			<?php
@@ -2032,6 +2039,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<td>
 								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $options['st_loginerror'] ); ?> />
 								<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<a name="st_fileperm"></a><label for "st_fileperm"><?php _e( 'Remove write abilities from .htaccess and wp-config.php', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_fileperm" name="st_fileperm" type="checkbox" value="1" <?php checked( '1', $options['st_fileperm'] ); ?> />
+								<p><?php _e( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the unix file permissions to 0444 on these files and turning it off will set the permissions to 0644.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">

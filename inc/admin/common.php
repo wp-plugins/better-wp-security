@@ -41,7 +41,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			$htaccess = ABSPATH . '.htaccess';
 			
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 						
 			$markerdata = explode( PHP_EOL, implode( '', file( $htaccess ) ) ); //parse each line of file into array
 		
@@ -77,7 +77,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 				@fclose( $f );
 						
-				@chmod( $htaccess, 0444 );
+				$options = get_option( $this->primarysettings );
+				
+				if ( $options['st_fileperm'] == 1 ) {
+					@chmod( $htaccess, 0444 );
+				}
 						
 				return 1;
 						
@@ -99,7 +103,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		
 			$configfile = $this->getConfig();
 			
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 						
 			$lines = explode( PHP_EOL, implode( '', file( $configfile ) ) );
 			
@@ -127,7 +131,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				@fclose( $f );
 							
-				@chmod( $configfile, 0444 );
+				$options = get_option( $this->primarysettings );
+				
+				if ( $options['st_fileperm'] == 1 ) {
+					@chmod( $configfile, 0444 );
+				}
 							
 				return 1;
 							
@@ -169,7 +177,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 **/
 		function getrules() {
 		
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 		
 			//figure out what server they're using
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
@@ -754,7 +762,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 			@chmod( $htaccess, 0644 );
 			
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 			
 			$ht = explode( PHP_EOL, implode( '', file( $htaccess ) ) ); //parse each line of file into array
 			
@@ -796,7 +804,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			@fclose( $f );
 			
-			@chmod( $htaccess, 0444 );
+			$options = get_option( $this->primarysettings );
+			
+			if ( $options['st_fileperm'] == 1 ) {
+				@chmod( $htaccess, 0444 );
+			}
 			
 			return 1; //success
 		
@@ -827,7 +839,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@chmod( $configfile, 0644 );
 			
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 			
 			$config = explode( PHP_EOL, implode( '', file( $configfile ) ) );
 			
@@ -891,7 +903,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@fclose( $f );
 			
-			@chmod( $configfile, 0444 );
+			if ( $options['st_fileperm'] == 1 ) {
+				@chmod( $configfile, 0444 );
+			}
 			
 			return 1; //success
 		

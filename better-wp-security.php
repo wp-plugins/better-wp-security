@@ -81,6 +81,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_enablepassword'		=> '0',
 					'st_passrole'			=> 'administrator',
 					'st_loginerror'			=> '0',
+					'st_fileperm'			=> '0',
 					'st_randomversion'		=> '0',
 					'st_longurl'			=> '0',
 					'st_fileedit'			=> '0',
