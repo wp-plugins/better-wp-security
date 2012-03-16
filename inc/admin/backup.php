@@ -51,7 +51,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		function execute_backup() {
 			global $wpdb;
 				
-			ini_set( 'auto_detect_line_endings', true );
+			@ini_set( 'auto_detect_line_endings', true );
 				
 			$options = get_option( $this->primarysettings );
 				
@@ -128,7 +128,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			if ( $options['backup_email'] == 1 ) {
 				
 				$to = get_option( 'admin_email' );
-				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . "\rPHP_EOL";
+				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 				$attachment = array( BWPS_PP . '/backups/' . $file . $fileext );
 				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
