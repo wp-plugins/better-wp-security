@@ -29,22 +29,19 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 						$next = 60 * 60 * 24 * 7  * $options['backup_time'];
 						break;
 				}
+				
+				if ( $options['backup_next'] < time() ) {
 					
-				$options['backup_next'] = ( time() + $next );
+					$options['backup_next'] = ( time() + $next );
 			
-				update_option( $this->primarysettings, $options );
+					update_option( $this->primarysettings, $options );
 				
-				$this->execute_backup(); //execute backup
+					$this->execute_backup(); //execute backup
 				
-			} else {
-				
-				$options['backup_next'] = '';
-				$options['backup_last'] = '';
-				
-				update_option( $this->primarysettings, $options );
+				}
 				
 			}
-			
+						
 		}
 		
 		/**
