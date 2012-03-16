@@ -592,14 +592,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 					
 					$rules .= 
-						"\trewrite ^" . $dir . $login . "$ " . $dir . "wp-login.php?" . $key . " redirect;" . PHP_EOL . PHP_EOL .
+						"\trewrite ^" . $dir . $login . "/?$ " . $dir . "wp-login.php?" . $key . " redirect;" . PHP_EOL . PHP_EOL .
 						"\tif (\$rule_2 = 1) {" . PHP_EOL .
-						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;" . PHP_EOL .
+						"\t\trewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$rule_2 = 0) {" . PHP_EOL .
-						"\t\trewrite ^" . $dir . $admin . "$ " . $dir . "wp-admin/?" . $key . " redirect;" . PHP_EOL .
+						"\t\trewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-admin/?" . $key . " redirect;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
-						"\trewrite ^" . $dir . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
+						"\trewrite ^" . $dir . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
 						"\tif (\$uri !~ \"^(.*)admin-ajax.php\") {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						 "\t}" . PHP_EOL . PHP_EOL .
