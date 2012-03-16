@@ -1348,13 +1348,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "backup_int"><?php _e( 'Backup Interval', $this->hook ); ?></label>
+							<label for "backup_interval"><?php _e( 'Backup Interval', $this->hook ); ?></label>
 						</th>
 						<td>
-							<select id="backup_int" name="backup_int">
-								<option value="hourly" <?php selected( $options['backup_int'], 'hourly' ); ?>>Hourly</option>
-								<option value="twicedaily" <?php selected( $options['backup_int'], 'twicedaily' ); ?>>Twice Daily</option>
-								<option value="daily" <?php selected( $options['backup_int'], 'daily' ); ?>>Daily</option>
+							<input id="backup_time" name="backup_time" type="text" value="<?php echo $options['backup_time']; ?>" />
+							<select id="backup_interval" name="backup_interval">
+								<option value="0" <?php selected( $options['backup_interval'], '0' ); ?>>Hours</option>
+								<option value="1" <?php selected( $options['backup_interval'], '1' ); ?>>Days</option>
+								<option value="2" <?php selected( $options['backup_interval'], '2' ); ?>>Weeks</option>
 							</select>
 							<p><?php _e( 'Select the frequency of automated backups.', $this->hook ); ?></p>
 						</td>

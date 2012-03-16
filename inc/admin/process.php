@@ -547,6 +547,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 *
 		 **/
 		function databasebackup_process_2() {
+		
+			global $bwps_backup;
+			
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			$options = get_option( $this->primarysettings ); //load the options
@@ -555,7 +558,35 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['backup_enabled'] = ( isset( $_POST['backup_enabled'] ) && $_POST['backup_enabled'] == 1  ? 1 : 0 );
 			$options['backup_email'] = ( isset( $_POST['backup_email'] ) && $_POST['backup_email'] == 1  ? 1 : 0 );
 			$options['backups_to_retain'] = absint( $_POST['backups_to_retain'] );
-			$options['backup_int'] = $_POST['backup_int'];
+			$options['backup_time'] = absint( $_POST['backup_time'] );
+			$options['backup_interval'] = $_POST['backup_interval'];
+			
+			if ( $options['backup_enabled'] == 1 ) {
+			
+				$nextbackup = $options['backup_next']; //get next schedule
+				
+				switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
+					case '0':
+						$next = 60 * 60 * $options['backup_time'];
+						break;
+					case '1':
+						$next = 60 * 60 * 24 * $options['backup_time'];
+						break;
+					case '2':
+						$next = 60 * 60 * 24 * 7  * $options['backup_time'];
+						break;
+				}
+					
+				$options['backup_next'] = ( time() + $next );
+				
+				$bwps_backup->execute_backup();
+				
+			} else {
+				
+				$options['backup_next'] = '';
+				$options['backup_last'] = '';
+				
+			}
 						
 			update_option( $this->primarysettings, $options );
 			

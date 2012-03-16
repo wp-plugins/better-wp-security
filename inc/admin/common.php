@@ -19,6 +19,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 		}
 		
+		/**
+		 * Creates backup object for processing
+		 *
+		 **/
 		function backup() {
 		
 			global $bwps_backup;
@@ -678,7 +682,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return $pass;	
 			
 		}
-		
+				
 		/**
 		 * Return primary domain from given url
 		 *

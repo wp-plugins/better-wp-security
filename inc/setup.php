@@ -125,7 +125,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`user` bigint(20),
 				`url` varchar(255),
 				`referrer` varchar(255),
-				PRIMARY KEY (`id`)
+				PRIMARY KEY  (`id`)
 				);";
 			
 			//set up lockout table	
@@ -137,11 +137,11 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`exptime` int(10) NOT NULL,
 				`host` varchar(20),
 				`user` bigint(20),
-				PRIMARY KEY (`id`)
+				PRIMARY KEY  (`id`)
 				);";
 			
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			dbDelta( $tables );
+			@dbDelta( $tables );
 			
 			//get contents of wp-config.php
 			$lines = explode( "\n", implode( '', file( $this->getconfig() ) ) ); //parse each line of file into array
@@ -345,6 +345,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 **/
 		function deactivate_execute() {
 		
+			global $wpdb;
+		
 			if ( wp_next_scheduled( 'bwps_backup' ) ) {
 				wp_clear_scheduled_hook( 'bwps_backup' );
 			}
@@ -352,6 +354,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			//delete options from files
 			$this->deletewpconfig();
 			$this->deletehtaccess();
+			
+			//drop database tables
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_lockouts`;" );
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_log`;" );
 			
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
@@ -364,14 +370,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function uninstall_execute() {
-			global $wpdb;
 			
 			$this->deactivate_execute(); //execute deactivation functions
-			
-			//drop database tables
-			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_lockouts`;" );
-			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_log`;" );
-			
+						
 			//remove all settings
 			foreach( $this->settings as $settings ) {
 			

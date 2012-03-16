@@ -43,7 +43,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'am_starttime' 			=> '1',
 					'am_endtime' 			=> '1',
 					'backup_email' 			=> '1',
-					'backup_int' 			=> 'daily',
+					'backup_time'			=> '1',
+					'backup_interval'		=> '1',
 					'backup_enabled'		=> '0',
 					'backup_last'			=> '',
 					'backup_next'			=> '',
@@ -113,7 +114,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			register_deactivation_hook( __FILE__, array( 'bwps_setup', 'on_deactivate' ) );
 			register_uninstall_hook( __FILE__, array( 'bwps_setup', 'on_uninstall' ) );
 			
-			require_once(plugin_dir_path( __FILE__ ) . 'inc/auth.php' );
+			//require_once(plugin_dir_path( __FILE__ ) . 'inc/auth.php' );
 			require_once(plugin_dir_path( __FILE__ ) . 'inc/secure.php' );
 			$bwps = new bwps_secure();
 			

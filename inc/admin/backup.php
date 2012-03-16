@@ -18,27 +18,30 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			
 				$nextbackup = $options['backup_next']; //get next schedule
 				
-				if ( $nextbackup == '' || $nextbackup < time() ) {
-					
-					switch ( $options['backup_int'] ) { //schedule backup at appropriate time
-						case 'hourly':
-							$next = 60 * 60;
-							break;
-						case 'twicedaily':
-							$next = 60 * 60 * 12;
-							break;
-						case 'daily':
-							$next = 60 * 60 * 24;
-							break;
-					}
-					
-					$options['backup_next'] = ( time() + $next );
-					
-					update_option( $this->primarysettings, $options );
-					
-					$this->execute_backup(); //execute backup
-					
+				switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
+					case '0':
+						$next = 60 * 60 * $options['backup_time'];
+						break;
+					case '1':
+						$next = 60 * 60 * 24 * $options['backup_time'];
+						break;
+					case '2':
+						$next = 60 * 60 * 24 * 7  * $options['backup_time'];
+						break;
 				}
+					
+				$options['backup_next'] = ( time() + $next );
+			
+				update_option( $this->primarysettings, $options );
+				
+				$this->execute_backup(); //execute backup
+				
+			} else {
+				
+				$options['backup_next'] = '';
+				$options['backup_last'] = '';
+				
+				update_option( $this->primarysettings, $options );
 				
 			}
 			
