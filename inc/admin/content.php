@@ -843,7 +843,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'Hide Backend Key', $this->hook );?>: <strong><?php echo $hbkey; ?></strong></li>
 						<?php $options = get_option( $this->plugindata ); ?>
-						<li><?php _e( 'Better WP Security Version', $this->hook );?>: <strong><?php echo $options['version']; ?></strong></li>
+						<li><?php _e( 'Better WP Build Version', $this->hook );?>: <strong><?php echo $options['version']; ?></strong><br />
+						<em><?php _e( 'Note: this is NOT the same as the version number on the plugins page and is instead used for support.', $this->hook ); ?></em></li>
 					</ul>
 				</li>
 			</ul>

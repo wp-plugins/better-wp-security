@@ -558,7 +558,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$options['backup_enabled'] = ( isset( $_POST['backup_enabled'] ) && $_POST['backup_enabled'] == 1  ? 1 : 0 );
 			$options['backup_email'] = ( isset( $_POST['backup_email'] ) && $_POST['backup_email'] == 1  ? 1 : 0 );
 			$options['backups_to_retain'] = absint( $_POST['backups_to_retain'] );
-			$options['backup_time'] = absint( $_POST['backup_time'] );
+			$options['backup_time'] = ( isset( $_POST['backup_time'] ) && absint( $_POST['backup_time'] ) > 0 ? absint( $_POST['backup_time'] ) : 1 );
 			$options['backup_interval'] = $_POST['backup_interval'];
 			
 			if ( $options['backup_enabled'] == 1 ) {
