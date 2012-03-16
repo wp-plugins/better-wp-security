@@ -557,11 +557,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				//hide wordpress backend
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
-					$rules .= "RewriteRule ^" . $login . "$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
+					$rules .= "RewriteRule ^" . $login . "/?$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
-						"RewriteRule ^" . $admin . "$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]" . PHP_EOL . PHP_EOL .
-						"RewriteRule ^" . $admin . "$ " . $dir . "wp-admin/?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
-						"RewriteRule ^" . $register . "$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^" . $admin . "/?$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^" . $admin . "/?$ " . $dir . "wp-admin/?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^" . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteCond %{SCRIPT_FILENAME} !^(.*)admin-ajax.php" . PHP_EOL . 
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin" . PHP_EOL .
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php" . PHP_EOL .
