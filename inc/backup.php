@@ -9,8 +9,6 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		 *
 		 **/
 		function __construct() {
-		
-			add_action( 'bwps_backup', array( &$this, 'execute_backup' ) );
 						
 			$options = get_option( $this->primarysettings );
 			
@@ -30,11 +28,23 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 						break;
 				}
 				
-				if ( $options['backup_next'] < time() ) {
+				if ( $options['backup_next'] < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
+				
+					if ( $options['backup_last'] == '' ) {
 					
-					$options['backup_next'] = ( time() + $next );
+						$options['backup_next'] = ( time() + $next );
+					
+					} else {
+					
+						$options['backup_next'] = ( $options['backup_last'] + $next );
+					
+					}
 			
 					update_option( $this->primarysettings, $options );
+				
+				}
+				
+				if ( $options['backup_last'] == '' || $options['backup_next'] < time() ) {
 				
 					$this->execute_backup(); //execute backup
 				

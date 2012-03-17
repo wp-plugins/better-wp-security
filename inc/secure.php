@@ -100,7 +100,25 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'login_errors', array( &$this, 'limitlogins_errors' ) );
 				add_action( 'authenticate', array( &$this, 'limitlogins_auth' ), 10, 2 );
 			}
+			
+			if ( $option['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
+				add_action( 'init', array( &$this, 'backup' ) );
+			}
 		
+		}
+		
+		/**
+		 * Creates backup object for processing
+		 *
+		 **/
+		function backup() {
+		
+			global $bwps_backup;
+		
+			//execute backups
+			require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
+			$bwps_backup = new bwps_backup();
+			
 		}
 		
 		/**

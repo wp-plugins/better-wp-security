@@ -577,11 +577,17 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						break;
 				}
 					
-				$options['backup_next'] = ( time() + $next );
+				if ( $options['backup_last'] == '' ) { //don't run a new backup until we need it to reduce load
 				
-				$bwps_backup->execute_backup();
+					$options['backup_next'] = ( time() + $next );
 				
-			} else {
+				} else {
+				
+					$options['backup_next'] = ( $options['backup_last'] + $next );
+				
+				}
+				
+			} else { //backups aren't scheduled so clear time
 				
 				$options['backup_next'] = '';
 				$options['backup_last'] = '';

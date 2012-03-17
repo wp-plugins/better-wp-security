@@ -20,20 +20,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		}
 		
 		/**
-		 * Creates backup object for processing
-		 *
-		 **/
-		function backup() {
-		
-			global $bwps_backup;
-		
-			//execute backups
-			require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
-			$bwps_backup = new bwps_backup();
-			
-		}
-		
-		/**
 		 * Deletes BWPS options from .htaccess
 		 *
 		 * Deletes all possible BWPS options from .htaccess and cleans for rewrite
