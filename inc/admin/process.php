@@ -143,7 +143,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $options );
 			
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if we're on Apache write rules to .htaccess
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 			
 				$this->writehtaccess();
 				
@@ -434,7 +434,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $options );
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if we're on Apache write rules to .htaccess
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 				
 					$this->writehtaccess();
 					
@@ -798,7 +798,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $options );
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if we're on Apache write rules to .htaccess
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 				
 					$this->writehtaccess();
 					
@@ -1154,7 +1154,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( $this->primarysettings, $options );
 				$this->writewpconfig(); //save to wp-config.php
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) { //if they're using apache write to .htaccess
+				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess
 				
 					$this->writehtaccess();
 					
