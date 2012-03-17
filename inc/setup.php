@@ -171,7 +171,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			update_option( $this->primarysettings, $options ); //save new options data
 			
-			if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && file_exists( ABSPATH . '.htaccess' ) ) { //if they're using apache write to .htaccess
+			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess
 			
 				$this->writehtaccess();
 			

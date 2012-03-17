@@ -46,6 +46,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			$htaccess = ABSPATH . '.htaccess';
 			
 			@ini_set( 'auto_detect_line_endings', true );
+			
+			if ( ! file_exists( $htaccess ) ) {
+				$ht = @fopen( $htaccess, 'a+' );
+				@fclose( $ht );
+			}
 						
 			$markerdata = explode( PHP_EOL, implode( '', file( $htaccess ) ) ); //parse each line of file into array
 		
