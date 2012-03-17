@@ -86,14 +86,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			//execute backup
-			$bwps_backup->execute_backup();
-			
 			$options = get_option( $this->primarysettings );
 			
+			$options['backup_last'] = time();
 			$options['initial_backup'] = 1;
-			
+				
 			update_option( $this->primarysettings, $options );
+			
+			//execute backup
+			$bwps_backup->execute_backup();
 			
 			$this->showmessages( $errorHandler );		
 			
@@ -533,8 +534,14 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		function databasebackup_process_1() {
 		
 			global $bwps_backup;
+			
+			$options = get_option( $this->primarysettings );
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
+			
+			$options['backup_last'] = time();
+				
+			update_option( $this->primarysettings, $options );
 			
 			$bwps_backup->execute_backup();
 			

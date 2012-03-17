@@ -15,6 +15,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			if ( $options['backup_enabled'] == 1 ) {
 			
 				$nextbackup = $options['backup_next']; //get next schedule
+				$lastbackup = $options['backup_last']; //get last backup
 				
 				switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
 					case '0':
@@ -28,15 +29,15 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 						break;
 				}
 				
-				if ( $options['backup_next'] < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
+				if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
 				
-					if ( $options['backup_last'] == '' ) {
+					if ( $lastbackup == '' ) {
 					
 						$options['backup_next'] = ( time() + $next );
 					
 					} else {
 					
-						$options['backup_next'] = ( $options['backup_last'] + $next );
+						$options['backup_next'] = ( $lastbackup + $next );
 					
 					}
 			
@@ -44,7 +45,11 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				
 				}
 				
-				if ( $options['backup_last'] == '' || $options['backup_next'] < time() ) {
+				if ( $lastbackup == '' || $nextbackup < time() ) {
+				
+					$options['backup_last'] = time();
+						
+					update_option( $this->primarysettings, $options );
 				
 					$this->execute_backup(); //execute backup
 				
@@ -170,10 +175,6 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					}	
 				}
 			}
-				
-			$options['backup_last'] = time();
-				
-			update_option( $this->primarysettings, $options );
 				
 		}
 	
