@@ -101,7 +101,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'authenticate', array( &$this, 'limitlogins_auth' ), 10, 2 );
 			}
 			
-			if ( $option['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
+			if ( $options['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
 				add_action( 'init', array( &$this, 'backup' ) );
 			}
 		
