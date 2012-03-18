@@ -614,7 +614,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								
 							}
 							
-							@chmod( $htaccess, 0444 );
+							if ( $options['st_fileperm'] == 1 ) {
+								@chmod( $htaccess, 0444 ); //make sure the config file is no longer writable
+							}
 						?>
 						<li><?php _e( '.htaccess File is Writable', $this->hook ); ?>: <strong><?php echo $copen . $htaw . $cclose; ?></strong></li>
 						<?php 
@@ -636,7 +638,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								
 							}
 							
-							@chmod( $conffile, 0444 );
+							if ( $options['st_fileperm'] == 1 ) {
+								@chmod( $conffile, 0444 ); //make sure the config file is no longer writable
+							}
 						?>
 						<li><?php _e( 'wp-config.php File is Writable', $this->hook ); ?>: <strong><?php echo $copen . $wconf . $cclose; ?></strong></li>
 					</ul>

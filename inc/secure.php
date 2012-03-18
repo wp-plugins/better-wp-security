@@ -94,13 +94,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'init', array( &$this, 'coreupdates' ) );
 			}
 			
-			//handle login limits
-			if ( $options['ll_enabled'] == 1 ) {
-				add_action('wp_login_failed', array( &$this, 'limitlogins_fail' ) );
-				add_action( 'login_errors', array( &$this, 'limitlogins_errors' ) );
-				add_action( 'authenticate', array( &$this, 'limitlogins_auth' ), 10, 2 );
-			}
-			
 			if ( $options['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
 				add_action( 'init', array( &$this, 'backup' ) );
 			}
@@ -295,6 +288,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$options = get_option( $this->primarysettings );
 				
 			}
+			
+			$userCheck = false;
 			
 			if ( strlen( $username ) > 0 ) { //if a username was entered check to see if it's locked out
 			
@@ -556,94 +551,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				}
 				
 			}	
-			
-		}
-		
-		/**
-		 * Replace WordPress built-in authentication function
-		 * 
-		 * Replaces WP authentication function to allow for logging
-		 * login errors and removing messages if needed
-		 *
-		 * @param object $user user object or error
-		 * @param string $password user submitted password
-		 *
-		 * @return object 	WordPress user object
-		 *
-		 */		
-		function limitlogins_auth( $user, $username = '', $password = '' ) {
-			
-			global $authuser;
-			
-			if ( ( $password == '' || $username == '' ) ) {
-		
-				if ( $username != '' ) {
-
-					$authuser = $username;
-				}
-				
-				$this->logevent( '1', $username );
-				return $user;
-				
-			} else {
-							
-				return $user;
-					
-			}
-		
-		}
-		
-		function limitlogins_errors( $errors ) {
-		
-			global $authuser;
-			
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
-			
-			if ( $options['st_loginerror'] == 1 ) {
-			
-				return '';
-			
-			} elseif ( $this->checklock( $authuser ) ) {
-			
-				return __( '<strong>ERROR</strong>: We are sorry, your ability to login has been suspended due to too many recent failed login attempts. Please try again later.', $bwps->hook );
-			
-			} else {
-			
-				return $errors;
-			
-			}
-		
-		}
-		
-		/**
-		 * Ececute on failed login
-		 *
-		 * Log and handle bad login
-		 *
-		 * @param string $usernam login username of user
-		 *
-		 **/
-		function limitlogins_fail( $username ) {
-
-			if ( ! $this->checklock( $username ) ) {
-			
-				$this->logevent( '1', $username );
-						
-			}
-			
-			return;
 			
 		}
 				

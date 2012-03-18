@@ -518,8 +518,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				}
 						
 				fclose( $handle ); //close the config file
-						
-				@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				
+				if ( $options['st_fileperm'] == 1 ) {
+					@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				}		
 						
 			}
 			
@@ -762,7 +764,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				fclose( $handle ); //close the config file
 						
-				@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				if ( $options['st_fileperm'] == 1 ) {
+					@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
+				}
 						
 				$wpdb->base_prefix = $newPrefix; //update the prefix
 						
