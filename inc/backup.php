@@ -32,8 +32,6 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					}
 				
 					if ( $lastbackup == '' || $nextbackup < time() ) {
-					
-						die($nextbackup . ' ' . time());
 				
 						$bwpsoptions['backup_last'] = time();
 							
