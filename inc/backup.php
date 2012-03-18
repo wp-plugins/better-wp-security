@@ -33,7 +33,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 							break;
 					}
 				
-					if ( ( $lastbackup == '' || $nextbackup < time() ) && get_transient( 'bit51_bwps_backup' ) === false ) {
+					if ( $lastbackup == '' || $nextbackup < time() ) {
 				
 						$bwpsoptions['backup_last'] = time();
 							
