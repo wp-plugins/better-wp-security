@@ -79,9 +79,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'init', array( &$this, 'coreupdates' ) );
 			}
 			
-			if ( $bwpsoptions['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
-				$this->backup();
-			}
+			add_action( 'init', array( &$this, 'backup' ) );
 		
 		}
 		
