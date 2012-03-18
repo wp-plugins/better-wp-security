@@ -33,28 +33,23 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 							break;
 					}
 				
-					if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
-				
-						if ( $lastbackup == '' ) {
-					
-							$bwpsoptions['backup_next'] = ( time() + $next );
-					
-						} else {
-					
-							$bwpsoptions['backup_next'] = ( $lastbackup + $next );
-					
-						}
-			
-						update_option( $this->primarysettings, $bwpsoptions );
-				
-					}
-				
-					if ( $lastbackup == '' || $nextbackup < time() ) {
+					if ( ( $lastbackup == '' || $nextbackup < time() ) && get_transient( 'bit51_bwps_backup' ) === false ) {
 				
 						$bwpsoptions['backup_last'] = time();
+							
+						if ( $lastbackup == '' ) {
+								
+							$bwpsoptions['backup_next'] = ( time() + $next );
+								
+						} else {
+								
+							$bwpsoptions['backup_next'] = ( $lastbackup + $next );
+								
+						}
+						
 						
 						update_option( $this->primarysettings, $bwpsoptions );
-				
+
 						$this->execute_backup(); //execute backup
 				
 					}
@@ -176,8 +171,10 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 							unlink ( BWPS_PP . '/backups/' . $file );
 						}
 						$count++;
-					}	
+					}
+						
 				}
+				
 			}
 				
 		}
