@@ -12,9 +12,13 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		
 			global $bwpsoptions;
 			
-			if ( get_transient( 'bit51_bwps_backup' ) === false ) {
+			if ( ( ( is_multisite() && get_site_transient( 'bit51_bwps_backup' ) === false ) || ( ! is_multisite() && get_transient( 'bit51_bwps_backup' ) === false ) ) && mt_rand( 0, 10 ) == 0 ) {
 			
-				set_transient( 'bit51_bwps_backup', '1', 300 );
+				if ( is_multisite() ) {
+					set_site_transient( 'bit51_bwps_backup', '1', 300 );
+				} else {
+					set_transient( 'bit51_bwps_backup', '1', 300 );
+				}
 			
 				if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			

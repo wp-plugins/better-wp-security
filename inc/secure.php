@@ -80,7 +80,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			if ( $bwpsoptions['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
-				add_action( 'init', array( &$this, 'backup' ) );
+				$this->backup();
 			}
 		
 		}
