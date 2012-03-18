@@ -107,8 +107,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		function backup() {
 			
 			global $bwps_backup;
-			
-			$handle = @fopen( BWPS_PP . '/backups/' . $file . '.sql', 'w+' );
 		
 			//execute backups
 			require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
