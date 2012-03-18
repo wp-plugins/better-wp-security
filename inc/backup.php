@@ -34,16 +34,8 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					if ( $lastbackup == '' || $nextbackup < time() ) {
 				
 						$bwpsoptions['backup_last'] = time();
-							
-						if ( $lastbackup == '' ) {
 								
-							$bwpsoptions['backup_next'] = ( time() + $next );
-								
-						} else {
-								
-							$bwpsoptions['backup_next'] = ( $lastbackup + $next );
-								
-						}
+						$bwpsoptions['backup_next'] = ( time() + $next );
 						
 						update_option( $this->primarysettings, $bwpsoptions );
 
