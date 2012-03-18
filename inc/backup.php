@@ -12,9 +12,9 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		
 			global $bwpsoptions;
 			
-			if ( get_transient( 'bit51_bwps_backup' ) !== false ) {
+			if ( get_transient( 'bit51_bwps_backup' ) === false ) {
 			
-				set_transient( 'bit51_bwps_backup', true, ( time() + 300 ) );
+				set_transient( 'bit51_bwps_backup', '1', 300 );
 			
 				if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			
