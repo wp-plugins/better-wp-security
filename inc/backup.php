@@ -9,52 +9,63 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		 *
 		 **/
 		function __construct() {
+		
+			$tempFile = BWPS_PP . '/backups/lock';
+			
+			if ( ! file_exists( $tempFile ) ) {
+				
+				$t = @fopen( $tempFile, 'w+' );
+				@fclose( $t );
 						
-			$options = get_option( $this->primarysettings );
+				$options = get_option( $this->primarysettings );
 			
-			if ( $options['backup_enabled'] == 1 ) {
+				if ( $options['backup_enabled'] == 1 ) {
 			
-				$nextbackup = $options['backup_next']; //get next schedule
-				$lastbackup = $options['backup_last']; //get last backup
+					$nextbackup = $options['backup_next']; //get next schedule
+					$lastbackup = $options['backup_last']; //get last backup
 				
-				switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
-					case '0':
-						$next = 60 * 60 * $options['backup_time'];
-						break;
-					case '1':
-						$next = 60 * 60 * 24 * $options['backup_time'];
-						break;
-					case '2':
-						$next = 60 * 60 * 24 * 7  * $options['backup_time'];
-						break;
-				}
-				
-				if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
-				
-					if ( $lastbackup == '' ) {
-					
-						$options['backup_next'] = ( time() + $next );
-					
-					} else {
-					
-						$options['backup_next'] = ( $lastbackup + $next );
-					
+					switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
+						case '0':
+							$next = 60 * 60 * $options['backup_time'];
+							break;
+						case '1':
+							$next = 60 * 60 * 24 * $options['backup_time'];
+							break;
+						case '2':
+							$next = 60 * 60 * 24 * 7  * $options['backup_time'];
+							break;
 					}
+				
+					if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
+				
+						if ( $lastbackup == '' ) {
+					
+							$options['backup_next'] = ( time() + $next );
+					
+						} else {
+					
+							$options['backup_next'] = ( $lastbackup + $next );
+					
+						}
 			
-					update_option( $this->primarysettings, $options );
+						update_option( $this->primarysettings, $options );
 				
-				}
+					}
 				
-				if ( $lastbackup == '' || $nextbackup < time() ) {
+					if ( $lastbackup == '' || $nextbackup < time() ) {
 				
-					$options['backup_last'] = time();
+						$options['backup_last'] = time();
 						
-					update_option( $this->primarysettings, $options );
+						update_option( $this->primarysettings, $options );
 				
-					$this->execute_backup(); //execute backup
+						$this->execute_backup(); //execute backup
+				
+					}
 				
 				}
 				
+				@unlink( $tempFile );
+			
 			}
 						
 		}
