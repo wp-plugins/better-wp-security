@@ -624,18 +624,18 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
+	
+			}
+			
+			//close mod_rewrite
+			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 || ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) ) {
+			
+				if ( ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) ) {
 				
-				//close mod_rewrite
-				if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 ) {
-				
-					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
-					
-						$rules .= "</IfModule>" . PHP_EOL;
-					
-					}
+					$rules .= "</IfModule>" . PHP_EOL;
 				
 				}
-	
+			
 			}
 			
 			//add markers if we have rules
