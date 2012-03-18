@@ -11,50 +11,54 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		function __construct() {
 		
 			global $bwpsoptions;
-		
-			$tempFile = BWPS_PP . '/backups/lock';
 			
-			if ( $bwpsoptions['backup_enabled'] == 1 ) {
+			if ( get_transient( 'bit51_bwps_backup' ) !== false ) {
 			
-				$nextbackup = $bwpsoptions['backup_next']; //get next schedule
-				$lastbackup = $bwpsoptions['backup_last']; //get last backup
+				set_transient( 'bit51_bwps_backup', true, ( time() + 300 ) );
+			
+				if ( $bwpsoptions['backup_enabled'] == 1 ) {
+			
+					$nextbackup = $bwpsoptions['backup_next']; //get next schedule
+					$lastbackup = $bwpsoptions['backup_last']; //get last backup
 				
-				switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
-					case '0':
-						$next = 60 * 60 * $bwpsoptions['backup_time'];
-						break;
-					case '1':
-						$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
-						break;
-					case '2':
-						$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
-						break;
-				}
+					switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
+						case '0':
+							$next = 60 * 60 * $bwpsoptions['backup_time'];
+							break;
+						case '1':
+							$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
+							break;
+						case '2':
+							$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
+							break;
+					}
 				
-				if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
+					if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
 				
-					if ( $lastbackup == '' ) {
+						if ( $lastbackup == '' ) {
 					
-						$bwpsoptions['backup_next'] = ( time() + $next );
+							$bwpsoptions['backup_next'] = ( time() + $next );
 					
-					} else {
+						} else {
 					
-						$bwpsoptions['backup_next'] = ( $lastbackup + $next );
+							$bwpsoptions['backup_next'] = ( $lastbackup + $next );
 					
+						}
+			
+						update_option( $this->primarysettings, $bwpsoptions );
+				
+					}
+				
+					if ( $lastbackup == '' || $nextbackup < time() ) {
+				
+						$bwpsoptions['backup_last'] = time();
+						
+						update_option( $this->primarysettings, $bwpsoptions );
+				
+						$this->execute_backup(); //execute backup
+				
 					}
 			
-					update_option( $this->primarysettings, $bwpsoptions );
-				
-				}
-				
-				if ( $lastbackup == '' || $nextbackup < time() ) {
-				
-					$bwpsoptions['backup_last'] = time();
-						
-					update_option( $this->primarysettings, $bwpsoptions );
-				
-					$this->execute_backup(); //execute backup
-				
 				}
 			
 			}

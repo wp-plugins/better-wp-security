@@ -52,7 +52,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 **/
 		function on_deactivate() {
 	
-			$devel = true; //set to true to uninstall for development
+			$devel = false; //set to true to uninstall for development
 		
 			if ( $devel ) {
 				$case = 'uninstall';
@@ -348,6 +348,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
+			
+			delete_transient( 'bit51_bwps_backup' );
 			
 		}
 		
