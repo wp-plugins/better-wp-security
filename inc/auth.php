@@ -17,7 +17,7 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 	 */
 	function wp_authenticate( $username, $password ) {
 	
-		global $bwps;
+		global $bwps, $bwpsoptions;
 		
 		//if away mode is currently restricting login return to homepage
 		if ( $bwps->checkaway() ) {
@@ -26,15 +26,13 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 			
 		}
 	
-		$options = get_option( 'bit51_bwps' );
-	
 		$username = sanitize_user( $username );
 		$password = trim( $password );
 	
 		$user = apply_filters( 'authenticate', null, $username, $password );
 		
 		//if they're locked out due to too many bad logins display an error
-		if ( $options['ll_enabled'] == 1 && $bwps->checklock( $username ) ) {
+		if ( $bwpsoptions['ll_enabled'] == 1 && $bwps->checklock( $username ) ) {
 		
 			do_action( 'wp_login_failed', $username );
 					
@@ -54,7 +52,7 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 		
 		
 		//log if bad logins
-		if ( isset( $_POST['wp-submit'] ) && $options['ll_enabled'] == 1 && is_wp_error( $user ) ) {
+		if ( isset( $_POST['wp-submit'] ) && $bwpsoptions['ll_enabled'] == 1 && is_wp_error( $user ) ) {
 		
 			$bwps->logevent( '1', $username );
 			

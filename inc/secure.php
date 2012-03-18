@@ -4,55 +4,40 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 	class bwps_secure extends bit51_bwps {
 	
-		private $authuser;
-	
 		/**
 		 * Constructor for each and every page load
 		 *
 		 **/		 
 		function __construct() {
-		
-			//get appropriate options
-			if ( is_multisite() ) {
 			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
+			global $bwpsoptions;
 			
 			//execute default checks
 			add_action( 'init', array( &$this, 'siteinit' ) );
 			add_action( 'wp_head', array( &$this,'check404' ) );
 			
 			//remove wp-generator meta tag
-			if ( $options['st_generator'] == 1 ) { 
+			if ( $bwpsoptions['st_generator'] == 1 ) { 
 				remove_action( 'wp_head', 'wp_generator' );
 			}
 			
 			//remove login error messages if turned on
-			if ( $options['st_loginerror'] == 1 ) {
+			if ( $bwpsoptions['st_loginerror'] == 1 ) {
 				add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
 			}
 			
 			//remove wlmanifest link if turned on
-			if ( $options['st_manifest'] == 1 ) {
+			if ( $bwpsoptions['st_manifest'] == 1 ) {
 				remove_action( 'wp_head', 'wlwmanifest_link' );
 			}
 			
 			//remove rsd link from header if turned on
-			if ( $options['st_edituri'] == 1 ) {
+			if ( $bwpsoptions['st_edituri'] == 1 ) {
 				remove_action( 'wp_head', 'rsd_link' );
 			}
 			
 			//ban extra-long urls if turned on
-			if ( $options['st_longurl'] == 1 && ! is_admin() ) {
+			if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
 			
 				if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
 				
@@ -70,31 +55,31 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//require strong passwords if turned on
-			if ( $options['st_enablepassword'] == 1 ) {
+			if ( $bwpsoptions['st_enablepassword'] == 1 ) {
 				add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 ); 
 			}
 			
 			//display random number for wordpress version if turned on
-			if ( $options['st_randomversion'] == 1 ) {
+			if ( $bwpsoptions['st_randomversion'] == 1 ) {
 				add_action( 'init', array( &$this, 'randomVersion' ) );
 			}
 			
 			//remove theme update notifications if turned on
-			if ( $options['st_themenot'] == 1 ) {
+			if ( $bwpsoptions['st_themenot'] == 1 ) {
 				add_action( 'init', array( &$this, 'themeupdates' ) );
 			}
 			
 			//remove plugin update notifications if turned on
-			if ( $options['st_pluginnot'] == 1 ) {
+			if ( $bwpsoptions['st_pluginnot'] == 1 ) {
 				add_action( 'init', array( &$this, 'pluginupdates' ) );
 			}
 			
 			//remove core update notifications if turned on
-			if ( $options['st_corenot'] == 1 ) {
+			if ( $bwpsoptions['st_corenot'] == 1 ) {
 				add_action( 'init', array( &$this, 'coreupdates' ) );
 			}
 			
-			if ( $options['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
+			if ( $bwpsoptions['backup_enabled'] == 1 || is_admin() || (is_multisite() && is_network_admin() ) ) {
 				add_action( 'init', array( &$this, 'backup' ) );
 			}
 		
@@ -140,30 +125,30 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function checkaway() {
 		
-			$options = get_option( $this->primarysettings );
+			global $bwpsoptions;
 			
 			$cTime = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() ) ) );
 			
 			$offsettime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
 			
-			if ( $options['am_type'] == 1 ) { //set up for daily
+			if ( $bwpsoptions['am_type'] == 1 ) { //set up for daily
 			
-				if ( $options['am_starttime'] < $options['am_endtime'] ) { //starts and ends on same calendar day
+				if ( $bwpsoptions['am_starttime'] < $bwpsoptions['am_endtime'] ) { //starts and ends on same calendar day
 				
-					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-					$end = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+					$end = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
 					
 				} else {
 				
-					if ( strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) ) <= $cTime ) { 
+					if ( strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) ) <= $cTime ) { 
 				
-						$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-						$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+						$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+						$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
 						
 					} else {
 					
-						$start = strtotime( date( 'n/j/y', $offsettime - 86400 ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-						$end = strtotime( date( 'n/j/y', ( $offsettime ) ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+						$start = strtotime( date( 'n/j/y', $offsettime - 86400 ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+						$end = strtotime( date( 'n/j/y', ( $offsettime ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
 					
 					}
 					
@@ -171,12 +156,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			} else { //one time settings
 			
-				$start = strtotime( date( 'n/j/y', $options['am_startdate'] ) . ' ' . date( 'g:i a', $options['am_starttime'] ) );
-				$end = strtotime( date( 'n/j/y', $options['am_enddate'] ) . ' ' . date( 'g:i a', $options['am_endtime'] ) );
+				$start = strtotime( date( 'n/j/y', $bwpsoptions['am_startdate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+				$end = strtotime( date( 'n/j/y', $bwpsoptions['am_enddate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
 			
 			}
 				
-			if ( $options['am_enabled'] == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
+			if ( $bwpsoptions['am_enabled'] == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
 
 				return true; //time restriction is current
 				
@@ -273,21 +258,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		function checklock( $username = '' ) {
 		
 			global $wpdb;
-					
-			//get appropriate options
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
 			
 			$userCheck = false;
 			
@@ -349,37 +319,22 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function lockout( $type, $user = '' ) {
 		
-			global $wpdb;
-			
-			//get appropriate options
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
+			global $wpdb, $bwpsoptions;
 					
 			$currtime = time(); //current time
 					
 			if ( $type == 1 ) { //due to too many logins
 			
-				$exptime = $currtime + ( 60 * $options['ll_banperiod'] );
+				$exptime = $currtime + ( 60 * $bwpsoptions['ll_banperiod'] );
 				
 			} else { //due to too many 404s
 			
-				$exptime = $currtime + ( 60 * $options['id_banperiod'] );
+				$exptime = $currtime + ( 60 * $bwpsoptions['id_banperiod'] );
 				
 			}
 			
 			//lockout user if needed	
-			if ( $type == 1 || ( $type == 2 && ! is_user_logged_in() && $this->checklist( $options['id_whitelist'] ) == false ) ) {
+			if ( $type == 1 || ( $type == 2 && ! is_user_logged_in() && $this->checklist( $bwpsoptions['id_whitelist'] ) == false ) ) {
 			
 				if ( $user != '' ) {
 				
@@ -411,7 +366,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				);
 				
 				//contruct and send email if necessary
-				if ( $options['ll_emailnotify'] == 1 || $options['id_emailnotify'] == 1 ) {
+				if ( $bwpsoptions['ll_emailnotify'] == 1 || $bwpsoptions['id_emailnotify'] == 1 ) {
 					
 					$toEmail = get_site_option( 'admin_email' );
 					$subEmail = get_bloginfo( 'name' ) . ' ' . __( 'Site Lockout Notification', $this->hook );
@@ -459,22 +414,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function logevent( $type, $username='' ) {
 		
-			global $wpdb;
-			
-			//get appropriate options
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
+			global $wpdb, $bwpsoptions;
 			
 			//get default data
 			$host = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
@@ -517,7 +457,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			if ( $type == 1 ) { //check if we should lockout for logins
 			
-				$period = $options['ll_checkinterval'] * 60;
+				$period = $bwpsoptions['ll_checkinterval'] * 60;
 				
 				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
 				
@@ -530,11 +470,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				if ( $usercount >= $options['ll_maxattemptsuser'] ) {
+				if ( $usercount >= $bwpsoptions['ll_maxattemptsuser'] ) {
 				
 					$this->lockout( 1, $user->ID ); //lockout user
 					
-				} elseif  ( $hostcount >= $options['ll_maxattemptshost'] ) {
+				} elseif  ( $hostcount >= $bwpsoptions['ll_maxattemptshost'] ) {
 				
 					$this->lockout( 1 ); //lockout host
 					
@@ -542,11 +482,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			} else { //check if we should lockout for 404s
 			
-				$period = $options['id_checkinterval'] * 60;
+				$period = $bwpsoptions['id_checkinterval'] * 60;
 				
 				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=2 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
 				
-				if ( $hostcount >= $options['id_threshold'] ) {
+				if ( $hostcount >= $bwpsoptions['id_threshold'] ) {
 					$this->lockout( 2 );
 				}
 				
@@ -662,25 +602,10 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/	
 		function siteinit() {
 		
-			global $current_user, $bwps_login_slug, $bwps_register_slug;
-			
-			//get appropriate options
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
+			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwpsoptions;
 			
 			//if they're locked out or banned die
-			if ( ( $options['id_enabled'] == 1 ||$options['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
+			if ( ( $bwpsoptions['id_enabled'] == 1 ||$bwpsoptions['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
 			
 				wp_clear_auth_cookie();
 				die( __( 'error', $this->hook ) );
@@ -688,15 +613,15 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//if hide backend is enabled filter appropriate login and register links
-			if ( $options['hb_enabled'] == 1 ) {
+			if ( $bwpsoptions['hb_enabled'] == 1 ) {
 			
-				$bwps_login_slug = '/' . $options['hb_login'];
-				$bwps_register_slug = '/' . $options['hb_register'];
+				$bwps_login_slug = '/' . $bwpsoptions['hb_login'];
+				$bwps_register_slug = '/' . $bwpsoptions['hb_register'];
 			
 				//update login urls for display
 				add_filter( 'site_url',  'wplogin_filter', 10, 3 );
 				
-				if ( ! function_exists('wplogin_filter')) {
+				if ( ! function_exists( 'wplogin_filter' ) ) {
 				
 					/**
 					 * Replace login url
@@ -726,7 +651,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				add_filter( 'site_url', 'change_register_url' );
 				
-				if ( ! function_exists('change_register_url')) {
+				if ( ! function_exists( 'change_register_url' ) ) {
 				
 					/**
 					 * Replace register url
@@ -768,23 +693,10 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function strongpass( $errors ) {  
 			
-			//get appropriate options
-			if ( is_multisite() ) {
-			
-				switch_to_blog(1);
-			
-				$options = get_option( $this->primarysettings );
-			
-				restore_current_blog();
-			
-			} else {
-			
-				$options = get_option( $this->primarysettings );
-				
-			}
+			global $bwpsoptions;
 				
 			//determine the minimum role for enforcement
-			$minRole = $options['st_passrole'];
+			$minRole = $bwpsoptions['st_passrole'];
 			
 			//all the standard roles and level equivalents
 			$availableRoles = array(

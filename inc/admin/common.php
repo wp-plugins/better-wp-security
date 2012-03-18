@@ -28,6 +28,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 *
 		 **/
 		function deletehtaccess( $section = 'Better WP Security' ) {
+		
+			global $bwpsoptions;
 				
 			$htaccess = ABSPATH . '.htaccess';
 			
@@ -71,10 +73,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				}
 						
 				@fclose( $f );
-						
-				$options = get_option( $this->primarysettings );
 				
-				if ( $options['st_fileperm'] == 1 ) {
+				if ( $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $htaccess, 0444 );
 				}
 						
@@ -95,6 +95,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 *
 		 **/
 		function deletewpconfig() {
+		
+			global $bwpsoptions;
 		
 			$configfile = $this->getConfig();
 			
@@ -125,10 +127,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				}
 							
 				@fclose( $f );
-							
-				$options = get_option( $this->primarysettings );
 				
-				if ( $options['st_fileperm'] == 1 ) {
+				if ( $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $configfile, 0444 );
 				}
 							
@@ -172,6 +172,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 **/
 		function getrules() {
 		
+			global $bwpsoptions;
+		
 			@ini_set( 'auto_detect_line_endings', true );
 		
 			//figure out what server they're using
@@ -192,13 +194,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				return false;
 			
 			}
-		
-			$options = get_option( $this->primarysettings );
 			
 			$rules = '';
 			
 			//remove directory indexing
-			if ( $options['st_ht_browsing'] == 1 ) {
+			if ( $bwpsoptions['st_ht_browsing'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -209,9 +209,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//ban hosts
-			if ( $options['bu_enabled'] == 1 ) {
+			if ( $bwpsoptions['bu_enabled'] == 1 ) {
 			
-				$hosts = explode( PHP_EOL, $options['bu_banlist'] );
+				$hosts = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
 				
 				if ( ! empty( $hosts ) ) {
 				
@@ -273,7 +273,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//lockdown files
-			if ( $options['st_ht_files'] == 1 ) {
+			if ( $bwpsoptions['st_ht_files'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -315,7 +315,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//start mod_rewrite rules
-			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 || ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -334,9 +334,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//ban hosts and agents
-			if ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) {
+			if ( $bwpsoptions['bu_enabled'] == 1 && strlen( $bwpsoptions['bu_banagent'] ) > 0 ) {
 				
-				$agents = explode( PHP_EOL, $options['bu_banagent'] );
+				$agents = explode( PHP_EOL, $bwpsoptions['bu_banagent'] );
 				
 				if ( ! empty( $agents ) ) {
 				
@@ -391,7 +391,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $options['st_ht_files'] == 1 ) {
+			if ( $bwpsoptions['st_ht_files'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -412,7 +412,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
-			if ( $options['st_ht_request'] == 1 ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -431,7 +431,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//filter suspicious queries
-			if ( $options['st_ht_query'] == 1 ) {
+			if ( $bwpsoptions['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -518,7 +518,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $options['st_ht_query'] == 1 ) {
+			if ( $bwpsoptions['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'nginx' ) {
 			
@@ -532,15 +532,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//hide backend rules	
-			if ( $options['hb_enabled'] == 1 ) {
+			if ( $bwpsoptions['hb_enabled'] == 1 ) {
 					
 				//get the slugs
-				$login = $options['hb_login'];
-				$admin = $options['hb_admin'];
-				$register = $options['hb_register'];
+				$login = $bwpsoptions['hb_login'];
+				$admin = $bwpsoptions['hb_admin'];
+				$register = $bwpsoptions['hb_register'];
 							
 				//generate the key
-				$key = $options['hb_key'];
+				$key = $bwpsoptions['hb_key'];
 					
 				//get the domain without subdomain
 				$reDomain = $this->topdomain( get_option( 'siteurl' ) );
@@ -628,7 +628,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//close mod_rewrite
-			if ( $options['st_ht_request'] == 1 || $options['st_ht_query'] == 1 || $options['hb_enabled'] == 1 || ( $options['bu_enabled'] == 1 && strlen(  $options['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) ) {
 				
@@ -732,6 +732,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 *
 		 **/
 		function writehtaccess() {
+		
+			global $bwpsoptions;
 			
 			//clean up old rules first
 			if ( $this->deletehtaccess() == -1 ) {
@@ -799,9 +801,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			@fclose( $f );
 			
-			$options = get_option( $this->primarysettings );
-			
-			if ( $options['st_fileperm'] == 1 ) {
+			if ( $bwpsoptions['st_fileperm'] == 1 ) {
 				@chmod( $htaccess, 0444 );
 			}
 			
@@ -819,14 +819,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 **/
 		function writewpconfig() {
 		
+			global $bwpsoptions;
+		
 			//clear the old rules first
 			if ( $this->deletewpconfig() == -1 ) {
 			
 				return -1; //we can't write to the file
 			
 			}
-			
-			$options = get_option( $this->primarysettings );
 			
 			$lines = '';
 			
@@ -838,19 +838,19 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$config = explode( PHP_EOL, implode( '', file( $configfile ) ) );
 			
-			if ( $options['st_fileedit'] == 1 ) {
+			if ( $bwpsoptions['st_fileedit'] == 1 ) {
 			
 				$lines .= "define('DISALLOW_FILE_EDIT', true);" . PHP_EOL . PHP_EOL;
 			
 			}
 			
-			if ( $options['st_forceloginssl'] == 1 ) {
+			if ( $bwpsoptions['st_forceloginssl'] == 1 ) {
 			
 				$lines .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
 			
 			}
 			
-			if ( $options['st_forceadminssl'] == 1 ) {
+			if ( $bwpsoptions['st_forceadminssl'] == 1 ) {
 			
 				$lines .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL . PHP_EOL;
 			
@@ -898,7 +898,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@fclose( $f );
 			
-			if ( $options['st_fileperm'] == 1 ) {
+			if ( $bwpsoptions['st_fileperm'] == 1 ) {
 				@chmod( $configfile, 0444 );
 			}
 			

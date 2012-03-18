@@ -52,7 +52,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 **/
 		function on_deactivate() {
 	
-			$devel = false; //set to true to uninstall for development
+			$devel = true; //set to true to uninstall for development
 		
 			if ( $devel ) {
 				$case = 'uninstall';
@@ -78,7 +78,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function activate_execute() {
-			global $wpdb;
+			global $wpdb, $bwpsdata, $bwpsoptions;
 		
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
@@ -86,35 +86,30 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
 			
 			}			
-			
-			$options = get_option( $this->plugindata );
 					
-			$oldversion = $options['version']; //set new version number
-			$options['version'] = $this->pluginversion; //set new version number
+			$oldversion = $bwpsdata['version']; //set new version number
+			$bwpsdata['version'] = $this->pluginversion; //set new version number
 			
 			//remove no support nag if it's been more than six months
-			if ( ! isset( $options['activatestamp'] ) || $options['activatestamp'] < ( time() - 15552000 ) ) {
+			if ( ! isset( $bwpsdata['activatestamp'] ) || $bwpsdata['activatestamp'] < ( time() - 15552000 ) ) {
 			
-				if ( isset( $options['no-nag'] ) ) {
-					unset( $options['no-nag'] );
+				if ( isset( $bwpsdata['no-nag'] ) ) {
+					unset( $bwpsdata['no-nag'] );
 				}
 				
 				//set activate timestamp to today (they'll be notified again in a month)
-				$options['activatestamp'] = time();
+				$bwpsdata['activatestamp'] = time();
 			}
 			
 			//save plugin data
-			update_option( $this->plugindata, $options ); //save new plugin data
+			update_option( $this->plugindata, $bwpsdata ); //save new plugin data
 			
 			//update if version numbers don't match
 			if ( $oldversion != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
 				$this->update_execute( $oldversion );
 			}
 			
-			$this->default_settings(); //verify and set default options
-			
-			//get plugin settings
-			$options = get_option( $this->primarysettings );
+			$bwpsoptions = $this->default_settings(); //verify and set default options
 			
 			//Set up log table
 			$tables = "CREATE TABLE `" . $wpdb->base_prefix . "bwps_log` (
@@ -151,25 +146,25 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 				if ( strstr( $line, 'DISALLOW_FILE_EDIT' ) && strstr( $line, 'true' ) ) {
 					
-					$options['st_fileedit'] = 1;
+					$bwpsoptions['st_fileedit'] = 1;
 					
 				}
 				
 				if ( strstr( $line, 'FORCE_SSL_LOGIN' ) && strstr( $line, 'true' ) ) {
 				
-					$option['st_forceloginssl'] = 1;
+					$bwpsoptions['st_forceloginssl'] = 1;
 					
 				}
 				
 				if ( strstr( $line, 'FORCE_SSL_ADMIN' ) && strstr( $line, 'true' ) ) {
 				
-					$option['st_forceadminssl'] = 1;
+					$bwpsoptions['st_forceadminssl'] = 1;
 					
 				}
 				
 			}
 			
-			update_option( $this->primarysettings, $options ); //save new options data
+			update_option( $this->primarysettings, $bwpsoptions ); //save new options data
 			
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess
 			
@@ -186,52 +181,51 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function update_execute($oldversion = '') {
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 			
 			if ( get_option( 'BWPS_options' ) != false ) {
 			
 				$oldoptions = unserialize( get_option( 'BWPS_options' ) );
-				$options = get_option( $this->primarysettings );
 				
-				$options['am_enabled'] = isset( $oldoptions['away_enable'] ) ? $oldoptions['away_enable'] : '0';
-				$options['am_type'] = isset( $oldoptions['away_mode'] ) ? $oldoptions['away_mode'] : '0';
-				$options['am_startdate'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
-				$options['am_starttime'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
-				$options['am_enddate'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
-				$options['am_endtime'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
-				$options['st_generator'] = isset( $oldoptions['tweaks_removeGenerator'] ) ? $oldoptions['tweaks_removeGenerator'] : '0';
-				$options['st_loginerror'] = isset( $oldoptions['tweaks_removeLoginMessages'] ) ? $oldoptions['tweaks_removeLoginMessages'] : '0';
-				$options['st_randomversion'] = isset( $oldoptions['tweaks_randomVersion'] ) ? $oldoptions['tweaks_randomVersion'] : '0';
-				$options['st_themenot'] = isset( $oldoptions['tweaks_themeUpdates'] ) ? $oldoptions['tweaks_themeUpdates'] : '0';
-				$options['st_pluginnot'] = isset( $oldoptions['tweaks_pluginUpdates'] ) ? $oldoptions['tweaks_pluginUpdates'] : '0';
-				$options['st_corenot'] = isset( $oldoptions['tweaks_coreUpdates'] ) ? $oldoptions['tweaks_coreUpdates'] : '0';
-				$options['st_manifest'] = isset( $oldoptions['tweaks_removewlm'] ) ? $oldoptions['tweaks_removewlm'] : '0';
-				$options['st_edituri'] = isset( $oldoptions['tweaks_removersd'] ) ? $oldoptions['tweaks_removersd'] : '0';
-				$options['st_longurl'] = isset( $oldoptions['tweaks_longurls'] ) ? $oldoptions['tweaks_longurls'] : '0';
-				$options['st_enablepassword'] = isset( $oldoptions['tweaks_strongpass'] ) ? $oldoptions['away_enable'] : '0';
-				$options['st_passrole'] = isset( $oldoptions['tweaks_strongpassrole'] ) ? $oldoptions['away_enable'] : '0';
-				$options['st_ht_files'] = isset( $oldoptions['htaccess_protectht'] ) ? $oldoptions['away_enable'] : '0';
-				$options['st_ht_browsing'] = isset( $oldoptions['htaccess_dirbrowse'] ) ? $oldoptions['away_enable'] : '0';
-				$options['st_ht_request'] = isset( $oldoptions['htaccess_request'] ) ? $oldoptions['away_enable'] : '0';
-				$options['st_ht_query'] = isset( $oldoptions['htaccess_qstring'] ) ? $oldoptions['away_enable'] : '0';
-				$options['hb_enabled'] = isset( $oldoptions['hidebe_enable'] ) ? $oldoptions['hidebe_enable'] : '0';
-				$options['hb_login'] = isset( $oldoptions['hidebe_login_slug'] ) ? $oldoptions['hidebe_login_slug'] : 'login';
-				$options['hb_admin'] = isset( $oldoptions['hidebe_admin_slug'] ) ? $oldoptions['hidebe_admin_slug'] : 'admin';
-				$options['hb_register'] = isset( $oldoptions['hidebe_register_slug'] ) ? $oldoptions['hidebe_register_slug'] : 'register';
-				$options['hb_key'] = isset( $oldoptions['hidebe_key'] ) ? $oldoptions['hidebe_key'] : '';
-				$options['ll_enabled'] = isset( $oldoptions['ll_enable'] ) ? $oldoptions['ll_enable'] : '0';
-				$options['ll_maxattemptshost'] = isset( $oldoptions['ll_maxattemptshost'] ) ? $oldoptions['ll_maxattemptshost'] : '5';
-				$options['ll_maxattemptsuser'] = isset( $oldoptions['ll_maxattemptsuser'] ) ? $oldoptions['ll_maxattemptsuser'] : '10';
-				$options['ll_checkinterval'] = isset( $oldoptions['ll_checkinterval'] ) ? $oldoptions['ll_checkinterval'] : '5';
-				$options['ll_banperiod'] = isset( $oldoptions['ll_banperiod'] ) ? $oldoptions['ll_banperiod'] : '15';
-				$options['ll_emailnotify'] = isset( $oldoptions['ll_emailnotify'] ) ? $oldoptions['ll_emailnotify'] : '1';
-				$options['id_enabled'] = isset( $oldoptions['idetect_d404enable'] ) ? $oldoptions['idetect_d404enable'] : '0';
-				$options['id_emailnotify'] = isset( $oldoptions['idetect_emailnotify'] ) ? $oldoptions['idetect_emailnotify'] : '1';
-				$options['id_checkinterval'] = isset( $oldoptions['idetect_checkint'] ) ? ( $oldoptions['idetect_checkint'] / 60 ) : '5';
-				$options['id_threshold'] = isset( $oldoptions['idetect_locount'] ) ? $oldoptions['idetect_locount'] : '20';
-				$options['id_banperiod'] = isset( $oldoptions['idetect_lolength'] ) ? ( $oldoptions['idetect_lolength'] / 60 ) : '15';
-				$options['id_whitelist'] = isset( $oldoptions['idetect_whitelist'] ) ? $oldoptions['idetect_whitelist'] : '0';
-				$options['bu_enabled'] = isset( $oldoptions['banvisits_enable'] ) ? $oldoptions['banvisits_enable'] : '0';
+				$bwpsoptions['am_enabled'] = isset( $oldoptions['away_enable'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['am_type'] = isset( $oldoptions['away_mode'] ) ? $oldoptions['away_mode'] : '0';
+				$bwpsoptions['am_startdate'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
+				$bwpsoptions['am_starttime'] = isset( $oldoptions['away_start'] ) ? $oldoptions['away_start'] : '1';
+				$bwpsoptions['am_enddate'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
+				$bwpsoptions['am_endtime'] = isset( $oldoptions['away_end'] ) ? $oldoptions['away_end'] : '1';
+				$bwpsoptions['st_generator'] = isset( $oldoptions['tweaks_removeGenerator'] ) ? $oldoptions['tweaks_removeGenerator'] : '0';
+				$bwpsoptions['st_loginerror'] = isset( $oldoptions['tweaks_removeLoginMessages'] ) ? $oldoptions['tweaks_removeLoginMessages'] : '0';
+				$bwpsoptions['st_randomversion'] = isset( $oldoptions['tweaks_randomVersion'] ) ? $oldoptions['tweaks_randomVersion'] : '0';
+				$bwpsoptions['st_themenot'] = isset( $oldoptions['tweaks_themeUpdates'] ) ? $oldoptions['tweaks_themeUpdates'] : '0';
+				$bwpsoptions['st_pluginnot'] = isset( $oldoptions['tweaks_pluginUpdates'] ) ? $oldoptions['tweaks_pluginUpdates'] : '0';
+				$bwpsoptions['st_corenot'] = isset( $oldoptions['tweaks_coreUpdates'] ) ? $oldoptions['tweaks_coreUpdates'] : '0';
+				$bwpsoptions['st_manifest'] = isset( $oldoptions['tweaks_removewlm'] ) ? $oldoptions['tweaks_removewlm'] : '0';
+				$bwpsoptions['st_edituri'] = isset( $oldoptions['tweaks_removersd'] ) ? $oldoptions['tweaks_removersd'] : '0';
+				$bwpsoptions['st_longurl'] = isset( $oldoptions['tweaks_longurls'] ) ? $oldoptions['tweaks_longurls'] : '0';
+				$bwpsoptions['st_enablepassword'] = isset( $oldoptions['tweaks_strongpass'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['st_passrole'] = isset( $oldoptions['tweaks_strongpassrole'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['st_ht_files'] = isset( $oldoptions['htaccess_protectht'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['st_ht_browsing'] = isset( $oldoptions['htaccess_dirbrowse'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['st_ht_request'] = isset( $oldoptions['htaccess_request'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['st_ht_query'] = isset( $oldoptions['htaccess_qstring'] ) ? $oldoptions['away_enable'] : '0';
+				$bwpsoptions['hb_enabled'] = isset( $oldoptions['hidebe_enable'] ) ? $oldoptions['hidebe_enable'] : '0';
+				$bwpsoptions['hb_login'] = isset( $oldoptions['hidebe_login_slug'] ) ? $oldoptions['hidebe_login_slug'] : 'login';
+				$bwpsoptions['hb_admin'] = isset( $oldoptions['hidebe_admin_slug'] ) ? $oldoptions['hidebe_admin_slug'] : 'admin';
+				$bwpsoptions['hb_register'] = isset( $oldoptions['hidebe_register_slug'] ) ? $oldoptions['hidebe_register_slug'] : 'register';
+				$bwpsoptions['hb_key'] = isset( $oldoptions['hidebe_key'] ) ? $oldoptions['hidebe_key'] : '';
+				$bwpsoptions['ll_enabled'] = isset( $oldoptions['ll_enable'] ) ? $oldoptions['ll_enable'] : '0';
+				$bwpsoptions['ll_maxattemptshost'] = isset( $oldoptions['ll_maxattemptshost'] ) ? $oldoptions['ll_maxattemptshost'] : '5';
+				$bwpsoptions['ll_maxattemptsuser'] = isset( $oldoptions['ll_maxattemptsuser'] ) ? $oldoptions['ll_maxattemptsuser'] : '10';
+				$bwpsoptions['ll_checkinterval'] = isset( $oldoptions['ll_checkinterval'] ) ? $oldoptions['ll_checkinterval'] : '5';
+				$bwpsoptions['ll_banperiod'] = isset( $oldoptions['ll_banperiod'] ) ? $oldoptions['ll_banperiod'] : '15';
+				$bwpsoptions['ll_emailnotify'] = isset( $oldoptions['ll_emailnotify'] ) ? $oldoptions['ll_emailnotify'] : '1';
+				$bwpsoptions['id_enabled'] = isset( $oldoptions['idetect_d404enable'] ) ? $oldoptions['idetect_d404enable'] : '0';
+				$bwpsoptions['id_emailnotify'] = isset( $oldoptions['idetect_emailnotify'] ) ? $oldoptions['idetect_emailnotify'] : '1';
+				$bwpsoptions['id_checkinterval'] = isset( $oldoptions['idetect_checkint'] ) ? ( $oldoptions['idetect_checkint'] / 60 ) : '5';
+				$bwpsoptions['id_threshold'] = isset( $oldoptions['idetect_locount'] ) ? $oldoptions['idetect_locount'] : '20';
+				$bwpsoptions['id_banperiod'] = isset( $oldoptions['idetect_lolength'] ) ? ( $oldoptions['idetect_lolength'] / 60 ) : '15';
+				$bwpsoptions['id_whitelist'] = isset( $oldoptions['idetect_whitelist'] ) ? $oldoptions['idetect_whitelist'] : '0';
+				$bwpsoptions['bu_enabled'] = isset( $oldoptions['banvisits_enable'] ) ? $oldoptions['banvisits_enable'] : '0';
 				
 				
 				if ( isset(  $oldoptions['banvisits_banlist'] ) ) {
@@ -261,11 +255,11 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 					}
 				
-					$options['bu_banlist'] = implode( "\n", $list );
+					$bwpsoptions['bu_banlist'] = implode( "\n", $list );
 				
 				}
 				
-				update_option( $this->primarysettings, $options ); //save new options data
+				update_option( $this->primarysettings, $bwpsoptions ); //save new options data
 				
 				delete_option( 'BWPS_Login_Slug' );
 				delete_option( 'BWPS_options' );
@@ -280,14 +274,12 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				$this->deletehtaccess('Better WP Security Ban IPs');
 			
 			} else {
-			
-				$options = get_option( $this->primarysettings );
 				
 				if ( str_replace( '.', '', $oldversion ) < 304 ) {
 				
-					$ranges = explode( "\n", $options['bu_banrange'] );
-					$ips = explode( "\n", $options['bu_individual'] );
-					$whitelist = explode( "\n", $options['id_whitelist'] );
+					$ranges = explode( "\n", $bwpsoptions['bu_banrange'] );
+					$ips = explode( "\n", $bwpsoptions['bu_individual'] );
+					$whitelist = explode( "\n", $bwpsoptions['id_whitelist'] );
 					
 					if ( sizeof( $ranges ) > 0 || sizeof( $whitelist ) > 0 ) {
 					
@@ -304,10 +296,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						$list = array_merge( $ranges, $ips );
 						
 						if ( ! is_array( $list ) || ( is_array( $list ) && sizeof( $list ) < 1 ) ) {
-							$options['bu_enabled'] = '0';
+							$bwpsoptions['bu_enabled'] = '0';
 						}
 						
-						$options['bu_banlist'] = implode( "\n", $list );
+						$bwpsoptions['bu_banlist'] = implode( "\n", $list );
 					
 						for ( $i = 0; $i < sizeof( $whitelist ); $i++ ) {
 						
@@ -319,9 +311,9 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 						}
 						
-						$options['id_whitelist'] = implode( "\n", $whitelist );						
+						$bwpsoptions['id_whitelist'] = implode( "\n", $whitelist );						
 						
-						update_option( $this->primarysettings, $options ); //save new options data
+						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
 					
 					}
 					

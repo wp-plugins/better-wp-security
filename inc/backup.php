@@ -10,61 +10,52 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		 **/
 		function __construct() {
 		
+			global $bwpsoptions;
+		
 			$tempFile = BWPS_PP . '/backups/lock';
 			
-			if ( ! file_exists( $tempFile ) ) {
-				
-				$t = @fopen( $tempFile, 'w+' );
-				@fclose( $t );
-						
-				$options = get_option( $this->primarysettings );
+			if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			
-				if ( $options['backup_enabled'] == 1 ) {
+				$nextbackup = $bwpsoptions['backup_next']; //get next schedule
+				$lastbackup = $bwpsoptions['backup_last']; //get last backup
+				
+				switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
+					case '0':
+						$next = 60 * 60 * $bwpsoptions['backup_time'];
+						break;
+					case '1':
+						$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
+						break;
+					case '2':
+						$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
+						break;
+				}
+				
+				if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
+				
+					if ( $lastbackup == '' ) {
+					
+						$bwpsoptions['backup_next'] = ( time() + $next );
+					
+					} else {
+					
+						$bwpsoptions['backup_next'] = ( $lastbackup + $next );
+					
+					}
 			
-					$nextbackup = $options['backup_next']; //get next schedule
-					$lastbackup = $options['backup_last']; //get last backup
-				
-					switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
-						case '0':
-							$next = 60 * 60 * $options['backup_time'];
-							break;
-						case '1':
-							$next = 60 * 60 * 24 * $options['backup_time'];
-							break;
-						case '2':
-							$next = 60 * 60 * 24 * 7  * $options['backup_time'];
-							break;
-					}
-				
-					if ( $nextbackup < time() ) { //don't schedule extra backups set next backup time based on when the last backup was completed
-				
-						if ( $lastbackup == '' ) {
-					
-							$options['backup_next'] = ( time() + $next );
-					
-						} else {
-					
-							$options['backup_next'] = ( $lastbackup + $next );
-					
-						}
-			
-						update_option( $this->primarysettings, $options );
-				
-					}
-				
-					if ( $lastbackup == '' || $nextbackup < time() ) {
-				
-						$options['backup_last'] = time();
-						
-						update_option( $this->primarysettings, $options );
-				
-						$this->execute_backup(); //execute backup
-				
-					}
+					update_option( $this->primarysettings, $bwpsoptions );
 				
 				}
 				
-				@unlink( $tempFile );
+				if ( $lastbackup == '' || $nextbackup < time() ) {
+				
+					$bwpsoptions['backup_last'] = time();
+						
+					update_option( $this->primarysettings, $bwpsoptions );
+				
+					$this->execute_backup(); //execute backup
+				
+				}
 			
 			}
 						
@@ -75,11 +66,9 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		 *
 		 */
 		function execute_backup() {
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 				
 			@ini_set( 'auto_detect_line_endings', true );
-				
-			$options = get_option( $this->primarysettings );
 				
 			//get all of the tables
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
@@ -151,7 +140,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					
 			}
 				
-			if ( $options['backup_email'] == 1 ) {
+			if ( $bwpsoptions['backup_email'] == 1 ) {
 				
 				$to = get_option( 'admin_email' );
 				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
@@ -172,14 +161,14 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			}
 				
 			//delete extra files
-			if ( $options['backups_to_retain'] != 0 ) {
+			if ( $bwpsoptions['backups_to_retain'] != 0 ) {
 				$files = scandir( BWPS_PP . '/backups/', 1 );
 				
 				$count = 0;
 				
 				foreach ( $files as $file ) {
 					if ( strstr( $file, 'database-backup' ) ) {
-						if ( $count >= $options['backups_to_retain'] ) {
+						if ( $count >= $bwpsoptions['backups_to_retain'] ) {
 							unlink ( BWPS_PP . '/backups/' . $file );
 						}
 						$count++;

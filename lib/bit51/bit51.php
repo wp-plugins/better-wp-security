@@ -164,7 +164,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			
 				foreach ( $settings as $setting => $defaults ) {
 				
-					$options = get_option($setting); //Get the option if it already exists
+					$options = get_option( $setting ); //Get the option if it already exists
 					
 					//set missing options
 					foreach ( $defaults as $option => $value ) {
@@ -188,6 +188,8 @@ if ( ! class_exists( 'Bit51' ) ) {
 				}
 				
 			}
+			
+			return $options;
 			
 		}
 		

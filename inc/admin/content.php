@@ -147,9 +147,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function admin_dashboard() {
 			
-			$options = get_option( $this->primarysettings );
+			global $bwpsoptions;
 			
-			if ( $options['initial_backup'] == 1 ) { //they've backed up their database or ignored the warning
+			if ( $bwpsoptions['initial_backup'] == 1 ) { //they've backed up their database or ignored the warning
 			
 				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
@@ -364,8 +364,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_2() {
-			$options = get_option( $this->primarysettings );
-			if ( $options['backup_enabled'] == 1 && $options['ll_enabled'] == 1 && $options['id_enabled'] == 1 && $options['st_ht_files'] == 1 && $options['st_ht_browsing'] == 1 && $options['st_generator'] == 1 && $options['st_manifest'] == 1 && $options['st_themenot'] == 1 && $options['st_pluginnot'] == 1 && $options['st_corenot'] == 1 && $options['st_enablepassword'] == 1 && $options['st_loginerror'] == 1 && $options['st_ht_request'] == 1 ) {
+			global $bwpsoptions;
+			if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_ht_files'] == 1 && $bwpsoptions['st_ht_browsing'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['st_ht_request'] == 1 ) {
 			?>
 			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
 			<?php } else { ?>
@@ -384,15 +384,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_3() {
-			global $wpdb;
-			
-			$options = get_option( $this->primarysettings );
+			global $wpdb, $bwpsoptions;
 			?>
 			<ol>
 				<li>
 					<?php 
-						$isOn = $options['st_enablepassword'];
-						$role = $options['st_passrole']; 
+						$isOn = $bwpsoptions['st_enablepassword'];
+						$role = $bwpsoptions['st_passrole']; 
 					?>
 					<?php if ( $isOn == 1 && $role == 'subscriber' ) { ?>
 						<span style="color: green;"><?php _e( 'You are enforcing strong passwords for all users.', $this-> hook ); ?></span>
@@ -403,7 +401,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
-					<?php $hcount = intval( $options['st_manifest'] ) + intval( $options['st_generator'] ) + intval( $options['st_edituri'] ); ?>
+					<?php $hcount = intval( $bwpsoptions['st_manifest'] ) + intval( $bwpsoptions['st_generator'] ) + intval( $bwpsoptions['st_edituri'] ); ?>
 					<?php if ( $hcount == 3 ) { ?>
 						<span style="color: green;"><?php _e( 'Your Wordpress header is revealing as little information as possible.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
@@ -413,7 +411,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
-					<?php $hcount = intval( $options['st_themenot'] ) + intval( $options['st_pluginnot'] ) + intval( $options['st_corenot'] ); ?>
+					<?php $hcount = intval( $bwpsoptions['st_themenot'] ) + intval( $bwpsoptions['st_pluginnot'] ) + intval( $bwpsoptions['st_corenot'] ); ?>
 					<?php if ( $hcount == 3 ) { ?>
 						<span style="color: green;"><?php _e( 'Non-administrators cannot see available updates.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
@@ -438,35 +436,35 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['backup_enabled'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['backup_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'You have scheduled regular backups of your WordPress database.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: orange;"><?php _e( 'You are not scheduling regular backups of your WordPress database.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-databasebackup"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['am_enabled'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['am_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your Wordpress admin area is not available when you will not be needing it.', $this->hook ); ?>. </span>
 					<?php } else { ?>
 						<span style="color: orange;"><?php _e( 'Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?', $this->hook ); ?> <a href="admin.php?page=better_wp_security-awaymode"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['ll_enabled'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['ll_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your login area is protected from brute force attacks.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: red;"><?php _e( 'Your login area is not protected from brute force attacks.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-loginlimits"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['hb_enabled'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['hb_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your Wordpress admin area is hidden.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: blue;"><?php _e( 'Your Wordpress admin area is not hidden.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-hidebackend"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php $hcount = intval( $options['st_ht_files'] ) + intval( $options['st_ht_browsing'] ) + intval( $options['st_ht_request'] ) + intval( $options['st_ht_query'] ); ?>
+					<?php $hcount = intval( $bwpsoptions['st_ht_files'] ) + intval( $bwpsoptions['st_ht_browsing'] ) + intval( $bwpsoptions['st_ht_request'] ) + intval( $bwpsoptions['st_ht_query'] ); ?>
 					<?php if ( $hcount == 4 ) { ?>
 						<span style="color: green;"><?php _e( 'Your .htaccess file is fully secured.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
@@ -476,35 +474,35 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['id_enabled'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['id_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your installation is actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: red;"><?php _e( 'Your installation is not actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['st_longurl'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['st_longurl'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your installation does not accept long URLs.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: blue;"><?php _e( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_longurl"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['st_fileedit'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['st_fileedit'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'You are not allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileedit"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['st_fileperm'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['st_fileperm'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'wp-config.php and .htacess are not writeable.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: blue;"><?php _e( 'wp-config.php and .htacess are writeable.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileperm"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
-					<?php if ( $options['st_randomversion'] == 1 ) { ?>
+					<?php if ( $bwpsoptions['st_randomversion'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Version information is obscured to all non admin users.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: blue;"><?php _e( 'Users may still be able to get version information from various plugins and themes.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_randomversion"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
@@ -578,8 +576,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_5() {
-			global $wpdb;
-			$options = get_option( $this->primarysettings );
+			global $wpdb, $bwpsoptions, $bwpsdata;
 			?>
 			<ul>
 				<li>
@@ -614,7 +611,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								
 							}
 							
-							if ( $options['st_fileperm'] == 1 ) {
+							if ( $bwpsoptions['st_fileperm'] == 1 ) {
 								@chmod( $htaccess, 0444 ); //make sure the config file is no longer writable
 							}
 						?>
@@ -638,7 +635,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								
 							}
 							
-							if ( $options['st_fileperm'] == 1 ) {
+							if ( $bwpsoptions['st_fileperm'] == 1 ) {
 								@chmod( $conffile, 0444 ); //make sure the config file is no longer writable
 							}
 						?>
@@ -839,15 +836,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<h4><?php _e( 'Better WP Security variables', $this->hook ); ?></h4>
 					<ul>
 						<?php 
-							if ( $options['hb_key'] == '' ) {
+							if ( $bwpsoptions['hb_key'] == '' ) {
 								$hbkey = __( 'Not Yet Available. Enable Hide Backend mode to generate key.', $this->hook );
 							} else {
-								$hbkey = $options['hb_key'];
+								$hbkey = $bwpsoptions['hb_key'];
 							}
 						?>
 						<li><?php _e( 'Hide Backend Key', $this->hook );?>: <strong><?php echo $hbkey; ?></strong></li>
-						<?php $options = get_option( $this->plugindata ); ?>
-						<li><?php _e( 'Better WP Build Version', $this->hook );?>: <strong><?php echo $options['version']; ?></strong><br />
+						<li><?php _e( 'Better WP Build Version', $this->hook );?>: <strong><?php echo $bwpsdata['version']; ?></strong><br />
 						<em><?php _e( 'Note: this is NOT the same as the version number on the plugins page and is instead used for support.', $this->hook ); ?></em></li>
 					</ul>
 				</li>
@@ -914,18 +910,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function awaymode_content_2() {
+			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="awaymode_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php 
 				//get saved options
 				$cDate = strtotime( date( 'n/j/y 12:00 \a\m', time() ) );
-				$sTime = $options['am_starttime'];
-				$eTime = $options['am_endtime'];
-				$sDate = $options['am_startdate'];
-				$eDate = $options['am_enddate'];
+				$sTime = $bwpsoptions['am_starttime'];
+				$eTime = $bwpsoptions['am_endtime'];
+				$sDate = $bwpsoptions['am_startdate'];
+				$eDate = $bwpsoptions['am_enddate'];
 				$shdisplay = date( 'g', $sTime );
 				$sidisplay = date( 'i', $sTime );
 				$ssdisplay = date( 'a', $sTime );
@@ -933,7 +929,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$eidisplay = date( 'i', $eTime );
 				$esdisplay = date( 'a', $eTime );
 				
-				if ( $options['am_enabled'] == 1 && $eDate > $cDate ) {	
+				if ( $bwpsoptions['am_enabled'] == 1 && $eDate > $cDate ) {	
 				
 					$smdisplay = date( 'n', $sDate );
 					$sddisplay = date( 'j', $sDate );
@@ -963,7 +959,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "am_enabled"><?php _e( 'Enable Away Mode', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked( '1', $options['am_enabled'] ); ?> />
+							<input id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['am_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable away mode.', $this->hook ); ?></p>
 						</td>
 					</tr>	
@@ -972,8 +968,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for="am_type"><?php _e( 'Type of Restriction', $this->hook ); ?></label>
 						</th>
 						<td>
-							<label><input name="am_type" id="am_type" value="1" <?php checked( '1', $options['am_type'] ); ?> type="radio" /> <?php _e( 'Daily', $this->hook ); ?></label>
-							<label><input name="am_type" value="0" <?php checked( '0', $options['am_type'] ); ?> type="radio" /> <?php _e( 'One Time', $this->hook ); ?></label>
+							<label><input name="am_type" id="am_type" value="1" <?php checked( '1', $bwpsoptions['am_type'] ); ?> type="radio" /> <?php _e( 'Daily', $this->hook ); ?></label>
+							<label><input name="am_type" value="0" <?php checked( '0', $bwpsoptions['am_type'] ); ?> type="radio" /> <?php _e( 'One Time', $this->hook ); ?></label>
 							<p><?php _e( 'Selecting <em>"One Time"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>"Daily"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1163,24 +1159,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function awaymode_content_3() {
 
-			$options = get_option( $this->primarysettings ); //use settings fields 
+			global $bwpsoptions;
 			
 			//format times for display
-			if ( $options['am_type'] == 1 ) {
+			if ( $bwpsoptions['am_type'] == 1 ) {
 			
 				$freq = ' <strong><em>' . __( 'every day' ) . '</em></strong>';
-				$stime = '<strong><em>' . date( 'g:i a', $options['am_starttime'] ) . '</em></strong>';
-				$etime = '<strong><em>' . date( 'g:i a', $options['am_endtime'] ) . '</em></strong>';
+				$stime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
+				$etime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
 				
 			} else {
 			
 				$freq = '';
-				$stime = '<strong><em>' . date( 'l, F jS, Y', $options['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $options['am_starttime'] ) . '</em></strong>';
-				$etime = '<strong><em>' . date( 'l, F jS, Y', $options['am_enddate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $options['am_endtime'] ) . '</em></strong>';
+				$stime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
+				$etime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_enddate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
 				
 			}
 			
-			if ( $options['am_enabled'] == 1 ) {
+			if ( $bwpsoptions['am_enabled'] == 1 ) {
 				?>
 				<p style="font-size: 150%; text-align: center;"><?php _e( 'The backend (administrative section) of this site will be unavailable', $this->hook ); ?><?php echo $freq; ?> <?php _e( 'from', $this->hook ); ?> <?php echo $stime; ?> <?php _e( 'until', $this->hook ); ?> <?php echo $etime; ?>.</p>
 				<?php } else { ?>
@@ -1204,18 +1200,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function banusers_content_2() {
+			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="banusers_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
 							<label for "bu_enabled"><?php _e( 'Enable Banned Users', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="bu_enabled" name="bu_enabled" type="checkbox" value="1" <?php checked( '1', $options['bu_enabled'] ); ?> />
+							<input id="bu_enabled" name="bu_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['bu_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable the banned users feature.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1224,7 +1220,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banlist"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? $_POST['bu_banlist'] : $options['bu_banlist']; ?></textarea>
+							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? $_POST['bu_banlist'] : $bwpsoptions['bu_banlist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may ban users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -1240,7 +1236,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banrange"><?php _e( 'Ban User Agents', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banagent'] : $options['bu_banagent']; ?></textarea>
+							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banagent'] : $bwpsoptions['bu_banagent']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'Enter only 1 user agent per line.', $this->hook ); ?></li>
@@ -1336,18 +1332,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function databasebackup_content_3() {
+			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="databasebackup_2" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
 							<label for "backup_enabled"><?php _e( 'Enable Scheduled Backups', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="backup_enabled" name="backup_enabled" type="checkbox" value="1" <?php checked( '1', $options['backup_enabled'] ); ?> />
+							<input id="backup_enabled" name="backup_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['backup_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable scheduled backups which will be emailed to the address below.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1356,11 +1352,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "backup_interval"><?php _e( 'Backup Interval', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="backup_time" name="backup_time" type="text" value="<?php echo $options['backup_time']; ?>" />
+							<input id="backup_time" name="backup_time" type="text" value="<?php echo $bwpsoptions['backup_time']; ?>" />
 							<select id="backup_interval" name="backup_interval">
-								<option value="0" <?php selected( $options['backup_interval'], '0' ); ?>>Hours</option>
-								<option value="1" <?php selected( $options['backup_interval'], '1' ); ?>>Days</option>
-								<option value="2" <?php selected( $options['backup_interval'], '2' ); ?>>Weeks</option>
+								<option value="0" <?php selected( $bwpsoptions['backup_interval'], '0' ); ?>>Hours</option>
+								<option value="1" <?php selected( $bwpsoptions['backup_interval'], '1' ); ?>>Days</option>
+								<option value="2" <?php selected( $bwpsoptions['backup_interval'], '2' ); ?>>Weeks</option>
 							</select>
 							<p><?php _e( 'Select the frequency of automated backups.', $this->hook ); ?></p>
 						</td>
@@ -1370,7 +1366,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "backup_email"><?php _e( 'Send Backups by Email', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="backup_email" name="backup_email" type="checkbox" value="1" <?php checked( '1', $options['backup_email'] ); ?> />
+							<input id="backup_email" name="backup_email" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['backup_email'] ); ?> />
 							<p><?php _e( 'Email backups to the current site admin.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1379,7 +1375,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "backups_to_retain"><?php _e( 'Backups to Keep', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="backups_to_retain" name="backups_to_retain" type="text" value="<?php echo $options['backups_to_retain']; ?>" />
+							<input id="backups_to_retain" name="backups_to_retain" type="text" value="<?php echo $bwpsoptions['backups_to_retain']; ?>" />
 							<p><?php _e( 'Number of backup files to retain. Enter 0 to keep all files. Please note that this setting only applies if "Send Backups by Email" is not selected.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1394,8 +1390,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function databasebackup_content_4() {
-			$options = get_option( $this->primarysettings );
-			if ( $options['backup_email'] == 1 ) { //emailing so let them know
+			global $bwpsoptions;
+			if ( $bwpsoptions['backup_email'] == 1 ) { //emailing so let them know
 				?>
 				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . get_option( 'admin_email' ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
 				<?php
@@ -1406,15 +1402,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( ' via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them.', $this->hook ); ?></p>
 				<?php
 			}
-			if ( $options['backup_enabled'] == 1 ) { //get backup times
-				if ( $options['backup_last'] == '' ) {
+			if ( $bwpsoptions['backup_enabled'] == 1 ) { //get backup times
+				if ( $bwpsoptions['backup_last'] == '' ) {
 					$lastbackup = 'Never';
 				} else {
-					$lastbackup = date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $options['backup_last'] ) ) ) );
+					$lastbackup = date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $bwpsoptions['backup_last'] ) ) ) );
 				}
 				?>
 				<p><strong><?php _e( 'Last Scheduled Backup:', $this->hook ); ?></strong> <?php echo $lastbackup; ?></p>
-				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $options['backup_next'] ) ) ) ); ?></p>
+				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $bwpsoptions['backup_next'] ) ) ) ); ?></p>
+				<?php if ( file_exists( BWPS_PP . '/backups/lock' ) ) { ?>
+					<p style="color: #ff0000;"><?php _e( 'It looks like a scheduled backup is in progress please reload this page for more accurate times.', $this->hook ); ?></p>
+				<?php } ?>
 				<?php
 			}
 		}
@@ -1468,6 +1467,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function hidebackend_content_2() {
+			global $bwpsoptions;
 			?>
 			<?php if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) { //don't display form if permalinks are off ?>
 				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="/wp-admin/options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
@@ -1475,14 +1475,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="hidebackend_1" />
-				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row">
 								<label for "hb_enabled"><?php _e( 'Enable Hide Backend', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $options['hb_enabled'] ); ?> />
+								<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['hb_enabled'] ); ?> />
 								<p><?php _e( 'Check this box to enable the hide backend.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1491,8 +1490,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for="hb_login"><?php _e( 'Login Slug', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input name="hb_login" id="hb_login" value="<?php echo $options['hb_login']; ?>" type="text"><br />
-								<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_login']; ?></span></em>
+								<input name="hb_login" id="hb_login" value="<?php echo $bwpsoptions['hb_login']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_login']; ?></span></em>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -1500,8 +1499,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for="hb_register"><?php _e( 'Register Slug', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input name="hb_register" id="hb_register" value="<?php echo $options['hb_register']; ?>" type="text"><br />
-								<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $options['hb_register']; ?></span></em>
+								<input name="hb_register" id="hb_register" value="<?php echo $bwpsoptions['hb_register']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_register']; ?></span></em>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -1509,8 +1508,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for="hb_admin"><?php _e( 'Admin Slug', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input name="hb_admin" id="hb_admin" value="<?php echo $options['hb_admin']; ?>" type="text"><br />
-								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo 	$options['hb_admin']; ?></span></em>
+								<input name="hb_admin" id="hb_admin" value="<?php echo $bwpsoptions['hb_admin']; ?>" type="text"><br />
+								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo 	$bwpsoptions['hb_admin']; ?></span></em>
 							</td>
 						</tr>
 					</table>
@@ -1525,10 +1524,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function hidebackend_content_3() {
-			$options = get_option( $this->primarysettings );
+			global $bwpsoptions;
 			?>
 			<p><?php _e( 'Keep this key in a safe place. You can use it to manually fix plugins that link to wp-login.php. Once turning on this feature and plugins linking to wp-login.php will fail without adding ?[the key]& after wp-login.php. 99% of users will not need this key. The only place you would ever use it is to fix a bad login link in the code of a plugin or theme.', $this->hook ); ?></p>
-			<p style="font-weight: bold; text-align: center;"><?php echo $options['hb_key']; ?></p>
+			<p style="font-weight: bold; text-align: center;"><?php echo $bwpsoptions['hb_key']; ?></p>
 			<?php
 		}
 		
@@ -1547,18 +1546,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function intrusiondetection_content_2() {
+			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="intrusiondetection_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
 							<label for "id_enabled"><?php _e( 'Enable Instrusion Detection', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked( '1', $options['id_enabled'] ); ?> />
+							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable instrustion detection.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1567,7 +1566,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_emailnotify"><?php _e( 'Email Notifications', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked( '1', $options['id_emailnotify'] ); ?> />
+							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_emailnotify'] ); ?> />
 							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a host is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1576,7 +1575,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_checkinterval"><?php _e( 'Check Period', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_checkinterval" name="id_checkinterval" type="text" value="<?php echo $options['id_checkinterval']; ?>" />
+							<input id="id_checkinterval" name="id_checkinterval" type="text" value="<?php echo $bwpsoptions['id_checkinterval']; ?>" />
 							<p><?php _e( 'The number of minutes in which 404 errors should be remembered. Setting this too long can cause legitimate users to be banned.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1585,7 +1584,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_threshold"><?php _e( 'Error Threshold', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_threshold" name="id_threshold" type="text" value="<?php echo $options['id_threshold']; ?>" />
+							<input id="id_threshold" name="id_threshold" type="text" value="<?php echo $bwpsoptions['id_threshold']; ?>" />
 							<p><?php _e( 'The numbers of errors (within the check period timeframe) that will trigger a lockout.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1594,7 +1593,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_banperiod"><?php _e( 'Lockout Period', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_banperiod" name="id_banperiod" type="text" value="<?php echo $options['id_banperiod']; ?>" />
+							<input id="id_banperiod" name="id_banperiod" type="text" value="<?php echo $bwpsoptions['id_banperiod']; ?>" />
 							<p><?php _e( 'The number of minutes a host will be banned from the site after triggering a lockout.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1603,7 +1602,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_whitelist"><?php _e( 'White List', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? $_POST['id_whitelist'] : $options['id_whitelist']; ?></textarea>
+							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? $_POST['id_whitelist'] : $bwpsoptions['id_whitelist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will never be locked out due to too many 404 errors. This could be useful for Google, etc.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may whitelist users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -1636,18 +1635,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function loginlimits_content_2() {
+			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="loginlimits_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
 							<label for "ll_enabled"><?php _e( 'Enable Login Limits', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_enabled" name="ll_enabled" type="checkbox" value="1" <?php checked( '1', $options['ll_enabled'] ); ?> />
+							<input id="ll_enabled" name="ll_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable login limits on this site.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1656,7 +1655,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_maxattemptshost"><?php _e( 'Max Login Attempts Per Host', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_maxattemptshost" name="ll_maxattemptshost" type="text" value="<?php echo $options['ll_maxattemptshost']; ?>" />
+							<input id="ll_maxattemptshost" name="ll_maxattemptshost" type="text" value="<?php echo $bwpsoptions['ll_maxattemptshost']; ?>" />
 							<p><?php _e( 'The number of login attempts a user has before their host or computer is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1665,7 +1664,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_maxattemptsuser"><?php _e( 'Max Login Attempts Per User', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_maxattemptsuser" name="ll_maxattemptsuser" type="text" value="<?php echo $options['ll_maxattemptsuser']; ?>" />
+							<input id="ll_maxattemptsuser" name="ll_maxattemptsuser" type="text" value="<?php echo $bwpsoptions['ll_maxattemptsuser']; ?>" />
 							<p><?php _e( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1674,7 +1673,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_checkinterval"><?php _e( 'Login Time Period (minutes)', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_checkinterval" name="ll_checkinterval" type="text" value="<?php echo $options['ll_checkinterval']; ?>" />
+							<input id="ll_checkinterval" name="ll_checkinterval" type="text" value="<?php echo $bwpsoptions['ll_checkinterval']; ?>" />
 							<p><?php _e( 'The number of minutes in which bad logins should be remembered.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1683,7 +1682,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_banperiod"><?php _e( 'Lockout Time Period (minutes)', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_banperiod" name="ll_banperiod" type="text" value="<?php echo $options['ll_banperiod']; ?>" />
+							<input id="ll_banperiod" name="ll_banperiod" type="text" value="<?php echo $bwpsoptions['ll_banperiod']; ?>" />
 							<p><?php _e( 'The length of time a host or computer will be banned from this site after hitting the limit of bad logins.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1692,7 +1691,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_emailnotify"><?php _e( 'Email Notifications', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked( '1', $options['ll_emailnotify'] ); ?> />
+							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_emailnotify'] ); ?> />
 							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1717,15 +1716,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function logs_content_2() {
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="log_1" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php //get database record counts
-				$countlogin = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
-				$count404 = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . (time() - ( $options['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
+				$countlogin = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
+				$count404 = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . (time() - ( $bwpsoptions['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
 				$countlockout = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
 			 ?>
 				<table class="form-table">
@@ -1761,7 +1759,6 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="log_2" />
-			<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 			<?php //get locked out hosts and users from database
 				$hostLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `host` != 0;", ARRAY_A );
 				$userLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `user` != 0;", ARRAY_A );
@@ -1885,6 +1882,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function systemtweaks_content_2() {
+			global $bwpsoptions;
 			?>
 			<?php if ( ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) &&  ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) && ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
 				<p><?php _e( 'Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to make use of these rules.', $this->hook ); ?></p>
@@ -1892,7 +1890,6 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="systemtweaks_1" />
-				<?php $options = get_option( $this->primarysettings ); //use settings fields ?>
 					<table class="form-table">
 						<tr valign="top">
 							<tr>
@@ -1904,7 +1901,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_ht_files"><?php _e( 'Protect Files', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_ht_files" name="st_ht_files" type="checkbox" value="1" <?php checked( '1', $options['st_ht_files'] ); ?> />
+								<input id="st_ht_files" name="st_ht_files" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_files'] ); ?> />
 								<p><?php _e( 'Prevent public access to readme.html, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1914,7 +1911,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
 								</th>
 								<td>
-									<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $options['st_ht_browsing'] ); ?> />
+									<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_browsing'] ); ?> />
 									<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
 								</td>
 							</tr>
@@ -1924,7 +1921,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_ht_request"><?php _e( 'Filter Request Methods', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_ht_request" name="st_ht_request" type="checkbox" value="1" <?php checked( '1', $options['st_ht_request'] ); ?> />
+								<input id="st_ht_request" name="st_ht_request" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_request'] ); ?> />
 								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1933,7 +1930,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_ht_query"><?php _e( 'Filter Suspicious Query Strings', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $options['st_ht_query'] ); ?> />
+								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_query'] ); ?> />
 								<p><?php _e( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -1948,7 +1945,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_generator"><?php _e( 'Remove Wordpress Generator Meta Tag', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $options['st_generator'] ); ?> />
+								<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_generator'] ); ?> />
 								<p><?php _e( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1957,7 +1954,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_manifest"><?php _e( 'Remove wlwmanifest header', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $options['st_manifest'] ); ?> />
+								<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_manifest'] ); ?> />
 								<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1966,7 +1963,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $options['st_edituri'] ); ?> />
+								<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_edituri'] ); ?> />
 								<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
 							</td>
@@ -1981,7 +1978,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_themenot"><?php _e( 'Hide Theme Update Notifications', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $options['st_themenot'] ); ?> />
+								<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_themenot'] ); ?> />
 								<p><?php _e( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1990,7 +1987,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_pluginnot"><?php _e( 'Hide Plugin Update Notifications', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $options['st_pluginnot'] ); ?> />
+								<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_pluginnot'] ); ?> />
 								<p><?php _e( 'Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -1999,7 +1996,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_corenot"><?php _e( 'Hide Core Update Notifications', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $options['st_corenot'] ); ?> />
+								<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_corenot'] ); ?> />
 								<p><?php _e( 'Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -2013,7 +2010,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_enablepassword"></a><label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $options['st_enablepassword'] ); ?> />
+								<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_enablepassword'] ); ?> />
 								<p><?php _e( 'Enforce strong passwords for all users with at least the role specified below.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -2023,11 +2020,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</th>
 							<td>
 								<select name="st_passrole" id="st_passrole">
-									<option value="administrator" <?php if ($options['st_passrole'] == "administrator") echo "selected"; ?>>Administrator</option>
-									<option value="editor" <?php if ($options['st_passrole'] == "editor") echo "selected"; ?>>Editor</option>
-									<option value="author" <?php if ($options['st_passrole'] == "author") echo "selected"; ?>>Author</option>
-									<option value="contributor" <?php if ($options['st_passrole'] == "contributor") echo "selected"; ?>>Contributor</option>
-									<option value="subscriber" <?php if ($options['st_passrole'] == "subscriber") echo "selected"; ?>>Subscriber</option>
+									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>>Administrator</option>
+									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>>Editor</option>
+									<option value="author" <?php if ( $bwpsoptions['st_passrole'] == "author" ) echo "selected"; ?>>Author</option>
+									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>>Contributor</option>
+									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>>Subscriber</option>
 								</select>
 								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see', $this->hook ); ?> <a hre="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
@@ -2043,7 +2040,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_loginerror"></a><label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $options['st_loginerror'] ); ?> />
+								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_loginerror'] ); ?> />
 								<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -2052,7 +2049,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_fileperm"></a><label for "st_fileperm"><?php _e( 'Remove write abilities from .htaccess and wp-config.php', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_fileperm" name="st_fileperm" type="checkbox" value="1" <?php checked( '1', $options['st_fileperm'] ); ?> />
+								<input id="st_fileperm" name="st_fileperm" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileperm'] ); ?> />
 								<p><?php _e( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the unix file permissions to 0444 on these files and turning it off will set the permissions to 0644.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -2062,7 +2059,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_randomversion"></a><label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $options['st_randomversion'] ); ?> />
+								<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_randomversion'] ); ?> />
 								<p><?php _e( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -2072,7 +2069,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_longurl"></a><label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $options['st_longurl'] ); ?> />
+								<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_longurl'] ); ?> />
 								<p><?php _e( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -2082,7 +2079,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_fileedit"></a><label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $options['st_fileedit'] ); ?> />
+								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileedit'] ); ?> />
 								<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
@@ -2090,7 +2087,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<tr>
 							<td scope="row" colspan="2">
 								<h4><?php _e( 'SSL Tweaks', $this->hook ); ?></h4>
-								<h4 style="color: red; text-align: center; border-bottom: none;">WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.</h4>
+								<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.', $this->hook ); ?></h4>
 							</td>
 						<?php
 						echo '<script language="javascript">';
@@ -2104,7 +2101,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<a name="st_forceloginssl"></a><label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceloginssl'] ); ?> />
+								<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_forceloginssl'] ); ?> />
 								<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -2113,7 +2110,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
 							</th>
 							<td>
-								<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $options['st_forceadminssl'] ); ?> />
+								<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_forceadminssl'] ); ?> />
 								<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
 							</td>
 						</tr>

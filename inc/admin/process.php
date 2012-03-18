@@ -82,16 +82,14 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_1() {
 		
-			global $wpdb, $bwps_backup;;
+			global $wpdb, $bwps_backup, $bwpsoptions;
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
-			
-			$options['backup_last'] = time();
-			$options['initial_backup'] = 1;
+			$bwpsoptions['backup_last'] = time();
+			$bwpsoptions['initial_backup'] = 1;
 				
-			update_option( $this->primarysettings, $options );
+			update_option( $this->primarysettings, $bwpsoptions );
 			
 			//execute backup
 			$bwps_backup->execute_backup();
@@ -106,13 +104,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_2() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Database Backup Ignored.', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
+			$bwpsoptions['initial_backup'] = 1;
 			
-			$options['initial_backup'] = 1;
-			
-			update_option( $this->primarysettings, $options );
+			update_option( $this->primarysettings, $bwpsoptions );
 			
 			$this->showmessages( $errorHandler );		
 			
@@ -123,26 +121,26 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 *
 		 **/
 		function dashboard_process_3() {
+			
+			global $bwpsoptions;
 		
 			$errorHandler = __( 'Site Secured.', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
+			$bwpsoptions['backup_enabled'] = 1;
+			$bwpsoptions['ll_enabled'] = 1;
+			$bwpsoptions['id_enabled'] = 1;
+			$bwpsoptions['st_ht_files'] = 1;
+			$bwpsoptions['st_ht_browsing'] = 1;
+			$bwpsoptions['st_ht_request'] = 1;
+			$bwpsoptions['st_generator'] = 1;
+			$bwpsoptions['st_manifest'] = 1;
+			$bwpsoptions['st_themenot'] = 1;
+			$bwpsoptions['st_pluginnot'] = 1;
+			$bwpsoptions['st_corenot'] = 1;
+			$bwpsoptions['st_enablepassword'] = 1;
+			$bwpsoptions['st_loginerror'] = 1;
 			
-			$options['backup_enabled'] = 1;
-			$options['ll_enabled'] = 1;
-			$options['id_enabled'] = 1;
-			$options['st_ht_files'] = 1;
-			$options['st_ht_browsing'] = 1;
-			$options['st_ht_request'] = 1;
-			$options['st_generator'] = 1;
-			$options['st_manifest'] = 1;
-			$options['st_themenot'] = 1;
-			$options['st_pluginnot'] = 1;
-			$options['st_corenot'] = 1;
-			$options['st_enablepassword'] = 1;
-			$options['st_loginerror'] = 1;
-			
-			update_option( $this->primarysettings, $options );
+			update_option( $this->primarysettings, $bwpsoptions );
 			
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 			
@@ -224,19 +222,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function awaymode_process_1() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
-			
 			//validate options
-			$options['am_enabled'] = ( isset( $_POST['am_enabled'] ) && $_POST['am_enabled'] == 1  ? 1 : 0 );
-			$options['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
+			$bwpsoptions['am_enabled'] = ( isset( $_POST['am_enabled'] ) && $_POST['am_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
 						
 			//form times
 			$startDate = strtotime( $_POST['am_startmonth'] . "/" . $_POST['am_startday'] . "/" . $_POST['am_startyear'] . ' 12:01 am' );
 			$endDate = strtotime( $_POST['am_endmonth'] . "/" . $_POST['am_endday'] . "/" . $_POST['am_endyear'] . ' 12:01 am' );
 			
-			if ( $options['am_type'] == 0 && $endDate <= $startDate ) { //can't have an ending date before a starting date
+			if ( $bwpsoptions['am_type'] == 0 && $endDate <= $startDate ) { //can't have an ending date before a starting date
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -248,7 +246,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$startTime = strtotime( '1/1/1970 ' . $_POST['am_starthour'] . ':' . $_POST['am_startmin'] . ' ' . $_POST['am_starthalf'] );
 			$endTime = strtotime( '1/1/1970 ' . $_POST['am_endhour'] . ':' . $_POST['am_endmin'] . ' ' . $_POST['am_endhalf'] );
 			
-			if ( $options['am_type'] == 1 && $startTime == $endTime ) { //can't have an ending date before a starting date
+			if ( $bwpsoptions['am_type'] == 1 && $startTime == $endTime ) { //can't have an ending date before a starting date
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -257,13 +255,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$errorHandler->add( '2', __( 'Your current settings would lock you out 24 hours a day. Please make sure start and end times differ.', $this->hook ) );
 			}
 			
-			$options['am_startdate'] = $startDate;
-			$options['am_enddate'] = $endDate;
-			$options['am_starttime'] = $startTime;
-			$options['am_endtime'] = $endTime;
+			$bwpsoptions['am_startdate'] = $startDate;
+			$bwpsoptions['am_enddate'] = $endDate;
+			$bwpsoptions['am_starttime'] = $startTime;
+			$bwpsoptions['am_endtime'] = $endTime;
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
 			$this-> showmessages( $errorHandler );
@@ -276,13 +274,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function banusers_process_1() {
 		
-			global $bwps; 
+			global $bwps, $bwpsoptions; 
 			
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
-			
-			$options['bu_enabled'] = ( isset( $_POST['bu_enabled'] ) && $_POST['bu_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['bu_enabled'] = ( isset( $_POST['bu_enabled'] ) && $_POST['bu_enabled'] == 1  ? 1 : 0 );
 			
 			//validate list
 			$banhosts = explode( "\n", $_POST['bu_banlist'] );
@@ -388,9 +384,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$options['bu_banlist'] = implode( "\n", $list );
+			$bwpsoptions['bu_banlist'] = implode( "\n", $list );
 			
-			if ( $bwps->checklist( $options['bu_banlist'] ) ) {
+			if ( $bwps->checklist( $bwpsoptions['bu_banlist'] ) ) {
 			
 				if ( ! is_wp_error( $errorHandler) ) {
 					$errorHandler = new WP_Error();
@@ -429,11 +425,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			}
 			
-			$options['bu_banagent'] = implode( "\n", $agents );
+			$bwpsoptions['bu_banagent'] = implode( "\n", $agents );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 				
 				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 				
@@ -456,7 +452,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function contentdirectory_process_1() {
 		
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			$oldDir = WP_CONTENT_DIR;
@@ -519,7 +515,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				fclose( $handle ); //close the config file
 				
-				if ( $options['st_fileperm'] == 1 ) {
+				if ( $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
 				}		
 						
@@ -535,15 +531,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function databasebackup_process_1() {
 		
-			global $bwps_backup;
-			
-			$options = get_option( $this->primarysettings );
+			global $bwps_backup, $bwpsoptions;
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			$options['backup_last'] = time();
+			$bwpsoptions['backup_last'] = time();
 				
-			update_option( $this->primarysettings, $options );
+			update_option( $this->primarysettings, $bwpsoptions );
 			
 			$bwps_backup->execute_backup();
 			
@@ -557,55 +551,53 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function databasebackup_process_2() {
 		
-			global $bwps_backup;
+			global $bwps_backup, $bwpsoptions;
 			
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings ); //load the options
-			
 			//validate options
-			$options['backup_enabled'] = ( isset( $_POST['backup_enabled'] ) && $_POST['backup_enabled'] == 1  ? 1 : 0 );
-			$options['backup_email'] = ( isset( $_POST['backup_email'] ) && $_POST['backup_email'] == 1  ? 1 : 0 );
-			$options['backups_to_retain'] = absint( $_POST['backups_to_retain'] );
-			$options['backup_time'] = ( isset( $_POST['backup_time'] ) && absint( $_POST['backup_time'] ) > 0 ? absint( $_POST['backup_time'] ) : 1 );
-			$options['backup_interval'] = $_POST['backup_interval'];
+			$bwpsoptions['backup_enabled'] = ( isset( $_POST['backup_enabled'] ) && $_POST['backup_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['backup_email'] = ( isset( $_POST['backup_email'] ) && $_POST['backup_email'] == 1  ? 1 : 0 );
+			$bwpsoptions['backups_to_retain'] = absint( $_POST['backups_to_retain'] );
+			$bwpsoptions['backup_time'] = ( isset( $_POST['backup_time'] ) && absint( $_POST['backup_time'] ) > 0 ? absint( $_POST['backup_time'] ) : 1 );
+			$bwpsoptions['backup_interval'] = $_POST['backup_interval'];
 			
-			if ( $options['backup_enabled'] == 1 ) {
+			if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			
-				$nextbackup = $options['backup_next']; //get next schedule
+				$nextbackup = $bwpsoptions['backup_next']; //get next schedule
 				
-				switch ( $options['backup_interval'] ) { //schedule backup at appropriate time
+				switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
 					case '0':
-						$next = 60 * 60 * $options['backup_time'];
+						$next = 60 * 60 * $bwpsoptions['backup_time'];
 						break;
 					case '1':
-						$next = 60 * 60 * 24 * $options['backup_time'];
+						$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
 						break;
 					case '2':
-						$next = 60 * 60 * 24 * 7  * $options['backup_time'];
+						$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
 						break;
 				}
 					
-				if ( $options['backup_last'] == '' ) { //don't run a new backup until we need it to reduce load
+				if ( $bwpsoptions['backup_last'] == '' ) { //don't run a new backup until we need it to reduce load
 				
-					$options['backup_next'] = ( time() + $next );
+					$bwpsoptions['backup_next'] = ( time() + $next );
 				
 				} else {
 				
-					$options['backup_next'] = ( $options['backup_last'] + $next );
+					$bwpsoptions['backup_next'] = ( $bwpsoptions['backup_last'] + $next );
 				
 				}
 				
 			} else { //backups aren't scheduled so clear time
 				
-				$options['backup_next'] = '';
-				$options['backup_last'] = '';
+				$bwpsoptions['backup_next'] = '';
+				$bwpsoptions['backup_last'] = '';
 				
 			}
 						
-			update_option( $this->primarysettings, $options );
+			update_option( $this->primarysettings, $bwpsoptions );
 			
-			if ( $options['backup_email'] == 1 ) { //if backups are done by email remove any files saved to the disk
+			if ( $bwpsoptions['backup_email'] == 1 ) { //if backups are done by email remove any files saved to the disk
 			
 				$files = scandir( BWPS_PP . '/backups/', 1 );
 				
@@ -626,7 +618,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 *
 		 **/
 		function databaseprefix_process_1() {
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 			$errorHandler = __( 'Database Prefix Changed', $this->hook );	
 	
 			$checkPrefix = true;//Assume the first prefix we generate is unique
@@ -764,7 +756,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				fclose( $handle ); //close the config file
 						
-				if ( $options['st_fileperm'] == 1 ) {
+				if ( $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $wpconfig, 0444 ); //make sure the config file is no longer writable
 				}
 						
@@ -785,9 +777,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function hidebackend_process_1() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Settings Saved', $this->hook );
-			
-			$options = get_option( $this->primarysettings ); //load the options
 			
 			//if they don't have permalinks enabled set an error
 			if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) {
@@ -801,19 +793,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//calidate options
-			$options['hb_enabled'] = ( isset( $_POST['hb_enabled'] ) && $_POST['hb_enabled'] == 1  ? 1 : 0 );
-			$options['hb_login'] = sanitize_title( esc_html__( $_POST['hb_login'] ) );
-			$options['hb_admin'] = sanitize_title( esc_html__( $_POST['hb_admin'] ) );
-			$options['hb_register'] = sanitize_title( esc_html__( $_POST['hb_register'] ) );
+			$bwpsoptions['hb_enabled'] = ( isset( $_POST['hb_enabled'] ) && $_POST['hb_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['hb_login'] = sanitize_title( esc_html__( $_POST['hb_login'] ) );
+			$bwpsoptions['hb_admin'] = sanitize_title( esc_html__( $_POST['hb_admin'] ) );
+			$bwpsoptions['hb_register'] = sanitize_title( esc_html__( $_POST['hb_register'] ) );
 			
 			//generate a secret key (if there isn't one already)
-			if ( $options['hb_key'] == '' ) {
-				$options['hb_key'] = $this->hidebe_genKey();
+			if ( $bwpsoptions['hb_key'] == '' ) {
+				$bwpsoptions['hb_key'] = $this->hidebe_genKey();
 			}
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 				
 				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
 				
@@ -837,19 +829,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function intrusiondetection_process_1() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings );
-			
 			//validate the input
-			$options['id_enabled'] = ( isset( $_POST['id_enabled'] ) && $_POST['id_enabled'] == 1  ? 1 : 0 );
-			$options['id_emailnotify'] = ( isset( $_POST['id_emailnotify'] ) && $_POST['id_emailnotify'] == 1  ? 1 : 0 );
-			$options['id_checkinterval'] = absint( $_POST['id_checkinterval'] );
-			$options['id_banperiod'] = absint( $_POST['id_banperiod'] );
-			$options['id_threshold'] = absint( $_POST['id_threshold'] );
+			$bwpsoptions['id_enabled'] = ( isset( $_POST['id_enabled'] ) && $_POST['id_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_emailnotify'] = ( isset( $_POST['id_emailnotify'] ) && $_POST['id_emailnotify'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_checkinterval'] = absint( $_POST['id_checkinterval'] );
+			$bwpsoptions['id_banperiod'] = absint( $_POST['id_banperiod'] );
+			$bwpsoptions['id_threshold'] = absint( $_POST['id_threshold'] );
 			
 			//if they set an invalid ban period set an error
-			if ( $options['id_banperiod'] == 0 ) {
+			if ( $bwpsoptions['id_banperiod'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -860,7 +852,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//if they set an invalid check interval set an error
-			if ( $options['id_checkinterval'] == 0 ) {
+			if ( $bwpsoptions['id_checkinterval'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -871,7 +863,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//if they set an invalid 404 threshold set an error
-			if ( $options['id_threshold'] == 0 ) {
+			if ( $bwpsoptions['id_threshold'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -987,10 +979,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 			
-			$options['id_whitelist'] = implode( "\n", $list );
+			$bwpsoptions['id_whitelist'] = implode( "\n", $list );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
 			$this-> showmessages( $errorHandler );
@@ -1003,20 +995,20 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function loginlimits_process_1() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings ); //load the options
-			
 			//valitdate input
-			$options['ll_enabled'] = ( isset( $_POST['ll_enabled'] ) && $_POST['ll_enabled'] == 1  ? 1 : 0 );
-			$options['ll_emailnotify'] = ( isset( $_POST['ll_emailnotify'] ) && $_POST['ll_emailnotify'] == 1  ? 1 : 0 );
-			$options['ll_maxattemptshost'] = absint( $_POST['ll_maxattemptshost'] );
-			$options['ll_maxattemptsuser'] = absint( $_POST['ll_maxattemptsuser'] );
-			$options['ll_checkinterval'] = absint( $_POST['ll_checkinterval'] );
-			$options['ll_banperiod'] = absint( $_POST['ll_banperiod'] );
+			$bwpsoptions['ll_enabled'] = ( isset( $_POST['ll_enabled'] ) && $_POST['ll_enabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['ll_emailnotify'] = ( isset( $_POST['ll_emailnotify'] ) && $_POST['ll_emailnotify'] == 1  ? 1 : 0 );
+			$bwpsoptions['ll_maxattemptshost'] = absint( $_POST['ll_maxattemptshost'] );
+			$bwpsoptions['ll_maxattemptsuser'] = absint( $_POST['ll_maxattemptsuser'] );
+			$bwpsoptions['ll_checkinterval'] = absint( $_POST['ll_checkinterval'] );
+			$bwpsoptions['ll_banperiod'] = absint( $_POST['ll_banperiod'] );
 			
 			//if they entered an invalid ban period set an error
-			if ( $options['ll_banperiod'] == 0 ) {
+			if ( $bwpsoptions['ll_banperiod'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -1027,7 +1019,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//if the intered an invalid check interval set an error
-			if ( $options['ll_checkinterval'] == 0 ) {
+			if ( $bwpsoptions['ll_checkinterval'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -1038,7 +1030,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//if they entered invalid max attempts per host set and error
-			if ( $options['ll_maxattemptshost'] == 0 ) {
+			if ( $bwpsoptions['ll_maxattemptshost'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -1049,7 +1041,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//if they entered invalid max attempts per user set an error
-			if ( $options['ll_maxattemptsuser'] == 0 ) {
+			if ( $bwpsoptions['ll_maxattemptsuser'] == 0 ) {
 			
 				if ( ! is_wp_error( $errorHandler ) ) {
 					$errorHandler = new WP_Error();
@@ -1061,7 +1053,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			//if there are no errors save the options to the database
 			if ( ! is_wp_error( $errorHandler ) ) {
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
 			$this-> showmessages( $errorHandler );
@@ -1074,18 +1066,16 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function log_process_1() {
 		
-			global $wpdb;
+			global $wpdb, $bwpsoptions;
 			
 			$errorHandler = __( 'The selected records have been cleared.', $this->hook );
 			
-			$options = get_option( $this->primarysettings ); //load the options
-			
 			if ( isset( $_POST['badlogins'] ) && $_POST['badlogins'] == 1 ) { //delete old bad logins
-				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
 			}
 			
 			if ( isset( $_POST['404s'] ) && $_POST['404s'] == 1 ) { //delete old 404s
-				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $options['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
 			}
 			
 			if ( isset( $_POST['lockouts'] ) && $_POST['lockouts'] == 1 ) { //delete old or inactive lockouts
@@ -1132,43 +1122,43 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function systemtweaks_process_1() {
 		
+			global $bwpsoptions;
+		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
-			$options = get_option( $this->primarysettings ); //load the options
-			
 			//validate options
-			$options['st_ht_files'] = ( isset( $_POST['st_ht_files'] ) && $_POST['st_ht_files'] == 1  ? 1 : 0 );
-			$options['st_ht_request'] = ( isset( $_POST['st_ht_request'] ) && $_POST['st_ht_request'] == 1  ? 1 : 0 );
-			$options['st_ht_query'] = ( isset( $_POST['st_ht_query'] ) && $_POST['st_ht_query'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_ht_files'] = ( isset( $_POST['st_ht_files'] ) && $_POST['st_ht_files'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_ht_request'] = ( isset( $_POST['st_ht_request'] ) && $_POST['st_ht_request'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_ht_query'] = ( isset( $_POST['st_ht_query'] ) && $_POST['st_ht_query'] == 1  ? 1 : 0 );
 						
 			//always set directory browsing to 1 on nginx to prevent nag
 			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
-				$options['st_ht_browsing'] = ( isset( $_POST['st_ht_browsing'] ) && $_POST['st_ht_browsing'] == 1  ? 1 : 0 );
+				$bwpsoptions['st_ht_browsing'] = ( isset( $_POST['st_ht_browsing'] ) && $_POST['st_ht_browsing'] == 1  ? 1 : 0 );
 			} else {
-				$options['st_ht_browsing'] = 1;
+				$bwpsoptions['st_ht_browsing'] = 1;
 			}	
 			
-			$options['st_generator'] = ( isset( $_POST['st_generator'] ) && $_POST['st_generator'] == 1  ? 1 : 0 );
-			$options['st_manifest'] = ( isset( $_POST['st_manifest'] ) && $_POST['st_manifest'] == 1  ? 1 : 0 );
-			$options['st_edituri'] = ( isset( $_POST['st_edituri'] ) && $_POST['st_edituri'] == 1  ? 1 : 0 );
-			$options['st_themenot'] = ( isset( $_POST['st_themenot'] ) && $_POST['st_themenot'] == 1  ? 1 : 0 );
-			$options['st_pluginnot'] = ( isset( $_POST['st_pluginnot'] ) && $_POST['st_pluginnot'] == 1  ? 1 : 0 );
-			$options['st_corenot'] = ( isset( $_POST['st_corenot'] ) && $_POST['st_corenot'] == 1  ? 1 : 0 );
-			$options['st_enablepassword'] = ( isset( $_POST['st_enablepassword'] ) && $_POST['st_enablepassword'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_generator'] = ( isset( $_POST['st_generator'] ) && $_POST['st_generator'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_manifest'] = ( isset( $_POST['st_manifest'] ) && $_POST['st_manifest'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_edituri'] = ( isset( $_POST['st_edituri'] ) && $_POST['st_edituri'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_themenot'] = ( isset( $_POST['st_themenot'] ) && $_POST['st_themenot'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_pluginnot'] = ( isset( $_POST['st_pluginnot'] ) && $_POST['st_pluginnot'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_corenot'] = ( isset( $_POST['st_corenot'] ) && $_POST['st_corenot'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_enablepassword'] = ( isset( $_POST['st_enablepassword'] ) && $_POST['st_enablepassword'] == 1  ? 1 : 0 );
 			if ( ctype_alpha( wp_strip_all_tags( $_POST['st_passrole'] ) ) ) {
-				$options['st_passrole'] = wp_strip_all_tags( $_POST['st_passrole'] );
+				$bwpsoptions['st_passrole'] = wp_strip_all_tags( $_POST['st_passrole'] );
 			}
-			$options['st_loginerror'] = ( isset( $_POST['st_loginerror'] ) && $_POST['st_loginerror'] == 1  ? 1 : 0 );
-			$options['st_fileperm'] = ( isset( $_POST['st_fileperm'] ) && $_POST['st_fileperm'] == 1  ? 1 : 0 );
-			$options['st_randomversion'] = ( isset( $_POST['st_randomversion'] ) && $_POST['st_randomversion'] == 1  ? 1 : 0 );
-			$options['st_longurl'] = ( isset( $_POST['st_longurl'] ) && $_POST['st_longurl'] == 1  ? 1 : 0 );
-			$options['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );
-			$options['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
-			$options['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_loginerror'] = ( isset( $_POST['st_loginerror'] ) && $_POST['st_loginerror'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_fileperm'] = ( isset( $_POST['st_fileperm'] ) && $_POST['st_fileperm'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_randomversion'] = ( isset( $_POST['st_randomversion'] ) && $_POST['st_randomversion'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_longurl'] = ( isset( $_POST['st_longurl'] ) && $_POST['st_longurl'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
 						
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
-				update_option( $this->primarysettings, $options );
+				update_option( $this->primarysettings, $bwpsoptions );
 				$this->writewpconfig(); //save to wp-config.php
 				
 				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess

@@ -94,7 +94,23 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 		function __construct() {
 		
-			global $bwps;
+			global $bwps, $bwpsoptions, $bwpsdata;
+			
+			//Get the options
+			if ( is_multisite() ) {
+			
+				switch_to_blog( 1 );
+			
+				$bwpsoptions = get_option( $this->primarysettings );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				$bwpsoptions = get_option( $this->primarysettings );
+				
+			}
+			$bwpsdata = get_option( $this->plugindata );
 		
 			//set path information
 			define( 'BWPS_PP', plugin_dir_path( __FILE__ ) );
@@ -118,10 +134,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			require_once(plugin_dir_path( __FILE__ ) . 'inc/secure.php' );
 			$bwps = new bwps_secure();
 			
-			//make sure update script runs
-			$options = get_option( $this->plugindata );
-			
-			if ( $options['version'] != $this->pluginversion  || get_option( 'BWPS_options' ) != false ) {
+			if ( $bwpsdata['version'] != $this->pluginversion  || get_option( 'BWPS_options' ) != false ) {
 				new bwps_setup( 'activate' );
 			}
 			
