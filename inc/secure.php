@@ -80,6 +80,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			add_action( 'init', array( &$this, 'backup' ) );
+			
+			add_action( 'init', array( &$this, 'filecheck' ) );
 		
 		}
 		
@@ -303,6 +305,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				wp_clear_scheduled_hook( 'wp_version_check' );
 				
 			}
+			
+		}
+		
+		/**
+		 * Creates backup object for processing
+		 *
+		 **/
+		function filecheck() {
+			
+			global $bwps_filecheck;
+		
+			//execute backups
+			require_once( plugin_dir_path( __FILE__ ) . 'filecheck.php' );
+			$bwps_filecheck = new bwps_filecheck();
 			
 		}
 		

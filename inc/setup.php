@@ -383,6 +383,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 			}
 			
+			delete_option( 'bwps_file_log' );
+			
 			global $wpdb;
 			
 			//drop database tables
@@ -390,7 +392,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_log`;" );
 			
 			//delete plugin information (version, etc)
-			delete_option($this->plugindata);
+			delete_option( $this->plugindata );
 			
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.

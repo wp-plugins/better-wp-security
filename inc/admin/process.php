@@ -67,6 +67,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'intrusiondetection_1':
 					$this->intrusiondetection_process_1();
 					break;
+				case 'intrusiondetection_2':
+					$this->intrusiondetection_process_2();
+					break;
 				case 'loginlimits_1':
 					$this->loginlimits_process_1();
 					break;
@@ -885,10 +888,30 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		}
 		
 		/**
-		 * Process options for intrusion detection form
+		 * Process manual file scan
 		 *
 		 **/
 		function intrusiondetection_process_1() {
+		
+			global $bwpsoptions, $bwps_filecheck;
+			
+			$errorHandler = __( 'File Check Complete.', $this->hook );
+				
+			$bwpsoptions['id_filechecktime'] = time();
+					
+			update_option( $this->primarysettings, $bwpsoptions );
+				
+			$bwps_filecheck->execute_filecheck();
+				
+			$this->showmessages( $errorHandler );	
+		
+		}
+		
+		/**
+		 * Process options for intrusion detection form
+		 *
+		 **/
+		function intrusiondetection_process_2() {
 		
 			global $bwpsoptions;
 		
@@ -900,6 +923,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['id_checkinterval'] = absint( $_POST['id_checkinterval'] );
 			$bwpsoptions['id_banperiod'] = absint( $_POST['id_banperiod'] );
 			$bwpsoptions['id_threshold'] = absint( $_POST['id_threshold'] );
+			$bwpsoptions['id_fileenabled'] = ( isset( $_POST['id_fileenabled'] ) && $_POST['id_fileenabled'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_fileemailnotify'] = ( isset( $_POST['id_fileemailnotify'] ) && $_POST['id_fileemailnotify'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_fileincex'] = ( isset( $_POST['id_fileincex'] ) && $_POST['id_fileincex'] == 1  ? 1 : 0 );
+			$fileWhiteItems = explode( "\n", $_POST['id_specialfile'] );
+			$fileList = array();
+			
+			foreach ( $fileWhiteItems as $item ) {
+				
+				$fileList[] = esc_html__( trim( $item ) );
+			
+			}
+			
+			$bwpsoptions['id_specialfile'] = implode( "\n", $fileList );
 			
 			//if they set an invalid ban period set an error
 			if ( $bwpsoptions['id_banperiod'] == 0 ) {

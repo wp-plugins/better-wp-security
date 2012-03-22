@@ -332,13 +332,32 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_intrusiondetection() {
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
-				array(
-					array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_2' ) //intrusiondetection options
-				),
-				BWPS_PU . 'images/shield-large.png'
-			);
+		
+			global $bwpsoptions;
+		
+			if ( $bwpsoptions['id_fileenabled'] == 1 ) {
+			
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
+					array(
+						array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
+						array( __( 'Check For File Changes', $this->hook ), 'intrusiondetection_content_2' ), //Manually check for file changes						
+						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
+					),
+					BWPS_PU . 'images/shield-large.png'
+				);
+				
+			} else {
+			
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
+					array(
+						array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
+						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
+					),
+					BWPS_PU . 'images/shield-large.png'
+				);
+			
+			}
+			
 		}
 		
 		/**
@@ -1470,9 +1489,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<input id="backup_time" name="backup_time" type="text" value="<?php echo $bwpsoptions['backup_time']; ?>" />
 							<select id="backup_interval" name="backup_interval">
-								<option value="0" <?php selected( $bwpsoptions['backup_interval'], '0' ); ?>>Hours</option>
-								<option value="1" <?php selected( $bwpsoptions['backup_interval'], '1' ); ?>>Days</option>
-								<option value="2" <?php selected( $bwpsoptions['backup_interval'], '2' ); ?>>Weeks</option>
+								<option value="0" <?php selected( $bwpsoptions['backup_interval'], '0' ); ?>><?php _e( 'Hours', $this->hook ); ?></option>
+								<option value="1" <?php selected( $bwpsoptions['backup_interval'], '1' ); ?>><?php _e( 'Days', $this->hook ); ?></option>
+								<option value="2" <?php selected( $bwpsoptions['backup_interval'], '2' ); ?>><?php _e( 'Weeks', $this->hook ); ?></option>
 							</select>
 							<p><?php _e( 'Select the frequency of automated backups.', $this->hook ); ?></p>
 						</td>
@@ -1653,33 +1672,54 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function intrusiondetection_content_1() {
 			?>
-			<p><?php _e( 'Currently intrusion detection looks only at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', $this->hook ); ?></p>
+			<p><?php _e( '404 detection looks at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', $this->hook ); ?></p>
+			<p><?php _e( 'File change detection looks at the files in your WordPress installation and reports changes to those files. This can help you determine if an attacker has compromised your system by changing files within WordPress. Note that it will only automatically check once per day to reduce server load and other insanity.', $this->hook ); ?></p>
 			<?php
 		}
+		
+		/**
+		 * Spot backup form for database backup page
+		 *
+		 **/
+		function intrusiondetection_content_2() {
+			?>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="intrusiondetection_1" />
+				<p><?php _e( 'Press the button below to manually check for changed files and folders on your site.', $this->hook ); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Check for file/folder changes', $this->hook ); ?>" /></p>			
+			</form>
+			<?php
+		}	
 		
 		/**
 		 * Options form for intrusion detection page
 		 *
 		 **/
-		function intrusiondetection_content_2() {
+		function intrusiondetection_content_3() {
 			global $bwpsoptions;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
-			<input type="hidden" name="bwps_page" value="intrusiondetection_1" />
+			<input type="hidden" name="bwps_page" value="intrusiondetection_2" />
 				<table class="form-table">
-					<tr valign="top">
-						<th scope="row">
-							<label for "id_enabled"><?php _e( 'Enable Instrusion Detection', $this->hook ); ?></label>
-						</th>
-						<td>
-							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_enabled'] ); ?> />
-							<p><?php _e( 'Check this box to enable instrustion detection.', $this->hook ); ?></p>
+					<tr>
+						<td scope="row" colspan="2">
+							<a name="id_enabled"></a><h4><?php _e( '404 Detection', $this->hook ); ?></h4>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "id_emailnotify"><?php _e( 'Email Notifications', $this->hook ); ?></label>
+							<label for "id_enabled"><?php _e( 'Enable 404 Detection', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_enabled'] ); ?> />
+							<p><?php _e( 'Check this box to enable 404 intrusion detection.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_emailnotify"><?php _e( 'Email 404 Notifications', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_emailnotify'] ); ?> />
@@ -1715,7 +1755,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "id_whitelist"><?php _e( 'White List', $this->hook ); ?></label>
+							<label for "id_whitelist"><?php _e( '404 White List', $this->hook ); ?></label>
 						</th>
 						<td>
 							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? $_POST['id_whitelist'] : $bwpsoptions['id_whitelist']; ?></textarea>
@@ -1730,11 +1770,57 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</em></ul>
 						</td>
 					</tr>
+					<tr>
+						<td scope="row" colspan="2">
+							<a name="id_fileenabled"></a><h4><?php _e( 'File Change Detection', $this->hook ); ?></h4>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_fileenabled"><?php _e( 'Enable File Change Detection', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_fileenabled" name="id_fileenabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileenabled'] ); ?> />
+							<p><?php _e( 'Check this box to enable file chang detection.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_fileemailnotify"><?php _e( 'Email File Change Notifications', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_fileemailnotify" name="id_fileemailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileemailnotify'] ); ?> />
+							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a file change is detected.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_fileincex"><?php _e( 'Include/Exclude List', $this->hook ); ?></label>
+						</th>
+						<td>
+							<select id="id_fileincex" name="id_fileincex">
+								<option value="0" <?php selected( $bwpsoptions['id_fileincex'], '0' ); ?>><?php _e( 'Include', $this->hook ); ?></option>
+								<option value="1" <?php selected( $bwpsoptions['id_fileincex'], '1' ); ?>><?php _e( 'Exclude', $this->hook ); ?></option>
+							</select>
+							<p><?php _e( 'If "Include" is selected only the contents of the list below will be checked. If exclude is selected all files and folders except those listed below will be checked.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_specialfile"><?php _e( 'File/Directory Check List', $this->hook ); ?></label>
+						</th>
+						<td>
+							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? $_POST['id_specialfile'] : $bwpsoptions['id_specialfile']; ?></textarea>
+							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. Wildcards (*) are allowed.', $this->hook ); ?></p>
+						</td>
+					</tr>
 				</table>
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Options', $this->hook ); ?>" /></p>
 			</form>
 			<?php
 		}
+		
 		
 		/**
 		 * Intro block for login limits page
