@@ -46,11 +46,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				$state = true;
 						
-				@chmod( $htaccess, 0644 );
-						
 				if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
 							
-					return -1; //we can't write to the file
+					@chmod( $htaccess, 0644 );
+					
+					if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+								
+						return -1;
+								
+					}
 							
 				}
 						
@@ -108,12 +112,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 				$state = true;
 								
-				@chmod( $configfile, 0644 );
+				if ( ! $f = @fopen( $configfile, 'w+' ) ) {
 							
-				if ( ! $f = @fopen( $configfile, 'w+b' ) ) {
+					@chmod( $configfile, 0644 );
+					
+					if ( ! $f = @fopen( $configfile, 'w+' ) ) {
 								
-					return -1; //we can't write to the file
+						return -1;
 								
+					}
+							
 				}
 							
 				foreach ( $lines as $line ) { //for each line in the file
@@ -648,6 +656,54 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		}
 		
 		/**
+		 * Generates wp-confing rules
+		 *
+		 * Generates wp-confing rules
+		 *
+		 * @return string wp-confing rules
+		 *
+		 **/
+		function getwpcontent() {
+		
+			global $bwpsoptions;
+			
+			@ini_set( 'auto_detect_line_endings', true );
+			
+			if ( $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['st_forceloginssl'] == 1 || $bwpsoptions['st_forceadminssl'] == 1 ) {
+			
+			$rules = "//BEGIN Better WP Security" . PHP_EOL;
+			
+			if ( $bwpsoptions['st_fileedit'] == 1 ) {
+			
+				$rules .= "define('DISALLOW_FILE_EDIT', true);" . PHP_EOL;
+			
+			}
+			
+			if ( $bwpsoptions['st_forceloginssl'] == 1 ) {
+			
+				$rules .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
+			
+			}
+			
+			if ( $bwpsoptions['st_forceadminssl'] == 1 ) {
+			
+				$rules .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL;
+			
+			}
+			
+			$rules .= "//END Better WP Security" . PHP_EOL;
+			
+			} else {
+			
+				$rules = '';
+				
+			}
+			
+			return $rules;
+		
+		}
+		
+		/**
 		 * Generates secret key
 		 *
 		 * Generates secret key for hide backend function
@@ -757,7 +813,17 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}		
 						
-			@chmod( $htaccess, 0644 );
+			if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+						
+				@chmod( $htaccess, 0644 );
+				
+				if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+							
+					return -1;
+							
+				}
+						
+			}
 			
 			@ini_set( 'auto_detect_line_endings', true );
 			
@@ -832,8 +898,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$configfile = $this->getconfig();
 			
-			@chmod( $configfile, 0644 );
-			
 			@ini_set( 'auto_detect_line_endings', true );
 			
 			$config = explode( PHP_EOL, implode( '', file( $configfile ) ) );
@@ -857,9 +921,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			if ( ! $f = @fopen( $configfile, 'w+' ) ) {
+						
+				@chmod( $configfile, 0644 );
 				
-				return -1; //we can't write to the file
-				
+				if ( ! $f = @fopen( $configfile, 'w+' ) ) {
+							
+					return -1;
+							
+				}
+						
 			}
 			
 			$blank = false;

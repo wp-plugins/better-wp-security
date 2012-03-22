@@ -23,6 +23,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function register_settings_page() {
 		
+			global $bwpsoptions;
+		
 			add_menu_page(
 				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Dashboard', $this->hook ),
 				__( 'Security', $this->hook ),
@@ -32,110 +34,122 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				BWPS_PU . 'images/shield-small.png'
 			);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Admin User', $this->hook ),
-				__( 'Admin User', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-adminuser',
-				array( &$this, 'admin_adminuser' )
-			);
+			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Away Mode', $this->hook ),
-				__( 'Away Mode', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-awaymode',
-				array( &$this, 'admin_awaymode' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Admin User', $this->hook ),
+					__( 'Admin User', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-adminuser',
+					array( &$this, 'admin_adminuser' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Ban Users', $this->hook ),
-				__( 'Ban Users', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-banusers',
-				array( &$this, 'admin_banusers' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Away Mode', $this->hook ),
+					__( 'Away Mode', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-awaymode',
+					array( &$this, 'admin_awaymode' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Content Directory', $this->hook ),
-				__( 'Content Directory', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-contentdirectory',
-				array( &$this, 'admin_contentdirectory' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Ban Users', $this->hook ),
+					__( 'Ban Users', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-banusers',
+					array( &$this, 'admin_banusers' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Backup WordPress Database', $this->hook ),
-				__( 'Database Backup', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-databasebackup',
-				array( &$this, 'admin_databasebackup' )
-			);
+				if ( $bwpsoptions['st_writefiles'] == 1 ) { 
+				
+					add_submenu_page(
+						$this->hook, 
+						__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Content Directory', $this->hook ),
+						__( 'Content Directory', $this->hook ),
+						$this->accesslvl,
+						$this->hook . '-contentdirectory',
+						array( &$this, 'admin_contentdirectory' )
+					);
+					
+				}
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Database Prefix', $this->hook ),
-				__( 'Database Prefix', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-databaseprefix',
-				array( &$this, 'admin_databaseprefix' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Backup WordPress Database', $this->hook ),
+					__( 'Database Backup', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-databasebackup',
+					array( &$this, 'admin_databasebackup' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Hide Backend', $this->hook ),
-				__( 'Hide Backend', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-hidebackend',
-				array( &$this, 'admin_hidebackend' )
-			);
+				if ( $bwpsoptions['st_writefiles'] == 1 ) { 
+				
+					add_submenu_page(
+						$this->hook, 
+						__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Database Prefix', $this->hook ),
+						__( 'Database Prefix', $this->hook ),
+						$this->accesslvl,
+						$this->hook . '-databaseprefix',
+						array( &$this, 'admin_databaseprefix' )
+					);
+					
+				}
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Intrusion Detection', $this->hook ),
-				__( 'Intrusion Detection', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-intrusiondetection',
-				array( &$this, 'admin_intrusiondetection' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Hide Backend', $this->hook ),
+					__( 'Hide Backend', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-hidebackend',
+					array( &$this, 'admin_hidebackend' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Limit Login Attempts', $this->hook ),
-				__( 'Login Limits', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-loginlimits',
-				array( &$this, 'admin_loginlimits' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Intrusion Detection', $this->hook ),
+					__( 'Intrusion Detection', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-intrusiondetection',
+					array( &$this, 'admin_intrusiondetection' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'WordPress System Tweaks', $this->hook ),
-				__( 'System Tweaks', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-systemtweaks',
-				array( &$this, 'admin_systemtweaks' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Limit Login Attempts', $this->hook ),
+					__( 'Login Limits', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-loginlimits',
+					array( &$this, 'admin_loginlimits' )
+				);
 			
-			add_submenu_page(
-				$this->hook, 
-				__( $this->pluginname, $this->hook ) . ' - ' . __( 'View Logs', $this->hook ),
-				__( 'View Logs', $this->hook ),
-				$this->accesslvl,
-				$this->hook . '-logs',
-				array( &$this, 'admin_logs' )
-			);
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'WordPress System Tweaks', $this->hook ),
+					__( 'System Tweaks', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-systemtweaks',
+					array( &$this, 'admin_systemtweaks' )
+				);
 			
-			//Make the dashboard the first submenu item and the item to appear when clicking the parent.
-			global $submenu;
-			if ( isset( $submenu[$this->hook] ) ) {
+				add_submenu_page(
+					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'View Logs', $this->hook ),
+					__( 'View Logs', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-logs',
+					array( &$this, 'admin_logs' )
+				);
 			
-				$submenu[$this->hook][0][0] = __( 'Dashboard', $this->hook );
+				//Make the dashboard the first submenu item and the item to appear when clicking the parent.
+				global $submenu;
+				if ( isset( $submenu[$this->hook] ) ) {
+			
+					$submenu[$this->hook][0][0] = __( 'Dashboard', $this->hook );
+				
+				}
 				
 			}
 			
@@ -149,18 +163,44 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			global $bwpsoptions;
 			
-			if ( $bwpsoptions['initial_backup'] == 1 ) { //they've backed up their database or ignored the warning
+			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
+			
+				if ( $bwpsoptions['st_writefiles'] == 1 ) { 
+			
+					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+						array(
+							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
+							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
+							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
+							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ) //Generic System Information
+						),
+						BWPS_PU . 'images/shield-large.png'
+					);
+				
+				} else {
+				
+					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+						array(
+							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
+							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
+							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
+							array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ), //Better WP Security Rewrite Rules
+							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ) //Generic System Information
+						),
+						BWPS_PU . 'images/shield-large.png'
+					);
+				
+				}
+				
+			} elseif ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 0 ) { 
 			
 				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
-						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_2' ), //One-click protection
-						array( __( 'System Status', $this->hook ), 'dashboard_content_3' ), //Better WP Security System Status
-						array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_4' ), //Better WP Security Rewrite Rules
-						array( __( 'System Information', $this->hook ), 'dashboard_content_5' ) //Generic System Information
+						array( __( 'Important', $this->hook ), 'dashboard_content_2' ), //Ask the user if they want BWPS to automatically write to system files					
 					),
 					BWPS_PU . 'images/shield-large.png'
 				);
-			
+				
 			} else { //if they haven't backed up their database or ignored the warning
 			
 				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
@@ -358,12 +398,35 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		/**
+		 * Ask the user if they want the plugin to automatically write to system files
+		 *
+		 **/
+		function dashboard_content_2() {
+			?>
+			<p><?php _e( 'Just one more question:', $this->hook ); ?></p>
+			<p><?php _e( 'Better WP Security can automatically write to WordPress core files for you (wp-config.php and .htaccess). This saves time and prevents you from having to edit code yourself. While this is safe to do in nearly all systems it can, on some server configurations, cause problems. For this reason, before continuing, you have the option to allow this plugin to write to wp-config.php and .htaccess or not.', $this->hook ); ?></p>
+			<p><?php _e( 'Note, that this option can be changed later in the "System Tweaks" menu of this plugin. In addition, disabling file writes here will prevent this plugin from activation features such as changing the wp-content directory and changing the database prefix.', $this->hook ); ?></p>
+			<p><?php _e( 'Finally, please remember that in nearly all cases there is no issue with allowing this plugin to edit your files. However if you know your have a unique server setup or simply would rather edit these files yourself I would recommend selecting "Do not allow this plugin to change WordPress core files."', $this->hook ); ?></p>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="dashboard_3" />
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Allow this plugin to change WordPress core files', $this->hook ); ?>" /></p>			
+			</form>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="dashboard_4" />
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Do now allow this plugin to change WordPress core files.', $this->hook ); ?>" /></p>			
+			</form>
+			<?php
+		}
+		
+		/**
 		 * One-click mode
 		 *
 		 * Information and form to turn on basic security with 1-click
 		 *
 		 **/
-		function dashboard_content_2() {
+		function dashboard_content_3() {
 			global $bwpsoptions;
 			if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_ht_files'] == 1 && $bwpsoptions['st_ht_browsing'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['st_ht_request'] == 1 ) {
 			?>
@@ -371,7 +434,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php } else { ?>
 				<form method="post" action="">
 					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
-					<input type="hidden" name="bwps_page" value="dashboard_3" />
+					<input type="hidden" name="bwps_page" value="dashboard_5" />
 					<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ); ?>" /></p>			
 				</form>
@@ -383,7 +446,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 * Better WP Security System Status
 		 *
 		 **/
-		function dashboard_content_3() {
+		function dashboard_content_4() {
 			global $wpdb, $bwpsoptions;
 			?>
 			<ol>
@@ -495,6 +558,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
+					<?php if ( $bwpsoptions['st_writefiles'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Better WP Security is allowed to write to wp-config.php and .htaccess.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: blue;"><?php _e( 'Better WP Security is not allowed to write to wp-config.php and .htaccess.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_writefiles"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
 					<?php if ( $bwpsoptions['st_fileperm'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'wp-config.php and .htacess are not writeable.', $this->hook ); ?></span>
 					<?php } else { ?>
@@ -541,7 +611,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 * Rewrite rules generated by better wp security
 		 *
 		 **/
-		function dashboard_content_4() {
+		function dashboard_content_5() {
 			
 			$rules = $this->getrules();
 			
@@ -572,10 +642,47 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		/**
+		 * wp-content.php Rules
+		 *
+		 * wp-content.php generated by better wp security
+		 *
+		 **/
+		function dashboard_content_6() {
+			
+			$rules = $this->getwpcontent();
+			
+			if ( $rules == '') {
+				?>
+				<p><?php _e( 'No rules have been generated. Turn on more features to see wp-content rules.', $this->hook ); ?></p>
+				<?php
+			} else {
+				?>
+				<style type="text/css">
+					code {
+						 overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+						 overflow-y: hidden;
+						 background-color: transparent;
+						 white-space: pre-wrap; /* css-3 */
+						 white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+						 white-space: -pre-wrap; /* Opera 4-6 */
+						 white-space: -o-pre-wrap; /* Opera 7 */
+						 /* width: 99%; */
+						 word-wrap: break-word; /* Internet Explorer 5.5+ */
+						 
+					}
+				</style>
+				<?php echo highlight_string( $rules, true ); ?>
+				<?php
+			}
+			
+		}
+		
+		
+		/**
 		 * General System Information
 		 *
 		 **/
-		function dashboard_content_5() {
+		function dashboard_content_7() {
 			global $wpdb, $bwpsoptions, $bwpsdata;
 			?>
 			<ul>
@@ -594,20 +701,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<li><?php _e( 'Document Root Path', $this->hook ); ?>: <strong><?php echo $_SERVER['DOCUMENT_ROOT']; ?></strong></li>
 						<?php 
 							$htaccess = ABSPATH . '.htaccess';
-							@chmod( $htaccess, 0644 );
 							
 							if ( $f = @fopen( $htaccess, 'a' ) ) { 
 							
 								@fclose( $f );
-								$copen = '';
-								$cclose = '';
+								$copen = '<font color="red">';
+								$cclose = '</font>';
 								$htaw = __( 'Yes', $this->hook ); 
 								
 							} else {
 							
-								$copen = '<font color="red">';
-								$cclose = '</font>';
-								$htaw = __( 'No. Better WP Security will be severely limited in it\'s ability to secure your site', $this->hook ); 
+								$copen = '';
+								$cclose = '';
+								$htaw = __( 'No.', $this->hook ); 
 								
 							}
 							
@@ -618,20 +724,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<li><?php _e( '.htaccess File is Writable', $this->hook ); ?>: <strong><?php echo $copen . $htaw . $cclose; ?></strong></li>
 						<?php 
 							$conffile = $this->getConfig();
-							@chmod( $conffile, 0644 );
 							
 							if ( $f = @fopen( $conffile, 'a' ) ) { 
 							
 								@fclose( $f );
-								$copen = '';
-								$cclose = '';
+								$copen = '<font color="red">';
+								$cclose = '</font>';
 								$wconf = __( 'Yes', $this->hook ); 
 								
 							} else {
 							
-								$copen = '<font color="red">';
-								$cclose = '</font>';
-								$wconf = __( 'No. Better WP Security will be severely limited in it\'s ability to secure your site', $this->hook ); 
+								$copen = '';
+								$cclose = '';
+								$wconf = __( 'No.', $this->hook ); 
 								
 							}
 							
@@ -2046,11 +2151,23 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">
 							<th scope="row">
-								<a name="st_fileperm"></a><label for "st_fileperm"><?php _e( 'Remove write abilities from .htaccess and wp-config.php', $this->hook ); ?></label>
+								<a name="st_writefiles"></a><label for "st_writefiles"><?php _e( 'Write to WordPress core files', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_writefiles" name="st_writefiles" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_writefiles'] ); ?> />
+								<p><?php _e( 'Allow Better WP Security to write to .htaccess and wp-config.php. With this turned on this plugin will automatically write to your .htaccess and wp-config.php files. With it turned off you will need to manually make changes to these files and both the renaming of wp-content and the changing of the database table prefix will not be available.', $this->hook ); ?></p>
+								<p><?php _e( 'This option is safe in nearly all instances however, if you know you have a server configuration that may conflict or simply want to make the changes yourself then uncheck this feature.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<a name="st_fileperm"></a><label for "st_fileperm"><?php _e( 'Remove write permissions from .htaccess and wp-config.php', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_fileperm" name="st_fileperm" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileperm'] ); ?> />
 								<p><?php _e( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the unix file permissions to 0444 on these files and turning it off will set the permissions to 0644.', $this->hook ); ?></p>
+								<p><?php _e( 'Note this feature only applies if "Write to WordPress core files" is enabled.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>

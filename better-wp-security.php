@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
-		public $pluginversion 	= '3013'; //current plugin version
+		public $pluginversion 	= '3015'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better_wp_security';
@@ -36,6 +36,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			'bit51_bwps_options'	=> array(
 				'bit51_bwps' 			=> array(
 					'initial_backup'		=> '0',
+					'initial_filewrite'		=> '0',
 					'am_enabled'			=> '0',
 					'am_type' 				=> '0',
 					'am_startdate' 			=> '1',
@@ -87,7 +88,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_longurl'			=> '0',
 					'st_fileedit'			=> '0',
 					'st_forceloginssl'		=> '0',
-					'st_forceadminssl'		=> '0'
+					'st_forceadminssl'		=> '0',
+					'st_writefiles'			=> '0'
 				)
 			)
 		);

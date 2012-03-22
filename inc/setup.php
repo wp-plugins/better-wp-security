@@ -166,13 +166,17 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions ); //save new options data
 			
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess
-			
+			if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+				
 				$this->writehtaccess();
-			
+					
 			}
 			
-			$this->writewpconfig(); //write appropriate options to wp-config.php
+			if ( $bwpsoptions['st_writefiles'] == 1 ) {
+			
+				$this->writewpconfig(); //write appropriate options to wp-config.php
+				
+			}
 			
 		}
 
@@ -324,6 +328,15 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					if ( wp_next_scheduled( 'bwps_backup' ) ) {
 						wp_clear_scheduled_hook( 'bwps_backup' );
 					}	
+					
+				}
+				
+				if ( str_replace( '.', '', $oldversion ) < 3015 ) {
+					
+					$bwpsoptions['st_writefiles'] = 1;
+					$bwpsoptions['initial_filewrite'] = 1;						
+					
+					update_option( $this->primarysettings, $bwpsoptions ); //save new options data	
 					
 				}
 			

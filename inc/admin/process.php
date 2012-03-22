@@ -46,6 +46,12 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'dashboard_3':
 					$this->dashboard_process_3();
 					break;
+				case 'dashboard_4':
+					$this->dashboard_process_4();
+					break;
+				case 'dashboard_5':
+					$this->dashboard_process_5();
+					break;
 				case 'databasebackup_1':
 					$this->databasebackup_process_1();
 					break;
@@ -117,10 +123,48 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		}
 		
 		/**
-		 * Process one-click security form
+		 * Process dashboard initial file write confirm
 		 *
 		 **/
 		function dashboard_process_3() {
+		
+			global $bwpsoptions;
+		
+			$errorHandler = __( 'WordPress Core File Writing confirmed.', $this->hook );
+			
+			$bwpsoptions['initial_filewrite'] = 1;
+			$bwpsoptions['st_writefiles'] = 1;
+			
+			update_option( $this->primarysettings, $bwpsoptions );
+			
+			$this->showmessages( $errorHandler );		
+			
+		}
+		
+		/**
+		 * Process dashboard initial file write deny
+		 *
+		 **/
+		function dashboard_process_4() {
+		
+			global $bwpsoptions;
+		
+			$errorHandler = __( 'WordPress Core File Writing ignored.', $this->hook );
+			
+			$bwpsoptions['initial_filewrite'] = 1;
+			$bwpsoptions['st_writefiles'] = 0;
+			
+			update_option( $this->primarysettings, $bwpsoptions );
+			
+			$this->showmessages( $errorHandler );		
+			
+		}
+		
+		/**
+		 * Process one-click security form
+		 *
+		 **/
+		function dashboard_process_5() {
 			
 			global $bwpsoptions;
 		
@@ -142,13 +186,18 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
-			
+			if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+				
 				$this->writehtaccess();
 				
+				$errorHandler = __( 'Settings Saved.', $this->hook );
+					
 			} else { //not on apache to let them know they will have to manually enter rules
 			
-				$errorHandler = __( 'Site Secured. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+				$errorHandler = new WP_Error();
+				
+				$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+				
 			
 			}
 			
@@ -431,15 +480,21 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $bwpsoptions );
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
-				
+				if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+					
 					$this->writehtaccess();
 					
+					$errorHandler = __( 'Settings Saved.', $this->hook );
+						
 				} else { //not on apache to let them know they will have to manually enter rules
 				
-					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+					$errorHandler = new WP_Error();
+					
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+					
 				
 				}
+				
 				
 			}
 						
@@ -807,15 +862,21 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				update_option( $this->primarysettings, $bwpsoptions );
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if we're on Apache write rules to .htaccess
-				
+				if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+					
 					$this->writehtaccess();
 					
+					$errorHandler = __( 'Settings Saved.', $this->hook );
+						
 				} else { //not on apache to let them know they will have to manually enter rules
 				
-					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+					$errorHandler = new WP_Error();
+					
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+					
 				
 				}
+				
 				
 			}
 						
@@ -1155,20 +1216,50 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_writefiles'] = ( isset( $_POST['st_writefiles'] ) && $_POST['st_writefiles'] == 1  ? 1 : 0 );
 						
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
 				update_option( $this->primarysettings, $bwpsoptions );
-				$this->writewpconfig(); //save to wp-config.php
 				
-				if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { //if they're using apache write to .htaccess
+				if ( $bwpsoptions['st_writefiles'] == 1  ) {
+				
+					$this->writewpconfig(); //save to wp-config.php
+					
+				} else {
+				
+					if ( ! is_wp_error( $errorHandler ) ) {
+						$errorHandler = new WP_Error();
+					}
+							
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add code to your wp-config.php file See the Better WP Security Dashboard for the code you will need.', $this->hook ) );
+				
+				}
+				
+				if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
 				
 					$this->writehtaccess();
 					
 				} else { //if they're not using apache let them know to manually update rules
 				
-					$errorHandler = __( 'Settings Saved. You will have to manually add rewrite rules to your NGINX configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook );
+					if ( is_wp_error( $errorHandler ) ) {
+					
+						$errorHandler = new WP_Error();
+						
+						$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules and wp-config.php code to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules  and wp-config.php code you will need.', $this->hook ) );
+						
+					} else {
+						
+						$errorHandler = new WP_Error();
+						
+						$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+					
+					}
 				
+				}
+				
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = __( 'Settings Saved.', $this->hook );
 				}
 				
 			}
