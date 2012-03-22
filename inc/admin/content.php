@@ -176,15 +176,27 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						BWPS_PU . 'images/shield-large.png'
 					);
 				
+				} elseif ( $bwpsoptions['st_writefiles'] == 1 ) {
+				
+					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+						array(
+							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
+							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
+							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
+							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ) //Better WP Security Rewrite Rules
+						),
+						BWPS_PU . 'images/shield-large.png'
+					);
+				
 				} else {
 				
 					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 						array(
 							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
 							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
+							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
 							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
-							array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ), //Better WP Security Rewrite Rules
-							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ) //Generic System Information
+							array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ) //Better WP Security Rewrite Rules
 						),
 						BWPS_PU . 'images/shield-large.png'
 					);
