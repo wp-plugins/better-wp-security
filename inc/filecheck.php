@@ -331,7 +331,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 						global $plugopts;
 					
 					    echo '<div class="error">
-				       <p>' . __( 'It looks like you\'ve been enjoying', $plughook ) . ' ' . $plugname . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', $plughook ) . '</p> <p><input type="button" class="button " value="' . __( 'View Logs', $plughook ) . '" onclick="document.location.href=\'?bit51_view_logs=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Dismiss Warning', $plughook) . '" onclick="document.location.href=\'' . admin_url() . 'admin.php?bit51_dismiss_warning=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
+				       <p>' . __( 'Better WP Security has noticed a change to some files in your WordPress installation. Please review the logs to make sure your system has not been compromised.', $plughook ) . '</p> <p><input type="button" class="button " value="' . __( 'View Logs', $plughook ) . '" onclick="document.location.href=\'?bit51_view_logs=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Dismiss Warning', $plughook) . '" onclick="document.location.href=\'' . admin_url() . 'admin.php?bit51_dismiss_warning=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
 					    </div>';
 				    
 					}
