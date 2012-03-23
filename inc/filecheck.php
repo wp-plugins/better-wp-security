@@ -11,10 +11,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			if ( $bwpsoptions['id_fileenabled'] == 1 && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
 			
 				$this->execute_filecheck();
-				
-				$bwpsoptions['id_filechecktime'] = time();
-				
-				update_option( $this->primarysettings, $bwpsoptions );
 			
 			}
 			
@@ -148,27 +144,35 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			update_option( 'bwps_file_log', serialize( $currItems ) );
 			
-			if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
+			if ( $bwpsoptions['id_filechecktime'] != '' ) {
 			
-				//log to database
-				$wpdb->insert(
-					$wpdb->base_prefix . 'bwps_log',
-					array(
-						'type' => '3',
-						'timestamp' => time(),
-						'host' => '',
-						'user' => '',
-						'url' => '',
-						'referrer' => '',
-						'data' => serialize( $combined )
-					)
-				);
+				if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
 			
-				update_option( 'bwps_intrusion_warning', 1 );
+					//log to database
+					$wpdb->insert(
+						$wpdb->base_prefix . 'bwps_log',
+						array(
+							'type' => '3',
+							'timestamp' => time(),
+							'host' => '',
+							'user' => '',
+							'url' => '',
+							'referrer' => '',
+							'data' => serialize( $combined )
+						)
+					);
+						
+					update_option( 'bwps_intrusion_warning', 1 );
 				
-				if ( $bwpsoptions['id_fileemailnotify'] == 1 ) {
-					$this->fileemail();
+					if ( $bwpsoptions['id_fileemailnotify'] == 1 ) {
+						$this->fileemail();
+					}
+				
 				}
+				
+				$bwpsoptions['id_filechecktime'] = time();
+				
+				update_option( $this->primarysettings, $bwpsoptions );
 				
 			}
 		

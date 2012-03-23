@@ -186,6 +186,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_corenot'] = 1;
 			$bwpsoptions['st_enablepassword'] = 1;
 			$bwpsoptions['st_loginerror'] = 1;
+			$bwpsoptions['id_fileenabled'] = 1;
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
