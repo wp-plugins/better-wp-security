@@ -190,7 +190,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 			if ( get_option( 'BWPS_options' ) != false ) {
 			
-				$oldoptions = unserialize( get_option( 'BWPS_options' ) );
+				$oldoptions = maybe_unserialize( get_option( 'BWPS_options' ) );
 				
 				$bwpsoptions['am_enabled'] = isset( $oldoptions['away_enable'] ) ? $oldoptions['away_enable'] : '0';
 				$bwpsoptions['am_type'] = isset( $oldoptions['away_mode'] ) ? $oldoptions['away_mode'] : '0';

@@ -107,13 +107,13 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 			global $wpdb, $bwpsoptions;
 			
-			$logItems = unserialize( get_option( 'bwps_file_log' ) );
+			$logItems = maybe_unserialize( get_option( 'bwps_file_log' ) );
 			
 			if ( $logItems === false ) {
 			
 				$logItems = array();
 			
-			}
+			} 
 			
 			$currItems = $this->scanfiles();
 			
@@ -206,7 +206,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 			$changes = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $reportid ) . " ORDER BY timestamp DESC;", ARRAY_A );
 		
-			$data = unserialize( $changes[0]['data'] );
+			$data = maybe_unserialize( $changes[0]['data'] );
 			
 			$added = $data['added'];
 			$removed = $data['removed'];

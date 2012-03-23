@@ -2132,7 +2132,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<th><?php _e( 'Details', $this->hook ); ?></th>
 						</tr>
 					<?php foreach ( $changes as $change ) { ?>
-						<?php $attr = unserialize( $change['data'] ); ?>
+						<?php $attr = maybe_unserialize( $change['data'] ); ?>
 						<tr>
 							<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $change['timestamp'] ) ); ?></td>
 							<td><?php echo sizeof( $attr['added'] ); ?></td>
