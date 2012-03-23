@@ -332,10 +332,16 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 				}
 				
-				if ( str_replace( '.', '', $oldversion ) < 3015 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3024 ) {
 					
 					$bwpsoptions['st_writefiles'] = 1;
-					$bwpsoptions['initial_filewrite'] = 1;						
+					$bwpsoptions['initial_filewrite'] = 1;
+					
+					if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_ht_files'] == 1 && $bwpsoptions['st_ht_browsing'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['st_ht_request'] == 1 ) {
+					
+						$bwpsoptions['id_fileenabled'] = 1;	
+						
+					}			
 					
 					update_option( $this->primarysettings, $bwpsoptions ); //save new options data	
 					
