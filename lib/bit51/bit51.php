@@ -355,7 +355,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			
 			$content .= '<ul>';
 			
-			$content .= '<li><a href="' . $this-> . '" target="_blank">' . __( 'Rate', $this->hook ) . ' ' . $this->pluginname . __( ' 5★\'s on WordPress.org', $this->hook ) . '</a></li>';
+			$content .= '<li><a href="' . $this->wppage . '" target="_blank">' . __( 'Rate', $this->hook ) . ' ' . $this->pluginname . __( ' 5★\'s on WordPress.org', $this->hook ) . '</a></li>';
 			
 			$content .= '<li>' . __( 'Talk about it on your site and link back to the ', $this->hook ) . '<a href="' . $this->homepage . '" target="_blank">' . __( 'plugin page.', $this->hook ) . '</a></li>';
 			
@@ -453,7 +453,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 				
 				//Go to the WordPress page to let them rate it.
 				if ( isset( $_GET['bit51_lets_rate'] ) ) {
-					wp_redirect( $this->, '302' );
+					wp_redirect( $this->wppage, '302' );
 				}
 				
 				//Compose a Tweet
