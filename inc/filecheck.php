@@ -29,6 +29,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			$list = $bwpsoptions['id_specialfile'];
 			
 			$flag = false;
+			$isDir = false;
 			
 			if ( trim( $list ) != '' ) {
 			
@@ -41,33 +42,39 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			}
 			
 			foreach ( $list as $item ) {
+			
+				if ( is_dir( ABSPATH . $file ) ) {
 				
-				if ( strpos( $item , '.' ) === 0) { //a file extension
-				
-					 if ( strcmp( '.' . trim( end ( explode( '.' , $file ) ) ), trim( $item ) ) == 0 ) {
-					 	
-					 	$flag = true;
-					 	
-					 }
-				
-				} elseif ( strstr( $item , '.' ) ){ //a file
-				
-					if ( strcmp( trim( $item ), trim( end ( explode( '/' , $file ) ) ) ) == 0 ){
-					
-						$flag = true;
-						
-					}
-				
-				} else { //a directory
+					$isDir = true;
 				
 					$pathinfo = pathinfo( trim( $file ) );
-				
-					if ( strcmp( $pathinfo['dirname'], trim( $item ) ) == 0 ) {
-			
-						$flag = true;
 						
+					if ( strcmp( $pathinfo['dirname'], trim( $item ) ) == 0 ) {
+					
+						$flag = true;
+								
 					}
 				
+				} else {
+				
+					if ( strpos( $item , '.' ) === 0) { //a file extension
+					
+						if ( strcmp( '.' . trim( end ( explode( '.' , $file ) ) ), trim( $item ) ) == 0 ) {
+					 	
+							$flag = true;
+					 	
+						 }
+				
+					} else { //a file
+				
+						if ( strcmp( trim( $item ), trim( end ( explode( '/' , $file ) ) ) ) == 0 ){
+					
+							$flag = true;
+						
+						}
+				
+					}
+					
 				}
 				
 			}
@@ -80,7 +87,15 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					return true;
 				}
 			
-			} else {
+			} elseif ( $isDir == true ) {
+				
+				if ( $flag == true ) {
+					return false;
+				} else {
+					return true;
+				}
+				
+			} else {		
 			
 				return $flag;
 				
@@ -91,8 +106,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		function execute_filecheck( $auto = true ) {
 		
 			global $wpdb, $bwpsoptions;
-			
-			$count = 0;
 			
 			$logItems = unserialize( get_option( 'bwps_file_log' ) );
 			
@@ -133,23 +146,23 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				'changed' => $changed
 			);
 			
-			//log to database
-			$wpdb->insert(
-				$wpdb->base_prefix . 'bwps_log',
-				array(
-					'type' => '3',
-					'timestamp' => time(),
-					'host' => '',
-					'user' => '',
-					'url' => '',
-					'referrer' => '',
-					'data' => serialize( $combined )
-				)
-			);
-			
 			update_option( 'bwps_file_log', serialize( $currItems ) );
 			
 			if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
+			
+				//log to database
+				$wpdb->insert(
+					$wpdb->base_prefix . 'bwps_log',
+					array(
+						'type' => '3',
+						'timestamp' => time(),
+						'host' => '',
+						'user' => '',
+						'url' => '',
+						'referrer' => '',
+						'data' => serialize( $combined )
+					)
+				);
 			
 				update_option( 'bwps_intrusion_warning', 1 );
 				

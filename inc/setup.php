@@ -120,7 +120,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`user` bigint(20),
 				`url` varchar(255),
 				`referrer` varchar(255),
-				`data` text,
+				`data` MEDIUMTEXT,
 				 UNIQUE KEY id (id)
 				);";
 			
