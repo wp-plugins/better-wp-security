@@ -580,7 +580,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $bwpsoptions['id_fileenabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your installation is actively looking for changed files.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your installation is not actively looking for changed files.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'Your installation is not actively looking for changed files.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection#id_fileenabled"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>

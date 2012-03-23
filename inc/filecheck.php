@@ -149,7 +149,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			update_option( 'bwps_file_log', serialize( $currItems ) );
 			
-			if ( $addcount > 0 || $removecount > 0 || $changecount > 0 ) {
+			if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
 			
 				update_option( 'bwps_intrusion_warning', 1 );
 				
