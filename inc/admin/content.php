@@ -394,13 +394,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_logs() {
+					
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Better WP Security Logs', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'logs_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
 					array( __( 'Current Lockouts', $this->hook ), 'logs_content_3' ), //Current Lockouts log
 					array( __( '404 Errors', $this->hook ), 'logs_content_4' ), //404 Errors
-					array( __( 'All Lockouts', $this->hook ), 'logs_content_5' ) //404 Errors
+					array( __( 'All Lockouts', $this->hook ), 'logs_content_5' ), //All Lockouts
+					array( __( 'Changed Files', $this->hook ), 'logs_content_6' ) //Changed Files
+				
 				),
 				BWPS_PU . 'images/shield-large.png'
 			);
@@ -571,6 +574,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<span style="color: green;"><?php _e( 'Your installation is actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?></span>
 					<?php } else { ?>
 						<span style="color: red;"><?php _e( 'Your installation is not actively blocking attackers trying to scan your site for vulnerabilities.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $bwpsoptions['id_fileenabled'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'Your installation is actively looking for changed files.', $this->hook ); ?></span>
+					<?php } else { ?>
+						<span style="color: red;"><?php _e( 'Your installation is not actively looking for changed files.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -1812,7 +1822,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? $_POST['id_specialfile'] : $bwpsoptions['id_specialfile']; ?></textarea>
-							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. Wildcards (*) are allowed.', $this->hook ); ?></p>
+							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. You can specify all files of a given type by just entering the extension preceeded by a dot (.) for exampe, .jpg', $this->hook ); ?></p>
 						</td>
 					</tr>
 				</table>
@@ -1927,6 +1937,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$countlogin = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
 				$count404 = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . (time() - ( $bwpsoptions['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
 				$countlockout = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
+				$countchange = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			 ?>
 				<table class="form-table">
 					<tr valign="top">
@@ -1942,6 +1953,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<li style="list-style: none;"> <input type="checkbox" name="404s" id="404s" value="1" /> <label for="404s"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $count404; ?> <?php _e( '404 errors.', $this->hook ); ?></strong><br />
 								<em><?php _e( 'This will clear the 404 log below.', $this->hook ); ?></em></label></li>
 								<li style="list-style: none;"> <input type="checkbox" name="lockouts" id="lockouts" value="1" /> <label for="lockouts"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countlockout; ?> <?php _e( 'old lockouts.', $this->hook ); ?></strong></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="changes" id="changes" value="1" /> <label for="changes"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countchange; ?> <?php _e( 'changed file records.', $this->hook ); ?></strong></label></li>
 							</ul>
 						</td>
 					</tr>
@@ -2026,14 +2038,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( sizeof( $grouped ) > 0 ) {
 			?>
 			<p><?php _e( 'The following is a list of 404 errors found on your site with the relative url listed first, the number of times the error was encountered in parenthases, and the last time the error was encounterd given last.', $this->hook ); ?></p>
-			<?php
-				foreach ( $grouped as $url => $data ) {
-					?>
-					<li><strong><?php echo $url; ?></strong> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></li>
-					<?php
-				}
-			?>
-			
+			<table border="1" style="width: 100%; text-align: center;">
+				<tr>
+					<th><?php _e( 'Time', $this->hook ); ?></th>
+					<th><?php _e( 'Page', $this->hook ); ?></th>
+					<th><?php _e( 'Count', $this->hook ); ?></th>
+				</tr>
+				<?php
+					foreach ( $grouped as $url => $data ) {
+						?>
+						<tr>
+							<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></td>
+							<td width="75%"><?php echo $url; ?></td>
+							<td><?php echo $data['count']; ?></td>
+						</tr>
+						<?php
+					}
+				?>
+			</table>
 			<?php
 			} else { //the log is empty
 			?>
@@ -2054,16 +2076,90 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( sizeof( $lockouts ) > 0 ) {
 				?>
 				<p><?php _e( 'The following is a log of all lockouts in the system.', $this->hook ); ?></p>
+				<table border="1" style="width: 100%; text-align: center;">
+					<tr>
+						<th><?php _e( 'Time', $this->hook ); ?></th>
+						<th><?php _e( 'Reason', $this->hook ); ?></th>
+						<th><?php _e( 'Host', $this->hook ); ?></th>
+						<th><?php _e( 'User', $this->hook ); ?></th>
+					</tr>
 				<?php foreach ( $lockouts as $lockout ) { ?>
 					<?php $lockuser = get_user_by( 'id', $lockout['user'] ); ?>
-					<li><em>Time:</em> <strong><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $lockout['starttime'] ) ); ?></strong> <em>Reason:</em> <strong><?php echo $lockout['type'] == 2 ? 'Too many 404s' : 'Bad Logins'; ?></strong> <em>Host:</em> <strong><?php echo $lockout['host']; ?></strong> <?php echo $lockuser != false ? '<em>User:</em> <strong>' . $lockuser->user_login . '</strong>' : ''; ?></li>
+					<tr>
+						<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $lockout['starttime'] ) ); ?></td>
+						<td><?php echo $lockout['type'] == 2 ? 'Too many 404s' : 'Bad Logins'; ?></td>
+						<td><?php echo $lockout['host']; ?></td>
+						<td><?php echo $lockuser != false ? '<em>User:</em> <strong>' . $lockuser->user_login . '</strong>' : ''; ?></td>
+					</tr>
 				<?php } ?>
+				</table>
 			<?php
 			} else { //the log is empty
 			?>
 				<p><?php _e( 'There are currently no lockouts in the database.', $this->hook ); ?></p>
 			<?php 
 			}
+		}
+		
+		function logs_content_6() {
+			global $wpdb, $bwps_filecheck;
+			?>
+				<a name="file-change"></a>
+			<?php
+			
+			if ( isset( $_GET['bwps_change_details_id'] ) ) {
+			
+				echo $bwps_filecheck->getdetails( absint( $_GET['bwps_change_details_id'] ) );
+				
+				?>
+				
+				<p><a href="<?php echo $_SERVER['HTTP_REFERER']; ?>#file-change"><?php _e( 'Return to Log', $this->hook ); ?></a></p>
+				
+				<?php			
+			} else {
+			
+				$changes = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
+			
+				if ( sizeof( $changes ) > 0 ) {
+					?>
+					<p><?php _e( 'The following is a log of all file changes seen by the system.', $this->hook ); ?></p>
+					<table border="1" style="width: 100%; text-align: center;">
+						<tr>
+							<th><?php _e( 'Time', $this->hook ); ?></th>
+							<th><?php _e( 'Added', $this->hook ); ?></th>
+							<th><?php _e( 'Deleted', $this->hook ); ?></th>
+							<th><?php _e( 'Modified', $this->hook ); ?></th>
+							<th><?php _e( 'Details', $this->hook ); ?></th>
+						</tr>
+					<?php foreach ( $changes as $change ) { ?>
+						<?php $attr = unserialize( $change['data'] ); ?>
+						<tr>
+							<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $change['timestamp'] ) ); ?></td>
+							<td><?php echo sizeof( $attr['added'] ); ?></td>
+							<td><?php echo sizeof( $attr['removed'] ); ?></td>
+							<td><?php echo sizeof( $attr['changed'] ); ?></td>
+							<td>
+							<a href="<?php echo $_SERVER['REQUEST_URI']; ?>&bwps_change_details_id=<?php echo $change['id']; ?>#file-change"><?php _e('View Details', $this->hook); ?></a>
+						</tr>
+					<?php } ?>
+					</table>
+				<?php
+				} else { //the log is empty
+				?>
+					<p><?php _e( 'There are no file change warnings currently in the database.', $this->hook ); ?></p>
+				<?php 
+				}
+			}
+		}
+		
+		/**
+		 * Detailed file change report
+		 *
+		 **/
+		function logs_content_7() {
+		
+		
+		
 		}
 		
 		/**

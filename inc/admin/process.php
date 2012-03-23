@@ -901,7 +901,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					
 			update_option( $this->primarysettings, $bwpsoptions );
 				
-			$bwps_filecheck->execute_filecheck();
+			$bwps_filecheck->execute_filecheck( false );
 				
 			$this->showmessages( $errorHandler );	
 		
@@ -926,6 +926,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['id_fileenabled'] = ( isset( $_POST['id_fileenabled'] ) && $_POST['id_fileenabled'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_fileemailnotify'] = ( isset( $_POST['id_fileemailnotify'] ) && $_POST['id_fileemailnotify'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_fileincex'] = ( isset( $_POST['id_fileincex'] ) && $_POST['id_fileincex'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_filechecktime'] = '';
 			$fileWhiteItems = explode( "\n", $_POST['id_specialfile'] );
 			$fileList = array();
 			
@@ -1177,6 +1178,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			if ( isset( $_POST['lockouts'] ) && $_POST['lockouts'] == 1 ) { //delete old or inactive lockouts
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
+			}
+			
+			if ( isset( $_POST['changes'] ) && $_POST['changes'] == 1 ) { //delete old file records
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			}
 						
 			$this-> showmessages( $errorHandler );

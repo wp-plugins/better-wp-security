@@ -465,7 +465,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					'host' => $host,
 					'user' => isset( $user->ID ) && absint( $user->ID ) > 0 ? $user->ID : 0,
 					'url' => $url,
-					'referrer' => $referrer
+					'referrer' => $referrer,
+					'data' => ''
 				)
 			);
 			
@@ -494,7 +495,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-			} else { //check if we should lockout for 404s
+			} elseif ( $type == 2 ) { //check if we should lockout for 404s
 			
 				$period = $bwpsoptions['id_checkinterval'] * 60;
 				

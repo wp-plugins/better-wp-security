@@ -120,6 +120,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`user` bigint(20),
 				`url` varchar(255),
 				`referrer` varchar(255),
+				`data` text,
 				 UNIQUE KEY id (id)
 				);";
 			
@@ -361,6 +362,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
+			
+			delete_option( 'bwps_intrusion_warning' );
 			
 			delete_transient( 'bit51_bwps_backup' );
 			
