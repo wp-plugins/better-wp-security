@@ -90,12 +90,16 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function backup() {
-			
-			global $bwps_backup;
 		
-			//execute backups
-			require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
-			$bwps_backup = new bwps_backup();
+			if ( ! is_404() ) {
+			
+				global $bwps_backup;
+		
+				//execute backups
+				require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
+				$bwps_backup = new bwps_backup();
+			
+			}
 			
 		}
 		
@@ -313,12 +317,16 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function filecheck() {
-			
-			global $bwps_filecheck;
 		
-			//execute backups
-			require_once( plugin_dir_path( __FILE__ ) . 'filecheck.php' );
-			$bwps_filecheck = new bwps_filecheck();
+			if ( ! is_404() ) { //don't execute on 404 errors
+			
+				global $bwps_filecheck;
+		
+				//execute backups
+				require_once( plugin_dir_path( __FILE__ ) . 'filecheck.php' );
+				$bwps_filecheck = new bwps_filecheck();
+				
+			}
 			
 		}
 		
