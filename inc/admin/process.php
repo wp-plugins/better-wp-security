@@ -176,9 +176,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['backup_enabled'] = 1;
 			$bwpsoptions['ll_enabled'] = 1;
 			$bwpsoptions['id_enabled'] = 1;
-			$bwpsoptions['st_ht_files'] = 1;
-			$bwpsoptions['st_ht_browsing'] = 1;
-			$bwpsoptions['st_ht_request'] = 1;
 			$bwpsoptions['st_generator'] = 1;
 			$bwpsoptions['st_manifest'] = 1;
 			$bwpsoptions['st_themenot'] = 1;
@@ -190,20 +187,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
-			if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
-				
-				$this->writehtaccess();
-				
-				$errorHandler = __( 'Settings Saved.', $this->hook );
-					
-			} else { //not on apache to let them know they will have to manually enter rules
-			
-				$errorHandler = new WP_Error();
-				
-				$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
-				
-			
-			}
+			$errorHandler = __( 'Settings Saved. Your website is not protected from most attacks.', $this->hook );
 			
 			$this->showmessages( $errorHandler );		
 			
