@@ -469,6 +469,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 					<input type="hidden" name="bwps_page" value="dashboard_5" />
 					<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
+					<p><?php _e( 'Please note this will not make any changes to any files on your site including .htaccess and wp-config.php.', $this->hook ); ?></p>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ); ?>" /></p>			
 				</form>
 			<?php } ?>
@@ -566,7 +567,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } elseif ( $hcount > 0 ) { ?>
 						<span style="color: blue;"><?php _e( 'Your .htaccess file is partially secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_ht_files"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your .htaccess file is NOT secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_ht_files"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'Your .htaccess file is NOT secured.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_ht_files"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
