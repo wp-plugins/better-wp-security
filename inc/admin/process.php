@@ -173,6 +173,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			$errorHandler = __( 'Site Secured.', $this->hook );
 			
+			//select options for one-click access (enable all sections that don't write to files or are otherwise known to cause conflicts).
 			$bwpsoptions['backup_enabled'] = 1;
 			$bwpsoptions['ll_enabled'] = 1;
 			$bwpsoptions['id_enabled'] = 1;
@@ -203,7 +204,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing.', $this->hook );
 			
 			//sanitize the username
-			$newuser = wp_strip_all_tags( $_POST['newuser'] );
+			$newuser = sanitize_text_field( $_POST['newuser'] );
 			
 			if ( strlen( $newuser ) < 1 ) { //if the field was left blank set an error message
 			
@@ -225,13 +226,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					} else {
 								
 						//query main user table
-						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . $newuser . "' WHERE user_login='admin'" );
+						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . $wpdb->escape( $newuser ) . "' WHERE user_login='admin'" );
 						
 						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
 						
 							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'" );
-							$newAdmins = str_replace( '5:"admin"', strlen( $newuser) . ':"' . $newuser . '"', $oldAdmins );
-							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $newAdmins . "' WHERE meta_key='site_admins'" );
+							$newAdmins = str_replace( '5:"admin"', strlen( $newuser) . ':"' . $wpdb->escape( $newuser ) . '"', $wpdb->escape( $oldAdmins ) );
+							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $wpdb->escape( $newAdmins ) . "' WHERE meta_key='site_admins'" );
 							
 						}
 						
@@ -324,6 +325,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			if( ! empty( $banhosts ) ) {
 			
 				foreach( $banhosts as $item ) {
+				
+					$item = sanitize_text_field( $item );
 				
 					if ( strlen( $item ) > 0 ) {
 					
@@ -441,7 +444,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				foreach ($banagents as $agent) {
 					
-					$text = wp_strip_all_tags( trim( $agent ) );
+					$text = sanitize_text_field( $agent );
 					
 					//make sure user agents are alpha-numeric
 					if ( ctype_alnum( $text ) ) {
@@ -499,7 +502,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			$oldDir = WP_CONTENT_DIR;
-			$newDir = trailingslashit( ABSPATH ) . $wpdb->escape( $_POST['dirname'] );
+			$newDir = trailingslashit( ABSPATH ) . sanitize_text_field( $_POST['dirname'] );
 			
 			$renamed = rename( $oldDir, $newDir );
 			
@@ -517,15 +520,29 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$wpconfig = $this->getConfig(); //get the path for the config file
 					
-			@chmod( $wpconfig, 0644 ); //make sure the config file is writable
+			if ( ! $f = @fopen( $wpconfig, 'a+' ) ) {
+						
+				@chmod( $wpconfig, 0644 );
+				
+				if ( ! $f = @fopen( $wpconfig, 'a+' ) ) {
+							
+					return -1;
+							
+				}
+						
+			}
+			
+			@fclose( $f );
 					
 			$handle = @fopen( $wpconfig, 'r+' ); //open for reading
 					
 			if ( $handle && $renamed ) {
 			
+				@ini_set( 'auto_detect_line_endings', true );
+			
 				$scanText = "/* That's all, stop editing! Happy blogging. */";
 				$altScan = "/* Stop editing */";
-				$newText = "define( 'WP_CONTENT_DIR', '" . $newDir . "' );\r\ndefine( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $wpdb->escape( $_POST['dirname'] ) . "' );\r\n\r\n/* That's all, stop editing! Happy blogging. */\r\n";
+				$newText = "define( 'WP_CONTENT_DIR', '" . $newDir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . sanitize_text_field( $_POST['dirname'] ) . "' );" . PHP_EOL . PHP_EOL . "/* That's all, stop editing! Happy blogging. */" . PHP_EOL;
 					
 				//read each line into an array
 				while ( $lines[] = fgets( $handle, 4096 ) ) {}
@@ -685,6 +702,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				//complete with underscore
 				$newPrefix .= '_';
 				
+				$newPrefix = $wpdb->escape( $newPrefix ); //just be safe
+				
 				$checkPrefix = $wpdb->get_results( 'SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N ); //if there are no tables with that prefix in the database set checkPrefix to false
 					
 			}
@@ -771,7 +790,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					
 			$wpconfig = $this->getConfig(); //get the path for the config file
 					
-			@chmod( $wpconfig, 0644 ); //make sure the config file is writable
+			if ( ! $f = @fopen( $wpconfig, 'a+' ) ) {
+						
+				@chmod( $wpconfig, 0644 );
+				
+				if ( ! $f = @fopen( $wpconfig, 'a+' ) ) {
+							
+					return -1;
+							
+				}
+						
+			}
+			
+			@fclose( $f );
 					
 			$handle = @fopen( $wpconfig, "r+" ); //open for reading
 					
@@ -787,7 +818,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				foreach ( $lines as $line ) { //process each line
 						
 					//if the prefix is in the line
-					if (strpos( $line, 'table_prefix' ) ) {
+					if ( strpos( $line, 'table_prefix' ) ) {
 							
 						$line = str_replace( $wpdb->base_prefix, $newPrefix, $line );
 								
@@ -837,9 +868,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			//calidate options
 			$bwpsoptions['hb_enabled'] = ( isset( $_POST['hb_enabled'] ) && $_POST['hb_enabled'] == 1  ? 1 : 0 );
-			$bwpsoptions['hb_login'] = sanitize_title( esc_html__( $_POST['hb_login'] ) );
-			$bwpsoptions['hb_admin'] = sanitize_title( esc_html__( $_POST['hb_admin'] ) );
-			$bwpsoptions['hb_register'] = sanitize_title( esc_html__( $_POST['hb_register'] ) );
+			$bwpsoptions['hb_login'] = sanitize_text_field( $_POST['hb_login'] );
+			$bwpsoptions['hb_admin'] = sanitize_text_field( $_POST['hb_admin'] );
+			$bwpsoptions['hb_register'] = sanitize_text_field( $_POST['hb_register'] );
 			
 			//generate a secret key (if there isn't one already)
 			if ( $bwpsoptions['hb_key'] == '' ) {
@@ -917,7 +948,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			foreach ( $fileWhiteItems as $item ) {
 				
-				$fileList[] = esc_html__( trim( $item ) );
+				$fileList[] = sanitize_text_field( $item );
 			
 			}
 			

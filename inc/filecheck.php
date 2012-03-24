@@ -4,41 +4,73 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 
 	class bwps_filecheck extends bit51_bwps {
 	
+		/**
+		 * Initialize file checker
+		 *
+		 * Initializes file checker object, runs file checker on schedule and adds admin warning (if applicable)
+		 *
+		 **/
 		function __construct() {
 		
 			global $bwpsoptions;
 			
+			//only exececute if it has been more than 24 hours or the check has never occured and file checking is enabled.
 			if ( $bwpsoptions['id_fileenabled'] == 1 && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
 			
 				$this->execute_filecheck();
 			
 			}
 			
+			//add action for admin warning
+			// @todo make network capable
 			add_action( 'admin_init', array( &$this, 'warning' ) );
 		
 		}
 		
+		/**
+		 * Check file list
+		 *
+		 * Checks if given file should be included in file check based on exclude/include options
+		 *
+		 * @param string $file path of file to check from site root
+		 * @return bool true if file should be checked false if not
+		 *
+		 **/
 		function checkFile ( $file ) {
 		
 			global $bwpsoptions;
 			
+			//get file list from last check
 			$list = $bwpsoptions['id_specialfile'];
 			
+			//assume not a directory and not checked
 			$flag = false;
 			$isDir = false;
 			
+			//if list is empty return true
 			if ( trim( $list ) != '' ) {
 			
 				$list = explode( "\n", $list );
 				
 			} else {
 			
-				return true;
+				//if empty include list we include nothing. If empty exclude list we include everything
+				if ( $bwpsoptions['id_fileincex'] == 1 ) {
+			
+					return true;
+					
+				} else {
+				
+					return false;
+					
+				}
 				
 			}
 			
+			//compare file to list
 			foreach ( $list as $item ) {
 			
+				//$file is a directory
 				if ( is_dir( ABSPATH . $file ) ) {
 				
 					$isDir = true;
@@ -51,9 +83,9 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 								
 					}
 				
-				} else {
+				} else { //$file is a file
 				
-					if ( strpos( $item , '.' ) === 0) { //a file extension
+					if ( strpos( $item , '.' ) === 0) { //list item is a file extension
 					
 						if ( strcmp( '.' . trim( end ( explode( '.' , $file ) ) ), trim( $item ) ) == 0 ) {
 					 	
@@ -61,7 +93,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					 	
 						 }
 				
-					} else { //a file
+					} else { //list item is a single file
 				
 						if ( strcmp( trim( $item ), trim( end ( explode( '/' , $file ) ) ) ) == 0 ){
 					
@@ -77,13 +109,13 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			if ( $bwpsoptions['id_fileincex'] == 1 ) {
 			
-				if ( $flag == true ) {
+				if ( $flag == true ) { //if exclude reverse
 					return false;
 				} else {
 					return true;
 				}
 			
-			} elseif ( $isDir == true ) {
+			} elseif ( $isDir == true ) { //reverse properly for directories
 				
 				if ( $flag == true ) {
 					return false;
@@ -91,7 +123,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					return true;
 				}
 				
-			} else {		
+			} else { //return flag 
 			
 				return $flag;
 				
@@ -99,30 +131,42 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 		}
 		
+		/**
+		 * Executes filecheck
+		 *
+		 * Executes file checking for all operations
+		 *
+		 * @param bool $auto[optional] is this an automatic check
+		 *
+		 **/
 		function execute_filecheck( $auto = true ) {
 		
 			global $wpdb, $bwpsoptions;
 			
+			//get old file list
 			$logItems = maybe_unserialize( get_option( 'bwps_file_log' ) );
 			
+			//if there are no old files old file list is an empty array
 			if ( $logItems === false ) {
 			
 				$logItems = array();
 			
 			} 
 			
-			$currItems = $this->scanfiles();
+			$currItems = $this->scanfiles(); //scan current files
 			
-			$added = array_diff_assoc( $currItems, $logItems );
-			$removed = array_diff_assoc( $logItems, $currItems );
-			$compcurrent = array_diff_key( $currItems, $added );
-			$complog = array_diff_key( $logItems, $removed ); 
-			$changed = array();
+			$added = array_diff_assoc( $currItems, $logItems ); //files added
+			$removed = array_diff_assoc( $logItems, $currItems ); //files deleted
+			$compcurrent = array_diff_key( $currItems, $added ); //remove all added files from current filelist
+			$complog = array_diff_key( $logItems, $removed );  //remove all deleted files from old file list
+			$changed = array(); //array of changed files
 			
+			//compare file hashes and mod dates
 			foreach ( $compcurrent as $currfile => $currattr) {
 			
 				if ( array_key_exists( $currfile, $complog ) ) {
 				
+					//if attributes differ added to changed files array
 					if ( strcmp( $currattr['mod_date'], $complog[$currfile]['mod_date'] ) != 0 || strcmp( $currattr['hash'], $complog[$currfile]['hash'] ) != 0 ) {
 						$changed[$currfile]['hash'] = $currattr['hash'];
 						$changed[$currfile]['mod_date'] = $currattr['mod_date'];
@@ -132,36 +176,40 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			}
 			
+			//get count of changes
 			$addcount = sizeof( $added );
 			$removecount = sizeof( $removed );
 			$changecount = sizeof( $changed );
 			
+			//create single array of all changes
 			$combined = array(
 				'added' => $added,
 				'removed' => $removed,
 				'changed' => $changed
 			);
 			
+			//save current files to log
 			update_option( 'bwps_file_log', serialize( $currItems ) );
 			
+			//log check to database
+			$wpdb->insert(
+				$wpdb->base_prefix . 'bwps_log',
+				array(
+					'type' => '3',
+					'timestamp' => time(),
+					'host' => '',
+					'user' => '',
+					'url' => '',
+					'referrer' => '',
+					'data' => serialize( $combined )
+				)
+			);
+			
+			//if not the first check and files have changed warn about changes
 			if ( $bwpsoptions['id_filechecktime'] != '' ) {
 			
 				if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
 			
-					//log to database
-					$wpdb->insert(
-						$wpdb->base_prefix . 'bwps_log',
-						array(
-							'type' => '3',
-							'timestamp' => time(),
-							'host' => '',
-							'user' => '',
-							'url' => '',
-							'referrer' => '',
-							'data' => serialize( $combined )
-						)
-					);
-						
 					update_option( 'bwps_intrusion_warning', 1 );
 				
 					if ( $bwpsoptions['id_fileemailnotify'] == 1 ) {
@@ -170,6 +218,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				
 				}
 				
+				//set latest check time
 				$bwpsoptions['id_filechecktime'] = time();
 				
 				update_option( $this->primarysettings, $bwpsoptions );
@@ -178,17 +227,26 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 		}
 		
+		/**
+		 * Email report
+		 *
+		 * Sends a report to site admin email address if changes have been detected
+		 *
+		 **/
 		function fileemail() {
 		
+			//create all headers and subject
 			$to = get_option( 'admin_email' );
 			$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
 			$subject = __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 
+			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
-			$message .= $this->getdetails();
+			$message .= $this->getdetails(); //get report
 			
-			add_filter( 'wp_mail_content_type', create_function( '', 'return "text/html";' ) );
-			wp_mail( $to, $subject, $message, $headers );
+			add_filter( 'wp_mail_content_type', create_function( '', 'return "text/html";' ) ); //send as html
+			
+			wp_mail( $to, $subject, $message, $headers ); //send message
 		
 		}
 		
