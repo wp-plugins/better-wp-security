@@ -78,14 +78,17 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function activate_execute() {
-			global $wpdb, $bwpsdata, $bwpsoptions;
+			global $wpdb;
+			
+			$bwpsoptions = get_option( $this->primarysettings );
+			$bwpsdata = get_option( $this->plugindata );
 		
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 			
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', $bwps->hook ) );	
 			
-			}			
+			}	
 					
 			$oldversion = $bwpsdata['version']; //set new version number
 			$bwpsdata['version'] = $this->pluginversion; //set new version number
@@ -105,7 +108,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			update_option( $this->plugindata, $bwpsdata ); //save new plugin data
 			
 			//update if version numbers don't match
-			if ( $oldversion != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
+			if ( ( $oldversion != '' && $oldversion != $this->pluginversion ) || get_option( 'BWPS_options' ) != false ) {
 				$this->update_execute( $oldversion );
 			}
 			
@@ -165,7 +168,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 			}
 			
-			update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+			//Get the right options
+			if ( is_multisite() ) {
+			
+				switch_to_blog( 1 );
+			
+				update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+			
+				restore_current_blog();
+			
+			} else {
+			
+				update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+				
+			}
 			
 			if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
 				
@@ -264,7 +280,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				}
 				
-				update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+				//Get the right options
+				if ( is_multisite() ) {
+				
+					switch_to_blog( 1 );
+				
+					update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+				
+					restore_current_blog();
+				
+				} else {
+				
+					update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+					
+				}
 				
 				delete_option( 'BWPS_Login_Slug' );
 				delete_option( 'BWPS_options' );
@@ -318,7 +347,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 						$bwpsoptions['id_whitelist'] = implode( "\n", $whitelist );						
 						
-						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+						//Get the right options
+						if ( is_multisite() ) {
+						
+							switch_to_blog( 1 );
+						
+							update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+						
+							restore_current_blog();
+						
+						} else {
+						
+							update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+							
+						}
 					
 					}
 					
@@ -343,7 +385,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 						
 					}			
 					
-					update_option( $this->primarysettings, $bwpsoptions ); //save new options data	
+					//Get the right options
+					if ( is_multisite() ) {
+					
+						switch_to_blog( 1 );
+					
+						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+					
+						restore_current_blog();
+					
+					} else {
+					
+						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+						
+					}
 					
 				}
 			
@@ -369,9 +424,24 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
 			
-			delete_option( 'bwps_intrusion_warning' );
+			//Get the right options
+			if ( is_multisite() ) {
 			
-			delete_transient( 'bit51_bwps_backup' );
+				switch_to_blog( 1 );
+			
+				delete_option( 'bwps_intrusion_warning' );
+				
+				delete_transient( 'bit51_bwps_backup' );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				delete_option( 'bwps_intrusion_warning' );
+				
+				delete_transient( 'bit51_bwps_backup' );
+				
+			}
 			
 		}
 		
@@ -387,7 +457,22 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			foreach( $this->settings as $settings ) {
 			
 				foreach ( $settings as $setting => $option ) {
-					delete_option( $setting );
+					
+					//Delete the right options
+					if ( is_multisite() ) {
+					
+						switch_to_blog( 1 );
+					
+						delete_option( $setting );
+					
+						restore_current_blog();
+					
+					} else {
+					
+						delete_option( $setting );
+						
+					}
+					
 				}
 				
 			}
@@ -401,7 +486,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "bwps_log`;" );
 			
 			//delete plugin information (version, etc)
-			delete_option( $this->plugindata );
+			//Delete the right options
+			if ( is_multisite() ) {
+			
+				switch_to_blog( 1 );
+			
+				delete_option( $this->plugindata );
+			
+				restore_current_blog();
+			
+			} else {
+			
+				delete_option( $this->plugindata );
+				
+			}
 			
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.

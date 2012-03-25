@@ -1274,6 +1274,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_writefiles'] = ( isset( $_POST['st_writefiles'] ) && $_POST['st_writefiles'] == 1  ? 1 : 0 );
+			$bwpsoptions['st_comment'] = ( isset( $_POST['st_comment'] ) && $_POST['st_comment'] == 1  ? 1 : 0 );
 						
 			if ( ! is_wp_error( $errorHandler ) ) {
 			

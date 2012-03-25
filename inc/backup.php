@@ -37,7 +37,20 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 								
 						$bwpsoptions['backup_next'] = ( time() + $next );
 						
-						update_option( $this->primarysettings, $bwpsoptions );
+						//Get the options
+						if ( is_multisite() ) {
+								
+							switch_to_blog( 1 );
+								
+							update_option( $this->primarysettings, $bwpsoptions );
+								
+							restore_current_blog();
+								
+						} else {
+								
+							update_option( $this->primarysettings, $bwpsoptions );
+									
+						}
 
 						$this->execute_backup(); //execute backup
 				

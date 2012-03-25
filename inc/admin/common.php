@@ -323,7 +323,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//start mod_rewrite rules
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -433,6 +433,35 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){" . PHP_EOL .
 					"\t\treturn 403;" . PHP_EOL .
 					"\t}" . PHP_EOL . PHP_EOL;
+				
+				}
+				
+			}
+			
+			if ( $bwpsoptions['st_comment'] == 1 ) {
+			
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+				
+					$rules .= "RewriteCond %{REQUEST_METHOD} POST" . PHP_EOL .
+						"RewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*" . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $this->topdomain( get_option( 'siteurl' ) ) . ".* [OR]" . PHP_EOL .
+						"RewriteCond %{HTTP_USER_AGENT} ^$" . PHP_EOL . 
+						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
+				
+				} else {
+				
+					$rules .= "\tif (\$request_method ~ \"POST\"){" . PHP_EOL .
+						"\t\tset \$rule_0 1\$rule_0;" . PHP_EOL .
+						"\t}" . PHP_EOL .
+						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){" . PHP_EOL .
+						"set \$rule_0 2\$rule_0;" . PHP_EOL .
+						"\t}" . PHP_EOL .
+						"\tif (\$http_user_agent ~ \"^$\"){" . PHP_EOL .
+						"\t\tset \$rule_0 4\$rule_0;" . PHP_EOL .
+						"\t}" . PHP_EOL .
+						"\tif (\$rule_0 = \"421\"){" . PHP_EOL .
+						"\t\treturn 403;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
 				
@@ -573,7 +602,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteRule ^" . $admin . "/?$ " . $dir . "wp-login.php?" . $key . "&redirect_to=" . $dir . "wp-admin/ [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteRule ^" . $admin . "/?$ " . $dir . "wp-admin/?" . $key . " [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteRule ^" . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register [R,L]" . PHP_EOL . PHP_EOL .
-						"RewriteCond %{SCRIPT_FILENAME} !^(.*)admin-ajax.php" . PHP_EOL . 
+						"RewriteCond %{SCRIPT_FILENAME} !^(.*)admin-ajax\.php" . PHP_EOL . 
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-admin" . PHP_EOL .
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . "wp-login\.php" . PHP_EOL .
 						"RewriteCond %{HTTP_REFERER} !^" . $reDomain . $dir . $login . PHP_EOL .
@@ -636,7 +665,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//close mod_rewrite
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) ) {
 				
@@ -813,11 +842,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}		
 						
-			if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+			if ( ! $f = @fopen( $htaccess, 'a+' ) ) {
 						
 				@chmod( $htaccess, 0644 );
 				
-				if ( ! $f = @fopen( $htaccess, 'w+' ) ) {
+				if ( ! $f = @fopen( $htaccess, 'a+' ) ) {
 							
 					return -1;
 							

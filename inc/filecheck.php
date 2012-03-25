@@ -17,6 +17,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//only exececute if it has been more than 24 hours or the check has never occured and file checking is enabled.
 			if ( $bwpsoptions['id_fileenabled'] == 1 && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
 			
+				//die( 'Last Time: ' . $bwpsoptions['id_filechecktime'] );
+			
 				$this->execute_filecheck();
 			
 			}
@@ -144,7 +146,19 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			global $wpdb, $bwpsoptions;
 			
 			//get old file list
-			$logItems = maybe_unserialize( get_option( 'bwps_file_log' ) );
+			if ( is_multisite() ) {
+					
+				switch_to_blog( 1 );
+					
+				$logItems = maybe_unserialize( get_option( 'bwps_file_log' ) );
+					
+				restore_current_blog();
+					
+			} else {
+					
+				$logItems = maybe_unserialize( get_option( 'bwps_file_log' ) );
+						
+			}
 			
 			//if there are no old files old file list is an empty array
 			if ( $logItems === false ) {
@@ -189,7 +203,20 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			);
 			
 			//save current files to log
-			update_option( 'bwps_file_log', serialize( $currItems ) );
+			//Get the options
+			if ( is_multisite() ) {
+					
+				switch_to_blog( 1 );
+					
+				update_option( 'bwps_file_log', serialize( $currItems ) );
+					
+				restore_current_blog();
+					
+			} else {
+					
+				update_option( 'bwps_file_log', serialize( $currItems ) );
+						
+			}
 			
 			//log check to database
 			$wpdb->insert(
@@ -210,7 +237,20 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 				if ( $addcount != 0 || $removecount != 0 || $changecount != 0 ) {
 			
-					update_option( 'bwps_intrusion_warning', 1 );
+					//Update the right options
+					if ( is_multisite() ) {
+					
+						switch_to_blog( 1 );
+					
+						update_option( 'bwps_intrusion_warning', 1 );
+					
+						restore_current_blog();
+					
+					} else {
+					
+						update_option( 'bwps_intrusion_warning', 1 );
+						
+					}
 				
 					if ( $bwpsoptions['id_fileemailnotify'] == 1 ) {
 						$this->fileemail();
@@ -218,9 +258,22 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				
 				}
 				
-				//set latest check time
-				$bwpsoptions['id_filechecktime'] = time();
+			}
 				
+			//set latest check time
+			$bwpsoptions['id_filechecktime'] = time();
+				
+			//Update the right options
+			if ( is_multisite() ) {
+						
+				switch_to_blog( 1 );
+						
+				update_option( $this->primarysettings, $bwpsoptions );
+					
+				restore_current_blog();
+						
+			} else {
+						
 				update_option( $this->primarysettings, $bwpsoptions );
 				
 			}
@@ -250,11 +303,20 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 		}
 		
+		/**
+		 * Get Report Details
+		 *
+		 * Returns details of all changed files found in given report
+		 *
+		 * @param string $id[optional] integer ID of report desired
+		 * @return string report details
+		 *
+		 **/
 		function getdetails( $id = '' ) {
 		
 			global $wpdb;
 			
-			if ( $id == '' ) {
+			if ( $id == '' ) { //if no id provided get the most recent
 			
 				$maxtime = $wpdb->get_results( "SELECT  id, MAX(timestamp) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3;", ARRAY_A );
 				
@@ -266,10 +328,12 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			}
 		
+			//get the change array
 			$changes = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $reportid ) . " ORDER BY timestamp DESC;", ARRAY_A );
 		
 			$data = maybe_unserialize( $changes[0]['data'] );
 			
+			//seperate array by category
 			$added = $data['added'];
 			$removed = $data['removed'];
 			$changed = $data['changed'];			
@@ -332,29 +396,38 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 		}
 		
+		/**
+		 * Scans all files in a given path
+		 * 
+		 * Scans all files in a given path and returns an array of filename, mod_date, and file hash
+		 *
+		 * @param string $path[optional] path to scan, defaults to WordPress root
+		 * @return array array of files found and their information
+		 *
+		 **/
 		function scanfiles( $path = '' ) {
 			
 			global $bwpsoptions;
 
             $data = array();
 
-			if ( $dirHandle = @opendir( ABSPATH . $path ) ) {
+			if ( $dirHandle = @opendir( ABSPATH . $path ) ) { //get the directory
 			
 				while ( ( $item = readdir( $dirHandle ) ) !== false ) { // loop through dirs
 					
-					if ( $item != '.' && $item != '..' ) {
+					if ( $item != '.' && $item != '..' ) { //don't scan parent/etc
 
 						$relname = $path . $item;
                         
 						$absname = ABSPATH . $relname;
 						
-						if ( $this->checkFile( $relname ) == true ) {
+						if ( $this->checkFile( $relname ) == true ) { //make sure the user wants this file scanned
 						
-							if ( filetype( $absname ) == 'dir' ) {
+							if ( filetype( $absname ) == 'dir' ) { //if directory scan it
 							
 								$data = array_merge( $data, $this->scanfiles( $relname . '/' ) );
 								
-							} else {
+							} else { //is file so add to array
 							
 								$data[$relname] = array();
 								$data[$relname]['mod_date'] = filemtime( $absname );
@@ -368,7 +441,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					
 				}   
 				
-				@closedir( $dirHandle );  
+				@closedir( $dirHandle ); //close the directory we're working with
                         
 			} 
 			
@@ -376,41 +449,79 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 		}
 		
+		/**
+		 * Display admin warning
+		 *
+		 * Displays a warning to adminstrators when file changes have been detected
+		 *
+		 **/
 		function warning() {
 		
+			global $blog_id; //get the current blog id
+			
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+		
+			//if there is a warning to display
 			if ( get_option( 'bwps_intrusion_warning' ) == 1 ) {
 			
-				if ( ! function_exists( 'bit51_plugin_donate_notice' ) ) {
+				if ( ! function_exists( 'bit51_filecheck_warning' ) ) {
 			
-					function bit51_plugin_donate_notice(){
+					function bit51_filecheck_warning(){
 				
 						global $plugname;
 						global $plughook;
 						global $plugopts;
+						$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
 					
 					    echo '<div class="error">
-				       <p>' . __( 'Better WP Security has noticed a change to some files in your WordPress installation. Please review the logs to make sure your system has not been compromised.', $plughook ) . '</p> <p><input type="button" class="button " value="' . __( 'View Logs', $plughook ) . '" onclick="document.location.href=\'?bit51_view_logs=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Dismiss Warning', $plughook) . '" onclick="document.location.href=\'' . admin_url() . 'admin.php?bit51_dismiss_warning=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
+				       <p>' . __( 'Better WP Security has noticed a change to some files in your WordPress installation. Please review the logs to make sure your system has not been compromised.', $plughook ) . '</p> <p><input type="button" class="button " value="' . __( 'View Logs', $plughook ) . '" onclick="document.location.href=\'?bit51_view_logs=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Dismiss Warning', $plughook) . '" onclick="document.location.href=\'' . $adminurl . 'admin.php?bit51_dismiss_warning=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
 					    </div>';
 				    
 					}
 				
 				}
 				
-				add_action( 'admin_notices', 'bit51_plugin_donate_notice' ); //register notification
+				//put the warning in the right spot
+				if ( is_multisite() ) {
+					add_action( 'network_admin_notices', 'bit51_filecheck_warning' ); //register notification
+				} else {
+					add_action( 'admin_notices', 'bit51_filecheck_warning' ); //register notification
+				}
 				
 			}
 			
 			//if they've clicked a button hide the notice
 			if ( ( isset( $_GET['bit51_view_logs'] ) || isset( $_GET['bit51_dismiss_warning'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bit51-nag' ) ) {
-			
-				delete_option( 'bwps_intrusion_warning' );
 				
+				//Get the options
+				if ( is_multisite() ) {
+						
+					switch_to_blog( 1 );
+						
+					delete_option( 'bwps_intrusion_warning' );
+						
+					restore_current_blog();
+						
+				} else {
+						
+					delete_option( 'bwps_intrusion_warning' );
+							
+				}
+				
+				//take them back to where they started
 				if ( isset( $_GET['bit51_dismiss_warning'] ) ) {				
 					wp_redirect( $_SERVER['HTTP_REFERER'], 302 );
 				}
 				
+				//take them to the correct logs page
 				if ( isset( $_GET['bit51_view_logs'] ) ) {
-					wp_redirect( admin_url() . 'admin.php?page=better_wp_security-logs#file-change', 302 );
+					if ( is_multisite() ) {
+						wp_redirect( admin_url() . 'network/admin.php?page=better_wp_security-logs#file-change', 302 );
+					} else {
+						wp_redirect( admin_url() . 'admin.php?page=better_wp_security-logs#file-change', 302 );
+					}
 				}
 				
 			}

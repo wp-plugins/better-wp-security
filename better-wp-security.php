@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
-		public $pluginversion 	= '3024'; //current plugin version
+		public $pluginversion 	= '3026'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better_wp_security';
@@ -89,6 +89,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_passrole'			=> 'administrator',
 					'st_loginerror'			=> '0',
 					'st_fileperm'			=> '0',
+					'st_comment'			=> '0',
 					'st_randomversion'		=> '0',
 					'st_longurl'			=> '0',
 					'st_fileedit'			=> '0',
@@ -109,15 +110,16 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 				switch_to_blog( 1 );
 			
 				$bwpsoptions = get_option( $this->primarysettings );
+				$bwpsdata = get_option( $this->plugindata );
 			
 				restore_current_blog();
 			
 			} else {
 			
 				$bwpsoptions = get_option( $this->primarysettings );
+				$bwpsdata = get_option( $this->plugindata );
 				
 			}
-			$bwpsdata = get_option( $this->plugindata );
 		
 			//set path information
 			define( 'BWPS_PP', plugin_dir_path( __FILE__ ) );

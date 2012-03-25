@@ -2254,7 +2254,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</th>
 							<td>
 								<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_manifest'] ); ?> />
-								<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer.', $this->hook ); ?></p>
+								<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">
@@ -2352,6 +2352,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p><?php _e( 'Allow Better WP Security to write to .htaccess and wp-config.php. With this turned on this plugin will automatically write to your .htaccess and wp-config.php files. With it turned off you will need to manually make changes to these files and both the renaming of wp-content and the changing of the database table prefix will not be available.', $this->hook ); ?></p>
 								<p><?php _e( 'This option is safe in nearly all instances however, if you know you have a server configuration that may conflict or simply want to make the changes yourself then uncheck this feature.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">
+							<th scope="row">
+								<a name="st_comment"></a><label for "st_comment"><?php _e( 'Reduce comment spam', $this->hook ); ?></label>
+							</th>
+							<td>
+								<input id="st_comment" name="st_comment" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_comment'] ); ?> />
+								<p><?php _e( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', $this->hook ); ?></p>
+								<p><?php _e( 'Note this feature only applies if "Write to WordPress core files" is enabled.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">
