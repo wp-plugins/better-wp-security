@@ -452,13 +452,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= "\tif (\$request_method ~ \"POST\"){" . PHP_EOL .
 						"\t\tset \$rule_0 1\$rule_0;" . PHP_EOL .
-						"\t}" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .	
 						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){" . PHP_EOL .
-						"set \$rule_0 2\$rule_0;" . PHP_EOL .
-						"\t}" . PHP_EOL .
+						"\t\tset \$rule_0 2\$rule_0;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .	
 						"\tif (\$http_user_agent ~ \"^$\"){" . PHP_EOL .
 						"\t\tset \$rule_0 4\$rule_0;" . PHP_EOL .
-						"\t}" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .	
 						"\tif (\$rule_0 = \"421\"){" . PHP_EOL .
 						"\t\treturn 403;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
