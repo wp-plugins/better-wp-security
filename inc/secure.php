@@ -388,7 +388,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				);
 				
 				//contruct and send email if necessary
-				if ( $bwpsoptions['ll_emailnotify'] == 1 || $bwpsoptions['id_emailnotify'] == 1 ) {
+				if ( ( $type == 1 && $bwpsoptions['ll_emailnotify'] == 1 ) || ( $type == 2 && $bwpsoptions['id_emailnotify'] == 1 ) ) {
 					
 					$toEmail = get_site_option( 'admin_email' );
 					$subEmail = get_bloginfo( 'name' ) . ' ' . __( 'Site Lockout Notification', $this->hook );
