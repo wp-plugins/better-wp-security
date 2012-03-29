@@ -514,8 +514,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 				$errorHandler->add( '2', $newuser . __( 'Unable to rename the wp-content folder. Operation cancelled.', $this->hook ) );
 				
-				die( 'Old Dir = ' . $oldDir . ', New Dir = ' . $newDir );
-				
 			}
 			
 			$wpconfig = $this->getConfig(); //get the path for the config file

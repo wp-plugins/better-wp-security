@@ -502,7 +502,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $hcount == 3 ) { ?>
 						<span style="color: green;"><?php _e( 'Your Wordpress header is revealing as little information as possible.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
-						<span style="color: orange;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: blue;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
 						<span style="color: red;"><?php _e( 'Your Wordpress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
@@ -2191,37 +2191,40 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<input type="hidden" name="bwps_page" value="systemtweaks_1" />
 					<table class="form-table">
 						<tr valign="top">
-							<tr>
-								<td scope="row" colspan="2">
-									<a name="st_ht_files"></a><h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
-								</td>
-							</tr>
+							<td scope="row" colspan="2">
+								<a name="st_ht_files"></a><h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
+							</td>
+						</tr>
+						<tr valign="top" style="border: 1px solid #ffcc00;">	
 							<th scope="row">
 								<label for "st_ht_files"><?php _e( 'Protect Files', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_ht_files" name="st_ht_files" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_files'] ); ?> />
 								<p><?php _e( 'Prevent public access to readme.html, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<?php if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { ?>
-							<tr valign="top">
+							<tr valign="top" style="border: 1px solid #ffcc00;">
 								<th scope="row">
 									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
 								</th>
 								<td>
 									<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_browsing'] ); ?> />
 									<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
+									<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations in which this feature has already been enabled in Apache.', $this->hook ); ?></p>
 								</td>
 							</tr>
 						<?php } ?>
-						<tr valign="top">
+						<tr valign="top" style="border: 1px solid #ffcc00;">
 							<th scope="row">
 								<label for "st_ht_request"><?php _e( 'Filter Request Methods', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_ht_request" name="st_ht_request" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_request'] ); ?> />
 								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
+								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top" style="border: 1px solid #ffcc00;">

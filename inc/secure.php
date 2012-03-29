@@ -93,7 +93,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			if ( ! is_404() ) {
 			
-				global $bwps_backup;
+				global $bwps_backup; //allow backup object to be accessed elsewhere
 		
 				//execute backups
 				require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );

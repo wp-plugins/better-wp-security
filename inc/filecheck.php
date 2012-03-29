@@ -143,7 +143,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		 **/
 		function execute_filecheck( $auto = true ) {
 		
-			global $wpdb, $bwpsoptions;
+			global $wpdb, $bwpsoptions, $logid;
 			
 			//get old file list
 			if ( is_multisite() ) {
@@ -232,6 +232,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				)
 			);
 			
+			$logid = $wpdb->insert_id;
+			
 			//if not the first check and files have changed warn about changes
 			if ( $bwpsoptions['id_filechecktime'] != '' ) {
 			
@@ -287,6 +289,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		 *
 		 **/
 		function fileemail() {
+			global $logid;
 		
 			//create all headers and subject
 			$to = get_option( 'admin_email' );
@@ -295,7 +298,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 
 			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
-			$message .= $this->getdetails(); //get report
+			$message .= $this->getdetails( $logid ); //get report
 			
 			add_filter( 'wp_mail_content_type', create_function( '', 'return "text/html";' ) ); //send as html
 			
