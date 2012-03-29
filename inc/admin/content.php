@@ -1655,7 +1655,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</th>
 							<td>
 								<input name="hb_admin" id="hb_admin" value="<?php echo $bwpsoptions['hb_admin']; ?>" type="text"><br />
-								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo 	$bwpsoptions['hb_admin']; ?></span></em>
+								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_admin']; ?></span></em>
 							</td>
 						</tr>
 					</table>
@@ -2118,6 +2118,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				
 				<?php			
 			} else {
+			
+				$wp_list_table = new log_content_6();
+				$wp_list_table->prepare_items();
+				$wp_list_table->display();
+				
 			
 				$changes = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
 			

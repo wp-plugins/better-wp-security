@@ -3,6 +3,7 @@
 require_once( plugin_dir_path( __FILE__ ) . 'common.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'content.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'process.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'tables.php' );
 
 if ( ! class_exists( 'bwps_admin_construct' ) ) {
 

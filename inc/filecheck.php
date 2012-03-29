@@ -294,7 +294,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//create all headers and subject
 			$to = get_option( 'admin_email' );
 			$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
-			$subject = __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+			$subject = __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 
 			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
@@ -340,7 +340,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			$added = $data['added'];
 			$removed = $data['removed'];
 			$changed = $data['changed'];			
-			
 			$report = __( 'Scan Time:', $this->hook ) . ' ' . date( 'l, F jS g:i a e', $changes[0]['timestamp'] ) . "<br />" . PHP_EOL;
 			$report .= __( 'Files Added:', $this->hook ) . ' ' . sizeof( $added ) . "<br />" . PHP_EOL;
 			$report .= __( 'Files Deleted:', $this->hook ) . ' ' . sizeof( $removed ) . "<br />" . PHP_EOL;
@@ -356,7 +355,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			foreach ( $added as $item => $attr ) { 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'n/j/y H:i:s', $attr['mod_date'] ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
 				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 			}
@@ -372,7 +371,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			foreach ( $removed as $item => $attr ) { 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'n/j/y H:i:s', $attr['mod_date'] ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
 				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 			}
@@ -388,7 +387,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			foreach ( $changed as $item => $attr ) { 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'n/j/y H:i:s', $attr['mod_date'] ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
 				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 			}
