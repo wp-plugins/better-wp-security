@@ -1,14 +1,19 @@
 <?php
 
+//make syre we have the WordPress class
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-
+//Table for file changes log
 if ( ! class_exists( 'log_content_6_table' ) ) {
 
 	class log_content_6_table extends WP_List_Table {
 	
+		/**
+		 * Construct table object
+		 *
+		 **/
 		function __construct() {
 		
 			parent::__construct(
@@ -21,6 +26,12 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		
 		}
 		
+		/**
+		 * Create Table headers
+		 * 
+		 * @param string $which top for above table, bottom for below
+		 *
+		 **/
 		function extra_tablenav( $which ) {
 		
 			global $bwps;
@@ -31,6 +42,12 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 			
 		}
 		
+		/**
+		 * Define Columns
+		 *
+		 * @return array array of column titles
+		 *
+		 **/
 		function get_columns() {
 		
 			global $bwps;
@@ -45,30 +62,65 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		
 		}
 		
+		/**
+		 * Define time column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_time( $item ) {
 		
 			return date( 'Y-m-d H:i:s', $item['timestamp'] );
 		
 		}
 		
+		/**
+		 * Define added column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_added( $item ) {
 		
 			return $item['added'];
 		
 		}
 		
+		/**
+		 * Define deleted column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_deleted( $item ) {
 		
 			return $item['deleted'];
 		
 		}
 		
+		/**
+		 * Define modified column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_modified( $item ) {
 		
 			return $item['modified'];
 		
 		}
 		
+		/**
+		 * Define details column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_details( $item ) {
 		
 			global $bwps;
@@ -77,6 +129,10 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		
 		}
 		
+		/**
+		 * Prepare data for table
+		 *
+		 **/
 		function prepare_items() {
 		
 			global $wpdb;
@@ -88,7 +144,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
         	
         	$data = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
         	
-        	$per_page = 50;
+        	$per_page = 50; //50 items per page
         	
         	$current_page = $this->get_pagenum();
         	
@@ -100,6 +156,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
         	
         	$count = 0;
         	
+        	//Loop through results and take data we need
         	foreach ( $data as $item ) {
         	
         		$files = maybe_unserialize( $item['data'] );
@@ -130,12 +187,17 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 
 }
 
+//added files table
 if ( ! class_exists( 'log_details_added_table' ) ) {
 
 	class log_details_added_table extends WP_List_Table {
 	
 		public $recordid;
 	
+		/**
+		 * Construct table object
+		 *
+		 **/
 		function __construct( $id ) {
 		
 			global $recordid;
@@ -152,6 +214,12 @@ if ( ! class_exists( 'log_details_added_table' ) ) {
 		
 		}
 		
+		/**
+		 * Create Table headers
+		 * 
+		 * @param string $which top for above table, bottom for below
+		 *
+		 **/
 		function extra_tablenav( $which ) {
 		
 			global $bwps;
@@ -162,6 +230,12 @@ if ( ! class_exists( 'log_details_added_table' ) ) {
 			
 		}
 		
+		/**
+		 * Define Columns
+		 *
+		 * @return array array of column titles
+		 *
+		 **/
 		function get_columns() {
 		
 			global $bwps;
@@ -174,24 +248,49 @@ if ( ! class_exists( 'log_details_added_table' ) ) {
 		
 		}
 		
+		/**
+		 * Define file column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_file( $item ) {
 		
 			return $item['file'];
 		
 		}
 		
+		/**
+		 * Define modified column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_modified( $item ) {
 		
 			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
 		
 		}
 		
+		/**
+		 * Define hash column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_hash( $item ) {
 		
 			return $item['hash'];
 		
 		}
 		
+		/**
+		 * Prepare data for table
+		 *
+		 **/
 		function prepare_items() {
 		
 			global $wpdb, $recordid;
@@ -246,12 +345,17 @@ if ( ! class_exists( 'log_details_added_table' ) ) {
 
 }
 
+//removed files table
 if ( ! class_exists( 'log_details_removed_table' ) ) {
 
 	class log_details_removed_table extends WP_List_Table {
 	
 		public $recordid;
 	
+		/**
+		 * Construct table object
+		 *
+		 **/
 		function __construct( $id ) {
 		
 			global $recordid;
@@ -268,6 +372,12 @@ if ( ! class_exists( 'log_details_removed_table' ) ) {
 		
 		}
 		
+		/**
+		 * Create Table headers
+		 * 
+		 * @param string $which top for above table, bottom for below
+		 *
+		 **/
 		function extra_tablenav( $which ) {
 		
 			global $bwps;
@@ -278,6 +388,12 @@ if ( ! class_exists( 'log_details_removed_table' ) ) {
 			
 		}
 		
+		/**
+		 * Define Columns
+		 *
+		 * @return array array of column titles
+		 *
+		 **/
 		function get_columns() {
 		
 			global $bwps;
@@ -290,24 +406,49 @@ if ( ! class_exists( 'log_details_removed_table' ) ) {
 		
 		}
 		
+		/**
+		 * Define file column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_file( $item ) {
 		
 			return $item['file'];
 		
 		}
 		
+		/**
+		 * Define modified column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_modified( $item ) {
 		
 			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
 		
 		}
 		
+		/**
+		 * Define hash column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_hash( $item ) {
 		
 			return $item['hash'];
 		
 		}
 		
+		/**
+		 * Prepare data for table
+		 *
+		 **/
 		function prepare_items() {
 		
 			global $wpdb, $recordid;
@@ -362,12 +503,17 @@ if ( ! class_exists( 'log_details_removed_table' ) ) {
 
 }
 
+//modified files table
 if ( ! class_exists( 'log_details_modified_table' ) ) {
 
 	class log_details_modified_table extends WP_List_Table {
 	
 		public $recordid;
 	
+		/**
+		 * Construct table object
+		 *
+		 **/
 		function __construct( $id ) {
 		
 			global $recordid;
@@ -384,6 +530,12 @@ if ( ! class_exists( 'log_details_modified_table' ) ) {
 		
 		}
 		
+		/**
+		 * Create Table headers
+		 * 
+		 * @param string $which top for above table, bottom for below
+		 *
+		 **/
 		function extra_tablenav( $which ) {
 		
 			global $bwps;
@@ -394,6 +546,12 @@ if ( ! class_exists( 'log_details_modified_table' ) ) {
 			
 		}
 		
+		/**
+		 * Define Columns
+		 *
+		 * @return array array of column titles
+		 *
+		 **/
 		function get_columns() {
 		
 			global $bwps;
@@ -406,24 +564,49 @@ if ( ! class_exists( 'log_details_modified_table' ) ) {
 		
 		}
 		
+		/**
+		 * Define file column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_file( $item ) {
 		
 			return $item['file'];
 		
 		}
 		
+		/**
+		 * Define modified column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_modified( $item ) {
 		
 			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
 		
 		}
 		
+		/**
+		 * Define hash column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
 		function column_hash( $item ) {
 		
 			return $item['hash'];
 		
 		}
 		
+		/**
+		 * Prepare data for table
+		 *
+		 **/
 		function prepare_items() {
 		
 			global $wpdb, $recordid;
