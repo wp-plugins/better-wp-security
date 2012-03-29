@@ -298,7 +298,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 
 			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
-			$message .= $this->getdetails( $logid ); //get report
+			$message .= $this->getdetails( $logid, true ); //get report
 			
 			add_filter( 'wp_mail_content_type', create_function( '', 'return "text/html";' ) ); //send as html
 			
@@ -311,90 +311,98 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		 *
 		 * Returns details of all changed files found in given report
 		 *
-		 * @param string $id[optional] integer ID of report desired
+		 * @param string $id integer ID of report desired
+		 * @param bool $email[optional] is this to be displayed in email
 		 * @return string report details
 		 *
 		 **/
-		function getdetails( $id = '' ) {
+		function getdetails( $id, $email = false ) {
 		
 			global $wpdb;
 			
-			if ( $id == '' ) { //if no id provided get the most recent
-			
-				$maxtime = $wpdb->get_results( "SELECT  id, MAX(timestamp) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3;", ARRAY_A );
-				
-				$reportid = $maxtime[0]['id'];
-				
-			} else {
-			
-				$reportid = $id;
-			
-			}
-		
 			//get the change array
-			$changes = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $reportid ) . " ORDER BY timestamp DESC;", ARRAY_A );
-		
-			$data = maybe_unserialize( $changes[0]['data'] );
+			$changes = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $id ) . " ORDER BY timestamp DESC;", ARRAY_A );
 			
+			$data = maybe_unserialize( $changes[0]['data'] );
+				
 			//seperate array by category
 			$added = $data['added'];
 			$removed = $data['removed'];
 			$changed = $data['changed'];			
-			$report = __( 'Scan Time:', $this->hook ) . ' ' . date( 'l, F jS g:i a e', $changes[0]['timestamp'] ) . "<br />" . PHP_EOL;
-			$report .= __( 'Files Added:', $this->hook ) . ' ' . sizeof( $added ) . "<br />" . PHP_EOL;
-			$report .= __( 'Files Deleted:', $this->hook ) . ' ' . sizeof( $removed ) . "<br />" . PHP_EOL;
-			$report .= __( 'Files Modified:', $this->hook ) . ' ' . sizeof( $changed ) . "<br />" . PHP_EOL;
-			
-			$report .= '<h4>' . __( 'Files Added', $this->hook ) . '</h4>';
-			$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
-			$report .= '<tr>' . PHP_EOL;
-			$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '</tr>' . PHP_EOL;
-			foreach ( $added as $item => $attr ) { 
-				$report .= '<tr>' . PHP_EOL;
-				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
-				$report .= '</tr>' . PHP_EOL;
-			}
-			$report .= '</table>' . PHP_EOL;
-			
-			$report .= '<h4>' . __( 'Files Deleted', $this->hook ) . '</h4>';
-			$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
-			$report .= '<tr>' . PHP_EOL;
-			$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '</tr>' . PHP_EOL;
-			foreach ( $removed as $item => $attr ) { 
-				$report .= '<tr>' . PHP_EOL;
-				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
-				$report .= '</tr>' . PHP_EOL;
-			}
-			$report .= '</table>' . PHP_EOL;
-			
-			$report .= '<h4>' . __( 'Files Modified', $this->hook ) . '</h4>';
-			$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
-			$report .= '<tr>' . PHP_EOL;
-			$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
-			$report .= '</tr>' . PHP_EOL;
-			foreach ( $changed as $item => $attr ) { 
-				$report .= '<tr>' . PHP_EOL;
-				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
-				$report .= '</tr>' . PHP_EOL;
-			}
-			$report .= '</table>' . PHP_EOL;
-			
-			return $report;
+			$report = '<strong>' . __( 'Scan Time:', $this->hook ) . '</strong> ' . date( 'l, F jS g:i a e', $changes[0]['timestamp'] ) . "<br />" . PHP_EOL;
+			$report .= '<strong>' . __( 'Files Added:', $this->hook ) . '</strong> ' . sizeof( $added ) . "<br />" . PHP_EOL;
+			$report .= '<strong>' . __( 'Files Deleted:', $this->hook ) . '</strong> ' . sizeof( $removed ) . "<br />" . PHP_EOL;
+			$report .= '<strong>' . __( 'Files Modified:', $this->hook ) . '</strong> ' . sizeof( $changed ) . "<br />" . PHP_EOL;
 		
+			if ( $email == true ) {
+					
+				$report .= '<h4>' . __( 'Files Added', $this->hook ) . '</h4>';
+				$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
+				$report .= '<tr>' . PHP_EOL;
+				$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '</tr>' . PHP_EOL;
+				foreach ( $added as $item => $attr ) { 
+					$report .= '<tr>' . PHP_EOL;
+					$report .= '<td>' . $item . '</td>' . PHP_EOL;
+					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '</tr>' . PHP_EOL;
+				}
+				$report .= '</table>' . PHP_EOL;
+			
+				$report .= '<h4>' . __( 'Files Deleted', $this->hook ) . '</h4>';
+				$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
+				$report .= '<tr>' . PHP_EOL;
+				$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '</tr>' . PHP_EOL;
+				foreach ( $removed as $item => $attr ) { 
+					$report .= '<tr>' . PHP_EOL;
+					$report .= '<td>' . $item . '</td>' . PHP_EOL;
+					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '</tr>' . PHP_EOL;
+				}
+				$report .= '</table>' . PHP_EOL;
+			
+				$report .= '<h4>' . __( 'Files Modified', $this->hook ) . '</h4>';
+				$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
+				$report .= '<tr>' . PHP_EOL;
+				$report .= '<th>' . __( 'File', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
+				$report .= '</tr>' . PHP_EOL;
+				foreach ( $changed as $item => $attr ) { 
+					$report .= '<tr>' . PHP_EOL;
+					$report .= '<td>' . $item . '</td>' . PHP_EOL;
+					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '</tr>' . PHP_EOL;
+				}
+				$report .= '</table>' . PHP_EOL;
+			
+				return $report;
+				
+			} else {
+			
+				echo $report;
+			
+				$log_details_added_table = new log_details_added_table( $id );
+				$log_details_added_table->prepare_items();
+				$log_details_added_table->display();
+				
+				$log_details_removed_table = new log_details_removed_table( $id );
+				$log_details_removed_table->prepare_items();
+				$log_details_removed_table->display();
+				
+				$log_details_modified_table = new log_details_modified_table( $id );
+				$log_details_modified_table->prepare_items();
+				$log_details_modified_table->display();
+			
+			}
 		
 		}
 		

@@ -5,9 +5,9 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 }
 
 
-if ( ! class_exists( 'log_content_6' ) ) {
+if ( ! class_exists( 'log_content_6_table' ) ) {
 
-	class log_content_6 extends WP_List_Table {
+	class log_content_6_table extends WP_List_Table {
 	
 		function __construct() {
 		
@@ -15,7 +15,7 @@ if ( ! class_exists( 'log_content_6' ) ) {
 				array(
 					'singular'	=> 'log_content_6_item',
 					'plural'	=> 'log_content_6_items',
-					'ajax'		=> true
+					'ajax'		=> false
 				)
 			);
 		
@@ -36,141 +36,441 @@ if ( ! class_exists( 'log_content_6' ) ) {
 			global $bwps;
 		
 			return array(
-				'col_item_time'		=> __( 'Time', $bwps->hook ),
-				'col_item_added'	=> __( 'Added', $bwps->hook ),
-				'col_item_deleted'	=> __( 'Deleted', $bwps->hook ),
-				'col_item_modified'	=> __( 'Modified', $bwps->hook ),
-				'col_item_details'	=> __( 'Details', $bwps->hook ),
+				'time'		=> __( 'Time', $bwps->hook ),
+				'added'	=> __( 'Added', $bwps->hook ),
+				'deleted'	=> __( 'Deleted', $bwps->hook ),
+				'modified'	=> __( 'Modified', $bwps->hook ),
+				'details'	=> __( 'Details', $bwps->hook ),
 			);
 		
 		}
 		
-		function get_sortable_columns() {
+		function column_time( $item ) {
 		
-			return array(
-				'col_item_time'	=> 'timestamp'
-			);
-			
+			return date( 'Y-m-d H:i:s', $item['timestamp'] );
+		
+		}
+		
+		function column_added( $item ) {
+		
+			return $item['added'];
+		
+		}
+		
+		function column_deleted( $item ) {
+		
+			return $item['deleted'];
+		
+		}
+		
+		function column_modified( $item ) {
+		
+			return $item['modified'];
+		
+		}
+		
+		function column_details( $item ) {
+		
+			global $bwps;
+		
+			return '<a href="' . $_SERVER['REQUEST_URI'] . '&bwps_change_details_id=' . $item['id'] . '#file-change">' . __( 'View Details', $bwps->hook ) . '</a>';
+		
 		}
 		
 		function prepare_items() {
 		
-			global $wpdb, $_wp_column_headers;
-			
-			$screen = get_current_screen();
-			
-			$query = "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3";
-			
-			$orderby = ! empty( $_GET['orderby'] ) ? mysql_real_escape_string( $_GET['orderby'] ) : 'timestamp';
-
-	        $order = ! empty( $_GET['order'] ) ? mysql_real_escape_string( $_GET['order'] ) : 'DESC';
-
-        	$query .= ' ORDER BY ' . $orderby . ' ' . $order;
-        	
-        	$totalitems = $wpdb->query( $query );
-        	
-        	$perpage = 50;
-        	
-        	$paged = ! empty( $_GET['paged'] ) ? mysql_real_escape_string( $_GET['paged'] ) : '';
-        	
-        	if ( empty( $paged ) || ! is_numeric( $paged ) || $paged <= 0 ) {
-        		$paged = 1;
-        	}
-        	
-        	$totalpages = ceil( $totalitems / $perpage );
-        	
-			if( ! empty( $paged ) && ! empty( $perpage ) ) {
-
-				$offset = ( $paged - 1 ) * $perpage;
-				$query .= ' LIMIT ' . ( int ) $offset . ',' . ( int ) $perpage;
-			
-			}
-			
-			$this->set_pagination_args(
-				array(
-					"total_items" 	=> $totalitems,
-					"total_pages" 	=> $totalpages,
-					"per_page" 		=> $perpage
-				)
-			);
+			global $wpdb;
 			
 			$columns = $this->get_columns();
-	        $_wp_column_headers[$screen->id] = $columns;
-	        
-	        $items = $wpdb->get_results( $query, ARRAY_A );
-	        $rows = array();
-	               
-	        foreach ( $items as $item ) {
-	                
-				$data = maybe_unserialize( $item['data'] );
-	        	$row = array(
-		        	'id' 		=> $item['id'],
-		        	'timestamp' => $item['timestamp'],
-	        		'added' 	=> sizeof( $data['added'] ),
-	        		'deleted' 	=> sizeof( $data['removed'] ),
-	        		'changed' 	=> sizeof( $data['changed'] )
-	        	);
-	        	
-	        	$rows[] = (object) $row;
-	        	       	
-	        }
-	        
-	        $this->items = $rows;
+			$hidden = array();
+			$sortable = $this->get_sortable_columns();
+			$this->_column_headers = array( $columns, $hidden, $sortable );
+        	
+        	$data = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
+        	
+        	$per_page = 50;
+        	
+        	$current_page = $this->get_pagenum();
+        	
+        	$total_items = count( $data );
+        	
+        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+        	
+        	$rows = array();
+        	
+        	$count = 0;
+        	
+        	foreach ( $data as $item ) {
+        	
+        		$files = maybe_unserialize( $item['data'] );
+        	
+        		$rows[$count]['timestamp'] = $item['timestamp'];
+        		$rows[$count]['id'] = $item['id'];
+        		$rows[$count]['added'] = sizeof( $files['added'] );
+        		$rows[$count]['deleted'] = sizeof( $files['removed'] );
+        		$rows[$count]['modified'] = sizeof( $files['changed'] );
+        		
+        		$count++;
+        	
+        	}        	
+        	
+        	$this->items = $rows;
+        	
+        	$this->set_pagination_args( 
+        		array(
+        	    	'total_items' => $total_items,
+	        	    'per_page'    => $per_page,
+    	    	    'total_pages' => ceil( $total_items/$per_page )
+        		)
+        	);
+			
+		}
+	
+	}
+
+}
+
+if ( ! class_exists( 'log_details_added_table' ) ) {
+
+	class log_details_added_table extends WP_List_Table {
+	
+		public $recordid;
+	
+		function __construct( $id ) {
+		
+			global $recordid;
+			
+			$recordid = $id;
+		
+			parent::__construct(
+				array(
+					'singular'	=> 'log_details_added_item',
+					'plural'	=> 'log_details_added_items',
+					'ajax'		=> false
+				)
+			);
+		
+		}
+		
+		function extra_tablenav( $which ) {
+		
+			global $bwps;
+		
+			if ( $which == 'top' ) {
+				echo '<h4>' . __( 'Files Added', $bwps->hook ) . '</h4>';
+			}
 			
 		}
 		
-		function display_rows() {
+		function get_columns() {
 		
-			$records = $this->items;
-					
-			list( $columns, $hidden ) = $this->get_column_info();
+			global $bwps;
+		
+			return array(
+				'file'		=> __( 'File', $bwps->hook ),
+				'modified'	=> __( 'modified', $bwps->hook ),
+				'hash'	=> __( 'hash', $bwps->hook ),
+			);
+		
+		}
+		
+		function column_file( $item ) {
+		
+			return $item['file'];
+		
+		}
+		
+		function column_modified( $item ) {
+		
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+		
+		}
+		
+		function column_hash( $item ) {
+		
+			return $item['hash'];
+		
+		}
+		
+		function prepare_items() {
+		
+			global $wpdb, $recordid;
 			
-			print_r( $columns );
-		
-			if( ! empty ( $records ) ) {
+			$columns = $this->get_columns();
+			$hidden = array();
+			$sortable = $this->get_sortable_columns();
+			$this->_column_headers = array( $columns, $hidden, $sortable );
+        	
+        	$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $recordid ) . " ORDER BY timestamp DESC;", ARRAY_A );
+        	
+        	$data = maybe_unserialize( $data[0]['data'] );
+        		
+        	//seperate array by category
+        	$data = $data['added'];
+        	
+        	$per_page = 50;
+        	
+        	$current_page = $this->get_pagenum();
+        	
+        	$total_items = count( $data );
+        	
+        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+        	
+        	$rows = array();
+        	
+        	$count = 0;
+        	
+        	foreach ( $data as $item => $attr ) {
+        	
+        		$rows[$count]['file'] = $item;
+        		$rows[$count]['hash'] = $attr['hash'];
+        		$rows[$count]['modified'] = $attr['mod_date'];
+        		
+        		$count++;
+        	
+        	}        	
+        	
+        	$this->items = $rows;
+        	
+        	$this->set_pagination_args( 
+        		array(
+        	    	'total_items' => $total_items,
+	        	    'per_page'    => $per_page,
+    	    	    'total_pages' => ceil( $total_items/$per_page )
+        		)
+        	);
+			
+		}
+	
+	}
 
-				foreach( $records as $rec ) {
-		
-			        echo '<tr id="record_'.$rec->id.'">';
+}
 
-					foreach ( $columns as $column_name => $column_display_name ) {
+if ( ! class_exists( 'log_details_removed_table' ) ) {
+
+	class log_details_removed_table extends WP_List_Table {
+	
+		public $recordid;
+	
+		function __construct( $id ) {
 		
-						$class = 'class="' . $column_name . ' column-' . $column_name . '"';
-						$style = '';
-						if ( in_array( $column_name, $hidden ) ) {
-							$style = ' style="display:none;"';
-						}
-						
-						$attributes = $class . $style;
+			global $recordid;
+			
+			$recordid = $id;
 		
-						$editlink  = '/wp-admin/link.php?action=edit&link_id='.(int)$rec->id;
+			parent::__construct(
+				array(
+					'singular'	=> 'log_details_removed_item',
+					'plural'	=> 'log_details_removed_items',
+					'ajax'		=> false
+				)
+			);
 		
-						//Display the cell
-						switch ( $column_name ) {
-							case "col_link_id":	
-								echo '< td '.$attributes.'>'.stripslashes( $rec->timestamp ).'< /td>';	
-								break;
-							case "col_link_name": 
-								echo '< td '.$attributes.'><strong><a href="'.$editlink.'" title="Edit">'.stripslashes( $rec->added ).'</a></strong>< /td>'; 
-								break;
-							case "col_link_url": 
-								echo '< td '.$attributes.'>'.stripslashes( $rec->deleted ).'< /td>'; 
-								break;
-							case "col_link_description": 
-								echo '< td '.$attributes.'>'.$rec->changed.'< /td>'; 
-								break;
-							case "col_link_visible": 
-								echo '< td '.$attributes.'>'.$rec->link_visible.'< /td>'; 
-								break;
-						}
-						
-					}
+		}
 		
-					echo'</tr>';
-					
-				}
-				
+		function extra_tablenav( $which ) {
+		
+			global $bwps;
+		
+			if ( $which == 'top' ) {
+				echo '<h4>' . __( 'Files Removed', $bwps->hook ) . '</h4>';
 			}
+			
+		}
+		
+		function get_columns() {
+		
+			global $bwps;
+		
+			return array(
+				'file'		=> __( 'File', $bwps->hook ),
+				'modified'	=> __( 'modified', $bwps->hook ),
+				'hash'	=> __( 'hash', $bwps->hook ),
+			);
+		
+		}
+		
+		function column_file( $item ) {
+		
+			return $item['file'];
+		
+		}
+		
+		function column_modified( $item ) {
+		
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+		
+		}
+		
+		function column_hash( $item ) {
+		
+			return $item['hash'];
+		
+		}
+		
+		function prepare_items() {
+		
+			global $wpdb, $recordid;
+			
+			$columns = $this->get_columns();
+			$hidden = array();
+			$sortable = $this->get_sortable_columns();
+			$this->_column_headers = array( $columns, $hidden, $sortable );
+        	
+        	$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $recordid ) . " ORDER BY timestamp DESC;", ARRAY_A );
+        	
+        	$data = maybe_unserialize( $data[0]['data'] );
+        		
+        	//seperate array by category
+        	$data = $data['removed'];
+        	
+        	$per_page = 50;
+        	
+        	$current_page = $this->get_pagenum();
+        	
+        	$total_items = count( $data );
+        	
+        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+        	
+        	$rows = array();
+        	
+        	$count = 0;
+        	
+        	foreach ( $data as $item => $attr ) {
+        	
+        		$rows[$count]['file'] = $item;
+        		$rows[$count]['hash'] = $attr['hash'];
+        		$rows[$count]['modified'] = $attr['mod_date'];
+        		
+        		$count++;
+        	
+        	}        	
+        	
+        	$this->items = $rows;
+        	
+        	$this->set_pagination_args( 
+        		array(
+        	    	'total_items' => $total_items,
+	        	    'per_page'    => $per_page,
+    	    	    'total_pages' => ceil( $total_items/$per_page )
+        		)
+        	);
+			
+		}
+	
+	}
+
+}
+
+if ( ! class_exists( 'log_details_modified_table' ) ) {
+
+	class log_details_modified_table extends WP_List_Table {
+	
+		public $recordid;
+	
+		function __construct( $id ) {
+		
+			global $recordid;
+			
+			$recordid = $id;
+		
+			parent::__construct(
+				array(
+					'singular'	=> 'log_details_modified_item',
+					'plural'	=> 'log_details_modified_items',
+					'ajax'		=> false
+				)
+			);
+		
+		}
+		
+		function extra_tablenav( $which ) {
+		
+			global $bwps;
+		
+			if ( $which == 'top' ) {
+				echo '<h4>' . __( 'Files Modified', $bwps->hook ) . '</h4>';
+			}
+			
+		}
+		
+		function get_columns() {
+		
+			global $bwps;
+		
+			return array(
+				'file'		=> __( 'File', $bwps->hook ),
+				'modified'	=> __( 'modified', $bwps->hook ),
+				'hash'	=> __( 'hash', $bwps->hook ),
+			);
+		
+		}
+		
+		function column_file( $item ) {
+		
+			return $item['file'];
+		
+		}
+		
+		function column_modified( $item ) {
+		
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+		
+		}
+		
+		function column_hash( $item ) {
+		
+			return $item['hash'];
+		
+		}
+		
+		function prepare_items() {
+		
+			global $wpdb, $recordid;
+			
+			$columns = $this->get_columns();
+			$hidden = array();
+			$sortable = $this->get_sortable_columns();
+			$this->_column_headers = array( $columns, $hidden, $sortable );
+        	
+        	$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $recordid ) . " ORDER BY timestamp DESC;", ARRAY_A );
+        	
+        	$data = maybe_unserialize( $data[0]['data'] );
+        		
+        	//seperate array by category
+        	$data = $data['changed'];
+        	
+        	$per_page = 50;
+        	
+        	$current_page = $this->get_pagenum();
+        	
+        	$total_items = count( $data );
+        	
+        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+        	
+        	$rows = array();
+        	
+        	$count = 0;
+        	
+        	foreach ( $data as $item => $attr ) {
+        	
+        		$rows[$count]['file'] = $item;
+        		$rows[$count]['hash'] = $attr['hash'];
+        		$rows[$count]['modified'] = $attr['mod_date'];
+        		
+        		$count++;
+        	
+        	}        	
+        	
+        	$this->items = $rows;
+        	
+        	$this->set_pagination_args( 
+        		array(
+        	    	'total_items' => $total_items,
+	        	    'per_page'    => $per_page,
+    	    	    'total_pages' => ceil( $total_items/$per_page )
+        		)
+        	);
 			
 		}
 	

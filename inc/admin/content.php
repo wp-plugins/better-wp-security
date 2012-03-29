@@ -2114,48 +2114,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				
 				?>
 				
-				<p><a href="<?php echo $_SERVER['HTTP_REFERER']; ?>#file-change"><?php _e( 'Return to Log', $this->hook ); ?></a></p>
+				<p><a href="<?php echo admin_url(); ?><?php echo is_multisite() ? 'network/' : ''; ?>admin.php?page=better_wp_security-logs#file-change"><?php _e( 'Return to Log', $this->hook ); ?></a></p>
 				
 				<?php			
 			} else {
 			
-				$wp_list_table = new log_content_6();
-				$wp_list_table->prepare_items();
-				$wp_list_table->display();
-				
-			
-				$changes = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
-			
-				if ( sizeof( $changes ) > 0 ) {
-					?>
-					<p><?php _e( 'The following is a log of all file changes seen by the system.', $this->hook ); ?></p>
-					<table border="1" style="width: 100%; text-align: center;">
-						<tr>
-							<th><?php _e( 'Time', $this->hook ); ?></th>
-							<th><?php _e( 'Added', $this->hook ); ?></th>
-							<th><?php _e( 'Deleted', $this->hook ); ?></th>
-							<th><?php _e( 'Modified', $this->hook ); ?></th>
-							<th><?php _e( 'Details', $this->hook ); ?></th>
-						</tr>
-					<?php foreach ( $changes as $change ) { ?>
-						<?php $attr = maybe_unserialize( $change['data'] ); ?>
-						<tr>
-							<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $change['timestamp'] ) ); ?></td>
-							<td><?php echo sizeof( $attr['added'] ); ?></td>
-							<td><?php echo sizeof( $attr['removed'] ); ?></td>
-							<td><?php echo sizeof( $attr['changed'] ); ?></td>
-							<td>
-							<a href="<?php echo $_SERVER['REQUEST_URI']; ?>&bwps_change_details_id=<?php echo $change['id']; ?>#file-change"><?php _e('View Details', $this->hook); ?></a>
-						</tr>
-					<?php } ?>
-					</table>
-				<?php
-				} else { //the log is empty
-				?>
-					<p><?php _e( 'There are no file change warnings currently in the database.', $this->hook ); ?></p>
-				<?php 
-				}
+				$log_content_6_table = new log_content_6_table();
+				$log_content_6_table->prepare_items();
+				$log_content_6_table->display();
 			}
+			
 		}
 		
 		/**
