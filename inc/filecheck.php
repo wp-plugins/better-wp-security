@@ -343,8 +343,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			$report = __( 'Scan Time:', $this->hook ) . ' ' . date( 'l, F jS g:i a e', $changes[0]['timestamp'] ) . "<br />" . PHP_EOL;
 			$report .= __( 'Files Added:', $this->hook ) . ' ' . sizeof( $added ) . "<br />" . PHP_EOL;
-			$report .= __( 'Files Deleted:', $this->hook ) . ' ' . sizeof( $added ) . "<br />" . PHP_EOL;
-			$report .= __( 'Files Modified:', $this->hook ) . ' ' . sizeof( $added ) . "<br />" . PHP_EOL;
+			$report .= __( 'Files Deleted:', $this->hook ) . ' ' . sizeof( $removed ) . "<br />" . PHP_EOL;
+			$report .= __( 'Files Modified:', $this->hook ) . ' ' . sizeof( $changed ) . "<br />" . PHP_EOL;
 			
 			$report .= '<h4>' . __( 'Files Added', $this->hook ) . '</h4>';
 			$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
