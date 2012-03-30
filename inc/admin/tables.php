@@ -167,7 +167,9 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
         		
         		$count++;
         	
-        	}        	
+        	}    
+        	
+        	usort ( $rows, array( &$this, 'sortrows' ) );    	
         	
         	$this->items = $rows;
         	
@@ -178,6 +180,28 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
     	    	    'total_pages' => ceil( $total_items/$per_page )
         		)
         	);
+			
+		}
+		
+		/**
+		 * Sort rows
+		 *
+		 * Sorts rows by count in descending order
+		 *
+		 * @param array $a first array to compare
+		 * @param array $b second array to compare
+		 * @return int comparison result
+		 *
+		 **/
+		function sortrows( $a, $b ) {
+		
+			if ( $a['count'] > $b['count'] ) {
+				return -1;
+			} elseif ( $a['count'] < $b['count'] ) {
+				return 1;
+			} else {
+				return 0;
+			}
 			
 		}
 	
