@@ -374,7 +374,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 				}
 				
-				if ( str_replace( '.', '', $oldversion ) < 3027 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3028 ) {
 					
 					$bwpsoptions['st_writefiles'] = 1;
 					$bwpsoptions['initial_filewrite'] = 1;

@@ -2098,7 +2098,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function ssl_content_1() {
 			?>
 			<p><?php _e( '', $this->hook ); ?></p>
-			<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.', $this->hook ); ?></h4>
+			<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use these features. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', $this->hook ); ?></h4>
 			<?php
 		}
 		
@@ -2115,6 +2115,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<input type="hidden" name="bwps_page" value="ssl_1" />
 				<table class="form-table">
 					<tr>
+						<td scope="row" colspan="2">
+							<h4><?php _e( 'Public SSL', $this->hook ); ?></h4>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ssl_list"><?php _e( 'SSL Pages', $this->hook ); ?></label>
+						</th>
+						<td>
+							<textarea id="ssl_list" rows="10" cols="50" name="ssl_list"><?php echo isset( $_POST['ssl_list'] ) ? $_POST['ssl_list'] : $bwpsoptions['ssl_list']; ?></textarea>
+							<p><?php _e( 'Use the guidelines below to enter individual pages that will be redirected to SSL.', $this->hook ); ?></p>
+							<ul><em>
+								<li><?php _e( 'Enter URLs in the format /[url] or http://yoursite.com/[url]. For example, if you want http://yoursite.com/contact to be served via SSL enter /contact or http://yoursite.com/contact.', $this->hook ); ?></li>
+								<li><?php _e( 'Enter only one URL per line.', $this->hook ); ?></li>
+								<li><?php _e( 'Do not use any wildcards.', $this->hook ); ?></li>
+							</em></ul>
+						</td>
+					</tr>					<tr>
 						<td scope="row" colspan="2">
 							<h4><?php _e( 'Admin SSL', $this->hook ); ?></h4>
 						</td>

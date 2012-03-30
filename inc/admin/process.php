@@ -79,6 +79,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'log_2':
 					$this->log_process_2();
 					break;
+				case 'ssl_1':
+					$this->ssl_process_1();
+					break;
 				case 'systemtweaks_1':
 					$this->systemtweaks_process_1();
 					break;
@@ -314,12 +317,14 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			global $bwps, $bwpsoptions; 
 			
+			@ini_set( 'auto_detect_line_endings', true );
+			
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			$bwpsoptions['bu_enabled'] = ( isset( $_POST['bu_enabled'] ) && $_POST['bu_enabled'] == 1  ? 1 : 0 );
 			
 			//validate list
-			$banhosts = explode( "\n", $_POST['bu_banlist'] );
+			$banhosts = explode( PHP_EOL, $_POST['bu_banlist'] );
 			$list = array();
 			
 			if( ! empty( $banhosts ) ) {
@@ -424,7 +429,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$bwpsoptions['bu_banlist'] = implode( "\n", $list );
+			$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $list );
 			
 			if ( $bwps->checklist( $bwpsoptions['bu_banlist'] ) ) {
 			
@@ -437,7 +442,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//now to process useragents
-			$banagents = explode( "\n", $_POST['bu_banagent'] );
+			$banagents = explode( PHP_EOL, $_POST['bu_banagent'] );
 			$agents = array();
 			
 			if ( ! empty( $banagents ) ) {
@@ -465,7 +470,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			}
 			
-			$bwpsoptions['bu_banagent'] = implode( "\n", $agents );
+			$bwpsoptions['bu_banagent'] = implode( PHP_EOL, $agents );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 			
@@ -928,6 +933,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		function intrusiondetection_process_2() {
 		
 			global $bwpsoptions;
+			
+			@ini_set( 'auto_detect_line_endings', true );
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -941,7 +948,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['id_fileemailnotify'] = ( isset( $_POST['id_fileemailnotify'] ) && $_POST['id_fileemailnotify'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_fileincex'] = ( isset( $_POST['id_fileincex'] ) && $_POST['id_fileincex'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_filechecktime'] = '';
-			$fileWhiteItems = explode( "\n", $_POST['id_specialfile'] );
+			$fileWhiteItems = explode( PHP_EOL, $_POST['id_specialfile'] );
 			$fileList = array();
 			
 			foreach ( $fileWhiteItems as $item ) {
@@ -950,7 +957,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			}
 			
-			$bwpsoptions['id_specialfile'] = implode( "\n", $fileList );
+			$bwpsoptions['id_specialfile'] = implode( PHP_EOL, $fileList );
 			
 			//if they set an invalid ban period set an error
 			if ( $bwpsoptions['id_banperiod'] == 0 ) {
@@ -986,7 +993,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 			
 			//process the whitelist
-			$whiteList = explode( "\n", $_POST['id_whitelist'] );
+			$whiteList = explode( PHP_EOL, $_POST['id_whitelist'] );
 			$whiteitems = array();
 			
 			if( ! empty( $whiteList ) ) {
@@ -1091,7 +1098,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 			
-			$bwpsoptions['id_whitelist'] = implode( "\n", $list );
+			$bwpsoptions['id_whitelist'] = implode( PHP_EOL, $list );
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
@@ -1239,12 +1246,46 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		function ssl_process_1() {
 		
 			global $bwpsoptions;
+			
+			@ini_set( 'auto_detect_line_endings', true );
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			//validate options
 			$bwpsoptions['ssl_forcelogin'] = ( isset( $_POST['ssl_forcelogin'] ) && $_POST['ssl_forcelogin'] == 1  ? 1 : 0 );
 			$bwpsoptions['ssl_forceadmin'] = ( isset( $_POST['ssl_forceadmin'] ) && $_POST['ssl_forceadmin'] == 1  ? 1 : 0 );
+			
+			$urllist = explode( PHP_EOL, $_POST['ssl_list'] );
+			
+			$list = array();
+			
+			foreach ( $urllist as $url ) {
+			
+				if ( strstr( $url, 'http://' ) ) {
+					$testurl = trim( $url );
+				} else {
+					$testurl = esc_url( get_site_url() . trim( $url ) );
+				}
+				
+				$header = @get_headers( $testurl );
+				
+				if ( strstr( $header[0], '404 Not Found' ) ) {
+				
+					if ( ! is_wp_error( $errorHandler ) ) {
+						$errorHandler = new WP_Error();
+					}
+							
+					$errorHandler->add( '2', '<strong><a href="' . $testurl  . '" target="_blank">' . trim( $url ) . '</a></strong> ' . __( 'does not appear to be a valid URL. Please try again.', $this->hook ) );
+					
+				} elseif ( $testurl != '' ) {
+				
+					$list[] = $testurl;
+					
+				}
+			
+			}
+			
+			$bwpsoptions['ssl_list'] = implode( PHP_EOL, $list );
 						
 			if ( ! is_wp_error( $errorHandler ) ) {
 			

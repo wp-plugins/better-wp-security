@@ -322,8 +322,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
+			$ssllist = explode( PHP_EOL, $bwpsoptions['ssl_list'] );
+			
 			//start mod_rewrite rules
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) || sizeof( $ssllist ) > 0 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -395,6 +397,45 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							"\t}" . PHP_EOL . PHP_EOL;
 					}
 				
+				}
+			
+			}
+			
+			//write ssl redirects
+			if ( sizeof( $ssllist ) > 0 ) {
+			
+				foreach ( $ssllist as $item ) {
+				
+					$url = parse_url( $item );
+					
+					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+					
+						$rules .=
+							"\tRewriteCond %{SERVER_PORT} 80" . PHP_EOL .
+							"\tRewriteCond %{HTTP_HOST} ^" . $url['host'] . "$" . PHP_EOL .
+							"\tRewriteRule ^" . substr( $url['path'], 1 ) . "/?$ " . preg_replace( '[http://]', 'https://', $item ) . "%{QUERY_STRING} [R,L]" . PHP_EOL;
+				
+					} else {
+					
+						$rules = 
+							"\tif (\$server_port ~ \"80\"){" . PHP_EOL . 
+							"\t\tset \$rule_0 1\$rule_0;" . PHP_EOL . 
+							"\t}" . PHP_EOL . 
+							"\tif (\$http_host ~ \"^" . $url['host'] . "\$\"){" . PHP_EOL . 
+							"\t\tset \$rule_0 2\$rule_0;" . PHP_EOL . 
+							"\t}" . PHP_EOL . 
+							"\tif (\$rule_0 = \"21\"){" . PHP_EOL .
+							"\t\trewrite ^" . $url['path'] . "/?\$ " . preg_replace( '[http://]', 'https://', $item ) . " redirect;" . PHP_EOL .
+							"\t}" . PHP_EOL;
+				
+					}
+					
+				}
+				
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+				
+					$rules .= PHP_EOL;
+					
 				}
 			
 			}
@@ -665,7 +706,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//close mod_rewrite
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) || sizeof( $ssllist ) > 0 ) {
 			
 				if ( ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) ) {
 				
