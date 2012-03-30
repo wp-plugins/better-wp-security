@@ -1236,6 +1236,71 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 * Process rewrite tweaks from system tweaks page
 		 *
 		 **/
+		function ssl_process_1() {
+		
+			global $bwpsoptions;
+		
+			$errorHandler = __( 'Settings Saved', $this->hook );
+			
+			//validate options
+			$bwpsoptions['ssl_forcelogin'] = ( isset( $_POST['ssl_forcelogin'] ) && $_POST['ssl_forcelogin'] == 1  ? 1 : 0 );
+			$bwpsoptions['ssl_forceadmin'] = ( isset( $_POST['ssl_forceadmin'] ) && $_POST['ssl_forceadmin'] == 1  ? 1 : 0 );
+						
+			if ( ! is_wp_error( $errorHandler ) ) {
+			
+				update_option( $this->primarysettings, $bwpsoptions );
+				
+				if ( $bwpsoptions['st_writefiles'] == 1  ) {
+				
+					$this->writewpconfig(); //save to wp-config.php
+					
+				} else {
+				
+					if ( ! is_wp_error( $errorHandler ) ) {
+						$errorHandler = new WP_Error();
+					}
+							
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add code to your wp-config.php file See the Better WP Security Dashboard for the code you will need.', $this->hook ) );
+				
+				}
+				
+				if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+				
+					$this->writehtaccess();
+					
+				} else { //if they're not using apache let them know to manually update rules
+				
+					if ( is_wp_error( $errorHandler ) ) {
+					
+						$errorHandler = new WP_Error();
+						
+						$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules and wp-config.php code to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules  and wp-config.php code you will need.', $this->hook ) );
+						
+					} else {
+						
+						$errorHandler = new WP_Error();
+						
+						$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+					
+					}
+				
+				}
+				
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = __( 'Settings Saved.', $this->hook );
+				}
+				
+			}
+						
+			$this-> showmessages( $errorHandler );
+			
+		}
+		
+		
+		/**
+		 * Process rewrite tweaks from system tweaks page
+		 *
+		 **/
 		function systemtweaks_process_1() {
 		
 			global $bwpsoptions;
@@ -1269,8 +1334,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_randomversion'] = ( isset( $_POST['st_randomversion'] ) && $_POST['st_randomversion'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_longurl'] = ( isset( $_POST['st_longurl'] ) && $_POST['st_longurl'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_fileedit'] = ( isset( $_POST['st_fileedit'] ) && $_POST['st_fileedit'] == 1  ? 1 : 0 );
-			$bwpsoptions['st_forceloginssl'] = ( isset( $_POST['st_forceloginssl'] ) && $_POST['st_forceloginssl'] == 1  ? 1 : 0 );
-			$bwpsoptions['st_forceadminssl'] = ( isset( $_POST['st_forceadminssl'] ) && $_POST['st_forceadminssl'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_writefiles'] = ( isset( $_POST['st_writefiles'] ) && $_POST['st_writefiles'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_comment'] = ( isset( $_POST['st_comment'] ) && $_POST['st_comment'] == 1  ? 1 : 0 );
 						

@@ -156,13 +156,13 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				if ( strstr( $line, 'FORCE_SSL_LOGIN' ) && strstr( $line, 'true' ) ) {
 				
-					$bwpsoptions['st_forceloginssl'] = 1;
+					$bwpsoptions['ssl_forcelogin'] = 1;
 					
 				}
 				
 				if ( strstr( $line, 'FORCE_SSL_ADMIN' ) && strstr( $line, 'true' ) ) {
 				
-					$bwpsoptions['st_forceadminssl'] = 1;
+					$bwpsoptions['ssl_forceadmin'] = 1;
 					
 				}
 				
@@ -374,10 +374,13 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 				}
 				
-				if ( str_replace( '.', '', $oldversion ) < 3026 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3027 ) {
 					
 					$bwpsoptions['st_writefiles'] = 1;
 					$bwpsoptions['initial_filewrite'] = 1;
+					
+					$bwpsoptions['ssl_forcelogin'] = $bwpsoptions['st_forceloginssl'];
+					$bwpsoptions['ssl_forceadmin'] = $bwpsoptions['st_forceadminssl'];
 					
 					if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_ht_files'] == 1 && $bwpsoptions['st_ht_browsing'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['st_ht_request'] == 1 ) {
 					

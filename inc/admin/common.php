@@ -698,7 +698,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@ini_set( 'auto_detect_line_endings', true );
 			
-			if ( $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['st_forceloginssl'] == 1 || $bwpsoptions['st_forceadminssl'] == 1 ) {
+			if ( $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['ssl_forcelogin'] == 1 || $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
 			$rules = "//BEGIN Better WP Security" . PHP_EOL;
 			
@@ -708,13 +708,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $bwpsoptions['st_forceloginssl'] == 1 ) {
+			if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
 			
 				$rules .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
 			
 			}
 			
-			if ( $bwpsoptions['st_forceadminssl'] == 1 ) {
+			if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
 				$rules .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL;
 			
@@ -937,13 +937,13 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $bwpsoptions['st_forceloginssl'] == 1 ) {
+			if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
 			
 				$lines .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
 			
 			}
 			
-			if ( $bwpsoptions['st_forceadminssl'] == 1 ) {
+			if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
 				$lines .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL . PHP_EOL;
 			

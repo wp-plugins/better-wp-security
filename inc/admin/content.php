@@ -127,6 +127,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 				add_submenu_page(
 					$this->hook, 
+					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Secure Communications With SSL', $this->hook ),
+					__( 'SSL', $this->hook ),
+					$this->accesslvl,
+					$this->hook . '-ssl',
+					array( &$this, 'admin_ssl' )
+				);
+				
+				add_submenu_page(
+					$this->hook, 
 					__( $this->pluginname, $this->hook ) . ' - ' . __( 'WordPress System Tweaks', $this->hook ),
 					__( 'System Tweaks', $this->hook ),
 					$this->accesslvl,
@@ -369,6 +378,21 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'loginlimits_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Limit Login Attempts', $this->hook ), 'loginlimits_content_2' ) //loginlimit options
+				),
+				BWPS_PU . 'images/shield-large.png'
+			);
+		}
+		
+		/**
+		 * Registers content blocks for SSL page
+		 *
+		 **/
+		function admin_ssl() {
+			$this->admin_page( $this->pluginname . ' - ' . __( 'SSL', $this->hook ),
+				array(
+					array( __( 'Before You Begin', $this->hook ), 'ssl_content_1' ), //information to prevent the user from getting in trouble
+					array( __( 'SSL Options', $this->hook ), 'ssl_content_2' ) //ssl options
+					
 				),
 				BWPS_PU . 'images/shield-large.png'
 			);
@@ -630,9 +654,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
 						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
 					<?php } elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) { ?>
-						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_forceloginssl"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
+						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcelogin"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_forceloginssl"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcelogin"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 			</ol>
@@ -2068,15 +2092,64 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		/**
-		 * Detailed file change report
+		 * Intro block for system tweaks page
 		 *
 		 **/
-		function logs_content_7() {
-		
-		
-		
+		function ssl_content_1() {
+			?>
+			<p><?php _e( '', $this->hook ); ?></p>
+			<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.', $this->hook ); ?></h4>
+			<?php
 		}
 		
+		/**
+		 * Intro block for ssl options page
+		 *
+		 **/
+		function ssl_content_2() {
+			global $bwpsoptions;
+			?>
+			
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="ssl_1" />
+				<table class="form-table">
+					<tr>
+						<td scope="row" colspan="2">
+							<h4><?php _e( 'Admin SSL', $this->hook ); ?></h4>
+						</td>
+						<?php
+							echo '<script language="javascript">';
+							echo 'function forcessl() {';
+							echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
+							echo '}';
+							echo '</script>';
+						?>
+					</tr>
+					<tr valign="top" style="border: 1px solid #ff0000;">
+						<th scope="row">
+							<a name="ssl_forcelogin"></a><label for "ssl_forcelogin"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input onchange="forcessl()" id="ssl_forcelogin" name="ssl_forcelogin" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forcelogin'] ); ?> />
+							<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top"  style="border: 1px solid #ff0000;">
+						<th scope="row">
+							<label for "ssl_forceadmin"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input onchange="forcessl()" id="ssl_forceadmin" name="ssl_forceadmin" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forceadmin'] ); ?> />
+							<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
+			</form>
+			<?php
+		}
+				
 		/**
 		 * Intro block for system tweaks page
 		 *
@@ -2321,36 +2394,6 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileedit'] ); ?> />
 								<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
-							</td>
-						</tr>
-						<tr>
-							<td scope="row" colspan="2">
-								<h4><?php _e( 'SSL Tweaks', $this->hook ); ?></h4>
-								<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable.', $this->hook ); ?></h4>
-							</td>
-						<?php
-						echo '<script language="javascript">';
-						echo 'function forcessl() {';
-						echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
-						echo '}';
-						echo '</script>';
-						?>
-						<tr valign="top" style="border: 1px solid #ff0000;">
-							<th scope="row">
-								<a name="st_forceloginssl"></a><label for "st_forceloginssl"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
-							</th>
-							<td>
-								<input onchange="forcessl()" id="st_forceloginssl" name="st_forceloginssl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_forceloginssl'] ); ?> />
-								<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
-							</td>
-						</tr>
-						<tr valign="top"  style="border: 1px solid #ff0000;">
-							<th scope="row">
-								<label for "st_forceadminssl"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
-							</th>
-							<td>
-								<input onchange="forcessl()" id="st_forceadminssl" name="st_forceadminssl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_forceadminssl'] ); ?> />
-								<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
 							</td>
 						</tr>
 					</table>
