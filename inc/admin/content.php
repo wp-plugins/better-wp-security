@@ -2025,44 +2025,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function logs_content_4() {
 			global $wpdb;
 			
-			$errors = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;", ARRAY_A );
-			$grouped = array();
-			foreach ( $errors as $error ) { //loop through and group 404s
-				if ( isset( $grouped[$error['url']] ) ) {
-					$grouped[$error['url']]['count'] = $grouped[$error['url']]['count'] + 1;
-					$grouped[$error['url']]['last'] = $grouped[$error['url']]['last'] > $error['timestamp'] ? $grouped[$error['url']]['last'] : $error['timestamp'];
-				} else {
-					$grouped[$error['url']]['count'] = 1;
-					$grouped[$error['url']]['last'] = $error['timestamp'];
-				} 
-			}
-			if ( sizeof( $grouped ) > 0 ) {
-			?>
-			<p><?php _e( 'The following is a list of 404 errors found on your site with the relative url listed first, the number of times the error was encountered in parenthases, and the last time the error was encounterd given last.', $this->hook ); ?></p>
-			<table border="1" style="width: 100%; text-align: center;">
-				<tr>
-					<th><?php _e( 'Time', $this->hook ); ?></th>
-					<th><?php _e( 'Page', $this->hook ); ?></th>
-					<th><?php _e( 'Count', $this->hook ); ?></th>
-				</tr>
-				<?php
-					foreach ( $grouped as $url => $data ) {
-						?>
-						<tr>
-							<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></td>
-							<td width="75%"><?php echo $url; ?></td>
-							<td><?php echo $data['count']; ?></td>
-						</tr>
-						<?php
-					}
-				?>
-			</table>
-			<?php
-			} else { //the log is empty
-			?>
-				<p><?php _e( 'There are currently no 404 errors in the log', $this->hook ); ?></p>
-			<?php 
-			}
+			$log_content_4_table = new log_content_4_table();
+			$log_content_4_table->prepare_items();
+			$log_content_4_table->display();
+			
 		}
 		
 		/**
@@ -2070,40 +2036,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function logs_content_5() {
-			global $wpdb;
 			
-			$lockouts = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` ORDER BY starttime DESC;", ARRAY_A );
-			
-			if ( sizeof( $lockouts ) > 0 ) {
-				?>
-				<p><?php _e( 'The following is a log of all lockouts in the system.', $this->hook ); ?></p>
-				<table border="1" style="width: 100%; text-align: center;">
-					<tr>
-						<th><?php _e( 'Time', $this->hook ); ?></th>
-						<th><?php _e( 'Reason', $this->hook ); ?></th>
-						<th><?php _e( 'Host', $this->hook ); ?></th>
-						<th><?php _e( 'User', $this->hook ); ?></th>
-					</tr>
-				<?php foreach ( $lockouts as $lockout ) { ?>
-					<?php $lockuser = get_user_by( 'id', $lockout['user'] ); ?>
-					<tr>
-						<td><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $lockout['starttime'] ) ); ?></td>
-						<td><?php echo $lockout['type'] == 2 ? 'Too many 404s' : 'Bad Logins'; ?></td>
-						<td><?php echo $lockout['host']; ?></td>
-						<td><?php echo $lockuser != false ? '<em>User:</em> <strong>' . $lockuser->user_login . '</strong>' : ''; ?></td>
-					</tr>
-				<?php } ?>
-				</table>
-			<?php
-			} else { //the log is empty
-			?>
-				<p><?php _e( 'There are currently no lockouts in the database.', $this->hook ); ?></p>
-			<?php 
-			}
+			$log_content_5_table = new log_content_5_table();
+			$log_content_5_table->prepare_items();
+			$log_content_5_table->display();
+
 		}
 		
 		function logs_content_6() {
-			global $wpdb, $bwps_filecheck;
+			global $bwps_filecheck;
 			?>
 				<a name="file-change"></a>
 			<?php
