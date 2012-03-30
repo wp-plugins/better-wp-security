@@ -1263,13 +1263,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				if ( strstr( $url, 'http://' ) ) {
 					$testurl = trim( $url );
-				} else {
+				} elseif ( trim( $url ) != '' ) {
 					$testurl = esc_url( get_site_url() . trim( $url ) );
+				} else {
+					$testurl = '';
 				}
 				
 				$header = @get_headers( $testurl );
 				
-				if ( strstr( $header[0], '404 Not Found' ) ) {
+				if ( strstr( $header[0], '404 Not Found' ) && $testurl != '' ) {
 				
 					if ( ! is_wp_error( $errorHandler ) ) {
 						$errorHandler = new WP_Error();

@@ -406,36 +406,39 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				foreach ( $ssllist as $item ) {
 				
-					$url = parse_url( $item );
+					if ( trim( $url ) != '' ) { 
+						$url = parse_url( $item );
 					
-					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+						if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
-						$rules .=
-							"\tRewriteCond %{SERVER_PORT} 80" . PHP_EOL .
-							"\tRewriteCond %{HTTP_HOST} ^" . $url['host'] . "$" . PHP_EOL .
-							"\tRewriteRule ^" . substr( $url['path'], 1 ) . "/?$ " . preg_replace( '[http://]', 'https://', $item ) . "%{QUERY_STRING} [R,L]" . PHP_EOL;
+							$rules .=
+								"\tRewriteCond %{SERVER_PORT} 80" . PHP_EOL .
+								"\tRewriteCond %{HTTP_HOST} ^" . $url['host'] . "$" . PHP_EOL .
+								"\tRewriteRule ^" . substr( $url['path'], 1 ) . "/?$ " . preg_replace( '[http://]', 'https://', $item ) . "%{QUERY_STRING} [R,L]" . PHP_EOL;
 				
-					} else {
+						} else {
 					
-						$rules = 
-							"\tif (\$server_port ~ \"80\"){" . PHP_EOL . 
-							"\t\tset \$rule_0 1\$rule_0;" . PHP_EOL . 
-							"\t}" . PHP_EOL . 
-							"\tif (\$http_host ~ \"^" . $url['host'] . "\$\"){" . PHP_EOL . 
-							"\t\tset \$rule_0 2\$rule_0;" . PHP_EOL . 
-							"\t}" . PHP_EOL . 
-							"\tif (\$rule_0 = \"21\"){" . PHP_EOL .
-							"\t\trewrite ^" . $url['path'] . "/?\$ " . preg_replace( '[http://]', 'https://', $item ) . " redirect;" . PHP_EOL .
-							"\t}" . PHP_EOL;
+							$rules = 
+								"\tif (\$server_port ~ \"80\"){" . PHP_EOL . 
+								"\t\tset \$sslrule 1\$sslrule;" . PHP_EOL . 
+								"\t}" . PHP_EOL . 
+								"\tif (\$http_host ~ \"^" . $url['host'] . "\$\"){" . PHP_EOL . 
+								"\t\tset \$sslrule 2\$sslrule;" . PHP_EOL . 
+								"\t}" . PHP_EOL . 
+								"\tif (\$sslrule = \"21\"){" . PHP_EOL .
+								"\t\trewrite ^" . $url['path'] . "/?\$ " . preg_replace( '[http://]', 'https://', $item ) . " redirect;" . PHP_EOL .
+								"\t}" . PHP_EOL;
 				
+						}
+					
 					}
-					
-				}
 				
-				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
-					$rules .= PHP_EOL;
+						$rules .= PHP_EOL;
 					
+					}
+				
 				}
 			
 			}
