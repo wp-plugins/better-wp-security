@@ -13,6 +13,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			global $bwpsoptions;
 			
 			//execute default checks
+			add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
 			add_action( 'init', array( &$this, 'siteinit' ) );
 			add_action( 'wp_head', array( &$this,'check404' ) );
 			
@@ -292,6 +293,24 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				return true;
 				
+			}
+			
+		}
+		
+		/**
+		 * Check for SSL
+		 *
+		 * Determines whether the current URL is SSL or not
+		 *
+		 * @return bool true if ssl false if not
+		 *
+		 **/
+		function checkssl() {
+			
+			if ( $_SERVER['SERVER_PORT'] == '443' ) {
+				return true;
+			} else {
+				return false;
 			}
 			
 		}
@@ -701,6 +720,41 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				}
 			
+			}
+			
+		}
+		
+		/**
+		 * Redirects to or from SSL where appropriate
+		 *
+		 * Redirects content that should be ssl to ssl and content that should not be ssl away from ssl.
+		 **/
+		function sslredirect() {
+		
+			global $post, $bwpsoptions;
+						
+			if ( is_singular() ) {
+				
+				$requiressl = get_post_meta( $post->ID, 'bwps_enable_ssl', true );
+				
+				if ( ( $requiressl == true && ! $this->checkssl() ) || ( $requiressl != true && $this->checkssl() ) ) {
+				
+					$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+					
+					wp_redirect( $href, 301 );
+									
+				}
+				
+			} else {
+			
+				if ( ( $bwpsoptions['ssl_forcesite'] == 1 && ! $this->checkssl() ) || ( $bwpsoptions['ssl_forcesite'] == 0 && $this->checkssl() ) ) {
+				
+					$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+					
+					wp_redirect( $href, 301 );
+				
+				}
+				
 			}
 			
 		}

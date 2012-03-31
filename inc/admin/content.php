@@ -654,9 +654,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
 						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
 					<?php } elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) { ?>
-						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcelogin"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
+						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcesite"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcelogin"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcesite"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 			</ol>
@@ -2114,35 +2114,21 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="ssl_1" />
 				<table class="form-table">
-					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Public SSL', $this->hook ); ?></h4>
-						</td>
-					</tr>
-					<tr valign="top">
+					<?php
+						echo '<script language="javascript">';
+						echo 'function forcessl() {';
+						echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
+						echo '}';
+						echo '</script>';
+					?>
+					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">
-							<label for "ssl_list"><?php _e( 'SSL Pages', $this->hook ); ?></label>
+							<a name="ssl_forcesite"></a><label for "ssl_forcesite"><?php _e( 'Enforce Whole Site SSL', $this->hook ); ?></label>
 						</th>
 						<td>
-							<textarea id="ssl_list" rows="10" cols="50" name="ssl_list"><?php echo isset( $_POST['ssl_list'] ) ? $_POST['ssl_list'] : $bwpsoptions['ssl_list']; ?></textarea>
-							<p><?php _e( 'Use the guidelines below to enter individual pages that will be redirected to SSL.', $this->hook ); ?></p>
-							<ul><em>
-								<li><?php _e( 'Enter URLs in the format /[url] or http://yoursite.com/[url]. For example, if you want http://yoursite.com/contact to be served via SSL enter /contact or http://yoursite.com/contact.', $this->hook ); ?></li>
-								<li><?php _e( 'Enter only one URL per line.', $this->hook ); ?></li>
-								<li><?php _e( 'Do not use any wildcards.', $this->hook ); ?></li>
-							</em></ul>
+							<input onchange="forcessl()" id="ssl_forcesite" name="ssl_forcesite" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forcesite'] ); ?> />
+							<p><?php _e( 'Enables secure SSL connection for your entire site. Not recommended unless you really need it.', $this->hook ); ?></p>
 						</td>
-					</tr>					<tr>
-						<td scope="row" colspan="2">
-							<h4><?php _e( 'Admin SSL', $this->hook ); ?></h4>
-						</td>
-						<?php
-							echo '<script language="javascript">';
-							echo 'function forcessl() {';
-							echo 'alert( "' . __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend.', $this->hook ) . '" );';
-							echo '}';
-							echo '</script>';
-						?>
 					</tr>
 					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">

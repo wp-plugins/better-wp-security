@@ -246,8 +246,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				$bwpsoptions['id_threshold'] = isset( $oldoptions['idetect_locount'] ) ? $oldoptions['idetect_locount'] : '20';
 				$bwpsoptions['id_banperiod'] = isset( $oldoptions['idetect_lolength'] ) ? ( $oldoptions['idetect_lolength'] / 60 ) : '15';
 				$bwpsoptions['id_whitelist'] = isset( $oldoptions['idetect_whitelist'] ) ? $oldoptions['idetect_whitelist'] : '0';
-				$bwpsoptions['bu_enabled'] = isset( $oldoptions['banvisits_enable'] ) ? $oldoptions['banvisits_enable'] : '0';
-				
+				$bwpsoptions['bu_enabled'] = isset( $oldoptions['banvisits_enable'] ) ? $oldoptions['banvisits_enable'] : '0';				
 				
 				if ( isset(  $oldoptions['banvisits_banlist'] ) ) {
 					$list = array();
@@ -374,7 +373,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 				}
 				
-				if ( str_replace( '.', '', $oldversion ) < 3028 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3031 ) {
 					
 					$bwpsoptions['st_writefiles'] = 1;
 					$bwpsoptions['initial_filewrite'] = 1;
@@ -386,7 +385,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 						$bwpsoptions['id_fileenabled'] = 1;	
 						
-					}			
+					}	
 					
 					//Get the right options
 					if ( is_multisite() ) {
@@ -481,6 +480,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			}
 			
 			delete_option( 'bwps_file_log' );
+			
+			delete_metadata( 'post', null, 'bwps_enable_ssl', null, true );
 			
 			global $wpdb;
 			
