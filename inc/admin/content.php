@@ -2097,7 +2097,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function ssl_content_1() {
 			?>
-			<p><?php _e( '', $this->hook ); ?></p>
+			<p><?php _e( 'Secure Socket Layers (aka SSL) is a technology that is used to encrypt the data sent between your server or host and the visitor to your web page. When activated it makes it almost impossible for an attacker to intercept data in transit therefore making the transmission of form, password, or other encrypted data much safer.', $this->hook ); ?></p>
+			<p><?php _e( 'Better WP Security gives you the option of turning on SSL (if your server or host support it) for all or part of your site. The options below allow you to automatically use SSL for major parts of your site, the login page, the admin dashboard, or the site as a whole. You can also turn on SSL for any post or page by editing the content you want to use SSL in and selecting "Enable SSL" in the publishing options of the content in question.', $this->hook ); ?></p>
+			<p><?php _e( 'While this plugin does give you the option of encrypting everything please note this might not be for you. SSL does add overhead to your site which will increase download times slightly. Therefore we recommend you enable SSL at a minimum on the login page, then on the whole admin section, finally on individual pages or posts with forms that require sensitive information.', $this->hook ); ?></p>
 			<h4 style="color: red; text-align: center; border-bottom: none;"><?php _e( 'WARNING: Your server MUST support SSL to use these features. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', $this->hook ); ?></h4>
 			<?php
 		}
