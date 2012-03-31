@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Better WP Security Dev\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
-"POT-Creation-Date: 2012-03-31 01:32:27+00:00\n"
+"POT-Creation-Date: 2012-03-31 13:59:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -863,8 +863,8 @@ msgstr ""
 #: inc/admin/content.php:1057 inc/admin/content.php:1321
 #: inc/admin/content.php:1417 inc/admin/content.php:1458
 #: inc/admin/content.php:1553 inc/admin/content.php:1686
-#: inc/admin/content.php:1936 inc/admin/content.php:2152
-#: inc/admin/content.php:2404
+#: inc/admin/content.php:1936 inc/admin/content.php:2154
+#: inc/admin/content.php:2406
 msgid "Save Changes"
 msgstr ""
 
@@ -1665,54 +1665,82 @@ msgstr ""
 msgid "Return to Log"
 msgstr ""
 
+#: inc/admin/content.php:2100
+msgid ""
+"Secure Socket Layers (aka SSL) is a technology that is used to encrypt the "
+"data sent between your server or host and the visitor to your web page. When "
+"activated it makes it almost impossible for an attacker to intercept data in "
+"transit therefore making the transmission of form, password, or other "
+"encrypted data much safer."
+msgstr ""
+
 #: inc/admin/content.php:2101
+msgid ""
+"Better WP Security gives you the option of turning on SSL (if your server or "
+"host support it) for all or part of your site. The options below allow you "
+"to automatically use SSL for major parts of your site, the login page, the "
+"admin dashboard, or the site as a whole. You can also turn on SSL for any "
+"post or page by editing the content you want to use SSL in and selecting "
+"\"Enable SSL\" in the publishing options of the content in question."
+msgstr ""
+
+#: inc/admin/content.php:2102
+msgid ""
+"While this plugin does give you the option of encrypting everything please "
+"note this might not be for you. SSL does add overhead to your site which "
+"will increase download times slightly. Therefore we recommend you enable SSL "
+"at a minimum on the login page, then on the whole admin section, finally on "
+"individual pages or posts with forms that require sensitive information."
+msgstr ""
+
+#: inc/admin/content.php:2103
 msgid ""
 "WARNING: Your server MUST support SSL to use these features. Using these "
 "features without SSL support on your server or host will cause some or all "
 "of your site to become unavailable."
 msgstr ""
 
-#: inc/admin/content.php:2120
+#: inc/admin/content.php:2122
 msgid ""
 "Are you sure you want to enable SSL? If your server does not support SSL you "
 "will be locked out of your WordPress admin backend."
 msgstr ""
 
-#: inc/admin/content.php:2126
+#: inc/admin/content.php:2128
 msgid "Enforce Whole Site SSL"
 msgstr ""
 
-#: inc/admin/content.php:2130
+#: inc/admin/content.php:2132
 msgid ""
 "Enables secure SSL connection for your entire site. Not recommended unless "
 "you really need it."
 msgstr ""
 
-#: inc/admin/content.php:2135
+#: inc/admin/content.php:2137
 msgid "Enforce Login SSL"
 msgstr ""
 
-#: inc/admin/content.php:2139
+#: inc/admin/content.php:2141
 msgid "Forces all logins to be served only over a secure SSL connection."
 msgstr ""
 
-#: inc/admin/content.php:2144
+#: inc/admin/content.php:2146
 msgid "Enforce Admin SSL"
 msgstr ""
 
-#: inc/admin/content.php:2148
+#: inc/admin/content.php:2150
 msgid ""
 "Forces all of the WordPress backend to be served only over a secure SSL "
 "connection."
 msgstr ""
 
-#: inc/admin/content.php:2163
+#: inc/admin/content.php:2165
 msgid ""
 "This page contains a number of tweaks that can significantly improve the "
 "security of your system."
 msgstr ""
 
-#: inc/admin/content.php:2164
+#: inc/admin/content.php:2166
 msgid ""
 "Server tweaks make use of rewrite rules and, in the case of Apache or "
 "LiteSpeed, will write them to your .htaccess file. If you are however using "
@@ -1720,14 +1748,14 @@ msgid ""
 "Dashboard and put them in your server configuration."
 msgstr ""
 
-#: inc/admin/content.php:2165
+#: inc/admin/content.php:2167
 msgid ""
 "The other tweaks, in some cases, make use of editing your wp-config.php "
 "file. Those that do can be manually turned off by reverting the changes that "
 "file."
 msgstr ""
 
-#: inc/admin/content.php:2166
+#: inc/admin/content.php:2168
 msgid ""
 "Be advsied, some of these tweaks may in fact break other plugins and themes "
 "that make use of techniques that are often seen in practice as suspicious. "
@@ -1735,21 +1763,21 @@ msgid ""
 "you cannot use them all."
 msgstr ""
 
-#: inc/admin/content.php:2178
+#: inc/admin/content.php:2180
 msgid ""
 "Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to "
 "make use of these rules."
 msgstr ""
 
-#: inc/admin/content.php:2186
+#: inc/admin/content.php:2188
 msgid "Server Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2191
+#: inc/admin/content.php:2193
 msgid "Protect Files"
 msgstr ""
 
-#: inc/admin/content.php:2195
+#: inc/admin/content.php:2197
 msgid ""
 "Prevent public access to readme.html, wp-config.php, install.php, wp-"
 "includes, and .htaccess. These files can give away important information on "
@@ -1757,175 +1785,175 @@ msgid ""
 "successfully installed."
 msgstr ""
 
-#: inc/admin/content.php:2196 inc/admin/content.php:2218
-#: inc/admin/content.php:2228 inc/admin/content.php:2359
-#: inc/admin/content.php:2370 inc/admin/content.php:2380
-#: inc/admin/content.php:2390 inc/admin/content.php:2400
+#: inc/admin/content.php:2198 inc/admin/content.php:2220
+#: inc/admin/content.php:2230 inc/admin/content.php:2361
+#: inc/admin/content.php:2372 inc/admin/content.php:2382
+#: inc/admin/content.php:2392 inc/admin/content.php:2402
 msgid ""
 "Warning: This feature is known to cause conflicts with some plugins and "
 "themes."
 msgstr ""
 
-#: inc/admin/content.php:2202
+#: inc/admin/content.php:2204
 msgid "Disable Directory Browsing"
 msgstr ""
 
-#: inc/admin/content.php:2206
+#: inc/admin/content.php:2208
 msgid ""
 "Prevents users from seeing a list of files in a directory when no index file "
 "is present."
 msgstr ""
 
-#: inc/admin/content.php:2207
+#: inc/admin/content.php:2209
 msgid ""
 "Warning: This feature is known to cause conflicts with some server "
 "configurations in which this feature has already been enabled in Apache."
 msgstr ""
 
-#: inc/admin/content.php:2213
+#: inc/admin/content.php:2215
 msgid "Filter Request Methods"
 msgstr ""
 
-#: inc/admin/content.php:2217
+#: inc/admin/content.php:2219
 msgid "Filter out hits with the trace, delete, or track request methods."
 msgstr ""
 
-#: inc/admin/content.php:2223
+#: inc/admin/content.php:2225
 msgid "Filter Suspicious Query Strings"
 msgstr ""
 
-#: inc/admin/content.php:2227
+#: inc/admin/content.php:2229
 msgid ""
 "Filter out suspicious query strings in the URL. These are very often signs "
 "of someone trying to gain access to your site but some plugins and themes "
 "can also be blocked."
 msgstr ""
 
-#: inc/admin/content.php:2233
+#: inc/admin/content.php:2235
 msgid "Header Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2238
+#: inc/admin/content.php:2240
 msgid "Remove Wordpress Generator Meta Tag"
 msgstr ""
 
-#: inc/admin/content.php:2242
+#: inc/admin/content.php:2244
 msgid ""
 "Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta "
 "tag from your sites header. This process hides version information from a "
 "potential attacker making it more difficult to determine vulnerabilities."
 msgstr ""
 
-#: inc/admin/content.php:2247
+#: inc/admin/content.php:2249
 msgid "Remove wlwmanifest header"
 msgstr ""
 
-#: inc/admin/content.php:2251
+#: inc/admin/content.php:2253
 msgid ""
 "Removes the Windows Live Writer header. This is not needed if you do not use "
 "Windows Live Writer or other blogging clients that rely on this file."
 msgstr ""
 
-#: inc/admin/content.php:2256
+#: inc/admin/content.php:2258
 msgid "Remove EditURI header"
 msgstr ""
 
-#: inc/admin/content.php:2260
+#: inc/admin/content.php:2262
 msgid ""
 "Removes the RSD (Really Simple Discovery) header. If you don't integrate "
 "your blog with external XML-RPC services such as Flickr then the \"RSD\" "
 "function is pretty much useless to you."
 msgstr ""
 
-#: inc/admin/content.php:2261
+#: inc/admin/content.php:2263
 msgid ""
 "Warning: This feature is known to cause conflicts with some 3rd party "
 "application and services that may want to interact with WordPress."
 msgstr ""
 
-#: inc/admin/content.php:2266
+#: inc/admin/content.php:2268
 msgid "Dashboard Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2271
+#: inc/admin/content.php:2273
 msgid "Hide Theme Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2275
+#: inc/admin/content.php:2277
 msgid ""
 "Hides theme update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2280
+#: inc/admin/content.php:2282
 msgid "Hide Plugin Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2284
+#: inc/admin/content.php:2286
 msgid ""
 "Hides plugin update notifications from users who cannot update themes. "
 "Please note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2289
+#: inc/admin/content.php:2291
 msgid "Hide Core Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2293
+#: inc/admin/content.php:2295
 msgid ""
 "Hides core update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2298
+#: inc/admin/content.php:2300
 msgid "Strong Password Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2303
+#: inc/admin/content.php:2305
 msgid "Enable strong password enforcement"
 msgstr ""
 
-#: inc/admin/content.php:2307
+#: inc/admin/content.php:2309
 msgid ""
 "Enforce strong passwords for all users with at least the role specified "
 "below."
 msgstr ""
 
-#: inc/admin/content.php:2312
+#: inc/admin/content.php:2314
 msgid "Strong Password Role"
 msgstr ""
 
-#: inc/admin/content.php:2322
+#: inc/admin/content.php:2324
 msgid ""
 "Minimum role at which a user must choose a strong password. For more "
 "information on Wordpress roles and capabilities please see"
 msgstr ""
 
-#: inc/admin/content.php:2323
+#: inc/admin/content.php:2325
 msgid ""
 "Warning: If your site invites public registrations setting the role too low "
 "may annoy your members."
 msgstr ""
 
-#: inc/admin/content.php:2328
+#: inc/admin/content.php:2330
 msgid "Other Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2333
+#: inc/admin/content.php:2335
 msgid "Remove Wordpress Login Error Messages"
 msgstr ""
 
-#: inc/admin/content.php:2337
+#: inc/admin/content.php:2339
 msgid ""
 "Prevents error messages from being displayed to a user upon a failed login "
 "attempt."
 msgstr ""
 
-#: inc/admin/content.php:2342
+#: inc/admin/content.php:2344
 msgid "Write to WordPress core files"
 msgstr ""
 
-#: inc/admin/content.php:2346
+#: inc/admin/content.php:2348
 msgid ""
 "Allow Better WP Security to write to .htaccess and wp-config.php. With this "
 "turned on this plugin will automatically write to your .htaccess and wp-"
@@ -1934,40 +1962,40 @@ msgid ""
 "database table prefix will not be available."
 msgstr ""
 
-#: inc/admin/content.php:2347
+#: inc/admin/content.php:2349
 msgid ""
 "This option is safe in nearly all instances however, if you know you have a "
 "server configuration that may conflict or simply want to make the changes "
 "yourself then uncheck this feature."
 msgstr ""
 
-#: inc/admin/content.php:2348
+#: inc/admin/content.php:2350
 msgid ""
 "Warning: This feature is known to cause conflicts with some server "
 "configurations."
 msgstr ""
 
-#: inc/admin/content.php:2353
+#: inc/admin/content.php:2355
 msgid "Reduce comment spam"
 msgstr ""
 
-#: inc/admin/content.php:2357
+#: inc/admin/content.php:2359
 msgid ""
 "This option will cut down on comment spam by denying comments from bots with "
 "no referrer or without a user-agent identified."
 msgstr ""
 
-#: inc/admin/content.php:2358 inc/admin/content.php:2369
+#: inc/admin/content.php:2360 inc/admin/content.php:2371
 msgid ""
 "Note this feature only applies if \"Write to WordPress core files\" is "
 "enabled."
 msgstr ""
 
-#: inc/admin/content.php:2364
+#: inc/admin/content.php:2366
 msgid "Remove write permissions from .htaccess and wp-config.php"
 msgstr ""
 
-#: inc/admin/content.php:2368
+#: inc/admin/content.php:2370
 msgid ""
 "Prevents scripts and users from being able to write to the wp-config.php "
 "file and .htaccess file. Note that in the case of this and many plugins this "
@@ -1976,32 +2004,32 @@ msgid ""
 "turning it off will set the permissions to 0644."
 msgstr ""
 
-#: inc/admin/content.php:2375
+#: inc/admin/content.php:2377
 msgid "Display random version number to all non-administrative users"
 msgstr ""
 
-#: inc/admin/content.php:2379
+#: inc/admin/content.php:2381
 msgid ""
 "Displays a random version number to visitors who are not logged in at all "
 "points where version number must be used and removes the version completely "
 "from where it can."
 msgstr ""
 
-#: inc/admin/content.php:2385
+#: inc/admin/content.php:2387
 msgid "Prevent long URL strings"
 msgstr ""
 
-#: inc/admin/content.php:2389
+#: inc/admin/content.php:2391
 msgid ""
 "Limits the number of characters that can be sent in the URL. Hackers often "
 "take advantage of long URLs to try to inject information into your database."
 msgstr ""
 
-#: inc/admin/content.php:2395
+#: inc/admin/content.php:2397
 msgid "Turn off file editor in Wordpress Back-end"
 msgstr ""
 
-#: inc/admin/content.php:2399
+#: inc/admin/content.php:2401
 msgid ""
 "Disables the file editor for plugins and themes requiring users to have "
 "access to the file system to modify files. Once activated you will need to "
