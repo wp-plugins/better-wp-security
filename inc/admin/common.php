@@ -450,8 +450,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				} else {
 				
-					$rules .= "\tif (\$request_method ~ \"POST\"){" . PHP_EOL .
-						"\t\tset \$rule_0 1\$rule_0;" . PHP_EOL .
+					$rules .= 
+						"\tset \$rule_0 0;" . PHP_EOL . PHP_EOL .
+						"\tif (\$request_method ~ \"POST\"){" . PHP_EOL .
+						"\t\tset \$rule_0 1;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .	
 						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){" . PHP_EOL .
 						"\t\tset \$rule_0 2\$rule_0;" . PHP_EOL .
