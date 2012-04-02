@@ -654,9 +654,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
 						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
 					<?php } elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) { ?>
-						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcesite"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
+						<span style="color: blue;"><?php _e( 'You are requiring a secure connection for logins or the admin area but not both.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_frontend"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>	
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_forcesite"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-ssl#ssl_frontend"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 			</ol>
@@ -2125,11 +2125,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					?>
 					<tr valign="top" style="border: 1px solid #ff0000;">
 						<th scope="row">
-							<a name="ssl_forcesite"></a><label for "ssl_forcesite"><?php _e( 'Enforce Whole Site SSL', $this->hook ); ?></label>
+							<a name="ssl_frontend"></a><label for "ssl_frontend"><?php _e( 'Front end SSL', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input onchange="forcessl()" id="ssl_forcesite" name="ssl_forcesite" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forcesite'] ); ?> />
-							<p><?php _e( 'Enables secure SSL connection for your entire site. Not recommended unless you really need it.', $this->hook ); ?></p>
+							<select id="ssl_frontend" name="ssl_frontend">
+								<option value="0" <?php selected( $bwpsoptions['ssl_frontend'], '0' ); ?>><?php _e( 'Off', $this->hook ); ?></option>
+								<option value="1" <?php selected( $bwpsoptions['ssl_frontend'], '1' ); ?>><?php _e( 'Per Content', $this->hook ); ?></option>
+								<option value="2" <?php selected( $bwpsoptions['ssl_frontend'], '2' ); ?>><?php _e( 'Whole Site', $this->hook ); ?></option>
+							</select>
+							<p><?php _e( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you turn to on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top" style="border: 1px solid #ff0000;">

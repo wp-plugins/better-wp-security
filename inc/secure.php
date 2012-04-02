@@ -733,7 +733,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $post, $bwpsoptions;
 						
-			if ( is_singular() ) {
+			if ( is_singular() && $bwpsoptions['ssl_frontend'] == 1 ) {
 				
 				$requiressl = get_post_meta( $post->ID, 'bwps_enable_ssl', true );
 				
@@ -747,7 +747,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 			} else {
 			
-				if ( ( $bwpsoptions['ssl_forcesite'] == 1 && ! $this->checkssl() ) || ( $bwpsoptions['ssl_forcesite'] == 0 && $this->checkssl() ) ) {
+				if ( ( $bwpsoptions['ssl_frontend'] == 2 && ! $this->checkssl() ) || ( ( $bwpsoptions['ssl_frontend'] == 0 || $bwpsoptions['ssl_frontend'] == 1 ) && $this->checkssl() ) ) {
 				
 					$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 					

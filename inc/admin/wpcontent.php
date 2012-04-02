@@ -6,8 +6,14 @@ if ( ! class_exists( 'bwps_wp_content' ) ) {
 	
 		function __construct() {
 		
-			add_action( 'post_submitbox_misc_actions', array( &$this, 'ssl_enable' ) );
-			add_action( 'save_post', array( &$this, 'save_post' ) );
+			global $bwpsoptions;
+			
+			if ( $bwpsoptions['ssl_frontend'] == 1 ) {
+		
+				add_action( 'post_submitbox_misc_actions', array( &$this, 'ssl_enable' ) );
+				add_action( 'save_post', array( &$this, 'save_post' ) );
+			
+			}
 			
 		}
 		
@@ -32,20 +38,24 @@ if ( ! class_exists( 'bwps_wp_content' ) ) {
 		}
 		
 		function save_post( $id ) {
+		
+			if ( isset( $_POST['wp_nonce'] ) ) {
 				
-			if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) || ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) || ( $_POST['post_type'] == 'page' && ! current_user_can( 'edit_page', $id ) ) || ( $_POST['post_type'] == 'post' && ! current_user_can( 'edit_post', $id ) ) ) {
-				return $id;
+				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) || ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) || ( $_POST['post_type'] == 'page' && ! current_user_can( 'edit_page', $id ) ) || ( $_POST['post_type'] == 'post' && ! current_user_can( 'edit_post', $id ) ) ) {
+					return $id;
+				}
+			
+				$bwps_enable_ssl = ( ( isset( $_POST['enable_ssl'] ) &&  $_POST['enable_ssl'] == true ) ? true : false );
+			
+				if ( $bwps_enable_ssl ) {
+					update_post_meta( $id, 'bwps_enable_ssl', true );
+				} else {
+					update_post_meta( $id, 'bwps_enable_ssl', false );
+				}
+			
+				return $bwps_enable_ssl;
+		
 			}
-			
-			$bwps_enable_ssl = ( ( $_POST['enable_ssl'] == true ) ? true : false );
-			
-			if ( $bwps_enable_ssl ) {
-				update_post_meta( $id, 'bwps_enable_ssl', true );
-			} else {
-				update_post_meta( $id, 'bwps_enable_ssl', false );
-			}
-			
-			return $bwps_enable_ssl;
 		
 		}
 	

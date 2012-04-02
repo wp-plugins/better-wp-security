@@ -403,6 +403,27 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					}
 					
 				}
+				
+				if ( str_replace( '.', '', $oldversion ) < 3033 ) {
+					
+					$bwpsoptions['ssl_frontend'] = $bwpsoptions['ssl_forcesite'] == 1 ? 2 : 1;	
+					
+					//Get the right options
+					if ( is_multisite() ) {
+					
+						switch_to_blog( 1 );
+					
+						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+					
+						restore_current_blog();
+					
+					} else {
+					
+						update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+						
+					}
+					
+				}
 			
 			}
 		
