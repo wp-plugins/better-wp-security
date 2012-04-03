@@ -650,6 +650,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			if ( ( $bwpsoptions['id_enabled'] == 1 ||$bwpsoptions['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
 			
 				wp_clear_auth_cookie();
+				@header('HTTP/1.0 418 I\'m a teapot');
 				die( __( 'error', $this->hook ) );
 				
 			}
