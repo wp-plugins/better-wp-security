@@ -98,7 +98,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'ssl_forceadmin'		=> '0',
 					'ssl_server'			=> '',
 					'ssl_port'				=> '',
-					'ssl_frontend'			=> '1'
+					'ssl_frontend'			=> '0'
 				)
 			)
 		);
