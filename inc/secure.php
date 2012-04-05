@@ -794,28 +794,32 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				"subscriber" => array()
 			);
 				
-			$enforce = true;  
-			$args = func_get_args(); 			
-			$userID = $args[2]->ID;  
+			$enforce = true;
+			$args = func_get_args();
+			$userID = $args[2]->user_login; 
 			
 			if ( $userID ) {  //if updating an existing user
 			
-				$userInfo = get_userdata( $userID );  
+				if ( $userInfo = get_user_by( 'login', $userID ) ) {
 				
-				if ( $userInfo->user_level < $availableRoles[$minRole] ) {  
-					$enforce = false;  
-				}  
+					foreach ( $userInfo->wp_capabilities as $capability => $value ) {
+						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
+							$enforce = false;  
+						}
+					}  
 				
-			} else {  //a new user
+				} else {  //a new user
 			
-				if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
-					$enforce = false;  
-				}  
+					if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
+						$enforce = false;  
+					}  
 				
-			}  
+				}
+			
+			} 
 				
 			//add to error array if the password does not meet requirements
-			if ( $enforce && !$errors->get_error_data( 'pass' ) && $_POST["pass1"] && $this->pwordstrength( $_POST["pass1"], $_POST["user_login"] ) != 4 ) {  
+			if ( $enforce && !$errors->get_error_data( 'pass' ) && $_POST['pass1'] && $this->pwordstrength( $_POST['pass1'], isset( $_POST['user_login'] ) ? $_POST['user_login'] : $userID ) != 4 ) {  
 				$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , $this->hook ) );  
 			}  
 
