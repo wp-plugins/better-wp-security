@@ -678,12 +678,16 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					function wplogin_filter( $url ) {
 	
 						global $bwps_login_slug;
-				
+						
 						//make sure user is logged in and not already on the login page
 					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-admin' ) ) {
 					    
 							$url = get_site_url(1) . $bwps_login_slug; // your url here
 														
+						} elseif ( strpos($url, 'wp-login.php' ) && isset( $_POST['_wp_http_referer'] ) && strstr( $_POST['_wp_http_referer'], 'user-new.php' ) ) {
+						
+							$url = get_site_url(1) . $bwps_login_slug; // your url here
+						
 						}
 							
 							return $url;
