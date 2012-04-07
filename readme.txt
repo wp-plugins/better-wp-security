@@ -4,10 +4,10 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.3.1
-Tested up to: 3.3.1
-Stable tag: 3.2
+Tested up to: 3.4-beta1
+Stable tag: 3.2.1
 
-The easiest, most effective way to secure your WordPress site from attackers. Improve the security of any WordPress site in seconds.
+The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
 == License ==  
 Released under the terms of the GNU General Public License. 
@@ -16,41 +16,67 @@ Released under the terms of the GNU General Public License.
 
 = #1 WORDPRESS SECURITY PLUGIN =
 
-Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without  having to worry about conflicting features or the possibility of missing anything on your site.
+Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
 
 With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
 
-= Current features =
+= Obscure =
 
-1. Scan your site to instantly tell where vulnerabilities are and fix them in seconds
-2. Remove the meta "Generator" tag
-3. Removes login error messages
-4. Change the urls for backend functions including login, admin, and more
-5. Create and email database backups on a customizable schedule
-6. Ban troublesome bots and other hosts
-7. Ban bad user agents
-8. Completely turn off the ability to login for a given time period (away mode)
-9. Prevent brute force attacks by banning hosts and users with too many invalid login attempts
-10. Display a random version number to non administrative users anywhere version is used (often attached to plugin resources such as scripts and style sheets)
-11. Remove theme, plugin, and core update notifications from users who do not have permission to update them (useful on multisite installations)
-12. Remove Windows Live Write header information
-13. Remove RSD header information
-14. Strengthen server settings
-15. Enforce strong passwords for all accounts of a configurable minimum role
-16. Detect attempts to attack your site
-17. Monitor filesystem for unauthorized changes
-18. Rename "admin" account
-19. Security checker
-20. Change the Wordpress database table prefix
-21. Force SSL for admin pages (on supporting servers)
-22. Force SSL for any page or post (on supporting servers)
-23. Change wp-content path
-24. Turn off file editing from within Wordpress admin area
-25. Works on multi-site (network) and single site installations
-26. Works with Apache or NGINX
+As most WordPress attacks are a result of plugin vulnerabilities, weak passwords, and obsolete software Better WP Security will hide the places those vulnerabilities live keeping an attacker from learning too much about your site and keeping them away from sensitive areas like login, admin, etc.
+
+* Remove the meta "Generator" tag
+* Change the urls for WordPress dashboard including login, admin, and more
+* Completely turn off the ability to login for a given time period (away mode)
+* Remove theme, plugin, and core update notifications from users who do not have permission to update them
+* Remove Windows Live Write header information
+* Remove RSD header information
+* Rename "admin" account
+* Change the Wordpress database table prefix
+* Change wp-content path
+* Removes login error messages
+* Display a random version number to non administrative users anywhere version is used
+
+= Protect =
+
+Just hiding parts of your site is helpful but won't stop everything. After we hide sensitive areas of the sites we'll protect it by blocking users that shouldn't be there and increasing the security of passwords and other vital information.
+
+* Scan your site to instantly tell where vulnerabilities are and fix them in seconds
+* Ban troublesome bots and other hosts
+* Ban troublesome user agents
+* Prevent brute force attacks by banning hosts and users with too many invalid login attempts
+* Strengthen server security
+* Enforce strong passwords for all accounts of a configurable minimum role
+* Force SSL for admin pages (on supporting servers)
+* Force SSL for any page or post (on supporting servers)
+* Turn off file editing from within Wordpress admin area
+
+= Detect =
+
+Should all the protection fail Better WP Security will still monitor your site and report attempts to scan it (automatically blocking suspicious users) as well as any changes to the filesystem that might indicate a compromise.
+
+* Detect bots and other attempts to search for vulnerabilities
+* Monitor filesystem for unauthorized changes
+
+= Recover =
+
+Finally, should the worst happen Better WP Security will make regular backups of your WordPress database (should you choose to do so) allowing you to get back online quickly in the event someone should compromise your site.
+
+* Create and email database backups on a customizable schedule
+
+= Other Benefits =
+
+* Make it easier for users to log into a site by giving them login and admin URLs that make more sense to someone not accustomed to WordPress
+* Detect hidden 404 errors on your site that can affect your SEO such as bad links, missing images, etc.
+
+= Compatibility =
+
+* Works on multi-site (network) and single site installations
+* Works with Apache, LiteSpeed or NGINX
 
 = Configuration =
-Check out this video for help with configuration:
+
+Configuration is easy, but there are a lot of options. The video below will walk you through everything Better WP Security can do.
+
 [youtube http://www.youtube.com/watch?v=Jveq2H4bZJY]
 
 = Translations =
@@ -60,9 +86,9 @@ Check out this video for help with configuration:
 * Italian by <a href="http://www.polslinux.it">Paolo Stivanin</a>
 * Romanian by <a href="http://noblecom.com">Luke Tyler</a>
 
-= More Information =
-* <a href="http://bit51.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
-* <a href="http://bit51.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
+Note the translations are only tested up to version 3.0. If you would like to contribute a translation to the current version please <a href="http://bit51.com/contact/" title="Bit51 contact form">let me know</a>.
+
+
 
 = Warning =
 Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
@@ -104,6 +130,8 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 = Will this break my site? =
 * It is quite possible (maybe even probable) that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
+* <a href="http://bit51.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
+* <a href="http://bit51.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
 
 = I've enabled the Enforce SSL option and it broke my site. How do I get back in? =
 * Open your wp-config.php file in a text editor and remove the following 2 lines:
@@ -122,12 +150,15 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 
 == Changelog ==
 
-= 3.0 =
-* Now works with NGINX
-
 <a href="http://bit51.com/software/better-wp-security/changelog/">Click here for the full change log</a>
 
 == Support ==
 
 * Please visit the <a href="http://bit51.com/software/better-wp-security/">Homepage</a> for general plugin information
-* Please visit the <a href="http://forums.bit51.com">Bit51.com forums for support</a>/
+* Please visit the <a href="http://forums.bit51.com">Bit51.com forums for support</a>
+
+Note that I do not monitor the plugin forums at WordPress.org thus no support will be given via those forums.
+
+== Upgrade Notice ==
+
+Some users have reported issues when upgrading from version 2.x to version 3.x. While these issues are rare you can avoid them entirely by completely uninstalling version 2.x and then installing a fresh copy of version 3.x.
