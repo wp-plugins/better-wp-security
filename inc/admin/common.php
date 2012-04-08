@@ -346,7 +346,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 				$agents = explode( PHP_EOL, $bwpsoptions['bu_banagent'] );
 				
-				if ( ! empty( $agents ) ) {
+				if ( ! empty( $agents ) && ! ( sizeof( $agents ) == 1 && trim( $agents[0] ) == ''  ) ) {
 				
 					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
