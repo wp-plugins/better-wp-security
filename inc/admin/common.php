@@ -221,7 +221,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$hosts = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
 				
-				if ( ! empty( $hosts ) ) {
+				if ( ! empty( $hosts ) && ! ( sizeof( $hosts ) == 1 && trim( $hosts[0] ) == ''  ) ) {
 				
 					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
