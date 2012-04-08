@@ -457,6 +457,10 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $wpdb, $bwpsoptions;
 			
+			if ( ( $type == 1 && $bwpsoptions['ll_enabled'] == 0 ) || ( $type == 2 && $bwpsoptions['id_enabled'] == 0 ) ) {
+				return;
+			}
+			
 			//get default data
 			$host = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
 			$username = sanitize_user( $username );
