@@ -47,7 +47,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			//assume not a directory and not checked
 			$flag = false;
-			$isDir = false;
 			
 			//if list is empty return true
 			if ( trim( $list ) != '' ) {
@@ -70,37 +69,28 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			}
 			
 			//compare file to list
+			
 			foreach ( $list as $item ) {
 			
 				//$file is a directory
 				if ( is_dir( ABSPATH . $file ) ) {
-				
-					$isDir = true;
-				
-					$pathinfo = pathinfo( trim( $file ) );
-						
-					if ( strcmp( $pathinfo['dirname'], trim( $item ) ) == 0 ) {
 					
-						$flag = true;
-								
+					if ( strcmp( $file, $item ) === 0 ) {
+						$flag = true;		
 					}
 				
 				} else { //$file is a file
 				
 					if ( strpos( $item , '.' ) === 0) { //list item is a file extension
 					
-						if ( strcmp( '.' . trim( end ( explode( '.' , $file ) ) ), trim( $item ) ) == 0 ) {
-					 	
+						if ( strcmp( '.' . end ( explode( '.' , $file ) ), $item ) == 0 ) {
 							$flag = true;
-					 	
 						 }
 				
 					} else { //list item is a single file
 				
-						if ( strcmp( trim( $item ), trim( end ( explode( '/' , $file ) ) ) ) == 0 ){
-					
+						if ( strcmp( $item, end ( explode( '/' , $file ) ) ) == 0 ){
 							$flag = true;
-						
 						}
 				
 					}
@@ -117,17 +107,21 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					return true;
 				}
 			
-			} elseif ( $isDir == true ) { //reverse properly for directories
-				
-				if ( $flag == true ) {
-					return false;
-				} else {
-					return true;
-				}
-				
 			} else { //return flag 
 			
-				return $flag;
+				if ( is_dir( ABSPATH . $file ) ) {
+					
+					if ( $flag == true ) { //if exclude reverse
+						return false;
+					} else {
+						return true;
+					}
+					
+				} else {
+				
+					return $flag;
+					
+				}
 				
 			}
 		
