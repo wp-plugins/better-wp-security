@@ -288,7 +288,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//create all headers and subject
 			$to = get_option( 'admin_email' );
 			$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
-			$subject = __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 
 			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
