@@ -294,6 +294,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							"Order allow,deny" . PHP_EOL .
 							"Deny from all" . PHP_EOL .
 						"</files>" . PHP_EOL . PHP_EOL .
+						"<files readme.txt>" . PHP_EOL .
+							"Order allow,deny" . PHP_EOL .
+							"Deny from all" . PHP_EOL .
+						"</files>" . PHP_EOL . PHP_EOL .
 						"<files install.php>" . PHP_EOL .
 							"Order allow,deny" . PHP_EOL .
 							"Deny from all" . PHP_EOL .
@@ -313,6 +317,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t\tdeny all;". PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tlocation ~ readme.html {" . PHP_EOL .
+						"\t\tdeny all;" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tlocation ~ readme.txt {" . PHP_EOL .
 						"\t\tdeny all;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tlocation ~ /install.php {" . PHP_EOL .
