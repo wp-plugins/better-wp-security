@@ -37,7 +37,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 			global $bwps;
 		
 			if ( $which == 'top' ) {
-				_e( 'The following is a list of 404 errors found on your site with the relative url listed first, the number of times the error was encountered in parenthases, and the last time the error was encounterd given last.', $bwps->hook );
+				_e( 'The following is a list of 404 errors found on your site with the last time the error was encountered, the relative url, the referrer (if applicable), and the number of times the error was encountered given last.', $bwps->hook );
 			}
 			
 		}
