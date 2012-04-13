@@ -1816,7 +1816,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="id_fileenabled" name="id_fileenabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileenabled'] ); ?> />
-							<p><?php _e( 'Check this box to enable file chang detection.', $this->hook ); ?></p>
+							<p><?php _e( 'Check this box to enable file change detection.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					
