@@ -495,7 +495,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" .  PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
-						"RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare).* [NC]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(request|select|concat|insert|union|declare).* [NC]" . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
@@ -545,7 +545,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") {" . PHP_EOL .
 						"\t\tset \$susquery 1;" . PHP_EOL .
 						"\t}" .PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(request|select|insert|union|declare)\") {" . PHP_EOL .
+						"\tif (\$args ~* \"(request|select|insert|concat|union|declare)\") {" . PHP_EOL .
 						"\t\tset \$susquery 1;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
 				
