@@ -434,8 +434,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 							} else { //is file so add to array
 							
 								$data[$relname] = array();
-								$data[$relname]['mod_date'] = filemtime( $absname );
-								$data[$relname]['hash'] = md5_file( $absname );
+								$data[$relname]['mod_date'] = @filemtime( $absname );
+								$data[$relname]['hash'] = @md5_file( $absname );
 							
 							}
 						
