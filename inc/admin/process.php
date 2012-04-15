@@ -234,7 +234,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
 						
 							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'" );
-							$newAdmins = str_replace( '5:"admin"', strlen( $newuser) . ':"' . $wpdb->escape( $newuser ) . '"', $wpdb->escape( $oldAdmins ) );
+							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . $wpdb->escape( $newuser ) . '"', $oldAdmins );
 							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $wpdb->escape( $newAdmins ) . "' WHERE meta_key='site_admins'" );
 							
 						}
