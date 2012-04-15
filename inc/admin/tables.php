@@ -70,7 +70,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return date( 'Y-m-d H:i:s', $item['time'] );
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
 		
 		}
 		
@@ -274,7 +274,7 @@ if ( ! class_exists( 'log_content_5_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return date( 'Y-m-d H:i:s', $item['time'] );
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
 		
 		}
 		
@@ -445,7 +445,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return date( 'Y-m-d H:i:s', $item['timestamp'] );
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['timestamp'] ), 'Y-m-d H:i:s' );
 		
 		}
 		
