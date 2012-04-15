@@ -4,8 +4,8 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.3.1
-Tested up to: 3.4-beta1
-Stable tag: 3.2.2
+Tested up to: 3.4-beta2
+Stable tag: 3.2.3
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -22,7 +22,7 @@ With one-click activation for most features as well as advanced features for exp
 
 = Obscure =
 
-As most WordPress attacks are a result of plugin vulnerabilities, weak passwords, and obsolete software Better WP Security will hide the places those vulnerabilities live keeping an attacker from learning too much about your site and keeping them away from sensitive areas like login, admin, etc.
+As most WordPress attacks are a result of plugin vulnerabilities, weak passwords, and obsolete software. Better WP Security will hide the places those vulnerabilities live keeping an attacker from learning too much about your site and keeping them away from sensitive areas like login, admin, etc.
 
 * Remove the meta "Generator" tag
 * Change the urls for WordPress dashboard including login, admin, and more
@@ -88,8 +88,6 @@ Configuration is easy, but there are a lot of options. The video below will walk
 
 Note the translations are only tested up to version 3.0. If you would like to contribute a translation to the current version please <a href="http://bit51.com/contact/" title="Bit51 contact form">let me know</a>.
 
-
-
 = Warning =
 Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
 
@@ -148,10 +146,6 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 3. Simple informative options panels show you what you need to know about each and every option
 4. If you do get stuck help is never more than a few clicks away.
 
-== Changelog ==
-
-<a href="http://bit51.com/software/better-wp-security/changelog/">Click here for the full change log</a>
-
 == Support ==
 
 * Please visit the <a href="http://bit51.com/software/better-wp-security/">Homepage</a> for general plugin information
@@ -162,3 +156,7 @@ Note that I do not monitor the plugin forums at WordPress.org thus no support wi
 == Upgrade Notice ==
 
 Some users have reported issues when upgrading from version 2.x to version 3.x. While these issues are rare you can avoid them entirely by completely uninstalling version 2.x and then installing a fresh copy of version 3.x.
+
+== Changelog ==
+
+<a href="http://bit51.com/software/better-wp-security/changelog/">Click here for the full change log</a>
