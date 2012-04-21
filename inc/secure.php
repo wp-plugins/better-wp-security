@@ -57,7 +57,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//require strong passwords if turned on
 			if ( $bwpsoptions['st_enablepassword'] == 1 ) {
-				add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 ); 
+				add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 );
+				
+				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
+					add_action( 'login_head', array( &$this, 'passwordreset' ) );
+				}
+
 			}
 			
 			//display random number for wordpress version if turned on
@@ -859,6 +864,80 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}  
 
 			return $errors;  
+		}
+		
+		/**
+		 * Require strong password on password reset screen
+		 *
+		 * Forces a strong password on the password reset screen (if required)
+		 *
+		 **/
+		function passwordreset() {
+
+			global $bwpsoptions;
+				
+			//determine the minimum role for enforcement
+			$minRole = $bwpsoptions['st_passrole'];
+			
+			//all the standard roles and level equivalents
+			$availableRoles = array(
+				"administrator"	=> "8",
+				"editor" 		=> "5",
+				"author" 		=> "2",
+				"contributor" 	=> "1",
+				"subscriber" 	=> "0"
+			);
+				
+			//roles and subroles
+			$rollists = array(
+				"administrator" => array("subscriber", "author", "contributor","editor"),
+				"editor" =>  array("subscriber", "author", "contributor"),
+				"author" =>  array("subscriber", "contributor"),
+				"contributor" =>  array("subscriber"),
+				"subscriber" => array()
+			);
+				
+			$enforce = true;
+			$args = func_get_args();
+			$userID = $_GET['login'];
+			
+			if ( $userID ) {  //if updating an existing user
+			
+				if ( $userInfo = get_user_by( 'login', $userID ) ) {
+				
+					foreach ( $userInfo->wp_capabilities as $capability => $value ) {
+						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
+							$enforce = false;  
+						}
+					}  
+				
+				} else {  //a new user
+			
+					if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
+						$enforce = false;  
+					}  
+				
+				}
+			
+			} 
+			
+			if ( $enforce == true ) {
+				?>
+
+				<script type="text/javascript">
+					jQuery( document ).ready( function( $ ) {
+						$( '#resetpassform' ).submit( function() {
+							if ( ! $( '#pass-strength-result' ).hasClass( 'strong' ) ) {
+								alert( '<?php _e( "Sorry, but you must enter a strong password", $this->hook ); ?>' );
+								return false;
+							}
+						});
+					});
+				</script>
+
+				<?php 
+				}
+
 		}
 		
 		/**
