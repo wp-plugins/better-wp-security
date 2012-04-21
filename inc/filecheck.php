@@ -21,10 +21,11 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			}
 			
-			//add action for admin warning
-			// @todo make network capable
-			add_action( 'admin_init', array( &$this, 'warning' ) );
-		
+			//add action for admin warning if enabled 
+			if ( isset( $_GET['bit51_view_logs'] ) || $bwpsoptions['id_filedisplayerror'] == 1 || ( isset( $_POST['bwps_page'] ) ) && $_POST['bwps_page'] == 'intrusiondetection_1' ) {
+				add_action( 'admin_init', array( &$this, 'warning' ) );
+			}
+			
 		}
 		
 		/**
@@ -281,10 +282,21 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		 *
 		 **/
 		function fileemail() {
-			global $logid;
+			global $logid, $bwpsoptions;
+			
+			//Get the right email address.
+			if ( is_email( $bwpsoptions['id_fileemailaddress'] ) ) {
+				
+				$toaddress = $bwpsoptions['id_fileemailaddress'];
+			
+			} else {
+			
+				$toaddress = get_site_option( 'admin_email' );
+				
+			}
 		
 			//create all headers and subject
-			$to = get_option( 'admin_email' );
+			$to = $toaddress;
 			$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
 			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 

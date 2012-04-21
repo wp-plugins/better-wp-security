@@ -947,7 +947,37 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['id_fileenabled'] = ( isset( $_POST['id_fileenabled'] ) && $_POST['id_fileenabled'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_fileemailnotify'] = ( isset( $_POST['id_fileemailnotify'] ) && $_POST['id_fileemailnotify'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_fileincex'] = ( isset( $_POST['id_fileincex'] ) && $_POST['id_fileincex'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_filedisplayerror'] = ( isset( $_POST['id_filedisplayerror'] ) && $_POST['id_filedisplayerror'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_filechecktime'] = '';
+			
+			if ( is_email( $_POST['id_fileemailaddress'] ) ) {
+			
+				$bwpsoptions['id_fileemailaddress'] = $_POST['id_fileemailaddress'];
+			
+			} else {
+			
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add( '2', __( 'The email address you entered for the file check email is not a valid email address. You must enter a valid email address.', $this->hook ) );
+			
+			}
+			
+			if ( is_email( $_POST['id_emailaddress'] ) ) {
+			
+				$bwpsoptions['id_emailaddress'] = $_POST['id_emailaddress'];
+			
+			} else {
+			
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add( '2', __( 'The email address you entered for the detect 404 email is not a valid email address. You must enter a valid email address.', $this->hook ) );
+			
+			}
+			
 			$fileWhiteItems = explode( PHP_EOL, $_POST['id_specialfile'] );
 			$fileList = array();
 			
@@ -1125,6 +1155,20 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['ll_maxattemptsuser'] = absint( $_POST['ll_maxattemptsuser'] );
 			$bwpsoptions['ll_checkinterval'] = absint( $_POST['ll_checkinterval'] );
 			$bwpsoptions['ll_banperiod'] = absint( $_POST['ll_banperiod'] );
+			
+			if ( is_email( $_POST['ll_emailaddress'] ) ) {
+			
+				$bwpsoptions['ll_emailaddress'] = $_POST['ll_emailaddress'];
+			
+			} else {
+			
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add( '2', __( 'The email address you entered for lockout notifications is not a valid email address. You must enter a valid email address.', $this->hook ) );
+			
+			}
 			
 			//if they entered an invalid ban period set an error
 			if ( $bwpsoptions['ll_banperiod'] == 0 ) {

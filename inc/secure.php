@@ -408,8 +408,35 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				//contruct and send email if necessary
 				if ( ( $type == 1 && $bwpsoptions['ll_emailnotify'] == 1 ) || ( $type == 2 && $bwpsoptions['id_emailnotify'] == 1 ) ) {
+				
+					//Get the right email address.
+					if ( $type == 1 ) {
 					
-					$toEmail = get_site_option( 'admin_email' );
+						if ( is_email( $bwpsoptions['ll_emailaddress'] ) ) {
+				
+							$toaddress = $bwpsoptions['ll_emailaddress'];
+			
+						} else {
+			
+							$toaddress = get_site_option( 'admin_email' );
+				
+						}
+					
+					} else {
+					
+						if ( is_email( $bwpsoptions['id_emailaddress'] ) ) {
+				
+							$toaddress = $bwpsoptions['id_emailaddress'];
+			
+						} else {
+			
+							$toaddress = get_site_option( 'admin_email' );
+				
+						}
+						
+					}
+					
+					$toEmail = $toaddress;
 					$subEmail = '[' . get_option( 'siteurl' ) . '] ' . __( 'Site Lockout Notification', $this->hook );
 					$mailHead = 'From: ' . get_bloginfo( 'name' )  . ' <' . $toEmail . '>' . "\r\n\\";
 					

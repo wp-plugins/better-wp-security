@@ -1758,7 +1758,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_emailnotify'] ); ?> />
-							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a host is locked out of the system.', $this->hook ); ?></p>
+							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a host is locked out of the system.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_emailaddress" name="id_emailaddress" type="text" value="<?php echo ( isset( $_POST['id_emailaddress'] ) ? $_POST['id_emailaddress'] : ( $bwpsoptions['id_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_emailaddress'] ) ); ?>" />
+							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -1819,14 +1828,31 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Check this box to enable file change detection.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_filedisplayerror"><?php _e( 'Display file change admin warning', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_filedisplayerror" name="id_filedisplayerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_filedisplayerror'] ); ?> />
+							<p><?php _e( 'Disabling this feature will prevent the file change warning from displaying to the site administrator in the WordPress Dashboard. Not that disabling both the error message and the email address will result in no notifications of file changes. The only way you will be able to tell is by manually checking the log files.', $this->hook ); ?></p>
+						</td>
+					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for "id_fileemailnotify"><?php _e( 'Email File Change Notifications', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="id_fileemailnotify" name="id_fileemailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileemailnotify'] ); ?> />
-							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a file change is detected.', $this->hook ); ?></p>
+							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a file change is detected.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "id_fileemailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="id_fileemailaddress" name="id_fileemailaddress" type="text" value="<?php echo ( isset( $_POST['id_fileemailaddress'] ) ? $_POST['id_fileemailaddress'] : ( $bwpsoptions['id_fileemailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_fileemailaddress'] ) ); ?>" />
+							<p><?php _e( 'The email address filechange notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -1929,7 +1955,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_emailnotify'] ); ?> />
-							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system.', $this->hook ); ?></p>
+							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a host or user is locked out of the system.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "ll_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="ll_emailaddress" name="ll_emailaddress" type="text" value="<?php echo ( isset( $_POST['ll_emailaddress'] ) ? $_POST['ll_emailaddress'] : ( $bwpsoptions['ll_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['ll_emailaddress'] ) ); ?>" />
+							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 				</table>
