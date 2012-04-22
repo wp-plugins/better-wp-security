@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
-		public $pluginversion 	= '3038'; //current plugin version
+		public $pluginversion 	= '3039'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better_wp_security';
@@ -37,6 +37,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 				'bit51_bwps' 			=> array(
 					'initial_backup'		=> '0',
 					'initial_filewrite'		=> '0',
+					'blacklistip'			=> '0',
+					'blacklistipthreshold'	=> '3',
 					'am_enabled'			=> '0',
 					'am_type' 				=> '0',
 					'am_startdate' 			=> '1',

@@ -1799,6 +1799,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
+							<label for "blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="blacklistip" name="blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['blacklistip'] ); ?> />
+							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below. Note this feature is cumulative for both lockout types including this and bad logins.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="blacklistipthreshold" name="blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['blacklistipthreshold']; ?>" />
+							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
 							<label for "id_whitelist"><?php _e( '404 White List', $this->hook ); ?></label>
 						</th>
 						<td>
@@ -1947,6 +1965,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<input id="ll_banperiod" name="ll_banperiod" type="text" value="<?php echo $bwpsoptions['ll_banperiod']; ?>" />
 							<p><?php _e( 'The length of time a host or computer will be banned from this site after hitting the limit of bad logins.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="blacklistip" name="blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['blacklistip'] ); ?> />
+							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below. Note this feature is cumulative for both lockout types including this and bad logins.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for "blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="blacklistipthreshold" name="blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['blacklistipthreshold']; ?>" />
+							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
