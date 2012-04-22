@@ -818,20 +818,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//all the standard roles and level equivalents
 			$availableRoles = array(
-				"administrator"	=> "8",
-				"editor" 		=> "5",
-				"author" 		=> "2",
-				"contributor" 	=> "1",
-				"subscriber" 	=> "0"
+				'administrator'	=> '8',
+				'editor' 		=> '5',
+				'author' 		=> '2',
+				'contributor' 	=> '1',
+				'subscriber' 	=> '0'
 			);
 				
 			//roles and subroles
 			$rollists = array(
-				"administrator" => array("subscriber", "author", "contributor","editor"),
-				"editor" =>  array("subscriber", "author", "contributor"),
-				"author" =>  array("subscriber", "contributor"),
-				"contributor" =>  array("subscriber"),
-				"subscriber" => array()
+				'administrator'	=> array( 'subscriber', 'author', 'contributor', 'editor' ),
+				'editor' 		=> array( 'subscriber', 'author', 'contributor' ),
+				'author' 		=> array( 'subscriber', 'contributor' ),
+				'contributor' 	=> array( 'subscriber' ),
+				'subscriber' 	=> array()
 			);
 				
 			$enforce = true;
