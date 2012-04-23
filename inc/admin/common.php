@@ -193,7 +193,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$bwpsserver = 'nginx';
 				
-			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'LiteSpeed' ) ) {
+			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) {
 			
 				$bwpsserver = 'litespeed';
 				
