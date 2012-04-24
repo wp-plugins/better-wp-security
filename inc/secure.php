@@ -12,8 +12,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			global $bwpsoptions;
 			
+			//Don't redirect any SSL if SSL is turned off.
+			if ( $bwpsoptions['ssl_frontend']  >= 1 ) {
+				add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
+			}
+			
 			//execute default checks
-			add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
 			add_action( 'init', array( &$this, 'siteinit' ) );
 			add_action( 'wp_head', array( &$this,'check404' ) );
 			
