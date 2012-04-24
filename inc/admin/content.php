@@ -1799,19 +1799,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+							<label for "id_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="blacklistip" name="blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['blacklistip'] ); ?> />
-							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below. Note this feature is cumulative for both lockout types including this and bad logins.', $this->hook ); ?></p>
+							<input id="id_blacklistip" name="id_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_blacklistip'] ); ?> />
+							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+							<label for "id_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="blacklistipthreshold" name="blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['blacklistipthreshold']; ?>" />
+							<input id="id_blacklistipthreshold" name="id_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['id_blacklistipthreshold']; ?>" />
 							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1969,19 +1969,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+							<label for "ll_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="blacklistip" name="blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['blacklistip'] ); ?> />
-							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below. Note this feature is cumulative for both lockout types including this and bad logins.', $this->hook ); ?></p>
+							<input id="ll_blacklistip" name="ll_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_blacklistip'] ); ?> />
+							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for "blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+							<label for "ll_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="blacklistipthreshold" name="blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['blacklistipthreshold']; ?>" />
+							<input id="ll_blacklistipthreshold" name="ll_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['ll_blacklistipthreshold']; ?>" />
 							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
 						</td>
 					</tr>

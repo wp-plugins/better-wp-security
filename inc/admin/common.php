@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'bwps_admin_common' ) ) {
 
-	abstract class bwps_admin_common extends bit51_bwps {
+	class bwps_admin_common extends bit51_bwps {
 		
 		/**
 		 * Redirects to homepage if awaymode is active

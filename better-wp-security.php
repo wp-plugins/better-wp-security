@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends bit51 {
 	
-		public $pluginversion 	= '3040'; //current plugin version
+		public $pluginversion 	= '3041'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better_wp_security';
@@ -37,8 +37,6 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 				'bit51_bwps' 			=> array(
 					'initial_backup'		=> '0',
 					'initial_filewrite'		=> '0',
-					'blacklistip'			=> '0',
-					'blacklistipthreshold'	=> '3',
 					'am_enabled'			=> '0',
 					'am_type' 				=> '0',
 					'am_startdate' 			=> '1',
@@ -65,6 +63,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'll_maxattemptsuser' 	=> '10',
 					'll_checkinterval' 		=> '5',
 					'll_banperiod' 			=> '15',
+					'll_blacklistip'			=> '0',
+					'll_blacklistipthreshold'	=> '3',
 					'll_emailnotify' 		=> '1',
 					'll_emailaddress'		=> '',
 					'id_enabled' 			=> '0',
@@ -72,6 +72,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'id_checkinterval' 		=> '5',
 					'id_threshold' 			=> '20',
 					'id_banperiod' 			=> '15',
+					'id_blacklistip'			=> '0',
+					'id_blacklistipthreshold'	=> '3',
 					'id_whitelist' 			=> '',
 					'id_emailaddress'		=> '',
 					'id_fileenabled'		=> '0',
@@ -129,8 +131,14 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			}
 		
 			//set path information
-			define( 'BWPS_PP', plugin_dir_path( __FILE__ ) );
-			define( 'BWPS_PU', plugin_dir_url( __FILE__ ) );
+			
+			if ( ! defined( 'BWPS_PP' ) ) {
+				define( 'BWPS_PP', plugin_dir_path( __FILE__ ) );
+			}
+			
+			if ( ! defined( 'BWPS_PU' ) ) {
+				define( 'BWPS_PU', plugin_dir_url( __FILE__ ) );
+			}
 		
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );

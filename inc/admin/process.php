@@ -939,8 +939,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			//validate the input
-			$bwpsoptions['blacklistipthreshold'] = absint( $_POST['blacklistipthreshold'] );
-			$bwpsoptions['blacklistip'] = ( isset( $_POST['blacklistip'] ) && $_POST['blacklistip'] == 1  ? 1 : 0 );
+			$bwpsoptions['id_blacklistipthreshold'] = absint( $_POST['id_blacklistipthreshold'] );
+			$bwpsoptions['id_blacklistip'] = ( isset( $_POST['id_blacklistip'] ) && $_POST['id_blacklistip'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_enabled'] = ( isset( $_POST['id_enabled'] ) && $_POST['id_enabled'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_emailnotify'] = ( isset( $_POST['id_emailnotify'] ) && $_POST['id_emailnotify'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_checkinterval'] = absint( $_POST['id_checkinterval'] );
@@ -1151,8 +1151,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			//valitdate input
-			$bwpsoptions['blacklistipthreshold'] = absint( $_POST['blacklistipthreshold'] );
-			$bwpsoptions['blacklistip'] = ( isset( $_POST['blacklistip'] ) && $_POST['blacklistip'] == 1  ? 1 : 0 );
+			$bwpsoptions['ll_blacklistipthreshold'] = absint( $_POST['ll_blacklistipthreshold'] );
+			$bwpsoptions['ll_blacklistip'] = ( isset( $_POST['ll_blacklistip'] ) && $_POST['ll_blacklistip'] == 1  ? 1 : 0 );
 			$bwpsoptions['ll_enabled'] = ( isset( $_POST['ll_enabled'] ) && $_POST['ll_enabled'] == 1  ? 1 : 0 );
 			$bwpsoptions['ll_emailnotify'] = ( isset( $_POST['ll_emailnotify'] ) && $_POST['ll_emailnotify'] == 1  ? 1 : 0 );
 			$bwpsoptions['ll_maxattemptshost'] = absint( $_POST['ll_maxattemptshost'] );

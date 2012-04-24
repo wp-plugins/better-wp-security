@@ -402,18 +402,83 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				//lockout host		
-				$wpdb->insert(
-					$wpdb->base_prefix . 'bwps_lockouts',
-					array(
-						'type' => $type,
-						'active' => 1,
-						'starttime' => $currtime,
-						'exptime' => $exptime,
-						'host' => $wpdb->escape( $_SERVER['REMOTE_ADDR'] ),
-						'user' => ''
-					)
-				);
+				if ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) {
+				
+					if ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['ll_blacklistip'] == 1 ) {
+				
+						$locklimit = min( $bwpsoptions['ll_blacklistipthreshold'], $bwpsoptions['id_blacklistipthreshold'] );
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
+					
+					} elseif ( $bwpsoptions['id_blacklistip'] == 1 ) {
+					
+						$locklimit = $bwpsoptions['id_blacklistipthreshold'];
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=1 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
+				
+					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 ) {
+				
+						$locklimit = $bwpsoptions['ll_blacklistipthreshold'];
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =2 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
+				
+					} 
+					
+				} else {
+					
+					$locklimit = false;
+					$lockcount = 0;
+					
+				}
+				
+				//die( 'Locklimit = ' . $locklimit . ', lockcount = ' . $lockcount );
+				
+				if ( $locklimit !== false && $lockcount == $locklimit ) {
+				
+					@ini_set( 'auto_detect_line_endings', true );
+
+					$bwpsoptions['bu_enabled'] == 1;
+					$banlist = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
+					
+					$banlist[] = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
+					
+					$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $banlist );
+					
+					if ( is_multisite() ) {
+			
+						switch_to_blog( 1 );
+			
+						update_option( $this->primarysettings, $bwpsoptions );
+			
+						restore_current_blog();
+			
+					} else {
+			
+						update_option( $this->primarysettings, $bwpsoptions );
+				
+					}
+				
+				}
+				
+				if ( $locklimit !== false && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
+
+					$lockfiles = new bwps_admin_common();
+					$lockfiles->writehtaccess();
+					unset( $lockfiles );
+				
+				} else {
+				
+					//lockout host		
+					$wpdb->insert(
+						$wpdb->base_prefix . 'bwps_lockouts',
+						array(
+							'type' => $type,
+							'active' => 1,
+							'starttime' => $currtime,
+							'exptime' => $exptime,
+							'host' => $wpdb->escape( $_SERVER['REMOTE_ADDR'] ),
+							'user' => ''
+						)
+					);
+				
+				}
 				
 				//contruct and send email if necessary
 				if ( ( $type == 1 && $bwpsoptions['ll_emailnotify'] == 1 ) || ( $type == 2 && $bwpsoptions['id_emailnotify'] == 1 ) ) {
@@ -545,7 +610,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				if ( isset( $user->ID ) && absint( $user->ID ) > 0 ) { //if we're dealing with a user
 				
-					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( time() - $period ) . ";" );					
+					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( time() - $period ) . ";" );
 				} else {
 				
 					$usercount = 0;
