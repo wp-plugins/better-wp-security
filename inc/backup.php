@@ -132,7 +132,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				$zip->close();
 			
 				//delete .sql and keep zip
-				unlink(BWPS_PP . '/backups/' . $file . '.sql');
+				@unlink(BWPS_PP . 'backups/' . $file . '.sql');
 				$fileext = '.zip';
 				
 			} else {
