@@ -119,7 +119,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				
 			//save file
 			$file = 'database-backup-' . time();
-			$handle = @fopen( BWPS_PP . '/backups/' . $file . '.sql', 'w+' );
+			$handle = @fopen( BWPS_PP . 'backups/' . $file . '.sql', 'w+' );
 			fwrite( $handle, $return );
 			@fclose( $handle );
 		
@@ -127,12 +127,12 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			if ( class_exists( 'ZipArchive' ) ) {
 				
 				$zip = new ZipArchive();
-				$archive = $zip->open(BWPS_PP . '/backups/' . $file . '.zip', ZipArchive::CREATE);
-				$zip->addFile(BWPS_PP . '/backups/' . $file . '.sql', $file . '.sql' );
+				$archive = $zip->open(BWPS_PP . 'backups/' . $file . '.zip', ZipArchive::CREATE);
+				$zip->addFile(BWPS_PP . 'backups/' . $file . '.sql', $file . '.sql' );
 				$zip->close();
 			
 				//delete .sql and keep zip
-				@unlink(BWPS_PP . 'backups/' . $file . '.sql');
+				@unlink( BWPS_PP . 'backups/' . $file . '.sql' );
 				$fileext = '.zip';
 				
 			} else {
@@ -146,16 +146,16 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				$to = get_option( 'admin_email' );
 				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
-				$attachment = array( BWPS_PP . '/backups/' . $file . $fileext );
+				$attachment = array( BWPS_PP . 'backups/' . $file . $fileext );
 				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 				
 				wp_mail( $to, $subject, $message, $headers, $attachment );
 					
-				$files = scandir( BWPS_PP . '/backups/', 1 );
+				$files = scandir( BWPS_PP . 'backups/', 1 );
 					
 				foreach ( $files as $file ) {
 					if ( strstr( $file, 'database-backup' ) ) {
-						unlink ( BWPS_PP . '/backups/' . $file );
+						@unlink( BWPS_PP . 'backups/' . $file );
 					}
 				}
 			
@@ -163,14 +163,14 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				
 			//delete extra files
 			if ( $bwpsoptions['backups_to_retain'] != 0 ) {
-				$files = scandir( BWPS_PP . '/backups/', 1 );
+				$files = scandir( BWPS_PP . 'backups/', 1 );
 				
 				$count = 0;
 				
 				foreach ( $files as $file ) {
 					if ( strstr( $file, 'database-backup' ) ) {
 						if ( $count >= $bwpsoptions['backups_to_retain'] ) {
-							unlink ( BWPS_PP . '/backups/' . $file );
+							@unlink( BWPS_PP . 'backups/' . $file );
 						}
 						$count++;
 					}

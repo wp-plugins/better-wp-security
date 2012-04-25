@@ -410,14 +410,14 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
 					
 					} elseif ( $bwpsoptions['id_blacklistip'] == 1 ) {
-					
+						
 						$locklimit = $bwpsoptions['id_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=1 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
 				
 					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 ) {
-				
+						
 						$locklimit = $bwpsoptions['ll_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =2 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
 				
 					} 
 					
@@ -430,11 +430,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				//die( 'Locklimit = ' . $locklimit . ', lockcount = ' . $lockcount );
 				
-				if ( $locklimit !== false && $lockcount == $locklimit ) {
+				if ( $locklimit !== false && $lockcount >= $locklimit ) {
 				
 					@ini_set( 'auto_detect_line_endings', true );
 
-					$bwpsoptions['bu_enabled'] == 1;
+					$bwpsoptions['bu_enabled'] = 1;
 					$banlist = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
 					
 					$banlist[] = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
@@ -457,7 +457,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				}
 				
-				if ( $locklimit !== false && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
+				if ( $locklimit !== false && $lockcount >= $locklimit && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
 
 					$lockfiles = new bwps_admin_common();
 					$lockfiles->writehtaccess();
