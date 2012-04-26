@@ -1804,6 +1804,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<input id="id_blacklistip" name="id_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_blacklistip'] ); ?> />
 							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
+							<p><strong style="color: #ff0000;"><?php _e( 'Warning! If your site has a lot of missing files causing 404 errors using this feature can ban your own computer from your site. I would highly advice whitelisting your IP address below if this is the case.', $this->hook ); ?></strong></p>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -1892,6 +1893,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td>
 							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? $_POST['id_specialfile'] : $bwpsoptions['id_specialfile']; ?></textarea>
 							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. You can specify all files of a given type by just entering the extension preceeded by a dot (.) for exampe, .jpg', $this->hook ); ?></p>
+							<p><?php _e( 'Directories should be entered in the from the root of the WordPress folder. For example, if you wish to enter the uploads directory you would enter it as "wp-content/uploads" (assuming you have not renamed wp-content). For files just enter the filename without directory information.', $this->hook ); ?></p>
 						</td>
 					</tr>
 				</table>
