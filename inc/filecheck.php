@@ -347,11 +347,17 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				foreach ( $added as $item => $attr ) { 
+				if ( sizeof( $added > 0 ) ) {
+					foreach ( $added as $item => $attr ) { 
+						$report .= '<tr>' . PHP_EOL;
+						$report .= '<td>' . $item . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+						$report .= '</tr>' . PHP_EOL;
+					}
+				} else {
 					$report .= '<tr>' . PHP_EOL;
-					$report .= '<td>' . $item . '</td>' . PHP_EOL;
-					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '<td colspan="3">' . __( 'No files were added.', $this->hook ) . '</td>' . PHP_EOL;
 					$report .= '</tr>' . PHP_EOL;
 				}
 				$report .= '</table>' . PHP_EOL;
@@ -363,11 +369,17 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				foreach ( $removed as $item => $attr ) { 
+				if ( sizeof( $removed > 0 ) ) {
+					foreach ( $removed as $item => $attr ) { 
+						$report .= '<tr>' . PHP_EOL;
+						$report .= '<td>' . $item . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+						$report .= '</tr>' . PHP_EOL;
+					}
+				} else {
 					$report .= '<tr>' . PHP_EOL;
-					$report .= '<td>' . $item . '</td>' . PHP_EOL;
-					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '<td colspan="3">' . __( 'No files were removed.', $this->hook ) . '</td>' . PHP_EOL;
 					$report .= '</tr>' . PHP_EOL;
 				}
 				$report .= '</table>' . PHP_EOL;
@@ -379,11 +391,17 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				foreach ( $changed as $item => $attr ) { 
+				if ( sizeof( $changed > 0 ) ) {
+					foreach ( $changed as $item => $attr ) { 
+						$report .= '<tr>' . PHP_EOL;
+						$report .= '<td>' . $item . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+						$report .= '</tr>' . PHP_EOL;
+					}
+				} else {
 					$report .= '<tr>' . PHP_EOL;
-					$report .= '<td>' . $item . '</td>' . PHP_EOL;
-					$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
-					$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+					$report .= '<td colspan="3">' . __( 'No files were changed.', $this->hook ) . '</td>' . PHP_EOL;
 					$report .= '</tr>' . PHP_EOL;
 				}
 				$report .= '</table>' . PHP_EOL;
