@@ -3,9 +3,9 @@
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.3.1
-Tested up to: 3.4-beta2
-Stable tag: 3.2.3
+Requires at least: 3.3.2
+Tested up to: 3.4
+Stable tag: 3.2.4
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -71,7 +71,8 @@ Finally, should the worst happen Better WP Security will make regular backups of
 = Compatibility =
 
 * Works on multi-site (network) and single site installations
-* Works with Apache, LiteSpeed or NGINX
+* Works with Apache, LiteSpeed or NGINX (NGINX will require you to manually edit your virtual host configuration)
+* Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Configuration =
 
@@ -89,7 +90,15 @@ Configuration is easy, but there are a lot of options. The video below will walk
 Note the translations are only tested up to version 3.0. If you would like to contribute a translation to the current version please <a href="http://bit51.com/contact/" title="Bit51 contact form">let me know</a>.
 
 = Warning =
+
 Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
+
+= Support =
+
+* Please visit the <a href="http://bit51.com/software/better-wp-security/">Homepage</a> for general plugin information
+* Please visit the <a href="http://forums.bit51.com">Bit51.com forums for support</a>
+
+Note that I do not monitor the plugin forums at WordPress.org thus no support will be given via those forums.
 
 == Installation ==
 
@@ -99,7 +108,7 @@ Please read the installation instructions and FAQ before installing this plugin.
 4. Activate the plugin through the 'Plugins' menu in WordPress
 5. Visit the Better security menu for checklist and options
 
-NOTE: It is quite possible (maybe even probable) that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
+NOTE: It is possible that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 == Frequently Asked Questions ==
 
@@ -113,20 +122,21 @@ NOTE: It is quite possible (maybe even probable) that something will break due t
 * Many of the changes made by this plugin are complex and can break existing sites. While it can be installed in either a new or existing site I cannot stress enough the importance of making a backup of your existing site before applying any of the options in this plugin.
 
 = Will this work on all servers and hosts? =
-* Better WP Security requires Apache and mod_rewrite or NGINX to work.
-* While this plugin should work on all hosts with Apache and mod_rewrite or NGINX it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
+* Better WP Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work.
+* While this plugin should work on all hosts with Apache or LiteSpeed and mod_rewrite or NGINX it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
+* Finally, please make sure you have adequate RAM if you plan to use the file change detector of make large backups.
 
 = Are you still developing this plugin? =
-* Yes. The functionality of this plugin is a requirement of my job so this plugin will continue to be developed.
+* Yes. I use this plugin on every site I build and as such will continue to develop it for the foreseeable future.
 
 = Does this work with netowork or multisite installations? =
-* Yes, as of version 1.7 it should work fine with multisite installations.
+* Yes.
 
 = Can I help? =
 * Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization.
 
 = Will this break my site? =
-* It is quite possible (maybe even probable) that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
+* It is possible that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
 * <a href="http://bit51.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
 * <a href="http://bit51.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
