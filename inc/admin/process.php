@@ -625,6 +625,20 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['backup_time'] = ( isset( $_POST['backup_time'] ) && absint( $_POST['backup_time'] ) > 0 ? absint( $_POST['backup_time'] ) : 1 );
 			$bwpsoptions['backup_interval'] = $_POST['backup_interval'];
 			
+			if ( is_email( $_POST['backup_emailaddress'] ) ) {
+			
+				$bwpsoptions['backup_emailaddress'] = $_POST['backup_emailaddress'];
+			
+			} else {
+			
+				if ( ! is_wp_error( $errorHandler ) ) {
+					$errorHandler = new WP_Error();
+				}
+						
+				$errorHandler->add( '2', __( 'The email address you entered is not a valid email address. You must enter a valid email address.', $this->hook ) );
+			
+			}
+			
 			if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			
 				$nextbackup = $bwpsoptions['backup_next']; //get next schedule

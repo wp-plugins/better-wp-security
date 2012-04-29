@@ -1542,6 +1542,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
+							<label for "backup_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="backup_emailaddress" name="backup_emailaddress" type="text" value="<?php echo ( isset( $_POST['backup_emailaddress'] ) ? $_POST['backup_emailaddress'] : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ); ?>" />
+							<p><?php _e( 'The email address backups will be sent to.', $this->hook ); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
 							<label for "backups_to_retain"><?php _e( 'Backups to Keep', $this->hook ); ?></label>
 						</th>
 						<td>
