@@ -142,8 +142,19 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			}
 				
 			if ( $bwpsoptions['backup_email'] == 1 ) {
+			
+				//Get the right email address.
+				if ( is_email( $bwpsoptions['backup_emailaddress'] ) ) {
 				
-				$to = get_option( 'admin_email' );
+					$ = $bwpsoptions['backup_emailaddress'];
+			
+				} else {
+			
+					$toaddress = get_site_option( 'admin_email' );
+				
+				}
+				
+				$to = $toaddress;
 				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
 				$attachment = array( BWPS_PP . 'backups/' . $file . $fileext );
