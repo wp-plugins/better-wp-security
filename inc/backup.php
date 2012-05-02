@@ -146,7 +146,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				//Get the right email address.
 				if ( is_email( $bwpsoptions['backup_emailaddress'] ) ) {
 				
-					$ = $bwpsoptions['backup_emailaddress'];
+					$toaddress = $bwpsoptions['backup_emailaddress'];
 			
 				} else {
 			
