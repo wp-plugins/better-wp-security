@@ -22,7 +22,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 		public $pluginversion 	= '3043'; //current plugin version
 	
 		//important plugin information
-		public $hook 				= 'better_wp_security';
+		public $hook 				= 'better-wp-security';
 		public $pluginbase			= 'better-wp-security/better-wp-security.php';
 		public $pluginname			= 'Better WP Security';
 		public $homepage			= 'http://bit51.com/software/better-wp-security/';
