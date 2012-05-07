@@ -911,10 +911,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				if ( $userInfo = get_user_by( 'login', $userID ) ) {
 				
-					foreach ( $userInfo->wp_capabilities as $capability => $value ) {
+					foreach ( $userInfo->roles as $capability ) {
+
 						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
 							$enforce = false;  
 						}
+						
 					}  
 				
 				} else {  //a new user
