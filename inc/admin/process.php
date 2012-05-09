@@ -172,7 +172,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_5() {
 			
-			global $bwpsoptions;
+			global $bwpsoptions, $bwpsmemlimit;
 		
 			$errorHandler = __( 'Site Secured.', $this->hook );
 			
@@ -187,8 +187,19 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_corenot'] = 1;
 			$bwpsoptions['st_enablepassword'] = 1;
 			$bwpsoptions['st_loginerror'] = 1;
-			$bwpsoptions['id_fileenabled'] = 1;
 			
+			if ( $bwpsmemlimit >= 128 ) {
+			
+				$bwpsoptions['id_fileenabled'] = 1;
+				$bwps_filecheck = true;
+			
+			} else {
+			
+				$bwps_filecheck = false;
+			
+			}
+			
+			update_option( 'bwps_filecheck', $bwps_filecheck );
 			update_option( $this->primarysettings, $bwpsoptions );
 			
 			$errorHandler = __( 'Settings Saved. Your website is not protected from most attacks.', $this->hook );
@@ -965,6 +976,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['id_fileincex'] = ( isset( $_POST['id_fileincex'] ) && $_POST['id_fileincex'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_filedisplayerror'] = ( isset( $_POST['id_filedisplayerror'] ) && $_POST['id_filedisplayerror'] == 1  ? 1 : 0 );
 			$bwpsoptions['id_filechecktime'] = '';
+			$bwps_filecheck = $bwpsoptions['id_fileenabled'] == 1 ? true : false;
 			
 			if ( is_email( $_POST['id_fileemailaddress'] ) ) {
 			
@@ -1148,6 +1160,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
+				update_option( 'bwps_filecheck', $bwps_filecheck );
 			}
 						
 			$this-> showmessages( $errorHandler );

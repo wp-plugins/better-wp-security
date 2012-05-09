@@ -344,7 +344,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		
 			global $bwpsoptions;
 		
-			if ( $bwpsoptions['id_fileenabled'] == 1 ) {
+			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true ) {
 			
 				$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
 					array(
@@ -484,8 +484,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_3() {
-			global $bwpsoptions;
-			if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['id_fileenabled'] == 1 ) {
+			global $bwpsoptions, $bwpsmemlimit;
+			
+				if ( $bwpsoptions['id_fileenabled'] == 0 &&  $bwpsmemlimit >= 128 ) {
+					$idfilecheck = 0;
+				} else {
+					$idfilecheck = 1;
+				}
+			
+			if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $idfilecheck == 1 ) {
 			?>
 			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
 			<?php } else { ?>
@@ -505,7 +512,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_4() {
-			global $wpdb, $bwpsoptions;
+			global $wpdb, $bwpsoptions, $bwpsmemlimit;
 			?>
 			<ol>
 				<li>
@@ -605,7 +612,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $bwpsoptions['id_fileenabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'Your installation is actively looking for changed files.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your installation is not actively looking for changed files.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection#id_fileenabled"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<?php
+							if ( $bwpsmemlimit >= 128 ) {
+								$idfilecolor = 'red';
+							} else {
+								$idfilecolor = 'blue';
+							}
+						?>
+						<span style="color: <?php echo $idfilecolor; ?>;"><?php _e( 'Your installation is not actively looking for changed files.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-intrusiondetection#id_fileenabled"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -1741,7 +1755,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function intrusiondetection_content_3() {
-			global $bwpsoptions;
+			global $bwpsoptions, $bwpsmemlimit;
+			if ( $bwpsmemlimit < 128 ) {
+				echo '<script language="javascript">';
+				echo 'function warnmem() {';
+				echo 'alert( "' . __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', $this->hook ) . '" );';
+				echo '}';
+				echo '</script>';
+			}
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
@@ -1852,7 +1873,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_fileenabled"><?php _e( 'Enable File Change Detection', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="id_fileenabled" name="id_fileenabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileenabled'] ); ?> />
+							<input id="id_fileenabled" name="id_fileenabled" <?php if ( $bwpsmemlimit < 128 ) echo 'onchange="warnmem()"'; ?>type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileenabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable file change detection.', $this->hook ); ?></p>
 						</td>
 					</tr>

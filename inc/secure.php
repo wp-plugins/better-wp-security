@@ -353,7 +353,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				//execute backups
 				require_once( plugin_dir_path( __FILE__ ) . 'filecheck.php' );
 				$bwps_filecheck = new bwps_filecheck();
-				
+											
 			}
 			
 		}
@@ -749,7 +749,9 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/	
 		function siteinit() {
 		
-			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwpsoptions;
+			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwpsoptions, $bwpsmemlimit;
+			
+			 $bwpsmemlimit = (int) ini_get( 'memory_limit' ) ;
 			
 			//if they're locked out or banned die
 			if ( ( $bwpsoptions['id_enabled'] == 1 ||$bwpsoptions['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
