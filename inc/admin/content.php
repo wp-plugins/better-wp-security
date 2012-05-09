@@ -524,11 +524,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<li>
 					<?php $hcount = intval( $bwpsoptions['st_manifest'] ) + intval( $bwpsoptions['st_generator'] ) + intval( $bwpsoptions['st_edituri'] ); ?>
 					<?php if ( $hcount == 3 ) { ?>
-						<span style="color: green;"><?php _e( 'Your Wordpress header is revealing as little information as possible.', $this-> hook ); ?></span>
+						<span style="color: green;"><?php _e( 'Your WordPress header is revealing as little information as possible.', $this-> hook ); ?></span>
 					<?php } elseif ( $hcount > 0 ) { ?>
-						<span style="color: blue;"><?php _e( 'Your Wordpress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
+						<span style="color: blue;"><?php _e( 'Your WordPress header is still revealing some information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>					
 					<?php } else { ?>
-						<span style="color: red;"><?php _e( 'Your Wordpress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
+						<span style="color: red;"><?php _e( 'Your WordPress header is showing too much information to users.', $this-> hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_generator"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -565,9 +565,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				</li>
 				<li>
 					<?php if ( $bwpsoptions['am_enabled'] == 1 ) { ?>
-						<span style="color: green;"><?php _e( 'Your Wordpress admin area is not available when you will not be needing it.', $this->hook ); ?>. </span>
+						<span style="color: green;"><?php _e( 'Your WordPress admin area is not available when you will not be needing it.', $this->hook ); ?>. </span>
 					<?php } else { ?>
-						<span style="color: orange;"><?php _e( 'Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?', $this->hook ); ?> <a href="admin.php?page=better_wp_security-awaymode"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: orange;"><?php _e( 'Your WordPress admin area is available 24/7. Do you really update 24 hours a day?', $this->hook ); ?> <a href="admin.php?page=better_wp_security-awaymode"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -579,9 +579,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				</li>
 				<li>
 					<?php if ( $bwpsoptions['hb_enabled'] == 1 ) { ?>
-						<span style="color: green;"><?php _e( 'Your Wordpress admin area is hidden.', $this->hook ); ?></span>
+						<span style="color: green;"><?php _e( 'Your WordPress admin area is hidden.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'Your Wordpress admin area is not hidden.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-hidebackend"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'Your WordPress admin area is not hidden.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-hidebackend"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -617,9 +617,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				</li>
 				<li>
 					<?php if ( $bwpsoptions['st_fileedit'] == 1 ) { ?>
-						<span style="color: green;"><?php _e( 'You are not allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?></span>
+						<span style="color: green;"><?php _e( 'You are not allowing users to edit theme and plugin files from the WordPress backend.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the Wordpress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileedit"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are allowing users to edit theme and plugin files from the WordPress backend.', $this->hook ); ?> <a href="admin.php?page=better_wp_security-systemtweaks#st_fileedit"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -977,7 +977,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				</li>
 				
 				<li>
-					<h4><?php _e( 'Wordpress Configuration', $this->hook ); ?></h4>
+					<h4><?php _e( 'WordPress Configuration', $this->hook ); ?></h4>
 					<ul>
 						<?php
 							if ( is_multisite() ) { 
@@ -1071,7 +1071,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function awaymode_content_1() {
 			?>
 			<p><?php _e( 'As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->hook ); ?></p>
-			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'Wordpress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) ); ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'Wordpress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
+			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) ); ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
 			<?php
 		}
 		
@@ -2052,7 +2052,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<?php _e( 'Old Data', $this->hook ); ?>
 						</th>
 						<td>
-							<p><?php _e( 'Below is old security data still in your Wordpress database. Data is considered old when the lockout has expired, or been manually cancelled, or when the log entry will no longer be used to generate a lockout.', $this->hook ); ?></p>
+							<p><?php _e( 'Below is old security data still in your WordPress database. Data is considered old when the lockout has expired, or been manually cancelled, or when the log entry will no longer be used to generate a lockout.', $this->hook ); ?></p>
 							<p><?php _e( 'This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.', $this->hook ); ?></p>
 							<p><?php _e( 'Check the box next to the data you would like to clear and then press the "Remove Old Data" button.', $this->hook ); ?></p>
 							<ul>
@@ -2323,7 +2323,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
-								<label for "st_generator"><?php _e( 'Remove Wordpress Generator Meta Tag', $this->hook ); ?></label>
+								<label for "st_generator"><?php _e( 'Remove WordPress Generator Meta Tag', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_generator'] ); ?> />
@@ -2407,7 +2407,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>>Contributor</option>
 									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>>Subscriber</option>
 								</select>
-								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
+								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
 							</td>
 						</tr>
@@ -2418,7 +2418,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
-								<a name="st_loginerror"></a><label for "st_loginerror"><?php _e( 'Remove Wordpress Login Error Messages', $this->hook ); ?></label>
+								<a name="st_loginerror"></a><label for "st_loginerror"><?php _e( 'Remove WordPress Login Error Messages', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_loginerror'] ); ?> />
@@ -2480,7 +2480,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</tr>
 						<tr valign="top"  style="border: 1px solid #ffcc00;">
 							<th scope="row">
-								<a name="st_fileedit"></a><label for "st_fileedit"><?php _e( 'Turn off file editor in Wordpress Back-end', $this->hook ); ?></label>
+								<a name="st_fileedit"></a><label for "st_fileedit"><?php _e( 'Turn off file editor in WordPress Back-end', $this->hook ); ?></label>
 							</th>
 							<td>
 								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileedit'] ); ?> />
