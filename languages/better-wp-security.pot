@@ -1257,7 +1257,7 @@ msgstr ""
 
 #: inc/admin/content.php:1599
 msgid ""
-"WARNING: <a href=\"?page=better_wp_security-databasebackup\">BACKUP YOUR "
+"WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR "
 "DATABASE</a> BEFORE USING THIS TOOL!"
 msgstr ""
 

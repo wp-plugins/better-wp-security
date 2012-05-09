@@ -4,7 +4,7 @@
 	Plugin URI: http://bit51.com/software/better-wp-security/
 	Description: Helps protect your Wordpress installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
 	Version: Dev
-	Text Domain: better_wp_security
+	Text Domain: better-wp-security
 	Domain Path: /languages
 	Author: Bit51.com
 	Author URI: http://bit51.com
@@ -142,7 +142,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			}
 		
 			//load the text domain
-			load_plugin_textdomain( 'better_wp_security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'better-wp-security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
 			//require admin pages
 			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {

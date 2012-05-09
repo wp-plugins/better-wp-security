@@ -327,6 +327,10 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//get the change array
 			$changes = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE id=" . absint( $id ) . " ORDER BY timestamp DESC;", ARRAY_A );
 			
+			if ( $changes == null ) {
+				return false;
+			}
+			
 			$data = maybe_unserialize( $changes[0]['data'] );
 				
 			//seperate array by category
@@ -550,9 +554,9 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				//take them to the correct logs page
 				if ( isset( $_GET['bit51_view_logs'] ) ) {
 					if ( is_multisite() ) {
-						wp_redirect( admin_url() . 'network/admin.php?page=better_wp_security-logs#file-change', 302 );
+						wp_redirect( admin_url() . 'network/admin.php?page=better-wp-security-logs#file-change', 302 );
 					} else {
-						wp_redirect( admin_url() . 'admin.php?page=better_wp_security-logs#file-change', 302 );
+						wp_redirect( admin_url() . 'admin.php?page=better-wp-security-logs#file-change', 302 );
 					}
 				}
 				
