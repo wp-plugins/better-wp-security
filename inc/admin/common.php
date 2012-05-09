@@ -226,8 +226,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
 						$rules .= "Order allow,deny" . PHP_EOL .
-						"Allow from all" . PHP_EOL .
-						"Deny from ";
+						"Allow from all" . PHP_EOL;
+						
 						
 					}
 					
@@ -250,7 +250,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 
 							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 							
-								$rules .= str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ' ';
+								$rules .= "Deny from " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . PHP_EOL;
 								
 							} else {
 							
@@ -262,7 +262,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 							
-								$rules .= trim( $host ) . ' ';
+								$rules .= "Deny from " . trim( $host ) . PHP_EOL;
 								
 							} else {
 							
