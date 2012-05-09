@@ -424,6 +424,15 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					}
 					
 				}
+				
+				if ( str_replace( '.', '', $oldversion ) < 3044 ) {
+				
+					//turn on id confirmation for existing users.
+					$idconfirm = $bwpsoptions['id_fileenabled'] == 1 ? true : false;
+					
+					update_option( 'bwps_filecheck', $idconfirm );
+				
+				}
 			
 			}
 		
