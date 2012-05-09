@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Better WP Security Dev\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
-"POT-Creation-Date: 2012-04-27 15:37:06+00:00\n"
+"POT-Creation-Date: 2012-05-09 21:19:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "System Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:148 inc/admin/content.php:149 inc/filecheck.php:511
+#: inc/admin/content.php:148 inc/admin/content.php:149 inc/filecheck.php:515
 msgid "View Logs"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgid ""
 "which will be emailed to the website administrator at "
 msgstr ""
 
-#: inc/admin/content.php:447 inc/admin/content.php:1495
+#: inc/admin/content.php:447 inc/admin/content.php:1509
 msgid "Create Database Backup"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Do now allow this plugin to change WordPress core files."
 msgstr ""
 
-#: inc/admin/content.php:490
+#: inc/admin/content.php:497
 msgid ""
 "Congratulations. Your site is secure from basic attacks. Please review the "
 "status items below and turn on as many remaining items as you safely can. "
@@ -301,7 +301,7 @@ msgid ""
 "corresponding option page for that item."
 msgstr ""
 
-#: inc/admin/content.php:495
+#: inc/admin/content.php:502
 msgid ""
 "The button below will turn on all the basic features of Better WP Security "
 "which will help automatically protect your site from potential attacks. "
@@ -312,530 +312,530 @@ msgid ""
 "click so you don't have to worry about it."
 msgstr ""
 
-#: inc/admin/content.php:496
+#: inc/admin/content.php:503
 msgid ""
 "Please note this will not make any changes to any files on your site "
 "including .htaccess and wp-config.php."
 msgstr ""
 
-#: inc/admin/content.php:497
+#: inc/admin/content.php:504
 msgid "Secure My Site From Basic Attacks"
 msgstr ""
 
-#: inc/admin/content.php:517
+#: inc/admin/content.php:524
 msgid "You are enforcing strong passwords for all users."
 msgstr ""
 
-#: inc/admin/content.php:519
+#: inc/admin/content.php:526
 msgid "You are enforcing strong passwords, but not for all users."
 msgstr ""
 
-#: inc/admin/content.php:519 inc/admin/content.php:521
-#: inc/admin/content.php:529 inc/admin/content.php:531
-#: inc/admin/content.php:539 inc/admin/content.php:541
-#: inc/admin/content.php:563 inc/admin/content.php:570
-#: inc/admin/content.php:577 inc/admin/content.php:584
-#: inc/admin/content.php:592 inc/admin/content.php:594
-#: inc/admin/content.php:601 inc/admin/content.php:608
-#: inc/admin/content.php:615 inc/admin/content.php:622
+#: inc/admin/content.php:526 inc/admin/content.php:528
+#: inc/admin/content.php:536 inc/admin/content.php:538
+#: inc/admin/content.php:546 inc/admin/content.php:548
+#: inc/admin/content.php:570 inc/admin/content.php:577
+#: inc/admin/content.php:584 inc/admin/content.php:591
+#: inc/admin/content.php:599 inc/admin/content.php:601
+#: inc/admin/content.php:608 inc/admin/content.php:622
 #: inc/admin/content.php:629 inc/admin/content.php:636
-#: inc/admin/content.php:643 inc/admin/content.php:657
-#: inc/admin/content.php:659
+#: inc/admin/content.php:643 inc/admin/content.php:650
+#: inc/admin/content.php:657 inc/admin/content.php:671
+#: inc/admin/content.php:673
 msgid "Click here to fix."
 msgstr ""
 
-#: inc/admin/content.php:521
+#: inc/admin/content.php:528
 msgid "You are not enforcing strong passwords."
 msgstr ""
 
-#: inc/admin/content.php:527
-msgid "Your Wordpress header is revealing as little information as possible."
+#: inc/admin/content.php:534
+msgid "Your WordPress header is revealing as little information as possible."
 msgstr ""
 
-#: inc/admin/content.php:529
-msgid "Your Wordpress header is still revealing some information to users."
+#: inc/admin/content.php:536
+msgid "Your WordPress header is still revealing some information to users."
 msgstr ""
 
-#: inc/admin/content.php:531
-msgid "Your Wordpress header is showing too much information to users."
+#: inc/admin/content.php:538
+msgid "Your WordPress header is showing too much information to users."
 msgstr ""
 
-#: inc/admin/content.php:537
+#: inc/admin/content.php:544
 msgid "Non-administrators cannot see available updates."
 msgstr ""
 
-#: inc/admin/content.php:539
+#: inc/admin/content.php:546
 msgid "Non-administrators can see some updates."
 msgstr ""
 
-#: inc/admin/content.php:541
+#: inc/admin/content.php:548
 msgid "Non-administrators can see all updates."
 msgstr ""
 
-#: inc/admin/content.php:547
+#: inc/admin/content.php:554
 msgid "The <em>admin</em> user still exists."
 msgstr ""
 
-#: inc/admin/content.php:547
+#: inc/admin/content.php:554
 msgid "Click here to rename admin."
 msgstr ""
 
-#: inc/admin/content.php:549
+#: inc/admin/content.php:556
 msgid "The <em>admin</em> user has been removed."
 msgstr ""
 
-#: inc/admin/content.php:554
+#: inc/admin/content.php:561
 msgid "Your table prefix should not be "
 msgstr ""
 
-#: inc/admin/content.php:554
+#: inc/admin/content.php:561
 msgid "Click here to rename it."
 msgstr ""
 
-#: inc/admin/content.php:556
+#: inc/admin/content.php:563
 msgid "Your table prefix is"
 msgstr ""
 
-#: inc/admin/content.php:561
+#: inc/admin/content.php:568
 msgid "You have scheduled regular backups of your WordPress database."
 msgstr ""
 
-#: inc/admin/content.php:563
+#: inc/admin/content.php:570
 msgid "You are not scheduling regular backups of your WordPress database."
 msgstr ""
 
-#: inc/admin/content.php:568
-msgid ""
-"Your Wordpress admin area is not available when you will not be needing it."
-msgstr ""
-
-#: inc/admin/content.php:570
-msgid ""
-"Your Wordpress admin area is available 24/7. Do you really update 24 hours a "
-"day?"
-msgstr ""
-
 #: inc/admin/content.php:575
-msgid "Your login area is protected from brute force attacks."
+msgid ""
+"Your WordPress admin area is not available when you will not be needing it."
 msgstr ""
 
 #: inc/admin/content.php:577
-msgid "Your login area is not protected from brute force attacks."
+msgid ""
+"Your WordPress admin area is available 24/7. Do you really update 24 hours a "
+"day?"
 msgstr ""
 
 #: inc/admin/content.php:582
-msgid "Your Wordpress admin area is hidden."
+msgid "Your login area is protected from brute force attacks."
 msgstr ""
 
 #: inc/admin/content.php:584
-msgid "Your Wordpress admin area is not hidden."
+msgid "Your login area is not protected from brute force attacks."
 msgstr ""
 
-#: inc/admin/content.php:590
+#: inc/admin/content.php:589
+msgid "Your WordPress admin area is hidden."
+msgstr ""
+
+#: inc/admin/content.php:591
+msgid "Your WordPress admin area is not hidden."
+msgstr ""
+
+#: inc/admin/content.php:597
 msgid "Your .htaccess file is fully secured."
 msgstr ""
 
-#: inc/admin/content.php:592
+#: inc/admin/content.php:599
 msgid "Your .htaccess file is partially secured."
 msgstr ""
 
-#: inc/admin/content.php:594
+#: inc/admin/content.php:601
 msgid "Your .htaccess file is NOT secured."
 msgstr ""
 
-#: inc/admin/content.php:599
+#: inc/admin/content.php:606
 msgid ""
 "Your installation is actively blocking attackers trying to scan your site "
 "for vulnerabilities."
 msgstr ""
 
-#: inc/admin/content.php:601
+#: inc/admin/content.php:608
 msgid ""
 "Your installation is not actively blocking attackers trying to scan your "
 "site for vulnerabilities."
 msgstr ""
 
-#: inc/admin/content.php:606
+#: inc/admin/content.php:613
 msgid "Your installation is actively looking for changed files."
 msgstr ""
 
-#: inc/admin/content.php:608
+#: inc/admin/content.php:622
 msgid "Your installation is not actively looking for changed files."
 msgstr ""
 
-#: inc/admin/content.php:613
+#: inc/admin/content.php:627
 msgid "Your installation does not accept long URLs."
 msgstr ""
 
-#: inc/admin/content.php:615
+#: inc/admin/content.php:629
 msgid ""
 "Your installation accepts long (over 255 character) URLS. This can lead to "
 "vulnerabilities."
 msgstr ""
 
-#: inc/admin/content.php:620
+#: inc/admin/content.php:634
 msgid ""
-"You are not allowing users to edit theme and plugin files from the Wordpress "
+"You are not allowing users to edit theme and plugin files from the WordPress "
 "backend."
 msgstr ""
 
-#: inc/admin/content.php:622
+#: inc/admin/content.php:636
 msgid ""
-"You are allowing users to edit theme and plugin files from the Wordpress "
+"You are allowing users to edit theme and plugin files from the WordPress "
 "backend."
 msgstr ""
 
-#: inc/admin/content.php:627
+#: inc/admin/content.php:641
 msgid "Better WP Security is allowed to write to wp-config.php and .htaccess."
 msgstr ""
 
-#: inc/admin/content.php:629
+#: inc/admin/content.php:643
 msgid ""
 "Better WP Security is not allowed to write to wp-config.php and .htaccess."
 msgstr ""
 
-#: inc/admin/content.php:634
+#: inc/admin/content.php:648
 msgid "wp-config.php and .htacess are not writeable."
 msgstr ""
 
-#: inc/admin/content.php:636
+#: inc/admin/content.php:650
 msgid "wp-config.php and .htacess are writeable."
 msgstr ""
 
-#: inc/admin/content.php:641
+#: inc/admin/content.php:655
 msgid "Version information is obscured to all non admin users."
 msgstr ""
 
-#: inc/admin/content.php:643
+#: inc/admin/content.php:657
 msgid ""
 "Users may still be able to get version information from various plugins and "
 "themes."
 msgstr ""
 
-#: inc/admin/content.php:648
+#: inc/admin/content.php:662
 msgid "You have renamed the wp-content directory of your site."
 msgstr ""
 
-#: inc/admin/content.php:650
+#: inc/admin/content.php:664
 msgid "You should rename the wp-content directory of your site."
 msgstr ""
 
-#: inc/admin/content.php:650
+#: inc/admin/content.php:664
 msgid "Click here to do so."
 msgstr ""
 
-#: inc/admin/content.php:655
+#: inc/admin/content.php:669
 msgid "You are requiring a secure connection for logins and the admin area."
 msgstr ""
 
-#: inc/admin/content.php:657
+#: inc/admin/content.php:671
 msgid ""
 "You are requiring a secure connection for logins or the admin area but not "
 "both."
 msgstr ""
 
-#: inc/admin/content.php:659
+#: inc/admin/content.php:673
 msgid ""
 "You are not requiring a secure connection for logins or for the admin area."
 msgstr ""
 
-#: inc/admin/content.php:665
+#: inc/admin/content.php:679
 msgid "Items in green are fully secured. Good Job!"
 msgstr ""
 
-#: inc/admin/content.php:666
+#: inc/admin/content.php:680
 msgid ""
 "Items in orange are partially secured. Turn on more options to fully secure "
 "these areas."
 msgstr ""
 
-#: inc/admin/content.php:667
+#: inc/admin/content.php:681
 msgid "Items in red are not secured. You should secure these items immediately"
 msgstr ""
 
-#: inc/admin/content.php:668
+#: inc/admin/content.php:682
 msgid ""
 "Items in blue are not fully secured but may conflict with other themes, "
 "plugins, or the other operation of your site. Secure them on if you can but "
 "if you cannot do not worry about them."
 msgstr ""
 
-#: inc/admin/content.php:685
+#: inc/admin/content.php:699
 msgid ""
 "No rules have been generated. Turn on more features to see rewrite rules."
 msgstr ""
 
-#: inc/admin/content.php:721
+#: inc/admin/content.php:735
 msgid ""
 "No rules have been generated. Turn on more features to see wp-content rules."
 msgstr ""
 
-#: inc/admin/content.php:755
+#: inc/admin/content.php:769
 msgid "User Information"
 msgstr ""
 
-#: inc/admin/content.php:757
+#: inc/admin/content.php:771
 msgid "Public IP Address"
 msgstr ""
 
-#: inc/admin/content.php:757 inc/admin/content.php:836
+#: inc/admin/content.php:771 inc/admin/content.php:850
 msgid "Get more information on this address"
 msgstr ""
 
-#: inc/admin/content.php:758
+#: inc/admin/content.php:772
 msgid "User Agent"
 msgstr ""
 
-#: inc/admin/content.php:763
+#: inc/admin/content.php:777
 msgid "File System Information"
 msgstr ""
 
-#: inc/admin/content.php:765
+#: inc/admin/content.php:779
 msgid "Website Root Folder"
 msgstr ""
 
-#: inc/admin/content.php:766
+#: inc/admin/content.php:780
 msgid "Document Root Path"
 msgstr ""
 
-#: inc/admin/content.php:775 inc/admin/content.php:798
-#: inc/admin/content.php:954 inc/admin/content.php:962
-#: inc/admin/content.php:970
+#: inc/admin/content.php:789 inc/admin/content.php:812
+#: inc/admin/content.php:968 inc/admin/content.php:976
+#: inc/admin/content.php:984
 msgid "Yes"
 msgstr ""
 
-#: inc/admin/content.php:781 inc/admin/content.php:804
+#: inc/admin/content.php:795 inc/admin/content.php:818
 msgid "No."
 msgstr ""
 
-#: inc/admin/content.php:789
+#: inc/admin/content.php:803
 msgid ".htaccess File is Writable"
 msgstr ""
 
-#: inc/admin/content.php:812
+#: inc/admin/content.php:826
 msgid "wp-config.php File is Writable"
 msgstr ""
 
-#: inc/admin/content.php:817
+#: inc/admin/content.php:831
 msgid "Database Information"
 msgstr ""
 
-#: inc/admin/content.php:819
+#: inc/admin/content.php:833
 msgid "MySQL Database Version"
 msgstr ""
 
-#: inc/admin/content.php:820
+#: inc/admin/content.php:834
 msgid "MySQL Client Version"
 msgstr ""
 
-#: inc/admin/content.php:821
+#: inc/admin/content.php:835
 msgid "Database Host"
 msgstr ""
 
-#: inc/admin/content.php:822
+#: inc/admin/content.php:836
 msgid "Database Name"
 msgstr ""
 
-#: inc/admin/content.php:823
+#: inc/admin/content.php:837
 msgid "Database User"
 msgstr ""
 
-#: inc/admin/content.php:826
+#: inc/admin/content.php:840
 msgid "Not Set"
 msgstr ""
 
-#: inc/admin/content.php:827 inc/admin/content.php:876
-#: inc/admin/content.php:884 inc/admin/content.php:892
-#: inc/admin/content.php:900 inc/admin/content.php:908
-#: inc/admin/content.php:916 inc/admin/content.php:924
-#: inc/admin/content.php:940 inc/admin/content.php:948
-#: inc/admin/content.php:2205
+#: inc/admin/content.php:841 inc/admin/content.php:890
+#: inc/admin/content.php:898 inc/admin/content.php:906
+#: inc/admin/content.php:914 inc/admin/content.php:922
+#: inc/admin/content.php:930 inc/admin/content.php:938
+#: inc/admin/content.php:954 inc/admin/content.php:962
+#: inc/admin/content.php:2244
 msgid "Off"
 msgstr ""
 
-#: inc/admin/content.php:829
+#: inc/admin/content.php:843
 msgid "SQL Mode"
 msgstr ""
 
-#: inc/admin/content.php:834
+#: inc/admin/content.php:848
 msgid "Server Information"
 msgstr ""
 
-#: inc/admin/content.php:836
+#: inc/admin/content.php:850
 msgid "Server / Website IP Address"
 msgstr ""
 
-#: inc/admin/content.php:837
+#: inc/admin/content.php:851
 msgid "Server Type"
 msgstr ""
 
-#: inc/admin/content.php:838
+#: inc/admin/content.php:852
 msgid "Operating System"
 msgstr ""
 
-#: inc/admin/content.php:839
+#: inc/admin/content.php:853
 msgid "Browser Compression Supported"
 msgstr ""
 
-#: inc/admin/content.php:844
+#: inc/admin/content.php:858
 msgid "PHP Information"
 msgstr ""
 
-#: inc/admin/content.php:846
+#: inc/admin/content.php:860
 msgid "PHP Version"
 msgstr ""
 
-#: inc/admin/content.php:847
+#: inc/admin/content.php:861
 msgid "PHP Memory Usage"
 msgstr ""
 
-#: inc/admin/content.php:847
+#: inc/admin/content.php:861
 msgid " MB"
 msgstr ""
 
-#: inc/admin/content.php:852 inc/admin/content.php:860
-#: inc/admin/content.php:868 inc/admin/content.php:932
+#: inc/admin/content.php:866 inc/admin/content.php:874
+#: inc/admin/content.php:882 inc/admin/content.php:946
 msgid "N/A"
 msgstr ""
 
-#: inc/admin/content.php:855
+#: inc/admin/content.php:869
 msgid "PHP Memory Limit"
 msgstr ""
 
-#: inc/admin/content.php:863
+#: inc/admin/content.php:877
 msgid "PHP Max Upload Size"
 msgstr ""
 
-#: inc/admin/content.php:871
+#: inc/admin/content.php:885
 msgid "PHP Max Post Size"
 msgstr ""
 
-#: inc/admin/content.php:874 inc/admin/content.php:882
-#: inc/admin/content.php:890 inc/admin/content.php:898
-#: inc/admin/content.php:906 inc/admin/content.php:914
-#: inc/admin/content.php:922 inc/admin/content.php:938
-#: inc/admin/content.php:946
+#: inc/admin/content.php:888 inc/admin/content.php:896
+#: inc/admin/content.php:904 inc/admin/content.php:912
+#: inc/admin/content.php:920 inc/admin/content.php:928
+#: inc/admin/content.php:936 inc/admin/content.php:952
+#: inc/admin/content.php:960
 msgid "On"
 msgstr ""
 
-#: inc/admin/content.php:879
+#: inc/admin/content.php:893
 msgid "PHP Safe Mode"
 msgstr ""
 
-#: inc/admin/content.php:887
+#: inc/admin/content.php:901
 msgid "PHP Allow URL fopen"
 msgstr ""
 
-#: inc/admin/content.php:895
+#: inc/admin/content.php:909
 msgid "PHP Allow URL Include"
 msgstr ""
 
-#: inc/admin/content.php:903
+#: inc/admin/content.php:917
 msgid "PHP Display Errors"
 msgstr ""
 
-#: inc/admin/content.php:911
+#: inc/admin/content.php:925
 msgid "PHP Display Startup Errors"
 msgstr ""
 
-#: inc/admin/content.php:919
+#: inc/admin/content.php:933
 msgid "PHP Expose PHP"
 msgstr ""
 
-#: inc/admin/content.php:927
+#: inc/admin/content.php:941
 msgid "PHP Register Globals"
 msgstr ""
 
-#: inc/admin/content.php:935
+#: inc/admin/content.php:949
 msgid "PHP Max Script Execution Time"
 msgstr ""
 
-#: inc/admin/content.php:935
+#: inc/admin/content.php:949
 msgid "Seconds"
 msgstr ""
 
-#: inc/admin/content.php:943
+#: inc/admin/content.php:957
 msgid "PHP Magic Quotes GPC"
 msgstr ""
 
-#: inc/admin/content.php:951
+#: inc/admin/content.php:965
 msgid "PHP open_basedir"
 msgstr ""
 
-#: inc/admin/content.php:956 inc/admin/content.php:964
-#: inc/admin/content.php:972
+#: inc/admin/content.php:970 inc/admin/content.php:978
+#: inc/admin/content.php:986
 msgid "No"
 msgstr ""
 
-#: inc/admin/content.php:959
+#: inc/admin/content.php:973
 msgid "PHP XML Support"
 msgstr ""
 
-#: inc/admin/content.php:967
+#: inc/admin/content.php:981
 msgid "PHP IPTC Support"
 msgstr ""
 
-#: inc/admin/content.php:975
+#: inc/admin/content.php:989
 msgid "PHP Exif Support"
 msgstr ""
 
-#: inc/admin/content.php:980
-msgid "Wordpress Configuration"
-msgstr ""
-
-#: inc/admin/content.php:984
-msgid "Multisite is enabled"
-msgstr ""
-
-#: inc/admin/content.php:986
-msgid "Multisite is NOT enabled"
-msgstr ""
-
-#: inc/admin/content.php:989
-msgid "\tMultisite"
-msgstr ""
-
 #: inc/admin/content.php:994
-msgid "Enabled"
+msgid "WordPress Configuration"
 msgstr ""
 
 #: inc/admin/content.php:998
+msgid "Multisite is enabled"
+msgstr ""
+
+#: inc/admin/content.php:1000
+msgid "Multisite is NOT enabled"
+msgstr ""
+
+#: inc/admin/content.php:1003
+msgid "\tMultisite"
+msgstr ""
+
+#: inc/admin/content.php:1008
+msgid "Enabled"
+msgstr ""
+
+#: inc/admin/content.php:1012
 msgid ""
 "WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better "
 "WP Security to function correctly"
 msgstr ""
 
-#: inc/admin/content.php:1001
+#: inc/admin/content.php:1015
 msgid "WP Permalink Structure"
 msgstr ""
 
-#: inc/admin/content.php:1002
+#: inc/admin/content.php:1016
 msgid "Wp-config Location"
 msgstr ""
 
-#: inc/admin/content.php:1006
+#: inc/admin/content.php:1020
 msgid "Better WP Security variables"
 msgstr ""
 
-#: inc/admin/content.php:1010
+#: inc/admin/content.php:1024
 msgid "Not Yet Available. Enable Hide Backend mode to generate key."
 msgstr ""
 
-#: inc/admin/content.php:1015
+#: inc/admin/content.php:1029
 msgid "Hide Backend Key"
 msgstr ""
 
-#: inc/admin/content.php:1016
+#: inc/admin/content.php:1030
 msgid "Better WP Build Version"
 msgstr ""
 
-#: inc/admin/content.php:1017
+#: inc/admin/content.php:1031
 msgid ""
 "Note: this is NOT the same as the version number on the plugins page and is "
 "instead used for support."
 msgstr ""
 
-#: inc/admin/content.php:1030
+#: inc/admin/content.php:1044
 msgid ""
 "By default WordPress initially creates a username with the username of "
 "\"admin.\" This is insecure as this user has full rights to your WordPress "
@@ -845,37 +845,37 @@ msgid ""
 "and your password which makes some attacks significantly more difficult."
 msgstr ""
 
-#: inc/admin/content.php:1031
+#: inc/admin/content.php:1045
 msgid ""
 "Note that this function will only work if you chose a username other than "
 "\"admin\" when installing WordPress."
 msgstr ""
 
-#: inc/admin/content.php:1048
+#: inc/admin/content.php:1062
 msgid "Enter Username"
 msgstr ""
 
-#: inc/admin/content.php:1053
+#: inc/admin/content.php:1067
 msgid ""
 "Enter a new username to replace \"admin.\" Please note that if you are "
 "logged in as admin you will have to log in again."
 msgstr ""
 
-#: inc/admin/content.php:1057 inc/admin/content.php:1321
-#: inc/admin/content.php:1417 inc/admin/content.php:1458
-#: inc/admin/content.php:1553 inc/admin/content.php:1686
-#: inc/admin/content.php:2009 inc/admin/content.php:2231
-#: inc/admin/content.php:2483
+#: inc/admin/content.php:1071 inc/admin/content.php:1335
+#: inc/admin/content.php:1431 inc/admin/content.php:1472
+#: inc/admin/content.php:1576 inc/admin/content.php:1709
+#: inc/admin/content.php:2039 inc/admin/content.php:2270
+#: inc/admin/content.php:2522
 msgid "Save Changes"
 msgstr ""
 
-#: inc/admin/content.php:1062
+#: inc/admin/content.php:1076
 msgid ""
 "Congratulations! You do not have a user named \"admin\" in your WordPress "
 "installation. No further action is available on this page."
 msgstr ""
 
-#: inc/admin/content.php:1073
+#: inc/admin/content.php:1087
 msgid ""
 "As many of us update our sites on a general schedule it is not always "
 "necessary to permit site access all of the time. The options below will "
@@ -884,53 +884,53 @@ msgid ""
 "reasons."
 msgstr ""
 
-#: inc/admin/content.php:1074
+#: inc/admin/content.php:1088
 msgid "Please note that according to your"
 msgstr ""
 
-#: inc/admin/content.php:1074
-msgid "Wordpress timezone settings"
+#: inc/admin/content.php:1088
+msgid "WordPress timezone settings"
 msgstr ""
 
-#: inc/admin/content.php:1074
+#: inc/admin/content.php:1088
 msgid "your local time is"
 msgstr ""
 
-#: inc/admin/content.php:1074
+#: inc/admin/content.php:1088
 msgid "If this is incorrect please correct it on the"
 msgstr ""
 
-#: inc/admin/content.php:1074
-msgid "Wordpress general settings page"
+#: inc/admin/content.php:1088
+msgid "WordPress general settings page"
 msgstr ""
 
-#: inc/admin/content.php:1074
+#: inc/admin/content.php:1088
 msgid ""
 "by setting the appropriate time zone. Failure to do so may result in "
 "unintended lockouts."
 msgstr ""
 
-#: inc/admin/content.php:1129
+#: inc/admin/content.php:1143
 msgid "Enable Away Mode"
 msgstr ""
 
-#: inc/admin/content.php:1133
+#: inc/admin/content.php:1147
 msgid "Check this box to enable away mode."
 msgstr ""
 
-#: inc/admin/content.php:1138
+#: inc/admin/content.php:1152
 msgid "Type of Restriction"
 msgstr ""
 
-#: inc/admin/content.php:1141
+#: inc/admin/content.php:1155
 msgid "Daily"
 msgstr ""
 
-#: inc/admin/content.php:1142
+#: inc/admin/content.php:1156
 msgid "One Time"
 msgstr ""
 
-#: inc/admin/content.php:1143
+#: inc/admin/content.php:1157
 msgid ""
 "Selecting <em>\"One Time\"</em> will lock out the backend of your site from "
 "the start date and time to the end date and time. Selecting <em>\"Daily\"</"
@@ -938,75 +938,75 @@ msgid ""
 "from the start time to the end time."
 msgstr ""
 
-#: inc/admin/content.php:1148
+#: inc/admin/content.php:1162
 msgid "Start Date"
 msgstr ""
 
-#: inc/admin/content.php:1187
+#: inc/admin/content.php:1201
 msgid ""
 "Select the date at which access to the backend of this site will be "
 "disabled. Note that if <em>\"Daily\"</em> mode is selected this field will "
 "be ignored and access will be banned every day at the specified time."
 msgstr ""
 
-#: inc/admin/content.php:1193
+#: inc/admin/content.php:1207
 msgid "End Date"
 msgstr ""
 
-#: inc/admin/content.php:1232
+#: inc/admin/content.php:1246
 msgid ""
 "Select the date at which access to the backend of this site will be re-"
 "enabled. Note that if <em>\"Daily\"</em> mode is selected this field will be "
 "ignored and access will be banned every day at the specified time."
 msgstr ""
 
-#: inc/admin/content.php:1238
+#: inc/admin/content.php:1252
 msgid "Start Time"
 msgstr ""
 
-#: inc/admin/content.php:1274
+#: inc/admin/content.php:1288
 msgid ""
 "Select the time at which access to the backend of this site will be "
 "disabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
 "banned every day at the specified time."
 msgstr ""
 
-#: inc/admin/content.php:1280
+#: inc/admin/content.php:1294
 msgid "End Time"
 msgstr ""
 
-#: inc/admin/content.php:1316
+#: inc/admin/content.php:1330
 msgid ""
 "Select the time at which access to the backend of this site will be re-"
 "enabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
 "banned every day at the specified time."
 msgstr ""
 
-#: inc/admin/content.php:1337
+#: inc/admin/content.php:1351
 msgid "every day"
 msgstr ""
 
-#: inc/admin/content.php:1344 inc/admin/content.php:1345
+#: inc/admin/content.php:1358 inc/admin/content.php:1359
 msgid " at "
 msgstr ""
 
-#: inc/admin/content.php:1351
+#: inc/admin/content.php:1365
 msgid "The backend (administrative section) of this site will be unavailable"
 msgstr ""
 
-#: inc/admin/content.php:1351
+#: inc/admin/content.php:1365
 msgid "from"
 msgstr ""
 
-#: inc/admin/content.php:1351 inc/secure.php:538
+#: inc/admin/content.php:1365 inc/secure.php:538
 msgid "until"
 msgstr ""
 
-#: inc/admin/content.php:1353
+#: inc/admin/content.php:1367
 msgid "Away mode is currently diabled"
 msgstr ""
 
-#: inc/admin/content.php:1364
+#: inc/admin/content.php:1378
 msgid ""
 "This feature allows you to ban hosts and user agents from your site "
 "completely using individual or groups of IP addresses as well as user agents "
@@ -1014,64 +1014,64 @@ msgid ""
 "agent found in the lists below will not be allowed any access to your site."
 msgstr ""
 
-#: inc/admin/content.php:1381
+#: inc/admin/content.php:1395
 msgid "Enable Banned Users"
 msgstr ""
 
-#: inc/admin/content.php:1385
+#: inc/admin/content.php:1399
 msgid "Check this box to enable the banned users feature."
 msgstr ""
 
-#: inc/admin/content.php:1390
+#: inc/admin/content.php:1404
 msgid "Ban Hosts"
 msgstr ""
 
-#: inc/admin/content.php:1394
+#: inc/admin/content.php:1408
 msgid ""
 "Use the guidelines below to enter hosts that will not be allowed access to "
 "your site. Note you cannot ban yourself."
 msgstr ""
 
-#: inc/admin/content.php:1396
+#: inc/admin/content.php:1410
 msgid "You may ban users by individual IP address or IP address range."
 msgstr ""
 
-#: inc/admin/content.php:1397 inc/admin/content.php:1828
+#: inc/admin/content.php:1411 inc/admin/content.php:1858
 msgid ""
 "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
 "###). Wildcards (*) are allowed to specify a range of ip addresses."
 msgstr ""
 
-#: inc/admin/content.php:1398 inc/admin/content.php:1829
+#: inc/admin/content.php:1412 inc/admin/content.php:1859
 msgid ""
 "If using a wildcard (*) you must start with the right-most number in the ip "
 "field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*."
 "### is not."
 msgstr ""
 
-#: inc/admin/content.php:1399 inc/admin/content.php:1830
+#: inc/admin/content.php:1413 inc/admin/content.php:1860
 msgid "Lookup IP Address."
 msgstr ""
 
-#: inc/admin/content.php:1400 inc/admin/content.php:1831
+#: inc/admin/content.php:1414 inc/admin/content.php:1861
 msgid "Enter only 1 IP address or 1 IP address range per line."
 msgstr ""
 
-#: inc/admin/content.php:1406
+#: inc/admin/content.php:1420
 msgid "Ban User Agents"
 msgstr ""
 
-#: inc/admin/content.php:1410
+#: inc/admin/content.php:1424
 msgid ""
 "Use the guidelines below to enter user agents that will not be allowed "
 "access to your site."
 msgstr ""
 
-#: inc/admin/content.php:1412
+#: inc/admin/content.php:1426
 msgid "Enter only 1 user agent per line."
 msgstr ""
 
-#: inc/admin/content.php:1428
+#: inc/admin/content.php:1442
 msgid ""
 "By default WordPress puts all your content including images, plugins, "
 "themes, uploads, and more in a directory called \"wp-content\". This makes "
@@ -1082,7 +1082,7 @@ msgid ""
 "your site's file system will not produce any results."
 msgstr ""
 
-#: inc/admin/content.php:1429
+#: inc/admin/content.php:1443
 msgid ""
 "Please note that changing the name of your wp-content directory on a site "
 "that already has images and other content referencing it will break your "
@@ -1093,46 +1093,46 @@ msgid ""
 "this plugin which will not revert the changes made by this page."
 msgstr ""
 
-#: inc/admin/content.php:1430
+#: inc/admin/content.php:1444
 msgid ""
 "Finally, changing the name of the wp-content directory may in fact break "
 "plugins and themes that have \"hard-coded\" it into their design rather than "
 "call it dynamically."
 msgstr ""
 
-#: inc/admin/content.php:1431
+#: inc/admin/content.php:1445
 msgid "WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!"
 msgstr ""
 
-#: inc/admin/content.php:1432
+#: inc/admin/content.php:1446
 msgid ""
 "RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT."
 msgstr ""
 
-#: inc/admin/content.php:1449
+#: inc/admin/content.php:1463
 msgid "Directory Name"
 msgstr ""
 
-#: inc/admin/content.php:1454
+#: inc/admin/content.php:1468
 msgid ""
 "Enter a new directory name to replace \"wp-content.\" You may need to log in "
 "again after performing this operation."
 msgstr ""
 
-#: inc/admin/content.php:1468
+#: inc/admin/content.php:1482
 msgid ""
 "Congratulations! You have already renamed your \"wp-content\" directory."
 msgstr ""
 
-#: inc/admin/content.php:1469
+#: inc/admin/content.php:1483
 msgid "Your current content directory is: "
 msgstr ""
 
-#: inc/admin/content.php:1470
+#: inc/admin/content.php:1484
 msgid "No further actions are available on this page."
 msgstr ""
 
-#: inc/admin/content.php:1481
+#: inc/admin/content.php:1495
 msgid ""
 "While this plugin goes a long way to helping secure your website nothing can "
 "give you a 100% guarantee that your site won't be the victim of an attack. "
@@ -1143,100 +1143,109 @@ msgid ""
 "previous backups."
 msgstr ""
 
-#: inc/admin/content.php:1494
+#: inc/admin/content.php:1508
 msgid ""
 "Press the button below to create a backup of your WordPress database. If you "
 "have \"Send Backups By Email\" selected in automated backups you will "
 "receive an email containing the backup file."
 msgstr ""
 
-#: inc/admin/content.php:1513
+#: inc/admin/content.php:1527
 msgid "Enable Scheduled Backups"
 msgstr ""
 
-#: inc/admin/content.php:1517
+#: inc/admin/content.php:1531
 msgid ""
 "Check this box to enable scheduled backups which will be emailed to the "
 "address below."
 msgstr ""
 
-#: inc/admin/content.php:1522
+#: inc/admin/content.php:1536
 msgid "Backup Interval"
 msgstr ""
 
-#: inc/admin/content.php:1527
+#: inc/admin/content.php:1541
 msgid "Hours"
 msgstr ""
 
-#: inc/admin/content.php:1528
+#: inc/admin/content.php:1542
 msgid "Days"
 msgstr ""
 
-#: inc/admin/content.php:1529
+#: inc/admin/content.php:1543
 msgid "Weeks"
 msgstr ""
 
-#: inc/admin/content.php:1531
+#: inc/admin/content.php:1545
 msgid "Select the frequency of automated backups."
 msgstr ""
 
-#: inc/admin/content.php:1536
+#: inc/admin/content.php:1550
 msgid "Send Backups by Email"
 msgstr ""
 
-#: inc/admin/content.php:1540
+#: inc/admin/content.php:1554
 msgid "Email backups to the current site admin."
 msgstr ""
 
-#: inc/admin/content.php:1545
+#: inc/admin/content.php:1559 inc/admin/content.php:1796
+#: inc/admin/content.php:1900 inc/admin/content.php:2031
+msgid "Email Address"
+msgstr ""
+
+#: inc/admin/content.php:1563
+msgid "The email address backups will be sent to."
+msgstr ""
+
+#: inc/admin/content.php:1568
 msgid "Backups to Keep"
 msgstr ""
 
-#: inc/admin/content.php:1549
+#: inc/admin/content.php:1572
 msgid ""
 "Number of backup files to retain. Enter 0 to keep all files. Please note "
 "that this setting only applies if \"Send Backups by Email\" is not selected."
 msgstr ""
 
-#: inc/admin/content.php:1566
+#: inc/admin/content.php:1589
 msgid ""
 "Database backups are NOT saved to the server and instead will be emailed to"
 msgstr ""
 
-#: inc/admin/content.php:1566
+#: inc/admin/content.php:1589
 msgid ""
 "To change this unset \"Send Backups by Email\" in the \"Scheduled Automated "
 "Backups\" section above."
 msgstr ""
 
-#: inc/admin/content.php:1570
+#: inc/admin/content.php:1593
 msgid ""
 "Please note that for security backups are not available for direct download. "
 "You will need to go to "
 msgstr ""
 
-#: inc/admin/content.php:1572
+#: inc/admin/content.php:1595
 msgid ""
 " via FTP or SSH to download the files. This is because there is too much "
 "sensative information in the backup files and you do not want anyone just "
 "stumbling upon them."
 msgstr ""
 
-#: inc/admin/content.php:1582
+#: inc/admin/content.php:1605
 msgid "Last Scheduled Backup:"
 msgstr ""
 
-#: inc/admin/content.php:1583
+#: inc/admin/content.php:1606
 msgid "Next Scheduled Backup:"
 msgstr ""
 
-#: inc/admin/content.php:1585
+#: inc/admin/content.php:1608
 msgid ""
 "It looks like a scheduled backup is in progress please reload this page for "
 "more accurate times."
 msgstr ""
 
-#: inc/admin/content.php:1597
+#: inc/admin/content.php:1620
 msgid ""
 "By default WordPress assigns the prefix \"wp_\" to all the tables in the "
 "database where your content, users, and objects live. For potential "
@@ -1247,7 +1256,7 @@ msgid ""
 "database of your site."
 msgstr ""
 
-#: inc/admin/content.php:1598
+#: inc/admin/content.php:1621
 msgid ""
 "Please note that the use of this tool requires quite a bit of system memory "
 "which my be more than some hosts can handle. If you back your database up "
@@ -1255,41 +1264,41 @@ msgid ""
 "breaking your site and having to perform a rather difficult fix."
 msgstr ""
 
-#: inc/admin/content.php:1599
+#: inc/admin/content.php:1622
 msgid ""
 "WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR "
 "DATABASE</a> BEFORE USING THIS TOOL!"
 msgstr ""
 
-#: inc/admin/content.php:1611
+#: inc/admin/content.php:1634
 msgid "Your database is using the default table prefix"
 msgstr ""
 
-#: inc/admin/content.php:1611
+#: inc/admin/content.php:1634
 msgid "You should change this."
 msgstr ""
 
-#: inc/admin/content.php:1613
+#: inc/admin/content.php:1636
 msgid "Your current database table prefix is"
 msgstr ""
 
-#: inc/admin/content.php:1618
+#: inc/admin/content.php:1641
 msgid ""
 "Press the button below to generate a random database prefix value and update "
 "all of your tables accordingly."
 msgstr ""
 
-#: inc/admin/content.php:1619
+#: inc/admin/content.php:1642
 msgid "Change Database Table Prefix"
 msgstr ""
 
-#: inc/admin/content.php:1630
+#: inc/admin/content.php:1653
 msgid ""
 "The \"hide backend\" feature changes the URL from which you can access your "
 "WordPress backend thereby further obscuring your site to potential attackers."
 msgstr ""
 
-#: inc/admin/content.php:1631
+#: inc/admin/content.php:1654
 msgid ""
 "This feature will need to modify your site's .htaccess file if you use the "
 "Apache webserver or, if you use NGINX you will need to add the rules "
@@ -1297,51 +1306,51 @@ msgid ""
 "permalinks to be turned on in your settings to function."
 msgstr ""
 
-#: inc/admin/content.php:1643
+#: inc/admin/content.php:1666
 msgid "You must turn on"
 msgstr ""
 
-#: inc/admin/content.php:1643
+#: inc/admin/content.php:1666
 msgid "WordPress permalinks"
 msgstr ""
 
-#: inc/admin/content.php:1643
+#: inc/admin/content.php:1666
 msgid "to use this feature."
 msgstr ""
 
-#: inc/admin/content.php:1651
+#: inc/admin/content.php:1674
 msgid "Enable Hide Backend"
 msgstr ""
 
-#: inc/admin/content.php:1655
+#: inc/admin/content.php:1678
 msgid "Check this box to enable the hide backend."
 msgstr ""
 
-#: inc/admin/content.php:1660
+#: inc/admin/content.php:1683
 msgid "Login Slug"
 msgstr ""
 
-#: inc/admin/content.php:1664
+#: inc/admin/content.php:1687
 msgid "Login URL:"
 msgstr ""
 
-#: inc/admin/content.php:1669
+#: inc/admin/content.php:1692
 msgid "Register Slug"
 msgstr ""
 
-#: inc/admin/content.php:1673
+#: inc/admin/content.php:1696
 msgid "Register URL:"
 msgstr ""
 
-#: inc/admin/content.php:1678
+#: inc/admin/content.php:1701
 msgid "Admin Slug"
 msgstr ""
 
-#: inc/admin/content.php:1682
+#: inc/admin/content.php:1705
 msgid "Admin URL:"
 msgstr ""
 
-#: inc/admin/content.php:1699
+#: inc/admin/content.php:1722
 msgid ""
 "Keep this key in a safe place. You can use it to manually fix plugins that "
 "link to wp-login.php. Once turning on this feature and plugins linking to wp-"
@@ -1350,7 +1359,7 @@ msgid ""
 "a bad login link in the code of a plugin or theme."
 msgstr ""
 
-#: inc/admin/content.php:1710
+#: inc/admin/content.php:1733
 msgid ""
 "404 detection looks at a user who is hitting a large number of non-existent "
 "pages, that is they are getting a large number of 404 errors. It assumes "
@@ -1362,7 +1371,7 @@ msgid ""
 "page. You can set threshholds for this feature below."
 msgstr ""
 
-#: inc/admin/content.php:1711
+#: inc/admin/content.php:1734
 msgid ""
 "File change detection looks at the files in your WordPress installation and "
 "reports changes to those files. This can help you determine if an attacker "
@@ -1371,142 +1380,145 @@ msgid ""
 "insanity."
 msgstr ""
 
-#: inc/admin/content.php:1724
+#: inc/admin/content.php:1747
 msgid ""
 "Press the button below to manually check for changed files and folders on "
 "your site."
 msgstr ""
 
-#: inc/admin/content.php:1725
+#: inc/admin/content.php:1748
 msgid "Check for file/folder changes"
 msgstr ""
 
-#: inc/admin/content.php:1743
+#: inc/admin/content.php:1762
+msgid ""
+"Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
+"have many files in your installation or a lot of active plugins activating "
+"this feature may result in your site becoming disabled with a memory error. "
+"See the plugin homepage for more information."
+msgstr ""
+
+#: inc/admin/content.php:1773
 msgid "404 Detection"
 msgstr ""
 
-#: inc/admin/content.php:1748
+#: inc/admin/content.php:1778
 msgid "Enable 404 Detection"
 msgstr ""
 
-#: inc/admin/content.php:1752
+#: inc/admin/content.php:1782
 msgid "Check this box to enable 404 intrusion detection."
 msgstr ""
 
-#: inc/admin/content.php:1757
+#: inc/admin/content.php:1787
 msgid "Email 404 Notifications"
 msgstr ""
 
-#: inc/admin/content.php:1761
+#: inc/admin/content.php:1791
 msgid ""
 "Enabling this feature will trigger an email to be sent to the specified "
 "email address whenever a host is locked out of the system."
 msgstr ""
 
-#: inc/admin/content.php:1766 inc/admin/content.php:1870
-#: inc/admin/content.php:2001
-msgid "Email Address"
-msgstr ""
-
-#: inc/admin/content.php:1770 inc/admin/content.php:2005
+#: inc/admin/content.php:1800 inc/admin/content.php:2035
 msgid "The email address lockout notifications will be sent to."
 msgstr ""
 
-#: inc/admin/content.php:1775
+#: inc/admin/content.php:1805
 msgid "Check Period"
 msgstr ""
 
-#: inc/admin/content.php:1779
+#: inc/admin/content.php:1809
 msgid ""
 "The number of minutes in which 404 errors should be remembered. Setting this "
 "too long can cause legitimate users to be banned."
 msgstr ""
 
-#: inc/admin/content.php:1784
+#: inc/admin/content.php:1814
 msgid "Error Threshold"
 msgstr ""
 
-#: inc/admin/content.php:1788
+#: inc/admin/content.php:1818
 msgid ""
 "The numbers of errors (within the check period timeframe) that will trigger "
 "a lockout."
 msgstr ""
 
-#: inc/admin/content.php:1793
+#: inc/admin/content.php:1823
 msgid "Lockout Period"
 msgstr ""
 
-#: inc/admin/content.php:1797
+#: inc/admin/content.php:1827
 msgid ""
 "The number of minutes a host will be banned from the site after triggering a "
 "lockout."
 msgstr ""
 
-#: inc/admin/content.php:1802 inc/admin/content.php:1974
+#: inc/admin/content.php:1832 inc/admin/content.php:2004
 msgid "Blacklist Repeat Offender"
 msgstr ""
 
-#: inc/admin/content.php:1806 inc/admin/content.php:1978
+#: inc/admin/content.php:1836 inc/admin/content.php:2008
 msgid ""
 "If this box is checked the IP address of the offending computer will be "
 "added to the \"Ban Users\" blacklist after reaching the number of lockouts "
 "listed below."
 msgstr ""
 
-#: inc/admin/content.php:1807
+#: inc/admin/content.php:1837
 msgid ""
 "Warning! If your site has a lot of missing files causing 404 errors using "
 "this feature can ban your own computer from your site. I would highly advice "
 "whitelisting your IP address below if this is the case."
 msgstr ""
 
-#: inc/admin/content.php:1812 inc/admin/content.php:1983
+#: inc/admin/content.php:1842 inc/admin/content.php:2013
 msgid "Blacklist Threshold"
 msgstr ""
 
-#: inc/admin/content.php:1816 inc/admin/content.php:1987
+#: inc/admin/content.php:1846 inc/admin/content.php:2017
 msgid ""
 "The number of lockouts per IP before the user is banned permanently from "
 "this site"
 msgstr ""
 
-#: inc/admin/content.php:1821
+#: inc/admin/content.php:1851
 msgid "404 White List"
 msgstr ""
 
-#: inc/admin/content.php:1825
+#: inc/admin/content.php:1855
 msgid ""
 "Use the guidelines below to enter hosts that will never be locked out due to "
 "too many 404 errors. This could be useful for Google, etc."
 msgstr ""
 
-#: inc/admin/content.php:1827
+#: inc/admin/content.php:1857
 msgid "You may whitelist users by individual IP address or IP address range."
 msgstr ""
 
-#: inc/admin/content.php:1832
+#: inc/admin/content.php:1862
 msgid ""
 "404 errors will still be logged for users on the whitelist. Only the lockout "
 "will be prevented"
 msgstr ""
 
-#: inc/admin/content.php:1838
+#: inc/admin/content.php:1868
 msgid "File Change Detection"
 msgstr ""
 
-#: inc/admin/content.php:1843
+#: inc/admin/content.php:1873
 msgid "Enable File Change Detection"
 msgstr ""
 
-#: inc/admin/content.php:1847
+#: inc/admin/content.php:1877
 msgid "Check this box to enable file change detection."
 msgstr ""
 
-#: inc/admin/content.php:1852
+#: inc/admin/content.php:1882
 msgid "Display file change admin warning"
 msgstr ""
 
-#: inc/admin/content.php:1856
+#: inc/admin/content.php:1886
 msgid ""
 "Disabling this feature will prevent the file change warning from displaying "
 "to the site administrator in the WordPress Dashboard. Not that disabling "
@@ -1515,44 +1527,44 @@ msgid ""
 "checking the log files."
 msgstr ""
 
-#: inc/admin/content.php:1861
+#: inc/admin/content.php:1891
 msgid "Email File Change Notifications"
 msgstr ""
 
-#: inc/admin/content.php:1865
+#: inc/admin/content.php:1895
 msgid ""
 "Enabling this feature will trigger an email to be sent to the specified "
 "email address whenever a file change is detected."
 msgstr ""
 
-#: inc/admin/content.php:1874
+#: inc/admin/content.php:1904
 msgid "The email address filechange notifications will be sent to."
 msgstr ""
 
-#: inc/admin/content.php:1879
+#: inc/admin/content.php:1909
 msgid "Include/Exclude List"
 msgstr ""
 
-#: inc/admin/content.php:1883
+#: inc/admin/content.php:1913
 msgid "Include"
 msgstr ""
 
-#: inc/admin/content.php:1884
+#: inc/admin/content.php:1914
 msgid "Exclude"
 msgstr ""
 
-#: inc/admin/content.php:1886
+#: inc/admin/content.php:1916
 msgid ""
 "If \"Include\" is selected only the contents of the list below will be "
 "checked. If exclude is selected all files and folders except those listed "
 "below will be checked."
 msgstr ""
 
-#: inc/admin/content.php:1891
+#: inc/admin/content.php:1921
 msgid "File/Directory Check List"
 msgstr ""
 
-#: inc/admin/content.php:1895
+#: inc/admin/content.php:1925
 msgid ""
 "Enter directories or files you do not want to include in the check (i.e. "
 "cache folders, etc). Only 1 file or directory per line. You can specify all "
@@ -1560,7 +1572,7 @@ msgid ""
 "for exampe, .jpg"
 msgstr ""
 
-#: inc/admin/content.php:1896
+#: inc/admin/content.php:1926
 msgid ""
 "Directories should be entered in the from the root of the WordPress folder. "
 "For example, if you wish to enter the uploads directory you would enter it "
@@ -1568,11 +1580,11 @@ msgid ""
 "files just enter the filename without directory information."
 msgstr ""
 
-#: inc/admin/content.php:1900
+#: inc/admin/content.php:1930
 msgid "Save Options"
 msgstr ""
 
-#: inc/admin/content.php:1912
+#: inc/admin/content.php:1942
 msgid ""
 "If one had unlimited time and wanted to try an unlimited number of password "
 "combimations to get into your site they eventually would, right? This method "
@@ -1583,29 +1595,29 @@ msgid ""
 "specified bad login threshhold has been reached."
 msgstr ""
 
-#: inc/admin/content.php:1929
+#: inc/admin/content.php:1959
 msgid "Enable Login Limits"
 msgstr ""
 
-#: inc/admin/content.php:1933
+#: inc/admin/content.php:1963
 msgid "Check this box to enable login limits on this site."
 msgstr ""
 
-#: inc/admin/content.php:1938
+#: inc/admin/content.php:1968
 msgid "Max Login Attempts Per Host"
 msgstr ""
 
-#: inc/admin/content.php:1942
+#: inc/admin/content.php:1972
 msgid ""
 "The number of login attempts a user has before their host or computer is "
 "locked out of the system."
 msgstr ""
 
-#: inc/admin/content.php:1947
+#: inc/admin/content.php:1977
 msgid "Max Login Attempts Per User"
 msgstr ""
 
-#: inc/admin/content.php:1951
+#: inc/admin/content.php:1981
 msgid ""
 "The number of login attempts a user has before their username is locked out "
 "of the system. Note that this is different from hosts in case an attacker is "
@@ -1613,35 +1625,35 @@ msgid ""
 "could be locked out yourself."
 msgstr ""
 
-#: inc/admin/content.php:1956
+#: inc/admin/content.php:1986
 msgid "Login Time Period (minutes)"
 msgstr ""
 
-#: inc/admin/content.php:1960
+#: inc/admin/content.php:1990
 msgid "The number of minutes in which bad logins should be remembered."
 msgstr ""
 
-#: inc/admin/content.php:1965
+#: inc/admin/content.php:1995
 msgid "Lockout Time Period (minutes)"
 msgstr ""
 
-#: inc/admin/content.php:1969
+#: inc/admin/content.php:1999
 msgid ""
 "The length of time a host or computer will be banned from this site after "
 "hitting the limit of bad logins."
 msgstr ""
 
-#: inc/admin/content.php:1992
+#: inc/admin/content.php:2022
 msgid "Email Notifications"
 msgstr ""
 
-#: inc/admin/content.php:1996
+#: inc/admin/content.php:2026
 msgid ""
 "Enabling this feature will trigger an email to be sent to the specified "
 "email address whenever a host or user is locked out of the system."
 msgstr ""
 
-#: inc/admin/content.php:2020
+#: inc/admin/content.php:2050
 msgid ""
 "This page contains the logs generated by Better WP Security, current "
 "lockouts (which can be cleared here) and a way to cleanup the logs to save "
@@ -1651,84 +1663,85 @@ msgid ""
 "system has to search through large log-files on a regular basis."
 msgstr ""
 
-#: inc/admin/content.php:2043
+#: inc/admin/content.php:2073
 msgid "Old Data"
 msgstr ""
 
-#: inc/admin/content.php:2046
+#: inc/admin/content.php:2076
 msgid ""
-"Below is old security data still in your Wordpress database. Data is "
+"Below is old security data still in your WordPress database. Data is "
 "considered old when the lockout has expired, or been manually cancelled, or "
 "when the log entry will no longer be used to generate a lockout."
 msgstr ""
 
-#: inc/admin/content.php:2047
+#: inc/admin/content.php:2077
 msgid ""
 "This data is not automatically deleted so that it may be used for analysis. "
 "You may delete this data with the form below. To see the actual data you "
 "will need to access your database directly."
 msgstr ""
 
-#: inc/admin/content.php:2048
+#: inc/admin/content.php:2078
 msgid ""
 "Check the box next to the data you would like to clear and then press the "
-"\"Remove Old Data\" button."
+"\"Remove Old Data\" button. (note this will not erase entries that may still "
+"be used for lockouts)."
 msgstr ""
 
-#: inc/admin/content.php:2050 inc/admin/content.php:2051
-#: inc/admin/content.php:2053 inc/admin/content.php:2054
+#: inc/admin/content.php:2080 inc/admin/content.php:2081
+#: inc/admin/content.php:2083 inc/admin/content.php:2084
 msgid "Your database contains"
 msgstr ""
 
-#: inc/admin/content.php:2050
+#: inc/admin/content.php:2080
 msgid "bad login entries."
 msgstr ""
 
-#: inc/admin/content.php:2051
+#: inc/admin/content.php:2081
 msgid "404 errors."
 msgstr ""
 
-#: inc/admin/content.php:2052
+#: inc/admin/content.php:2082
 msgid "This will clear the 404 log below."
 msgstr ""
 
-#: inc/admin/content.php:2053
+#: inc/admin/content.php:2083
 msgid "old lockouts."
 msgstr ""
 
-#: inc/admin/content.php:2054
+#: inc/admin/content.php:2084
 msgid "changed file records."
 msgstr ""
 
-#: inc/admin/content.php:2059
+#: inc/admin/content.php:2089
 msgid "Remove Data"
 msgstr ""
 
-#: inc/admin/content.php:2081
+#: inc/admin/content.php:2111
 msgid "Locked out hosts"
 msgstr ""
 
-#: inc/admin/content.php:2091
+#: inc/admin/content.php:2121
 msgid "Currently no hosts are locked out of this website."
 msgstr ""
 
-#: inc/admin/content.php:2097
+#: inc/admin/content.php:2127
 msgid "Locked out users"
 msgstr ""
 
-#: inc/admin/content.php:2108
+#: inc/admin/content.php:2138
 msgid "Currently no users are locked out of this website."
 msgstr ""
 
-#: inc/admin/content.php:2113
+#: inc/admin/content.php:2143
 msgid "Release Lockout"
 msgstr ""
 
-#: inc/admin/content.php:2155
+#: inc/admin/content.php:2194
 msgid "Return to Log"
 msgstr ""
 
-#: inc/admin/content.php:2173
+#: inc/admin/content.php:2212
 msgid ""
 "Secure Socket Layers (aka SSL) is a technology that is used to encrypt the "
 "data sent between your server or host and the visitor to your web page. When "
@@ -1737,7 +1750,7 @@ msgid ""
 "encrypted data much safer."
 msgstr ""
 
-#: inc/admin/content.php:2174
+#: inc/admin/content.php:2213
 msgid ""
 "Better WP Security gives you the option of turning on SSL (if your server or "
 "host support it) for all or part of your site. The options below allow you "
@@ -1747,7 +1760,7 @@ msgid ""
 "\"Enable SSL\" in the publishing options of the content in question."
 msgstr ""
 
-#: inc/admin/content.php:2175
+#: inc/admin/content.php:2214
 msgid ""
 "While this plugin does give you the option of encrypting everything please "
 "note this might not be for you. SSL does add overhead to your site which "
@@ -1756,32 +1769,32 @@ msgid ""
 "individual pages or posts with forms that require sensitive information."
 msgstr ""
 
-#: inc/admin/content.php:2176
+#: inc/admin/content.php:2215
 msgid ""
 "WARNING: Your server MUST support SSL to use these features. Using these "
 "features without SSL support on your server or host will cause some or all "
 "of your site to become unavailable."
 msgstr ""
 
-#: inc/admin/content.php:2195
+#: inc/admin/content.php:2234
 msgid ""
 "Are you sure you want to enable SSL? If your server does not support SSL you "
 "will be locked out of your WordPress admin backend."
 msgstr ""
 
-#: inc/admin/content.php:2201
+#: inc/admin/content.php:2240
 msgid "Enforce Front end SSL"
 msgstr ""
 
-#: inc/admin/content.php:2206
+#: inc/admin/content.php:2245
 msgid "Per Content"
 msgstr ""
 
-#: inc/admin/content.php:2207
+#: inc/admin/content.php:2246
 msgid "Whole Site"
 msgstr ""
 
-#: inc/admin/content.php:2209
+#: inc/admin/content.php:2248
 msgid ""
 "Enables secure SSL connection for the front-end (public parts of your site). "
 "Turning this off will disable front-end SSL control, turning this on \"Per "
@@ -1791,31 +1804,31 @@ msgid ""
 "(not recommended unless you have a really good reason to use it)."
 msgstr ""
 
-#: inc/admin/content.php:2214
+#: inc/admin/content.php:2253
 msgid "Enforce Login SSL"
 msgstr ""
 
-#: inc/admin/content.php:2218
+#: inc/admin/content.php:2257
 msgid "Forces all logins to be served only over a secure SSL connection."
 msgstr ""
 
-#: inc/admin/content.php:2223
+#: inc/admin/content.php:2262
 msgid "Enforce Admin SSL"
 msgstr ""
 
-#: inc/admin/content.php:2227
+#: inc/admin/content.php:2266
 msgid ""
 "Forces all of the WordPress backend to be served only over a secure SSL "
 "connection."
 msgstr ""
 
-#: inc/admin/content.php:2242
+#: inc/admin/content.php:2281
 msgid ""
 "This page contains a number of tweaks that can significantly improve the "
 "security of your system."
 msgstr ""
 
-#: inc/admin/content.php:2243
+#: inc/admin/content.php:2282
 msgid ""
 "Server tweaks make use of rewrite rules and, in the case of Apache or "
 "LiteSpeed, will write them to your .htaccess file. If you are however using "
@@ -1823,14 +1836,14 @@ msgid ""
 "Dashboard and put them in your server configuration."
 msgstr ""
 
-#: inc/admin/content.php:2244
+#: inc/admin/content.php:2283
 msgid ""
 "The other tweaks, in some cases, make use of editing your wp-config.php "
 "file. Those that do can be manually turned off by reverting the changes that "
 "file."
 msgstr ""
 
-#: inc/admin/content.php:2245
+#: inc/admin/content.php:2284
 msgid ""
 "Be advsied, some of these tweaks may in fact break other plugins and themes "
 "that make use of techniques that are often seen in practice as suspicious. "
@@ -1838,21 +1851,21 @@ msgid ""
 "you cannot use them all."
 msgstr ""
 
-#: inc/admin/content.php:2257
+#: inc/admin/content.php:2296
 msgid ""
 "Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to "
 "make use of these rules."
 msgstr ""
 
-#: inc/admin/content.php:2265
+#: inc/admin/content.php:2304
 msgid "Server Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2270
+#: inc/admin/content.php:2309
 msgid "Protect Files"
 msgstr ""
 
-#: inc/admin/content.php:2274
+#: inc/admin/content.php:2313
 msgid ""
 "Prevent public access to readme.html, readme.txt, wp-config.php, install."
 "php, wp-includes, and .htaccess. These files can give away important "
@@ -1860,175 +1873,175 @@ msgid ""
 "has been successfully installed."
 msgstr ""
 
-#: inc/admin/content.php:2275 inc/admin/content.php:2297
-#: inc/admin/content.php:2307 inc/admin/content.php:2438
-#: inc/admin/content.php:2449 inc/admin/content.php:2459
-#: inc/admin/content.php:2469 inc/admin/content.php:2479
+#: inc/admin/content.php:2314 inc/admin/content.php:2336
+#: inc/admin/content.php:2346 inc/admin/content.php:2477
+#: inc/admin/content.php:2488 inc/admin/content.php:2498
+#: inc/admin/content.php:2508 inc/admin/content.php:2518
 msgid ""
 "Warning: This feature is known to cause conflicts with some plugins and "
 "themes."
 msgstr ""
 
-#: inc/admin/content.php:2281
+#: inc/admin/content.php:2320
 msgid "Disable Directory Browsing"
 msgstr ""
 
-#: inc/admin/content.php:2285
+#: inc/admin/content.php:2324
 msgid ""
 "Prevents users from seeing a list of files in a directory when no index file "
 "is present."
 msgstr ""
 
-#: inc/admin/content.php:2286
+#: inc/admin/content.php:2325
 msgid ""
 "Warning: This feature is known to cause conflicts with some server "
 "configurations in which this feature has already been enabled in Apache."
 msgstr ""
 
-#: inc/admin/content.php:2292
+#: inc/admin/content.php:2331
 msgid "Filter Request Methods"
 msgstr ""
 
-#: inc/admin/content.php:2296
+#: inc/admin/content.php:2335
 msgid "Filter out hits with the trace, delete, or track request methods."
 msgstr ""
 
-#: inc/admin/content.php:2302
+#: inc/admin/content.php:2341
 msgid "Filter Suspicious Query Strings"
 msgstr ""
 
-#: inc/admin/content.php:2306
+#: inc/admin/content.php:2345
 msgid ""
 "Filter out suspicious query strings in the URL. These are very often signs "
 "of someone trying to gain access to your site but some plugins and themes "
 "can also be blocked."
 msgstr ""
 
-#: inc/admin/content.php:2312
+#: inc/admin/content.php:2351
 msgid "Header Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2317
-msgid "Remove Wordpress Generator Meta Tag"
+#: inc/admin/content.php:2356
+msgid "Remove WordPress Generator Meta Tag"
 msgstr ""
 
-#: inc/admin/content.php:2321
+#: inc/admin/content.php:2360
 msgid ""
 "Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta "
 "tag from your sites header. This process hides version information from a "
 "potential attacker making it more difficult to determine vulnerabilities."
 msgstr ""
 
-#: inc/admin/content.php:2326
+#: inc/admin/content.php:2365
 msgid "Remove wlwmanifest header"
 msgstr ""
 
-#: inc/admin/content.php:2330
+#: inc/admin/content.php:2369
 msgid ""
 "Removes the Windows Live Writer header. This is not needed if you do not use "
 "Windows Live Writer or other blogging clients that rely on this file."
 msgstr ""
 
-#: inc/admin/content.php:2335
+#: inc/admin/content.php:2374
 msgid "Remove EditURI header"
 msgstr ""
 
-#: inc/admin/content.php:2339
+#: inc/admin/content.php:2378
 msgid ""
 "Removes the RSD (Really Simple Discovery) header. If you don't integrate "
 "your blog with external XML-RPC services such as Flickr then the \"RSD\" "
 "function is pretty much useless to you."
 msgstr ""
 
-#: inc/admin/content.php:2340
+#: inc/admin/content.php:2379
 msgid ""
 "Warning: This feature is known to cause conflicts with some 3rd party "
 "application and services that may want to interact with WordPress."
 msgstr ""
 
-#: inc/admin/content.php:2345
+#: inc/admin/content.php:2384
 msgid "Dashboard Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2350
+#: inc/admin/content.php:2389
 msgid "Hide Theme Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2354
+#: inc/admin/content.php:2393
 msgid ""
 "Hides theme update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2359
+#: inc/admin/content.php:2398
 msgid "Hide Plugin Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2363
+#: inc/admin/content.php:2402
 msgid ""
 "Hides plugin update notifications from users who cannot update themes. "
 "Please note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2368
+#: inc/admin/content.php:2407
 msgid "Hide Core Update Notifications"
 msgstr ""
 
-#: inc/admin/content.php:2372
+#: inc/admin/content.php:2411
 msgid ""
 "Hides core update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: inc/admin/content.php:2377
+#: inc/admin/content.php:2416
 msgid "Strong Password Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2382
+#: inc/admin/content.php:2421
 msgid "Enable strong password enforcement"
 msgstr ""
 
-#: inc/admin/content.php:2386
+#: inc/admin/content.php:2425
 msgid ""
 "Enforce strong passwords for all users with at least the role specified "
 "below."
 msgstr ""
 
-#: inc/admin/content.php:2391
+#: inc/admin/content.php:2430
 msgid "Strong Password Role"
 msgstr ""
 
-#: inc/admin/content.php:2401
+#: inc/admin/content.php:2440
 msgid ""
 "Minimum role at which a user must choose a strong password. For more "
-"information on Wordpress roles and capabilities please see"
+"information on WordPress roles and capabilities please see"
 msgstr ""
 
-#: inc/admin/content.php:2402
+#: inc/admin/content.php:2441
 msgid ""
 "Warning: If your site invites public registrations setting the role too low "
 "may annoy your members."
 msgstr ""
 
-#: inc/admin/content.php:2407
+#: inc/admin/content.php:2446
 msgid "Other Tweaks"
 msgstr ""
 
-#: inc/admin/content.php:2412
-msgid "Remove Wordpress Login Error Messages"
+#: inc/admin/content.php:2451
+msgid "Remove WordPress Login Error Messages"
 msgstr ""
 
-#: inc/admin/content.php:2416
+#: inc/admin/content.php:2455
 msgid ""
 "Prevents error messages from being displayed to a user upon a failed login "
 "attempt."
 msgstr ""
 
-#: inc/admin/content.php:2421
+#: inc/admin/content.php:2460
 msgid "Write to WordPress core files"
 msgstr ""
 
-#: inc/admin/content.php:2425
+#: inc/admin/content.php:2464
 msgid ""
 "Allow Better WP Security to write to .htaccess and wp-config.php. With this "
 "turned on this plugin will automatically write to your .htaccess and wp-"
@@ -2037,40 +2050,40 @@ msgid ""
 "database table prefix will not be available."
 msgstr ""
 
-#: inc/admin/content.php:2426
+#: inc/admin/content.php:2465
 msgid ""
 "This option is safe in nearly all instances however, if you know you have a "
 "server configuration that may conflict or simply want to make the changes "
 "yourself then uncheck this feature."
 msgstr ""
 
-#: inc/admin/content.php:2427
+#: inc/admin/content.php:2466
 msgid ""
 "Warning: This feature is known to cause conflicts with some server "
 "configurations."
 msgstr ""
 
-#: inc/admin/content.php:2432
+#: inc/admin/content.php:2471
 msgid "Reduce comment spam"
 msgstr ""
 
-#: inc/admin/content.php:2436
+#: inc/admin/content.php:2475
 msgid ""
 "This option will cut down on comment spam by denying comments from bots with "
 "no referrer or without a user-agent identified."
 msgstr ""
 
-#: inc/admin/content.php:2437 inc/admin/content.php:2448
+#: inc/admin/content.php:2476 inc/admin/content.php:2487
 msgid ""
 "Note this feature only applies if \"Write to WordPress core files\" is "
 "enabled."
 msgstr ""
 
-#: inc/admin/content.php:2443
+#: inc/admin/content.php:2482
 msgid "Remove write permissions from .htaccess and wp-config.php"
 msgstr ""
 
-#: inc/admin/content.php:2447
+#: inc/admin/content.php:2486
 msgid ""
 "Prevents scripts and users from being able to write to the wp-config.php "
 "file and .htaccess file. Note that in the case of this and many plugins this "
@@ -2079,39 +2092,39 @@ msgid ""
 "turning it off will set the permissions to 0644."
 msgstr ""
 
-#: inc/admin/content.php:2454
+#: inc/admin/content.php:2493
 msgid "Display random version number to all non-administrative users"
 msgstr ""
 
-#: inc/admin/content.php:2458
+#: inc/admin/content.php:2497
 msgid ""
 "Displays a random version number to visitors who are not logged in at all "
 "points where version number must be used and removes the version completely "
 "from where it can."
 msgstr ""
 
-#: inc/admin/content.php:2464
+#: inc/admin/content.php:2503
 msgid "Prevent long URL strings"
 msgstr ""
 
-#: inc/admin/content.php:2468
+#: inc/admin/content.php:2507
 msgid ""
 "Limits the number of characters that can be sent in the URL. Hackers often "
 "take advantage of long URLs to try to inject information into your database."
 msgstr ""
 
-#: inc/admin/content.php:2474
-msgid "Turn off file editor in Wordpress Back-end"
+#: inc/admin/content.php:2513
+msgid "Turn off file editor in WordPress Back-end"
 msgstr ""
 
-#: inc/admin/content.php:2478
+#: inc/admin/content.php:2517
 msgid ""
 "Disables the file editor for plugins and themes requiring users to have "
 "access to the file system to modify files. Once activated you will need to "
 "manually edit theme and other files using a tool other than WordPress."
 msgstr ""
 
-#: inc/admin/process.php:99 inc/admin/process.php:599
+#: inc/admin/process.php:99 inc/admin/process.php:610
 msgid "Database Backup Completed."
 msgstr ""
 
@@ -2131,154 +2144,160 @@ msgstr ""
 msgid "Site Secured."
 msgstr ""
 
-#: inc/admin/process.php:194
+#: inc/admin/process.php:205
 msgid "Settings Saved. Your website is not protected from most attacks."
 msgstr ""
 
-#: inc/admin/process.php:207
+#: inc/admin/process.php:218
 msgid ""
 "Successfully Changed admin Username. If you are logged in as admin you will "
 "have to log in again before continuing."
 msgstr ""
 
-#: inc/admin/process.php:215
+#: inc/admin/process.php:226
 msgid "You must enter a valid username. Please try again"
 msgstr ""
 
-#: inc/admin/process.php:227
+#: inc/admin/process.php:238
 msgid " already exists. Please try again"
 msgstr ""
 
-#: inc/admin/process.php:250
+#: inc/admin/process.php:261
 msgid " is not a valid username. Please try again"
 msgstr ""
 
-#: inc/admin/process.php:268 inc/admin/process.php:322
-#: inc/admin/process.php:507 inc/admin/process.php:619
-#: inc/admin/process.php:859 inc/admin/process.php:939
-#: inc/admin/process.php:1151 inc/admin/process.php:1300
-#: inc/admin/process.php:1367
+#: inc/admin/process.php:279 inc/admin/process.php:333
+#: inc/admin/process.php:518 inc/admin/process.php:630
+#: inc/admin/process.php:884 inc/admin/process.php:964
+#: inc/admin/process.php:1178 inc/admin/process.php:1327
+#: inc/admin/process.php:1394
 msgid "Settings Saved"
 msgstr ""
 
-#: inc/admin/process.php:284
+#: inc/admin/process.php:295
 msgid "The ending date must be after the current date."
 msgstr ""
 
-#: inc/admin/process.php:296
+#: inc/admin/process.php:307
 msgid ""
 "Your current settings would lock you out 24 hours a day. Please make sure "
 "start and end times differ."
 msgstr ""
 
-#: inc/admin/process.php:440
+#: inc/admin/process.php:451
 msgid "You cannot ban yourself. Please try again."
 msgstr ""
 
-#: inc/admin/process.php:465
+#: inc/admin/process.php:476
 msgid " is not a valid user agent. Please try again."
 msgstr ""
 
-#: inc/admin/process.php:483 inc/admin/process.php:891
-#: inc/admin/process.php:1349 inc/admin/process.php:1440
+#: inc/admin/process.php:494 inc/admin/process.php:916
+#: inc/admin/process.php:1376 inc/admin/process.php:1467
 msgid "Settings Saved."
 msgstr ""
 
-#: inc/admin/process.php:489 inc/admin/process.php:897
-#: inc/admin/process.php:1342 inc/admin/process.php:1433
+#: inc/admin/process.php:500 inc/admin/process.php:922
+#: inc/admin/process.php:1369 inc/admin/process.php:1460
 msgid ""
 "Settings Saved. You will have to manually add rewrite rules to your "
 "configuration. See the Better WP Security Dashboard for a list of the "
 "rewrite rules you will need."
 msgstr ""
 
-#: inc/admin/process.php:520
+#: inc/admin/process.php:531
 msgid "Unable to rename the wp-content folder. Operation cancelled."
 msgstr ""
 
-#: inc/admin/process.php:685
+#: inc/admin/process.php:649
+msgid ""
+"The email address you entered is not a valid email address. You must enter a "
+"valid email address."
+msgstr ""
+
+#: inc/admin/process.php:710
 msgid "Database Prefix Changed"
 msgstr ""
 
-#: inc/admin/process.php:728
+#: inc/admin/process.php:753
 msgid "Error: Could not rename table "
 msgstr ""
 
-#: inc/admin/process.php:728
+#: inc/admin/process.php:753
 msgid ". You may have to rename the table manually."
 msgstr ""
 
-#: inc/admin/process.php:765
+#: inc/admin/process.php:790
 msgid "Could not update prefix refences in options tables."
 msgstr ""
 
-#: inc/admin/process.php:786
+#: inc/admin/process.php:811
 msgid "Could not update prefix refences in usermeta table."
 msgstr ""
 
-#: inc/admin/process.php:868
+#: inc/admin/process.php:893
 msgid ""
 "You must enable permalinks in your WordPress settings for this feature to "
 "work."
 msgstr ""
 
-#: inc/admin/process.php:917
+#: inc/admin/process.php:942
 msgid "File Check Complete."
 msgstr ""
 
-#: inc/admin/process.php:965
+#: inc/admin/process.php:991
 msgid ""
 "The email address you entered for the file check email is not a valid email "
 "address. You must enter a valid email address."
 msgstr ""
 
-#: inc/admin/process.php:979
+#: inc/admin/process.php:1005
 msgid ""
 "The email address you entered for the detect 404 email is not a valid email "
 "address. You must enter a valid email address."
 msgstr ""
 
-#: inc/admin/process.php:1001 inc/admin/process.php:1184
+#: inc/admin/process.php:1027 inc/admin/process.php:1211
 msgid "Lockout time period needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1012 inc/admin/process.php:1195
+#: inc/admin/process.php:1038 inc/admin/process.php:1222
 msgid "Login time period needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1023
+#: inc/admin/process.php:1049
 msgid "The error threshold needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1173
+#: inc/admin/process.php:1200
 msgid ""
 "The email address you entered for lockout notifications is not a valid email "
 "address. You must enter a valid email address."
 msgstr ""
 
-#: inc/admin/process.php:1206
+#: inc/admin/process.php:1233
 msgid "Max login attempts per host needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1217
+#: inc/admin/process.php:1244
 msgid "Max login attempts per user needs to be aan integer greater than 0."
 msgstr ""
 
-#: inc/admin/process.php:1238
+#: inc/admin/process.php:1265
 msgid "The selected records have been cleared."
 msgstr ""
 
-#: inc/admin/process.php:1266
+#: inc/admin/process.php:1293
 msgid "The selected lockouts have been cleared."
 msgstr ""
 
-#: inc/admin/process.php:1322 inc/admin/process.php:1413
+#: inc/admin/process.php:1349 inc/admin/process.php:1440
 msgid ""
 "Settings Saved. You will have to manually add code to your wp-config.php "
 "file See the Better WP Security Dashboard for the code you will need."
 msgstr ""
 
-#: inc/admin/process.php:1336 inc/admin/process.php:1427
+#: inc/admin/process.php:1363 inc/admin/process.php:1454
 msgid ""
 "Settings Saved. You will have to manually add rewrite rules and wp-config."
 "php code to your configuration. See the Better WP Security Dashboard for a "
@@ -2340,8 +2359,8 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-#: inc/admin/tables.php:433 inc/filecheck.php:347 inc/filecheck.php:369
-#: inc/filecheck.php:391
+#: inc/admin/tables.php:433 inc/filecheck.php:351 inc/filecheck.php:373
+#: inc/filecheck.php:395
 msgid "Modified"
 msgstr ""
 
@@ -2353,12 +2372,12 @@ msgstr ""
 msgid "View Details"
 msgstr ""
 
-#: inc/admin/tables.php:602 inc/filecheck.php:343
+#: inc/admin/tables.php:602 inc/filecheck.php:347
 msgid "Files Added"
 msgstr ""
 
 #: inc/admin/tables.php:618 inc/admin/tables.php:776 inc/admin/tables.php:934
-#: inc/filecheck.php:346 inc/filecheck.php:368 inc/filecheck.php:390
+#: inc/filecheck.php:350 inc/filecheck.php:372 inc/filecheck.php:394
 msgid "File"
 msgstr ""
 
@@ -2374,7 +2393,7 @@ msgstr ""
 msgid "Files Removed"
 msgstr ""
 
-#: inc/admin/tables.php:918 inc/filecheck.php:387
+#: inc/admin/tables.php:918 inc/filecheck.php:391
 msgid "Files Modified"
 msgstr ""
 
@@ -2389,15 +2408,15 @@ msgstr ""
 msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
 msgstr ""
 
-#: inc/backup.php:148
+#: inc/backup.php:159
 msgid "Site Database Backup"
 msgstr ""
 
-#: inc/backup.php:150
+#: inc/backup.php:161
 msgid "Attached is the backup file for the database powering"
 msgstr ""
 
-#: inc/backup.php:150
+#: inc/backup.php:161
 msgid " taken"
 msgstr ""
 
@@ -2415,50 +2434,50 @@ msgid ""
 "the result of a compromise."
 msgstr ""
 
-#: inc/filecheck.php:336
+#: inc/filecheck.php:340
 msgid "Scan Time:"
 msgstr ""
 
-#: inc/filecheck.php:337
+#: inc/filecheck.php:341
 msgid "Files Added:"
 msgstr ""
 
-#: inc/filecheck.php:338
+#: inc/filecheck.php:342
 msgid "Files Deleted:"
 msgstr ""
 
-#: inc/filecheck.php:339
+#: inc/filecheck.php:343
 msgid "Files Modified:"
 msgstr ""
 
-#: inc/filecheck.php:348 inc/filecheck.php:370 inc/filecheck.php:392
+#: inc/filecheck.php:352 inc/filecheck.php:374 inc/filecheck.php:396
 msgid "File Hash"
 msgstr ""
 
-#: inc/filecheck.php:360
+#: inc/filecheck.php:364
 msgid "No files were added."
 msgstr ""
 
-#: inc/filecheck.php:365
+#: inc/filecheck.php:369
 msgid "Files Deleted"
 msgstr ""
 
-#: inc/filecheck.php:382
+#: inc/filecheck.php:386
 msgid "No files were removed."
 msgstr ""
 
-#: inc/filecheck.php:404
+#: inc/filecheck.php:408
 msgid "No files were changed."
 msgstr ""
 
-#: inc/filecheck.php:511
+#: inc/filecheck.php:515
 msgid ""
 "Better WP Security has noticed a change to some files in your WordPress "
 "installation. Please review the logs to make sure your system has not been "
 "compromised."
 msgstr ""
 
-#: inc/filecheck.php:511
+#: inc/filecheck.php:515
 msgid "Dismiss Warning"
 msgstr ""
 
@@ -2502,17 +2521,17 @@ msgstr ""
 msgid " You may login to the site to manually release the lock if necessary."
 msgstr ""
 
-#: inc/secure.php:759
+#: inc/secure.php:761
 msgid "error"
 msgstr ""
 
-#: inc/secure.php:932
+#: inc/secure.php:936
 msgid ""
 "<strong>ERROR</strong>: You MUST Choose a password that rates at least "
 "<em>Strong</em> on the meter. Your setting have NOT been saved."
 msgstr ""
 
-#: inc/secure.php:1000
+#: inc/secure.php:1004
 msgid "Sorry, but you must enter a strong password"
 msgstr ""
 
