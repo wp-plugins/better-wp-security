@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.3.2
 Tested up to: 3.4
-Stable tag: 3.2.4
+Stable tag: 3.2.5
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
