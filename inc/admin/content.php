@@ -174,7 +174,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
-				if ( ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { 
+				if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { 
 			
 					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 						array(
@@ -769,7 +769,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<h4><?php _e( 'User Information', $this->hook ); ?></h4>
 					<ul>
 						<li><?php _e( 'Public IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['REMOTE_ADDR']; ?>"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></li>
-						<li><?php _e( 'User Agent', $this->hook ); ?>: <strong><?php echo $_SERVER['HTTP_USER_AGENT']; ?></strong></li>
+						<li><?php _e( 'User Agent', $this->hook ); ?>: <strong><?php echo filter_var( $_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING ); ?></strong></li>
 					</ul>
 				</li>
 				
@@ -777,7 +777,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<h4><?php _e( 'File System Information', $this->hook ); ?></h4>
 					<ul>
 						<li><?php _e( 'Website Root Folder', $this->hook ); ?>: <strong><?php echo get_site_url(); ?></strong></li>
-						<li><?php _e( 'Document Root Path', $this->hook ); ?>: <strong><?php echo $_SERVER['DOCUMENT_ROOT']; ?></strong></li>
+						<li><?php _e( 'Document Root Path', $this->hook ); ?>: <strong><?php echo filter_var( $_SERVER['DOCUMENT_ROOT'], FILTER_SANITIZE_STRING ); ?></strong></li>
 						<?php 
 							$htaccess = ABSPATH . '.htaccess';
 							
@@ -848,9 +848,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<h4><?php _e( 'Server Information', $this->hook ); ?></h4>
 					<ul>
 						<li><?php _e( 'Server / Website IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['SERVER_ADDR']; ?>"><?php echo $_SERVER['SERVER_ADDR']; ?></a></strong></li>
-							<li><?php _e( 'Server Type', $this->hook ); ?>: <strong><?php echo $_SERVER['SERVER_SOFTWARE']; ?></strong></li>
+							<li><?php _e( 'Server Type', $this->hook ); ?>: <strong><?php echo filter_var( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ), FILTER_SANITIZE_STRING ); ?></strong></li>
 							<li><?php _e( 'Operating System', $this->hook ); ?>: <strong><?php echo PHP_OS; ?></strong></li>
-							<li><?php _e( 'Browser Compression Supported', $this->hook ); ?>: <strong><?php echo $_SERVER['HTTP_ACCEPT_ENCODING']; ?></strong></li>
+							<li><?php _e( 'Browser Compression Supported', $this->hook ); ?>: <strong><?php echo filter_var( $_SERVER['HTTP_ACCEPT_ENCODING'], FILTER_SANITIZE_STRING ); ?></strong></li>
 					</ul>
 				</li>
 				
@@ -861,7 +861,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<li><?php _e( 'PHP Memory Usage', $this->hook ); ?>: <strong><?php echo round(memory_get_usage() / 1024 / 1024, 2) . __( ' MB', $this->hook ); ?></strong> </li>
 						<?php 
 							if ( ini_get( 'memory_limit' ) ) {
-								$memory_limit = ini_get( 'memory_limit' ); 
+								$memory_limit = filter_var( ini_get( 'memory_limit' ), FILTER_SANITIZE_STRING ); 
 							} else {
 								$memory_limit = __( 'N/A', $this->hook ); 
 							}
@@ -869,7 +869,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<li><?php _e( 'PHP Memory Limit', $this->hook ); ?>: <strong><?php echo $memory_limit; ?></strong></li>
 						<?php 
 							if ( ini_get( 'upload_max_filesize' ) ) {
-								$upload_max = ini_get( 'upload_max_filesize' );
+								$upload_max = filter_var( ini_get( 'upload_max_filesize' ), FILTER_SANITIZE_STRING );
 							} else 	{
 								$upload_max = __( 'N/A', $this->hook ); 
 							}
@@ -877,7 +877,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<li><?php _e( 'PHP Max Upload Size', $this->hook ); ?>: <strong><?php echo $upload_max; ?></strong></li>
 						<?php 
 							if ( ini_get( 'post_max_size' ) ) {
-								$post_max = ini_get( 'post_max_size' );
+								$post_max = filter_var( ini_get( 'post_max_size' ), FILTER_SANITIZE_STRING );
 							} else {
 								$post_max = __( 'N/A', $this->hook ); 
 							}
@@ -892,7 +892,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Safe Mode', $this->hook ); ?>: <strong><?php echo $safe_mode; ?></strong></li>
 						<?php 
-							if (ini_get( 'allow_url_fopen' ) ) {
+							if ( ini_get( 'allow_url_fopen' ) ) {
 								$allow_url_fopen = __( 'On', $this->hook );
 							} else {
 								$allow_url_fopen = __( 'Off', $this->hook ); 
@@ -900,7 +900,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Allow URL fopen', $this->hook ); ?>: <strong><?php echo $allow_url_fopen; ?></strong></li>
 						<?php 
-							if (ini_get( 'allow_url_include' ) ) {
+							if ( ini_get( 'allow_url_include' ) ) {
 								$allow_url_include = __( 'On', $this->hook );
 							} else {
 								$allow_url_include = __( 'Off', $this->hook ); 
@@ -908,7 +908,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Allow URL Include' ); ?>: <strong><?php echo $allow_url_include; ?></strong></li>
 							<?php 
-							if (ini_get( 'display_errors' ) ) {
+							if ( ini_get( 'display_errors' ) ) {
 								$display_errors = __( 'On', $this->hook );
 							} else {
 								$display_errors = __( 'Off', $this->hook ); 
@@ -916,7 +916,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Display Errors', $this->hook ); ?>: <strong><?php echo $display_errors; ?></strong></li>
 						<?php 
-							if (ini_get( 'display_startup_errors' ) ) {
+							if ( ini_get( 'display_startup_errors' ) ) {
 								$display_startup_errors = __( 'On', $this->hook );
 							} else {
 								$display_startup_errors = __( 'Off', $this->hook ); 
@@ -924,7 +924,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Display Startup Errors', $this->hook ); ?>: <strong><?php echo $display_startup_errors; ?></strong></li>
 						<?php 
-							if (ini_get( 'expose_php' ) ) {
+							if ( ini_get( 'expose_php' ) ) {
 								$expose_php = __( 'On', $this->hook );
 							} else {
 								$expose_php = __( 'Off', $this->hook ); 
@@ -932,7 +932,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Expose PHP', $this->hook ); ?>: <strong><?php echo $expose_php; ?></strong></li>
 						<?php 
-							if (ini_get( 'register_globals' ) ) {
+							if ( ini_get( 'register_globals' ) ) {
 								$register_globals = __( 'On', $this->hook );
 							} else {
 								$register_globals = __( 'Off', $this->hook ); 
@@ -940,7 +940,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Register Globals', $this->hook ); ?>: <strong><?php echo $register_globals; ?></strong></li>
 						<?php 
-							if (ini_get( 'max_execution_time' ) ) {
+							if ( ini_get( 'max_execution_time' ) ) {
 								$max_execute = ini_get( 'max_execution_time' );
 							} else {
 								$max_execute = __( 'N/A', $this->hook ); 
@@ -948,7 +948,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Max Script Execution Time' ); ?>: <strong><?php echo $max_execute; ?> <?php _e( 'Seconds' ); ?></strong></li>
 						<?php 
-							if (ini_get( 'magic_quotes_gpc' ) ) {
+							if ( ini_get( 'magic_quotes_gpc' ) ) {
 								$magic_quotes_gpc = __( 'On', $this->hook );
 							} else {
 								$magic_quotes_gpc = __( 'Off', $this->hook ); 
@@ -956,7 +956,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP Magic Quotes GPC', $this->hook ); ?>: <strong><?php echo $magic_quotes_gpc; ?></strong></li>
 						<?php 
-							if (ini_get( 'open_basedir' ) ) {
+							if ( ini_get( 'open_basedir' ) ) {
 								$open_basedir = __( 'On', $this->hook );
 							} else {
 								$open_basedir = __( 'Off', $this->hook ); 
@@ -964,7 +964,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP open_basedir', $this->hook ); ?>: <strong><?php echo $open_basedir; ?></strong></li>
 						<?php 
-							if (is_callable( 'xml_parser_create' ) ) {
+							if ( is_callable( 'xml_parser_create' ) ) {
 								$xml = __( 'Yes', $this->hook );
 							} else {
 								$xml = __( 'No', $this->hook ); 
@@ -972,7 +972,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP XML Support', $this->hook ); ?>: <strong><?php echo $xml; ?></strong></li>
 						<?php 
-							if (is_callable( 'iptcparse' ) ) {
+							if ( is_callable( 'iptcparse' ) ) {
 								$iptc = __( 'Yes', $this->hook );
 							} else {
 								$iptc = __( 'No', $this->hook ); 
@@ -980,7 +980,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						?>
 						<li><?php _e( 'PHP IPTC Support', $this->hook ); ?>: <strong><?php echo $iptc; ?></strong></li>
 						<?php 
-							if (is_callable( 'exif_read_data' ) ) {
+							if ( is_callable( 'exif_read_data' ) ) {
 								$exif = __( 'Yes', $this->hook ). " ( V" . substr(phpversion( 'exif' ),0,4) . ")" ;
 							} else {
 								$exif = __( 'No', $this->hook ); 
@@ -2292,7 +2292,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function systemtweaks_content_2() {
 			global $bwpsoptions;
 			?>
-			<?php if ( ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) &&  ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) && ! strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
+			<?php if ( ! strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) &&  ! strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) && ! strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'nginx' ) ) { //don't diplay options for unsupported server ?> 
 				<p><?php _e( 'Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to make use of these rules.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
@@ -2314,7 +2314,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<?php if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) { ?>
+						<?php if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) { ?>
 							<tr valign="top" style="border: 1px solid #ffcc00;">
 								<th scope="row">
 									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>

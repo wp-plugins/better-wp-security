@@ -185,15 +185,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			@ini_set( 'auto_detect_line_endings', true );
 		
 			//figure out what server they're using
-			if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) ) {
+			if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) ) {
 			
 				$bwpsserver = 'apache';
 				
-			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) ) {
+			} else if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'nginx' ) ) {
 			
 				$bwpsserver = 'nginx';
 				
-			} else if ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) {
+			} else if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) {
 			
 				$bwpsserver = 'litespeed';
 				
