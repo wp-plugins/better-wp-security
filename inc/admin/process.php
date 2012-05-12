@@ -202,7 +202,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			update_option( 'bwps_filecheck', $bwps_filecheck );
 			update_option( $this->primarysettings, $bwpsoptions );
 			
-			$errorHandler = __( 'Settings Saved. Your website is not protected from most attacks.', $this->hook );
+			$errorHandler = __( 'Settings Saved. Your website is now protected from most attacks.', $this->hook );
 			
 			$this->showmessages( $errorHandler );		
 			
