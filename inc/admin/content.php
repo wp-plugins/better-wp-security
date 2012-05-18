@@ -472,7 +472,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 				<input type="hidden" name="bwps_page" value="dashboard_4" />
-				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Do now allow this plugin to change WordPress core files.', $this->hook ); ?>" /></p>			
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Do not allow this plugin to change WordPress core files.', $this->hook ); ?>" /></p>			
 			</form>
 			<?php
 		}
@@ -1883,7 +1883,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td>
 							<input id="id_filedisplayerror" name="id_filedisplayerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_filedisplayerror'] ); ?> />
-							<p><?php _e( 'Disabling this feature will prevent the file change warning from displaying to the site administrator in the WordPress Dashboard. Note that disabling both the error message and the email address will result in no notifications of file changes. The only way you will be able to tell is by manually checking the log files.', $this->hook ); ?></p>
+							<p><?php _e( 'Disabling this feature will prevent the file change warning from displaying to the site administrator in the WordPress Dashboard. Not that disabling both the error message and the email address will result in no notifications of file changes. The only way you will be able to tell is by manually checking the log files.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
