@@ -120,7 +120,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			//save file
 			$file = 'database-backup-' . time();
 			$handle = @fopen( BWPS_PP . 'backups/' . $file . '.sql', 'w+' );
-			fwrite( $handle, $return );
+			@fwrite( $handle, $return );
 			@fclose( $handle );
 		
 			//zip the file
