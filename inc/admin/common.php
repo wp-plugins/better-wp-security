@@ -247,27 +247,39 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 								}
 								
 							}
+							
+							$dhost = trim( str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask );
+							
+							if ( strlen( $dhost ) > 4 ) {
 
-							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+								if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 							
-								$rules .= "Deny from " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . PHP_EOL;
+									$rules .= "Deny from " . $dhost . PHP_EOL;
 								
-							} else {
+								} else {
 							
-								$rules .= "\tdeny " . str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask . ";" . PHP_EOL;
+									$rules .= "\tdeny " . $dhost . ';' . PHP_EOL;
 							
+								}
+								
 							}
 						
 						} else {
 						
-							if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+							$dhost = trim( $host );
+						
+							if ( strlen( $dhost ) > 4 ) {
 							
-								$rules .= "Deny from " . trim( $host ) . PHP_EOL;
+								if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+							
+									$rules .= "Deny from " . $dhost . PHP_EOL;
 								
-							} else {
+								} else {
 							
-								$rules .= "\tdeny " . trim( $host ) . ";" . PHP_EOL;
+									$rules .= "\tdeny " . $dhost. ";" . PHP_EOL;
 							
+								}
+								
 							}
 						
 						}				
