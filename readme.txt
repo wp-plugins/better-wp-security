@@ -81,13 +81,9 @@ Configuration is easy, but there are a lot of options. The video below will walk
 [youtube http://www.youtube.com/watch?v=Jveq2H4bZJY]
 
 = Translations =
-* Bahasa Indonesia (Indonesian) by <a href="http://dhany.web.id/panduan-seo">Belajar SEO, Jasa SEO Indonesia</a>
-* French by Claude ALTAYRAC
-* German by <a href="www.smeier.biz">Stefan Meier</a>
-* Italian by <a href="http://www.polslinux.it">Paolo Stivanin</a>
-* Romanian by <a href="http://noblecom.com">Luke Tyler</a>
+*Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 
-Note the translations are only tested up to version 3.0. If you would like to contribute a translation to the current version please <a href="http://bit51.com/contact/" title="Bit51 contact form">let me know</a>.
+Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
 
 = Warning =
 
