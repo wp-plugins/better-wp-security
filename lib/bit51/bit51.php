@@ -295,7 +295,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 **/
 		function support() {
 		
-			$content = __('If you need help getting this plugin or have found a bug please visit our <a href="' . $this->supportpage . '" target="_blank">support forums</a>.', $this->hook);
+			$content = __('If you need help getting this plugin or have found a bug please visit the <a href="' . $this->supportpage . '" target="_blank">support forums</a>.', $this->hook);
 			
 			$this->postbox( 'bit51support', __( 'Need Help?', $this->hook ), $content ); //execute as postbox
 			
