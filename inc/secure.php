@@ -402,7 +402,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				if ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) {
+				if ( filter_var( $wpdb->escape( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP ) && ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) ) {
 				
 					if ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['ll_blacklistip'] == 1 ) {
 				
