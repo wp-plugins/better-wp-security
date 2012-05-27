@@ -89,11 +89,6 @@ Note I have removed all translations that were not compatible with version 3+. P
 
 Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
 
-= Support =
-
-* Please visit the <a href="http://bit51.com/software/better-wp-security/">Homepage</a> for general plugin information
-* Please visit the <a href="http://wordpress.org/support/plugin/better-wp-security"> forums for support</a>
-
 == Installation ==
 
 1. Backup your Wordpress database, config file, and .htaccess file
@@ -149,17 +144,6 @@ NOTE: It is possible that something will break due to the complexity of the chan
 2. One-click access to most features can make securing your site easy
 3. Simple informative options panels show you what you need to know about each and every option
 4. If you do get stuck help is never more than a few clicks away.
-
-== Support ==
-
-* Please visit the <a href="http://bit51.com/software/better-wp-security/">Homepage</a> for general plugin information
-* Please visit the <a href="http://wordpress.org/support/plugin/better-wp-security">forums</a> for support
-
-Note that I do not monitor the plugin forums at WordPress.org thus no support will be given via those forums.
-
-== Upgrade Notice ==
-
-Some users have reported issues when upgrading from version 2.x to version 3.x. While these issues are rare you can avoid them entirely by completely uninstalling version 2.x and then installing a fresh copy of version 3.x.
 
 == Changelog ==
 
