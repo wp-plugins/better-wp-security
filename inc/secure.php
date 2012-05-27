@@ -978,7 +978,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				if ( $userInfo = get_user_by( 'login', $userID ) ) {
 				
-					foreach ( $userInfo->wp_capabilities as $capability => $value ) {
+					foreach ( $userInfo->roles as $capability => $value ) {
 						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
 							$enforce = false;  
 						}
