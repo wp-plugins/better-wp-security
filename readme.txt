@@ -81,7 +81,8 @@ Configuration is easy, but there are a lot of options. The video below will walk
 [youtube http://www.youtube.com/watch?v=Jveq2H4bZJY]
 
 = Translations =
-*Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
+* Hindi by <a href="http://outshinesolutions.com/">Love Chandel</a>
+* Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 
 Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
 
@@ -146,6 +147,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.2.7 =
+* Hindi translation by Love Chandel
 
 = 3.2.6 =
 
