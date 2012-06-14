@@ -34,6 +34,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'banusers_1':
 					$this->banusers_process_1();
 					break;
+				case 'banusers_2':
+					$this->banusers_process_2();
+					break;
 				case 'contentdirectory_1':
 					$this->contentdirectory_process_1();
 					break;
@@ -505,6 +508,45 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			}
 						
 			$this-> showmessages( $errorHandler );
+		}
+		
+		/**
+		 * Process away mode options form
+		 *
+		 **/
+		function banusers_process_2() {
+		
+			global $bwpsoptions;
+		
+			$errorHandler = __( 'Settings Saved', $this->hook );
+			
+			//validate options
+			$bwpsoptions['bu_blacklist'] = ( isset( $_POST['bu_blacklist'] ) && $_POST['bu_blacklist'] == 1  ? 1 : 0 );
+			
+			if ( ! is_wp_error( $errorHandler ) ) {
+			
+				update_option( $this->primarysettings, $bwpsoptions );
+				
+				if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+					
+					$this->writehtaccess();
+					
+					$errorHandler = __( 'Settings Saved.', $this->hook );
+						
+				} else { //not on apache to let them know they will have to manually enter rules
+				
+					$errorHandler = new WP_Error();
+					
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+					
+				
+				}
+				
+				
+			}
+						
+			$this-> showmessages( $errorHandler );
+			
 		}
 		
 		/**

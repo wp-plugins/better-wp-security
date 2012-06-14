@@ -244,7 +244,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Users', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'banusers_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Banned Users Configuration', $this->hook ), 'banusers_content_2' ) //banusers options
+					array( __( 'User and Bot Blacklist', $this->hook ), 'banusers_content_2' ), //banusers options
+					array( __( 'Banned Users Configuration', $this->hook ), 'banusers_content_3' ) //banusers options
 				),
 				BWPS_PU . 'images/shield-large.png'
 			);
@@ -1354,10 +1355,37 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		}
 		
 		/**
-		 * Options form for ban hosts page
+		 * Spot backup form for database backup page
 		 *
 		 **/
 		function banusers_content_2() {
+			global $bwpsoptions;		
+			?>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="banusers_2" />
+				<p><?php _e( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', $this->hook ); ?></p>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row">
+							<label for "bu_blacklist"><?php _e( 'Enable Banned Users', $this->hook ); ?></label>
+						</th>
+						<td>
+							<input id="bu_blacklist" name="bu_blacklist" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['bu_blacklist'] ); ?> />
+							<p><?php _e( "Check this box to enable HackRepair.com's blacklist feature.", $this->hook ); ?></p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Add Host and Agent Blacklist', $this->hook ); ?>" /></p>			
+			</form>
+			<?php
+		}	
+		
+		/**
+		 * Options form for ban hosts page
+		 *
+		 **/
+		function banusers_content_3() {
 			global $bwpsoptions;
 			?>
 			<form method="post" action="">

@@ -217,6 +217,26 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//ban hosts
+			
+			if ( $bwpsoptions['bu_blacklist'] == 1 ) {
+			
+				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+				
+					$blacklist = file_get_contents( plugin_dir_path( __FILE__ ) . 'hackrepair-apache.inc' );
+					
+				} else {
+					
+					$blacklist = file_get_contents( plugin_dir_path( __FILE__ ) . 'hackrepair-nginx.inc' );
+					
+				}
+				
+				$rules .= $blacklist . PHP_EOL . PHP_EOL;
+				
+				
+				
+			}
+			
+			
 			if ( $bwpsoptions['bu_enabled'] == 1 ) {
 			
 				$hosts = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
