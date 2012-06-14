@@ -121,6 +121,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`timestamp` int(10) NOT NULL,
 				`host` varchar(20),
 				`user` bigint(20),
+				`username` varchar(255),
 				`url` varchar(255),
 				`referrer` varchar(255),
 				`data` MEDIUMTEXT,

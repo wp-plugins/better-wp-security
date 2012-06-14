@@ -596,6 +596,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					'timestamp' => time(),
 					'host' => $host,
 					'user' => isset( $user->ID ) && absint( $user->ID ) > 0 ? $user->ID : 0,
+					'username' => $username,
 					'url' => $url,
 					'referrer' => $referrer,
 					'data' => ''

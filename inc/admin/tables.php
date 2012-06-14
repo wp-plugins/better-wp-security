@@ -561,6 +561,161 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 
 }
 
+//table of all bad logins
+if ( ! class_exists( 'log_content_7_table' ) ) {
+
+	class log_content_7_table extends WP_List_Table {
+	
+		/**
+		 * Construct table object
+		 *
+		 **/
+		function __construct() {
+		
+			parent::__construct(
+				array(
+					'singular'	=> 'log_content_7_item',
+					'plural'	=> 'log_content_7_items',
+					'ajax'		=> false
+				)
+			);
+		
+		}
+		
+		/**
+		 * Create Table headers
+		 * 
+		 * @param string $which top for above table, bottom for below
+		 *
+		 **/
+		function extra_tablenav( $which ) {
+		
+			global $bwps;
+		
+			if ( $which == 'top' ) {
+				_e( 'The following is a list of all bad logins to your site along with the username attempted.', $bwps->hook );
+			}
+			
+		}
+		
+		/**
+		 * Define Columns
+		 *
+		 * @return array array of column titles
+		 *
+		 **/
+		function get_columns() {
+		
+			global $bwps;
+		
+			return array(
+				'time'		=> __( 'Time', $bwps->hook ),
+				'username'	=> __( 'Username Attempted', $bwps->hook )
+			);
+		
+		}
+		
+		/**
+		 * Define time column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
+		function column_time( $item ) {
+		
+			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
+		
+		}
+		
+		/**
+		 * Define added column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
+		function column_username( $item ) {
+		
+			return $item['username'];
+		
+		}
+		
+		/**
+		 * Prepare data for table
+		 *
+		 **/
+		function prepare_items() {
+		
+			global $wpdb;
+			
+			$columns = $this->get_columns();
+			$hidden = array();
+			$sortable = $this->get_sortable_columns();
+			$this->_column_headers = array( $columns, $hidden, $sortable );
+        	
+        	$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 1;", ARRAY_A );
+        	
+        	$per_page = 50; //50 items per page
+        	
+        	$current_page = $this->get_pagenum();
+        	
+        	$total_items = count( $data );
+        	
+        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+        	
+        	$rows = array();
+        	
+        	$count = 0;
+        	
+        	//Loop through results and take data we need
+        	foreach ( $data as $item ) {
+        	
+	       		$rows[$count]['time'] = $item['timestamp'];
+        		$rows[$count]['username'] = $item['username'];
+        		
+        		$count++;
+        	
+        	}        	
+        	
+        	$this->items = $rows;
+        	
+        	$this->set_pagination_args( 
+        		array(
+        	    	'total_items' => $total_items,
+	        	    'per_page'    => $per_page,
+    	    	    'total_pages' => ceil( $total_items/$per_page )
+        		)
+        	);
+			
+		}
+		
+		/**
+		 * Sort rows
+		 *
+		 * Sorts rows by count in descending order
+		 *
+		 * @param array $a first array to compare
+		 * @param array $b second array to compare
+		 * @return int comparison result
+		 *
+		 **/
+		function sortrows( $a, $b ) {
+		
+			if ( $a['count'] > $b['count'] ) {
+				return -1;
+			} elseif ( $a['count'] < $b['count'] ) {
+				return 1;
+			} else {
+				return 0;
+			}
+			
+		}
+	
+	}
+
+}
+
 //added files table
 if ( ! class_exists( 'log_details_added_table' ) ) {
 

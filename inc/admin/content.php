@@ -398,6 +398,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
 					array( __( 'Current Lockouts', $this->hook ), 'logs_content_3' ), //Current Lockouts log
 					array( __( '404 Errors', $this->hook ), 'logs_content_4' ), //404 Errors
+					array( __( 'Bad Login Attempts', $this->hook ), 'logs_content_7' ), //404 Errors
 					array( __( 'All Lockouts', $this->hook ), 'logs_content_5' ), //All Lockouts
 					array( __( 'Changed Files', $this->hook ), 'logs_content_6' ) //Changed Files
 				
@@ -2126,6 +2127,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $wpdb;
 			
 			$log_content_4_table = new log_content_4_table();
+			$log_content_4_table->prepare_items();
+			$log_content_4_table->display();
+			
+		}
+		
+		/**
+		 * table to show all bad logins
+		 *
+		 **/
+		function logs_content_7() {
+			global $wpdb;
+			
+			$log_content_4_table = new log_content_7_table();
 			$log_content_4_table->prepare_items();
 			$log_content_4_table->display();
 			
