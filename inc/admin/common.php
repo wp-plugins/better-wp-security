@@ -210,7 +210,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
-					$rules .= "Options All -Indexes" . PHP_EOL . PHP_EOL;
+					$rules .= "Options -Indexes" . PHP_EOL . PHP_EOL;
 				
 				}
 				
