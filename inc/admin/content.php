@@ -174,43 +174,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
-				if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { 
-			
-					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
-						array(
-							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
-							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
-							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ) //Generic System Information
-						),
-						BWPS_PU . 'images/shield-large.png'
-					);
-				
-				} elseif ( $bwpsoptions['st_writefiles'] == 1 ) {
-				
-					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
-						array(
-							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
-							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
-							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
-							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ) //Better WP Security Rewrite Rules
-						),
-						BWPS_PU . 'images/shield-large.png'
-					);
-				
-				} else {
-				
-					$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
-						array(
-							array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
-							array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
-							array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
-							array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
-							array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ) //Better WP Security Rewrite Rules
-						),
-						BWPS_PU . 'images/shield-large.png'
-					);
-				
-				}
+				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+					array(
+						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
+						array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
+						array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
+						array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
+						array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ) //Better WP Security Rewrite Rules
+					),
+					BWPS_PU . 'images/shield-large.png'
+				);
 				
 			} elseif ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 0 ) { 
 			
