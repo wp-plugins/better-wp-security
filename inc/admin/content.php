@@ -567,7 +567,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php if ( $bwpsoptions['backup_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'You have scheduled regular backups of your WordPress database.', $this->hook ); ?></span>
 					<?php } else { ?>
-						<span style="color: orange;"><?php _e( 'You are not scheduling regular backups of your WordPress database.', $this->hook ); ?> <a href="admin.php?page=better-wp-security-databasebackup"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+						<span style="color: blue;"><?php _e( 'You are not scheduling regular backups of your WordPress database.', $this->hook ); ?> <a href="admin.php?page=better-wp-security-databasebackup"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -679,7 +679,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<li><span style="color: green;"><?php _e( 'Items in green are fully secured. Good Job!', $this->hook ); ?></span></li>
 				<li><span style="color: orange;"><?php _e( 'Items in orange are partially secured. Turn on more options to fully secure these areas.', $this->hook ); ?></span></li>
 				<li><span style="color: red;"><?php _e( 'Items in red are not secured. You should secure these items immediately', $this->hook ); ?></span></li>
-				<li><span style="color: blue;"><?php _e( 'Items in blue are not fully secured but may conflict with other themes, plugins, or the other operation of your site. Secure them on if you can but if you cannot do not worry about them.', $this->hook ); ?></span></li>
+				<li><span style="color: blue;"><?php _e( 'Items in blue are not fully secured but may conflict with other themes, plugins, or the other operation of your site. Secure them if you can but if you cannot do not worry about them.', $this->hook ); ?></span></li>
 			</ul>
 			<?php
 		}

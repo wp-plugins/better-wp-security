@@ -177,7 +177,6 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'Site Secured.', $this->hook );
 			
 			//select options for one-click access (enable all sections that don't write to files or are otherwise known to cause conflicts).
-			$bwpsoptions['backup_enabled'] = 1;
 			$bwpsoptions['ll_enabled'] = 1;
 			$bwpsoptions['id_enabled'] = 1;
 			$bwpsoptions['st_generator'] = 1;
