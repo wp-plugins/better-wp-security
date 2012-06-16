@@ -3,9 +3,9 @@
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.3.2
+Requires at least: 3.4
 Tested up to: 3.4
-Stable tag: 3.2.7
+Stable tag: 3.3
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -103,6 +103,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Frequently Asked Questions ==
 
+= Why does Better WP Security require WordPress the latest WordPress version? Can't I use a slightly older version? =
+* One of the best practices a WordPress site owner can do to keep their site secure is to keep your software up to date. Because of this fact I do not test this plugin in anything but the latest stable version of WordPress and will only guarantee it works in the latest version.
+
 = Will this completely stop all attacks on my site? =
 * Of course not. Better WP Security is designed to help improve the security of your WordPress installation from many common attack methods. It can no way prevent every possible attack on your website. Nothing replaces diligence and good practice. This plugin just makes it a little easier for you to apply both.
 
@@ -148,6 +151,15 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.3 =
+* More checks to ensure blank "Deny from" lines don't appear in .htaccess
+* Added host and user agent blacklist by <a href="http://hackrepair.com">HackRepair.com</a>
+* Changed "Options All -Indexes" to "Options -Indexes" in .htaccess rules
+* Added log view for all bad login attempts to view logs
+* Always show .htaccess and wp-config.php changes in Dashboard
+* Database backups no longer turn on automatically with one-click secure.
+* Replaced unique key in database tables with primary key (tested in 3.4)
 
 = 3.2.7 =
 * Hindi translation by Love Chandel
