@@ -125,7 +125,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`url` varchar(255),
 				`referrer` varchar(255),
 				`data` MEDIUMTEXT,
-				 UNIQUE KEY id (id)
+				 PRIMARY KEY id (id)
 				);";
 			
 			//set up lockout table	
@@ -137,7 +137,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				`exptime` int(10) NOT NULL,
 				`host` varchar(20),
 				`user` bigint(20),
-				 UNIQUE KEY id (id)
+				 PRIMARY KEY id (id)
 				);";
 			
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
