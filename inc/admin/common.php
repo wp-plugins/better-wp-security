@@ -273,8 +273,14 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							if ( strlen( $dhost ) > 4 ) {
 
 								if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+								
+									$trule = "Deny from " . $dhost . PHP_EOL;
+									
+									if ( ! trim( $trule ) == "Deny From" ) {
 							
-									$rules .= "Deny from " . $dhost . PHP_EOL;
+										$rules .= $trule;
+										
+									}
 								
 								} else {
 							

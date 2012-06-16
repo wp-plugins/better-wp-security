@@ -430,7 +430,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 									
 							$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
 									
-						} else {
+						} elseif ( strlen( $item > 4 ) ) {
 								
 							$list[] = trim( $item );
 																			
