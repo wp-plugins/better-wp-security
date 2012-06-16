@@ -726,8 +726,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			if ( $rules != '' ) {
 				$rules = "# BEGIN Better WP Security" . PHP_EOL . $rules . PHP_EOL . "# END Better WP Security" . PHP_EOL;
 			}
-				
-			return $rules;
+			
+			return implode( PHP_EOL, array_diff( explode( PHP_EOL, $rules ), array( 'Deny from ', 'Deny from' ) ) );
 		
 		}
 		
