@@ -81,7 +81,7 @@ Configuration is easy, but there are a lot of options. The video below will walk
 [youtube http://www.youtube.com/watch?v=Jveq2H4bZJY]
 
 = Translations =
-* Hindi by <a href="http://outshinesolutions.com/">Love Chandel</a>
+* Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
 
@@ -162,7 +162,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Replaced unique key in database tables with primary key (tested in 3.4)
 
 = 3.2.7 =
-* Hindi translation by Love Chandel
+* Hindi translation by Outshine Solutions
 * Spanish translation by Pablo Romero
 
 = 3.2.6 =
