@@ -495,7 +495,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 			global $blog_id; //get the current blog id
 			
-			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+			if ( ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) || ! current_user_can( 'activate_plugins' )  ) { //only display to network admin if in multisite
 				return;
 			}
 		
