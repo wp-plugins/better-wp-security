@@ -71,27 +71,27 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//display random number for wordpress version if turned on
 			if ( $bwpsoptions['st_randomversion'] == 1 ) {
-				add_action( 'init', array( &$this, 'randomVersion' ) );
+				add_action( 'plugins_loaded', array( &$this, 'randomVersion' ) );
 			}
 			
 			//remove theme update notifications if turned on
 			if ( $bwpsoptions['st_themenot'] == 1 ) {
-				add_action( 'init', array( &$this, 'themeupdates' ) );
+				add_action( 'plugins_loaded', array( &$this, 'themeupdates' ) );
 			}
 			
 			//remove plugin update notifications if turned on
 			if ( $bwpsoptions['st_pluginnot'] == 1 ) {
-				add_action( 'init', array( &$this, 'pluginupdates' ) );
+				add_action( 'plugins_loaded', array( &$this, 'pluginupdates' ) );
 			}
 			
 			//remove core update notifications if turned on
 			if ( $bwpsoptions['st_corenot'] == 1 ) {
-				add_action( 'init', array( &$this, 'coreupdates' ) );
+				add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
 			}
 			
-			add_action( 'init', array( &$this, 'backup' ) );
+			add_action( 'plugins_loaded', array( &$this, 'backup' ) );
 			
-			add_action( 'init', array( &$this, 'filecheck' ) );
+			add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
 		
 		}
 		

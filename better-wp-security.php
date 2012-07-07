@@ -146,18 +146,18 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			load_plugin_textdomain( 'better-wp-security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
 			//require admin pages
-			if ( is_admin() || (is_multisite() && is_network_admin() ) ) {
-				require_once( plugin_dir_path( __FILE__ ) . 'inc/admin/construct.php' );
+			if ( is_admin() || ( is_multisite() && is_network_admin() ) ) {
+				require_once( BWPS_PP . 'inc/admin/construct.php' );
 			}
 			
 			//require setup information
-			require_once( plugin_dir_path( __FILE__ ) . 'inc/setup.php' );
+			require_once( BWPS_PP . 'inc/setup.php' );
 			register_activation_hook( __FILE__, array( 'bwps_setup', 'on_activate' ) );
 			register_deactivation_hook( __FILE__, array( 'bwps_setup', 'on_deactivate' ) );
 			register_uninstall_hook( __FILE__, array( 'bwps_setup', 'on_uninstall' ) );
 			
-			require_once(plugin_dir_path( __FILE__ ) . 'inc/auth.php' );
-			require_once(plugin_dir_path( __FILE__ ) . 'inc/secure.php' );
+			require_once( BWPS_PP . 'inc/auth.php' );
+			require_once( BWPS_PP . 'inc/secure.php' );
 			$bwps = new bwps_secure();
 			
 			if ( $bwpsdata['version'] != $this->pluginversion  || get_option( 'BWPS_options' ) != false ) {

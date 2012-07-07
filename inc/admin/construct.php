@@ -1,10 +1,10 @@
 <?php 
 
-require_once( plugin_dir_path( __FILE__ ) . 'common.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'content.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'process.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'tables.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'wpcontent.php' );
+require_once( BWPS_PP . 'inc/admin/common.php' );
+require_once( BWPS_PP . 'inc/admin/content.php' );
+require_once( BWPS_PP . 'inc/admin/process.php' );
+require_once( BWPS_PP . 'inc/admin/tables.php' );
+require_once( BWPS_PP . 'inc/admin/wpcontent.php' );
 
 if ( ! class_exists( 'bwps_admin_construct' ) ) {
 
