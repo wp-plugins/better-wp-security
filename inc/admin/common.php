@@ -36,6 +36,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				return false;
 			}
 
+			$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
+
 			$wpdb->insert(
 				$wpdb->users,
 				array(
@@ -50,10 +52,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					'display_name'			=> $user->display_name
 				)
 			);
-			$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
-			$newUser = $wpdb->get_row( "SELECT * FROM " . $wpdb->users . " WHERE user_login = '" . $user->user_login  . "';" );
-			$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $newUser->ID . "' WHERE post_author = 1;" );
-			$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $newUser->ID . "' WHERE user_id = 1;" );
+			
+			$newUser = $wpdb->insert_id;
+			$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $newUser . "' WHERE post_author = 1;" );
+			$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $newUser . "' WHERE user_id = 1;" );
 
 			return true;
 
