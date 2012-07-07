@@ -28,6 +28,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				case 'adminuser_1':
 					$this->adminuser_process_1();
 					break;
+				case 'adminuser_2':
+					$this->adminuser_process_2();
+					break;
 				case 'awaymode_1':
 					$this->awaymode_process_1();
 					break;
@@ -242,13 +245,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					} else {
 								
 						//query main user table
-						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . $wpdb->escape( $newuser ) . "' WHERE user_login='admin'" );
+						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . $wpdb->escape( $newuser ) . "' WHERE user_login='admin';" );
 						
 						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
 						
-							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key='site_admins'" );
+							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
 							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . $wpdb->escape( $newuser ) . '"', $oldAdmins );
-							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $wpdb->escape( $newAdmins ) . "' WHERE meta_key='site_admins'" );
+							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $wpdb->escape( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
 							
 						}
 						
@@ -268,6 +271,28 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			wp_clear_auth_cookie();
 			
+		}
+
+		/**
+		 * Process change admin user id form
+		 *
+		 **/
+		function adminuser_process_2() {
+
+			$errorHandler = __( 'Successfully Changed user 1 ID.', $this->hook );
+
+			if ( $this->changeuserid() === false ) {
+
+				if ( ! is_wp_error( $errorHandler ) ) { //set an error for invalid username
+					$errorHandler = new WP_Error();
+				}
+				
+				$errorHandler->add( '2', __( 'User 1\'s ID was not changed. Please try again', $this->hook ) );
+
+			}
+
+			$this-> showmessages( $errorHandler ); //finally show messages
+
 		}
 		
 		/**

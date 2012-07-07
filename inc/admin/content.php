@@ -212,13 +212,25 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_adminuser() {
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
-				array(
-					array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Change The Admin User', $this->hook ), 'adminuser_content_2' ) //adminuser options
-				),
-				BWPS_PU . 'images/shield-large.png'
-			);
+			if ( ! is_multisite() ) {
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+					array(
+						array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
+						array( __( 'Change The Admin User Name', $this->hook ), 'adminuser_content_2' ), //adminuser options
+						array( __( 'Change The Admin User ID', $this->hook ), 'adminuser_content_3' ) //adminuser options
+					),
+					BWPS_PU . 'images/shield-large.png'
+				);
+			} else {
+				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+					array(
+						array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
+						array( __( 'Change The Admin User Name', $this->hook ), 'adminuser_content_2' )
+					),
+					BWPS_PU . 'images/shield-large.png'
+				);
+			}
+
 		}
 		
 		/**
@@ -524,11 +536,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<?php } ?>
 				</li>
 				<li>
-					<?php $adminUser = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='admin';" ); ?>
-					<?php if ( $adminUser =="admin" ) { ?>
+					<?php if ( $this->user_exists( 'admin' ) ) { ?>
 						<span style="color: red;"><?php _e( 'The <em>admin</em> user still exists.', $this-> hook ); ?> <a href="admin.php?page=better-wp-security-adminuser"><?php _e( 'Click here to rename admin.', $this-> hook ); ?></a></span>
 					<?php } else { ?>
 						<span style="color: green;"><?php _e( 'The <em>admin</em> user has been removed.', $this-> hook ); ?></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $this->user_exists( '1' ) ) { ?>
+						<span style="color: red;"><?php _e( 'A user with id 1 still exists.', $this-> hook ); ?> <a href="admin.php?page=better-wp-security-adminuser"><?php _e( 'Click here to change user 1\'s ID.', $this-> hook ); ?></a></span>
+					<?php } else { ?>
+						<span style="color: green;"><?php _e( 'The user with id 1 has been removed.', $this-> hook ); ?></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -550,6 +568,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<span style="color: green;"><?php _e( 'Your WordPress admin area is not available when you will not be needing it.', $this->hook ); ?>. </span>
 					<?php } else { ?>
 						<span style="color: orange;"><?php _e( 'Your WordPress admin area is available 24/7. Do you really update 24 hours a day?', $this->hook ); ?> <a href="admin.php?page=better-wp-security-awaymode"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					<?php } ?>
+				</li>
+				<li>
+					<?php if ( $bwpsoptions['bu_blacklist'] == 1 ) { ?>
+						<span style="color: green;"><?php _e( 'You are blocking known bad hosts and agents with HackRepair.com\'s blacklist.', $this->hook ); ?>. </span>
+					<?php } else { ?>
+						<span style="color: orange;"><?php _e( 'You are not blocking known bad hosts and agents with HackRepair.com\'s blacklist?', $this->hook ); ?> <a href="admin.php?page=better-wp-security-banusers"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
 				<li>
@@ -1043,12 +1068,33 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Chage Admin Username', $this->hook ); ?>" /></p>
 				</form>
 				<?php
 			} else { //if their is no admin user display a note 
 				?>
 					<p><?php _e( 'Congratulations! You do not have a user named "admin" in your WordPress installation. No further action is available on this page.', $this->hook ); ?></p>
+				<?php
+			}
+		}
+
+		/**
+		 * Options form for change andmin user id
+		 *
+		 **/
+		function adminuser_content_3() {
+			if ( $this->user_exists( '1' ) ) { //only show form if user 'admin' exists
+				?>
+				<p><?php _e( 'If your admin user has and ID of "1" it is vulnerable to some attacks. You should change the ID of your admin user.', $this->hook ); ?>
+				<form method="post" action="">
+					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+					<input type="hidden" name="bwps_page" value="adminuser_2" />
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Change User 1 ID', $this->hook ); ?>" /></p>
+				</form>
+				<?php
+			} else { //if their is no admin user display a note 
+				?>
+					<p><?php _e( 'Congratulations! You do not have a user with ID 1 in your WordPress installation. No further action is available on this page.', $this->hook ); ?></p>
 				<?php
 			}
 		}
@@ -1368,7 +1414,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row">
-							<label for "bu_blacklist"><?php _e( 'Enable Banned Users', $this->hook ); ?></label>
+							<label for "bu_blacklist"><?php _e( 'Enable Default Banned List', $this->hook ); ?></label>
 						</th>
 						<td>
 							<input id="bu_blacklist" name="bu_blacklist" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['bu_blacklist'] ); ?> />

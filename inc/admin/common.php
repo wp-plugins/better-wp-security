@@ -18,6 +18,46 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 		}
+
+		/**
+		 * Changes user id of given user
+		 *
+		 * Changes the WordPress user id of the user given
+		 *
+		 * @param $username sting the username to change
+		 * @return bool success or failure
+		 *
+		 **/
+		function changeuserid() {
+			global $wpdb;
+
+			$user = get_user_by( 'id', '1' );
+			if ( $user === false ) {
+				return false;
+			}
+
+			$wpdb->insert(
+				$wpdb->users,
+				array(
+					'user_login'			=> $user->user_login,
+					'user_pass'				=> $user->user_pass,
+					'user_nicename'			=> $user->user_nicename,
+					'user_email'			=> $user->user_email,
+					'user_url'				=> $user->user_url,
+					'user_registered'		=> $user->user_registered,
+					'user_activation_key'	=> $user->user_activation_key,
+					'user_status'			=> $user->user_status,
+					'display_name'			=> $user->display_name
+				)
+			);
+			$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
+			$newUser = $wpdb->get_row( "SELECT * FROM " . $wpdb->users . " WHERE user_login = '" . $user->user_login  . "';" );
+			$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $newUser->ID . "' WHERE post_author = 1;" );
+			$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $newUser->ID . "' WHERE user_id = 1;" );
+
+			return true;
+
+		}
 		
 		/**
 		 * Deletes BWPS options from .htaccess
@@ -829,9 +869,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		/**
 		 * Checks if user exists
 		 *
-		 * Checks to see if WordPress user with given username exists
+		 * Checks to see if WordPress user with given username or user id exists
 		 *
-		 * @param string $username login username of user to check
+		 * @param string $username login username or user id of user to check
 		 * @return bool true if user exists otherwise false
 		 *
 		 **/
@@ -846,8 +886,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			//queary the user table to see if the user is there
 			$user = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='" . sanitize_text_field( $username ) . "';" );
+			$userid = $wpdb->get_var( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='" . sanitize_text_field( $username ) . "';" );
 			
-			if ( $user == $username ) {
+			if ( $user == $username || $userid == $username ) {
 				return true;
 			} else {
 				return false;
