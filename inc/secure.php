@@ -10,7 +10,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/		 
 		function __construct() {
 			
-			global $bwpsoptions;
+			global $bwpsoptions, $is_404;
 			
 			//Don't redirect any SSL if SSL is turned off.
 			if ( $bwpsoptions['ssl_frontend']  >= 1 ) {
@@ -89,9 +89,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
 			}
 			
-			add_action( 'plugins_loaded', array( &$this, 'backup' ) );
+			if ( ! $is_404 ) {
+				add_action( 'plugins_loaded', array( &$this, 'backup' ) );
 			
-			add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
+				add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
+			}
 		
 		}
 		
@@ -100,16 +102,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function backup() {
-		
-			if ( ! is_404() ) {
 			
 				global $bwps_backup; //allow backup object to be accessed elsewhere
 		
 				//execute backups
 				require_once( plugin_dir_path( __FILE__ ) . 'backup.php' );
 				$bwps_backup = new bwps_backup();
-			
-			}
 			
 		}
 		
@@ -346,15 +344,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function filecheck() {
 		
-			if ( ! is_404() ) { //don't execute on 404 errors
-			
 				global $bwps_filecheck;
 		
 				//execute backups
 				require_once( plugin_dir_path( __FILE__ ) . 'filecheck.php' );
 				$bwps_filecheck = new bwps_filecheck();
-											
-			}
 			
 		}
 		
@@ -750,7 +744,13 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/	
 		function siteinit() {
 		
-			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwpsoptions, $bwpsmemlimit;
+			global $current_user, $bwps_login_slug, $bwps_register_slug, $bwpsoptions, $bwpsmemlimit, $is_404;
+
+			if( is_404() ) {
+				$is_404 = true;
+			} else {
+				$is_404 = false;
+			}
 			
 			 $bwpsmemlimit = (int) ini_get( 'memory_limit' ) ;
 			

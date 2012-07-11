@@ -12,49 +12,45 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 		
 			global $bwpsoptions;
 			
-			if ( ! is_404() ) {
+			if ( $bwpsoptions['backup_enabled'] == 1 ) {
 			
-				if ( $bwpsoptions['backup_enabled'] == 1 ) {
+				$nextbackup = $bwpsoptions['backup_next']; //get next schedule
+				$lastbackup = $bwpsoptions['backup_last']; //get last backup
 			
-					$nextbackup = $bwpsoptions['backup_next']; //get next schedule
-					$lastbackup = $bwpsoptions['backup_last']; //get last backup
-				
-					switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
-						case '0':
-							$next = 60 * 60 * $bwpsoptions['backup_time'];
-							break;
-						case '1':
-							$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
-							break;
-						case '2':
-							$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
-							break;
+				switch ( $bwpsoptions['backup_interval'] ) { //schedule backup at appropriate time
+					case '0':
+						$next = 60 * 60 * $bwpsoptions['backup_time'];
+						break;
+					case '1':
+						$next = 60 * 60 * 24 * $bwpsoptions['backup_time'];
+						break;
+					case '2':
+						$next = 60 * 60 * 24 * 7  * $bwpsoptions['backup_time'];
+						break;
+				}
+			
+				if ( $lastbackup == '' || $nextbackup < time() ) {
+			
+					$bwpsoptions['backup_last'] = time();
+							
+					$bwpsoptions['backup_next'] = ( time() + $next );
+					
+					//Get the options
+					if ( is_multisite() ) {
+							
+						switch_to_blog( 1 );
+							
+						update_option( $this->primarysettings, $bwpsoptions );
+							
+						restore_current_blog();
+							
+					} else {
+							
+						update_option( $this->primarysettings, $bwpsoptions );
+								
 					}
-				
-					if ( $lastbackup == '' || $nextbackup < time() ) {
-				
-						$bwpsoptions['backup_last'] = time();
-								
-						$bwpsoptions['backup_next'] = ( time() + $next );
-						
-						//Get the options
-						if ( is_multisite() ) {
-								
-							switch_to_blog( 1 );
-								
-							update_option( $this->primarysettings, $bwpsoptions );
-								
-							restore_current_blog();
-								
-						} else {
-								
-							update_option( $this->primarysettings, $bwpsoptions );
-									
-						}
 
-						$this->execute_backup(); //execute backup
-				
-					}
+					$this->execute_backup(); //execute backup
 			
 				}
 			
