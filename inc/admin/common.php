@@ -701,8 +701,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} !^action=logout" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^action=register" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^action=postpass" . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
-						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php not_found [L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php /not_found [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^loggedout=true" . PHP_EOL .
 						"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL;
 							
@@ -744,9 +745,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$args !~ \"^action=rp\") {" . PHP_EOL .
 						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args !~ \"^action=register\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
+						"\tif (\$args !~ \"^action=postpass\") {" . PHP_EOL .
+						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$rule_3 = 1111111111) {" . PHP_EOL .
-						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found last;" . PHP_EOL .
-						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found last;" . PHP_EOL .
+						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "/not_found redirect;" . PHP_EOL .
+						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "/not_found redirect;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
 				
 				}
