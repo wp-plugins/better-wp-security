@@ -145,7 +145,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			$offsettime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
 			
-			if ( $bwpsoptions['am_type'] == 1 ) { //set up for daily
+			if ( $bwpsoptions['am_type'] == 1 && get_option( 'bwps_awaymode' ) == 1 ) { //set up for daily
 			
 				if ( $bwpsoptions['am_starttime'] < $bwpsoptions['am_endtime'] ) { //starts and ends on same calendar day
 				
@@ -175,7 +175,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			}
 				
-			if ( $bwpsoptions['am_enabled'] == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
+			if ( $bwpsoptions['am_enabled'] == 1 && get_option( 'bwps_awaymode' ) == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
 
 				return true; //time restriction is current
 				

@@ -1118,6 +1118,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $bwpsoptions;
 			?>
 			<form method="post" action="">
+				<?php
+					echo '<script language="javascript">';
+					echo 'function amenable() {';
+					echo 'alert( "' . __( 'Are you sure you want to enable away mode? Please check the local time (located at the top of this page) and verify the times set are correct to avoid locking yourself out of this site.', $this->hook ) . '" );';
+					echo '}';
+					echo '</script>';
+				?>
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="awaymode_1" />
 			<?php 
@@ -1164,7 +1171,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "am_enabled"><?php _e( 'Enable Away Mode', $this->hook ); ?></label>
 						</th>
 						<td>
-							<input id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['am_enabled'] ); ?> />
+							<input onChange="amenable()" id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['am_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable away mode.', $this->hook ); ?></p>
 						</td>
 					</tr>	

@@ -307,6 +307,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			//validate options
 			$bwpsoptions['am_enabled'] = ( isset( $_POST['am_enabled'] ) && $_POST['am_enabled'] == 1  ? 1 : 0 );
+			if ( $bwpsoptions['am_enabled'] == 1 ) {
+				update_option( 'bwps_awaymode', 1 );
+			}
 			$bwpsoptions['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
 						
 			//form times

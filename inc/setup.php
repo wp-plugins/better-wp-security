@@ -434,6 +434,15 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					update_option( 'bwps_filecheck', $idconfirm );
 				
 				}
+
+				if ( str_replace( '.', '', $oldversion ) < 3050 ) {
+				
+					//turn on away mode for existing users.
+					$amconfirm = $bwpsoptions['am_enabled'] == 1 ? 1 : 0;
+					
+					update_option( 'bwps_awaymode', $amconfirm );
+				
+				}
 			
 			}
 		
