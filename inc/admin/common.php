@@ -637,7 +637,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$rules .= 
 					"\tif (\$http_cookie !~* \"wordpress_logged_in_\" ) {" . PHP_EOL .
-					"\t\tset \$susquery \"\${susquery}2\";" . PHP_EOL .
+					"\t\tset \$susquery 2\$susquery;" . PHP_EOL .
 					"\t\tset \$rule_2 1;" . PHP_EOL .
 					"\t\tset \$rule_3 1;" . PHP_EOL .
 					"\t}" . PHP_EOL . PHP_EOL;
@@ -649,7 +649,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'nginx' ) {
 			
 					$rules .= 
-						"\tif (\$susquery = 12) {" . PHP_EOL .
+						"\tif (\$susquery = 21) {" . PHP_EOL .
 						"\t\treturn 403;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL;
 						
@@ -719,42 +719,42 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\trewrite ^" . $dir . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
 						"\tif (\$uri !~ \"^(.*)admin-ajax.php\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 2\$rule_3;" . PHP_EOL .
 						 "\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* wp-admin ) {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 3\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* wp-login.php ) {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 4\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* " . $login . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 5\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* " . $admin . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 6\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$http_referer !~* " . $register . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 7\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args !~ \"^action=logout\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 8\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args !~ \"^" . $key . "\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 9\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args !~ \"^action=rp\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 0\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args !~ \"^action=register\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 a\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
 						"\tif (\$args !~ \"^action=postpass\") {" . PHP_EOL .
-						"\t\tset \$rule_3 \"\${rule_3}1\";" . PHP_EOL .
+						"\t\tset \$rule_3 b\$rule_3;" . PHP_EOL .
 						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$rule_3 = 1111111111) {" . PHP_EOL .
-						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "/not_found redirect;" . PHP_EOL .
-						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "/not_found redirect;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL;
+						"\tif (\$rule_3 = ba0987654321) {" . PHP_EOL .
+						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found redirect;" . PHP_EOL .
+						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found redirect;" . PHP_EOL .
+						"\t}" . PHP_EOL;
 				
 				}
 	
