@@ -115,29 +115,29 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			$bwpsoptions = $this->default_settings(); //verify and set default options
 			
 			//Set up log table
-			$tables = "CREATE TABLE `" . $wpdb->base_prefix . "bwps_log` (
-				`id` bigint(20) NOT NULL AUTO_INCREMENT,
-				`type` int(1) NOT NULL,
-				`timestamp` int(10) NOT NULL,
-				`host` varchar(20),
-				`user` bigint(20),
-				`username` varchar(255),
-				`url` varchar(255),
-				`referrer` varchar(255),
-				`data` MEDIUMTEXT,
-				 PRIMARY KEY id (id)
+			$tables = "CREATE TABLE " . $wpdb->base_prefix . "bwps_log (
+				id int(11) NOT NULL AUTO_INCREMENT ,
+				type int(1) NOT NULL ,
+				timestamp int(10) NOT NULL ,
+				host varchar(20) ,
+				user bigint(20) ,
+				username varchar(255) ,
+				url varchar(255) ,
+				referrer varchar(255) ,
+				data MEDIUMTEXT ,
+				PRIMARY KEY  (id)
 				);";
 			
 			//set up lockout table	
-			$tables .= "CREATE TABLE `" . $wpdb->base_prefix . "bwps_lockouts` (
-				`id` bigint(20) NOT NULL AUTO_INCREMENT,
-				`type` int(1) NOT NULL,
-				`active` int(1) NOT NULL,
-				`starttime` int(10) NOT NULL,
-				`exptime` int(10) NOT NULL,
-				`host` varchar(20),
-				`user` bigint(20),
-				 PRIMARY KEY id (id)
+			$tables .= "CREATE TABLE " . $wpdb->base_prefix . "bwps_lockouts (
+				id int(11) NOT NULL AUTO_INCREMENT ,
+				type int(1) NOT NULL ,
+				active int(1) NOT NULL ,
+				starttime int(10) NOT NULL ,
+				exptime int(10) NOT NULL ,
+				host varchar(20) ,
+				user bigint(20) ,
+				PRIMARY KEY  (id)
 				);";
 			
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
