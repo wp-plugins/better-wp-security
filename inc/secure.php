@@ -525,7 +525,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						
 					} else {
 					
-						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . ', ';
+						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . ') ';
 						
 					}
 			

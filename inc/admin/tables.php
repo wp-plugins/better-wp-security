@@ -300,7 +300,7 @@ if ( ! class_exists( 'log_content_5_table' ) ) {
 		 **/
 		function column_host( $item ) {
 		
-			return $item['host'];
+			return '<a href="http://ip-adress.com/ip_tracer/' . $item['host'] . '" target="_blank">' . $item['host'] . '</a>';
 		
 		}
 		
