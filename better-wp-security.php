@@ -139,7 +139,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			}
 			
 			if ( ! defined( 'BWPS_PU' ) ) {
-				define( 'BWPS_PU', plugin_dir_url( $pluginbase, __FILE__ ) );
+				define( 'BWPS_PU', plugin_dir_url( $this->pluginbase, __FILE__ ) );
 			}
 		
 			//load the text domain
