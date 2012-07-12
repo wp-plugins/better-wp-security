@@ -40,7 +40,7 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			//make sure we're on the appropriate page
 			if ( isset( $_GET['page'] ) && strpos( $_GET['page'], $this->hook ) !== false ) {
 			
-				wp_enqueue_style( 'bwps-css', plugin_dir_url( __FILE__ ). 'css/style.css' );
+				wp_enqueue_style( 'bwps-css', BWPS_PU . 'inc/admin/css/style.css' );
 				
 			}
 			

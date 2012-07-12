@@ -43,7 +43,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 				wp_enqueue_style( 'thickbox' );
 				wp_enqueue_style( 'global' );
 				wp_enqueue_style( 'wp-admin' );
-				wp_enqueue_style( 'bit51-css', plugin_dir_url( __FILE__ ). 'bit51.css' );
+				wp_enqueue_style( 'bit51-css', plugin_dir_url( $this->pluginbase, __FILE__ ). 'lib/bit51/bit51.css' );
 				
 			}
 			
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
-						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( __FILE__ ); ?>images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
+						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( $this->pluginbase, __FILE__ ); ?>lib/bit51/images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
 					<?php } else { ?>
 						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
 					<?php } ?>
