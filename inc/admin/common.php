@@ -293,64 +293,75 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 					}
 					
-					foreach ( $hosts as $host ) {
-							
-						if ( strstr( trim( $host ), '*' ) ) {
-						
-							$parts = array_reverse ( explode( '.', trim( $host ) ) );
-							$netmask = 32;
-							
-							foreach ( $parts as $part ) {
-								
-								if ( strstr( trim( $part ), '*' ) ) {
-								
-									$netmask = $netmask - 8;
-								
-								}
-								
-							}
-							
-							$dhost = trim( str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask );
-							
-							if ( strlen( $dhost ) > 4 ) {
+					$phosts = array();
 
-								if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+					foreach ( $hosts as $host ) {
+
+						$host = trim( $host );
+
+						if ( ! in_array( $host, $phosts ) ) {
+
+							if ( strstr( $host, '*' ) ) {
+							
+								$parts = array_reverse ( explode( '.', $host ) );
+								$netmask = 32;
 								
-									$trule = "Deny from " . $dhost . PHP_EOL;
+								foreach ( $parts as $part ) {
 									
-									if ( ! trim( $trule ) == "Deny From" ) {
-							
-										$rules .= $trule;
-										
+									if ( strstr( trim( $part ), '*' ) ) {
+									
+										$netmask = $netmask - 8;
+									
 									}
-								
-								} else {
-							
-									$rules .= "\tdeny " . $dhost . ';' . PHP_EOL;
-							
+									
 								}
 								
-							}
-						
-						} else {
-						
-							$dhost = trim( $host );
-						
-							if ( strlen( $dhost ) > 4 ) {
-							
-								if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
-							
-									$rules .= "Deny from " . $dhost . PHP_EOL;
+								$dhost = trim( str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask );
+
 								
-								} else {
-							
-									$rules .= "\tdeny " . $dhost. ";" . PHP_EOL;
-							
+								if ( strlen( $dhost ) > 4 ) {
+
+									if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+									
+										$trule = "Deny from " . $dhost . PHP_EOL;
+										
+										if ( ! trim( $trule ) == "Deny From" ) {
+								
+											$rules .= $trule;
+											
+										}
+									
+									} else {
+								
+										$rules .= "\tdeny " . $dhost . ';' . PHP_EOL;
+								
+									}
+									
 								}
+							
+							} else {
+							
+								$dhost = trim( $host );
+							
+								if ( strlen( $dhost ) > 4 ) {
 								
-							}
-						
-						}				
+									if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+								
+										$rules .= "Deny from " . $dhost . PHP_EOL;
+									
+									} else {
+								
+										$rules .= "\tdeny " . $dhost. ";" . PHP_EOL;
+								
+									}
+									
+								}
+							
+							}	
+
+						}
+
+						$phosts[] = $host;
 					
 					}
 				
