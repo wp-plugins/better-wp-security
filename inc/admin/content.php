@@ -1044,10 +1044,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<input type="hidden" name="bwps_page" value="adminuser_1" />
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "newuser"><?php _e( 'Enter Username', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<?php //username field ?>
 								<input id="newuser" name="newuser" type="text" />
 								<p><?php _e( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', $this->hook ); ?></p>
@@ -1153,29 +1153,29 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			?>
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "am_enabled"><?php _e( 'Enable Away Mode', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input onChange="amenable()" id="am_enabled" name="am_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['am_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable away mode.', $this->hook ); ?></p>
 						</td>
 					</tr>	
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for="am_type"><?php _e( 'Type of Restriction', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<label><input name="am_type" id="am_type" value="1" <?php checked( '1', $bwpsoptions['am_type'] ); ?> type="radio" /> <?php _e( 'Daily', $this->hook ); ?></label>
 							<label><input name="am_type" value="0" <?php checked( '0', $bwpsoptions['am_type'] ); ?> type="radio" /> <?php _e( 'One Time', $this->hook ); ?></label>
 							<p><?php _e( 'Selecting <em>"One Time"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>"Daily"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for="am_startdate"><?php _e( 'Start Date', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select name="am_startmonth" id="am_startdate">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
@@ -1217,10 +1217,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for="am_enddate"><?php _e( 'End Date', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select name="am_endmonth" id="am_enddate">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
@@ -1262,10 +1262,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for="am_starttime"><?php _e( 'Start Time', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select name="am_starthour" id="am_starttime">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
@@ -1304,10 +1304,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for="am_endtime"><?php _e( 'End Time', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select name="am_endhour" id="am_endtime">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) {//determine default
@@ -1406,10 +1406,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<p><?php _e( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', $this->hook ); ?></p>
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "bu_blacklist"><?php _e( 'Enable Default Banned List', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="bu_blacklist" name="bu_blacklist" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['bu_blacklist'] ); ?> />
 							<p><?php _e( "Check this box to enable HackRepair.com's blacklist feature.", $this->hook ); ?></p>
 						</td>
@@ -1432,19 +1432,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="banusers_1" />
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "bu_enabled"><?php _e( 'Enable Banned Users', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="bu_enabled" name="bu_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['bu_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable the banned users feature.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "bu_banlist"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? $_POST['bu_banlist'] : $bwpsoptions['bu_banlist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
@@ -1457,10 +1457,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "bu_banrange"><?php _e( 'Ban User Agents', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banagent'] : $bwpsoptions['bu_banagent']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', $this->hook ); ?></p>
 							<ul><em>
@@ -1500,10 +1500,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					<input type="hidden" name="bwps_page" value="contentdirectory_1" />
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "dirname"><?php _e( 'Directory Name', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<?php //username field ?>
 								<input id="dirname" name="dirname" type="text" value="wp-content" />
 								<p><?php _e( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', $this->hook ); ?></p>
@@ -1564,19 +1564,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="databasebackup_2" />
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "backup_enabled"><?php _e( 'Enable Scheduled Backups', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="backup_enabled" name="backup_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['backup_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable scheduled backups which will be emailed to the address below.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "backup_interval"><?php _e( 'Backup Interval', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="backup_time" name="backup_time" type="text" value="<?php echo $bwpsoptions['backup_time']; ?>" />
 							<select id="backup_interval" name="backup_interval">
 								<option value="0" <?php selected( $bwpsoptions['backup_interval'], '0' ); ?>><?php _e( 'Hours', $this->hook ); ?></option>
@@ -1587,28 +1587,28 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "backup_email"><?php _e( 'Send Backups by Email', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="backup_email" name="backup_email" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['backup_email'] ); ?> />
 							<p><?php _e( 'Email backups to the current site admin.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "backup_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="backup_emailaddress" name="backup_emailaddress" type="text" value="<?php echo ( isset( $_POST['backup_emailaddress'] ) ? $_POST['backup_emailaddress'] : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address backups will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "backups_to_retain"><?php _e( 'Backups to Keep', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="backups_to_retain" name="backups_to_retain" type="text" value="<?php echo $bwpsoptions['backups_to_retain']; ?>" />
 							<p><?php _e( 'Number of backup files to retain. Enter 0 to keep all files. Please note that this setting only applies if "Send Backups by Email" is not selected.', $this->hook ); ?></p>
 						</td>
@@ -1711,37 +1711,37 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<input type="hidden" name="bwps_page" value="hidebackend_1" />
 					<table class="form-table">
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "hb_enabled"><?php _e( 'Enable Hide Backend', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="hb_enabled" name="hb_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['hb_enabled'] ); ?> />
 								<p><?php _e( 'Check this box to enable the hide backend.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for="hb_login"><?php _e( 'Login Slug', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input name="hb_login" id="hb_login" value="<?php echo $bwpsoptions['hb_login']; ?>" type="text"><br />
 								<em><span style="color: #666666;"><strong><?php _e( 'Login URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_login']; ?></span></em>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for="hb_register"><?php _e( 'Register Slug', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input name="hb_register" id="hb_register" value="<?php echo $bwpsoptions['hb_register']; ?>" type="text"><br />
 								<em><span style="color: #666666;"><strong><?php _e( 'Register URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_register']; ?></span></em>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for="hb_admin"><?php _e( 'Admin Slug', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input name="hb_admin" id="hb_admin" value="<?php echo $bwpsoptions['hb_admin']; ?>" type="text"><br />
 								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_admin']; ?></span></em>
 							</td>
@@ -1810,88 +1810,88 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="intrusiondetection_2" />
 				<table class="form-table">
 					<tr>
-						<td scope="row" colspan="2">
+						<td scope="row" colspan="2" class="settingsection">
 							<a name="id_enabled"></a><h4><?php _e( '404 Detection', $this->hook ); ?></h4>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_enabled"><?php _e( 'Enable 404 Detection', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_enabled" name="id_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable 404 intrusion detection.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_emailnotify"><?php _e( 'Email 404 Notifications', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_emailnotify" name="id_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_emailnotify'] ); ?> />
 							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a host is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_emailaddress" name="id_emailaddress" type="text" value="<?php echo ( isset( $_POST['id_emailaddress'] ) ? $_POST['id_emailaddress'] : ( $bwpsoptions['id_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_checkinterval"><?php _e( 'Check Period', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_checkinterval" name="id_checkinterval" type="text" value="<?php echo $bwpsoptions['id_checkinterval']; ?>" />
 							<p><?php _e( 'The number of minutes in which 404 errors should be remembered. Setting this too long can cause legitimate users to be banned.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_threshold"><?php _e( 'Error Threshold', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_threshold" name="id_threshold" type="text" value="<?php echo $bwpsoptions['id_threshold']; ?>" />
 							<p><?php _e( 'The numbers of errors (within the check period timeframe) that will trigger a lockout.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_banperiod"><?php _e( 'Lockout Period', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_banperiod" name="id_banperiod" type="text" value="<?php echo $bwpsoptions['id_banperiod']; ?>" />
 							<p><?php _e( 'The number of minutes a host will be banned from the site after triggering a lockout.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_blacklistip" name="id_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_blacklistip'] ); ?> />
 							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
 							<p><strong style="color: #ff0000;"><?php _e( 'Warning! If your site has a lot of missing files causing 404 errors using this feature can ban your own computer from your site. I would highly advice whitelisting your IP address below if this is the case.', $this->hook ); ?></strong></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_blacklistipthreshold" name="id_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['id_blacklistipthreshold']; ?>" />
 							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_whitelist"><?php _e( '404 White List', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? $_POST['id_whitelist'] : $bwpsoptions['id_whitelist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will never be locked out due to too many 404 errors. This could be useful for Google, etc.', $this->hook ); ?></p>
 							<ul><em>
@@ -1905,51 +1905,51 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr>
-						<td scope="row" colspan="2">
+						<td scope="row" colspan="2" class="settingsection">
 							<a name="id_fileenabled"></a><h4><?php _e( 'File Change Detection', $this->hook ); ?></h4>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_fileenabled"><?php _e( 'Enable File Change Detection', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_fileenabled" name="id_fileenabled" <?php if ( $bwpsmemlimit < 128 ) echo 'onchange="warnmem()"'; ?>type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileenabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable file change detection.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_filedisplayerror"><?php _e( 'Display file change admin warning', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_filedisplayerror" name="id_filedisplayerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_filedisplayerror'] ); ?> />
 							<p><?php _e( 'Disabling this feature will prevent the file change warning from displaying to the site administrator in the WordPress Dashboard. Not that disabling both the error message and the email address will result in no notifications of file changes. The only way you will be able to tell is by manually checking the log files.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_fileemailnotify"><?php _e( 'Email File Change Notifications', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_fileemailnotify" name="id_fileemailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_fileemailnotify'] ); ?> />
 							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a file change is detected.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_fileemailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="id_fileemailaddress" name="id_fileemailaddress" type="text" value="<?php echo ( isset( $_POST['id_fileemailaddress'] ) ? $_POST['id_fileemailaddress'] : ( $bwpsoptions['id_fileemailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_fileemailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address filechange notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_fileincex"><?php _e( 'Include/Exclude List', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select id="id_fileincex" name="id_fileincex">
 								<option value="0" <?php selected( $bwpsoptions['id_fileincex'], '0' ); ?>><?php _e( 'Include', $this->hook ); ?></option>
 								<option value="1" <?php selected( $bwpsoptions['id_fileincex'], '1' ); ?>><?php _e( 'Exclude', $this->hook ); ?></option>
@@ -1958,10 +1958,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "id_specialfile"><?php _e( 'File/Directory Check List', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? $_POST['id_specialfile'] : $bwpsoptions['id_specialfile']; ?></textarea>
 							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. You can specify all files of a given type by just entering the extension preceeded by a dot (.) for exampe, .jpg', $this->hook ); ?></p>
 							<p><?php _e( 'Directories should be entered in the from the root of the WordPress folder. For example, if you wish to enter the uploads directory you would enter it as "wp-content/uploads" (assuming you have not renamed wp-content). For files just enter the filename without directory information.', $this->hook ); ?></p>
@@ -1996,82 +1996,82 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="loginlimits_1" />
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_enabled"><?php _e( 'Enable Login Limits', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_enabled" name="ll_enabled" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_enabled'] ); ?> />
 							<p><?php _e( 'Check this box to enable login limits on this site.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_maxattemptshost"><?php _e( 'Max Login Attempts Per Host', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_maxattemptshost" name="ll_maxattemptshost" type="text" value="<?php echo $bwpsoptions['ll_maxattemptshost']; ?>" />
 							<p><?php _e( 'The number of login attempts a user has before their host or computer is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_maxattemptsuser"><?php _e( 'Max Login Attempts Per User', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_maxattemptsuser" name="ll_maxattemptsuser" type="text" value="<?php echo $bwpsoptions['ll_maxattemptsuser']; ?>" />
 							<p><?php _e( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_checkinterval"><?php _e( 'Login Time Period (minutes)', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_checkinterval" name="ll_checkinterval" type="text" value="<?php echo $bwpsoptions['ll_checkinterval']; ?>" />
 							<p><?php _e( 'The number of minutes in which bad logins should be remembered.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_banperiod"><?php _e( 'Lockout Time Period (minutes)', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_banperiod" name="ll_banperiod" type="text" value="<?php echo $bwpsoptions['ll_banperiod']; ?>" />
 							<p><?php _e( 'The length of time a host or computer will be banned from this site after hitting the limit of bad logins.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_blacklistip" name="ll_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_blacklistip'] ); ?> />
 							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_blacklistipthreshold" name="ll_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['ll_blacklistipthreshold']; ?>" />
 							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_emailnotify"><?php _e( 'Email Notifications', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_emailnotify" name="ll_emailnotify" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_emailnotify'] ); ?> />
 							<p><?php _e( 'Enabling this feature will trigger an email to be sent to the specified email address whenever a host or user is locked out of the system.', $this->hook ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<label for "ll_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input id="ll_emailaddress" name="ll_emailaddress" type="text" value="<?php echo ( isset( $_POST['ll_emailaddress'] ) ? $_POST['ll_emailaddress'] : ( $bwpsoptions['ll_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['ll_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
@@ -2110,10 +2110,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			 ?>
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<?php _e( 'Old Data', $this->hook ); ?>
 						</th>
-						<td>
+						<td class="settingfield">
 							<p><?php _e( 'Below is old security data still in your WordPress database. Data is considered old when the lockout has expired, or been manually cancelled, or when the log entry will no longer be used to generate a lockout.', $this->hook ); ?></p>
 							<p><?php _e( 'This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.', $this->hook ); ?></p>
 							<p><?php _e( 'Check the box next to the data you would like to clear and then press the "Remove Old Data" button. (note this will not erase entries that may still be used for lockouts).', $this->hook ); ?></p>
@@ -2148,10 +2148,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			 ?>
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<?php _e( 'Locked out hosts', $this->hook ); ?>
 						</th>
-						<td>
+						<td class="settingfield">
 							<?php if ( sizeof( $hostLocks ) > 0 ) { ?>
 							<ul>
 								<?php foreach ( $hostLocks as $host) { ?>
@@ -2164,10 +2164,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">
+						<th scope="row" class="settinglabel">
 							<?php _e( 'Locked out users', $this->hook ); ?>
 						</th>
-						<td>
+						<td class="settingfield">
 							<?php if (sizeof( $userLocks ) > 0 ) { ?>
 							<ul>
 								<?php foreach ( $userLocks as $user ) { ?>
@@ -2289,11 +2289,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						echo '}';
 						echo '</script>';
 					?>
-					<tr valign="top" style="border: 1px solid #ff0000;">
-						<th scope="row">
+					<tr valign="top" class="strongwarning">
+						<th scope="row" class="settinglabel">
 							<a name="ssl_frontend"></a><label for "ssl_frontend"><?php _e( 'Enforce Front end SSL', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<select id="ssl_frontend" name="ssl_frontend">
 								<option value="0" <?php selected( $bwpsoptions['ssl_frontend'], '0' ); ?>><?php _e( 'Off', $this->hook ); ?></option>
 								<option value="1" <?php selected( $bwpsoptions['ssl_frontend'], '1' ); ?>><?php _e( 'Per Content', $this->hook ); ?></option>
@@ -2302,20 +2302,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you turn to on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top" style="border: 1px solid #ff0000;">
-						<th scope="row">
+					<tr valign="top" class="strongwarning">
+						<th scope="row" class="settinglabel">
 							<a name="ssl_forcelogin"></a><label for "ssl_forcelogin"><?php _e( 'Enforce Login SSL', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input onchange="forcessl()" id="ssl_forcelogin" name="ssl_forcelogin" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forcelogin'] ); ?> />
 							<p><?php _e( 'Forces all logins to be served only over a secure SSL connection.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top"  style="border: 1px solid #ff0000;">
-						<th scope="row">
+					<tr valign="top" class="strongwarning">
+						<th scope="row" class="settinglabel">
 							<label for "ssl_forceadmin"><?php _e( 'Enforce Admin SSL', $this->hook ); ?></label>
 						</th>
-						<td>
+						<td class="settingfield">
 							<input onchange="forcessl()" id="ssl_forceadmin" name="ssl_forceadmin" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ssl_forceadmin'] ); ?> />
 							<p><?php _e( 'Forces all of the WordPress backend to be served only over a secure SSL connection.', $this->hook ); ?></p>
 						</td>
@@ -2354,136 +2354,136 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<input type="hidden" name="bwps_page" value="systemtweaks_1" />
 					<table class="form-table">
 						<tr valign="top">
-							<td scope="row" colspan="2">
+							<td scope="row" colspan="2" class="settingsection">
 								<a name="st_ht_files"></a><h4><?php _e( 'Server Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">	
-							<th scope="row">
+						<tr valign="top" class="warning">	
+							<th scope="row" class="settinglabel">
 								<label for "st_ht_files"><?php _e( 'Protect Files', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_ht_files" name="st_ht_files" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_files'] ); ?> />
 								<p><?php _e( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<?php if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) { ?>
-							<tr valign="top" style="border: 1px solid #ffcc00;">
-								<th scope="row">
+							<tr valign="top" class="warning">
+								<th scope="row" class="settinglabel">
 									<label for "st_ht_browsing"><?php _e( 'Disable Directory Browsing', $this->hook ); ?></label>
 								</th>
-								<td>
+								<td class="settingfield">
 									<input id="st_ht_browsing" name="st_ht_browsing" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_browsing'] ); ?> />
 									<p><?php _e( 'Prevents users from seeing a list of files in a directory when no index file is present.', $this->hook ); ?></p>
-									<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations in which this feature has already been enabled in Apache.', $this->hook ); ?></p>
+									<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations in which this feature has already been enabled in Apache.', $this->hook ); ?></p>
 								</td>
 							</tr>
 						<?php } ?>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<label for "st_ht_request"><?php _e( 'Filter Request Methods', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_ht_request" name="st_ht_request" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_request'] ); ?> />
 								<p><?php _e( 'Filter out hits with the trace, delete, or track request methods.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<label for "st_ht_query"><?php _e( 'Filter Suspicious Query Strings', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_ht_query" name="st_ht_query" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_ht_query'] ); ?> />
 								<p><?php _e( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" colspan="2">
+							<td scope="row" colspan="2" class="settingsection">
 								<a name="st_generator"></a><h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "st_generator"><?php _e( 'Remove WordPress Generator Meta Tag', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_generator" name="st_generator" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_generator'] ); ?> />
 								<p><?php _e( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "st_manifest"><?php _e( 'Remove wlwmanifest header', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_manifest" name="st_manifest" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_manifest'] ); ?> />
 								<p><?php _e( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<label for "st_edituri"><?php _e( 'Remove EditURI header', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_edituri'] ); ?> />
 								<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" colspan="2">
+							<td scope="row" colspan="2" class="settingsection">
 								<a name="st_themenot"></a><h4><?php _e( 'Dashboard Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "st_themenot"><?php _e( 'Hide Theme Update Notifications', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_themenot" name="st_themenot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_themenot'] ); ?> />
 								<p><?php _e( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "st_pluginnot"><?php _e( 'Hide Plugin Update Notifications', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_pluginnot" name="st_pluginnot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_pluginnot'] ); ?> />
 								<p><?php _e( 'Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<label for "st_corenot"><?php _e( 'Hide Core Update Notifications', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_corenot" name="st_corenot" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_corenot'] ); ?> />
 								<p><?php _e( 'Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" colspan="2">
+							<td scope="row" colspan="2" class="settingsection">
 								<h4><?php _e( 'Strong Password Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<a name="st_enablepassword"></a><label for "st_enablepassword"><?php _e( 'Enable strong password enforcement', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_enablepassword" name="st_enablepassword" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_enablepassword'] ); ?> />
 								<p><?php _e( 'Enforce strong passwords for all users with at least the role specified below.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<label for "st_passrole"><?php _e( 'Strong Password Role', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<select name="st_passrole" id="st_passrole">
 									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>>Administrator</option>
 									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>>Editor</option>
@@ -2492,84 +2492,84 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>>Subscriber</option>
 								</select>
 								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" colspan="2">
+							<td scope="row" colspan="2" class="settingsection">
 								<h4><?php _e( 'Other Tweaks', $this->hook ); ?></h4>
 							</td>
 						</tr>
 						<tr valign="top">
-							<th scope="row">
+							<th scope="row" class="settinglabel">
 								<a name="st_loginerror"></a><label for "st_loginerror"><?php _e( 'Remove WordPress Login Error Messages', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_loginerror" name="st_loginerror" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_loginerror'] ); ?> />
 								<p><?php _e( 'Prevents error messages from being displayed to a user upon a failed login attempt.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_writefiles"></a><label for "st_writefiles"><?php _e( 'Write to WordPress core files', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_writefiles" name="st_writefiles" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_writefiles'] ); ?> />
 								<p><?php _e( 'Allow Better WP Security to write to .htaccess and wp-config.php. With this turned on this plugin will automatically write to your .htaccess and wp-config.php files. With it turned off you will need to manually make changes to these files and both the renaming of wp-content and the changing of the database table prefix will not be available.', $this->hook ); ?></p>
 								<p><?php _e( 'This option is safe in nearly all instances however, if you know you have a server configuration that may conflict or simply want to make the changes yourself then uncheck this feature.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some server configurations.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_comment"></a><label for "st_comment"><?php _e( 'Reduce comment spam', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_comment" name="st_comment" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_comment'] ); ?> />
 								<p><?php _e( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', $this->hook ); ?></p>
 								<p><?php _e( 'Note this feature only applies if "Write to WordPress core files" is enabled.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_fileperm"></a><label for "st_fileperm"><?php _e( 'Remove write permissions from .htaccess and wp-config.php', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_fileperm" name="st_fileperm" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileperm'] ); ?> />
 								<p><?php _e( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the unix file permissions to 0444 on these files and turning it off will set the permissions to 0644.', $this->hook ); ?></p>
 								<p><?php _e( 'Note this feature only applies if "Write to WordPress core files" is enabled.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_randomversion"></a><label for "st_randomversion"><?php _e( 'Display random version number to all non-administrative users', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_randomversion" name="st_randomversion" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_randomversion'] ); ?> />
 								<p><?php _e( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top" style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_longurl"></a><label for "st_longurl"><?php _e( 'Prevent long URL strings', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_longurl" name="st_longurl" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_longurl'] ); ?> />
 								<p><?php _e( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
-						<tr valign="top"  style="border: 1px solid #ffcc00;">
-							<th scope="row">
+						<tr valign="top" class="warning">
+							<th scope="row" class="settinglabel">
 								<a name="st_fileedit"></a><label for "st_fileedit"><?php _e( 'Turn off file editor in WordPress Back-end', $this->hook ); ?></label>
 							</th>
-							<td>
+							<td class="settingfield">
 								<input id="st_fileedit" name="st_fileedit" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_fileedit'] ); ?> />
 								<p><?php _e( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', $this->hook ); ?></p>
-								<p style="color: #ff0000;font-style: italic;"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
+								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some plugins and themes.', $this->hook ); ?></p>
 							</td>
 						</tr>
 					</table>
