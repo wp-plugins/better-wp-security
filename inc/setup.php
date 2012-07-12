@@ -520,7 +520,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			}
 			
 			delete_option( 'bwps_file_log' );
-			
+			delete_option( 'bwps_awaymode' );
 			delete_metadata( 'post', null, 'bwps_enable_ssl', null, true );
 			
 			global $wpdb;
