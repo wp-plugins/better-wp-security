@@ -3,8 +3,8 @@
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.4
-Tested up to: 3.4
+Requires at least: 3.4.1
+Tested up to: 3.4.1
 Stable tag: 3.3
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
@@ -141,7 +141,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * define('FORCE_SSL_ADMIN', true);
 
 = Where can I get help if something goes wrong? =
-* First of all please note that I don't monitor the forums on WordPress.org. Second, as I do not have a support staff and this plugin is one of many projects I am involved with I do not guarantee support at all. There is no warranty and if something goes wrong I make no promise of assistance. That said, I haven't lost a site yet and I usually respond to all queries on the forums at <a href="http://wordpress.org/support/plugin/better-wp-security">http://wordpress.org/support/plugin/better-wp-security</a>
+* As I do not have a support staff and this plugin is one of many projects I am involved with I do not guarantee support at all. There is no warranty and if something goes wrong I make no promise of assistance. That said, I do my best to check the WordPress.org support forums every 2 -3 days and  respond to all queries. I will not answer any support requests sent to me through any other method.
 
 == Screenshots ==
 
