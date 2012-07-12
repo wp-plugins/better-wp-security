@@ -18,11 +18,11 @@ label {
 }
 
 tr.warning {
-	background-color: #ffff85;
+	background-color: #ffff99;
 }
 
 tr.strongwarning {
-	background-color: #ffaaaa;
+	background-color: #ffcccc;
 }
 
 th.settinglabel {
@@ -44,4 +44,8 @@ td.settingsection {
 
 p.warningtext {
 	font-weight: bold;
+}
+
+li.securecheck {
+	line-height: 140%;
 }

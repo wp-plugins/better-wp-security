@@ -240,6 +240,20 @@ if ( ! class_exists( 'Bit51' ) ) {
 			</div>
 			<?php
 		}
+
+		function admin_tabs( $tabs, $current = NULL ) {
+			if ( $current == NULL ) {
+				$current = $this->hook;
+			}
+			$tabs = $tabs;
+			echo '<div id="icon-themes" class="icon32"><br></div>';
+			echo '<h2 class="nav-tab-wrapper">';
+			foreach( $tabs as $location => $tabname ){
+				$class = ( $location == $current ) ? ' nav-tab-active' : '';
+				echo '<a class="nav-tab' . $class. '" href="?page=' . $location . '">' . $tabname . '</a>';
+			}
+			echo '</h2>';
+		}
 		
 		/**
 		 * Setup main admin page box
@@ -251,7 +265,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 * @param string $icon[optional] icon file to display
 		 *
 		 **/
-		function admin_page( $title, $boxes, $icon = '' ) {
+		function admin_page( $title, $boxes, $icon = '', $tabs = NULL, $tab = NULL ) {
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
@@ -260,6 +274,15 @@ if ( ! class_exists( 'Bit51' ) ) {
 						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
 					<?php } ?>
 					<h2><?php _e( $title, $this->hook ) ?></h2>
+					<?php 
+						if ( $tabs != NULL ) {
+							if ( isset ( $_GET['page'] ) ) {
+								$this->admin_tabs( $tabs, $_GET['page'] ); 
+							} else { 
+								$this->admin_tabs( $tabs ); 
+							}
+						}
+					?>
 					<div class="postbox-container" style="width:65%;">
 						<div class="metabox-holder">	
 							<div class="meta-box-sortables">
