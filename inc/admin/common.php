@@ -325,7 +325,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 									
 										$trule = "Deny from " . $dhost . PHP_EOL;
 										
-										if ( ! trim( $trule ) == "Deny From" ) {
+										if ( trim( $trule ) != 'Deny From' ) {
 								
 											$rules .= $trule;
 											
