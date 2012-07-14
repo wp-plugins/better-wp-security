@@ -150,8 +150,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		
 			global $wpdb, $bwpsoptions, $logid;
 
+			//set base memory
 			$this->startMem = @memory_get_usage();
-
 			$this->maxMemory = $this->startMem;
 			
 			//get old file list
@@ -269,11 +269,13 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				
 				}
 
+				//get new max memory
 				$newMax = memory_get_peak_usage();
 				if ( $newMax > $this->maxMemory ) {
 					$this->maxMemory = $newMax;
 				}
 
+				//log memory usage
 				$wpdb->update(
 					$wpdb->base_prefix . 'bwps_log',
 					array(

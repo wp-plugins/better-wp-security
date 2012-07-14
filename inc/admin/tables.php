@@ -505,7 +505,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		}
 
 		/**
-		 * Define details column
+		 * Define memory column
 		 *
 		 * @param array $item array of row data
 		 * @return string formatted output
@@ -515,8 +515,9 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		
 			global $bwps;
 
+			//Show 'N/A' if memory was not logged
 			if ( $item['mem_used'] == NULL ) {
-				return 'N/A';
+				return __( 'N/A', $this->hook );
 			} else {
 				return round( ( $item['mem_used'] / 1000000 ), 2 ) . ' MB';
 			}
