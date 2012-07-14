@@ -232,7 +232,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Important', $this->hook ), 'dashboard_content_2' ), //Ask the user if they want BWPS to automatically write to system files					
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$tabs,
+					array(),
 					$this->hook
 				);
 				
@@ -243,7 +243,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$tabs,
+					array(),
 					$this->hook
 				);
 			
@@ -1816,9 +1816,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function hidebackend_content_2() {
 			global $bwpsoptions;
+			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
 			?>
 			<?php if ( get_option( 'permalink_structure' ) == '' && ! is_multisite() ) { //don't display form if permalinks are off ?>
-				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="/wp-admin/options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
+				<p><?php echo __( 'You must turn on', $this->hook ) . ' <a href="' . $adminurl . 'options-permalink.php">' . __( 'WordPress permalinks', $this->hook ) . '</a> ' . __( 'to use this feature.', $this->hook ); ?></p>
 			<?php } else { ?>
 				<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>

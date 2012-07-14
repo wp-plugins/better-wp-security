@@ -149,7 +149,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
-			$this->showmessages( $errorHandler );		
+			$this->showmessages( $errorHandler );
+
+			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
+
+			header( 'Location: ' . $adminurl . 'admin.php?page=better-wp-security' );	
 			
 		}
 		
@@ -168,7 +172,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
-			$this->showmessages( $errorHandler );		
+			$this->showmessages( $errorHandler );
+
+			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
+
+			header( 'Location: ' . $adminurl . 'admin.php?page=better-wp-security' );
 			
 		}
 		
