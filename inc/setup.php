@@ -123,6 +123,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				user bigint(20) ,
 				username varchar(255) ,
 				url varchar(255) ,
+				mem_used varchar(255),
 				referrer varchar(255) ,
 				data MEDIUMTEXT ,
 				PRIMARY KEY  (id)

@@ -428,10 +428,11 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		
 			return array(
 				'time'		=> __( 'Time', $bwps->hook ),
-				'added'	=> __( 'Added', $bwps->hook ),
+				'added'		=> __( 'Added', $bwps->hook ),
 				'deleted'	=> __( 'Deleted', $bwps->hook ),
 				'modified'	=> __( 'Modified', $bwps->hook ),
 				'details'	=> __( 'Details', $bwps->hook ),
+				'mem'		=> __( 'Memory Used', $bwps->hook ),
 			);
 		
 		}
@@ -502,6 +503,25 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 			return '<a href="' . $_SERVER['REQUEST_URI'] . '&bwps_change_details_id=' . $item['id'] . '#file-change">' . __( 'View Details', $bwps->hook ) . '</a>';
 		
 		}
+
+		/**
+		 * Define details column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
+		function column_mem( $item ) {
+		
+			global $bwps;
+
+			if ( $item['mem_used'] == NULL ) {
+				return 'N/A';
+			} else {
+				return round( ( $item['mem_used'] / 1000000 ), 2 ) . ' MB';
+			}
+		
+		}
 		
 		/**
 		 * Prepare data for table
@@ -516,7 +536,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 			$sortable = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
         	
-        	$data = $wpdb->get_results( "SELECT id, timestamp, data FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
+        	$data = $wpdb->get_results( "SELECT id, timestamp, data, mem_used FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=3 ORDER BY timestamp DESC;", ARRAY_A );
         	
         	$per_page = 50; //50 items per page
         	
@@ -540,6 +560,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
         		$rows[$count]['added'] = sizeof( $files['added'] );
         		$rows[$count]['deleted'] = sizeof( $files['removed'] );
         		$rows[$count]['modified'] = sizeof( $files['changed'] );
+        		$rows[$count]['mem_used'] = $item['mem_used'];
         		
         		$count++;
         	

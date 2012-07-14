@@ -3,6 +3,10 @@
 if ( ! class_exists( 'bwps_filecheck' ) ) {
 
 	class bwps_filecheck extends bit51_bwps {
+
+		private $maxMemory = 0;
+		private $startMem = 0;
+
 	
 		/**
 		 * Initialize file checker
@@ -16,7 +20,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			//only exececute if it has been more than 24 hours or the check has never occured and file checking is enabled.
 			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
-			
+
 				$this->execute_filecheck();
 			
 			}
@@ -27,6 +31,14 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			}
 			
 		}
+
+		private static function logPeakMemory(){
+		$oldPeak = wfConfig::get('wfPeakMemory', 0);
+		$peak = memory_get_peak_usage();
+		if($peak > $oldPeak){
+			wfConfig::set('wfPeakMemory', $peak);
+		}
+	}
 		
 		/**
 		 * Check file list
@@ -137,6 +149,10 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		function execute_filecheck( $auto = true ) {
 		
 			global $wpdb, $bwpsoptions, $logid;
+
+			$this->startMem = @memory_get_usage();
+
+			$this->maxMemory = $this->startMem;
 			
 			//get old file list
 			if ( is_multisite() ) {
@@ -252,6 +268,21 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					}
 				
 				}
+
+				$newMax = memory_get_peak_usage();
+				if ( $newMax > $this->maxMemory ) {
+					$this->maxMemory = $newMax;
+				}
+
+				$wpdb->update(
+					$wpdb->base_prefix . 'bwps_log',
+					array(
+						'mem_used' => ( $this->maxMemory - $this->startMem )
+					),
+					array(
+						'id' => $wpdb->insert_id
+					)
+				);
 				
 			}
 				
