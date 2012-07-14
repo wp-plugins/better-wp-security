@@ -403,12 +403,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						$locklimit = min( $bwpsoptions['ll_blacklistipthreshold'], $bwpsoptions['id_blacklistipthreshold'] );
 						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
 					
-					} elseif ( $bwpsoptions['id_blacklistip'] == 1 ) {
+					} elseif ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['id_blacklistipthreshold'];
 						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
 				
-					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 ) {
+					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['ll_blacklistipthreshold'];
 						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" );
@@ -422,7 +422,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				//die( 'Locklimit = ' . $locklimit . ', lockcount = ' . $lockcount );
 				
 				if ( $locklimit !== false && $lockcount >= $locklimit ) {
 				
@@ -451,7 +450,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				}
 				
-				if ( $locklimit !== false && $lockcount >= $locklimit && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
+				if ( $bwpsoptions['st_writefiles'] == 1 && $locklimit !== false && $lockcount >= $locklimit && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
 
 					$lockfiles = new bwps_admin_common();
 					$lockfiles->writehtaccess();

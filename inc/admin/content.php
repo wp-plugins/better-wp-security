@@ -1903,25 +1903,27 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'The number of minutes a host will be banned from the site after triggering a lockout.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
-						<th scope="row" class="settinglabel">
-							<label for "id_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
-						</th>
-						<td class="settingfield">
-							<input id="id_blacklistip" name="id_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_blacklistip'] ); ?> />
-							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
-							<p><strong style="color: #ff0000;"><?php _e( 'Warning! If your site has a lot of missing files causing 404 errors using this feature can ban your own computer from your site. I would highly advice whitelisting your IP address below if this is the case.', $this->hook ); ?></strong></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row" class="settinglabel">
-							<label for "id_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
-						</th>
-						<td class="settingfield">
-							<input id="id_blacklistipthreshold" name="id_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['id_blacklistipthreshold']; ?>" />
-							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
-						</td>
-					</tr>
+					<?php if ( $bwpsoptions['st_writefiles'] == 1 ) { ?>
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "id_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+							</th>
+							<td class="settingfield">
+								<input id="id_blacklistip" name="id_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['id_blacklistip'] ); ?> />
+								<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
+								<p><strong style="color: #ff0000;"><?php _e( 'Warning! If your site has a lot of missing files causing 404 errors using this feature can ban your own computer from your site. I would highly advice whitelisting your IP address below if this is the case.', $this->hook ); ?></strong></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "id_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+							</th>
+							<td class="settingfield">
+								<input id="id_blacklistipthreshold" name="id_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['id_blacklistipthreshold']; ?>" />
+								<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
+							</td>
+						</tr>
+					<?php } ?>
 					<tr valign="top">
 						<th scope="row" class="settinglabel">
 							<label for "id_whitelist"><?php _e( '404 White List', $this->hook ); ?></label>
@@ -2075,24 +2077,26 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'The length of time a host or computer will be banned from this site after hitting the limit of bad logins.', $this->hook ); ?></p>
 						</td>
 					</tr>
-					<tr valign="top">
-						<th scope="row" class="settinglabel">
-							<label for "ll_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
-						</th>
-						<td class="settingfield">
-							<input id="ll_blacklistip" name="ll_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_blacklistip'] ); ?> />
-							<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row" class="settinglabel">
-							<label for "ll_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
-						</th>
-						<td class="settingfield">
-							<input id="ll_blacklistipthreshold" name="ll_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['ll_blacklistipthreshold']; ?>" />
-							<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
-						</td>
-					</tr>
+					<?php if ( $bwpsoptions['st_writefiles'] == 1 ) { ?>
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "ll_blacklistip"><?php _e( 'Blacklist Repeat Offender', $this->hook ); ?></label>
+							</th>
+							<td class="settingfield">
+								<input id="ll_blacklistip" name="ll_blacklistip" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['ll_blacklistip'] ); ?> />
+								<p><?php _e( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "ll_blacklistipthreshold"><?php _e( 'Blacklist Threshold', $this->hook ); ?></label>
+							</th>
+							<td class="settingfield">
+								<input id="ll_blacklistipthreshold" name="ll_blacklistipthreshold" type="text" value="<?php echo $bwpsoptions['ll_blacklistipthreshold']; ?>" />
+								<p><?php _e( 'The number of lockouts per IP before the user is banned permanently from this site', $this->hook ); ?></p>
+							</td>
+						</tr>
+					<?php } ?>
 					<tr valign="top">
 						<th scope="row" class="settinglabel">
 							<label for "ll_emailnotify"><?php _e( 'Email Notifications', $this->hook ); ?></label>
