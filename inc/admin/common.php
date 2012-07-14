@@ -1074,9 +1074,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			//rewrite each appropriate line
 			foreach ($config as $line) {
 			
-				if ( strstr( $line, "/* That's all, stop editing! Happy blogging. */" ) ) {
+				if ( strstr( $line, "<?php" ) ) {
 				
-					$line = $lines . $line; //paste ending 
+					$line = $line . PHP_EOL . PHP_EOL . $lines; //paste ending 
 				
 				}
 				

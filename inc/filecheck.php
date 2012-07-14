@@ -31,14 +31,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			}
 			
 		}
-
-		private static function logPeakMemory(){
-		$oldPeak = wfConfig::get('wfPeakMemory', 0);
-		$peak = memory_get_peak_usage();
-		if($peak > $oldPeak){
-			wfConfig::set('wfPeakMemory', $peak);
-		}
-	}
 		
 		/**
 		 * Check file list
@@ -275,6 +267,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					$this->maxMemory = $newMax;
 				}
 
+				echo $this->startMem . '<br />' . $this->maxMemory;
+
 				//log memory usage
 				$wpdb->update(
 					$wpdb->base_prefix . 'bwps_log',
@@ -282,7 +276,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 						'mem_used' => ( $this->maxMemory - $this->startMem )
 					),
 					array(
-						'id' => $wpdb->insert_id
+						'id' => $logid
 					)
 				);
 				

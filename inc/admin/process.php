@@ -631,9 +631,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				@ini_set( 'auto_detect_line_endings', true );
 			
-				$scanText = "/* That's all, stop editing! Happy blogging. */";
-				$altScan = "/* Stop editing */";
-				$newText = "define( 'WP_CONTENT_DIR', '" . $newDir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . sanitize_text_field( $_POST['dirname'] ) . "' );" . PHP_EOL . PHP_EOL . "/* That's all, stop editing! Happy blogging. */" . PHP_EOL;
+				$scanText = "<?php";
+				$newText = "<?php" . PHP_EOL . PHP_EOL . "define( 'WP_CONTENT_DIR', '" . $newDir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . sanitize_text_field( $_POST['dirname'] ) . "' );" . PHP_EOL . PHP_EOL;
 					
 				//read each line into an array
 				while ( $lines[] = fgets( $handle, 4096 ) ) {}
@@ -653,11 +652,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					if (strstr( $line, $scanText ) ) {
 					
 						$line = str_replace( $scanText, $newText, $line );
-					
-					} else if ( strstr( $line, $altScan ) ) {
-					
-						$line = str_replace( $altScan, $newText, $line );
-					
+
 					}
 							
 					fwrite( $handle, $line ); //write the line
