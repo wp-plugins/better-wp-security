@@ -270,7 +270,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				}
 
 				//get new max memory
-				$newMax = memory_get_peak_usage();
+				$newMax = @memory_get_peak_usage();
 				if ( $newMax > $this->maxMemory ) {
 					$this->maxMemory = $newMax;
 				}
@@ -374,6 +374,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			$report .= '<strong>' . __( 'Files Added:', $this->hook ) . '</strong> ' . sizeof( $added ) . "<br />" . PHP_EOL;
 			$report .= '<strong>' . __( 'Files Deleted:', $this->hook ) . '</strong> ' . sizeof( $removed ) . "<br />" . PHP_EOL;
 			$report .= '<strong>' . __( 'Files Modified:', $this->hook ) . '</strong> ' . sizeof( $changed ) . "<br />" . PHP_EOL;
+			$report .= '<strong>' . __( 'Memory Used:', $this->hook ) . '</strong> ' . round( ( $changes[0]['mem_used'] / 1000000 ), 2 ) . " MB<br />" . PHP_EOL;
 		
 			if ( $email == true ) {
 					
