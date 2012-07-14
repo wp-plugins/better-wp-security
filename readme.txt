@@ -31,6 +31,7 @@ As most WordPress attacks are a result of plugin vulnerabilities, weak passwords
 * Remove Windows Live Write header information
 * Remove RSD header information
 * Rename "admin" account
+* Change the ID on the user with ID 1
 * Change the Wordpress database table prefix
 * Change wp-content path
 * Removes login error messages
@@ -49,6 +50,7 @@ Just hiding parts of your site is helpful but won't stop everything. After we hi
 * Force SSL for admin pages (on supporting servers)
 * Force SSL for any page or post (on supporting servers)
 * Turn off file editing from within Wordpress admin area
+* Detect and block numerous attacks to your filesystem and database
 
 = Detect =
 
@@ -151,6 +153,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4 =
 
 = 3.3 =
 * More checks to ensure blank "Deny from" lines don't appear in .htaccess
