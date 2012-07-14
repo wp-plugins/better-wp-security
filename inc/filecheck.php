@@ -162,10 +162,10 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			$currItems = $this->scanfiles(); //scan current files
 			
-			$added = array_diff_assoc( $currItems, $logItems ); //files added
-			$removed = array_diff_assoc( $logItems, $currItems ); //files deleted
-			$compcurrent = array_diff_key( $currItems, $added ); //remove all added files from current filelist
-			$complog = array_diff_key( $logItems, $removed );  //remove all deleted files from old file list
+			$added = @array_diff_assoc( $currItems, $logItems ); //files added
+			$removed = @array_diff_assoc( $logItems, $currItems ); //files deleted
+			$compcurrent = @array_diff_key( $currItems, $added ); //remove all added files from current filelist
+			$complog = @array_diff_key( $logItems, $removed );  //remove all deleted files from old file list
 			$changed = array(); //array of changed files
 			
 			//compare file hashes and mod dates
