@@ -110,21 +110,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 				)
 			)
 		);
-		public $tabs = array(
-			'better-wp-security'					=> 'Dashboard',
-			'better-wp-security-adminuser'			=> 'User',
-			'better-wp-security-awaymode'			=> 'Away',
-			'better-wp-security-banusers'			=> 'Ban',
-			'better-wp-security-contentdirectory'	=> 'Dir',
-			'better-wp-security-databasebackup'		=> 'Backup',
-			'better-wp-security-databaseprefix'		=> 'Prefix',
-			'better-wp-security-hidebackend'		=> 'Hide',
-			'better-wp-security-intrusiondetection'	=> 'Detect',
-			'better-wp-security-loginlimits'		=> 'Login',
-			'better-wp-security-ssl'				=> 'SSL',
-			'better-wp-security-systemtweaks'		=> 'Tweaks',
-			'better-wp-security-logs'				=> 'Logs'
-		);
+		public $tabs;
 
 		function __construct() {
 		

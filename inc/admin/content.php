@@ -5,6 +5,44 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 	class bwps_admin_content extends bwps_admin_common {
 	
 		function __construct() {
+
+			global $bwpsoptions, $tabs;
+
+			if ( $bwpsoptions['st_writefiles'] == 0 ) { 
+
+				$tabs = array(
+					'better-wp-security'					=> 'Dashboard',
+					'better-wp-security-adminuser'			=> 'User',
+					'better-wp-security-awaymode'			=> 'Away',
+					'better-wp-security-banusers'			=> 'Ban',
+					'better-wp-security-databasebackup'		=> 'Backup',
+					'better-wp-security-hidebackend'		=> 'Hide',
+					'better-wp-security-intrusiondetection'	=> 'Detect',
+					'better-wp-security-loginlimits'		=> 'Login',
+					'better-wp-security-ssl'				=> 'SSL',
+					'better-wp-security-systemtweaks'		=> 'Tweaks',
+					'better-wp-security-logs'				=> 'Logs'
+				);			
+
+			} else {
+
+				$tabs = array(
+					'better-wp-security'					=> 'Dashboard',
+					'better-wp-security-adminuser'			=> 'User',
+					'better-wp-security-awaymode'			=> 'Away',
+					'better-wp-security-banusers'			=> 'Ban',
+					'better-wp-security-contentdirectory'	=> 'Dir',
+					'better-wp-security-databasebackup'		=> 'Backup',
+					'better-wp-security-databaseprefix'		=> 'Prefix',
+					'better-wp-security-hidebackend'		=> 'Hide',
+					'better-wp-security-intrusiondetection'	=> 'Detect',
+					'better-wp-security-loginlimits'		=> 'Login',
+					'better-wp-security-ssl'				=> 'SSL',
+					'better-wp-security-systemtweaks'		=> 'Tweaks',
+					'better-wp-security-logs'				=> 'Logs'
+				);
+
+			}
 		
 			if ( is_multisite() ) { 
 				add_action( 'network_admin_menu', array( &$this, 'register_settings_page' ) ); 
@@ -23,7 +61,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function register_settings_page() {
 		
-			global $bwpsoptions;
+			global $bwpsoptions, $tabs;
 		
 			add_menu_page(
 				__( $this->pluginname, $this->hook ) . ' - ' . __( 'Dashboard', $this->hook ),
@@ -170,7 +208,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function admin_dashboard() {
 			
-			global $bwpsoptions;
+			global $bwpsoptions, $tabs;
 			
 			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
@@ -183,7 +221,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ) //Better WP Security Rewrite Rules
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook
 				);
 				
@@ -194,7 +232,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Important', $this->hook ), 'dashboard_content_2' ), //Ask the user if they want BWPS to automatically write to system files					
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook
 				);
 				
@@ -205,7 +243,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook
 				);
 			
@@ -218,6 +256,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_adminuser() {
+
+			global $tabs;
+
 			if ( ! is_multisite() ) {
 				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
 					array(
@@ -226,7 +267,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Change The Admin User ID', $this->hook ), 'adminuser_content_3' ) //adminuser options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-adminuser'
 				);
 			} else {
@@ -236,7 +277,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Change The Admin User Name', $this->hook ), 'adminuser_content_2' )
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-adminuser'
 				);
 			}
@@ -248,6 +289,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_awaymode() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Administor Away Mode', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'awaymode_content_1' ), //information to prevent the user from getting in trouble
@@ -255,7 +299,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Away Mode Rules', $this->hook ), 'awaymode_content_3' )
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-awaymode'
 			);
 		}
@@ -265,6 +309,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_banusers() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Users', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'banusers_content_1' ), //information to prevent the user from getting in trouble
@@ -273,7 +320,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				),
 				BWPS_PU . 'images/shield-large.png'
 				,
-					$this->tabs,
+					$tabs,
 					$this->hook . '-banusers'
 			);
 		}
@@ -283,13 +330,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_contentdirectory() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Change wp-content Directory', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'contentdirectory_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The wp-content Directory', $this->hook ), 'contentdirectory_content_2' ) //contentdirectory options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-contentdirectory'
 			);
 		}
@@ -299,6 +349,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_databasebackup() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Backup WordPress Database', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
@@ -307,7 +360,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-databasebackup'
 			);
 		}
@@ -317,13 +370,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_databaseprefix() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Change Database Prefix', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databaseprefix_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Database Prefix', $this->hook ), 'databaseprefix_content_2' ) //databaseprefix options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-databaseprefix'
 			);
 		}
@@ -333,6 +389,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_hidebackend() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Hide WordPress Backend', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'hidebackend_content_1' ), //information to prevent the user from getting in trouble
@@ -340,7 +399,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Secret Key', $this->hook ), 'hidebackend_content_3' ) //hidebackend secret key information 
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-hidebackend'
 			);
 		}
@@ -351,7 +410,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 **/
 		function admin_intrusiondetection() {
 		
-			global $bwpsoptions;
+			global $bwpsoptions, $tabs;
 		
 			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true ) {
 			
@@ -362,7 +421,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-instrusiondetection'
 				);
 				
@@ -374,7 +433,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-instrusiondetection'
 				);
 			
@@ -387,13 +446,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_loginlimits() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Limit Login Attempts', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'loginlimits_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Limit Login Attempts', $this->hook ), 'loginlimits_content_2' ) //loginlimit options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-loginlimits'
 			);
 		}
@@ -403,6 +465,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_ssl() {
+
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'SSL', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'ssl_content_1' ), //information to prevent the user from getting in trouble
@@ -410,7 +475,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-ssl'
 			);
 		}
@@ -420,6 +485,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_systemtweaks() {
+			
+			global $tabs;
+
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
@@ -427,7 +495,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-systemtweaks'
 			);
 		}
@@ -437,6 +505,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function admin_logs() {
+
+			global $tabs;
 					
 			$this->admin_page( $this->pluginname . ' - ' . __( 'Better WP Security Logs', $this->hook ),
 				array(
@@ -450,7 +520,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$this->tabs,
+					$tabs,
 					$this->hook . '-logs'
 			);
 		}
@@ -584,13 +654,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<span style="color: green;"><?php _e( 'The user with id 1 has been removed.', $this-> hook ); ?></span>
 					<?php } ?>
 				</li>
-				<li class="securecheck">
-					<?php if ( $wpdb->base_prefix == 'wp_' ) { ?>
-						<span style="color: red;"><?php _e( 'Your table prefix should not be ', $this->hook ); ?><em>wp_</em>. <a href="admin.php?page=better-wp-security-databaseprefix"><?php _e( 'Click here to rename it.', $this->hook ); ?></a></span>
-					<?php } else { ?>
-						<span style="color: green;"><?php echo __( 'Your table prefix is', $this->hook ) . ' ' . $wpdb->base_prefix; ?></span>
-					<?php } ?>
-				</li>
+				<?php if ( $bwpsoptions['st_writefiles'] == 1 ) { ?>
+					<li class="securecheck">
+						<?php if ( $wpdb->base_prefix == 'wp_' ) { ?>
+							<span style="color: red;"><?php _e( 'Your table prefix should not be ', $this->hook ); ?><em>wp_</em>. <a href="admin.php?page=better-wp-security-databaseprefix"><?php _e( 'Click here to rename it.', $this->hook ); ?></a></span>
+						<?php } else { ?>
+							<span style="color: green;"><?php echo __( 'Your table prefix is', $this->hook ) . ' ' . $wpdb->base_prefix; ?></span>
+						<?php } ?>
+					</li>
+				<?php } ?>
 				<li class="securecheck">
 					<?php if ( $bwpsoptions['backup_enabled'] == 1 ) { ?>
 						<span style="color: green;"><?php _e( 'You have scheduled regular backups of your WordPress database.', $this->hook ); ?></span>
@@ -692,13 +764,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<span style="color: blue;"><?php _e( 'Users may still be able to get version information from various plugins and themes.', $this->hook ); ?> <a href="admin.php?page=better-wp-security-systemtweaks#st_randomversion"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
 					<?php } ?>
 				</li>
-				<li class="securecheck">
-					<?php if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) { ?>
-						<span style="color: green;"><?php _e( 'You have renamed the wp-content directory of your site.', $this->hook ); ?></span>
-					<?php } else { ?>
-						<span style="color: blue;"><?php _e( 'You should rename the wp-content directory of your site.', $this->hook ); ?> <a href="admin.php?page=better-wp-security-contentdirectory"><?php _e( 'Click here to do so.', $this->hook ); ?></a></span>
-					<?php } ?>
-				</li>
+				<?php if ( $bwpsoptions['st_writefiles'] == 1 ) { ?>
+					<li class="securecheck">
+						<?php if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) { ?>
+							<span style="color: green;"><?php _e( 'You have renamed the wp-content directory of your site.', $this->hook ); ?></span>
+						<?php } else { ?>
+							<span style="color: blue;"><?php _e( 'You should rename the wp-content directory of your site.', $this->hook ); ?> <a href="admin.php?page=better-wp-security-contentdirectory"><?php _e( 'Click here to do so.', $this->hook ); ?></a></span>
+						<?php } ?>
+					</li>
+				<?php } ?>
 				<li class="securecheck">
 					<?php if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) { ?>
 						<span style="color: green;"><?php _e( 'You are requiring a secure connection for logins and the admin area.', $this-> hook ); ?></span>
@@ -708,6 +782,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<span style="color: blue;"><?php _e( 'You are not requiring a secure connection for logins or for the admin area.', $this-> hook ); ?> <a href="admin.php?page=better-wp-security-ssl#ssl_frontend"><?php _e( 'Click here to fix.', $this-> hook ); ?></a></span>
 					<?php } ?>
 				</li>
+				<?php if ( $bwpsoptions['st_writefiles'] == 0 ) { ?>
+					<li class="securecheck">
+						<span style="color: orange;"><?php _e( 'Notice: Some items are hidden as you are not allowing this plugin to write to core files.', $this->hook ); ?></span> <a href="admin.php?page=better-wp-security-systemtweaks#st_writefiles"><?php _e( 'Click here to fix.', $this->hook ); ?></a></span>
+					</li>
+				<?php } ?>
 			</ol>
 			<hr />
 			<ul>
