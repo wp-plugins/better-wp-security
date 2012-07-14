@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.4.1
 Tested up to: 3.4.1
-Stable tag: 3.3
+Stable tag: 3.4
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -85,6 +85,7 @@ Configuration is easy, but there are a lot of options. The video below will walk
 = Translations =
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
+* Russian
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
 
 Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
@@ -155,6 +156,26 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = 3.4 =
+* Added Russian Translation
+* Updated Hindi contributor to <a href="http://outshinesolutions.com/">Outshine Solutions</a>
+* Prevented file change warning from displaying to non-admins
+* Fixed error causing multiple backup emails
+* Added ability to change ID of user with ID 1
+* Fixed bug in plugin base url
+* Added extra warnings and "escape route" for away mode
+* Fixed hide backend issues since WordPress 3.4
+* Lookup IP addresses directly from logs
+* Fixed dbdelta errors on upgrade
+* Updated form styles and appearance
+* Added tabs to settings pages for increased usability
+* Duplicate IP addresses won't be saved to banned list
+* Wildcards now correctly save to banned list
+* Suppress errors on filecheck arrays
+* Fixed link to permalink settings in hide backend
+* Added extra save buttons to system tweaks
+* Added logging memory usage to filecheck
+* Updated readme.txt
+* Updated .pot
 
 = 3.3 =
 * More checks to ensure blank "Deny from" lines don't appear in .htaccess
