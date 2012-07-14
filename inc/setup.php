@@ -436,7 +436,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				}
 
-				if ( str_replace( '.', '', $oldversion ) < 3050 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3051 ) {
 				
 					//turn on away mode for existing users.
 					$amconfirm = $bwpsoptions['am_enabled'] == 1 ? 1 : 0;
