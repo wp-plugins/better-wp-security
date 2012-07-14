@@ -2520,6 +2520,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 						<tr>
+							<td scope="row" colspan="2" class="settingsubmit">
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
+							</td>
+						</tr>
+						<tr>
 							<td scope="row" colspan="2" class="settingsection">
 								<a name="st_generator"></a><h4><?php _e( 'Header Tweaks', $this->hook ); ?></h4>
 							</td>
@@ -2550,6 +2555,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<input id="st_edituri" name="st_edituri" type="checkbox" value="1" <?php checked( '1', $bwpsoptions['st_edituri'] ); ?> />
 								<p><?php _e( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', $this->hook ); ?></p>
 								<p class="warningtext"><?php _e( 'Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2" class="settingsubmit">
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 							</td>
 						</tr>
 						<tr>
@@ -2585,6 +2595,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</td>
 						</tr>
 						<tr>
+							<td scope="row" colspan="2" class="settingsubmit">
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
+							</td>
+						</tr>
+						<tr>
 							<td scope="row" colspan="2" class="settingsection">
 								<h4><?php _e( 'Strong Password Tweaks', $this->hook ); ?></h4>
 							</td>
@@ -2612,6 +2627,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								</select>
 								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
 								<p class="warningtext"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" colspan="2" class="settingsubmit">
+								<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 							</td>
 						</tr>
 						<tr>
