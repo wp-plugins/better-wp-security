@@ -526,7 +526,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= "RewriteCond %{REQUEST_METHOD} POST" . PHP_EOL .
 						"RewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*" . PHP_EOL .
-						"RewriteCond %{HTTP_REFERER} !^" . $this->topdomain( get_option( 'siteurl' ) ) . ".* [OR]" . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^" . $this->topdomain( get_option( 'siteurl' ) ) . ".* " . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^http://jetpack\.wordpress\.com/jetpack-comment/ [OR]" . PHP_EOL .
 						"RewriteCond %{HTTP_USER_AGENT} ^$" . PHP_EOL . 
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
