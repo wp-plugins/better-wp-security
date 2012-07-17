@@ -267,8 +267,6 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					$this->maxMemory = $newMax;
 				}
 
-				echo $this->startMem . '<br />' . $this->maxMemory;
-
 				//log memory usage
 				$wpdb->update(
 					$wpdb->base_prefix . 'bwps_log',
