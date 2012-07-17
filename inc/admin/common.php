@@ -532,13 +532,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
-				
-					$rules .= 
-						"\tset \$rule_0 0;" . PHP_EOL .
-						"\tif (\$request_method ~ \"POST\"){ set \$rule_0 1; }" . PHP_EOL .
-						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){ set \$rule_0 2\$rule_0; }" . PHP_EOL .
-						"\tif (\$http_user_agent ~ \"^$\"){ set \$rule_0 4\$rule_0; }" . PHP_EOL .
-						"\tif (\$rule_0 = \"421\"){ return 403; }" . PHP_EOL;
+
+					$rules .=
+					"\tlocation /wp-comments-post.php {" . PHP_EOL .
+  					"\t\tvalid_referers jetpack.wordpress.com/jetpack-comment/ " . $this->topdomain( get_option( 'siteurl' ), false ) . ";" . PHP_EOL .
+  					"\t\tset \$rule_0 0;" . PHP_EOL .
+					"\t\tif (\$request_method ~ \"POST\"){ set \$rule_0 1\$rule_0; }" . PHP_EOL .
+ 					"\t\tif (\$invalid_referer) { set \$rule_0 2\$rule_0; }" . PHP_EOL .
+					"\t\tif (\$http_user_agent ~ \"^$\"){ set \$rule_0 3\$rule_0; }" . PHP_EOL .
+					"\t\tif (\$rule_0 = \"3210\") { return 403; }" . PHP_EOL .
+					"\t}";
 				
 				}
 				
@@ -793,17 +796,22 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 * Returns primary domsin name (without subdomains) of given URL
 		 *
 		 * @param string $address address to filter
+		 * @param boolean $apache[true] does this require an apache style wildcard
 		 * @return string domain name
 		 *
 		 **/		
-		function topdomain( $address ) {
+		function topdomain( $address, $apache = true ) {
 		
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
 			$host = $matches[2];
 			preg_match( "/[^\.\/]+\.[^\.\/]+$/", $host, $matches );
-			$newAddress =  "(.*)" . $matches[0] ;
+			if ( $apache == true ) {
+				$wc = '(.*)';
+			} else {
+				$wc = '*.';
+			}
 			
-			return $newAddress;
+			return $wc . $matches[0] ;;
 			
 		}
 		
