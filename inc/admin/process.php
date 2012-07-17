@@ -1337,15 +1337,15 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$errorHandler = __( 'The selected records have been cleared.', $this->hook );
 			
 			if ( isset( $_POST['badlogins'] ) && $_POST['badlogins'] == 1 ) { //delete old bad logins
-				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['ll_checkinterval'] * 60 ) ) . " AND `type` = 1;" );
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 1;" );
 			}
 			
 			if ( isset( $_POST['404s'] ) && $_POST['404s'] == 1 ) { //delete old 404s
-				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `timestamp` < " . ( time() - ( $bwpsoptions['id_checkinterval'] * 60 ) ) . " AND `type` = 2;" );
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;" );
 			}
 			
 			if ( isset( $_POST['lockouts'] ) && $_POST['lockouts'] == 1 ) { //delete old or inactive lockouts
-				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . time() . " OR `active` = 0;" );
+				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_lockouts`;" );
 			}
 			
 			if ( isset( $_POST['changes'] ) && $_POST['changes'] == 1 ) { //delete old file records
