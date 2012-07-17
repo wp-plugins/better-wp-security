@@ -272,7 +272,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 				}
 				
-				$rules .= $blacklist . PHP_EOL . PHP_EOL;
+				$rules .= $blacklist . PHP_EOL;
 				
 				
 				
@@ -365,8 +365,6 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					
 					}
 				
-					$rules .= PHP_EOL . PHP_EOL;					
-				
 				}
 			
 			}
@@ -401,21 +399,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 				
 					$rules .= 
-						"\tlocation ~ /\.ht {" . PHP_EOL .
-						"\t\tdeny all;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tlocation ~ wp-config.php {" . PHP_EOL .
-						"\t\tdeny all;". PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tlocation ~ readme.html {" . PHP_EOL .
-						"\t\tdeny all;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tlocation ~ readme.txt {" . PHP_EOL .
-						"\t\tdeny all;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tlocation ~ /install.php {" . PHP_EOL .
-						"\t\tdeny all;". PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL;
+						"\tlocation ~ /\.ht { deny all; }" . PHP_EOL .
+						"\tlocation ~ wp-config.php { deny all; }" . PHP_EOL .
+						"\tlocation ~ readme.html { deny all; }" . PHP_EOL .
+						"\tlocation ~ readme.txt { deny all; }" . PHP_EOL .
+						"\tlocation ~ /install.php { deny all; }" . PHP_EOL;
 				}
 				
 			}
@@ -433,7 +421,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					$rules .= 
 						"\tset \$susquery 0;" . PHP_EOL .
 						"\tset \$rule_2 0;" . PHP_EOL .
-						"\tset \$rule_3 0;" . PHP_EOL . PHP_EOL;
+						"\tset \$rule_3 0;" . PHP_EOL;
 				
 				}
 			
@@ -488,9 +476,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						}
 							
 						$rules .= 
-							"\tif (\$http_user_agent ~* " . $alist . ") {" . PHP_EOL .
-							"\t\treturn 403;" . PHP_EOL .
-							"\t}" . PHP_EOL . PHP_EOL;
+							"\tif (\$http_user_agent ~* " . $alist . ") { return 403; }" . PHP_EOL;
 					}
 				
 				}
@@ -512,7 +498,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= 
 						"\trewrite ^wp-includes/(.*).php /not_found last;" . PHP_EOL .
-						"\trewrite ^/wp-admin/includes(.*)$ /not_found last;" . PHP_EOL . PHP_EOL;
+						"\trewrite ^/wp-admin/includes(.*)$ /not_found last;" . PHP_EOL;
 				
 				}
 				
@@ -528,9 +514,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 				
 					$rules .= 
-					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){" . PHP_EOL .
-					"\t\treturn 403;" . PHP_EOL .
-					"\t}" . PHP_EOL . PHP_EOL;
+					"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){ return 403; }" . PHP_EOL;
 				
 				}
 				
@@ -549,19 +533,11 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 				
 					$rules .= 
-						"\tset \$rule_0 0;" . PHP_EOL . PHP_EOL .
-						"\tif (\$request_method ~ \"POST\"){" . PHP_EOL .
-						"\t\tset \$rule_0 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .	
-						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){" . PHP_EOL .
-						"\t\tset \$rule_0 2\$rule_0;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .	
-						"\tif (\$http_user_agent ~ \"^$\"){" . PHP_EOL .
-						"\t\tset \$rule_0 4\$rule_0;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .	
-						"\tif (\$rule_0 = \"421\"){" . PHP_EOL .
-						"\t\treturn 403;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL;
+						"\tset \$rule_0 0;" . PHP_EOL .
+						"\tif (\$request_method ~ \"POST\"){ set \$rule_0 1; }" . PHP_EOL .
+						"\tif (\$uri ~ \"^(.*)wp-comments-post.php*\"){ set \$rule_0 2\$rule_0; }" . PHP_EOL .
+						"\tif (\$http_user_agent ~ \"^$\"){ set \$rule_0 4\$rule_0; }" . PHP_EOL .
+						"\tif (\$rule_0 = \"421\"){ return 403; }" . PHP_EOL;
 				
 				}
 				
@@ -595,54 +571,22 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					$rules .= 
 					
-						"\tif (\$args ~* \"\\.\\./\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(bash|git|hg|log|svn|swp|cvs)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" .PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"etc/passwd\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"boot.ini\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"ftp:\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"http:\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"https:\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"base64_encode\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(%24&x)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" .PHP_EOL . PHP_EOL .
-						"\tif (\$args ~* \"(request|select|insert|concat|union|declare)\") {" . PHP_EOL .
-						"\t\tset \$susquery 1;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL;
+						"\tif (\$args ~* \"\\.\\./\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(bash|git|hg|log|svn|swp|cvs)\") { set \$susquery 1; }" .PHP_EOL .
+						"\tif (\$args ~* \"etc/passwd\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"boot.ini\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"ftp:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"http:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"https:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"base64_encode\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(%24&x)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){ set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){ set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") { set \$susquery 1; }" .PHP_EOL .
+						"\tif (\$args ~* \"(request|select|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL;
 				
 				}
 				
@@ -655,7 +599,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					"\t\tset \$susquery 2\$susquery;" . PHP_EOL .
 					"\t\tset \$rule_2 1;" . PHP_EOL .
 					"\t\tset \$rule_3 1;" . PHP_EOL .
-					"\t}" . PHP_EOL . PHP_EOL;
+					"\t}" . PHP_EOL;
 			
 			}
 			
@@ -664,9 +608,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'nginx' ) {
 			
 					$rules .= 
-						"\tif (\$susquery = 21) {" . PHP_EOL .
-						"\t\treturn 403;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL;
+						"\tif (\$susquery = 21) { return 403; }" . PHP_EOL;
 						
 				}
 				
@@ -725,47 +667,21 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				} else {
 					
 					$rules .= 
-						"\trewrite ^" . $dir . $login . "/?$ " . $dir . "wp-login.php?" . $key . " redirect;" . PHP_EOL . PHP_EOL .
-						"\tif (\$rule_2 = 1) {" . PHP_EOL .
-						"\t\trewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$rule_2 = 0) {" . PHP_EOL .
-						"\t\trewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-admin/?" . $key . " redirect;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\trewrite ^" . $dir . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL . PHP_EOL .
-						"\tif (\$uri !~ \"^(.*)admin-ajax.php\") {" . PHP_EOL .
-						"\t\tset \$rule_3 2\$rule_3;" . PHP_EOL .
-						 "\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* wp-admin ) {" . PHP_EOL .
-						"\t\tset \$rule_3 3\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* wp-login.php ) {" . PHP_EOL .
-						"\t\tset \$rule_3 4\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* " . $login . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 5\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* " . $admin . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 6\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$http_referer !~* " . $register . " ) {" . PHP_EOL .
-						"\t\tset \$rule_3 7\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args !~ \"^action=logout\") {" . PHP_EOL .
-						"\t\tset \$rule_3 8\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args !~ \"^" . $key . "\") {" . PHP_EOL .
-						"\t\tset \$rule_3 9\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args !~ \"^action=rp\") {" . PHP_EOL .
-						"\t\tset \$rule_3 0\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args !~ \"^action=register\") {" . PHP_EOL .
-						"\t\tset \$rule_3 a\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
-						"\tif (\$args !~ \"^action=postpass\") {" . PHP_EOL .
-						"\t\tset \$rule_3 b\$rule_3;" . PHP_EOL .
-						"\t}" . PHP_EOL . PHP_EOL .
+						"\trewrite ^" . $dir . $login . "/?$ " . $dir . "wp-login.php?" . $key . " redirect;" . PHP_EOL .
+						"\tif (\$rule_2 = 1) { rewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-login.php?" . $key . "&redirect_to=/wp-admin/ redirect; }" . PHP_EOL .
+						"\tif (\$rule_2 = 0) { rewrite ^" . $dir . $admin . "/?$ " . $dir . "wp-admin/?" . $key . " redirect; }" . PHP_EOL .
+						"\trewrite ^" . $dir . $register . "/?$ " . $dir . "wp-login.php?" . $key . "&action=register redirect;" . PHP_EOL .
+						"\tif (\$uri !~ \"^(.*)admin-ajax.php\") { set \$rule_3 2\$rule_3; }" . PHP_EOL .
+						"\tif (\$http_referer !~* wp-admin ) { set \$rule_3 3\$rule_3; }" . PHP_EOL .
+						"\tif (\$http_referer !~* wp-login.php ) { set \$rule_3 4\$rule_3; }" . PHP_EOL .
+						"\tif (\$http_referer !~* " . $login . " ) { set \$rule_3 5\$rule_3; }" . PHP_EOL .
+						"\tif (\$http_referer !~* " . $admin . " ) { set \$rule_3 6\$rule_3; }" . PHP_EOL .
+						"\tif (\$http_referer !~* " . $register . " ) { set \$rule_3 7\$rule_3; }" . PHP_EOL .
+						"\tif (\$args !~ \"^action=logout\") { set \$rule_3 8\$rule_3; }" . PHP_EOL .
+						"\tif (\$args !~ \"^" . $key . "\") { set \$rule_3 9\$rule_3; }" . PHP_EOL .
+						"\tif (\$args !~ \"^action=rp\") { set \$rule_3 0\$rule_3; }" . PHP_EOL .
+						"\tif (\$args !~ \"^action=register\") { set \$rule_3 a\$rule_3; }" . PHP_EOL .
+						"\tif (\$args !~ \"^action=postpass\") { set \$rule_3 b\$rule_3; }" . PHP_EOL .
 						"\tif (\$rule_3 = ba0987654321) {" . PHP_EOL .
 						"\t\trewrite ^(.*/)?wp-login.php " . $dir . "not_found redirect;" . PHP_EOL .
 						"\t\trewrite ^" . $dir . "wp-admin(.*)$ " . $dir . "not_found redirect;" . PHP_EOL .
@@ -788,7 +704,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			//add markers if we have rules
 			if ( $rules != '' ) {
-				$rules = "# BEGIN Better WP Security" . PHP_EOL . $rules . PHP_EOL . "# END Better WP Security" . PHP_EOL;
+				$rules = "# BEGIN Better WP Security" . PHP_EOL . $rules . "# END Better WP Security" . PHP_EOL;
 			}
 			
 			return implode( PHP_EOL, array_diff( explode( PHP_EOL, $rules ), array( 'Deny from ', 'Deny from' ) ) );
