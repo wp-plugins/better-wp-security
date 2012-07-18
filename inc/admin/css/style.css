@@ -3,10 +3,6 @@
 	width: 25%;
 }
 
-label {
-	font-weight: bold;
-}
-
 .form-table tr, 
 .form-table td,
 .form-table th {
@@ -26,6 +22,7 @@ tr.strongwarning {
 }
 
 th.settinglabel {
+	font-weight: bold;
 	width: 20%;
 }
 
