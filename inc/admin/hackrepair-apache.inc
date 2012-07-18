@@ -208,8 +208,6 @@ deny from 209.147.127.208/28
 deny from 198.186.190.0/23
 deny from 198.186.192.0/23
 deny from 198.186.194.0/24
-# PSI network
-deny from 38.0.0.0/8
 # urlfilterdb
 deny from 207.210.99.32/29
 # websense-in.car1.sandiego1.level3.net
