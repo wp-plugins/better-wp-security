@@ -241,7 +241,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			<?php
 		}
 
-		function admin_tabs( $tabs, $current = NULL ) {
+		function admin_tabs( $tabs, $current = NULL, $page = true ) {
 			if ( $current == NULL ) {
 				$current = $this->hook;
 			}
@@ -249,8 +249,13 @@ if ( ! class_exists( 'Bit51' ) ) {
 			echo '<div id="icon-themes" class="icon32"><br></div>';
 			echo '<h2 class="nav-tab-wrapper">';
 			foreach( $tabs as $location => $tabname ){
-				$class = ( $location == $current ) ? ' nav-tab-active' : '';
-				echo '<a class="nav-tab' . $class. '" href="?page=' . $location . '">' . $tabname . '</a>';
+				if ( is_array( $tabname ) ) {
+					$class = ( $location == $current ) ? ' nav-tab-active' : '';
+					echo '<a class="nav-tab' . $class. '" href="?page=' . $tabname[1] . '&tab='. $location . '">' . $tabname[0] . '</a>';
+				} else {
+					$class = ( $location == $current ) ? ' nav-tab-active' : '';
+					echo '<a class="nav-tab' . $class. '" href="?page=' . $location . '">' . $tabname . '</a>';
+				}
 			}
 			echo '</h2>';
 		}
@@ -264,9 +269,15 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 * @param object $boxes array of primary content boxes in postbox form
 		 * @param string $icon[optional] icon file to display
 		 * @param object $tabs[optional] array of tabs to display
+		 * @param boolean $page[optional] true if stand-alone page, false otherwise
 		 *
 		 **/
-		function admin_page( $title, $boxes, $icon = '', $tabs = NULL ) {
+		function admin_page( $title, $boxes, $icon = '', $tabs = NULL, $page = true ) {
+
+			if ( ( $page != true && !isset( $_GET['tab'] ) ) || ( $page == true && isset( $_GET['tab'] ) ) ) {
+				return;
+			}
+
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
@@ -277,8 +288,10 @@ if ( ! class_exists( 'Bit51' ) ) {
 					<h2><?php _e( $title, $this->hook ) ?></h2>
 					<?php 
 						if ( $tabs != NULL ) {
-							if ( isset ( $_GET['page'] ) ) {
-								$this->admin_tabs( $tabs, $_GET['page'] ); 
+							if ( isset ( $_GET['tab'] ) ) {
+								$this->admin_tabs( $tabs, filter_var( $_GET['tab'], FILTER_SANITIZE_STRING ), false ); 
+							} elseif( isset( $_GET['page'] ) ) {
+								$this->admin_tabs( $tabs, filter_var( $_GET['page'], FILTER_SANITIZE_STRING ) ); 
 							} else { 
 								$this->admin_tabs( $tabs ); 
 							}
@@ -405,7 +418,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			
 			$content .= '<li class="twitter"><a href="http://twitter.com/Bit51" target="_blank">' . __( 'Follow Bit51 on Twitter', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="google"><a href="https://plus.google.com/104513012839087985497" target="_blank">' . __( 'Find Bit51 on Google+', $this->hook ) . '</a></li>';
+			$content .= '<li class="google"><a href="https://plus.google.com/104513012839087985497" target="_blank">' . __( 'Circle Bit51 on Google+', $this->hook ) . '</a></li>';
 			
 			$content .= '<li class="subscribe"><a href="http://bit51.com/subscribe" target="_blank">' . __( 'Subscribe with RSS or Email', $this->hook ) . '</a></li>';
 			
