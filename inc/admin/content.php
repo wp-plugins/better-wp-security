@@ -212,7 +212,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
 						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
 						array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
@@ -221,30 +222,29 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						array( __( 'Wp-config.php Code', $this->hook ), 'dashboard_content_6' ) //Better WP Security Rewrite Rules
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook
+					$bwpstabs
 				);
 				
 			} elseif ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 0 ) { 
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
 						array( __( 'Important', $this->hook ), 'dashboard_content_2' ), //Ask the user if they want BWPS to automatically write to system files					
 					),
 					BWPS_PU . 'images/shield-large.png',
-					array(),
-					$this->hook
+					array()
 				);
 				
 			} else { //if they haven't backed up their database or ignored the warning
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
 					array(
 						array( __( 'Welcome!', $this->hook ), 'dashboard_content_1' ), //Try to force the user to back up their site before doing anything else
 					),
 					BWPS_PU . 'images/shield-large.png',
-					array(),
-					$this->hook
+					array()
 				);
 			
 			}
@@ -260,18 +260,19 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $bwpstabs;
 
 			if ( ! is_multisite() ) {
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
 					array(
 						array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
 						array( __( 'Change The Admin User Name', $this->hook ), 'adminuser_content_2' ), //adminuser options
 						array( __( 'Change The Admin User ID', $this->hook ), 'adminuser_content_3' ) //adminuser options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-adminuser'
+					$bwpstabs
 				);
 			} else {
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'Change Admin User', $this->hook ),
 					array(
 						array( __( 'Before You Begin', $this->hook ), 'adminuser_content_1' ), //information to prevent the user from getting in trouble
 						array( __( 'Change The Admin User Name', $this->hook ), 'adminuser_content_2' )
@@ -292,15 +293,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Administor Away Mode', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Administor Away Mode', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'awaymode_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Away Mode Options', $this->hook ), 'awaymode_content_2' ), //awaymode options
 					array( __( 'Away Mode Rules', $this->hook ), 'awaymode_content_3' )
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-awaymode'
+				$bwpstabs
 			);
 		}
 		
@@ -312,7 +313,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Ban Users', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Ban Users', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'banusers_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'User and Bot Blacklist', $this->hook ), 'banusers_content_2' ), //banusers options
@@ -320,8 +322,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				),
 				BWPS_PU . 'images/shield-large.png'
 				,
-					$bwpstabs,
-					$this->hook . '-banusers'
+				$bwpstabs
 			);
 		}
 		
@@ -333,14 +334,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Change wp-content Directory', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Change wp-content Directory', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'contentdirectory_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The wp-content Directory', $this->hook ), 'contentdirectory_content_2' ) //contentdirectory options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-contentdirectory'
+				$bwpstabs
 			);
 		}
 		
@@ -352,7 +353,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Backup WordPress Database', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Backup WordPress Database', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
@@ -360,8 +362,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-databasebackup'
+				$bwpstabs
 			);
 		}
 		
@@ -373,14 +374,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Change Database Prefix', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Change Database Prefix', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databaseprefix_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Change The Database Prefix', $this->hook ), 'databaseprefix_content_2' ) //databaseprefix options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-databaseprefix'
+				$bwpstabs
 			);
 		}
 		
@@ -392,15 +393,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Hide WordPress Backend', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Hide WordPress Backend', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'hidebackend_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Hide Backend Options', $this->hook ), 'hidebackend_content_2' ), //hidebackend options
 					array( __( 'Secret Key', $this->hook ), 'hidebackend_content_3' ) //hidebackend secret key information 
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-hidebackend'
+				$bwpstabs
 			);
 		}
 		
@@ -414,27 +415,27 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		
 			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true ) {
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
 					array(
 						array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
 						array( __( 'Check For File Changes', $this->hook ), 'intrusiondetection_content_2' ), //Manually check for file changes						
 						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-instrusiondetection'
+					$bwpstabs
 				);
 				
 			} else {
 			
-				$this->admin_page( $this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),
 					array(
 						array( __( 'Before You Begin', $this->hook ), 'intrusiondetection_content_1' ), //information to prevent the user from getting in trouble
 						array( __( 'Intrusion Detection', $this->hook ), 'intrusiondetection_content_3' ) //intrusiondetection options
 					),
 					BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-instrusiondetection'
+					$bwpstabs
 				);
 			
 			}
@@ -449,14 +450,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Limit Login Attempts', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Limit Login Attempts', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'loginlimits_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Limit Login Attempts', $this->hook ), 'loginlimits_content_2' ) //loginlimit options
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-loginlimits'
+				$bwpstabs
 			);
 		}
 		
@@ -468,15 +469,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'SSL', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'SSL', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'ssl_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'SSL Options', $this->hook ), 'ssl_content_2' ) //ssl options
 					
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-ssl'
+				$bwpstabs
 			);
 		}
 		
@@ -488,15 +489,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			global $bwpstabs;
 
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Various Security Tweaks', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'systemtweaks_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'System Tweaks', $this->hook ), 'systemtweaks_content_2' ) //systemtweaks htaccess (or other rewrite) options
 					
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-systemtweaks'
+				$bwpstabs
 			);
 		}
 		
@@ -508,7 +509,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 
 			global $bwpstabs;
 					
-			$this->admin_page( $this->pluginname . ' - ' . __( 'Better WP Security Logs', $this->hook ),
+			$this->admin_page( 
+				$this->pluginname . ' - ' . __( 'Better WP Security Logs', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'logs_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Clean Database', $this->hook ), 'logs_content_2' ), //Clean Database
@@ -520,8 +522,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				
 				),
 				BWPS_PU . 'images/shield-large.png',
-					$bwpstabs,
-					$this->hook . '-logs'
+				$bwpstabs
 			);
 		}
 		
