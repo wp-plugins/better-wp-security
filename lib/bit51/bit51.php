@@ -263,9 +263,10 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 * @param string $title Title of page to display to user
 		 * @param object $boxes array of primary content boxes in postbox form
 		 * @param string $icon[optional] icon file to display
+		 * @param object $tabs[optional] array of tabs to display
 		 *
 		 **/
-		function admin_page( $title, $boxes, $icon = '', $tabs = NULL, $tab = NULL ) {
+		function admin_page( $title, $boxes, $icon = '', $tabs = NULL ) {
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
