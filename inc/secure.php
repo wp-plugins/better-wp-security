@@ -423,6 +423,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
+				$permban = false;
 				
 				if ( $locklimit !== false && $lockcount >= $locklimit ) {
 				
@@ -430,28 +431,34 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 					$bwpsoptions['bu_enabled'] = 1;
 					$banlist = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
+
+					if ( ! in_array( $wpdb->escape( $_SERVER['REMOTE_ADDR'] ), $banlist) ) {
+
+						$permban = true;
 					
-					$banlist[] = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
+						$banlist[] = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
 					
-					$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $banlist );
+						$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $banlist );
 					
-					if ( is_multisite() ) {
+						if ( is_multisite() ) {
 			
-						switch_to_blog( 1 );
+							switch_to_blog( 1 );
 			
-						update_option( $this->primarysettings, $bwpsoptions );
+							update_option( $this->primarysettings, $bwpsoptions );
 			
-						restore_current_blog();
+							restore_current_blog();
 			
-					} else {
+						} else {
 			
-						update_option( $this->primarysettings, $bwpsoptions );
+							update_option( $this->primarysettings, $bwpsoptions );
 				
+						}
+
 					}
 				
 				}
 				
-				if ( $bwpsoptions['st_writefiles'] == 1 && $locklimit !== false && $lockcount >= $locklimit && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
+				if ( $bwpsoptions['st_writefiles'] == 1 && $permban == true && ( strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'apache' ) || strstr( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'litespeed' ) ) ) {
 
 					$lockfiles = new bwps_admin_common();
 					$lockfiles->writehtaccess();
@@ -528,8 +535,18 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . ') ';
 						
 					}
+
+					if ( $permban == false ) {
+
+						$duration = __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i:s a e", $exptime );
+
+					} else {
+
+						$duration = __( 'parmanently', $this->hook );
+
+					}
 			
-					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i:s a e", $exptime ) . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
+					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . $duration . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
 				
 					$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $mailHead );
 					
