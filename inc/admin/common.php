@@ -569,6 +569,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(request|select|concat|insert|union|declare).* [NC]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
@@ -606,6 +607,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					"\t\tset \$rule_3 1;" . PHP_EOL .
 					"\t}" . PHP_EOL . 
 					"\tif (\$args !~ \"^loggedout=true\") { set \$susquery 3\$susquery; }" . PHP_EOL;
+					"\tif (\$args !~ \"^action=rp\") { set \$susquery 4\$susquery; }" . PHP_EOL;
 			
 			}
 			
@@ -614,7 +616,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'nginx' ) {
 			
 					$rules .= 
-						"\tif (\$susquery = 321) { return 403; }" . PHP_EOL;
+						"\tif (\$susquery = 4321) { return 403; }" . PHP_EOL;
 						
 				}
 				
