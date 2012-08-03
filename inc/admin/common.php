@@ -668,7 +668,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} !^action=register" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^action=postpass" . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
-						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php /not_found [R,L]" . PHP_EOL . PHP_EOL .
+						"RewriteRule ^.*wp-admin/?|^.*wp-login\.php " . $dir . "not_found [R,L]" . PHP_EOL . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^loggedout=true" . PHP_EOL .
 						"RewriteRule ^.*$ " . $dir . "wp-login.php?" . $key . " [R,L]" . PHP_EOL;
 							
