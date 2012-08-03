@@ -517,7 +517,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 
 			//Show 'N/A' if memory was not logged
 			if ( $item['mem_used'] == NULL ) {
-				return __( 'N/A', $this->hook );
+				return __( 'N/A', $bwps->hook );
 			} else {
 				return round( ( $item['mem_used'] / 1000000 ), 2 ) . ' MB';
 			}

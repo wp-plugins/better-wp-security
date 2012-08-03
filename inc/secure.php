@@ -475,7 +475,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 							'starttime' => $currtime,
 							'exptime' => $exptime,
 							'host' => $wpdb->escape( $_SERVER['REMOTE_ADDR'] ),
-							'user' => ''
+							'user' => 0
 						)
 					);
 				
@@ -805,7 +805,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						global $bwps_login_slug, $post;
 						
 						//make sure user is logged in and not already on the login page
-					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-admin' ) && $post->post_password == '' ) {
+					    if ( ! is_user_logged_in() && strpos($url, 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-login.php' ) && ! strstr( $_SERVER['REQUEST_URI'], 'wp-admin' ) && isset( $post ) && $post->post_password == '' ) {
 					    
 							$url = get_site_url(1) . $bwps_login_slug; // your url here
 														
