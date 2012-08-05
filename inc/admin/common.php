@@ -56,6 +56,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			$newUser = $wpdb->insert_id;
 			$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $newUser . "' WHERE post_author = 1;" );
 			$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $newUser . "' WHERE user_id = 1;" );
+			$wpdb->query( "UPDATE `" . $wpdb->comments . "` SET user_id = '" . $newUser . "' WHERE user_id = 1;" );
+			$wpdb->query( "UPDATE `" . $wpdb->links . "` SET link_owner = '" . $newUser . "' WHERE link_owner = 1;" );
 
 			return true;
 
