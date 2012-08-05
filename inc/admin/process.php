@@ -112,6 +112,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			//execute backup
 			$bwps_backup->execute_backup();
 			
+			$bwps->clearcache( true );
 			$this->showmessages( $errorHandler );		
 			
 		}
@@ -130,6 +131,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			update_option( $this->primarysettings, $bwpsoptions );
 			
+			$bwps->clearcache( true );
 			$this->showmessages( $errorHandler );		
 			
 		}
@@ -217,6 +219,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$errorHandler = __( 'Settings Saved. Your website is now protected from most attacks.', $this->hook );
 			
+			$bwps->clearcache( true );
 			$this->showmessages( $errorHandler );		
 			
 		}
@@ -275,8 +278,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				}
 			}
 			
-			$bwps->clearcache();
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 			wp_clear_auth_cookie();
@@ -301,7 +303,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 
 			}
 
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 
 		}
@@ -357,7 +359,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -547,7 +549,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 		}
 		
@@ -586,7 +588,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -673,8 +675,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 			
-			$bwps->clearcache();
-			$bwps->clearcache();
+			$bwps->clearcache( true );
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 		}
@@ -777,7 +779,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -947,8 +949,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 					
-			$bwps->clearcache();
-			$bwps->clearcache();
+			$bwps->clearcache( true );
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 			remove_action( 'admin_notices', 'site_admin_notice' );
@@ -1010,7 +1012,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 		
 		}
@@ -1247,7 +1249,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( 'bwps_filecheck', $bwps_filecheck );
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 		
 		}
@@ -1335,7 +1337,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -1366,7 +1368,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 		}
 		
@@ -1397,7 +1399,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -1466,7 +1468,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
@@ -1558,7 +1560,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$bwps->clearcache();
+			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
