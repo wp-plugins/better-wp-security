@@ -474,13 +474,17 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			
 				delete_option( 'bwps_intrusion_warning' );
 				
-				delete_transient( 'bit51_bwps_backup' );
+				delete_site_transient( 'bit51_bwps_backup' );
+
+				delete_site_transient( 'bwps_away' );
 			
 				restore_current_blog();
 			
 			} else {
 			
 				delete_option( 'bwps_intrusion_warning' );
+
+				delete_transient( 'bwps_away' );
 				
 				delete_transient( 'bit51_bwps_backup' );
 				

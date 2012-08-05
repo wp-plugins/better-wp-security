@@ -137,46 +137,87 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function checkaway() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
+
+			if ( is_multisite() ) {
+				$transaway = get_site_transient( 'bwps_away' );
+			} else {
+				$transaway = get_transient( 'bwps_away' );
+			}
+
+			$bwps->clearcache();
+
+			if ( $transaway === true && get_option( 'bwps_awaymode' ) == 1 ) {
+
+				return true;
+
+			} else {
 			
-			$cTime = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() ) ) );
-			
-			$offsettime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
-			
-			if ( $bwpsoptions['am_type'] == 1 && get_option( 'bwps_awaymode' ) == 1 ) { //set up for daily
-			
-				if ( $bwpsoptions['am_starttime'] < $bwpsoptions['am_endtime'] ) { //starts and ends on same calendar day
+				$cTime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
 				
-					$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
-					$end = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+				if ( $bwpsoptions['am_type'] == 1 && get_option( 'bwps_awaymode' ) == 1 ) { //set up for daily
+				
+					if ( $bwpsoptions['am_starttime'] < $bwpsoptions['am_endtime'] ) { //starts and ends on same calendar day
 					
-				} else {
-				
-					if ( strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) ) <= $cTime ) { 
-				
-						$start = strtotime( date( 'n/j/y', $offsettime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
-						$end = strtotime( date( 'n/j/y', ( $offsettime + 86400 ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+						$start = strtotime( date( 'n/j/y', $cTime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+						$end = strtotime( date( 'n/j/y', $cTime ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
 						
 					} else {
 					
-						$start = strtotime( date( 'n/j/y', $offsettime - 86400 ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
-						$end = strtotime( date( 'n/j/y', ( $offsettime ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+						if ( strtotime( date( 'n/j/y', $cTime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) ) <= $cTime ) { 
 					
+							$start = strtotime( date( 'n/j/y', $cTime ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+							$end = strtotime( date( 'n/j/y', ( $cTime + 86400 ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+							
+						} else {
+						
+							$start = strtotime( date( 'n/j/y', $cTime - 86400 ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+							$end = strtotime( date( 'n/j/y', ( $cTime ) ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+						
+						}
+						
+					}
+
+					if ( $end < $cTime ) { //make sure to advance the day appropriately
+
+						$start = $start + 86400;
+						$end = $end + 86400;
+
 					}
 					
+				} else { //one time settings
+				
+					$start = strtotime( date( 'n/j/y', $bwpsoptions['am_startdate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
+					$end = strtotime( date( 'n/j/y', $bwpsoptions['am_enddate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
+				
 				}
-				
-			} else { //one time settings
-			
-				$start = strtotime( date( 'n/j/y', $bwpsoptions['am_startdate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_starttime'] ) );
-				$end = strtotime( date( 'n/j/y', $bwpsoptions['am_enddate'] ) . ' ' . date( 'g:i a', $bwpsoptions['am_endtime'] ) );
-			
-			}
-				
-			if ( $bwpsoptions['am_enabled'] == 1 && get_option( 'bwps_awaymode' ) == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
 
-				return true; //time restriction is current
-				
+				$remaining = $end - $cTime;
+					
+				if ( $bwpsoptions['am_enabled'] == 1 && get_option( 'bwps_awaymode' ) == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
+
+					if ( is_multisite() ) {
+
+						if ( get_site_transient( 'bwps_away' ) === true ) {
+							delete_site_transient ( 'bwps_away' );
+						}
+
+						set_site_transient( 'bwps_away' , true, $remaining );
+
+					} else {
+
+						if ( get_transient( 'bwps_away' ) === true ) {
+							delete_transient ( 'bwps_away' );
+						}
+
+						set_transient( 'bwps_away' , true, $remaining );
+
+					}
+
+					return true; //time restriction is current
+					
+				}
+
 			}
 			
 			return false; //they are allowed to log in
@@ -195,7 +236,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function checklist( $list, $rawhost = '' ) {
 		
-			global $wpdb;
+			global $bwps, $wpdb;
 			
 			//convert list to array
 			$values = explode( "\n", $list );
@@ -328,8 +369,9 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 * Clears popular WordPress caching mechanisms
 		 *
+		 * @param bool page[optional] true to clear page cache
 		 **/
-		function clearcache() {
+		function clearcache( $page = false ) {
 
 			//clear APC Cache
 			if ( function_exists( 'apc_store' ) ) { 
@@ -339,7 +381,10 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			//clear w3 total cache or wp super cache
 			if ( function_exists( 'w3tc_pgcache_flush' ) ) {
 				
-				w3tc_pgcache_flush();
+				if ( $page == true ) {
+					w3tc_pgcache_flush();
+				}
+
 				w3tc_dbcache_flush();
 				w3tc_objectcache_flush();
 				w3tc_minify_flush();
