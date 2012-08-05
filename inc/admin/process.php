@@ -291,6 +291,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function adminuser_process_2() {
 
+			global $bwps;
+
 			$errorHandler = __( 'Successfully Changed user 1 ID.', $this->hook );
 
 			if ( $this->changeuserid() === false ) {
