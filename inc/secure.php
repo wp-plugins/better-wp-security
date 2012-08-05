@@ -322,6 +322,35 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 		}
+
+		/**
+		 * Clear caches
+		 *
+		 * Clears popular WordPress caching mechanisms
+		 *
+		 **/
+		function clearcache() {
+
+			//clear APC Cache
+			if ( function_exists( 'apc_store' ) ) { 
+				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
+			}
+
+			//clear w3 total cache or wp super cache
+			if ( function_exists( 'w3tc_pgcache_flush' ) ) {
+				
+				w3tc_pgcache_flush();
+				w3tc_dbcache_flush();
+				w3tc_objectcache_flush();
+				w3tc_minify_flush();
+				
+			} else if ( function_exists( 'wp_cache_clear_cache' ) ) {
+
+				wp_cache_clear_cache();
+				
+			}
+
+		}
 		
 		/**
 		 * Prevent non-admin users from seeing core updates
@@ -782,6 +811,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//if hide backend is enabled filter appropriate login and register links
 			if ( $bwpsoptions['hb_enabled'] == 1 ) {
+
+				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 ); //stop canonical processing
 			
 				$bwps_login_slug = '/' . $bwpsoptions['hb_login'];
 				$bwps_register_slug = '/' . $bwpsoptions['hb_register'];

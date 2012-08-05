@@ -100,7 +100,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_1() {
 		
-			global $wpdb, $bwps_backup, $bwpsoptions;
+			global $bwps, $wpdb, $bwps_backup, $bwpsoptions;
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
@@ -122,7 +122,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_2() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Database Backup Ignored.', $this->hook );
 			
@@ -140,7 +140,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_3() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'WordPress Core File Writing confirmed.', $this->hook );
 			
@@ -163,7 +163,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_4() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'WordPress Core File Writing ignored.', $this->hook );
 			
@@ -186,7 +186,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function dashboard_process_5() {
 			
-			global $bwpsoptions, $bwpsmemlimit;
+			global $bwps, $bwpsoptions, $bwpsmemlimit;
 		
 			$errorHandler = __( 'Site Secured.', $this->hook );
 			
@@ -227,7 +227,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function adminuser_process_1() {
 		
-			global $wpdb;
+			global $bwps, $wpdb;
 			$errorHandler = __( 'Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing.', $this->hook );
 			
 			//sanitize the username
@@ -275,7 +275,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				}
 			}
 			
-			$this-> showmessages( $errorHandler ); //finally show messages
+			$bwps->clearcache();
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 			wp_clear_auth_cookie();
 			
@@ -299,7 +301,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 
 			}
 
-			$this-> showmessages( $errorHandler ); //finally show messages
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 
 		}
 		
@@ -309,7 +312,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function awaymode_process_1() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -354,7 +357,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -543,7 +547,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 		}
 		
 		/**
@@ -552,7 +557,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function banusers_process_2() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -581,7 +586,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -591,7 +597,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function contentdirectory_process_1() {
 		
-			global $wpdb, $bwpsoptions;
+			global $bwps, $wpdb, $bwpsoptions;
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
 			$oldDir = WP_CONTENT_DIR;
@@ -667,7 +673,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 			
-			$this-> showmessages( $errorHandler ); //finally show messages
+			$bwps->clearcache();
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 		}
 		
@@ -677,7 +685,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function databasebackup_process_1() {
 		
-			global $bwps_backup, $bwpsoptions;
+			global $bwps, $bwps_backup, $bwpsoptions;
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
@@ -697,7 +705,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function databasebackup_process_2() {
 		
-			global $bwps_backup, $bwpsoptions;
+			global $bwps, $bwps_backup, $bwpsoptions;
 			
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -769,7 +777,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -778,7 +787,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 *
 		 **/
 		function databaseprefix_process_1() {
-			global $wpdb, $bwpsoptions;
+			global $bwps, $wpdb, $bwpsoptions;
 			$errorHandler = __( 'Database Prefix Changed', $this->hook );	
 	
 			$checkPrefix = true;//Assume the first prefix we generate is unique
@@ -938,7 +947,9 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 						
 			}
 					
-			$this-> showmessages( $errorHandler ); //finally show messages
+			$bwps->clearcache();
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages //finally show messages
 			
 			remove_action( 'admin_notices', 'site_admin_notice' );
 			remove_action( 'network_admin_notices', 'site_admin_notice' );
@@ -951,7 +962,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function hidebackend_process_1() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -999,7 +1010,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 		
 		}
 		
@@ -1009,7 +1021,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function intrusiondetection_process_1() {
 		
-			global $bwpsoptions, $bwps_filecheck;
+			global $bwps, $bwpsoptions, $bwps_filecheck;
 			
 			$errorHandler = __( 'File Check Complete.', $this->hook );
 				
@@ -1029,7 +1041,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function intrusiondetection_process_2() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 			
 			@ini_set( 'auto_detect_line_endings', true );
 		
@@ -1235,7 +1247,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( 'bwps_filecheck', $bwps_filecheck );
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 		
 		}
 		
@@ -1245,7 +1258,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function loginlimits_process_1() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -1322,7 +1335,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				update_option( $this->primarysettings, $bwpsoptions );
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -1332,7 +1346,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function log_process_1() {
 		
-			global $wpdb, $bwpsoptions;
+			global $bwps, $wpdb, $bwpsoptions;
 			
 			$errorHandler = __( 'The selected records have been cleared.', $this->hook );
 			
@@ -1352,7 +1366,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 		}
 		
 		/**
@@ -1360,7 +1375,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 *
 		 **/
 		function log_process_2() {
-			global $wpdb;
+			global $bwps, $wpdb;
 			
 			$errorHandler = __( 'The selected lockouts have been cleared.', $this->hook );
 			
@@ -1382,7 +1397,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -1392,7 +1408,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function ssl_process_1() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 			
 			@ini_set( 'auto_detect_line_endings', true );
 		
@@ -1450,7 +1466,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 		
@@ -1461,7 +1478,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		 **/
 		function systemtweaks_process_1() {
 		
-			global $bwpsoptions;
+			global $bwps, $bwpsoptions;
 		
 			$errorHandler = __( 'Settings Saved', $this->hook );
 			
@@ -1541,7 +1558,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 						
-			$this-> showmessages( $errorHandler );
+			$bwps->clearcache();
+			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
 	
