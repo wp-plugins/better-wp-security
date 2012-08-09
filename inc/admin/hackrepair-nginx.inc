@@ -104,7 +104,6 @@
 		if ($http_user_agent ~* "^Widow"){ return 403; }
 		if ($http_user_agent ~* "^WWW-Mechanize"){ return 403; }
 		if ($http_user_agent ~* "^WWWOFFLE"){ return 403; }
-		if ($http_user_agent ~* "Yandex"){ return 403; }
 		if ($http_user_agent ~* "zermelo"){ return 403; }
 		if ($http_user_agent ~* "^Zeus"){ return 403; }
 		if ($http_user_agent ~* "^Zeus.*Webster"){ return 403; }
