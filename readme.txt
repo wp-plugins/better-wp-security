@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.4.1
 Tested up to: 3.4.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -154,6 +154,19 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4.2 =
+* Gravatars will no longer dissappear after changing user 1 id
+* Better cache clearing when changing options
+* Reworked away mode for better cache handling
+* Subdirectory redirects should now work
+* Fixed error message on logout
+* Fixed password reset email link
+* Will no longer duplicate IPs in ban list when entered via auto-ban
+* Minor style updates
+* Better namespacing in content.php
+* Removed 38.0.0.0/8 from hackrepair.com blacklist
+* remove yandex from hackrepair.com blacklist
 
 = 3.4.1 =
 * Clean all logs when checked
