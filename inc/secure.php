@@ -389,7 +389,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				w3tc_objectcache_flush();
 				w3tc_minify_flush();
 				
-			} else if ( function_exists( 'wp_cache_clear_cache' ) ) {
+			} else if ( function_exists( 'wp_cache_clear_cache' ) && $page == true ) {
 
 				wp_cache_clear_cache();
 				
