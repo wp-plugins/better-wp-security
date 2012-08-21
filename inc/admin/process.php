@@ -191,35 +191,48 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			global $bwps, $bwpsoptions, $bwpsmemlimit;
 		
 			$errorHandler = __( 'Site Secured.', $this->hook );
+
+			if ( $_POST['oneclick'] == 1 ) {
 			
-			//select options for one-click access (enable all sections that don't write to files or are otherwise known to cause conflicts).
-			$bwpsoptions['ll_enabled'] = 1;
-			$bwpsoptions['id_enabled'] = 1;
-			$bwpsoptions['st_generator'] = 1;
-			$bwpsoptions['st_manifest'] = 1;
-			$bwpsoptions['st_themenot'] = 1;
-			$bwpsoptions['st_pluginnot'] = 1;
-			$bwpsoptions['st_corenot'] = 1;
-			$bwpsoptions['st_enablepassword'] = 1;
-			$bwpsoptions['st_loginerror'] = 1;
-			
-			if ( $bwpsmemlimit >= 128 ) {
-			
-				$bwpsoptions['id_fileenabled'] = 1;
-				$bwps_filecheck = true;
-			
+				//select options for one-click access (enable all sections that don't write to files or are otherwise known to cause conflicts).
+				$bwpsoptions['ll_enabled'] = 1;
+				$bwpsoptions['id_enabled'] = 1;
+				$bwpsoptions['st_generator'] = 1;
+				$bwpsoptions['st_manifest'] = 1;
+				$bwpsoptions['st_themenot'] = 1;
+				$bwpsoptions['st_pluginnot'] = 1;
+				$bwpsoptions['st_corenot'] = 1;
+				$bwpsoptions['st_enablepassword'] = 1;
+				$bwpsoptions['st_loginerror'] = 1;
+				$bwpsoptions['oneclickchosen'] = 1;
+				
+				if ( $bwpsmemlimit >= 128 ) {
+				
+					$bwpsoptions['id_fileenabled'] = 1;
+					$bwps_filecheck = true;
+				
+				} else {
+				
+					$bwps_filecheck = false;
+				
+				}
+				
+				update_option( 'bwps_filecheck', $bwps_filecheck );
+				update_option( $this->primarysettings, $bwpsoptions );
+				
+				$errorHandler = __( 'Settings Saved. Your website is now protected from most attacks.', $this->hook );
+				
+				$bwps->clearcache( true );
+
 			} else {
-			
-				$bwps_filecheck = false;
-			
+
+				$bwpsoptions['oneclickchosen'] = 1;
+				update_option( $this->primarysettings, $bwpsoptions );
+
+				$errorHandler = __( 'Initial configuration complete. Use the checklist below to enable additional features.', $this->hook );
+
 			}
-			
-			update_option( 'bwps_filecheck', $bwps_filecheck );
-			update_option( $this->primarysettings, $bwpsoptions );
-			
-			$errorHandler = __( 'Settings Saved. Your website is now protected from most attacks.', $this->hook );
-			
-			$bwps->clearcache( true );
+
 			$this->showmessages( $errorHandler );		
 			
 		}

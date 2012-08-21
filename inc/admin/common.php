@@ -62,6 +62,30 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return true;
 
 		}
+
+		/**
+		 * Determine if one-click protection has been activated
+		 *
+		 * @return bool success or failure
+		 *
+		 **/
+		function checkoneclick() {
+
+			global $bwpsoptions, $bwpsmemlimit;
+			
+			if ( $bwpsoptions['id_fileenabled'] == 0 &&  $bwpsmemlimit >= 128 ) {
+				$idfilecheck = 0;
+			} else {
+				$idfilecheck = 1;
+			}
+			
+			if ( $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $idfilecheck == 1 ) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
 		
 		/**
 		 * Deletes BWPS options from .htaccess

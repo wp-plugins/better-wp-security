@@ -210,12 +210,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			
 			global $bwpsoptions, $bwpstabs;
 			
-			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
+			if ( $bwpsoptions['oneclickchosen'] == 1 && $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
 			
 				$this->admin_page( 
 					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
-					array(
-						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ), //One-click protection
+					array(						
 						array( __( 'System Status', $this->hook ), 'dashboard_content_4' ), //Better WP Security System Status
 						array( __( 'System Information', $this->hook ), 'dashboard_content_7' ), //Generic System Information
 						array( __( 'Rewrite Rules', $this->hook ), 'dashboard_content_5' ), //Better WP Security Rewrite Rules
@@ -225,7 +224,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					$bwpstabs
 				);
 				
-			} elseif ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 0 ) { 
+			} elseif ( $bwpsoptions['oneclickchosen'] == 0 && $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
+			
+				$this->admin_page( 
+					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
+					array(
+						array( __( 'One-Click Protection', $this->hook ), 'dashboard_content_3' ) //One-click protection
+					),
+					BWPS_PU . 'images/shield-large.png',
+					$bwpstabs
+				);
+				
+			} elseif ( $bwpsoptions['oneclickchosen'] == 0 && $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 0 ) { 
 			
 				$this->admin_page( 
 					$this->pluginname . ' - ' . __( 'System Status', $this->hook ),
@@ -577,26 +587,21 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_3() {
-			global $bwpsoptions, $bwpsmemlimit;
-			
-				if ( $bwpsoptions['id_fileenabled'] == 0 &&  $bwpsmemlimit >= 128 ) {
-					$idfilecheck = 0;
-				} else {
-					$idfilecheck = 1;
-				}
-			
-			if ( $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $idfilecheck == 1 ) {
 			?>
-			<p><?php _e( 'Congratulations. Your site is secure from basic attacks. Please review the status items below and turn on as many remaining items as you safely can. Full descriptions for each option in this plugin can be found in the corresponding option page for that item.', $this->hook ); ?></p>
-			<?php } else { ?>
-				<form method="post" action="">
-					<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
-					<input type="hidden" name="bwps_page" value="dashboard_5" />
-					<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
-					<p><?php _e( 'Please note this will not make any changes to any files on your site including .htaccess and wp-config.php.', $this->hook ); ?></p>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ); ?>" /></p>			
-				</form>
-			<?php } ?>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="dashboard_5" />
+				<input type="hidden" name="oneclick" value="1" />
+				<p><?php _e( 'The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the "Secure My Site From Basic Attacks" button. The idea is to activate basic features in one-click so you don\'t have to worry about it.', $this->hook ); ?></p>
+				<p><?php _e( 'Please note this will not make any changes to any files on your site including .htaccess and wp-config.php.', $this->hook ); ?></p>
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Secure My Site From Basic Attacks', $this->hook ); ?>" /></p>
+			</form>	
+			<form method="post" action = "">
+				<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
+				<input type="hidden" name="bwps_page" value="dashboard_5" />
+				<input type="hidden" name="oneclick" value="0" />
+				<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'No thanks, I prefer to do configure everything myself.', $this->hook ); ?>" /></p>			
+			</form>
 			<?php
 		}
 		
