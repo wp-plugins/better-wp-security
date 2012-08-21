@@ -74,6 +74,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//compare file to list
 			
 			foreach ( $list as $item ) {
+
+				$item = trim ( $item );
 			
 				//$file is a directory
 				if ( is_dir( ABSPATH . $file ) ) {
@@ -91,8 +93,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 						 }
 				
 					} else { //list item is a single file
-				
-						if ( strcmp( $item, end ( explode( '/' , $file ) ) ) == 0 ){
+
+						if ( strcmp( $item, $file ) == 0 ) {
 							$flag = true;
 						}
 				
