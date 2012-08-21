@@ -43,7 +43,9 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 		//if there is no valud user object
 		if ( $user == null ) {
 		
-			$bwps->logevent( '1' );
+			if( $bwpsoptions['ll_enabled'] == 1 ) {
+				$bwps->logevent( '1' );
+			}
 			$user = new WP_Error( 'authentication_failed', __( '<strong>ERROR</strong>: Invalid username or incorrect password.' ) );
 			
 		}
@@ -58,7 +60,9 @@ if ( ! function_exists( 'wp_authenticate' ) ) {
 			
 		} elseif ( is_wp_error( $user ) && ! in_array( $user->get_error_code(), $ignore_codes ) ) {
 		
-			$bwps->logevent( '1', $username );
+			if ( $bwpsoptions['ll_enabled'] == 1 ) {
+				$bwps->logevent( '1', $username );
+			}
 			do_action( 'wp_login_failed', $username );
 			
 		}

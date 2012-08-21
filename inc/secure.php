@@ -19,7 +19,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//execute default checks
 			add_action( 'init', array( &$this, 'siteinit' ) );
-			add_action( 'wp_head', array( &$this,'check404' ) );
+
+			//execute 404 check
+			if ( $bwpsoptions['id_enabled'] == 1 ) {
+				add_action( 'wp_head', array( &$this,'check404' ) );
+			}
 			
 			//remove wp-generator meta tag
 			if ( $bwpsoptions['st_generator'] == 1 ) { 
