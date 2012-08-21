@@ -145,8 +145,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$transaway = get_transient( 'bwps_away' );
 			}
 
-			$bwps->clearcache();
-
 			if ( $transaway === true && get_option( 'bwps_awaymode' ) == 1 ) {
 
 				return true;
