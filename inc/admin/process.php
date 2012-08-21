@@ -1370,7 +1370,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			}
 						
-			$bwps->clearcache( true );
+			$bwps->clearcache();
 			$this-> showmessages( $errorHandler ); //finally show messages
 		}
 		
@@ -1401,7 +1401,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				
 			}
 			
-			$bwps->clearcache( true );
+			$bwps->clearcache();
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
 		}
