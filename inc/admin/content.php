@@ -1747,7 +1747,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $bwpsoptions;
 			if ( $bwpsoptions['backup_email'] == 1 ) { //emailing so let them know
 				?>
-				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . get_option( 'admin_email' ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
+				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . ( isset( $_POST['backup_emailaddress'] ) ? $_POST['backup_emailaddress'] : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
 				<?php
 			} else { //saving to disk so let them know where
 				?>
