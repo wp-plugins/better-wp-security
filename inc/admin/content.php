@@ -1565,7 +1565,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banlist"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? $_POST['bu_banlist'] : $bwpsoptions['bu_banlist']; ?></textarea>
+							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? filter_var( $_POST['bu_banlist'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banlist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may ban users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -1581,7 +1581,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banrange"><?php _e( 'Ban User Agents', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? $_POST['bu_banagent'] : $bwpsoptions['bu_banagent']; ?></textarea>
+							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? filter_var( $_POST['bu_banagent'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banagent']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'Enter only 1 user agent per line.', $this->hook ); ?></li>
@@ -1635,7 +1635,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php
 			} else { //if their is no admin user display a note 
 				if ( isset( $_POST['bwps_page'] ) ) {
-					$dirname = $_POST['dirname'];
+					$dirname = filter_var( $_POST['dirname'], FILTER_SANITIZE_STRING );
 				} else {
 					$dirname = substr( WP_CONTENT_DIR, strrpos( WP_CONTENT_DIR, '/' ) + 1 );
 				}
@@ -1720,7 +1720,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "backup_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<input id="backup_emailaddress" name="backup_emailaddress" type="text" value="<?php echo ( isset( $_POST['backup_emailaddress'] ) ? $_POST['backup_emailaddress'] : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ); ?>" />
+							<input id="backup_emailaddress" name="backup_emailaddress" type="text" value="<?php echo ( isset( $_POST['backup_emailaddress'] ) ? filter_var( $_POST['backup_emailaddress'], FILTER_SANITIZE_STRING ) : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address backups will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -1747,7 +1747,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			global $bwpsoptions;
 			if ( $bwpsoptions['backup_email'] == 1 ) { //emailing so let them know
 				?>
-				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . ( isset( $_POST['backup_emailaddress'] ) ? $_POST['backup_emailaddress'] : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
+				<p><?php echo __( 'Database backups are NOT saved to the server and instead will be emailed to', $this->hook ) . ' <strong>' . ( isset( $_POST['backup_emailaddress'] ) ? filter_var( $_POST['backup_emailaddress'], FILTER_SANITIZE_STRING ) : ( $bwpsoptions['backup_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['backup_emailaddress'] ) ) . '</strong>. ' . __( 'To change this unset "Send Backups by Email" in the "Scheduled Automated Backups" section above.', $this->hook ); ?></p>
 				<?php
 			} else { //saving to disk so let them know where
 				?>
@@ -1958,7 +1958,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<input id="id_emailaddress" name="id_emailaddress" type="text" value="<?php echo ( isset( $_POST['id_emailaddress'] ) ? $_POST['id_emailaddress'] : ( $bwpsoptions['id_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_emailaddress'] ) ); ?>" />
+							<input id="id_emailaddress" name="id_emailaddress" type="text" value="<?php echo ( isset( $_POST['id_emailaddress'] ) ? filter_var( $_POST['id_emailaddress'], FILTER_SANITIZE_STRING ) : ( $bwpsoptions['id_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -2015,7 +2015,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_whitelist"><?php _e( '404 White List', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? $_POST['id_whitelist'] : $bwpsoptions['id_whitelist']; ?></textarea>
+							<textarea id="id_whitelist" rows="10" cols="50" name="id_whitelist"><?php echo isset( $_POST['id_whitelist'] ) ? filter_var( $_POST['id_whitelist'], FILTER_SANITIZE_STRING ) : $bwpsoptions['id_whitelist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will never be locked out due to too many 404 errors. This could be useful for Google, etc.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may whitelist users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -2064,7 +2064,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_fileemailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<input id="id_fileemailaddress" name="id_fileemailaddress" type="text" value="<?php echo ( isset( $_POST['id_fileemailaddress'] ) ? $_POST['id_fileemailaddress'] : ( $bwpsoptions['id_fileemailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_fileemailaddress'] ) ); ?>" />
+							<input id="id_fileemailaddress" name="id_fileemailaddress" type="text" value="<?php echo ( isset( $_POST['id_fileemailaddress'] ) ? filter_var( $_POST['id_fileemailaddress'], FILTER_SANITIZE_STRING ) : ( $bwpsoptions['id_fileemailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['id_fileemailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address filechange notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>
@@ -2197,7 +2197,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "ll_emailaddress"><?php _e( 'Email Address', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<input id="ll_emailaddress" name="ll_emailaddress" type="text" value="<?php echo ( isset( $_POST['ll_emailaddress'] ) ? $_POST['ll_emailaddress'] : ( $bwpsoptions['ll_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['ll_emailaddress'] ) ); ?>" />
+							<input id="ll_emailaddress" name="ll_emailaddress" type="text" value="<?php echo ( isset( $_POST['ll_emailaddress'] ) ? filter_var( $_POST['ll_emailaddress'], FILTER_SANITIZE_STRING ) : ( $bwpsoptions['ll_emailaddress'] == '' ? get_option( 'admin_email' ) : $bwpsoptions['ll_emailaddress'] ) ); ?>" />
 							<p><?php _e( 'The email address lockout notifications will be sent to.', $this->hook ); ?></p>
 						</td>
 					</tr>

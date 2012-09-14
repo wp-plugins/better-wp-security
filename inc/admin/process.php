@@ -401,10 +401,10 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 				foreach( $banhosts as $item ) {
 				
-					$item = sanitize_text_field( $item );
+					$item = filter_var( $item, FILTER_SANITIZE_STRING );
 				
 					if ( strlen( $item ) > 0 ) {
-					
+
 						$ipParts = explode( '.', $item );
 						$isIP = 0;
 						$partcount = 1;
@@ -431,7 +431,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 												$errorHandler = new WP_Error();
 											}
 										
-											$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+											$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', $this->hook ) );
 										
 										}
 										
@@ -459,7 +459,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 													$errorHandler = new WP_Error();
 												}
 													
-												$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+												$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', $this->hook ) );
 											
 											}
 										
@@ -485,7 +485,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 								$errorHandler = new WP_Error();
 							}
 									
-							$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
+							$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is not a valid ip.', $this->hook ) );
 									
 						} elseif ( strlen( $item > 4 && ! in_array( $item, $list ) ) ) {
 								
@@ -532,7 +532,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 							$errorHandler = new WP_Error();
 						}
 						
-						$errorHandler->add( '1', $text . __( ' is not a valid user agent. Please try again.', $this->hook ) );
+						$errorHandler->add( '1', filter_var( $text, FILTER_SANITIZE_STRING ) . __( ' is not a valid user agent. Please try again.', $this->hook ) );
 						
 					}
 					
@@ -628,7 +628,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					$errorHandler = new WP_Error();
 				}
 						
-				$errorHandler->add( '2', $newuser . __( 'Unable to rename the wp-content folder. Operation cancelled.', $this->hook ) );
+				$errorHandler->add( '2', __( 'Unable to rename the wp-content folder. Operation cancelled.', $this->hook ) );
 				
 			}
 			
@@ -1189,7 +1189,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 												$errorHandler = new WP_Error();
 											}
 												
-											$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+											$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', $this->hook ) );
 												
 										}
 												
@@ -1217,7 +1217,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 													$errorHandler = new WP_Error();
 												}
 															
-												$errorHandler->add( '1', __( $item . ' is note a valid ip.', $this->hook ) );
+												$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', $this->hook ) );
 													
 											}
 												
@@ -1243,7 +1243,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 								$errorHandler = new WP_Error();
 							}
 											
-							$errorHandler->add( '1', __( $item . ' is not a valid ip.', $this->hook ) );
+							$errorHandler->add( '1', __( filter_var( $item, FILTER_SANITIZE_STRING ) . ' is not a valid ip.', $this->hook ) );
 											
 						} else {
 										
