@@ -3,9 +3,9 @@
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.4.1
-Tested up to: 3.4.1
-Stable tag: 3.4.3
+Requires at least: 3.4.2
+Tested up to: 3.4.2
+Stable tag: 3.4.4
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -154,6 +154,15 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4.4 =
+* fixed input vulnerability found at http://packetstormsecurity.org/files/116317/Better-WP-Security-3.4.3-Cross-Site-Scripting.html
+* fixed email address in footer information on backup screen
+* file check exclusions should now work properly for individual files.
+* One-click protection is now part of the install script.
+* Won't log or even check 404 if feature is off.
+* Don't clear cache during away check. Let's see instead if the transients …
+* Don't clear Supercache page cache on clear logs
 
 = 3.4.3 =
 * Only clear WP Supercachce when full page cache clearing is required
