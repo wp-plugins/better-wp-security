@@ -445,9 +445,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				}
 
-				if ( str_replace( '.', '', $oldversion ) < 3055 ) {
+				if ( str_replace( '.', '', $oldversion ) < 3056 ) {
 				
 					delete_option( 'bwps_awaymode' );
+					delete_option( 'bwps_filecheck' );
 				
 				}
 			

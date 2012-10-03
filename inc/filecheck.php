@@ -19,7 +19,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			global $bwpsoptions;
 			
 			//only exececute if it has been more than 24 hours or the check has never occured and file checking is enabled.
-			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
+			if ( $bwpsoptions['id_fileenabled'] == 1 && defined( 'BWPS_FILECHECK' ) && BWPS_FILECHECK === true && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
 
 				$this->execute_filecheck();
 			

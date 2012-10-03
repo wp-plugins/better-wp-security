@@ -423,7 +423,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		
 			global $bwpsoptions, $bwpstabs;
 		
-			if ( $bwpsoptions['id_fileenabled'] == 1 && get_option( 'bwps_filecheck' ) == true ) {
+			if ( $bwpsoptions['id_fileenabled'] == 1 && defined( 'BWPS_FILECHECK' ) && BWPS_FILECHECK === true ) {
 			
 				$this->admin_page( 
 					$this->pluginname . ' - ' . __( 'Intrusion Detection', $this->hook ),

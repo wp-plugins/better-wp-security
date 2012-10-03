@@ -194,7 +194,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				foreach ( $lines as $line ) { //for each line in the file
 											
-					if ( ! strstr( $line, 'BWPS_AWAY_MODE' ) && ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
+					if ( ! strstr( $line, 'BWPS_FILECHECK' ) && ! strstr( $line, 'BWPS_AWAY_MODE' ) && ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
 						
 						fwrite( $f, trim( $line ) . PHP_EOL );
 						
@@ -759,7 +759,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@ini_set( 'auto_detect_line_endings', true );
 			
-			if ( $bwpsoptions['am_enabled'] == 1 || $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['ssl_forcelogin'] == 1 || $bwpsoptions['ssl_forceadmin'] == 1 ) {
+			if ( $bwpsoptions['id_fileenabled'] == 1 || $bwpsoptions['am_enabled'] == 1 || $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['ssl_forcelogin'] == 1 || $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
 				$rules = "//BEGIN Better WP Security" . PHP_EOL;
 				
@@ -784,6 +784,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsoptions['am_enabled'] == 1 ) {
 				
 					$rules .= "define( 'BWPS_AWAY_MODE', true );" . PHP_EOL;
+				
+				}
+
+				if ( $bwpsoptions['id_fileenabled'] == 1 ) {
+				
+					$rules .= "define( 'BWPS_FILECHECK', true );" . PHP_EOL;
 				
 				}
 				
@@ -1026,6 +1032,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				$lines .= "define( 'BWPS_AWAY_MODE', true );" . PHP_EOL;
 			
+			}
+
+			if ( $bwpsoptions['id_fileenabled'] == 1 ) {
+				
+				$lines .= "define( 'BWPS_FILECHECK', true );" . PHP_EOL;
+				
 			}
 			
 			if ( ! $f = @fopen( $configfile, 'w+' ) ) {
