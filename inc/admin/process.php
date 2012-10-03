@@ -1003,7 +1003,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['hb_register'] = sanitize_text_field( $_POST['hb_register'] );
 			
 			//generate a secret key (if there isn't one already)
-			if ( $bwpsoptions['hb_key'] == '' ) {
+			if ( $bwpsoptions['hb_key'] == '' || ( isset( $_POST['hb_getnewkey'] ) && $_POST['hb_getnewkey'] == 1 ) ) {
 				$bwpsoptions['hb_key'] = $this->hidebe_genKey();
 			}
 			

@@ -1867,6 +1867,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<em><span style="color: #666666;"><strong><?php _e( 'Admin URL:', $this->hook ); ?></strong> <?php echo trailingslashit( get_option( 'siteurl' ) ); ?></span><span style="color: #4AA02C"><?php echo $bwpsoptions['hb_admin']; ?></span></em>
 							</td>
 						</tr>
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "hb_getnewkey"><?php _e( 'Generate new secret key', $this->hook ); ?></label>
+							</th>
+							<td class="settingfield">
+								<input id="hb_getnewkey" name="hb_getnewkey" type="checkbox" value="1" />
+								<p><?php _e( 'Check this box to generate a new secret key.', $this->hook ); ?></p>
+							</td>
+						</tr>
 					</table>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', $this->hook ); ?>" /></p>
 				</form>
