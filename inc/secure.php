@@ -149,7 +149,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$transaway = get_transient( 'bwps_away' );
 			}
 
-			if ( $transaway === true && get_option( 'bwps_awaymode' ) == 1 ) {
+			if ( $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
 
 				return true;
 
@@ -157,7 +157,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				$cTime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
 				
-				if ( $bwpsoptions['am_type'] == 1 && get_option( 'bwps_awaymode' ) == 1 ) { //set up for daily
+				if ( $bwpsoptions['am_type'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) { //set up for daily
 				
 					if ( $bwpsoptions['am_starttime'] < $bwpsoptions['am_endtime'] ) { //starts and ends on same calendar day
 					
@@ -196,7 +196,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 				$remaining = $end - $cTime;
 					
-				if ( $bwpsoptions['am_enabled'] == 1 && get_option( 'bwps_awaymode' ) == 1 && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
+				if ( $bwpsoptions['am_enabled'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true && $start <= $cTime && $end >= $cTime ) { //if away mode is enabled continue
 
 					if ( is_multisite() ) {
 

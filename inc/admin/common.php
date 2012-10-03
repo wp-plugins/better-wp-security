@@ -194,7 +194,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				foreach ( $lines as $line ) { //for each line in the file
 											
-					if ( ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
+					if ( ! strstr( $line, 'BWPS_AWAY_MODE' ) && ! strstr( $line, 'DISALLOW_FILE_EDIT' ) && ! strstr( $line, 'FORCE_SSL_LOGIN' ) && ! strstr( $line, 'FORCE_SSL_ADMIN' ) ) {
 						
 						fwrite( $f, trim( $line ) . PHP_EOL );
 						
@@ -759,29 +759,35 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@ini_set( 'auto_detect_line_endings', true );
 			
-			if ( $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['ssl_forcelogin'] == 1 || $bwpsoptions['ssl_forceadmin'] == 1 ) {
+			if ( $bwpsoptions['am_enabled'] == 1 || $bwpsoptions['st_fileedit'] == 1 || $bwpsoptions['ssl_forcelogin'] == 1 || $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
-			$rules = "//BEGIN Better WP Security" . PHP_EOL;
-			
-			if ( $bwpsoptions['st_fileedit'] == 1 ) {
-			
-				$rules .= "define('DISALLOW_FILE_EDIT', true);" . PHP_EOL;
-			
-			}
-			
-			if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
-			
-				$rules .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
-			
-			}
-			
-			if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
-			
-				$rules .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL;
-			
-			}
-			
-			$rules .= "//END Better WP Security" . PHP_EOL;
+				$rules = "//BEGIN Better WP Security" . PHP_EOL;
+				
+				if ( $bwpsoptions['st_fileedit'] == 1 ) {
+				
+					$rules .= "define( 'DISALLOW_FILE_EDIT', true );" . PHP_EOL;
+				
+				}
+				
+				if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
+				
+					$rules .= "define( 'FORCE_SSL_LOGIN', true );" . PHP_EOL;
+				
+				}
+				
+				if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
+				
+					$rules .= "define( 'FORCE_SSL_ADMIN', true );" . PHP_EOL;
+				
+				}
+
+				if ( $bwpsoptions['am_enabled'] == 1 ) {
+				
+					$rules .= "define( 'BWPS_AWAY_MODE', true );" . PHP_EOL;
+				
+				}
+				
+				$rules .= "//END Better WP Security" . PHP_EOL;
 			
 			} else {
 			
@@ -1000,19 +1006,25 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			if ( $bwpsoptions['st_fileedit'] == 1 ) {
 			
-				$lines .= "define('DISALLOW_FILE_EDIT', true);" . PHP_EOL . PHP_EOL;
+				$lines .= "define( 'DISALLOW_FILE_EDIT', true );" . PHP_EOL . PHP_EOL;
 			
 			}
 			
 			if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
 			
-				$lines .= "define('FORCE_SSL_LOGIN', true);" . PHP_EOL;
+				$lines .= "define( 'FORCE_SSL_LOGIN', true );" . PHP_EOL;
 			
 			}
 			
 			if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
-				$lines .= "define('FORCE_SSL_ADMIN', true);" . PHP_EOL . PHP_EOL;
+				$lines .= "define( 'FORCE_SSL_ADMIN', true );" . PHP_EOL . PHP_EOL;
+			
+			}
+
+			if ( $bwpsoptions['am_enabled'] == 1 ) {
+			
+				$lines .= "define( 'BWPS_AWAY_MODE', true );" . PHP_EOL;
 			
 			}
 			

@@ -444,6 +444,12 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					update_option( 'bwps_awaymode', $amconfirm );
 				
 				}
+
+				if ( str_replace( '.', '', $oldversion ) < 3055 ) {
+				
+					delete_option( 'bwps_awaymode' );
+				
+				}
 			
 			}
 		

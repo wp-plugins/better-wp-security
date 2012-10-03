@@ -335,9 +335,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			//validate options
 			$bwpsoptions['am_enabled'] = ( isset( $_POST['am_enabled'] ) && $_POST['am_enabled'] == 1  ? 1 : 0 );
-			if ( $bwpsoptions['am_enabled'] == 1 ) {
-				update_option( 'bwps_awaymode', 1 );
-			}
+			
 			$bwpsoptions['am_type'] = ( isset( $_POST['am_type'] ) && $_POST['am_type'] == 1  ? 1 : 0 );
 						
 			//form times
@@ -371,9 +369,25 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['am_endtime'] = $endTime;
 			
 			if ( ! is_wp_error( $errorHandler ) ) {
+
 				update_option( $this->primarysettings, $bwpsoptions );
+
+				if ( $bwpsoptions['st_writefiles'] == 1  ) {
+				
+					$this->writewpconfig(); //save to wp-config.php
+					
+				} else {
+				
+					if ( ! is_wp_error( $errorHandler ) ) {
+						$errorHandler = new WP_Error();
+					}
+							
+					$errorHandler->add( '2', __( 'Settings Saved. You will have to manually add code to your wp-config.php file See the Better WP Security Dashboard for the code you will need.', $this->hook ) );
+				
+				}
+
 			}
-						
+			
 			$bwps->clearcache( true );
 			$this-> showmessages( $errorHandler ); //finally show messages
 			
