@@ -86,6 +86,7 @@ Configuration is easy, but there are a lot of options. The video below will walk
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Russian
+* Slovak by <a href="http://www.nawebik.sk">Erich Szabó</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
 
 Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
