@@ -151,7 +151,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 			//if transient indicates away go ahead and lock them out
 			if ( $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
-
+			
 				return true;
 
 			} else { //check manually

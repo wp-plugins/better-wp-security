@@ -1304,7 +1304,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'mysql' ) ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select> 
@@ -1316,13 +1316,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'mysql' ) ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select>, 
 							<select name="am_startyear">
 								<?php
-									for ( $i = date( 'Y', current_time( 'mysql' ) ); $i < ( date( 'Y', current_time( 'mysql' ) ) + 2 ); $i++ ) { //determine default
+									for ( $i = date( 'Y', current_time( 'timestamp' ) ); $i < ( date( 'Y', current_time( 'timestamp' ) ) + 2 ); $i++ ) { //determine default
 										if ( $sydisplay == $i ) {
 											$selected = ' selected';
 										} else {
