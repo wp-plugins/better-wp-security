@@ -597,6 +597,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
 						"RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
+						"RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$" . PHP_EOL .
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
