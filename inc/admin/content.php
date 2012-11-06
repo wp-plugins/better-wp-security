@@ -1212,7 +1212,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function awaymode_content_1() {
 			?>
 			<p><?php _e( 'As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->hook ); ?></p>
-			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) ); ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
+			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) ); ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
 			<?php
 		}
 		
@@ -1259,8 +1259,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					
 				} else {
 				
-					$sDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + 86400) ) );
-					$eDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+					$sDate = current_time( 'timestamp' ) + 86400;
+					$eDate = current_time( 'timestamp' ) + ( 86400 * 2 );
 					$smdisplay = date( 'n', $sDate );
 					$sddisplay = date( 'j', $sDate );
 					$sydisplay = date( 'Y', $sDate );
@@ -1760,11 +1760,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				if ( $bwpsoptions['backup_last'] == '' ) {
 					$lastbackup = 'Never';
 				} else {
-					$lastbackup = date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $bwpsoptions['backup_last'] ) ) ) );
+					$lastbackup = date( 'l F jS, Y \a\t g:i a', $bwpsoptions['backup_last'] );
 				}
 				?>
 				<p><strong><?php _e( 'Last Scheduled Backup:', $this->hook ); ?></strong> <?php echo $lastbackup; ?></p>
-				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $bwpsoptions['backup_next'] ) ) ) ); ?></p>
+				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', $bwpsoptions['backup_next'] ); ?></p>
 				<?php if ( file_exists( BWPS_PP . '/backups/lock' ) ) { ?>
 					<p style="color: #ff0000;"><?php _e( 'It looks like a scheduled backup is in progress please reload this page for more accurate times.', $this->hook ); ?></p>
 				<?php } ?>
@@ -2289,7 +2289,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<?php if ( sizeof( $hostLocks ) > 0 ) { ?>
 							<ul>
 								<?php foreach ( $hostLocks as $host) { ?>
-									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $host['id']; ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo $host['host']; ?></strong> - Expires <em><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $host['exptime'] ) ); ?></em></label></li>
+									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $host['id']; ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo $host['host']; ?></strong> - Expires <em><?php echo date( 'Y-m-d H:i:s', $host['exptime'] ); ?></em></label></li>
 								<?php } ?>
 							</ul>
 							<?php } else { //no host is locked out ?>
@@ -2306,7 +2306,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<ul>
 								<?php foreach ( $userLocks as $user ) { ?>
 									<?php $userdata = get_userdata( $user['user'] ); ?>
-									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $user['id']; ?>" id="lo_<?php echo $user['id']; ?>" value="<?php echo $user['id']; ?>" /> <label for="lo_<?php echo $user['id']; ?>"><strong><?php echo $userdata->user_login; ?></strong> - Expires <em><?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $user['exptime'] ) ); ?></em></label></li>
+									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $user['id']; ?>" id="lo_<?php echo $user['id']; ?>" value="<?php echo $user['id']; ?>" /> <label for="lo_<?php echo $user['id']; ?>"><strong><?php echo $userdata->user_login; ?></strong> - Expires <em><?php echo date( 'Y-m-d H:i:s', $user['exptime'] ); ?></em></label></li>
 								<?php } ?>
 							</ul>
 							<?php } else { //no user is locked out ?>

@@ -29,11 +29,11 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 						break;
 				}
 			
-				if ( $lastbackup == '' || $nextbackup < time() ) {
+				if ( $lastbackup == '' || $nextbackup < current_time( 'timestamp' ) ) {
 			
-					$bwpsoptions['backup_last'] = time();
+					$bwpsoptions['backup_last'] = current_time( 'timestamp' );
 							
-					$bwpsoptions['backup_next'] = ( time() + $next );
+					$bwpsoptions['backup_next'] = ( current_time( 'timestamp' ) + $next );
 					
 					//Get the options
 					if ( is_multisite() ) {
@@ -114,7 +114,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 			$return .= PHP_EOL . PHP_EOL;
 				
 			//save file
-			$file = 'database-backup-' . time();
+			$file = 'database-backup-' . current_time( 'timestamp' );
 			$handle = @fopen( BWPS_PP . 'backups/' . $file . '.sql', 'w+' );
 			@fwrite( $handle, $return );
 			@fclose( $handle );
@@ -152,9 +152,9 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				
 				$to = $toaddress;
 				$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
-				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
 				$attachment = array( BWPS_PP . 'backups/' . $file . $fileext );
-				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
 				
 				wp_mail( $to, $subject, $message, $headers, $attachment );
 					

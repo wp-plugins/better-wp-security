@@ -453,7 +453,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 			$plugopts = $this->plugin_options_url();
 			
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
-			if ( ! isset( $options['no-nag'] ) && $options['activatestamp'] < ( time() - 2952000 ) ) {
+			if ( ! isset( $options['no-nag'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
 			
 				if ( ! function_exists( 'bit51_plugin_donate_notice' ) ) {
 			

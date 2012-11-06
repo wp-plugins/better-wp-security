@@ -104,7 +104,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			$bwpsoptions['backup_last'] = time();
+			$bwpsoptions['backup_last'] = current_time( 'timestamp' );
 			$bwpsoptions['initial_backup'] = 1;
 				
 			update_option( $this->primarysettings, $bwpsoptions );
@@ -708,7 +708,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 		
 			$errorHandler = __( 'Database Backup Completed.', $this->hook );
 			
-			$bwpsoptions['backup_last'] = time();
+			$bwpsoptions['backup_last'] = current_time( 'timestamp' );
 				
 			update_option( $this->primarysettings, $bwpsoptions );
 			
@@ -767,7 +767,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					
 				if ( $bwpsoptions['backup_last'] == '' ) { //don't run a new backup until we need it to reduce load
 				
-					$bwpsoptions['backup_next'] = ( time() + $next );
+					$bwpsoptions['backup_next'] = ( current_time( 'timestamp' ) + $next );
 				
 				} else {
 				
@@ -1044,7 +1044,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			$errorHandler = __( 'File Check Complete.', $this->hook );
 				
-			$bwpsoptions['id_filechecktime'] = time();
+			$bwpsoptions['id_filechecktime'] = current_time( 'timestamp' );
 					
 			update_option( $this->primarysettings, $bwpsoptions );
 				

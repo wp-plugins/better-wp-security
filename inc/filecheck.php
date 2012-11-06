@@ -19,7 +19,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			global $bwpsoptions;
 			
 			//only exececute if it has been more than 24 hours or the check has never occured and file checking is enabled.
-			if ( $bwpsoptions['id_fileenabled'] == 1 && defined( 'BWPS_FILECHECK' ) && BWPS_FILECHECK === true && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( time() - 86400 ) ) ) {
+			if ( $bwpsoptions['id_fileenabled'] == 1 && defined( 'BWPS_FILECHECK' ) && BWPS_FILECHECK === true && ( $bwpsoptions['id_filechecktime'] == '' || $bwpsoptions['id_filechecktime'] < ( current_time( 'timestamp' ) - 86400 ) ) ) {
 
 				$this->execute_filecheck();
 			
@@ -226,7 +226,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$wpdb->base_prefix . 'bwps_log',
 				array(
 					'type' => '3',
-					'timestamp' => time(),
+					'timestamp' => current_time( 'timestamp' ),
 					'host' => '',
 					'user' => '',
 					'url' => '',
@@ -283,7 +283,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			}
 				
 			//set latest check time
-			$bwpsoptions['id_filechecktime'] = time();
+			$bwpsoptions['id_filechecktime'] = current_time( 'timestamp' );
 				
 			//Update the right options
 			if ( is_multisite() ) {
@@ -325,7 +325,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			//create all headers and subject
 			$to = $toaddress;
 			$headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
-			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s',time() ) ) ) );
+			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', current_time( 'timestamp' ) );
 
 			//create message
 			$message = '<p>' . __('<p>A file (or files) on your site at ', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', $this->hook ) . '</p>';
@@ -383,7 +383,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					foreach ( $added as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
-						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
 						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 						$report .= '</tr>' . PHP_EOL;
 					}
@@ -405,7 +405,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					foreach ( $removed as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
-						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
 						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 						$report .= '</tr>' . PHP_EOL;
 					}
@@ -427,7 +427,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					foreach ( $changed as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
-						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', $attr['mod_date'] ) ) ) ) . '</td>' . PHP_EOL;
+						$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
 						$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
 						$report .= '</tr>' . PHP_EOL;
 					}
@@ -472,6 +472,8 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		function scanfiles( $path = '' ) {
 			
 			global $bwpsoptions;
+			
+			$tz = get_option( 'gmt_offset' ) * 60 * 60;
 
             $data = array();
 
@@ -492,9 +494,9 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 								$data = array_merge( $data, $this->scanfiles( $relname . '/' ) );
 								
 							} else { //is file so add to array
-							
+
 								$data[$relname] = array();
-								$data[$relname]['mod_date'] = @filemtime( $absname );
+								$data[$relname]['mod_date'] = @filemtime( $absname ) + $tz;
 								$data[$relname]['hash'] = @md5_file( $absname );
 							
 							}
