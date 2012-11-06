@@ -70,7 +70,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
+			return date( 'Y-m-d, g:i A', $item['time'] );
 		
 		}
 		
@@ -274,7 +274,7 @@ if ( ! class_exists( 'log_content_5_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
+			return date( 'Y-m-d, g:i A', $item['time'] );
 		
 		}
 		
@@ -446,7 +446,7 @@ if ( ! class_exists( 'log_content_6_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['timestamp'] ), 'Y-m-d H:i:s' );
+			return date( 'Y-m-d, g:i A', $item['timestamp'] );
 		
 		}
 		
@@ -646,7 +646,7 @@ if ( ! class_exists( 'log_content_7_table' ) ) {
 		 **/
 		function column_time( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['time'] ), 'Y-m-d H:i:s' );
+			return date( 'Y-m-d, g:i A', $item['time'] );
 		
 		}
 		
@@ -821,7 +821,7 @@ if ( ! class_exists( 'log_details_added_table' ) ) {
 		 **/
 		function column_modified( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+			return date( 'Y-m-d, g:i A', $item['modified'] );
 		
 		}
 		
@@ -979,7 +979,7 @@ if ( ! class_exists( 'log_details_removed_table' ) ) {
 		 **/
 		function column_modified( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+			return date( 'Y-m-d, g:i A', $item['modified'] );
 		
 		}
 		
@@ -1137,7 +1137,7 @@ if ( ! class_exists( 'log_details_modified_table' ) ) {
 		 **/
 		function column_modified( $item ) {
 		
-			return get_date_from_gmt( date( 'Y-m-d H:i:s', $item['modified'] ) );
+			return date( 'Y-m-d, g:i A', $item['modified'] );
 		
 		}
 		

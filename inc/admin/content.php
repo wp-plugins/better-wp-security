@@ -1235,7 +1235,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<input type="hidden" name="bwps_page" value="awaymode_1" />
 			<?php 
 				//get saved options
-				$cDate = strtotime( date( 'n/j/y 12:00 \a\m', time() ) );
+				$cDate = strtotime( date( 'n/j/y 12:00 \a\m', current_time( 'timestamp' ) ) );
 				$sTime = $bwpsoptions['am_starttime'];
 				$eTime = $bwpsoptions['am_endtime'];
 				$sDate = $bwpsoptions['am_startdate'];
@@ -1259,8 +1259,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					
 				} else {
 				
-					$sDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() + 86400) ) );
-					$eDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', time() + ( 86400 * 2 ) ) ) );
+					$sDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + 86400) ) );
+					$eDate = strtotime( get_date_from_gmt( date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
 					$smdisplay = date( 'n', $sDate );
 					$sddisplay = date( 'j', $sDate );
 					$sydisplay = date( 'Y', $sDate );
@@ -1304,7 +1304,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', time() ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'mysql' ) ) ) ) . '</option>';
 									}
 								?>
 							</select> 
@@ -1316,13 +1316,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', time() ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'mysql' ) ) ) ) . '</option>';
 									}
 								?>
 							</select>, 
 							<select name="am_startyear">
 								<?php
-									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) { //determine default
+									for ( $i = date( 'Y', current_time( 'mysql' ) ); $i < ( date( 'Y', current_time( 'mysql' ) ) + 2 ); $i++ ) { //determine default
 										if ( $sydisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -1349,7 +1349,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', time() ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select> 
@@ -1361,13 +1361,13 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', time() ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select>, 
 							<select name="am_endyear">
 								<?php
-									for ( $i = date( 'Y', time() ); $i < ( date( 'Y', time() ) + 2 ); $i++ ) { //determine default
+									for ( $i = date( 'Y', current_time( 'timestamp' ) ); $i < ( date( 'Y', current_time( 'timestamp' ) ) + 2 ); $i++ ) { //determine default
 										if ( $eydisplay == $i ) {
 											$selected = ' selected';
 										} else {
@@ -2277,8 +2277,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
 			<input type="hidden" name="bwps_page" value="log_2" />
 			<?php //get locked out hosts and users from database
-				$hostLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `host` != 0;", ARRAY_A );
-				$userLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . time() . " AND `user` != 0;", ARRAY_A );
+				$hostLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . current_time( 'timestamp' ) . " AND `host` != 0;", ARRAY_A );
+				$userLocks = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 1 AND `exptime` > " . current_time( 'timestamp' ) . " AND `user` != 0;", ARRAY_A );
 			 ?>
 				<table class="form-table">
 					<tr valign="top">

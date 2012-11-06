@@ -143,19 +143,20 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $bwps, $bwpsoptions;
 
-			if ( is_multisite() ) {
+			if ( is_multisite() ) { //get central transient if multisite
 				$transaway = get_site_transient( 'bwps_away' );
 			} else {
 				$transaway = get_transient( 'bwps_away' );
 			}
 
+			//if transient indicates away go ahead and lock them out
 			if ( $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
 
 				return true;
 
-			} else {
+			} else { //check manually
 			
-				$cTime = time() + ( get_option( 'gmt_offset' ) * 60 * 60 );
+				$cTime = current_time( 'timestamp' );
 				
 				if ( $bwpsoptions['am_type'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) { //set up for daily
 				
@@ -322,7 +323,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$user = get_user_by( 'login', $username );
 		
 				if ( $user ) {
-					$userCheck = $wpdb->get_var( "SELECT `user` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . time(). " AND `user` = " . $user->ID . " AND `active` = 1;" );
+					$userCheck = $wpdb->get_var( "SELECT `user` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `user` = " . $user->ID . " AND `active` = 1;" );
 				}
 				
 			} else { //no username to be locked out
@@ -332,7 +333,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 					
 			//see if the host is locked out
-			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . time(). " AND `host` = '" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "' AND `active` = 1;" );
+			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `host` = '" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "' AND `active` = 1;" );
 				
 			//return false if both the user and the host are not locked out	
 			if ( ! $userCheck && ! $hostCheck ) {
@@ -442,7 +443,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		
 			global $wpdb, $bwpsoptions;
 					
-			$currtime = time(); //current time
+			$currtime = current_time( 'timestamp' ); //current time
 					
 			if ( $type == 1 ) { //due to too many logins
 			
@@ -680,7 +681,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$wpdb->base_prefix . 'bwps_log',
 				array(
 					'type' => $type,
-					'timestamp' => time(),
+					'timestamp' => current_time( 'timestamp' ),
 					'host' => $host,
 					'user' => isset( $user->ID ) && absint( $user->ID ) > 0 ? $user->ID : 0,
 					'username' => $username,
@@ -694,11 +695,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				$period = $bwpsoptions['ll_checkinterval'] * 60;
 				
-				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
+				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND host='" . $host . "' AND timestamp > " . ( current_time( 'timestamp' ) - $period ) . ";" );
 				
 				if ( isset( $user->ID ) && absint( $user->ID ) > 0 ) { //if we're dealing with a user
 				
-					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( time() - $period ) . ";" );
+					$usercount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=1 AND user=" . $user->ID . " AND timestamp > " . ( current_time( 'timestamp' ) - $period ) . ";" );
 				} else {
 				
 					$usercount = 0;
@@ -719,7 +720,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 				$period = $bwpsoptions['id_checkinterval'] * 60;
 				
-				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=2 AND host='" . $host . "' AND timestamp > " . ( time() - $period ) . ";" );
+				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=2 AND host='" . $host . "' AND timestamp > " . ( current_time( 'timestamp' ) - $period ) . ";" );
 				
 				if ( $hostcount >= $bwpsoptions['id_threshold'] ) {
 					$this->lockout( 2 );
