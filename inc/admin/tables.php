@@ -54,10 +54,27 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		
 			return array(
 				'time'		=> __( 'Last Found', $bwps->hook ),
+				'host'		=> __( 'Host', $bwps->hook ),
 				'uri'		=> __( 'URI', $bwps->hook ),
 				'referrer' 	=> __( 'Referrer', $bwps->hook ),
 				'count'		=> __( 'Count', $bwps->hook )
 			);
+		
+		}
+		
+		/**
+		 * Define Sortable Columns
+		 *
+		 * @return array of column titles that can be sorted
+		 *
+		 **/
+		function get_sortable_columns() {
+		$count_order = ( empty( $_GET['order'] ) ) ? false : true;
+		$sortable_columns = array(
+			'time'  => array('time',true),
+			'count' => array('count',$count_order),
+		);
+		return $sortable_columns;
 		
 		}
 		
@@ -71,6 +88,27 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		function column_time( $item ) {
 		
 			return date( 'Y-m-d, g:i A', $item['time'] );
+		
+		}
+		
+		/**
+		 * Define host column
+		 *
+		 * @param array $item array of row data
+		 * @return string formatted output
+		 *
+		 **/
+		function column_host( $item ) {
+		
+			$r = array();
+			if (!is_array($item['host'])) {
+				$item['host'] = array($item['host']);
+			}
+			foreach ($item['host'] as $host) {
+				$r[] = '<a href="http://ip-adress.com/ip_tracer/' . $host . '" target="_blank">' . $host . '</a>';
+			}
+			$return = implode('<br />', $r);
+			return $return;
 		
 		}
 		
@@ -118,68 +156,71 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		 *
 		 **/
 		function prepare_items() {
-		
+
 			global $wpdb;
-			
+
 			$columns = $this->get_columns();
 			$hidden = array();
 			$sortable = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
-        	
-        	$errors = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;", ARRAY_A );
-        	$data = array();
-        	foreach ( $errors as $error ) { //loop through and group 404s
 
-        		if ( isset( $data[$error['url']] ) ) {
-        			$data[$error['url']]['count'] = $data[$error['url']]['count'] + 1;
-        			$data[$error['url']]['last'] = $data[$error['url']]['last'] > $error['timestamp'] ? $data[$error['url']]['last'] : $error['timestamp'];
-        			$data[$error['url']]['referrer'] = $error['referrer'];
-        			$data[$error['url']]['id'] = $error['id'];
-        		} else {
-        			$data[$error['url']]['count'] = 1;
-        			$data[$error['url']]['last'] = $error['timestamp'];
-        			$data[$error['url']]['referrer'] = $error['referrer'];
-        			$data[$error['url']]['id'] = $error['id'];
-        		} 
-        		
-        	}
-        	
-        	$per_page = 50; //50 items per page
-        	
-        	$current_page = $this->get_pagenum();
-        	
-        	$total_items = count( $data );
-        	
-        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
-        	
-        	$rows = array();
-        	
-        	$count = 0;
-        	
-	       	//Loop through results and take data we need
-        	foreach ( $data as $item => $attr ) {
-        	
-	       		$rows[$count]['time'] = $attr['last'];
-        		$rows[$count]['id'] = $attr['id'];
-        		$rows[$count]['uri'] = $item;
-        		$rows[$count]['referrer'] = $attr['referrer'];
-        		$rows[$count]['count'] = $attr['count'];
-        		
-        		$count++;
-        	
-        	}    
-        	
-        	usort ( $rows, array( &$this, 'sortrows' ) );    	
-        	
-        	$this->items = $rows;
-        	
-        	$this->set_pagination_args( 
-        		array(
-        	    	'total_items' => $total_items,
-	        	    'per_page'    => $per_page,
-    	    	    'total_pages' => ceil( $total_items/$per_page )
-        		)
-        	);
+			$errors = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 2;", ARRAY_A );
+			$data = array();
+			foreach ( $errors as $error ) { //loop through and group 404s
+
+				if ( isset( $data[$error['url']] ) ) {
+					$data[$error['url']]['count'] = $data[$error['url']]['count'] + 1;
+					$data[$error['url']]['time'] = $data[$error['url']]['time'] > $error['timestamp'] ? $data[$error['url']]['last'] : $error['timestamp'];
+					$data[$error['url']]['referrer'] = $error['referrer'];
+					if ( !in_array( $error['host'], $data[$error['url']]['host'] ) ) {
+						$data[$error['url']]['host'][] = $error['host'];
+					}
+					$data[$error['url']]['id'] = $error['id'];
+					$data[$error['url']]['url'] = $error['url'];
+				} else {
+					$data[$error['url']]['count'] = 1;
+					$data[$error['url']]['time'] = $error['timestamp'];
+					$data[$error['url']]['referrer'] = $error['referrer'];
+					$data[$error['url']]['host'] = array($error['host']);
+					$data[$error['url']]['id'] = $error['id'];
+					$data[$error['url']]['url'] = $error['url'];
+				}
+
+			}
+
+			usort ( $data, array( &$this, 'sortrows' ) );
+
+			$per_page = 50; //50 items per page
+			$current_page = $this->get_pagenum();
+			$total_items = count( $data );
+
+			$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+
+			$rows = array();
+			$count = 0;
+
+				//Loop through results and take data we need
+			foreach ( $data as $item => $attr ) {
+
+				$rows[$count]['time'] = $attr['time'];
+				$rows[$count]['id'] = $attr['id'];
+				$rows[$count]['host'] = $attr['host'];
+				$rows[$count]['uri'] = $attr['url'];
+				$rows[$count]['referrer'] = $attr['referrer'];
+				$rows[$count]['count'] = $attr['count'];
+
+				$count++;
+
+			}
+
+			$this->items = $rows;
+			$this->set_pagination_args( 
+				array(
+				'total_items' => $total_items,
+				'per_page'    => $per_page,
+				'total_pages' => ceil( $total_items/$per_page )
+				)
+			);
 			
 		}
 		
@@ -194,15 +235,14 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		 *
 		 **/
 		function sortrows( $a, $b ) {
-		
-			if ( $a['count'] > $b['count'] ) {
-				return -1;
-			} elseif ( $a['count'] < $b['count'] ) {
-				return 1;
-			} else {
-				return 0;
-			}
-			
+			// If no sort, default to count
+			$orderby = ( !empty( $_GET['orderby'] ) ) ? esc_attr( $_GET['orderby'] ) : 'count';
+			// If no order, default to desc
+			$order = ( !empty( $_GET['order'] ) ) ? esc_attr( $_GET['order'] ) : 'desc';
+			// Determine sort order
+			$result = strcmp( $a[$orderby], $b[$orderby] );
+			// Send final sort direction to usort
+			return ( $order === 'asc' ) ? $result : -$result;
 		}
 	
 	}
@@ -335,43 +375,43 @@ if ( ! class_exists( 'log_content_5_table' ) ) {
 			$hidden = array();
 			$sortable = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
-        	
-        	$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` ORDER BY starttime DESC;", ARRAY_A );
-        	
-        	$per_page = 50; //50 items per page
-        	
-        	$current_page = $this->get_pagenum();
-        	
-        	$total_items = count( $data );
-        	
-        	$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
-        	
-        	$rows = array();
-        	
-        	$count = 0;
-        	
-        	//Loop through results and take data we need
-        	foreach ( $data as $item ) {
-        	
-	       		$rows[$count]['time'] = $item['starttime'];
-        		$rows[$count]['id'] = $item['id'];
-        		$rows[$count]['host'] = $item['host'];
-        		$rows[$count]['reason'] = $item['type'];
-        		$rows[$count]['user'] = $item['user'];
-        		
-        		$count++;
-        	
-        	}        	
-        	
-        	$this->items = $rows;
-        	
-        	$this->set_pagination_args( 
-        		array(
-        	    	'total_items' => $total_items,
-	        	    'per_page'    => $per_page,
-    	    	    'total_pages' => ceil( $total_items/$per_page )
-        		)
-        	);
+
+			$data = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "bwps_lockouts` ORDER BY starttime DESC;", ARRAY_A );
+
+			$per_page = 50; //50 items per page
+
+			$current_page = $this->get_pagenum();
+
+			$total_items = count( $data );
+
+			$data = array_slice( $data,( ( $current_page - 1 ) * $per_page ), $per_page );
+
+			$rows = array();
+
+			$count = 0;
+
+			//Loop through results and take data we need
+			foreach ( $data as $item ) {
+
+				$rows[$count]['time'] = $item['starttime'];
+				$rows[$count]['id'] = $item['id'];
+				$rows[$count]['host'] = $item['host'];
+				$rows[$count]['reason'] = $item['type'];
+				$rows[$count]['user'] = $item['user'];
+
+				$count++;
+
+			}
+
+			$this->items = $rows;
+
+			$this->set_pagination_args( 
+				array(
+					'total_items' => $total_items,
+					'per_page'    => $per_page,
+					'total_pages' => ceil( $total_items/$per_page )
+				)
+			);
 			
 		}
 	

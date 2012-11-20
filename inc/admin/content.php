@@ -2252,11 +2252,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<p><?php _e( 'This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly.', $this->hook ); ?></p>
 							<p><?php _e( 'Check the box next to the data you would like to clear and then press the "Remove Old Data" button. (note this will not erase entries that may still be used for lockouts).', $this->hook ); ?></p>
 							<ul>
-								<li style="list-style: none;"> <input type="checkbox" name="badlogins" id="badlogins" value="1" /> <label for="badlogins"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countlogin; ?> <?php _e( 'bad login entries.', $this->hook ); ?></strong></label></li>
-								<li style="list-style: none;"> <input type="checkbox" name="404s" id="404s" value="1" /> <label for="404s"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $count404; ?> <?php _e( '404 errors.', $this->hook ); ?></strong><br />
+								<li style="list-style: none;"> <input type="checkbox" name="badlogins" id="badlogins" value="1" /> <label for="badlogins"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countlogin; ?></strong> <?php _e( 'bad login entries.', $this->hook ); ?></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="404s" id="404s" value="1" /> <label for="404s"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $count404; ?></strong> <?php _e( '404 errors.', $this->hook ); ?><br />
 								<em><?php _e( 'This will clear the 404 log below.', $this->hook ); ?></em></label></li>
-								<li style="list-style: none;"> <input type="checkbox" name="lockouts" id="lockouts" value="1" /> <label for="lockouts"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countlockout; ?> <?php _e( 'old lockouts.', $this->hook ); ?></strong></label></li>
-								<li style="list-style: none;"> <input type="checkbox" name="changes" id="changes" value="1" /> <label for="changes"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countchange; ?> <?php _e( 'changed file records.', $this->hook ); ?></strong></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="lockouts" id="lockouts" value="1" /> <label for="lockouts"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countlockout; ?></strong> <?php _e( 'old lockouts.', $this->hook ); ?></label></li>
+								<li style="list-style: none;"> <input type="checkbox" name="changes" id="changes" value="1" /> <label for="changes"><?php _e( 'Your database contains', $this->hook ); ?> <strong><?php echo $countchange; ?></strong> <?php _e( 'changed file records.', $this->hook ); ?></label></li>
 							</ul>
 						</td>
 					</tr>

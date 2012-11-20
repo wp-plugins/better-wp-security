@@ -24,6 +24,10 @@ div.inside a, div.inside a.rsswidget {
 	text-decoration: none;
 }
 
+div.inside th a {
+	font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;
+}
+
 div.inside a:hover, div.inside a.rsswidget:hover {
 	text-decoration: underline;
 }
