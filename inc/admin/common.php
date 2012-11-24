@@ -466,16 +466,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 						foreach ( $agents as $agent ) {
 							
-							$rules .= "RewriteCond %{HTTP_USER_AGENT} ^" . trim( $agent ) . "$";
+							$rules .= "RewriteCond %{HTTP_USER_AGENT} ^" . trim( $agent );
 							
 							if ( $count < sizeof( $agents ) ) {
 							
-								$rules .= " [OR]" . PHP_EOL;
+								$rules .= " [NC,OR]" . PHP_EOL;
 								$count++;
 							
 							} else {
 							
-								$rules .= PHP_EOL;
+								$rules .= " [NC]" . PHP_EOL;
 							
 							}
 							

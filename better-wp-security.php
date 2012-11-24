@@ -173,5 +173,6 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 }
 
 //create plugin object
-new bit51_bwps();
+global $bwpsobject;
+$bwpsobject = new bit51_bwps();
 

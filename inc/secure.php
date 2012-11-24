@@ -93,6 +93,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
 			}
 			
+			//load filecheck and backup if needed (if this isn't a 404 page)
 			if ( ! $is_404 ) {
 				add_action( 'plugins_loaded', array( &$this, 'backup' ) );
 			
