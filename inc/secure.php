@@ -510,6 +510,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					$bwpsoptions['bu_enabled'] = 1;
 					$banlist = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
 
+					if ( sizeof( $banlist ) > 1 ) {
+						sort( $banlist );
+						$banlist = array_unique( $banlist, SORT_STRING );
+					}
+
 					if ( ! in_array( $wpdb->escape( $_SERVER['REMOTE_ADDR'] ), $banlist) ) {
 
 						$permban = true;
