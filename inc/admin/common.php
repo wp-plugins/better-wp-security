@@ -579,7 +579,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
 					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]" . PHP_EOL .
-						"RewriteCond %{QUERY_STRING} ^.*(bash|git|hg|log|svn|swp|cvs) [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} etc/passwd [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]" . PHP_EOL .
@@ -605,7 +605,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 					$rules .= 
 					
 						"\tif (\$args ~* \"\\.\\./\") { set \$susquery 1; }" . PHP_EOL .
-						"\tif (\$args ~* \"(bash|git|hg|log|svn|swp|cvs)\") { set \$susquery 1; }" .PHP_EOL .
+						"\tif (\$args ~* \".(bash|git|hg|log|svn|swp|cvs)\") { set \$susquery 1; }" .PHP_EOL .
 						"\tif (\$args ~* \"etc/passwd\") { set \$susquery 1; }" . PHP_EOL .
 						"\tif (\$args ~* \"boot.ini\") { set \$susquery 1; }" . PHP_EOL .
 						"\tif (\$args ~* \"ftp:\") { set \$susquery 1; }" . PHP_EOL .
