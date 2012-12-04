@@ -500,6 +500,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				}
 				
 			}
+
+			if ( sizeof( $list ) > 1 ) {
+				sort( $list );
+				$list = array_unique( $list, SORT_STRING );
+			}
 			
 			$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $list );
 			
@@ -528,6 +533,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				}
 			
 			}
+
+			if ( sizeof( $agents ) > 1 ) {
+				sort( $agents );
+				$agents = array_unique( $agents, SORT_STRING );
+			}
 			
 			$bwpsoptions['bu_banagent'] = implode( PHP_EOL, $agents );
 			
@@ -540,6 +550,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					$this->writehtaccess();
 					
 					$errorHandler = __( 'Settings Saved.', $this->hook );
+
+					define( 'BWPS_GOOD_LIST', true );
 						
 				} else { //not on apache to let them know they will have to manually enter rules
 				

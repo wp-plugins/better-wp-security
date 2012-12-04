@@ -1565,7 +1565,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banlist"><?php _e( 'Ban Hosts', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) ? filter_var( $_POST['bu_banlist'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banlist']; ?></textarea>
+							<textarea id="bu_banlist" rows="10" cols="50" name="bu_banlist"><?php echo isset( $_POST['bu_banlist'] ) && BWPS_GOOD_LIST !== true ? filter_var( $_POST['bu_banlist'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banlist']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'You may ban users by individual IP address or IP address range.', $this->hook ); ?></li>
@@ -1581,7 +1581,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "bu_banrange"><?php _e( 'Ban User Agents', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) ? filter_var( $_POST['bu_banagent'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banagent']; ?></textarea>
+							<textarea id="bu_banrange" rows="10" cols="50" name="bu_banagent"><?php echo isset( $_POST['bu_banrange'] ) && BWPS_GOOD_LIST !== true ? filter_var( $_POST['bu_banagent'], FILTER_SANITIZE_STRING ) : $bwpsoptions['bu_banagent']; ?></textarea>
 							<p><?php _e( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', $this->hook ); ?></p>
 							<ul><em>
 								<li><?php _e( 'Enter only 1 user agent per line.', $this->hook ); ?></li>
