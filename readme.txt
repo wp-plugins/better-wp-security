@@ -4,8 +4,8 @@ Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.4.2
-Tested up to: 3.4.2
-Stable tag: 3.4.4
+Tested up to: 3.5
+Stable tag: 3.4.5
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -76,18 +76,13 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Works with Apache, LiteSpeed or NGINX (NGINX will require you to manually edit your virtual host configuration)
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
-= Configuration =
-
-Configuration is easy, but there are a lot of options. The video below will walk you through everything Better WP Security can do.
-
-[youtube http://www.youtube.com/watch?v=Jveq2H4bZJY]
-
 = Translations =
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Russian
 * Slovak by <a href="http://www.nawebik.sk">Erich Szabó</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
+* Tagalog by <a href="http://pointen.dk/">Hanne</a>
 
 Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
 
@@ -155,6 +150,20 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4.5 =
+* Replace database override of awaymode with wp-config constant
+* Filecheck override is now done through wp-config constant
+* Added option to generate new secret key in hide backend
+* Added Slovak translation by Erich Szabó
+* Possible Google Maps fix for Apache
+* Improved time handling for away mode, lockouts, logs, and more
+* Added Tagalog translation by Hanne of ​<a href="http://pointen.dk/">http://pointen.dk/</a>
+* Various table updates from Michael Conover (<a href="twitter.com/sidtheduck">@sidtheduck</a>) at <a href="http://sidtheduck.com">sidtheduck.com</a>.
+* Load plugin as global to reduce multiple executions
+* Fixed rewrite rules for banned hosts
+* Updated .pot file
+* Other minor bugfixes and refactoring
 
 = 3.4.4 =
 * fixed input vulnerability found at http://packetstormsecurity.org/files/116317/Better-WP-Security-3.4.3-Cross-Site-Scripting.html
