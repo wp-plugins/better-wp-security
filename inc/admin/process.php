@@ -519,24 +519,11 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			
 			if ( ! empty( $banagents ) ) {
 			
-				foreach ($banagents as $agent) {
+				foreach ( $banagents as $agent ) {
 					
-					$text = sanitize_text_field( $agent );
-					
-					//make sure user agents are alpha-numeric
-					if ( ctype_alnum( $text ) ) {
-					
-						$agents[] = $text;
-						
-					} elseif ( strlen( $text ) > 0 ) {
-					
-						if ( ! is_wp_error( $errorHandler) ) {
-							$errorHandler = new WP_Error();
-						}
-						
-						$errorHandler->add( '1', filter_var( $text, FILTER_SANITIZE_STRING ) . __( ' is not a valid user agent. Please try again.', $this->hook ) );
-						
-					}
+					$text = quotemeta( sanitize_text_field( $agent ) );
+
+					$agents[] = $text;
 					
 				}
 			
