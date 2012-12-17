@@ -444,7 +444,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		function getIp() {
 
 			//Just get the headers if we can or else use the SERVER global
-			if ( function_exists( apache_request_headers ) ) {
+			if ( function_exists( 'apache_request_headers' ) ) {
 
 				$headers = apache_request_headers(); 
 
