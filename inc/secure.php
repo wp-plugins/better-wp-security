@@ -56,9 +56,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
 					strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
 					strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
-					@header( "HTTP/1.1 414 Request-URI Too Long" );
-					@header( "Status: 414 Request-URI Too Long" );
-					@header( "Connection: Close" );
+					@header( 'HTTP/1.1 414 Request-URI Too Long' );
+					@header( 'Status: 414 Request-URI Too Long' );
+					@header( 'Cache-Control: no-cache, must-revalidate' );
+					@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+					@header( 'Connection: Close' );
 					@exit;
 					
 				}
@@ -894,7 +896,9 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			if ( ( $bwpsoptions['id_enabled'] == 1 ||$bwpsoptions['ll_enabled'] == 1 ) && $this->checklock( $current_user->user_login ) ) {
 			
 				wp_clear_auth_cookie();
-				@header('HTTP/1.0 418 I\'m a teapot');
+				@header( 'HTTP/1.0 418 I\'m a teapot' );
+				@header( 'Cache-Control: no-cache, must-revalidate' ); 
+				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
 				die( __( 'error', $this->hook ) );
 				
 			}
