@@ -184,6 +184,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 					$data[$error['url']]['host'] = array($error['host']);
 					$data[$error['url']]['id'] = $error['id'];
 					$data[$error['url']]['url'] = $error['url'];
+					$data[$error['url']]['last'] = $error['timestamp'];
 				}
 
 			}
