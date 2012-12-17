@@ -2325,11 +2325,18 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function logs_content_4() {
-			global $wpdb;
+			global $wpdb, $bwps;
 			
 			$log_content_4_table = new log_content_4_table();
 			$log_content_4_table->prepare_items();
 			$log_content_4_table->display();
+			
+			echo '<a href="admin.php?page=better-wp-security-logs&bit51_404_csv">' . __( 'Download 404 Log in .csv format', $this->hook ) . '</a>';
+
+			//Process 404 .csv file
+			if ( isset( $_GET['bit51_404_csv'] ) ) {
+				 $this->log404csv();
+			}
 			
 		}
 		

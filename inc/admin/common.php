@@ -832,6 +832,16 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			return $pass;	
 			
 		}
+
+		/**
+		 * Download the 404 log in .csv format
+		 * 
+		 **/
+		function log404csv() {
+
+
+
+		}
 				
 		/**
 		 * Return primary domain from given url
