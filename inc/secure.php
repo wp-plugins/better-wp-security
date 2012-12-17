@@ -11,6 +11,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		function __construct() {
 			
 			global $bwpsoptions, $is_404;
+
+			$this->getIp();
 			
 			//Don't redirect any SSL if SSL is turned off.
 			if ( $bwpsoptions['ssl_frontend']  >= 1 ) {
@@ -247,7 +249,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//use current host if host is not provided
 			if ( $rawhost == '' ) {
-				$rawhost = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
+				$rawhost = $wpdb->escape( $this->getIp() );
 			}
 			
 			$host = ip2long( $rawhost );
@@ -334,7 +336,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 					
 			//see if the host is locked out
-			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `host` = '" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "' AND `active` = 1;" );
+			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `host` = '" . $wpdb->escape( $this->getIp() ) . "' AND `active` = 1;" );
 				
 			//return false if both the user and the host are not locked out	
 			if ( ! $userCheck && ! $hostCheck ) {
@@ -430,6 +432,40 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$bwps_filecheck = new bwps_filecheck();
 			
 		}
+
+		/**
+		 * Returns the actual IP address of the user
+		 * 
+		 * @return  String The IP address of the user
+		 * 
+		 * */
+		function getIp() {
+
+			//Just get the headers if we can or else use the SERVER global
+			if ( function_exists( apache_request_headers ) ) {
+
+				$headers = apache_request_headers(); 
+
+			} else { 
+
+				$headers = $_SERVER;
+
+			}
+
+			//Get the forwarded IP if it exists
+			if ( array_key_exists( 'X-Forwarded-For', $headers ) ) {
+				
+				$theIP = $headers['X-Forwarded-For'];
+                        
+			} else {
+				
+				$theIp = $_SERVER['REMOTE_ADDR'];
+                                
+			}
+
+			return $theIp;
+
+		}
 		
 		/**
 		 * Lockout user or host
@@ -475,22 +511,22 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				if ( filter_var( $wpdb->escape( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP ) && ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) ) {
+				if ( filter_var( $wpdb->escape( $this->getIp() ), FILTER_VALIDATE_IP ) && ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) ) {
 				
 					if ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['ll_blacklistip'] == 1 ) {
 				
 						$locklimit = min( $bwpsoptions['ll_blacklistipthreshold'], $bwpsoptions['id_blacklistipthreshold'] );
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
 					
 					} elseif ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['id_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
 				
 					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['ll_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
 				
 					} 
 					
@@ -515,11 +551,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						$banlist = array_unique( $banlist, SORT_STRING );
 					}
 
-					if ( ! in_array( $wpdb->escape( $_SERVER['REMOTE_ADDR'] ), $banlist) ) {
+					if ( ! in_array( $wpdb->escape( $this->getIp() ), $banlist) ) {
 
 						$permban = true;
 					
-						$banlist[] = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
+						$banlist[] = $wpdb->escape( $this->getIp() );
 					
 						$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $banlist );
 					
@@ -557,7 +593,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 							'active' => 1,
 							'starttime' => $currtime,
 							'exptime' => $exptime,
-							'host' => $wpdb->escape( $_SERVER['REMOTE_ADDR'] ),
+							'host' => $wpdb->escape( $this->getIp() ),
 							'user' => 0
 						)
 					);
@@ -611,11 +647,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					if ( $user != '' ) {
 					
 						$username = get_user_by( 'id', $user );
-						$who = __( 'WordPress user', $this->hook ) . ', ' . $username->user_login . ', ' . __( 'at host, ', $this->hook ) . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . ', ';
+						$who = __( 'WordPress user', $this->hook ) . ', ' . $username->user_login . ', ' . __( 'at host, ', $this->hook ) . $wpdb->escape( $this->getIp() ) . ', ';
 						
 					} else {
 					
-						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . $wpdb->escape( $_SERVER['REMOTE_ADDR'] ) . ') ';
+						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $this->getIp() ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . $wpdb->escape( $this->getIp() ) . ') ';
 						
 					}
 
@@ -657,7 +693,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//get default data
-			$host = $wpdb->escape( $_SERVER['REMOTE_ADDR'] );
+			$host = $wpdb->escape( $this->getIp() );
 			$username = sanitize_user( $username );
 			$user = get_user_by( 'login', $username );
 			

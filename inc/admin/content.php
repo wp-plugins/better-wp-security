@@ -874,7 +874,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<li>
 					<h4><?php _e( 'User Information', $this->hook ); ?></h4>
 					<ul>
-						<li><?php _e( 'Public IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['REMOTE_ADDR']; ?>"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></li>
+						<li><?php _e( 'Public IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $bwps->getIp(); ?>"><?php echo $bwps->getIp(); ?></a></strong></li>
 						<li><?php _e( 'User Agent', $this->hook ); ?>: <strong><?php echo filter_var( $_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING ); ?></strong></li>
 					</ul>
 				</li>
