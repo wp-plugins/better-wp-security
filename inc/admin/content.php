@@ -2330,13 +2330,12 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			$log_content_4_table = new log_content_4_table();
 			$log_content_4_table->prepare_items();
 			$log_content_4_table->display();
-			
-			echo '<a href="admin.php?page=better-wp-security-logs&bit51_404_csv">' . __( 'Download 404 Log in .csv format', $this->hook ) . '</a>';
 
-			//Process 404 .csv file
-			if ( isset( $_GET['bit51_404_csv'] ) ) {
-				 $this->log404csv();
-			}
+			?>
+
+				<p><a href="<?php echo admin_url(); ?><?php echo is_multisite() ? 'network/' : ''; ?>admin.php?page=better-wp-security-logs&bit51_404_csv" target="_blank" ><?php _e( 'Download 404 Log in .csv format', $this->hook ); ?></a></p>
+
+			<?php
 			
 		}
 		
@@ -2386,7 +2385,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				unset( $logout );		
 				?>
 				
-				<p><a href="<?php echo admin_url(); ?><?php echo is_multisite() ? 'network/' : ''; ?>admin.php?page=better-wp-security-logs#file-change"><?php _e( 'Return to Log', $this->hook ); ?></a></p>
+				<p><a href="<?php echo admin_url(); ?><?php echo is_multisite() ? 'network/' : ''; ?>admin.php?page=better-wp-security-logs#file-change" ><?php _e( 'Return to Log', $this->hook ); ?></a></p>
 				
 			<?php			
 			} else {

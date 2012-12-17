@@ -28,6 +28,13 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			add_action( 'admin_init', array( &$this, 'ask' ) );	
 		
 			add_action( 'admin_init', array( &$this, 'awaycheck' ) );
+
+			//Process 404 .csv file
+			if ( isset( $_GET['bit51_404_csv'] ) ) {
+
+				add_action( 'init', array( &$this, 'log404csv' ) );
+				
+			}
 				
 		}
 		
