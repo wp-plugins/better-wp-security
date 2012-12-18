@@ -868,7 +868,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function dashboard_content_7() {
-			global $wpdb, $bwpsoptions, $bwpsdata;
+			global $bwps, $wpdb, $bwpsoptions, $bwpsdata;
 			?>
 			<ul>
 				<li>
