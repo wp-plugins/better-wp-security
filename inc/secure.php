@@ -10,98 +10,108 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/		 
 		function __construct() {
 			
-			global $bwpsoptions, $is_404;
+			global $bwpsoptions, $is_404, $isIWP;
 
-			$this->getIp();
+			//set a global variable if this is a call from InfiniteWP
+			if ( defined( 'IWP_AUTHORISED_CALL' ) ) {
+				$isIWP = true;
+			} else {
+				$isIWP = false;
+			}
 			
 			//Don't redirect any SSL if SSL is turned off.
 			if ( $bwpsoptions['ssl_frontend']  >= 1 ) {
 				add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
 			}
-			
-			//execute default checks
-			add_action( 'init', array( &$this, 'siteinit' ) );
 
-			//execute 404 check
-			if ( $bwpsoptions['id_enabled'] == 1 ) {
-				add_action( 'wp_head', array( &$this,'check404' ) );
-			}
+			//don't execute anything but SSL for InfiniteWP
+			if ( $isIWP === false ) {
 			
-			//remove wp-generator meta tag
-			if ( $bwpsoptions['st_generator'] == 1 ) { 
-				remove_action( 'wp_head', 'wp_generator' );
-			}
-			
-			//remove login error messages if turned on
-			if ( $bwpsoptions['st_loginerror'] == 1 ) {
-				add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
-			}
-			
-			//remove wlmanifest link if turned on
-			if ( $bwpsoptions['st_manifest'] == 1 ) {
-				remove_action( 'wp_head', 'wlwmanifest_link' );
-			}
-			
-			//remove rsd link from header if turned on
-			if ( $bwpsoptions['st_edituri'] == 1 ) {
-				remove_action( 'wp_head', 'rsd_link' );
-			}
-			
-			//ban extra-long urls if turned on
-			if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
-			
-				if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
+				//execute default checks
+				add_action( 'init', array( &$this, 'siteinit' ) );
+
+				//execute 404 check
+				if ( $bwpsoptions['id_enabled'] == 1 ) {
+					add_action( 'wp_head', array( &$this,'check404' ) );
+				}
 				
-					strpos( $_SERVER['REQUEST_URI'], "eval(" ) ||
-					strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
-					strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
-					strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
-					@header( 'HTTP/1.1 414 Request-URI Too Long' );
-					@header( 'Status: 414 Request-URI Too Long' );
-					@header( 'Cache-Control: no-cache, must-revalidate' );
-					@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
-					@header( 'Connection: Close' );
-					@exit;
+				//remove wp-generator meta tag
+				if ( $bwpsoptions['st_generator'] == 1 ) { 
+					remove_action( 'wp_head', 'wp_generator' );
+				}
+				
+				//remove login error messages if turned on
+				if ( $bwpsoptions['st_loginerror'] == 1 ) {
+					add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
+				}
+				
+				//remove wlmanifest link if turned on
+				if ( $bwpsoptions['st_manifest'] == 1 ) {
+					remove_action( 'wp_head', 'wlwmanifest_link' );
+				}
+				
+				//remove rsd link from header if turned on
+				if ( $bwpsoptions['st_edituri'] == 1 ) {
+					remove_action( 'wp_head', 'rsd_link' );
+				}
+				
+				//ban extra-long urls if turned on
+				if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
+				
+					if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
+					
+						strpos( $_SERVER['REQUEST_URI'], "eval(" ) ||
+						strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
+						strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
+						strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
+						@header( 'HTTP/1.1 414 Request-URI Too Long' );
+						@header( 'Status: 414 Request-URI Too Long' );
+						@header( 'Cache-Control: no-cache, must-revalidate' );
+						@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+						@header( 'Connection: Close' );
+						@exit;
+						
+					}
 					
 				}
 				
-			}
-			
-			//require strong passwords if turned on
-			if ( $bwpsoptions['st_enablepassword'] == 1 ) {
-				add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 );
+				//require strong passwords if turned on
+				if ( $bwpsoptions['st_enablepassword'] == 1 ) {
+					add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 );
+					
+					if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
+						add_action( 'login_head', array( &$this, 'passwordreset' ) );
+					}
+
+				}
 				
-				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
-					add_action( 'login_head', array( &$this, 'passwordreset' ) );
+				//display random number for wordpress version if turned on
+				if ( $bwpsoptions['st_randomversion'] == 1 ) {
+					add_action( 'plugins_loaded', array( &$this, 'randomVersion' ) );
+				}
+				
+				//remove theme update notifications if turned on
+				if ( $bwpsoptions['st_themenot'] == 1 ) {
+					add_action( 'plugins_loaded', array( &$this, 'themeupdates' ) );
+				}
+				
+				//remove plugin update notifications if turned on
+				if ( $bwpsoptions['st_pluginnot'] == 1 ) {
+					add_action( 'plugins_loaded', array( &$this, 'pluginupdates' ) );
+				}
+				
+				//remove core update notifications if turned on
+				if ( $bwpsoptions['st_corenot'] == 1 ) {
+					add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
+				}
+				
+				//load filecheck and backup if needed (if this isn't a 404 page)
+				if ( ! $is_404 ) {
+					add_action( 'plugins_loaded', array( &$this, 'backup' ) );
+				
+					add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
 				}
 
-			}
-			
-			//display random number for wordpress version if turned on
-			if ( $bwpsoptions['st_randomversion'] == 1 ) {
-				add_action( 'plugins_loaded', array( &$this, 'randomVersion' ) );
-			}
-			
-			//remove theme update notifications if turned on
-			if ( $bwpsoptions['st_themenot'] == 1 ) {
-				add_action( 'plugins_loaded', array( &$this, 'themeupdates' ) );
-			}
-			
-			//remove plugin update notifications if turned on
-			if ( $bwpsoptions['st_pluginnot'] == 1 ) {
-				add_action( 'plugins_loaded', array( &$this, 'pluginupdates' ) );
-			}
-			
-			//remove core update notifications if turned on
-			if ( $bwpsoptions['st_corenot'] == 1 ) {
-				add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
-			}
-			
-			//load filecheck and backup if needed (if this isn't a 404 page)
-			if ( ! $is_404 ) {
-				add_action( 'plugins_loaded', array( &$this, 'backup' ) );
-			
-				add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
 			}
 		
 		}

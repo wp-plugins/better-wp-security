@@ -15,6 +15,8 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 		 *
 		 **/
 		function __construct() {
+
+			global $isIWP;
 			
 			//add scripts and css
 			add_action( 'admin_print_scripts', array( &$this, 'config_page_scripts' ) );
@@ -26,8 +28,13 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 	
 			//add donation reminder
 			add_action( 'admin_init', array( &$this, 'ask' ) );	
+
+			//don't execute anything but SSL for InfiniteWP
+			if ( $isIWP === false ) {
 		
-			add_action( 'admin_init', array( &$this, 'awaycheck' ) );
+				add_action( 'admin_init', array( &$this, 'awaycheck' ) );
+
+			}
 
 			//Process 404 .csv file
 			if ( isset( $_GET['bit51_404_csv'] ) ) {
