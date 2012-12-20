@@ -471,11 +471,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
                         
 			} else {
 				
-				$theIp = $_SERVER['REMOTE_ADDR'];
+				$theIP = $_SERVER['REMOTE_ADDR'];
                                 
 			}
 
-			return $theIp;
+			return $theIP;
 
 		}
 		
