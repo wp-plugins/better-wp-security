@@ -3,9 +3,9 @@
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.4.2
-Tested up to: 3.5
-Stable tag: 3.4.6
+Requires at least: 3.4
+Tested up to: 3.5.1
+Stable tag: 3.4.7
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -150,6 +150,13 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4.7 =
+* Added compatibility with InfiniteWP (http://infinitewp.com/)
+* Updated default ban list as it was a little too restrictive for my taste
+* Added export of 404 logs in .csv format (experimental)
+* Add X-Forwarded-For ability to IP logging
+* Minor bug and typo fixes
 
 = 3.4.6 =
 * Updated usability on ban lists
