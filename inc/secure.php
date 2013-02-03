@@ -23,7 +23,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				}
 			}
 			
-			if ( $iwp_action ) {
+			if ( isset( $iwp_action ) ) {
 				$isIWP = true;
 			} else {
 				$isIWP = false;
