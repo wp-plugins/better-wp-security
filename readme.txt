@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
 Requires at least: 3.4
 Tested up to: 3.5.1
-Stable tag: 3.4.8
+Stable tag: 3.4.9
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -77,6 +77,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Translations =
+* French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Russian
@@ -150,6 +151,12 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.4.9 =
+* More secure user query thanks to John Cave
+* Greatly improved intl date handling by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
+* Added: French translation by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
+* Fixed: bug preventing Jetpack's Infinite Scroll from working with long URL protection
 
 = 3.4.8 =
 * Fixed error message that may occur if InfiniteWP is not installed.
