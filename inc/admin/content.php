@@ -952,8 +952,9 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				
 				<li>
 					<h4><?php _e( 'Server Information', $this->hook ); ?></h4>
+					<?php $server_addr = array_key_exists('SERVER_ADDR',$_SERVER) ? $_SERVER['SERVER_ADDR'] : $_SERVER['LOCAL_ADDR']; ?>
 					<ul>
-						<li><?php _e( 'Server / Website IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $_SERVER['SERVER_ADDR']; ?>"><?php echo $_SERVER['SERVER_ADDR']; ?></a></strong></li>
+						<li><?php _e( 'Server / Website IP Address', $this->hook ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', $this->hook ); ?>" href="http://whois.domaintools.com/<?php echo $server_addr; ?>"><?php echo $server_addr; ?></a></strong></li>
 							<li><?php _e( 'Server Type', $this->hook ); ?>: <strong><?php echo filter_var( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ), FILTER_SANITIZE_STRING ); ?></strong></li>
 							<li><?php _e( 'Operating System', $this->hook ); ?>: <strong><?php echo PHP_OS; ?></strong></li>
 							<li><?php _e( 'Browser Compression Supported', $this->hook ); ?>: <strong><?php echo filter_var( $_SERVER['HTTP_ACCEPT_ENCODING'], FILTER_SANITIZE_STRING ); ?></strong></li>
@@ -2746,11 +2747,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							</th>				
 							<td class="settingfield">
 								<select name="st_passrole" id="st_passrole">
-									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>><? echo translate_user_role("Administrator"); ?></option>
-									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>><? echo translate_user_role("Editor"); ?></option>
-									<option value="author" <?php if ( $bwpsoptions['st_passrole'] == "author" ) echo "selected"; ?>><? echo translate_user_role("Author"); ?></option>
-									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>><? echo translate_user_role("Contributor"); ?></option>
-									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>><? echo translate_user_role("Subscriber"); ?></option>
+									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>><?php echo translate_user_role( 'Administrator' ); ?></option>
+									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>><?php echo translate_user_role( 'Editor' ); ?></option>
+									<option value="author" <?php if ( $bwpsoptions['st_passrole'] == "author" ) echo "selected"; ?>><?php echo translate_user_role( 'Author' ); ?></option>
+									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>><?php echo translate_user_role( 'Contributor' ); ?></option>
+									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>><?php echo translate_user_role( 'Subscriber' ); ?></option>
 								</select>
 								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
 								<p class="warningtext"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
@@ -2848,4 +2849,3 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 	}
 
 }
-

@@ -6,11 +6,26 @@
  * Thanks to Yoast (http://www.yoast.com), W3 Total Cache and Ozh Richard (http://planetozh.com) for a lot of the inspiration and some code snipets used in the rewrite of this plugin. Many of the ideas for this class as well as some of the functions of it's functions and the associated CSS are borrowed from the work of these great developers (I don't think anything is verbatim but some is close as I didn't feel it necessary to reinvent the wheel, in particular with regards to admin page layout).
  */
 
+require_once( plugin_dir_path( __FILE__ ) . 'foolic_validation_v1_1.php' );
+
 if ( ! class_exists( 'Bit51' ) ) {
 
 	abstract class Bit51 {
-	
+
 		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
+		var $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
+
+		/**
+		 * Runs any init code needed
+		 *
+		 **/
+		function init() {
+			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
+			add_filter( 'foolic_validation_input_type-' . $this->hook, array( &$this, 'change_foolic_input_type' ) );
+			add_filter( 'foolic_validation_input_size-' . $this->hook, array( &$this, 'change_foolic_input_size' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
+			add_action('wp_ajax_' . $this->hook . '_support', array($this, 'ajax_submit_ticket'));
+		}
 	
 		/**
 		 * Register admin javascripts (only for plugin admin page)
@@ -312,8 +327,9 @@ if ( ! class_exists( 'Bit51' ) ) {
 						<div class="metabox-holder">	
 							<div class="meta-box-sortables">
 								<?php
-									$this->donate();
+									do_action( 'bit51_metaboxes', $this->hook );
 									$this->support();
+									$this->donate();
 									$this->news(); 
 									$this->social();
 								?>
@@ -331,10 +347,68 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 **/
 		function support() {
-		
-			$content = __('If you need help getting this plugin or have found a bug please visit the <a href="' . $this->supportpage . '" target="_blank">support forums</a>.', $this->hook);
-			
-			$this->postbox( 'bit51support', __( 'Need Help?', $this->hook ), $content ); //execute as postbox
+			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
+
+			$data = apply_filters( 'foolic_get_validation_data-' . $this->hook, false );
+
+			if ( $data === false ) {
+				return;
+			}
+
+			if ( $data['valid'] === 'valid' ) {
+				$content = '<form id="support_form">';
+				$content .= '<input type="hidden" name="action" value="' . $this->hook . '_support" />';
+				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce($this->hook . '_ajax-nonce') . '" />';
+				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
+				$content .= '<label for="support_issue">' . __( 'Describe the Issue', $this->hook ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
+				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', $this->hook ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
+				$content .= '<label for="support_other">' . __( 'Other Information', $this->hook ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
+				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', $this->hook ) . '" /><br />';
+				$content .= '<br /></form>';
+				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending...', $this->hook ). '</p></div>';
+				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', $this->hook ) . '</a>';
+				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->hook . '">' . __( 'Enter License Key', $this->hook ) . '</a>';
+				$content .= $data['nonce'];
+
+
+			} else {
+
+				$content = '<strong>' . __( 'Need premium support or configuration?', $this->hook ). '<br /><br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase one-time premium support or installation', $this->hook ) . '</a>.</strong><br /><br />';
+				$content .= $data['html'];
+
+			}
+
+			$content .= '<script type="text/javascript">
+							jQuery( function( $ ) {
+								$( document ).bind( "foolic-cleared-' . $this->hook . '", function() {
+									window.location.reload();
+								} );
+
+								$("#submit_support").click(function(e) {
+									e.preventDefault();
+
+									if ($("#support_issue").val().length == 0) {
+										alert("' . __( 'Please describe the issue you are having', $this->hook ). '");
+										return;
+									}
+									$("#support_form").slideUp();
+									var data = $("#support_form").serialize();
+
+									$(".support_message").addClass("updated").show();
+
+									$.ajax({ url: ajaxurl, cache: false, type: "POST", data: data,
+										success: function (data) {
+											$(".support_message").removeClass("foolic-loading").html("<p>' . __( 'Thank you for submitting your support ticket. We will contact you shortly.', $this->hook ) . '</p>");
+										},
+										error: function(a,b,c) {
+											alert(a);
+										}
+									});
+								} );
+							} );
+						</script>';
+
+			$this->postbox( 'prioritysupport', __( 'Premium Support' , $this->hook ), $content ); //setup the postbox
 			
 		}
 		
@@ -507,7 +581,55 @@ if ( ! class_exists( 'Bit51' ) ) {
 			}
 			
 		}
-		
+
+		function include_foolic_css( $screen ) {
+			return $screen->id === 'toplevel_page_better-wp-security';
+		}
+
+		function change_foolic_input_type() {
+			return 'text';
+		}
+
+		function change_foolic_input_size() {
+			return '29';
+		}
+
+		function ajax_submit_ticket() {
+			global $wp_version;
+			global $current_user;
+
+			if (wp_verify_nonce($_REQUEST['nonce'], $this->hook . '_ajax-nonce')) {
+				$issue = $_REQUEST['issue'];
+				$reproduce = $_REQUEST['reproduce'];
+				$other = $_REQUEST['other'];
+				$ticket_key = $_REQUEST['ticket_key'];
+				get_currentuserinfo();
+
+				$message = '<table>
+				<tr><td>' . __('Issue', $this->hook) . '</td><td>' . $issue . '</td></tr>
+				<tr><td>' . __('Steps to Reproduce', $this->hook) . '</td><td>' . $reproduce . '</td></tr>
+				<tr><td>' . __('Other Information', $this->hook) . '</td><td>' . $other . '</td></tr>
+				<tr><td>' . __('Support Ticket Key', $this->hook) . '</td><td>' . $ticket_key . '</td></tr>
+				<tr><td>' . __('Plugin Version', $this->hook) . '</td><td>' . $this->pluginversion . '</td></tr>
+				<tr><td>' . __('WP Version', $this->hook) . '</td><td>' . $wp_version . '</td></tr>
+				<tr><td>' . __('Website', $this->hook) . '</td><td>' . home_url() . '</td></tr>
+				<tr><td>' . __('Email', $this->hook) . '</td><td>' . $current_user->user_email . '</td></tr>
+				<tr><td>' . __('Name', $this->hook) . '</td><td>' . $current_user->display_name . '</td></tr>
+				</table>';
+
+				add_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) );
+				wp_mail(
+					$this->support_email,
+					__('Better WP Security Support Ticket', $this->hook),
+					$message
+				);
+				remove_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) ); // reset content-type to to avoid conflicts
+			}
+		}
+
+		function set_html_content_type() {
+			return 'text/html';
+		}
 	}
 	
 }
