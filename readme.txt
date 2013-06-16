@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.5.2
+Stable tag: 3.5.3
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -169,6 +169,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Better proxy support for ban users by kalvindukes
 * Updated Spanish translation by <a href="http://pabloromero.org">Pablo Romero</a>
 * Updated Readme
+* Updated .pot file
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
