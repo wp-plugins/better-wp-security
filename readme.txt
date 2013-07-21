@@ -81,7 +81,11 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Translations =
+* Brazilian Portuguese by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
+* Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
+* German by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
@@ -160,6 +164,27 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= Dev =
+* Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Chinese (Traditional) translation by Toine Cheung
+* Fixed an XSS vulnerability in the logevent function. Fix by <a href="http://www.nccgroup.com/en/blog/?author=Richard%20Warren">Richard Warren</a>
+* Updated Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* 404 Logs now only accessible via the link on the logs page (thank you Marc-Alexandre Montpas)
+* Added .htaccess to protect saved backups (thank you Marc-Alexandre Montpas)
+* Added extra sanitization when downloading host info from database (was sanitized on upload) (thank you Marc-Alexandre Montpas)
+* Brazilian Portuguese translation by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
+* German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
+* Removed timezone from email lockout notifications (GitHub Issue #35)
+* Better variable checking to prevent error messages
+* Force user 0 when logging filechecking (GitHub Issue #7)
+* CSS update for MP6 from shivapoudel
+* Small tweak to prevent email notifications being sent when they shouldn't
+* Cleaned up variable checking throughout to eliminate activation errors if php errors or WP_DEBUG is turned on
+* Added further checks to reduce errors if file change log is invalid
+* Memory should now display correctly in file change email
+* Use maybe_unserialize instead of unserialize
+* Added option to filter foreign charcters as part of filter suspicious query string
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
