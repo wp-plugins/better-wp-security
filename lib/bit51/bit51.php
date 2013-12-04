@@ -12,7 +12,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 
 	abstract class Bit51Foo {
 
-		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
+		var $feed = 'http://ithemes.com/blog/feed/'; //current address of Bit51.com feed
 		var $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
 
 		/**
@@ -296,9 +296,9 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
-						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( $this->pluginbase, __FILE__ ); ?>lib/bit51/images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
+						<a href="http://ithemes.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( $this->pluginbase, __FILE__ ); ?>lib/bit51/images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
 					<?php } else { ?>
-						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
+						<a href="http://ithemes.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
 					<?php } ?>
 					<h2><?php _e( $title, $this->hook ) ?></h2>
 					<?php 
@@ -328,7 +328,9 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<div class="meta-box-sortables">
 								<?php
 									do_action( 'bit51_metaboxes', $this->hook );
+									$this->email();
 									$this->support();
+									$this->securitylock();
 									$this->donate();
 									$this->news(); 
 									$this->social();
@@ -338,6 +340,49 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 					</div>
 				</div>
 			<?php
+		}
+		
+		/**
+		 * Display email signup form in admin sidebar.
+		 *
+		 **/
+		function email() {
+			
+			$content = '';
+			
+			ob_start();
+			?>
+				<div id="mc_embed_signup">
+					<form action="http://ithemes.us2.list-manage.com/subscribe/post?u=7acf83c7a47b32c740ad94a4e&amp;id=5176bfed9e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+						<p><?php _e( 'Signup to get the latest WP security updates and news and releases from iThemes.', 'better-wp-security'); ?></p>
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>
+							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
+							<input type="email" size="29" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
+							<br/><br/>
+							<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
+					</form>
+				</div>
+			<?php
+			
+			$content = ob_get_clean();
+			
+			$this->postbox( 'email-signup', __( 'Get WP Security Updates' , $this->hook ), $content ); //setup the postbox
+		}
+
+		/**
+		 * Display email WP Security Lock link in admin sidebar.
+		 *
+		 **/
+		function securitylock() {
+
+			$content = '<strong>' . __( 'Has your site already been compromised?', 'better-wp-security' ) . '</strong>';
+			$content .= '<p>' . __( 'Better WP Security can keep your WordPress installation safe but it can\'t help you if your site has already been hacked. If you need to clean your site right we recommend WP Security Lock for fast, professional malware and security cleanup.', 'better-wp-security' ) . '</p>';
+			$content .= '<a class="wpsllink" href="http://www.wpsecuritylock.com/cmd.php?Clk=5166852" target="_blank"><img class="wpslimage" src="' . BWPS_PU . '/lib/bit51/images/wpsl.png" width="200" height="200"></a>';
+
+			$this->postbox( 'wp_security_lock', __( 'Site Hacked? Get It Fixed Right' , $this->hook ), $content ); //setup the postbox
 		}
 		
 		/**
@@ -413,7 +458,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		}
 		
 		/**
-		 * Display Bit51's latest posts
+		 * Display iTheme's latest posts
 		 *
 		 * Displays latest posts from Bit51 in admin page sidebar
 		 *
@@ -452,7 +497,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				$content = __( 'It appears as if the feed is currently down. Please try again later', $this->hook );
 			}
 			
-			$this->postbox( 'bit51posts' , __( 'The Latest from Bit51', $this->hook ), $content ); //set up postbox
+			$this->postbox( 'bit51posts' , __( 'The Latest from iThemes', $this->hook ), $content ); //set up postbox
 			
 		}
 		
@@ -494,17 +539,17 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		
 			$content = '<ul>';
 			
-			$content .= '<li class="facebook"><a href="https://www.facebook.com/bit51" target="_blank">' . __( 'Like Bit51 on Facebook', $this->hook ) . '</a></li>';
+			$content .= '<li class="facebook"><a href="https://www.facebook.com/ithemes" target="_blank">' . __( 'Like iThemes on Facebook', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="twitter"><a href="http://twitter.com/Bit51" target="_blank">' . __( 'Follow Bit51 on Twitter', $this->hook ) . '</a></li>';
+			$content .= '<li class="twitter"><a href="http://twitter.com/ithemes" target="_blank">' . __( 'Follow iThemes on Twitter', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="google"><a href="https://plus.google.com/111800087192533843819" target="_blank">' . __( 'Circle Bit51 on Google+', $this->hook ) . '</a></li>';
+			$content .= '<li class="google"><a href="https://plus.google.com/100771929727041515430" target="_blank">' . __( 'Circle iThemes on Google+', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="subscribe"><a href="http://bit51.com/subscribe" target="_blank">' . __( 'Subscribe with RSS or Email', $this->hook ) . '</a></li>';
+			$content .= '<li class="subscribe"><a href="http://ithemes.com/subscribe/" target="_blank">' . __( 'Subscribe with RSS or Email', $this->hook ) . '</a></li>';
 			
 			$content .= '</ul>';
 			
-			$this->postbox( 'bit51social', __( 'Bit51 on the Web', $this->hook ), $content ); //setup the postbox
+			$this->postbox( 'bit51social', __( 'iThemes on the Web', $this->hook ), $content ); //setup the postbox
 			
 		}
 		
