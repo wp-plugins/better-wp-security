@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.7
 Tested up to: 3.8
-Stable tag: 3.6
+Stable tag: 3.6.1
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -168,6 +168,11 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.6.1 =
+* Fixed iThemes image path for case-sensitive
+* Add iThemes BWPS survey to help plan further updates
+* Added Customizable email to support form
 
 = 3.6 =
 * Added WP Security Lock as a partner for sites that have already been compromised.

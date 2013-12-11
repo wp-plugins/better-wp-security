@@ -360,7 +360,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<div class="response" id="mce-success-response" style="display:none"></div>
 						</div>
 							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
-							<input type="email" size="29" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
+							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
 							<br/><br/>
 							<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
 					</form>
@@ -392,6 +392,9 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		 *
 		 **/
 		function support() {
+
+			global $current_user; 
+
 			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
 
 			$data = apply_filters( 'foolic_get_validation_data-' . $this->hook, false );
@@ -405,6 +408,8 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				$content .= '<input type="hidden" name="action" value="' . $this->hook . '_support" />';
 				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce($this->hook . '_ajax-nonce') . '" />';
 				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
+				$content .= '<label for="support_email">' . __( 'Your Email Address', $this->hook ). ':</label><input type="text" name="email" value="' . $current_user->user_email . '" id="support_email">';
+				$content .= '<label for="support_name">' . __( 'Your Name', $this->hook ). ':</label><input type="text" name="name" value="' . $current_user->display_name . '" id="support_name">';
 				$content .= '<label for="support_issue">' . __( 'Describe the Issue', $this->hook ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
 				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', $this->hook ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
 				$content .= '<label for="support_other">' . __( 'Other Information', $this->hook ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
@@ -625,6 +630,69 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				
 			}
 			
+		}/**
+		 * Display (and hide) iThemes Survey reminder
+		 *
+		 * Adds reminder to take the iThemes Security survey
+		 *
+		 **/
+		function ithemes_survey() {
+		
+			global $blog_id; //get the current blog id
+			
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+			
+			$options = get_option( $this->plugindata );
+			$settings = get_option( $this->primarysettings );
+			
+			//this is called at a strange point in WP so we need to bring in some data
+			global $plugname;
+			global $plughook;
+			global $plugopts;
+			$plugname = $this->pluginname;
+			$plughook = $this->hook;
+			$plugopts = $this->plugin_options_url();
+			
+			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
+			if ( ! isset( $options['no_survey'] ) && isset( $settings['initial_backup'] ) && $settings['initial_backup'] == 1 && isset( $settings['initial_filewrite'] ) && $settings['initial_filewrite'] == 1 ) {
+			
+				if ( ! function_exists( 'bit51_plugin_ithemes_survey' ) ) {
+			
+					function bit51_plugin_ithemes_survey(){
+				
+						global $plugname;
+						global $plughook;
+						global $plugopts;
+					
+					    echo '<div class="updated">
+				       <p>' . __( 'Help iThemes improve Better WP Security.', 'better-wp-security' ) . ' ' . $plugname . ' ' . __( 'Please take our short survey to help serve you better.', 'better-wp-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Take the Survey', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_take_ithemes_survey=yes&_wpnonce=' .  wp_create_nonce('bwps_nag') . '\';"> <input type="button" class="button " value="' . __( 'Don\'t Ask Again', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_ithemes_survey_nag=off&_wpnonce=' .  wp_create_nonce( 'bwps_nag' ) . '\';"></p>
+					    </div>';
+				    
+					}
+				
+				}
+				
+				add_action( 'admin_notices', 'bit51_plugin_ithemes_survey' ); //register notification
+				
+			}
+			
+			//if they've clicked a button hide the notice
+			if ( ( isset( $_GET['bwps_ithemes_survey_nag'] ) || isset( $_GET['bwps_take_ithemes_survey'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bwps_nag' ) ) {
+			
+				$options = get_option( $this->plugindata );
+				$options['no_survey'] = 1;
+				update_option( $this->plugindata, $options );
+				remove_action( 'admin_notices', 'bit51_plugin_ithemes_survey' );
+				
+				//They agreed to take the survey. Take them there.
+				if ( isset( $_GET['bwps_take_ithemes_survey'] ) ) {
+					wp_redirect( 'http://ithemes.com/better-wp-security-survey/', '302' );
+				}
+				
+			}
+			
 		}
 
 		function include_foolic_css( $screen ) {
@@ -635,19 +703,17 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			return 'text';
 		}
 
-		function change_foolic_input_size() {
-			return '29';
-		}
-
 		function ajax_submit_ticket() {
 			global $wp_version;
 			global $current_user;
 
-			if (wp_verify_nonce($_REQUEST['nonce'], $this->hook . '_ajax-nonce')) {
-				$issue = $_REQUEST['issue'];
-				$reproduce = $_REQUEST['reproduce'];
-				$other = $_REQUEST['other'];
-				$ticket_key = $_REQUEST['ticket_key'];
+			if (wp_verify_nonce(filter_var( $_REQUEST['nonce'], FILTER_SANITIZE_STRING ), $this->hook . '_ajax-nonce')) {
+				$email = filter_var( $_REQUEST['email'], FILTER_SANITIZE_STRING );
+				$name = filter_var( $_REQUEST['name'], FILTER_SANITIZE_STRING );
+				$issue = filter_var( $_REQUEST['issue'], FILTER_SANITIZE_STRING );
+				$reproduce = filter_var( $_REQUEST['reproduce'], FILTER_SANITIZE_STRING );
+				$other = filter_var( $_REQUEST['other'], FILTER_SANITIZE_STRING );
+				$ticket_key = filter_var( $_REQUEST['ticket_key'], FILTER_SANITIZE_STRING );
 				get_currentuserinfo();
 
 				$message = '<table>
@@ -658,18 +724,22 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				<tr><td>' . __('Plugin Version', $this->hook) . '</td><td>' . $this->pluginversion . '</td></tr>
 				<tr><td>' . __('WP Version', $this->hook) . '</td><td>' . $wp_version . '</td></tr>
 				<tr><td>' . __('Website', $this->hook) . '</td><td>' . home_url() . '</td></tr>
-				<tr><td>' . __('Email', $this->hook) . '</td><td>' . $current_user->user_email . '</td></tr>
-				<tr><td>' . __('Name', $this->hook) . '</td><td>' . $current_user->display_name . '</td></tr>
+				<tr><td>' . __('Email', $this->hook) . '</td><td>' . $email. '</td></tr>
+				<tr><td>' . __('Name', $this->hook) . '</td><td>' . $name . '</td></tr>
 				</table>';
 
 				add_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) );
+
 				if ( function_exists( 'wp_mail' ) ) {
+					
 					wp_mail(
 						$this->support_email,
-						__('Better WP Security Support Ticket', $this->hook),
-						$message
+						__('Better WP Security Support Ticket', 'better-wp-security'),
+						$message,
+						'From: ' . $name . ' <' . $email . '>' . PHP_EOL
 					);
 				}
+
 				remove_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) ); // reset content-type to to avoid conflicts
 			}
 		}
