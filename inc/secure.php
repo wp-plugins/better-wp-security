@@ -11,23 +11,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		function __construct() {
 			
 			global $bwpsoptions, $is_404, $isIWP;
-
-			//set a global variable if this is a call from InfiniteWP
-			$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' );
-			$data = base64_decode( $HTTP_RAW_POST_DATA );
-
-			if ( $data ) {
-				$unserialized_data = @maybe_unserialize( $data );
-				if ( isset( $unserialized_data['iwp_action'] ) ) {
-					$iwp_action = $unserialized_data['iwp_action'];
-				}
-			}
 			
-			if ( isset( $iwp_action ) ) {
-				$isIWP = true;
-			} else {
-				$isIWP = false;
-			}
+			$isIWP = false;
 			
 			//Don't redirect any SSL if SSL is turned off.
 			if ( isset( $bwpsoptions['ssl_frontend'] ) && $bwpsoptions['ssl_frontend']  >= 1 ) {
