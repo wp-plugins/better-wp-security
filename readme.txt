@@ -16,9 +16,10 @@ Released under the terms of the GNU General Public License.
 
 = #1 WORDPRESS SECURITY PLUGIN =
 
+
 = Better WP Security is about to become iThemes Security =
 
-Exciting changes are just around the corner. For more information on how this change will effect you (other than a bunch of cool new features ) <a href="http://ithem.es/6v">please click here</a>.
+Exciting changes are just around the corner. For more information on how this change will affect you (other than a bunch of cool new features ) <a href="http://ithem.es/6v">please click here</a>.
 
 = Better WP Security now by iThemes =
 
