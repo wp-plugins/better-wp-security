@@ -1,11 +1,11 @@
 
 === Better WP Security ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisbliss18
-Donate link: http://bit51.com/software/better-wp-security/
+Donate link: http://ithemes.com/security
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.7
 Tested up to: 3.8.1
-Stable tag: 3.6.5
+Stable tag: 3.6.6
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -15,6 +15,10 @@ Released under the terms of the GNU General Public License.
 == Description ==
 
 = #1 WORDPRESS SECURITY PLUGIN =
+
+= Better WP Security is about to become iThemes Security =
+
+Exciting changes are just around the corner. For more information on how this change will effect you (other than a bunch of cool new features ) <a href="http://ithem.es/6v">please click here</a>.
 
 = Better WP Security now by iThemes =
 
@@ -168,6 +172,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.6.6 =
+* Added notice about upgrade
 
 = 3.6.5 =
 * Reintroduced InfiniteWP compatibility

@@ -29,6 +29,9 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			//add donation reminder
 			add_action( 'admin_init', array( $this, 'ask' ) );	
 
+			//add upgrade nag
+			add_action( 'admin_init', array( $this, 'upgrade' ) );	
+
 			//don't execute anything but SSL for InfiniteWP
 			if ( $isIWP === false ) {
 		

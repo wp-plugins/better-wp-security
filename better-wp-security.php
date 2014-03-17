@@ -2,8 +2,8 @@
 /*
 	Plugin Name: Better WP Security
 	Plugin URI: http://bit51.com/software/better-wp-security/
-	Description: Helps protect your Wordpress installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more.
-	Version: 3.6.5
+	Description: Helps protect your Wordpress installation from attackers. Hardens standard Wordpress security by hiding vital areas of your site, protecting access to important files via htaccess, preventing brute-force login attempts, detecting attack attempts, and more. Better WP Security is about to become iThemes Security. Please <a href="http://ithem.es/6v" target="_blank">click here for more information</a>.
+	Version: 3.6.6
 	Text Domain: better-wp-security
 	Domain Path: /languages
 	Author: iThemes

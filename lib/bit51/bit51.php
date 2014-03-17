@@ -46,6 +46,10 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				wp_enqueue_style( 'bit51-css', plugin_dir_url( $this->pluginbase, __FILE__ ). 'lib/bit51/bit51.css' );
 				
 			}
+
+			if ( is_admin() ) {
+				wp_enqueue_style( 'bit51-upgrade-css', plugin_dir_url( $this->pluginbase, __FILE__ ). 'lib/bit51/bit51_upgrade.css' );
+			}
 			
 		}
 		
@@ -536,6 +540,75 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				//Compose a Tweet
 				if ( isset( $_GET['bit51_lets_tweet'] ) ) {
 					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->pluginname . ' for WordPress by @bit51 and you should too - ' . $this->homepage ) , '302' );
+				}
+				
+			}
+			
+		}
+
+		/**
+		 * Display (and hide) upgrade information
+		 *
+		 * Adds reminder to donate or otherwise support on dashboard
+		 *
+		 **/
+		function upgrade() {
+		
+			global $blog_id; //get the current blog id
+			
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+			
+			$options = get_option( $this->plugindata );
+			
+			//this is called at a strange point in WP so we need to bring in some data
+			global $plugname;
+			global $plughook;
+			global $plugopts;
+			$plugname = $this->pluginname;
+			$plughook = $this->hook;
+			$plugopts = $this->plugin_options_url();
+			
+			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
+			if ( ! isset( $options['no-nag-upgrade'] ) ) {
+			
+				if ( ! function_exists( 'bit51_plugin_upgrade_notice' ) ) {
+			
+					function bit51_plugin_upgrade_notice() {
+				
+						global $plugname;
+						global $plughook;
+						global $plugopts;
+
+						echo '<div class="updated" id="itsec_setup_notice">
+							<a href="?bit51_upgrade_nag=off&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '" class="itsec-notice-hide" >&times;</a>
+	
+							<h3>Better WP Security is about to become iThemes Security.</h3>
+							<p>This upcoming update <strong>will require reactivation</strong> of the plugin.</p>
+	
+							<a href="?bit51_upgrade_nag=off&bit51_read_more=true&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '" class="itsec-notice-button" target="_blank"> Read more about this change and how to update.</a>
+							</div>';
+				    
+					}
+				
+				}
+				
+				add_action( 'admin_notices', 'bit51_plugin_upgrade_notice' ); //register notification
+				
+			}
+			
+			//if they've clicked a button hide the notice
+			if ( isset( $_GET['bit51_upgrade_nag'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bit51-nag' ) ) {
+			
+				$options = get_option( $this->plugindata );
+				$options['no-nag-upgrade'] = 1;
+				update_option( $this->plugindata,$options );
+				remove_action( 'admin_notices', 'bit51_plugin_upgrade_notice' );
+
+				//Go to the WordPress page to let them rate it.
+				if ( isset( $_GET['bit51_read_more'] ) ) {
+					wp_redirect( 'http://ithem.es/6v', '302' );
 				}
 				
 			}
