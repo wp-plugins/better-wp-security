@@ -452,11 +452,13 @@ final class ITSEC_Lib {
 					$mask = $mask + 8;
 				}
 
-				//Apply a mask if we had to convert
-				if ( $mask > 0 ) {
-					$converted_host .= '/' . $mask;
-				}
+			}
 
+			$converted_host = trim( $converted_host );
+
+			//Apply a mask if we had to convert
+			if ( $mask > 0 ) {
+				$converted_host .= '/' . $mask;
 			}
 
 			return $converted_host;

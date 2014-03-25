@@ -3,3 +3,5 @@
 	Initial Release
 4.0.1 - 2014-03-25 - Packaging Bot (modules/free)
 	Initial Release
+4.0.2 - 2014-03-25 - Packaging Bot (core)
+	Initial Release
