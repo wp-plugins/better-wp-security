@@ -11,24 +11,24 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The easiest, most effective way to secure WordPress in seconds.
 
-== License ==  
-Released under the terms of the GNU General Public License. 
+== License ==
+Released under the terms of the GNU General Public License.
 
 == Description ==
 
 = iThemes Security (formerly Better WP Security), #1 WordPress Security Plugin =
 
-iThemes Security (formerly Better WP Security) gives you over 30+ ways to secure and protect your WordPress site. On average, 30,000 new websites are hacked each day. WordPress sites can be an easy target for attacks because of plugin vulnerabilities, weak passwords and obsolete software. 
+iThemes Security (formerly Better WP Security) gives you over 30+ ways to secure and protect your WordPress site. On average, 30,000 new websites are hacked each day. WordPress sites can be an easy target for attacks because of plugin vulnerabilities, weak passwords and obsolete software.
 
 Most WordPress admins don't even know they’re vulnerable, but iThemes Security works to fix common holes, stop automated attacks and strengthen user credentials. With one-click activation for most features, as well as advanced features for experienced users, iThemes Security can help protect any WordPress site.
 
 = Maintained and Supported by iThemes =
 
-iThemes has been building and supporting WordPress tools since 2008. With our full range of WordPress <a href="http://ithemes.com/find/plugins/">plugins</a>, <a href="http://ithemes.com/find/themes/">themes</a> and <a href="http://webdesign.com”>training</a>, WordPress security is the next step in providing you with everything you need to build the WordPress web.
+iThemes has been building and supporting WordPress tools since 2008. With our full range of WordPress <a href="http://ithemes.com/find/plugins/">plugins</a>, <a href="http://ithemes.com/find/themes/">themes</a> and <a href="http://webdesign.com">training</a>, WordPress security is the next step in providing you with everything you need to build the WordPress web.
 
 = Get Support and Pro Features =
 
-Get added peace of mind with professional support from our expert team and pro features to take your site's security to the next level with <a href="http://ithemes.com/security”>iThemes Security Pro</a>.
+Get added peace of mind with professional support from our expert team and pro features to take your site's security to the next level with <a href="http://ithemes.com/security">iThemes Security Pro</a>.
 
 = Obscure =
 
@@ -49,7 +49,7 @@ iThemes Security hides common WordPress security vulnerabilities, preventing att
 
 = Protect =
 
-Hiding parts of your site is helpful, but won't prevent all attacks. In addition to obscuring sensitive areas of your WordPress site, iThemes Security works to protect it by blocking bad users and increasing the security of passwords and other vital information. 
+Hiding parts of your site is helpful, but won't prevent all attacks. In addition to obscuring sensitive areas of your WordPress site, iThemes Security works to protect it by blocking bad users and increasing the security of passwords and other vital information.
 
 * Scans your site to instantly report where vulnerabilities exist and fixes them in seconds
 * Bans troublesome user agents, bots and other hosts
@@ -63,7 +63,7 @@ Hiding parts of your site is helpful, but won't prevent all attacks. In addition
 
 = Detect =
 
-iThemes Security monitors your site and reports changes to the filesystem and database that might indicate a compromise. iThemes Security also works to detect bots and other attempts to search vulnerabilities. 
+iThemes Security monitors your site and reports changes to the filesystem and database that might indicate a compromise. iThemes Security also works to detect bots and other attempts to search vulnerabilities.
 
 * Detects bots and other attempts to search for vulnerabilities
 * Monitors filesystem for unauthorized changes
@@ -71,9 +71,9 @@ iThemes Security monitors your site and reports changes to the filesystem and da
 
 = Recover =
 
-iThemes Security makes regular backups of your WordPress database, allowing you to get back online quickly in the event of an attack. Use iThemes Security to create and email database backups on a customizable schedule. 
+iThemes Security makes regular backups of your WordPress database, allowing you to get back online quickly in the event of an attack. Use iThemes Security to create and email database backups on a customizable schedule.
 
-For complete site backups and the ability to restore or move WordPress easily, check out <a href="http://ithemes.com/purchase/backupbuddy”>BackupBuddy</a> by iThemes.
+For complete site backups and the ability to restore or move WordPress easily, check out <a href="http://ithemes.com/purchase/backupbuddy">BackupBuddy</a> by iThemes.
 
 = Other Benefits =
 
@@ -88,20 +88,6 @@ For complete site backups and the ability to restore or move WordPress easily, c
 * Features like database backups and file checks can be problematic on servers without a minimum of 64MB of RAM. All testing servers allocate 128MB to WordPress and usually don't have any other plugins installed.
 
 = Translations =
-* Brazilian Portuguese by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
-* Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a> and <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
-* Chinese (Traditional) by Toine Cheung
-* French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
-* German by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
-* Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
-* Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
-* Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
-* Russian
-* Simplified Chinese by <a href="http://haib.in">æµ·æ»¨</a>
-* Slovak by <a href="http://www.nawebik.sk">Erich SzabÃ³</a>
-* Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
-* Tagalog by <a href="http://pointen.dk/">Hanne</a>
-* Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 
 Please <a href="http://ithemes.com/contact" target="_blank">let us know</a> if you would like to contribute a translation.
 
@@ -113,13 +99,13 @@ Please read the installation instructions and FAQ before installing this plugin.
 
 NOTE: iThemes Security makes significant changers to your database and other site files which can be problematic, so a backup is strongly recommended before making any changes to your site with this plugin. While problems are rare, most support requests involve the failure to make a proper backup before installation.
 
-1. BEFORE YOU BEGIN: Back up your Wordpress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddyâ€œ>BackupBuddy</a>, our WordPress backup plugin for a complete site backup. 
+1. BEFORE YOU BEGIN: Back up your Wordpress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddyâ€œ>BackupBuddy</a>, our WordPress backup plugin for a complete site backup.
 2. Upload the zip file to the `/wp-content/plugins/` directory
 3. Unzip
 4. Activate the plugin through the 'Plugins' menu in WordPress
 5. Visit the Security menu for checklist and options
 
-DISCLAIMER: Under no circumstances do we release this plugin with any warranty, implied or otherwise. We cannot be held responsible for any damage that might arise from the use of this plugin. 
+DISCLAIMER: Under no circumstances do we release this plugin with any warranty, implied or otherwise. We cannot be held responsible for any damage that might arise from the use of this plugin.
 
 
 == Frequently Asked Questions ==
@@ -131,13 +117,13 @@ DISCLAIMER: Under no circumstances do we release this plugin with any warranty, 
 * No. iThemes Security is designed to help improve the security of your WordPress installation from many common attack methods, but it cannot prevent every possible attack. Nothing replaces diligence and good practice. This plugin makes it a little easier for you to apply both.
 
 = Is "one-click" protection good enough? =
-* One-click protection will help reduce the risk of attack on your site, but we recommend fixing as many high, medium and low priority items in the Security Status section as possible. If you have a plugin or theme that conflicts with an iThemes Security feature, we recommend deactivating the offending feature. 
+* One-click protection will help reduce the risk of attack on your site, but we recommend fixing as many high, medium and low priority items in the Security Status section as possible. If you have a plugin or theme that conflicts with an iThemes Security feature, we recommend deactivating the offending feature.
 
 = Is this plugin only for new WordPress installs or can I use it on existing sites, too? =
-* Many of the changes made by this plugin are complex and can break existing sites. While iThemes Security can be installed on either a new or existing site, we strongly recommend making a <a href="http://ithemes.com/purchase/backupbuddyâ€ target="_blank">complete backup</a> of your existing site before applying any features included in this plugin.
+* Many of the changes made by this plugin are complex and can break existing sites. While iThemes Security can be installed on either a new or existing site, we strongly recommend making a <a href="http://ithemes.com/purchase/backupbuddy” target="_blank">complete backup</a> of your existing site before applying any features included in this plugin.
 
 = Will this plugin work on all servers and hosts? =
-* iThemes Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work. 
+* iThemes Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work.
 * While this plugin should work on all hosts with Apache or LiteSpeed and mod_rewrite or NGINX, it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason, it is extremely important that you make a backup of your site before installing on any existing site. If you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 * Finally, please make sure you have adequate RAM if you plan to use the file change detector or make large backups.
 
