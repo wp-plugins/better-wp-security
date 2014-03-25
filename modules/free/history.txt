@@ -1,2 +1,4 @@
+1.0.1 - 2014-03-25 - Chris Wiegman
+	Better Check for empty IP strings when creating rewrite rules. Should improve upgrade process.
 1.0.0 - 2014-03-25 - Chris Wiegman
 	Initial Release

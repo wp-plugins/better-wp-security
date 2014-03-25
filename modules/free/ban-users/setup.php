@@ -120,13 +120,31 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 
 				if ( isset( $itsec_bwps_options['bu_banlist'] ) && ! is_array( $itsec_bwps_options['bu_banlist'] ) && strlen( $itsec_bwps_options['bu_banlist'] ) > 1 ) {
 
-					$current_options['host_list'] = explode( PHP_EOL, $itsec_bwps_options['bu_banlist'] );
+					$raw_hosts = explode( PHP_EOL, $itsec_bwps_options['bu_banlist'] );
+
+					foreach ( $raw_hosts as $host ) {
+
+						if ( strlen( $host ) > 1 ) {
+							$current_options['host_list'][] = $host;
+						}
+
+					}
 
 				}
 
 				if ( isset( $itsec_bwps_options['bu_banagent'] ) && ! is_array( $itsec_bwps_options['bu_banagent'] ) && strlen( $itsec_bwps_options['bu_banagent'] ) > 1 ) {
 
 					$current_options['agent_list'] = explode( PHP_EOL, $itsec_bwps_options['bu_banagent'] );
+
+					$raw_agents = explode( PHP_EOL, $itsec_bwps_options['bu_banagent'] );
+
+					foreach ( $raw_agents as $agent ) {
+
+						if ( strlen( $agent ) > 1 ) {
+							$current_options['agent_list'][] = $agent;
+						}
+
+					}
 
 				}
 

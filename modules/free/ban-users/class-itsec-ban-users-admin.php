@@ -263,10 +263,14 @@ class ITSEC_Ban_Users_Admin {
 
 					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $converted_host, $raw_white_list, $current ) ) {
 
-						if ( $server_type === 'nginx' ) { //NGINX rules
-							$host_rule = "\tdeny " . trim( $converted_host ) . ';';
-						} else { //rules for all other servers
-							$host_rule = 'Deny from ' . trim( $converted_host );
+						if ( strlen( trim( $converted_host ) ) > 1 ) {
+
+							if ( $server_type === 'nginx' ) { //NGINX rules
+								$host_rule = "\tdeny " . trim( $converted_host ) . ';';
+							} else { //rules for all other servers
+								$host_rule = 'Deny from ' . trim( $converted_host );
+							}
+
 						}
 
 						$host_list .= $host_rule . PHP_EOL; //build large string of all hosts
@@ -299,10 +303,14 @@ class ITSEC_Ban_Users_Admin {
 							$end = '[NC]' . PHP_EOL;
 						}
 
-						if ( $server_type === 'nginx' ) { //NGINX rule
-							$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
-						} else { //Rule for all other servers
-							$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+						if ( strlen( trim( $agent ) ) > 1 ) {
+
+							if ( $server_type === 'nginx' ) { //NGINX rule
+								$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
+							} else { //Rule for all other servers
+								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+							}
+
 						}
 
 						$agent_list .= $converted_agent; //build large string of all agents

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
-"POT-Creation-Date: 2014-03-25 13:17-0500\n"
+"POT-Creation-Date: 2014-03-25 14:21-0500\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chris Jean <support@ithemes.com>\n"
 "Language: \n"
@@ -631,7 +631,7 @@ msgstr ""
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:340
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:455
 #: modules/free/backup/class-itsec-backup-admin.php:474
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:551
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:559
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:321
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:213
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:174
@@ -742,7 +742,7 @@ msgstr ""
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:575
 #: modules/free/backup/class-itsec-backup-admin.php:556
 #: modules/free/backup/class-itsec-backup-admin.php:659
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:750
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:758
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:410
 #: modules/free/file-change/class-itsec-file-change-admin.php:323
 #: modules/free/file-change/class-itsec-file-change-admin.php:635
@@ -1984,43 +1984,43 @@ msgid ""
 "should trigger a lockout. Please note this does not override away mode."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:398
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:406
 msgid "You are blocking known bad hosts and agents with the ban users tool."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:403
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:411
 msgid ""
 "You are not blocking any users that are known to be a problem. Consider "
 "turning on the Ban Users feature."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:429
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:453
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:437
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:461
 msgid "Default Blacklist"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:437
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:445
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:453
 msgid "Configure Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:462
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:470
 msgid "Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:471
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:479
 msgid "Ban Hosts"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:480
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:488
 msgid "Ban User Agents"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:489
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:497
 msgid "Whitelist Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:541
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:549
 msgid ""
 "This feature allows you to completely ban hosts and user agents from your "
 "site without having to manage any configuration of your server. Any IP "
@@ -2028,18 +2028,18 @@ msgid ""
 "access to your site."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:626
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:679
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:634
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:687
 msgid ""
 "Note that the ban users feature has been disabled until the following errors "
 "are corrected:"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:629
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:637
 msgid "is not a valid address in the whitelist users box."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:683
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:691
 msgid "is not a valid address in the ban users box."
 msgstr ""
 
