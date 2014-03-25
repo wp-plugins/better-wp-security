@@ -24,11 +24,11 @@ Most WordPress admins don't even know they’re vulnerable, but iThemes Security
 
 = Maintained and Supported by iThemes =
 
-iThemes has been building and supporting WordPress tools since 2008. With our full range of WordPress <a href="http://ithemes.com/find/plugins/">plugins</a>, <a href="http://ithemes.com/find/themes/">themes</a> and <a href="http://webdesign.com>training</a>, WordPress security is the next step in providing you with everything you need to build the WordPress web.
+iThemes has been building and supporting WordPress tools since 2008. With our full range of WordPress <a href="http://ithemes.com/find/plugins/">plugins</a>, <a href="http://ithemes.com/find/themes/">themes</a> and <a href="http://webdesign.com”>training</a>, WordPress security is the next step in providing you with everything you need to build the WordPress web.
 
 = Get Support and Pro Features =
 
-Get added peace of mind with professional support from our expert team and pro features to take your site's security to the next level with <a href="http://ithemes.com/security>iThemes Security Pro</a>.
+Get added peace of mind with professional support from our expert team and pro features to take your site's security to the next level with <a href="http://ithemes.com/security”>iThemes Security Pro</a>.
 
 = Obscure =
 
@@ -73,7 +73,7 @@ iThemes Security monitors your site and reports changes to the filesystem and da
 
 iThemes Security makes regular backups of your WordPress database, allowing you to get back online quickly in the event of an attack. Use iThemes Security to create and email database backups on a customizable schedule. 
 
-For complete site backups and the ability to restore or move WordPress easily, check out <a href="http://ithemes.com/purchase/backupbuddy>BackupBuddy</a> by iThemes.
+For complete site backups and the ability to restore or move WordPress easily, check out <a href="http://ithemes.com/purchase/backupbuddy”>BackupBuddy</a> by iThemes.
 
 = Other Benefits =
 
@@ -107,7 +107,7 @@ Please <a href="http://ithemes.com/contact" target="_blank">let us know</a> if y
 
 = Warning =
 
-Please read the installation instructions and FAQ before installing this plugin. iThemes Security makes significant changers to your database and other site files which can be problematic, so a backup is strongly recommended before making any changes to your site with this plugin. While problems are rare, most support requests involve the failure to make a proper backup before installation.
+Please read the installation instructions and FAQ before installing this plugin. iThemes Security makes significant changes to your database and other site files which can be problematic, so a backup is strongly recommended before making any changes to your site with this plugin. While problems are rare, most support requests involve the failure to make a proper backup before installation.
 
 == Installation ==
 
