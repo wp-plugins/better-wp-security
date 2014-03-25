@@ -20,7 +20,7 @@ Released under the terms of the GNU General Public License.
 
 iThemes Security (formerly Better WP Security) gives you over 30+ ways to secure and protect your WordPress site. On average, 30,000 new websites are hacked each day. WordPress sites can be an easy target for attacks because of plugin vulnerabilities, weak passwords and obsolete software. 
 
-Most WordPress admins donâ€™t even know theyâ€™re vulnerable, but iThemes Security works to fix common holes, stop automated attacks and strengthen user credentials. With one-click activation for most features, as well as advanced features for experienced users, iThemes Security can help protect any WordPress site.
+Most WordPress admins don't even know they’re vulnerable, but iThemes Security works to fix common holes, stop automated attacks and strengthen user credentials. With one-click activation for most features, as well as advanced features for experienced users, iThemes Security can help protect any WordPress site.
 
 = Maintained and Supported by iThemes =
 
@@ -28,11 +28,11 @@ iThemes has been building and supporting WordPress tools since 2008. With our fu
 
 = Get Support and Pro Features =
 
-Get added peace of mind with professional support from our expert team and pro features to take your siteâ€™s security to the next level with <a href="http://ithemes.com/security>iThemes Security Pro</a>.
+Get added peace of mind with professional support from our expert team and pro features to take your site's security to the next level with <a href="http://ithemes.com/security>iThemes Security Pro</a>.
 
 = Obscure =
 
-iThemes Security hides common WordPress security vulnerabilities, preventing attackers from learning too much about your site and away from sensitive areas like your siteâ€™s login, admin, etc.
+iThemes Security hides common WordPress security vulnerabilities, preventing attackers from learning too much about your site and away from sensitive areas like your site's login, admin, etc.
 
 * Changes the URLs for WordPress dashboard areas including login, admin and more
 * Completely turns off the ability to login for a given time period (away mode)
@@ -85,7 +85,7 @@ For complete site backups and the ability to restore or move WordPress easily, c
 
 * Works on multi-site (network) and single site installations
 * Works with Apache, LiteSpeed or NGINX (Note: NGINX will require you to manually edit your virtual host configuration)
-* Features like database backups and file checks can be problematic on servers without a minimum of 64MB of RAM. All testing servers allocate 128MB to WordPress and usually donâ€™t have any other plugins installed.
+* Features like database backups and file checks can be problematic on servers without a minimum of 64MB of RAM. All testing servers allocate 128MB to WordPress and usually don't have any other plugins installed.
 
 = Translations =
 * Brazilian Portuguese by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
@@ -141,9 +141,8 @@ DISCLAIMER: Under no circumstances do we release this plugin with any warranty, 
 * While this plugin should work on all hosts with Apache or LiteSpeed and mod_rewrite or NGINX, it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason, it is extremely important that you make a backup of your site before installing on any existing site. If you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 * Finally, please make sure you have adequate RAM if you plan to use the file change detector or make large backups.
 
-
 = Does this work with network or multisite installations? =
-* Yes. Weâ€™re in the process of developing more documentation, so weâ€™ll update this as soon as itâ€™s ready.
+* Yes. We're in the process of developing more documentation, so we'll update this as soon as it's ready.
 
 = Can I help? =
 * Of course! We are in constant need of testers. In addition, we can always use help with translations for internationalization. <a href="http://ithemes.com/contributing-to-ithemes-security/">For more information on contributing to iThemes Security, visit this page</a>.
