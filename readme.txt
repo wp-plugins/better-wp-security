@@ -141,7 +141,6 @@ DISCLAIMER: Under no circumstances do we release this plugin with any warranty, 
 * While this plugin should work on all hosts with Apache or LiteSpeed and mod_rewrite or NGINX, it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason, it is extremely important that you make a backup of your site before installing on any existing site. If you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 * Finally, please make sure you have adequate RAM if you plan to use the file change detector or make large backups.
 
-
 = Does this work with network or multisite installations? =
 * Yes. We're in the process of developing more documentation, so we'll update this as soon as it's ready.
 
