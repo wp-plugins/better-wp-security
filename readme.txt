@@ -99,7 +99,7 @@ Please read the installation instructions and FAQ before installing this plugin.
 
 NOTE: iThemes Security makes significant changers to your database and other site files which can be problematic, so a backup is strongly recommended before making any changes to your site with this plugin. While problems are rare, most support requests involve the failure to make a proper backup before installation.
 
-1. BEFORE YOU BEGIN: Back up your Wordpress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddyâ€œ>BackupBuddy</a>, our WordPress backup plugin for a complete site backup.
+1. BEFORE YOU BEGIN: Back up your Wordpress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddy">BackupBuddy</a>, our WordPress backup plugin for a complete site backup.
 2. Upload the zip file to the `/wp-content/plugins/` directory
 3. Unzip
 4. Activate the plugin through the 'Plugins' menu in WordPress
@@ -120,7 +120,7 @@ DISCLAIMER: Under no circumstances do we release this plugin with any warranty, 
 * One-click protection will help reduce the risk of attack on your site, but we recommend fixing as many high, medium and low priority items in the Security Status section as possible. If you have a plugin or theme that conflicts with an iThemes Security feature, we recommend deactivating the offending feature.
 
 = Is this plugin only for new WordPress installs or can I use it on existing sites, too? =
-* Many of the changes made by this plugin are complex and can break existing sites. While iThemes Security can be installed on either a new or existing site, we strongly recommend making a <a href="http://ithemes.com/purchase/backupbuddy” target="_blank">complete backup</a> of your existing site before applying any features included in this plugin.
+* Many of the changes made by this plugin are complex and can break existing sites. While iThemes Security can be installed on either a new or existing site, we strongly recommend making a <a href="http://ithemes.com/purchase/backupbuddy" target="_blank">complete backup</a> of your existing site before applying any features included in this plugin.
 
 = Will this plugin work on all servers and hosts? =
 * iThemes Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work.
