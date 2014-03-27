@@ -1,0 +1,11 @@
+1.0.2 - 2014-03-27 - Chris Wiegman
+	Don't show security menu on multisite for non network admins
+	Fix for module path of windows servers
+	Module path working correctly on Windows servers
+    404 white list should transfer to global white list
+    White list implementation working across all lockouts
+    Add extra dismiss box to close welcome modal (fix for smaller screens)
+1.0.1 - 2014-03-25 - Chris Wiegman
+	Better conversion of ip to cidr
+1.0.0 - 2014-03-25 - Chris Wiegman
+	Initial Release
