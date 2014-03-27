@@ -201,18 +201,18 @@ class ITSEC_File_Change {
 		$added   = $email_details[3]['added'];
 		$removed = $email_details[3]['removed'];
 		$changed = $email_details[3]['changed'];
-		$report  = '<strong>' . __( 'Scan Time:', 'it-l10n-better-wp-security' ) . '</strong> ' . date( 'l, F jS g:i a e', $itsec_globals['current_time'] ) . "<br />" . PHP_EOL;
-		$report .= '<strong>' . __( 'Files Added:', 'it-l10n-better-wp-security' ) . '</strong> ' . $email_details[0] . "<br />" . PHP_EOL;
-		$report .= '<strong>' . __( 'Files Deleted:', 'it-l10n-better-wp-security' ) . '</strong> ' . $email_details[1] . "<br />" . PHP_EOL;
-		$report .= '<strong>' . __( 'Files Modified:', 'it-l10n-better-wp-security' ) . '</strong> ' . $email_details[2] . "<br />" . PHP_EOL;
-		$report .= '<strong>' . __( 'Memory Used:', 'it-l10n-better-wp-security' ) . '</strong> ' . $email_details[3]['memory'] . " MB<br />" . PHP_EOL;
+		$report  = '<strong>' . __( 'Scan Time:', 'LION' ) . '</strong> ' . date( 'l, F jS g:i a e', $itsec_globals['current_time'] ) . "<br />" . PHP_EOL;
+		$report .= '<strong>' . __( 'Files Added:', 'LION' ) . '</strong> ' . $email_details[0] . "<br />" . PHP_EOL;
+		$report .= '<strong>' . __( 'Files Deleted:', 'LION' ) . '</strong> ' . $email_details[1] . "<br />" . PHP_EOL;
+		$report .= '<strong>' . __( 'Files Modified:', 'LION' ) . '</strong> ' . $email_details[2] . "<br />" . PHP_EOL;
+		$report .= '<strong>' . __( 'Memory Used:', 'LION' ) . '</strong> ' . $email_details[3]['memory'] . " MB<br />" . PHP_EOL;
 
-		$report .= '<h4>' . __( 'Files Added', 'it-l10n-better-wp-security' ) . '</h4>';
+		$report .= '<h4>' . __( 'Files Added', 'LION' ) . '</h4>';
 		$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
 		$report .= '<tr>' . PHP_EOL;
-		$report .= '<th>' . __( 'File', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'Modified', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'Modified', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File Hash', 'LION' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
 		if ( isset( $added ) && is_array( $added ) && sizeof( $added > 0 ) ) {
@@ -230,19 +230,19 @@ class ITSEC_File_Change {
 		} else {
 
 			$report .= '<tr>' . PHP_EOL;
-			$report .= '<td colspan="3">' . __( 'No files were added.', 'it-l10n-better-wp-security' ) . '</td>' . PHP_EOL;
+			$report .= '<td colspan="3">' . __( 'No files were added.', 'LION' ) . '</td>' . PHP_EOL;
 			$report .= '</tr>' . PHP_EOL;
 
 		}
 
 		$report .= '</table>' . PHP_EOL;
 
-		$report .= '<h4>' . __( 'Files Deleted', 'it-l10n-better-wp-security' ) . '</h4>';
+		$report .= '<h4>' . __( 'Files Deleted', 'LION' ) . '</h4>';
 		$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
 		$report .= '<tr>' . PHP_EOL;
-		$report .= '<th>' . __( 'File', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'Modified', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'Modified', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File Hash', 'LION' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
 		if ( isset( $removed ) && is_array( $removed ) && sizeof( $removed > 0 ) ) {
@@ -260,19 +260,19 @@ class ITSEC_File_Change {
 		} else {
 
 			$report .= '<tr>' . PHP_EOL;
-			$report .= '<td colspan="3">' . __( 'No files were removed.', 'it-l10n-better-wp-security' ) . '</td>' . PHP_EOL;
+			$report .= '<td colspan="3">' . __( 'No files were removed.', 'LION' ) . '</td>' . PHP_EOL;
 			$report .= '</tr>' . PHP_EOL;
 
 		}
 
 		$report .= '</table>' . PHP_EOL;
 
-		$report .= '<h4>' . __( 'Files Modified', 'it-l10n-better-wp-security' ) . '</h4>';
+		$report .= '<h4>' . __( 'Files Modified', 'LION' ) . '</h4>';
 		$report .= '<table border="1" style="width: 100%; text-align: center;">' . PHP_EOL;
 		$report .= '<tr>' . PHP_EOL;
-		$report .= '<th>' . __( 'File', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'Modified', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
-		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'Modified', 'LION' ) . '</th>' . PHP_EOL;
+		$report .= '<th>' . __( 'File Hash', 'LION' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
 		if ( isset( $changed ) && is_array( $changed ) && sizeof( $changed > 0 ) ) {
@@ -290,7 +290,7 @@ class ITSEC_File_Change {
 		} else {
 
 			$report .= '<tr>' . PHP_EOL;
-			$report .= '<td colspan="3">' . __( 'No files were changed.', 'it-l10n-better-wp-security' ) . '</td>' . PHP_EOL;
+			$report .= '<td colspan="3">' . __( 'No files were changed.', 'LION' ) . '</td>' . PHP_EOL;
 			$report .= '</tr>' . PHP_EOL;
 
 		}
@@ -374,7 +374,7 @@ class ITSEC_File_Change {
 
 		$logger_modules['file_change'] = array(
 			'type'     => 'file_change',
-			'function' => __( 'File Changes Detected', 'it-l10n-better-wp-security' ),
+			'function' => __( 'File Changes Detected', 'LION' ),
 		);
 
 		return $logger_modules;
@@ -484,9 +484,9 @@ class ITSEC_File_Change {
 		$global_options = get_site_option( 'itsec_global' );
 
 		$headers = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
-		$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', $itsec_globals['current_time'] );
+		$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', 'LION' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', $itsec_globals['current_time'] );
 
-		$body = '<p>' . __( 'A file (or files) on your site at ', 'it-l10n-better-wp-security' ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', 'it-l10n-better-wp-security' ) . '</p>';
+		$body = '<p>' . __( 'A file (or files) on your site at ', 'LION' ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', 'LION' ) . '</p>';
 		$body .= $this->get_email_report( $email_details ); //get report
 
 		//Use HTML Content type

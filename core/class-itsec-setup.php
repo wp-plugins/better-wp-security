@@ -26,8 +26,8 @@ class ITSEC_Setup {
 		$this->defaults = array(
 			'notification_email'       => array( get_option( 'admin_email' ) ),
 			'backup_email'             => array( get_option( 'admin_email' ) ),
-			'lockout_message'          => __( 'error', 'it-l10n-better-wp-security' ),
-			'user_lockout_message'     => __( 'You have been locked out due to too many login attempts.', 'it-l10n-better-wp-security' ),
+			'lockout_message'          => __( 'error', 'LION' ),
+			'user_lockout_message'     => __( 'You have been locked out due to too many login attempts.', 'LION' ),
 			'blacklist'                => true,
 			'blacklist_count'          => 3,
 			'blacklist_period'         => 7,
@@ -193,7 +193,7 @@ class ITSEC_Setup {
 		//if this is multisite make sure they're network activating or die
 		if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 
-			die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'it-l10n-better-wp-security' ) );
+			die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'LION' ) );
 
 		}
 
@@ -320,6 +320,20 @@ class ITSEC_Setup {
 				$current_options['write_files']           = isset( $itsec_bwps_options['st_writefiles'] ) && $itsec_bwps_options['st_writefiles'] == 1 ? true : false;
 				$itsec_globals['settings']['write_files'] = $current_options['write_files'];
 				$current_options['did_upgrade']           = true;
+
+				if ( isset( $itsec_bwps_options['id_whitelist'] ) && ! is_array( $itsec_bwps_options['id_whitelist'] ) && strlen( $itsec_bwps_options['id_whitelist'] ) > 1 ) {
+
+					$raw_hosts = explode( PHP_EOL, $itsec_bwps_options['id_whitelist'] );
+
+					foreach ( $raw_hosts as $host ) {
+
+						if ( strlen( $host ) > 1 ) {
+							$current_options['lockout_white_list'][] = $host;
+						}
+
+					}
+
+				}
 
 				if ( $current_options['write_files'] === false ) {
 					set_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP', true, 600 );

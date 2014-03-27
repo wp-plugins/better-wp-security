@@ -26,7 +26,7 @@ class ITSEC_Brute_Force_Admin {
 	public function add_admin_meta_boxes() {
 
 		$id    = 'brute_force_options';
-		$title = __( 'Brute Force Protection', 'it-l10n-better-wp-security' );
+		$title = __( 'Brute Force Protection', 'LION' );
 
 		add_meta_box(
 			$id,
@@ -79,8 +79,8 @@ class ITSEC_Brute_Force_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_brute_force[check_period]" id="itsec_brute_force_check_period" value="' . $check_period . '" type="text"> ';
-		$content .= '<label for="itsec_brute_force_check_period"> ' . __( 'Minutes', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_brute_force_check_period"> ' . __( 'Minutes', 'LION' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -102,7 +102,7 @@ class ITSEC_Brute_Force_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_brute_force_enabled" name="itsec_brute_force[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-		$content .= '<label for="itsec_brute_force_enabled"> ' . __( 'Enable brute force protection.', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<label for="itsec_brute_force_enabled"> ' . __( 'Enable brute force protection.', 'LION' ) . '</label>';
 
 		echo $content;
 
@@ -124,8 +124,8 @@ class ITSEC_Brute_Force_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_brute_force[max_attempts_host]" id="itsec_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ';
-		$content .= '<label for="itsec_brute_force_max_attempts_host"> ' . __( 'Attempts', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system. Set to 0 to record bad login attempts without locking out the host.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_brute_force_max_attempts_host"> ' . __( 'Attempts', 'LION' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system. Set to 0 to record bad login attempts without locking out the host.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -147,8 +147,8 @@ class ITSEC_Brute_Force_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_brute_force[max_attempts_user]" id="itsec_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ';
-		$content .= '<label for="itsec_brute_force_max_attempts_user"> ' . __( 'Attempts', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself. Set to zero to log bad login attempts per user without ever locking the user out (this is not recommended)', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_brute_force_max_attempts_user"> ' . __( 'Attempts', 'LION' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself. Set to zero to log bad login attempts per user without ever locking the user out (this is not recommended)', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -166,12 +166,12 @@ class ITSEC_Brute_Force_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-high';
-			$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_brute_force_enabled', );
+			$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'LION' ), 'link' => '#itsec_brute_force_enabled', );
 
 		} else {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_brute_force_enabled', );
+			$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'LION' ), 'link' => '#itsec_brute_force_enabled', );
 
 		}
 
@@ -228,14 +228,14 @@ class ITSEC_Brute_Force_Admin {
 		//Add Settings sections
 		add_settings_section(
 			'brute_force-enabled',
-			__( 'Enable Brute Force Protection', 'it-l10n-better-wp-security' ),
+			__( 'Enable Brute Force Protection', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'brute_force-settings',
-			__( 'Brute Force Protection Settings', 'it-l10n-better-wp-security' ),
+			__( 'Brute Force Protection Settings', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -243,28 +243,28 @@ class ITSEC_Brute_Force_Admin {
 		//Brute Force Protection Fields
 		add_settings_field(
 			'itsec_brute_force[enabled]',
-			__( 'Brute Force Protection', 'it-l10n-better-wp-security' ),
+			__( 'Brute Force Protection', 'LION' ),
 			array( $this, 'brute_force_enabled' ),
 			'security_page_toplevel_page_itsec_settings', 'brute_force-enabled'
 		);
 
 		add_settings_field(
 			'itsec_brute_force[max_attempts_host]',
-			__( 'Max Login Attempts Per Host', 'it-l10n-better-wp-security' ),
+			__( 'Max Login Attempts Per Host', 'LION' ),
 			array( $this, 'brute_force_max_attempts_host' ),
 			'security_page_toplevel_page_itsec_settings', 'brute_force-settings'
 		);
 
 		add_settings_field(
 			'itsec_brute_force[max_attempts_user]',
-			__( 'Max Login Attempts Per User', 'it-l10n-better-wp-security' ),
+			__( 'Max Login Attempts Per User', 'LION' ),
 			array( $this, 'brute_force_max_attempts_user' ),
 			'security_page_toplevel_page_itsec_settings', 'brute_force-settings'
 		);
 
 		add_settings_field(
 			'itsec_brute_force[check_period]',
-			__( 'Minutes to Remember Bad Login (check period)', 'it-l10n-better-wp-security' ),
+			__( 'Minutes to Remember Bad Login (check period)', 'LION' ),
 			array( $this, 'brute_force_check_period' ),
 			'security_page_toplevel_page_itsec_settings', 'brute_force-settings'
 		);
@@ -289,7 +289,7 @@ class ITSEC_Brute_Force_Admin {
 			require( dirname( __FILE__ ) . '/class-itsec-brute-force-log.php' );
 		}
 
-		echo __( 'Below is the log of all the invalid login attempts in the WordPress Database. To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' );
+		echo __( 'Below is the log of all the invalid login attempts in the WordPress Database. To adjust logging options visit the global settings page.', 'LION' );
 
 		$log_display = new ITSEC_Brute_Force_Log();
 		$log_display->prepare_items();
@@ -308,7 +308,7 @@ class ITSEC_Brute_Force_Admin {
 
 		global $itsec_lockout;
 
-		echo '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attack, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\'t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attack, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\'t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'LION' ) . '</p>';
 		echo $itsec_lockout->get_lockout_description();
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'brute_force-enabled', false );
@@ -318,7 +318,7 @@ class ITSEC_Brute_Force_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -360,7 +360,7 @@ class ITSEC_Brute_Force_Admin {
 
 			$metaboxes[] = array(
 				'module'   => 'brute_force',
-				'title'    => __( 'Invalid Login Attempts', 'it-l10n-better-wp-security' ),
+				'title'    => __( 'Invalid Login Attempts', 'LION' ),
 				'callback' => array( $this, 'logs_metabox' )
 			);
 
@@ -407,7 +407,7 @@ class ITSEC_Brute_Force_Admin {
 		if ( isset( $_POST['itsec_brute_force'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
+				die( __( 'Security error!', 'LION' ) );
 			}
 
 			update_site_option( 'itsec_brute_force', $_POST['itsec_brute_force'] ); //we must manually save network options

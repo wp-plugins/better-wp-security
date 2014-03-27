@@ -87,7 +87,7 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 	 **/
 	function column_memory( $item ) {
 
-		return $item['memory'] . __( 'MB', 'it-l10n-better-wp-security' );
+		return $item['memory'] . __( 'MB', 'LION' );
 
 	}
 
@@ -103,36 +103,36 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 
 		if ( $item['added'] > 0 || $item['removed'] > 0 || $item['changed'] > 0 ) {
 
-			echo '<a href="itsec-log-file-change-row-' . $item['detail'] . '" class="dialog">' . __( 'Details', 'it-l10n-better-wp-security' ) . '</a>';
+			echo '<a href="itsec-log-file-change-row-' . $item['detail'] . '" class="dialog">' . __( 'Details', 'LION' ) . '</a>';
 
 			$content = '<div id="itsec-log-file-change-row-' . $item['detail'] . '" style="display:none;">';
 
-			$content .= '<h3>' . __( 'Files Added', 'it-l10n-better-wp-security' ) . '</h3>';
+			$content .= '<h3>' . __( 'Files Added', 'LION' ) . '</h3>';
 
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['added_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'LION' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'LION' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
 			}
 
 			$content .= '</ol>';
 
-			$content .= '<h3>' . __( 'Files Removed', 'it-l10n-better-wp-security' ) . '</h3>';
+			$content .= '<h3>' . __( 'Files Removed', 'LION' ) . '</h3>';
 
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['removed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'LION' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'LION' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
 			}
 
 			$content .= '</ol>';
 
-			$content .= '<h3>' . __( 'Files Changed', 'it-l10n-better-wp-security' ) . '</h3>';
+			$content .= '<h3>' . __( 'Files Changed', 'LION' ) . '</h3>';
 
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['changed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'LION' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'LION' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
 			}
 
 			$content .= '</ol>';
@@ -152,12 +152,12 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 	public function get_columns() {
 
 		return array(
-			'time'    => __( 'Check Time', 'it-l10n-better-wp-security' ),
-			'added'   => __( 'Files Added', 'it-l10n-better-wp-security' ),
-			'removed' => __( 'Files Deleted', 'it-l10n-better-wp-security' ),
-			'changed' => __( 'Files Changed', 'it-l10n-better-wp-security' ),
-			'memory'  => __( 'Memory Used', 'it-l10n-better-wp-security' ),
-			'detail'  => __( 'Details', 'it-l10n-better-wp-security' ),
+			'time'    => __( 'Check Time', 'LION' ),
+			'added'   => __( 'Files Added', 'LION' ),
+			'removed' => __( 'Files Deleted', 'LION' ),
+			'changed' => __( 'Files Changed', 'LION' ),
+			'memory'  => __( 'Memory Used', 'LION' ),
+			'detail'  => __( 'Details', 'LION' ),
 		);
 
 	}

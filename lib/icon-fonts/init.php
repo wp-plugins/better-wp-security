@@ -4,7 +4,7 @@
  *
  * @package icon-fonts
  * @author iThemes
- * @version 1.1.1
+ * @version 1.1.2
 */
 
 if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
@@ -15,18 +15,18 @@ if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
 			$content_dir = rtrim( str_replace( '\\', '/', WP_CONTENT_DIR ), '/' );
 			$abspath = rtrim( str_replace( '\\', '/', ABSPATH ), '/' );
 			
-			if ( 0 === strpos( $dir, $content_dir ) ) {
+			if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
 				$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
-			} else if ( 0 === strpos( $dir, $abspath ) ) {
+			} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
 				$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
 			}
 			
 			if ( empty( $url ) ) {
 				$dir = realpath( $dir );
 				
-				if ( 0 === strpos( $dir, $content_dir ) ) {
+				if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
 					$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
-				} else if ( 0 === strpos( $dir, $abspath ) ) {
+				} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
 					$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
 				}
 			}

@@ -318,19 +318,15 @@ final class ITSEC_Lib {
 	 */
 	public static function get_module_path( $file, $with_sub = false ) {
 
-		$directory = dirname( $file );
+		$directory =  dirname( $file );
 
 		$path_info = parse_url( get_bloginfo( 'url' ) );
 
+		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/', str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ), '\\\/' ) );
+
 		if ( $with_sub === true && isset( $path_info['path'] ) ) {
 
-			$root_path = str_replace( $path_info['path'], '', ABSPATH );
-
-			$path = '/' . trailingslashit( str_replace( $root_path, '', $directory ) );
-
-		} else {
-
-			$path = '/' . trailingslashit( str_replace( ABSPATH, '', $directory ) );
+			$path =  $path_info['path'] . $path;
 
 		}
 

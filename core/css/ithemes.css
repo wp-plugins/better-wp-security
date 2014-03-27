@@ -422,7 +422,12 @@ div.itsec_rewrite_rules code {
 }
 
 .itsec-setup-dialog .ui-dialog-titlebar button {
-	display:none;
+	padding: .5em; 
+	color: #5bbdd5;
+}
+.itsec-setup-dialog .ui-dialog-titlebar button:hover {
+	color: #fff;
+	padding: .5em;
 }
 
 #itsec_intro_modal {

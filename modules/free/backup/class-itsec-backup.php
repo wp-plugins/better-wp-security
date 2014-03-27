@@ -47,19 +47,19 @@ class ITSEC_Backup {
 				switch ( $this->settings['method'] ) {
 
 					case 0:
-						$details = __( 'emailed to backup recipients and saved locally.', 'it-l10n-better-wp-security' );
+						$details = __( 'emailed to backup recipients and saved locally.', 'LION' );
 						break;
 					case 1:
-						$details = __( 'emailed to backup recipients.', 'it-l10n-better-wp-security' );
+						$details = __( 'emailed to backup recipients.', 'LION' );
 						break;
 					default:
-						$details = __( 'saved locally.', 'it-l10n-better-wp-security' );
+						$details = __( 'saved locally.', 'LION' );
 						break;
 
 				}
 
 				$type    = 'updated';
-				$message = __( 'Backup Completed and ' . $details, 'it-l10n-better-wp-security' );
+				$message = __( 'Backup Completed and ' . $details, 'LION' );
 
 			}
 
@@ -70,7 +70,7 @@ class ITSEC_Backup {
 			if ( $one_time === true ) {
 
 				$type    = 'error';
-				$message = __( 'Something went wrong with your backup. It looks like another process might already be trying to backup your database. Please try again in a few minutes. If the problem persists please contact support.', 'it-l10n-better-wp-security' );
+				$message = __( 'Something went wrong with your backup. It looks like another process might already be trying to backup your database. Please try again in a few minutes. If the problem persists please contact support.', 'LION' );
 
 			}
 
@@ -200,11 +200,11 @@ class ITSEC_Backup {
 			$option = get_site_option( 'itsec_global' );
 
 			$attachment = array( $itsec_globals['ithemes_backup_dir'] . '/' . $file . $fileext );
-			$body       = __( 'Attached is the backup file for the database powering', 'it-l10n-better-wp-security' ) . ' ' . get_option( 'siteurl' ) . __( ' taken', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
+			$body       = __( 'Attached is the backup file for the database powering', 'LION' ) . ' ' . get_option( 'siteurl' ) . __( ' taken', 'LION' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
 
 			//Setup the remainder of the email
 			$recipients = $option['backup_email'];
-			$subject    = __( 'Site Database Backup', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
+			$subject    = __( 'Site Database Backup', 'LION' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
 			$subject = apply_filters( 'itsec_backup_email_subject', $subject );
 			$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
 
@@ -243,21 +243,21 @@ class ITSEC_Backup {
 
 			case 0:
 				$status = array(
-					'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
-					'details' => __( 'emailed to backup recipients and saved locally', 'it-l10n-better-wp-security' ),
+					'status'  => __( 'Success', 'LION' ),
+					'details' => __( 'emailed to backup recipients and saved locally', 'LION' ),
 				);
 
 				break;
 			case 1:
 				$status = array(
-					'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
-					'details' => __( 'emailed to backup recipients', 'it-l10n-better-wp-security' ),
+					'status'  => __( 'Success', 'LION' ),
+					'details' => __( 'emailed to backup recipients', 'LION' ),
 				);
 				break;
 			default:
 				$status = array(
-					'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
-					'details' => __( 'saved locally', 'it-l10n-better-wp-security' ),
+					'status'  => __( 'Success', 'LION' ),
+					'details' => __( 'saved locally', 'LION' ),
 				);
 				break;
 
@@ -278,7 +278,7 @@ class ITSEC_Backup {
 
 		$logger_modules['backup'] = array(
 			'type'     => 'backup',
-			'function' => __( 'Database Backup Executed', 'it-l10n-better-wp-security' ),
+			'function' => __( 'Database Backup Executed', 'LION' ),
 		);
 
 		return $logger_modules;

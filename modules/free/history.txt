@@ -1,3 +1,8 @@
+1.0.2 - 2014-03-27
+    Away mode settings now accept PM time
+    Removed the pingback URL from the header if xmlrpc disabled.
+    Added file locking to admin user operations to [hopefully] avoid duplicated users.
+    Fixed minor typos
 1.0.1 - 2014-03-25 - Chris Wiegman
 	Better Check for empty IP strings when creating rewrite rules. Should improve upgrade process.
 1.0.0 - 2014-03-25 - Chris Wiegman

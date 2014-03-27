@@ -23,6 +23,10 @@ class ITSEC_Tweaks {
 			remove_action( 'wp_head', 'rsd_link' );
 		}
 
+		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == true ) {
+			add_filter( 'bloginfo_url', array( $this, 'remove_pingback_url' ), 10, 2 );
+		}
+
 		//ban extra-long urls if turned on
 		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == true && ! is_admin() ) {
 
@@ -166,7 +170,7 @@ class ITSEC_Tweaks {
 
 			if ( $user->nickname == $user->user_login ) {
 
-				$errors->add( 'user_error', __( 'Your Nickname must be different than your login name. Please choose a different Nickname.', 'it-l10n-better-wp-security' ) );
+				$errors->add( 'user_error', __( 'Your Nickname must be different than your login name. Please choose a different Nickname.', 'LION' ) );
 
 			} else {
 
@@ -184,7 +188,7 @@ class ITSEC_Tweaks {
 
 		} else {
 
-			$errors->add( 'user_error', __( 'A Nickname is required. Please choose a nickname or fill out your first and last name.', 'it-l10n-better-wp-security' ) );
+			$errors->add( 'user_error', __( 'A Nickname is required. Please choose a nickname or fill out your first and last name.', 'LION' ) );
 
 		}
 
@@ -254,6 +258,23 @@ class ITSEC_Tweaks {
 
 		}
 
+	}
+
+	/**
+	 * Removes the pingback header
+	 *
+	 * @param string $output
+	 * @param string $show
+	 *
+	 * @return array
+	 */
+	function remove_pingback_url( $output, $show ) {
+
+		if ( $show == 'pingback_url' ) {
+			$output = '';
+		}
+
+		return $output;
 	}
 
 	/**

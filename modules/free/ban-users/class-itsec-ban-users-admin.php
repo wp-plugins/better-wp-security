@@ -27,7 +27,7 @@ class ITSEC_Ban_Users_Admin {
 	public function add_admin_meta_boxes() {
 
 		$id    = 'ban_users_options';
-		$title = __( 'Banned Users', 'it-l10n-better-wp-security' );
+		$title = __( 'Banned Users', 'LION' );
 
 		add_meta_box(
 			$id,
@@ -87,9 +87,9 @@ class ITSEC_Ban_Users_Admin {
 		}
 
 		$content = '<textarea id="itsec_ban_users_agent_list" name="itsec_ban_users[agent_list]" rows="10" cols="50">' . $agent_list . '</textarea>';
-		$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'LION' ) . '</p>';
 		$content .= '<ul>';
-		$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'it-l10n-better-wp-security' ) . '</li>';
+		$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'LION' ) . '</li>';
 		$content .= '</ul>';
 
 		echo $content;
@@ -112,8 +112,8 @@ class ITSEC_Ban_Users_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_ban_users_default" name="itsec_ban_users[default]" value="1" ' . checked( 1, $default, false ) . '/>';
-		$content .= '<label for="itsec_ban_users_default"> ' . __( 'Enable HackRepair.com\'s blacklist feature', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description">' . __( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_ban_users_default"> ' . __( 'Enable HackRepair.com\'s blacklist feature', 'LION' ) . '</label>';
+		$content .= '<p class="description">' . __( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -135,7 +135,7 @@ class ITSEC_Ban_Users_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_ban_users_enabled" name="itsec_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-		$content .= '<label for="itsec_ban_users_enabled"> ' . __( 'Enable ban users', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<label for="itsec_ban_users_enabled"> ' . __( 'Enable ban users', 'LION' ) . '</label>';
 
 		echo $content;
 
@@ -164,13 +164,13 @@ class ITSEC_Ban_Users_Admin {
 		}
 
 		$content = '<textarea id="itsec_ban_users_host_list" name="itsec_ban_users[host_list]" rows="10" cols="50">' . $host_list . '</textarea>';
-		$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'LION' ) . '</p>';
 		$content .= '<ul>';
-		$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
-		$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
+		$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'LION' ) . '</li>';
+		$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'LION' ) . '</li>';
+		$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'LION' ) . '</li>';
+		$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'LION' ) . '</a></li>';
+		$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'LION' ) . '</li>';
 		$content .= '</ul>';
 
 		echo $content;
@@ -200,13 +200,13 @@ class ITSEC_Ban_Users_Admin {
 		}
 
 		$content = '<textarea id="itsec_ban_users_white_list" name="itsec_ban_users[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-		$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'LION' ) . '</p>';
 		$content .= '<ul>';
-		$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
-		$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
+		$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'LION' ) . '</li>';
+		$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'LION' ) . '</li>';
+		$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'LION' ) . '</li>';
+		$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'LION' ) . '</a></li>';
+		$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'LION' ) . '</li>';
 		$content .= '</ul>';
 
 		echo $content;
@@ -403,12 +403,12 @@ class ITSEC_Ban_Users_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ban_users_enabled', );
+			$status       = array( 'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'LION' ), 'link' => '#itsec_ban_users_enabled', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ban_users_enabled', );
+			$status       = array( 'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'LION' ), 'link' => '#itsec_ban_users_enabled', );
 
 		}
 
@@ -434,7 +434,7 @@ class ITSEC_Ban_Users_Admin {
 		//default blacklist section
 		add_settings_section(
 			'ban_users_default',
-			__( 'Default Blacklist', 'it-l10n-better-wp-security' ),
+			__( 'Default Blacklist', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -442,7 +442,7 @@ class ITSEC_Ban_Users_Admin {
 		//Enabled section
 		add_settings_section(
 			'ban_users_enabled',
-			__( 'Configure Ban Users', 'it-l10n-better-wp-security' ),
+			__( 'Configure Ban Users', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -450,7 +450,7 @@ class ITSEC_Ban_Users_Admin {
 		//primary settings section
 		add_settings_section(
 			'ban_users_settings',
-			__( 'Configure Ban Users', 'it-l10n-better-wp-security' ),
+			__( 'Configure Ban Users', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -458,7 +458,7 @@ class ITSEC_Ban_Users_Admin {
 		//default list field
 		add_settings_field(
 			'itsec_ban_users[default]',
-			__( 'Default Blacklist', 'it-l10n-better-wp-security' ),
+			__( 'Default Blacklist', 'LION' ),
 			array( $this, 'ban_users_default' ),
 			'security_page_toplevel_page_itsec_settings',
 			'ban_users_default'
@@ -467,7 +467,7 @@ class ITSEC_Ban_Users_Admin {
 		//enabled field
 		add_settings_field(
 			'itsec_ban_users[enabled]',
-			__( 'Ban Users', 'it-l10n-better-wp-security' ),
+			__( 'Ban Users', 'LION' ),
 			array( $this, 'ban_users_enabled' ),
 			'security_page_toplevel_page_itsec_settings',
 			'ban_users_enabled'
@@ -476,7 +476,7 @@ class ITSEC_Ban_Users_Admin {
 		//host list field
 		add_settings_field(
 			'itsec_ban_users[host_list]',
-			__( 'Ban Hosts', 'it-l10n-better-wp-security' ),
+			__( 'Ban Hosts', 'LION' ),
 			array( $this, 'ban_users_host_list' ),
 			'security_page_toplevel_page_itsec_settings',
 			'ban_users_settings'
@@ -485,7 +485,7 @@ class ITSEC_Ban_Users_Admin {
 		//agent _list field
 		add_settings_field(
 			'itsec_ban_users[agent_list]',
-			__( 'Ban User Agents', 'it-l10n-better-wp-security' ),
+			__( 'Ban User Agents', 'LION' ),
 			array( $this, 'ban_users_agent_list' ),
 			'security_page_toplevel_page_itsec_settings',
 			'ban_users_settings'
@@ -494,7 +494,7 @@ class ITSEC_Ban_Users_Admin {
 		//agent _list field
 		add_settings_field(
 			'itsec_ban_users[white_list]',
-			__( 'Whitelist Users', 'it-l10n-better-wp-security' ),
+			__( 'Whitelist Users', 'LION' ),
 			array( $this, 'ban_users_white_list' ),
 			'security_page_toplevel_page_itsec_settings',
 			'ban_users_settings'
@@ -546,7 +546,7 @@ class ITSEC_Ban_Users_Admin {
 	 */
 	public function metabox_advanced_settings() {
 
-		echo '<p>' . __( 'This feature allows you to completely ban hosts and user agents from your site without having to manage any configuration of your server. Any IP addresses or user agents found in the lists below will not be allowed any access to your site.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'This feature allows you to completely ban hosts and user agents from your site without having to manage any configuration of your server. Any IP addresses or user agents found in the lists below will not be allowed any access to your site.', 'LION' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'ban_users_default', false );
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'ban_users_enabled', false );
@@ -556,7 +556,7 @@ class ITSEC_Ban_Users_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -631,10 +631,10 @@ class ITSEC_Ban_Users_Admin {
 			$type    = 'error';
 			$message = '';
 
-			$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
+			$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'LION' ) );
 
 			foreach ( $bad_white_listed_ips as $bad_ip ) {
-				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the whitelist users box.', 'it-l10n-better-wp-security' ) );
+				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the whitelist users box.', 'LION' ) );
 			}
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
@@ -684,11 +684,11 @@ class ITSEC_Ban_Users_Admin {
 			$type = 'error';
 
 			if ( $no_errors === true ) {
-				$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
+				$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'LION' ) );
 			}
 
 			foreach ( $bad_ips as $bad_ip ) {
-				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the ban users box.', 'it-l10n-better-wp-security' ) );
+				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the ban users box.', 'LION' ) );
 			}
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
@@ -755,7 +755,7 @@ class ITSEC_Ban_Users_Admin {
 		if ( isset( $_POST['itsec_ban_users'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
+				die( __( 'Security error!', 'LION' ) );
 			}
 
 			update_site_option( 'itsec_ban_users', $_POST['itsec_ban_users'] ); //we must manually save network options

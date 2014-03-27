@@ -31,7 +31,7 @@ class ITSEC_Backup_Admin {
 
 			add_meta_box(
 				'backup_description',
-				__( 'Description', 'it-l10n-better-wp-security' ),
+				__( 'Description', 'LION' ),
 				array( $this, 'add_module_intro' ),
 				'security_page_toplevel_page_itsec_backups',
 				'normal',
@@ -40,7 +40,7 @@ class ITSEC_Backup_Admin {
 
 			add_meta_box(
 				'backup_one_time',
-				__( 'Make a Database Backup', 'it-l10n-better-wp-security' ),
+				__( 'Make a Database Backup', 'LION' ),
 				array( $this, 'metabox_one_time' ),
 				'security_page_toplevel_page_itsec_backups',
 				'advanced',
@@ -48,7 +48,7 @@ class ITSEC_Backup_Admin {
 			);
 
 			$id    = 'backup_options';
-			$title = __( 'Database Backups', 'it-l10n-better-wp-security' );
+			$title = __( 'Database Backups', 'LION' );
 
 			add_meta_box(
 				$id,
@@ -62,7 +62,7 @@ class ITSEC_Backup_Admin {
 			if ( ! class_exists( 'backupbuddy_api0' ) ) {
 				add_meta_box(
 					'backupbuddy_info',
-					__( 'Take the Next Steps in Security with BackupBuddy', 'it-l10n-better-wp-security' ),
+					__( 'Take the Next Steps in Security with BackupBuddy', 'LION' ),
 					array( $this, 'backupbuddy_metabox' ),
 					'security_page_toplevel_page_itsec_backups',
 					'advanced',
@@ -88,7 +88,7 @@ class ITSEC_Backup_Admin {
 	 */
 	public function add_module_intro() {
 
-		$content = '<p>' . __( 'One of the best ways to protect yourself from an attack is to have access to a database backup of your site. If something goes wrong, you can get your site back by restoring the database from a backup and replacing the files with fresh ones. Use the button below to create a backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content = '<p>' . __( 'One of the best ways to protect yourself from an attack is to have access to a database backup of your site. If something goes wrong, you can get your site back by restoring the database from a backup and replacing the files with fresh ones. Use the button below to create a backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -118,7 +118,7 @@ class ITSEC_Backup_Admin {
 			wp_register_style( 'itsec_backup_styles', $this->module_path . 'css/admin-backup.css' ); //add multi-select css
 			wp_enqueue_style( 'itsec_backup_styles' );
 
-			wp_localize_script( 'itsec_backup_js', 'exclude_text', array( 'available' => __( 'Tables for Backup', 'it-l10n-better-wp-security' ), 'excluded' => __( 'Excluded Tables', 'it-l10n-better-wp-security' ) ) );
+			wp_localize_script( 'itsec_backup_js', 'exclude_text', array( 'available' => __( 'Tables for Backup', 'LION' ), 'excluded' => __( 'Excluded Tables', 'LION' ) ) );
 
 		}
 
@@ -145,7 +145,7 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_backup_all_sites" name="itsec_backup[all_sites]" value="1" ' . checked( 1, $all_sites, false ) . '/>';
-		$content .= '<label for="itsec_backup_all_sites"> ' . __( 'Checking this box will have the backup script backup all tables in your database, even if they are not part of this WordPress site.', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<label for="itsec_backup_all_sites"> ' . __( 'Checking this box will have the backup script backup all tables in your database, even if they are not part of this WordPress site.', 'LION' ) . '</label>';
 
 		echo $content;
 
@@ -164,22 +164,22 @@ class ITSEC_Backup_Admin {
 		if ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) >= 1 ) {
 
 			$status_array = 'safe-medium';
-			$status = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
+			$status = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'LION' ), 'link' => '?page=pb_backupbuddy_scheduling', );
 
 		} elseif ( class_exists( 'backupbuddy_api0' ) ) {
 
 			$status_array = 'medium';
-			$status = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
+			$status = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups.', 'LION' ), 'link' => '?page=pb_backupbuddy_scheduling', );
 
 		} elseif ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your site is performing scheduled database backups but is not backing up files. Consider purchasing or scheduling BackupBuddy to protect your investment.', 'it-l10n-better-wp-security' ), 'link' => 'http://ithemes.com/better-backups', );
+			$status       = array( 'text' => __( 'Your site is performing scheduled database backups but is not backing up files. Consider purchasing or scheduling BackupBuddy to protect your investment.', 'LION' ), 'link' => 'http://ithemes.com/better-backups', );
 
 		} else {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( 'Your site is not performing any scheduled database backups.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_backup_enabled', );
+			$status       = array( 'text' => __( 'Your site is not performing any scheduled database backups.', 'LION' ), 'link' => '#itsec_backup_enabled', );
 
 		}
 
@@ -211,7 +211,7 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_backup_enabled" name="itsec_backup[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-		$content .= '<label for="itsec_backup_enabled"> ' . __( 'Enable Scheduled Database Backups', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<label for="itsec_backup_enabled"> ' . __( 'Enable Scheduled Database Backups', 'LION' ) . '</label>';
 
 		echo $content;
 
@@ -249,7 +249,7 @@ class ITSEC_Backup_Admin {
 			$tables = $wpdb->get_results( 'SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N ); //retrieve a list of all tables for this WordPress installation
 		}
 
-		$content = '<label for="itsec_backup_exclude"> ' . __( 'Tables with data that does not need to be backed up', 'it-l10n-better-wp-security' ) . '</label>';
+		$content = '<label for="itsec_backup_exclude"> ' . __( 'Tables with data that does not need to be backed up', 'LION' ) . '</label>';
 		$content .= '<select multiple="multiple" name="itsec_backup[exclude][]" id="itsec_backup_exclude">';
 
 		foreach ( $tables as $table ) {
@@ -271,7 +271,7 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content .= '</select>';
-		$content .= '<p class="description"> ' . __( 'Some plugins can create log files in your database. While these logs might be handy for some functions, they can also take up a lot of space and, in some cases, even make backing up your database almost impossible. Select log tables above to exclude their data from the backup. Note: The table itself will be backed up, but not the data in the table.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<p class="description"> ' . __( 'Some plugins can create log files in your database. While these logs might be handy for some functions, they can also take up a lot of space and, in some cases, even make backing up your database almost impossible. Select log tables above to exclude their data from the backup. Note: The table itself will be backed up, but not the data in the table.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -321,21 +321,21 @@ class ITSEC_Backup_Admin {
 		//Add Settings sections
 		add_settings_section(
 			'backup-settings-2',
-			__( 'Configure Database Backups', 'it-l10n-better-wp-security' ),
+			__( 'Configure Database Backups', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'backup-enabled',
-			__( 'Enable Database Backups', 'it-l10n-better-wp-security' ),
+			__( 'Enable Database Backups', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'backup-settings',
-			__( 'Backup Schedule Settings', 'it-l10n-better-wp-security' ),
+			__( 'Backup Schedule Settings', 'LION' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -343,7 +343,7 @@ class ITSEC_Backup_Admin {
 		//404 Detection Fields
 		add_settings_field(
 			'itsec_backup[enabled]',
-			__( 'Schedule Database Backups', 'it-l10n-better-wp-security' ),
+			__( 'Schedule Database Backups', 'LION' ),
 			array( $this, 'enabled' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-enabled'
@@ -351,7 +351,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[interval]',
-			__( 'Backup Interval', 'it-l10n-better-wp-security' ),
+			__( 'Backup Interval', 'LION' ),
 			array( $this, 'interval' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings'
@@ -359,7 +359,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[all_sites]',
-			__( 'Backup Full Database', 'it-l10n-better-wp-security' ),
+			__( 'Backup Full Database', 'LION' ),
 			array( $this, 'all_sites' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings-2'
@@ -367,7 +367,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[method]',
-			__( 'Backup Method', 'it-l10n-better-wp-security' ),
+			__( 'Backup Method', 'LION' ),
 			array( $this, 'method' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings-2'
@@ -375,7 +375,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[location]',
-			__( 'Backup Location', 'it-l10n-better-wp-security' ),
+			__( 'Backup Location', 'LION' ),
 			array( $this, 'location' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings-2'
@@ -383,7 +383,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[zip]',
-			__( 'Compress Backup Files', 'it-l10n-better-wp-security' ),
+			__( 'Compress Backup Files', 'LION' ),
 			array( $this, 'zip' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings-2'
@@ -391,7 +391,7 @@ class ITSEC_Backup_Admin {
 
 		add_settings_field(
 			'itsec_backup[exclude]',
-			__( 'Exclude Tables', 'it-l10n-better-wp-security' ),
+			__( 'Exclude Tables', 'LION' ),
 			array( $this, 'exclude' ),
 			'security_page_toplevel_page_itsec_settings',
 			'backup-settings-2'
@@ -422,8 +422,8 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_backup[interval]" id="itsec_backup_interval" value="' . $interval . '" type="text"> ';
-		$content .= '<label for="itsec_backup_interval"> ' . __( 'Days', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The number of days between database backups.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_backup_interval"> ' . __( 'Days', 'LION' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The number of days between database backups.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -447,8 +447,8 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content = '<input class="large-text" name="itsec_backup[location]" id="itsec_backup_location" value="' . $location . '" type="text">';
-		$content .= '<label for="itsec_backup_location"> ' . __( 'The path on your machine where backup files should be stored.', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security, it is recommended you do not include it in your website root folder.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_backup_location"> ' . __( 'The path on your machine where backup files should be stored.', 'LION' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security, it is recommended you do not include it in your website root folder.', 'LION' ) . '</p>';
 
 		echo $content;
 
@@ -461,7 +461,7 @@ class ITSEC_Backup_Admin {
 	 */
 	public function metabox_advanced_settings() {
 
-		echo '<p>' . __( 'One of the best ways to protect yourself from an attack is to have access to a database backup of your site. If something goes wrong, you can get your site back by restoring the database from a backup and replacing the files with fresh ones. Use the button below to create a backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'One of the best ways to protect yourself from an attack is to have access to a database backup of your site. If something goes wrong, you can get your site back by restoring the database from a backup and replacing the files with fresh ones. Use the button below to create a backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups.', 'LION' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'backup-settings-2', false );
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'backup-enabled', false );
@@ -471,7 +471,7 @@ class ITSEC_Backup_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -487,9 +487,9 @@ class ITSEC_Backup_Admin {
 		$content = '<form method="post" action="">';
 		$content .= wp_nonce_field( 'itsec_do_backup', 'wp_nonce' );
 		$content .= '<input type="hidden" name="itsec_backup" value="one_time_backup" />';
-		$content .= '<p>' . __( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<p>' . __( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', 'LION' ) . '</p>';
 		$content .= '<p class="submit"><input type="submit" class="button-primary" value="' . __( 'Create Database Backup', 'ithemes_security' ) . '" /></p>';
-		$content .= '<p><a href="?page=toplevel_page_itsec_settings#itsec_backup_all_sites">' . __( 'Adjust Backup Settings', 'it-l10n-better-wp-security' ) . '</a>';
+		$content .= '<p><a href="?page=toplevel_page_itsec_settings#itsec_backup_all_sites">' . __( 'Adjust Backup Settings', 'LION' ) . '</a>';
 		$content .= '</form>';
 
 		echo $content;
@@ -502,17 +502,17 @@ class ITSEC_Backup_Admin {
 	 */
 	public function backupbuddy_metabox() {
 
-		$content = '<p>' . __( 'A database backup is just a simple start. BackupBuddy goes one step further to provide complete backups of all your site files (including image and media files, themes, plugins, widgets and settings) - which aren\'t included in a database backup. With BackupBuddy you can customize backup schedules, send your backup files  safely off-site to remote storage destinations, restore your site quickly & easily and even move your whole site to a new host or domain.', 'it-l10n-better-wp-security' ) . '</p>';
-		$content .= '<h4>' . __( '5 Reasons You Need a Complete Backup Strategy', 'it-l10n-better-wp-security' ) . '</h4>';
+		$content = '<p>' . __( 'A database backup is just a simple start. BackupBuddy goes one step further to provide complete backups of all your site files (including image and media files, themes, plugins, widgets and settings) - which aren\'t included in a database backup. With BackupBuddy you can customize backup schedules, send your backup files  safely off-site to remote storage destinations, restore your site quickly & easily and even move your whole site to a new host or domain.', 'LION' ) . '</p>';
+		$content .= '<h4>' . __( '5 Reasons You Need a Complete Backup Strategy', 'LION' ) . '</h4>';
 		$content .= '<ol>';
-		$content .= '<li><strong>' . __( 'Database backups aren\'t enough.', 'it-l10n-better-wp-security' ) . '</strong> ' . __( 'You need complete backups of your entire site (including images and media files, themes, plugins, widgets and settings).', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><strong>' . __( 'Backup files should be protected.', 'it-l10n-better-wp-security' ) . '</strong> ' . __( 'Send and store them safely off-site to a secure remote destination (like email, Dropbox, Amazon S3, etc.)', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><strong>' . __( 'Backups should be automated and scheduled so you don\'t forget.', 'it-l10n-better-wp-security' ) . '</strong> ' . __( 'Set daily, weekly or monthly backups that automatically send backups off-site.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><strong>' . __( 'Restoring your site should be quick and easy.', 'it-l10n-better-wp-security' ) . '</strong> ' . __( 'If you get hacked or your server crashes, you shouldn\'t have to worry about restoring your site. Reliable backups mean nothing gets corrupted or broken during the restore process.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><strong>' . __( 'You should own your backup files.', 'it-l10n-better-wp-security' ) . '</strong> ' . __( 'Don\'t just rely on a host or service. It\'s your site, so you should own everything on it.', 'it-l10n-better-wp-security' ) . '</li>';
+		$content .= '<li><strong>' . __( 'Database backups aren\'t enough.', 'LION' ) . '</strong> ' . __( 'You need complete backups of your entire site (including images and media files, themes, plugins, widgets and settings).', 'LION' ) . '</li>';
+		$content .= '<li><strong>' . __( 'Backup files should be protected.', 'LION' ) . '</strong> ' . __( 'Send and store them safely off-site to a secure remote destination (like email, Dropbox, Amazon S3, etc.)', 'LION' ) . '</li>';
+		$content .= '<li><strong>' . __( 'Backups should be automated and scheduled so you don\'t forget.', 'LION' ) . '</strong> ' . __( 'Set daily, weekly or monthly backups that automatically send backups off-site.', 'LION' ) . '</li>';
+		$content .= '<li><strong>' . __( 'Restoring your site should be quick and easy.', 'LION' ) . '</strong> ' . __( 'If you get hacked or your server crashes, you shouldn\'t have to worry about restoring your site. Reliable backups mean nothing gets corrupted or broken during the restore process.', 'LION' ) . '</li>';
+		$content .= '<li><strong>' . __( 'You should own your backup files.', 'LION' ) . '</strong> ' . __( 'Don\'t just rely on a host or service. It\'s your site, so you should own everything on it.', 'LION' ) . '</li>';
 		$content .= '</ol>';
 
-		$content .= '<p class="bub-cta"><a href="http://ithemes.com/better-backups" target="_blank" class="button-primary" >' . __( 'Learn more about BackupBuddy', 'it-l10n-better-wp-security' ) . '</a></p>';
+		$content .= '<p class="bub-cta"><a href="http://ithemes.com/better-backups" target="_blank" class="button-primary" >' . __( 'Learn more about BackupBuddy', 'LION' ) . '</a></p>';
 
 		echo $content;
 	}
@@ -534,11 +534,11 @@ class ITSEC_Backup_Admin {
 
 		echo '<select id="itsec_backup_method" name="itsec_backup[method]">';
 
-		echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Save Locally and Email', 'it-l10n-better-wp-security' ) . '</option>';
-		echo '<option value="1" ' . selected( $method, '1' ) . '>' . __( 'Email Only', 'it-l10n-better-wp-security' ) . '</option>';
-		echo '<option value="2" ' . selected( $method, '2' ) . '>' . __( 'Save Locally Only', 'it-l10n-better-wp-security' ) . '</option>';
+		echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Save Locally and Email', 'LION' ) . '</option>';
+		echo '<option value="1" ' . selected( $method, '1' ) . '>' . __( 'Email Only', 'LION' ) . '</option>';
+		echo '<option value="2" ' . selected( $method, '2' ) . '>' . __( 'Save Locally Only', 'LION' ) . '</option>';
 		echo '</select><br />';
-		echo '<label for="itsec_backup_method"> ' . __( 'Backup Save Method', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<label for="itsec_backup_method"> ' . __( 'Backup Save Method', 'LION' ) . '</label>';
 		echo '<p class="description">' . __( 'Select what we should do with your backup file. You can have it emailed to you, saved locally or both.' ) . '</p>';
 
 	}
@@ -553,7 +553,7 @@ class ITSEC_Backup_Admin {
 	public function one_time_backup() {
 
 		if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'itsec_do_backup' ) ) {
-			die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
+			die( __( 'Security error!', 'LION' ) );
 		}
 
 		$this->module->do_backup( true );
@@ -572,12 +572,12 @@ class ITSEC_Backup_Admin {
 		$tooltip_modules['backup'] = array(
 			'priority'  => 10,
 			'class'     => 'itsec_tooltip_backup',
-			'heading'   => __( 'Back up your site', 'it-l10n-better-wp-security' ),
-			'text'      => __( 'We recommend making a database backup before you get started securing your site.', 'it-l10n-better-wp-security' ),
-			'link_text' => __( 'Make a backup', 'it-l10n-better-wp-security' ),
+			'heading'   => __( 'Back up your site', 'LION' ),
+			'text'      => __( 'We recommend making a database backup before you get started securing your site.', 'LION' ),
+			'link_text' => __( 'Make a backup', 'LION' ),
 			'callback'  => array( $this, 'tooltip_ajax' ),
-			'success'   => __( 'Backup completed. Please check your email or uploads folder.', 'it-l10n-better-wp-security' ),
-			'failure'   => __( 'Whoops. Something went wrong. Check the backup page or contact support.', 'it-l10n-better-wp-security' ),
+			'success'   => __( 'Backup completed. Please check your email or uploads folder.', 'LION' ),
+			'failure'   => __( 'Whoops. Something went wrong. Check the backup page or contact support.', 'LION' ),
 		);
 
 		return $tooltip_modules;
@@ -611,7 +611,7 @@ class ITSEC_Backup_Admin {
 		if ( $good_path !== true ) {
 
 			$type            = 'error';
-			$message         = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ', 'it-l10n-better-wp-security' );
+			$message         = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ', 'LION' );
 			$input['method'] = 2;
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
@@ -656,7 +656,7 @@ class ITSEC_Backup_Admin {
 		if ( isset( $_POST['itsec_backup'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
+				die( __( 'Security error!', 'LION' ) );
 			}
 
 			update_site_option( 'itsec_backup', $_POST['itsec_backup'] ); //we must manually save network options
@@ -721,8 +721,8 @@ class ITSEC_Backup_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_backup_zip" name="itsec_backup[zip]" value="1" ' . checked( 1, $zip, false ) . '/>';
-		$content .= '<label for="itsec_backup_zip"> ' . __( 'Zip Database Backups', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description">' . __( 'You may need to turn this off if you are having problems with backups.', 'it-l10n-better-wp-security' ) . '</p>';
+		$content .= '<label for="itsec_backup_zip"> ' . __( 'Zip Database Backups', 'LION' ) . '</label>';
+		$content .= '<p class="description">' . __( 'You may need to turn this off if you are having problems with backups.', 'LION' ) . '</p>';
 		echo $content;
 
 	}

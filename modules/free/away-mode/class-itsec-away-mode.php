@@ -3,8 +3,8 @@
 class ITSEC_Away_Mode {
 
 	private
-	$settings,
-	$away_file;
+		$settings,
+		$away_file;
 
 	function __construct() {
 
@@ -23,8 +23,8 @@ class ITSEC_Away_Mode {
 	/**
 	 * Check if away mode is active
 	 *
-	 * @param bool    $forms [false] Whether the call comes from the same options form
-	 * @param array   @input[NULL] Input of options to check if calling from form
+	 * @param bool $forms [false] Whether the call comes from the same options form
+	 * @param      array  @input[NULL] Input of options to check if calling from form
 	 *
 	 * @return bool true if locked out else false
 	 */
@@ -56,38 +56,35 @@ class ITSEC_Away_Mode {
 		} else { //check manually
 
 			$current_time = $itsec_globals['current_time'];
+			$remaining    = 0;
 
-			if ( $test_type == 1 ) { //set up for daily
+			if ( 1 == $test_type ) { //daily
 
-				$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_start ) );
-				$end   = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_end ) );
+				$test_start -= strtotime( date( 'Y-m-d', $test_start ) );
+				$test_end -= strtotime( date( 'Y-m-d', $test_end ) );
+				$day_seconds = $current_time - strtotime( date( 'Y-m-d' ) );
 
-				$overnight = false;
+				if ( $test_start < $test_end ) { //same day
 
-				if ( $current_time > $end && $start > $end ) {
+					if ( ( $test_start <= $day_seconds ) && ( $test_end >= $day_seconds ) ) {
+						$remaining = $test_end - $day_seconds;
+					}
 
-					$overnight = true;
+				} else { //overnight
 
-					$end = $end + 86400;
+					if ( ( $test_start < $day_seconds ) || ( $test_end > $day_seconds ) ) {
+						$remaining = $test_end + 86400 - $day_seconds;
+					}
 
 				}
 
-				if ( $overnight === true && $current_time < $start ) {
+			} else if ( ( $test_start <= $current_time ) && ( $test_end >= $current_time ) ) { //one time
 
-					$start = $start - 86400;
-
-				}
-
-			} else { //one time settings
-
-				$start = $test_start;
-				$end   = $test_end;
+				$remaining = $test_end - $current_time;
 
 			}
 
-			$remaining = $end - $current_time;
-
-			if ( $start <= $current_time && $end >= $current_time && ( $form === true || ( $this->settings['enabled'] === true && @file_exists( $this->away_file ) ) ) ) { //if away mode is enabled continue
+			if ( $remaining > 0 && ( $form === true || ( $this->settings['enabled'] === true && @file_exists( $this->away_file ) ) ) ) { //if away mode is enabled continue
 
 				if ( $form === false ) {
 

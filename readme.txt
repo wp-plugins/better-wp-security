@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.2
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,18 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.5 =
+* Fixed away mode not allowing PM times.
+* Fixed general copy typos.
+* Non super admins will no longer see the "Security" menu item in the admin bar on multisite.
+* Update to iThemes' icon-fonts library to account for ABSPATH set to '' or '/'.
+* Fixed relative paths on Windows servers.
+* Removed the pingback URL from the header if XML-RPC disabled.
+* Added file locking to admin user operations to [hopefully] avoid duplicated users.
+* 404 white list should transfer to global white list
+* White list implementation working across all lockouts
+* Add extra dismiss box to close welcome modal (fix for smaller screens)
 
 = 4.0.2 =
 * Fixed bug in conversion of wildcard ip (ie 131.2.1.*) to proper netmask. Should prevent 500 errors on sites.
@@ -898,6 +910,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple featureset.
 
 == Upgrade Notice ==
+
+= 4.0.5 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.
 
 = 4.0.2 =
 Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.

@@ -51,7 +51,7 @@ final class ITSEC_Files {
 
 		add_meta_box(
 			'itsec_rewrite',
-			__( 'Rewrite Rules', 'it-l10n-better-wp-security' ),
+			__( 'Rewrite Rules', 'LION' ),
 			array( $this, 'rewrite_metabox' ),
 			'toplevel_page_itsec',
 			'bottom',
@@ -60,7 +60,7 @@ final class ITSEC_Files {
 
 		add_meta_box(
 			'itsec_wpconfig',
-			__( 'wp-config.php Rules', 'it-l10n-better-wp-security' ),
+			__( 'wp-config.php Rules', 'LION' ),
 			array( $this, 'config_metabox' ),
 			'toplevel_page_itsec',
 			'bottom',
@@ -98,7 +98,7 @@ final class ITSEC_Files {
 					$type    = 'updated';
 					$message = $rewrites['text'];
 
-					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'it-l10n-better-wp-security' ) . '<br />' . $message, $type );
+					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'LION' ) . '<br />' . $message, $type );
 
 				}
 
@@ -231,7 +231,7 @@ final class ITSEC_Files {
 
 		} else {
 
-			_e( 'There are no rules to write.', 'it-l10n-better-wp-security' );
+			_e( 'There are no rules to write.', 'LION' );
 
 		}
 
@@ -618,7 +618,7 @@ final class ITSEC_Files {
 
 		} else {
 
-			_e( 'There are no rules to write.', 'it-l10n-better-wp-security' );
+			_e( 'There are no rules to write.', 'LION' );
 
 		}
 
@@ -653,9 +653,9 @@ final class ITSEC_Files {
 							'success' => true,
 							'text'    => sprintf(
 								'%s %s. %s',
-								__( 'Your rewrite rules have been saved to', 'it-l10n-better-wp-security' ),
+								__( 'Your rewrite rules have been saved to', 'LION' ),
 								$itsec_globals['settings']['nginx_file'],
-								__( 'You must restart your NGINX server for the settings to take effect', 'it-l10n-better-wp-security' )
+								__( 'You must restart your NGINX server for the settings to take effect', 'LION' )
 							),
 						);
 
@@ -672,14 +672,14 @@ final class ITSEC_Files {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to release a lock on your .htaccess or nginx.conf file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+						'text'    => __( 'Unable to release a lock on your .htaccess or nginx.conf file. If the problem persists contact support.', 'LION' ),
 					);
 
 				} else {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to write to your .htaccess or nginx.conf file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+						'text'    => __( 'Unable to write to your .htaccess or nginx.conf file. If the problem persists contact support.', 'LION' ),
 					);
 
 				}
@@ -688,7 +688,7 @@ final class ITSEC_Files {
 
 				return array(
 					'success' => false,
-					'text'    => __( 'WordPress was unable to save the your options to .htaccess or nginx.conf file. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'it-l10n-better-wp-security' ),
+					'text'    => __( 'WordPress was unable to save the your options to .htaccess or nginx.conf file. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'LION' ),
 				);
 
 			}
@@ -733,14 +733,14 @@ final class ITSEC_Files {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to release a lock on your wp-config.php file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+						'text'    => __( 'Unable to release a lock on your wp-config.php file. If the problem persists contact support.', 'LION' ),
 					);;
 
 				} else {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to write to your wp-config.php file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+						'text'    => __( 'Unable to write to your wp-config.php file. If the problem persists contact support.', 'LION' ),
 					);
 
 				}
@@ -749,7 +749,7 @@ final class ITSEC_Files {
 
 				return array(
 					'success' => false,
-					'text'    => __( 'WordPress was unable to save the your options to wp-config.php. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'it-l10n-better-wp-security' ),
+					'text'    => __( 'WordPress was unable to save the your options to wp-config.php. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'LION' ),
 				);
 
 			}

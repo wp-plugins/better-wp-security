@@ -4,3 +4,5 @@
 	Add support for iThemes Security
 1.1.1 - 2014-03-24 - Chris Jean
 	Fixed issue with admin menu icons not loading on sites set to use SSL while accessed via a non-SSL URL.
+1.1.2 - 2014-03-26 - Chris Jean
+	Fixed issue with admin menu icons not functioning properly on sites that have an ABSPATH or WP_CONTENT_DIR of "/".

@@ -80,9 +80,9 @@ final class ITSEC_Brute_Force_Log extends ITSEC_WP_List_Table {
 	public function get_columns() {
 
 		return array(
-			'time' => __( 'Time', 'it-l10n-better-wp-security' ),
-			'host' => __( 'Host', 'it-l10n-better-wp-security' ),
-			'user' => __( 'Username', 'it-l10n-better-wp-security' ),
+			'time' => __( 'Time', 'LION' ),
+			'host' => __( 'Host', 'LION' ),
+			'user' => __( 'Username', 'LION' ),
 		);
 
 	}
