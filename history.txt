@@ -1,0 +1,26 @@
+
+4.0.0 - 2014-03-25 - Chris Wiegman
+	Initial Release
+4.0.1 - 2014-03-25 - Packaging Bot (modules/free)
+	Initial Release
+4.0.2 - 2014-03-25 - Packaging Bot (core)
+	Initial Release
+4.0.3 - 2014-03-26 - Packaging Bot (lib/icon-fonts)
+	Fixed issue with admin menu icons not functioning properly on sites that have an ABSPATH or WP_CONTENT_DIR of "/".
+4.0.4 - 2014-03-27 - Packaging Bot (core)
+	Initial Release
+4.0.5 - 2014-03-27 - Packaging Bot (modules/free)
+	Initial Release
+4.0.6 - 2014-04-01 - Packaging Bot (core)
+	Fixed history.txt (for iThemes customers)
+	Moved upgrade to separate function for more seamless update
+	Upgrade system rewritten for better functionality
+	Make sure 404 doesn't fail if there is not a 404.php in the theme
+	Make sure WordPress root URLs render correctly
+	Filewrite now only builds rules on demand.
+	Fixed dismiss button on intro modal for small screens
+	General cleanup and typo fixing
+4.0.7 - 2014-04-01 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.0.3
+4.0.8 - 2014-04-01 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.0.4
