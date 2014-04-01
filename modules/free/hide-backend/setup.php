@@ -12,9 +12,11 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 			global $itsec_setup_action;
 
 			$this->defaults = array(
-				'enabled'  => false,
-				'slug'     => 'wplogin',
-				'register' => 'wp-register.php',
+				'enabled'           => false,
+				'slug'              => 'wplogin',
+				'register'          => 'wp-register.php',
+				'theme_compat'      => false,
+				'theme_compat_slug' => 'not_found'
 			);
 
 			if ( isset( $itsec_setup_action ) ) {
@@ -25,7 +27,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -51,7 +53,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_hide_backend' );
 
@@ -86,9 +88,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 
 			}
 
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
-			}
+			add_site_option( 'itsec_rewrites_changed', true );
 
 		}
 
@@ -123,13 +123,17 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		 */
 		public function execute_upgrade() {
 
-			global $itsec_old_version;
+			global $itsec_old_version, $itsec_files;
 
 			if ( $itsec_old_version < 4000 ) {
 
 				global $itsec_bwps_options;
 
 				$current_options = get_site_option( 'itsec_hide_backend' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['enabled']  = isset( $itsec_bwps_options['hb_enabled'] ) && $itsec_bwps_options['hb_enabled'] == 1 ? true : false;
 				$current_options['register'] = isset( $itsec_bwps_options['hb_register'] ) ? sanitize_text_field( $itsec_bwps_options['hb_register'] ) : 'wp-register.php';
@@ -164,6 +168,44 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 
 			}
 
+			if ( $itsec_old_version < 4027 ) {
+
+				$current_options = get_site_option( 'itsec_hide_backend' );
+
+				if ( isset( $current_options['enabled'] ) && $current_options['enabled'] === true ) {
+
+					$config_file = ITSEC_Lib::get_htaccess();
+
+					//Make sure we can write to the file
+					$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
+
+					@chmod( $config_file, 0644 );
+
+					add_action( 'admin_init', array( $this, 'flush_rewrite_rules' ) );
+
+					//reset file permissions if we changed them
+					if ( $perms == '0444' ) {
+						@chmod( $config_file, 0444 );
+					}
+
+					add_site_option( 'itsec_rewrites_changed', true );
+
+				}
+
+			}
+
+		}
+
+		/**
+		 * Flush rewrite rules.
+		 *
+		 * @since 4.0.6
+		 *
+		 * @return void
+		 */
+		public function flush_rewrite_rules() {
+
+			flush_rewrite_rules();
 		}
 
 	}

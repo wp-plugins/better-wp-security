@@ -422,12 +422,25 @@ div.itsec_rewrite_rules code {
 }
 
 .itsec-setup-dialog .ui-dialog-titlebar button {
-	padding: .5em; 
+	width: 30px;
+	height: 30px;
+	color: #5bbdd5;
+	top: 15px;
+	right: 15px;
+	margin: 0;
+	padding: 0;
+}
+
+.itsec-setup-dialog .ui-dialog-titlebar button:before {
 	color: #5bbdd5;
 }
-.itsec-setup-dialog .ui-dialog-titlebar button:hover {
+.itsec-setup-dialog .ui-dialog-titlebar button:hover:before {
 	color: #fff;
-	padding: .5em;
+}
+
+.itsec-setup-dialog .ui-icon,
+.itsec-setup-dialog .ui-icon:hover {
+	background: none !important;
 }
 
 #itsec_intro_modal {

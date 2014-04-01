@@ -68,7 +68,7 @@ final class ITSEC_Logger {
 
 		add_meta_box(
 			'itsec_log_header',
-			__( 'Security Logs', 'LION' ),
+			__( 'Security Logs', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_logs_header' ),
 			'security_page_toplevel_page_itsec_logs',
 			'top',
@@ -98,7 +98,7 @@ final class ITSEC_Logger {
 
 		add_meta_box(
 			'itsec_log_all',
-			__( 'All Logged Items', 'LION' ),
+			__( 'All Logged Items', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_all_logs' ),
 			'security_page_toplevel_page_itsec_logs',
 			'advanced',
@@ -246,9 +246,9 @@ final class ITSEC_Logger {
 
 		printf(
 			'<p>%s %s. %s</p>',
-			__( 'Below are various logs of information collected by', 'LION' ),
+			__( 'Below are various logs of information collected by', 'it-l10n-better-wp-security' ),
 			$itsec_globals['plugin_name'],
-			__( 'This information can help you get a picture of what is happening with your site and the level of success you have achieved in your security efforts.', 'LION' )
+			__( 'This information can help you get a picture of what is happening with your site and the level of success you have achieved in your security efforts.', 'it-l10n-better-wp-security' )
 		);
 
 	}
@@ -264,7 +264,7 @@ final class ITSEC_Logger {
 
 		require( dirname( __FILE__ ) . '/class-itsec-logger-all-logs.php' );
 
-		echo __( 'Below is the log of all the log items in your WordPress Database. To adjust logging options visit the global settings page.', 'LION' );
+		echo __( 'Below is the log of all the log items in your WordPress Database. To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' );
 
 		$log_display = new ITSEC_Logger_All_Logs();
 		$log_display->prepare_items();

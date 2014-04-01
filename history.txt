@@ -11,3 +11,14 @@
 	Initial Release
 4.0.5 - 2014-03-27 - Packaging Bot (modules/free)
 	Initial Release
+4.0.6 - 2014-04-01 - Packaging Bot (core)
+	Fixed history.txt (for iThemes customers)
+	Moved upgrade to separate function for more seamless update
+	Upgrade system rewritten for better functionality
+	Make sure 404 doesn't fail if there is not a 404.php in the theme
+	Make sure WordPress root URLs render correctly
+	Filewrite now only builds rules on demand.
+	Fixed dismiss button on intro modal for small screens
+	General cleanup and typo fixing
+4.0.7 - 2014-04-01 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.0.3

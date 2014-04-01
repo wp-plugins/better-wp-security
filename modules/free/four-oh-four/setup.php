@@ -36,7 +36,7 @@ if ( ! class_exists( 'ITSEC_Four_Oh_Four_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -58,11 +58,9 @@ if ( ! class_exists( 'ITSEC_Four_Oh_Four_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_four_oh_four' );
 
@@ -70,10 +68,6 @@ if ( ! class_exists( 'ITSEC_Four_Oh_Four_Setup' ) ) {
 
 				add_site_option( 'itsec_four_oh_four', $this->defaults );
 
-			}
-
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
 			}
 
 		}
@@ -113,6 +107,10 @@ if ( ! class_exists( 'ITSEC_Four_Oh_Four_Setup' ) ) {
 				global $itsec_bwps_options;
 
 				$current_options = get_site_option( 'itsec_four_oh_four' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['enabled']         = isset( $itsec_bwps_options['id_enabled'] ) && $itsec_bwps_options['id_enabled'] == 1 ? true : false;
 				$current_options['check_period']    = isset( $itsec_bwps_options['id_checkinterval'] ) ? intval( $itsec_bwps_options['id_checkinterval'] ) : 5;

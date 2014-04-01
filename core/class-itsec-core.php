@@ -53,7 +53,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4002, //plugin build number - used to trigger updates
+				'plugin_build'       => 4027, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -93,25 +93,25 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$this->pages = array(
 				array(
 					'priority' => 1,
-					'title'    => __( 'Settings', 'LION' ),
+					'title'    => __( 'Settings', 'it-l10n-better-wp-security' ),
 					'slug'     => 'settings',
 					'has_tab' => true,
 				),
 				array(
 					'priority' => 5,
-					'title'    => __( 'Advanced', 'LION' ),
+					'title'    => __( 'Advanced', 'it-l10n-better-wp-security' ),
 					'slug'     => 'advanced',
 					'has_tab' => true,
 				),
 				array(
 					'priority' => 15,
-					'title'    => __( 'Logs', 'LION' ),
+					'title'    => __( 'Logs', 'it-l10n-better-wp-security' ),
 					'slug'     => 'logs',
 					'has_tab' => true,
 				),
 				array(
 					'priority' => 20,
-					'title'    => __( 'Help', 'LION' ),
+					'title'    => __( 'Help', 'it-l10n-better-wp-security' ),
 					'slug'     => 'help',
 					'has_tab' => true,
 				),
@@ -121,7 +121,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				$this->pages[] = array(
 					'priority' => 10,
-					'title'    => __( 'Backups', 'LION' ),
+					'title'    => __( 'Backups', 'it-l10n-better-wp-security' ),
 					'link'     => 'pb_backupbuddy_backup',
 					'slug'     => 'backups',
 					'has_tab'  => true,
@@ -131,7 +131,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				$this->pages[] = array(
 					'priority' => 10,
-					'title'    => __( 'Backups', 'LION' ),
+					'title'    => __( 'Backups', 'it-l10n-better-wp-security' ),
 					'slug'     => 'backups',
 					'has_tab'  => true,
 				);
@@ -180,7 +180,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//load the text domain
-			load_plugin_textdomain( 'LION', false, $itsec_globals['plugin_dir'] . '/lang' );
+			load_plugin_textdomain( 'it-l10n-better-wp-security', false, $itsec_globals['plugin_dir'] . '/lang' );
 
 			//builds admin menus after modules are loaded
 			if ( is_admin() ) {
@@ -260,7 +260,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//see if the saved build version is older than the current build version
 			if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $itsec_globals['plugin_build'] ) {
-				new ITSEC_Setup( 'activate', $plugin_data['build'] ); //run upgrade scripts
+				add_action ( 'plugins_loaded', array( $this, 'execute_upgrade' ) );
 			}
 
 			//See if they're upgrade from Better WP Security
@@ -311,7 +311,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			if ( $file == $this_plugin ) {
-				$settings_link = '<a href="admin.php?page=itsec">' . __( 'Dashboard', 'LION' ) . '</a>';
+				$settings_link = '<a href="admin.php?page=itsec">' . __( 'Dashboard', 'it-l10n-better-wp-security' ) . '</a>';
 				array_unshift( $links, $settings_link );
 			}
 
@@ -382,7 +382,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			// Add the Parent link.
 			$wp_admin_bar->add_menu(
 			             array(
-				             'title' => __( 'Security', 'LION' ),
+				             'title' => __( 'Security', 'it-l10n-better-wp-security' ),
 				             'href'  => admin_url( $network . 'admin.php?page=itsec' ),
 				             'id'    => 'itsec_admin_bar_menu',
 			             )
@@ -391,7 +391,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$wp_admin_bar->add_menu(
 			             array(
 				             'id'     => 'itsec_admin_bar_dashboard',
-				             'title'  => __( 'Dashboard', 'LION' ),
+				             'title'  => __( 'Dashboard', 'it-l10n-better-wp-security' ),
 				             'href'   => admin_url( $network . 'admin.php?page=itsec' ),
 				             'parent' => 'itsec_admin_bar_menu',
 			             )
@@ -526,7 +526,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			}
 
-			echo '<a href="javascript:void(0);" class="itsec-intro-close">' . __( 'Dismiss', 'LION' ) . '</a>';
+			echo '<a href="javascript:void(0);" class="itsec-intro-close">' . __( 'Dismiss', 'it-l10n-better-wp-security' ) . '</a>';
 
 			echo '</ol>';
 
@@ -553,29 +553,29 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 					if ( ITSEC_Lib::get_server() == 'nginx' ) {
 
-						$server = __( 'NGINX conf file and/or restart your NGINX server', 'LION' );
+						$server = __( 'NGINX conf file and/or restart your NGINX server', 'it-l10n-better-wp-security' );
 
 					} else {
 
-						$server = __( '.htaccess file', 'LION' );
+						$server = __( '.htaccess file', 'it-l10n-better-wp-security' );
 
 					}
 
 					$updated = sprintf(
 						'<br />%s %s %s <a href="%s">%s</a> %s',
-						__( 'As you have not allowed this plugin to update system files you must update your', 'LION' ),
+						__( 'As you have not allowed this plugin to update system files you must update your', 'it-l10n-better-wp-security' ),
 						$server,
-						__( 'as well as your wp-config.php file manually. Rules to insert in both files can be found on the Dashboard page.', 'LION' ),
+						__( 'as well as your wp-config.php file manually. Rules to insert in both files can be found on the Dashboard page.', 'it-l10n-better-wp-security' ),
 						'?page=toplevel_page_itsec_settings#itsec_global_write_files',
-						__( 'Click here', 'LION' ),
-						__( 'to allow this plugin to write to these files.', 'LION' )
+						__( 'Click here', 'it-l10n-better-wp-security' ),
+						__( 'to allow this plugin to write to these files.', 'it-l10n-better-wp-security' )
 					);
 
 				}
 
 				if ( sizeof( $errors ) === 0 && isset ( $_GET['settings-updated'] ) && sanitize_text_field( $_GET['settings-updated'] ) == 'true' ) {
 
-					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'LION' ) . $updated, 'updated' );
+					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'it-l10n-better-wp-security' ) . $updated, 'updated' );
 
 				}
 
@@ -641,7 +641,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					wp_localize_script( 'itsec_modal', 'itsec_tooltip_text', array(
 						'nonce'    => wp_create_nonce( 'itsec_tooltip_nonce' ),
 						'messages' => $messages,
-						'title' => __( 'Important First Steps', 'LION' ),
+						'title' => __( 'Important First Steps', 'it-l10n-better-wp-security' ),
 					) );
 
 				}
@@ -671,7 +671,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			echo '<h2 class="nav-tab-wrapper">';
 
 			$class = ( $current == 'itsec' ) ? ' nav-tab-active' : '';
-			echo '<a class="nav-tab' . $class . '" href="?page=itsec">' . __( 'Dashboard', 'LION' ) . '</a>';
+			echo '<a class="nav-tab' . $class . '" href="?page=itsec">' . __( 'Dashboard', 'it-l10n-better-wp-security' ) . '</a>';
 
 			foreach ( $this->pages as $page ) {
 
@@ -764,7 +764,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function do_upgrade() {
 
-			new ITSEC_Setup( 'activate', 3064 ); //run upgrade scripts
+			new ITSEC_Setup( 'upgrade', 3064 ); //run upgrade scripts
 
 		}
 
@@ -803,6 +803,21 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'core/css/ithemes.css' );
 			do_action( 'itsec_admin_init' ); //execute modules init scripts
+
+		}
+
+		/**
+		 * Execute upgrade for version after 4.0
+		 *
+		 * @since 4.0.6
+		 *
+		 * @return void
+		 */
+		public function execute_upgrade() {
+
+			global $itsec_globals;
+
+			new ITSEC_Setup( 'upgrade', $itsec_globals['data']['build'] ); //run upgrade scripts
 
 		}
 
@@ -934,12 +949,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$tooltip_modules['one-click'] = array(
 				'priority'  => 1,
 				'class'     => 'itsec_tooltip_one-click',
-				'heading'   => __( 'Secure Your Site', 'LION' ),
-				'text'      => __( 'Use the button below to enable default settings. This feature will enable all settings that cannot conflict with other plugins or themes.', 'LION' ),
-				'link_text' => __( 'One-Click Secure', 'LION' ),
+				'heading'   => __( 'Secure Your Site', 'it-l10n-better-wp-security' ),
+				'text'      => __( 'Use the button below to enable default settings. This feature will enable all settings that cannot conflict with other plugins or themes.', 'it-l10n-better-wp-security' ),
+				'link_text' => __( 'One-Click Secure', 'it-l10n-better-wp-security' ),
 				'callback'  => array( $this, 'tooltip_ajax' ),
-				'success'   => __( 'Site Secured. Check the dashboard for further suggestions on securing your site.', 'LION' ),
-				'failure'   => __( 'Whoops. Something went wrong. Please contact support if the problem persists.', 'LION' ),
+				'success'   => __( 'Site Secured. Check the dashboard for further suggestions on securing your site.', 'it-l10n-better-wp-security' ),
+				'failure'   => __( 'Whoops. Something went wrong. Please contact support if the problem persists.', 'it-l10n-better-wp-security' ),
 			);
 
 			return $tooltip_modules;
@@ -1020,7 +1035,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 								<?php do_meta_boxes( $screen, 'side', null ); ?>
 								<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' ) { ?>
 									<a href="#"
-									   class="itsec_return_to_top"><?php _e( 'Return to top', 'LION' ); ?></a>
+									   class="itsec_return_to_top"><?php _e( 'Return to top', 'it-l10n-better-wp-security' ); ?></a>
 								<?php } ?>
 							</div>
 
@@ -1108,8 +1123,8 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			global $itsec_globals;
 
 			$this->available_pages[] = add_menu_page(
-				__( 'Dashboard', 'LION' ),
-				__( 'Security', 'LION' ),
+				__( 'Dashboard', 'it-l10n-better-wp-security' ),
+				__( 'Security', 'it-l10n-better-wp-security' ),
 				$itsec_globals['plugin_access_lvl'],
 				'itsec',
 				array( $this, 'render_page' )
@@ -1147,7 +1162,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			global $submenu;
 
 			if ( isset( $submenu['itsec'] ) ) {
-				$submenu['itsec'][0][0] = __( 'Dashboard', 'LION' );
+				$submenu['itsec'][0][0] = __( 'Dashboard', 'it-l10n-better-wp-security' );
 			}
 
 			foreach ( $this->available_pages as $page ) {
@@ -1192,24 +1207,24 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 						if ( ITSEC_Lib::get_server() == 'nginx' ) {
 
-							$server = __( 'NGINX conf file and/or restart your NGINX server', 'LION' );
+							$server = __( 'NGINX conf file and/or restart your NGINX server', 'it-l10n-better-wp-security' );
 
 						} else {
 
-							$server = __( '.htaccess file', 'LION' );
+							$server = __( '.htaccess file', 'it-l10n-better-wp-security' );
 
 						}
 
 						$updated = sprintf(
 							'<br />%s %s %s',
-							__( 'As you have not allowed this plugin to update system files you must update your', 'LION' ),
+							__( 'As you have not allowed this plugin to update system files you must update your', 'it-l10n-better-wp-security' ),
 							$server,
-							__( 'as well as your wp-config.php file manually. Rules to insert in both files can be found on the Dashboard page.', 'LION' )
+							__( 'as well as your wp-config.php file manually. Rules to insert in both files can be found on the Dashboard page.', 'it-l10n-better-wp-security' )
 						);
 
 					}
 
-					$itsec_saved_network_notices = '<div id="setting-error-settings_updated" class="updated settings-error"><p><strong>' . __( 'Settings Updated', 'LION' ) . $updated . '</strong></p></div>';
+					$itsec_saved_network_notices = '<div id="setting-error-settings_updated" class="updated settings-error"><p><strong>' . __( 'Settings Updated', 'it-l10n-better-wp-security' ) . $updated . '</strong></p></div>';
 
 				} elseif ( is_wp_error( $errors ) ) { //see if object is even an error
 
@@ -1302,7 +1317,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						global $itsec_globals;
 
 						echo '<div class="updated" id="itsec_support_notice">
-						<span>' . __( 'It looks like you\'ve been enjoying', 'LION' ) . ' ' . $itsec_globals['plugin_name'] . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'LION' ) . '</span><input type="button" class="itsec-notice-button" value="' . __( 'Support This Plugin', 'LION' ) . '" onclick="document.location.href=\'?itsec_donate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Rate it 5★\'s', 'LION' ) . '" onclick="document.location.href=\'?itsec_rate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Tell Your Followers', 'LION' ) . '" onclick="document.location.href=\'?itsec_tweet=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-hide" value="&times;" onclick="document.location.href=\'?itsec_no_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">
+						<span>' . __( 'It looks like you\'ve been enjoying', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'it-l10n-better-wp-security' ) . '</span><input type="button" class="itsec-notice-button" value="' . __( 'Support This Plugin', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_donate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Rate it 5★\'s', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_rate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Tell Your Followers', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_tweet=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-hide" value="&times;" onclick="document.location.href=\'?itsec_no_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">
 						</div>';
 
 					}
@@ -1414,7 +1429,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						global $itsec_globals;
 
 						echo '<div class="updated" id="itsec_upgrade_notice">
-						<span>' . __( 'Thank you for activating', 'LION' ) . ' ' . $itsec_globals['plugin_name'] . '. ' . __( 'It looks like you had another version of this plugin activated. To avoid conflicts the extra version has been deactivated and we recommend you delete it.', 'LION' ) . '</span><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_upgrade_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
+						<span>' . __( 'Thank you for activating', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . '. ' . __( 'It looks like you had another version of this plugin activated. To avoid conflicts the extra version has been deactivated and we recommend you delete it.', 'it-l10n-better-wp-security' ) . '</span><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_upgrade_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
 						</div>';
 
 					}

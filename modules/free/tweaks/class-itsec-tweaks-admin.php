@@ -27,7 +27,7 @@ class ITSEC_Tweaks_Admin {
 	public function add_admin_meta_boxes() {
 
 		$id    = 'tweaks_system';
-		$title = __( 'System Tweaks', 'LION' );
+		$title = __( 'System Tweaks', 'it-l10n-better-wp-security' );
 
 		add_meta_box(
 			$id,
@@ -46,7 +46,7 @@ class ITSEC_Tweaks_Admin {
 		);
 
 		$id    = 'tweaks_wordpress';
-		$title = __( 'WordPress Tweaks', 'LION' );
+		$title = __( 'WordPress Tweaks', 'it-l10n-better-wp-security' );
 
 		add_meta_box(
 			$id,
@@ -67,7 +67,7 @@ class ITSEC_Tweaks_Admin {
 		if ( is_multisite() ) {
 
 			$id    = 'tweaks_multisite';
-			$title = __( 'Multi-site Tweaks', 'LION' );
+			$title = __( 'Multi-site Tweaks', 'it-l10n-better-wp-security' );
 
 			add_meta_box(
 				$id,
@@ -90,23 +90,6 @@ class ITSEC_Tweaks_Admin {
 	}
 
 	/**
-	 * Add Away mode Javascript
-	 *
-	 * @return void
-	 */
-	public function admin_script() {
-
-		global $itsec_globals;
-
-		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
-
-			wp_enqueue_script( 'itsec_tweaks_js', $this->module_path . 'js/admin-tweaks.js', 'jquery', $itsec_globals['plugin_build'] );
-
-		}
-
-	}
-
-	/**
 	 * echos Disable Directory Browsing Field
 	 *
 	 * @since 4.0
@@ -122,8 +105,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_directory_browsing" name="itsec_tweaks[directory_browsing]" value="1" ' . checked( 1, $directory_browsing, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_directory_browsing">' . __( 'Disable Directory Browsing', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_directory_browsing">' . __( 'Disable Directory Browsing', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -145,8 +128,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_long_url_strings" name="itsec_tweaks[long_url_strings]" value="1" ' . checked( 1, $long_url_strings, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_long_url_strings">' . __( 'Filter Long URL Strings', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_long_url_strings">' . __( 'Filter Long URL Strings', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -168,8 +151,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_non_english_characters" name="itsec_tweaks[non_english_characters]" value="1" ' . checked( 1, $non_english_characters, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_non_english_characters">' . __( 'Filter Non-English Characters', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_non_english_characters">' . __( 'Filter Non-English Characters', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -191,8 +174,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_protect_files" name="itsec_tweaks[protect_files]" value="1" ' . checked( 1, $protect_files, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_protect_files">' . __( 'Protect System Files', 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_protect_files">' . __( 'Protect System Files', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -214,8 +197,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_request_methods" name="itsec_tweaks[request_methods]" value="1" ' . checked( 1, $request_methods, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_request_methods">' . __( 'Filter Request Methods', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Filter out hits with the trace, delete, or track request methods.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_request_methods">' . __( 'Filter Request Methods', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Filter out hits with the trace, delete, or track request methods.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -237,8 +220,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_suspicious_query_strings" name="itsec_tweaks[suspicious_query_strings]" value="1" ' . checked( 1, $suspicious_query_strings, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_suspicious_query_strings">' . __( 'Filter Suspicious Query Strings in the URL', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'LION' ) . '</label>';
+		$content .= '<label for="itsec_tweaks_server_suspicious_query_strings">' . __( 'Filter Suspicious Query Strings in the URL', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'it-l10n-better-wp-security' ) . '</label>';
 
 		echo $content;
 
@@ -260,8 +243,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_write_permissions" name="itsec_tweaks[write_permissions]" value="1" ' . checked( 1, $write_permissions, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_write_permissions">' . __( 'Remove File Writing Permissions', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the UNIX file permissions to 0444 on these files and turning it off will set the permissions to 0644.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_write_permissions">' . __( 'Remove File Writing Permissions', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the UNIX file permissions to 0444 on these files and turning it off will set the permissions to 0644.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -283,8 +266,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_disable_unused_author_pages" name="itsec_tweaks[disable_unused_author_pages]" value="1" ' . checked( 1, $disable_unused_author_pages, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_disable_unused_author_pages"> ' . __( "Disables a user's author page if their post count is 0.", 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( "This makes it harder for bots to determine usernames by disabling post archives for users that don't post to your site.", 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_disable_unused_author_pages"> ' . __( "Disables a user's author page if their post count is 0.", 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( "This makes it harder for bots to determine usernames by disabling post archives for users that don't post to your site.", 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -306,8 +289,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_force_unique_nicename" name="itsec_tweaks[force_unique_nicename]" value="1" ' . checked( 1, $force_unique_nicename, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_force_unique_nicename"> ' . __( 'Force users to choose a unique nickname', 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( "This forces users to choose a unique nickname when updating their profile or creating a new account which prevents bots and attackers from easily harvesting user's login usernames from the code on author pages. Note this does not automatically update existing users as it will affect author feed urls if used.", 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_force_unique_nicename"> ' . __( 'Force users to choose a unique nickname', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( "This forces users to choose a unique nickname when updating their profile or creating a new account which prevents bots and attackers from easily harvesting user's login usernames from the code on author pages. Note this does not automatically update existing users as it will affect author feed urls if used.", 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -329,8 +312,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_login_errors" name="itsec_tweaks[login_errors]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_login_errors"> ' . __( 'Disable login error messages', 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_login_errors"> ' . __( 'Disable login error messages', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -352,8 +335,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_comment_spam" name="itsec_tweaks[comment_spam]" value="1" ' . checked( 1, $comment_spam, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_comment_spam">' . __( 'Reduce Comment Spam', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_comment_spam">' . __( 'Reduce Comment Spam', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -375,8 +358,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_core_updates" name="itsec_tweaks[core_updates]" value="1" ' . checked( 1, $core_updates, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_core_updates">' . __( 'Hide Core Update Notifications', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Hides core update notifications from users who cannot update core. Please note that this only makes a difference in multi-site installations.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_core_updates">' . __( 'Hide Core Update Notifications', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Hides core update notifications from users who cannot update core. Please note that this only makes a difference in multi-site installations.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -398,8 +381,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_disable_xmlrpc" name="itsec_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_disable_xmlrpc">' . __( 'Disable XML-RPC', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_disable_xmlrpc">' . __( 'Disable XML-RPC', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -421,8 +404,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_edituri_header" name="itsec_tweaks[edituri_header]" value="1" ' . checked( 1, $edituri_header, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_edituri_header">' . __( 'Remove the RSD (Really Simple Discovery) header. ', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_edituri_header">' . __( 'Remove the RSD (Really Simple Discovery) header. ', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -444,8 +427,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_file_editor" name="itsec_tweaks[file_editor]" value="1" ' . checked( 1, $file_editor, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_file_editor">' . __( 'Disable File Editor', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_file_editor">' . __( 'Disable File Editor', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -467,8 +450,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_generator_tag" name="itsec_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_generator_tag">' . __( 'Remove WordPress Generator Meta Tag', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Removes the <code>&lt;meta name="generator" content="WordPress [version]" /&gt;</code></pre> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_generator_tag">' . __( 'Remove WordPress Generator Meta Tag', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Removes the <code>&lt;meta name="generator" content="WordPress [version]" /&gt;</code></pre> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -490,8 +473,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_plugin_updates" name="itsec_tweaks[plugin_updates]" value="1" ' . checked( 1, $plugin_updates, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_plugin_updates">' . __( 'Hide Plugin Update Notifications', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Hides plugin update notifications from users who cannot update plugins. Please note that this only makes a difference in multi-site installations.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_plugin_updates">' . __( 'Hide Plugin Update Notifications', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Hides plugin update notifications from users who cannot update plugins. Please note that this only makes a difference in multi-site installations.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -513,8 +496,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_random_version" name="itsec_tweaks[random_version]" value="1" ' . checked( 1, $random_version, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_random_version">' . __( 'Display Random Version', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Where a WordPress version must be displayed, it will display a random WordPress version and will remove the WordPress version completely where possible.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_random_version">' . __( 'Display Random Version', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Where a WordPress version must be displayed, it will display a random WordPress version and will remove the WordPress version completely where possible.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -551,16 +534,16 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_wordpress_safe_jquery" name="itsec_tweaks[safe_jquery]" value="1" ' . checked( 1, $safe_jquery, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_wordpress_safe_jquery">' . __( 'Enqueue a safe version of jQuery', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_wordpress_safe_jquery">' . __( 'Enqueue a safe version of jQuery', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'it-l10n-better-wp-security' ) . '</p>';
 
-		$content .= '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'LION' ) . $version . '.</p>';
+		$content .= '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'it-l10n-better-wp-security' ) . $version . '.</p>';
 		$content .= sprintf(
 			'<p class="description">%s <a href="%s" target="_blank">%s</a> %s</p>',
-			__( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error ', 'LION' ),
+			__( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error ', 'it-l10n-better-wp-security' ),
 			site_url(),
-			__( 'click here to check again.', 'LION' ),
-			__( 'This will open your homepage in a new window allowing the plugin to determine the version of jQuery actually being used. You can then come back here and reload this page to see your version.', 'LION' )
+			__( 'click here to check again.', 'it-l10n-better-wp-security' ),
+			__( 'This will open your homepage in a new window allowing the plugin to determine the version of jQuery actually being used. You can then come back here and reload this page to see your version.', 'it-l10n-better-wp-security' )
 		);
 
 		echo $content;
@@ -583,8 +566,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_theme_updates" name="itsec_tweaks[theme_updates]" value="1" ' . checked( 1, $theme_updates, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_theme_updates">' . __( 'Hide Theme Update Notifications', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_theme_updates">' . __( 'Hide Theme Update Notifications', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -606,8 +589,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_uploads_php" name="itsec_tweaks[uploads_php]" value="1" ' . checked( 1, $uploads_php, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_uploads_php">' . __( 'Disable PHP in Uploads', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Disable PHP execution in the uploads directory. This will prevent uploading of malicious scripts to uploads.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_uploads_php">' . __( 'Disable PHP in Uploads', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'Disable PHP execution in the uploads directory. This will prevent uploading of malicious scripts to uploads.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -629,8 +612,8 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		$content = '<input type="checkbox" id="itsec_tweaks_server_wlwmanifest_header" name="itsec_tweaks[wlwmanifest_header]" value="1" ' . checked( 1, $wlwmanifest_header, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_wlwmanifest_header">' . __( 'Remove the Windows Live Writer header. ', 'LION' ) . '</label>';
-		$content .= '<p class="description">' . __( 'This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_tweaks_server_wlwmanifest_header">' . __( 'Remove the Windows Live Writer header. ', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description">' . __( 'This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -641,12 +624,11 @@ class ITSEC_Tweaks_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param array $rules_array array of existing rules
-	 * @param mixed $input       options to build rules from
+	 * @param mixed $input options to build rules from
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_rewrite_rules( $rules_array, $input = null ) {
+	public static function build_rewrite_rules( $input = null ) {
 
 		$server_type = ITSEC_Lib::get_server(); //Get the server type to build the right rules
 
@@ -662,11 +644,11 @@ class ITSEC_Tweaks_Admin {
 
 			if ( $server_type === 'nginx' ) { //NGINX rules
 
-				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'LION' ) . PHP_EOL . "\tlocation ~ /\.ht { deny all; }" . PHP_EOL . "\tlocation ~ wp-config.php { deny all; }" . PHP_EOL . "\tlocation ~ readme.html { deny all; }" . PHP_EOL . "\tlocation ~ readme.txt { deny all; }" . PHP_EOL . "\tlocation ~ /install.php { deny all; }" . PHP_EOL . "\tlocation ^wp-includes/(.*).php { deny all; }" . PHP_EOL . "\tlocation ^/wp-admin/includes(.*)$ { deny all; }" . PHP_EOL;
+				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tlocation ~ /\.ht { deny all; }" . PHP_EOL . "\tlocation ~ wp-config.php { deny all; }" . PHP_EOL . "\tlocation ~ readme.html { deny all; }" . PHP_EOL . "\tlocation ~ readme.txt { deny all; }" . PHP_EOL . "\tlocation ~ /install.php { deny all; }" . PHP_EOL . "\tlocation ^wp-includes/(.*).php { deny all; }" . PHP_EOL . "\tlocation ^/wp-admin/includes(.*)$ { deny all; }" . PHP_EOL;
 
 			} else { //rules for all other servers
 
-				$rules .= "# " . __( 'Rules to block access to WordPress specific files', 'LION' ) . PHP_EOL . "<files .htaccess>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.html>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.txt>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files install.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files wp-config.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL;
+				$rules .= "# " . __( 'Rules to block access to WordPress specific files', 'it-l10n-better-wp-security' ) . PHP_EOL . "<files .htaccess>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.html>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.txt>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files install.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files wp-config.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL;
 
 			}
 
@@ -679,11 +661,11 @@ class ITSEC_Tweaks_Admin {
 				$rules .= PHP_EOL;
 			}
 
-			$rules .= "# " . __( 'Rules to disable XML-RPC', 'LION' ) . PHP_EOL;
+			$rules .= "# " . __( 'Rules to disable XML-RPC', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 			if ( $server_type === 'nginx' ) { //NGINX rules
 
-				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'LION' ) . PHP_EOL . "\tlocation ^/xmlrpc.php { deny all; }" . PHP_EOL;
+				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tlocation ^/xmlrpc.php { deny all; }" . PHP_EOL;
 
 			} else { //rules for all other servers
 
@@ -700,7 +682,7 @@ class ITSEC_Tweaks_Admin {
 				$rules .= PHP_EOL;
 			}
 
-			$rules .= "# " . __( 'Rules to disable directory browsing', 'LION' ) . PHP_EOL;
+			$rules .= "# " . __( 'Rules to disable directory browsing', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 			if ( $server_type !== 'nginx' ) { //Don't use this on NGINX
 
@@ -727,7 +709,7 @@ class ITSEC_Tweaks_Admin {
 			//Rewrite Rules for Protect Files
 			if ( $input['protect_files'] == true && $server_type !== 'nginx' ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				$rules .= "\tRewriteRule ^wp-admin/includes/ - [F]" . PHP_EOL . "\tRewriteRule !^wp-includes/ - [S=3]" . PHP_EOL . "\tRewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php" . PHP_EOL . "\tRewriteRule ^wp-includes/[^/]+\.php$ - [F]" . PHP_EOL . "\tRewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F]" . PHP_EOL . "\tRewriteRule ^wp-includes/theme-compat/ - [F]" . PHP_EOL;
 
@@ -736,7 +718,7 @@ class ITSEC_Tweaks_Admin {
 			//Rewrite Rules for Disable PHP in Uploads
 			if ( $input['uploads_php'] === true ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				if ( $server_type !== 'nginx' ) {
 
@@ -753,7 +735,7 @@ class ITSEC_Tweaks_Admin {
 			//Apache rewrite rules for disable http methods
 			if ( $input['request_methods'] == true ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -770,7 +752,7 @@ class ITSEC_Tweaks_Admin {
 			//Process suspicious query rules
 			if ( $input['suspicious_query_strings'] == true ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -815,7 +797,7 @@ class ITSEC_Tweaks_Admin {
 			//Process filtering of foreign characters
 			if ( $input['non_english_characters'] == true ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -832,7 +814,7 @@ class ITSEC_Tweaks_Admin {
 			//Process Comment spam rules
 			if ( $input['comment_spam'] == true ) {
 
-				$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'LION' ) . PHP_EOL;
+				$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -862,9 +844,7 @@ class ITSEC_Tweaks_Admin {
 		}
 
 		//create a proper array for writing
-		$rules_array[] = array( 'type' => 'htaccess', 'priority' => 10, 'name' => 'Tweaks', 'rules' => $rules, );
-
-		return $rules_array;
+		return array( 'type' => 'htaccess', 'priority' => 10, 'name' => 'Tweaks', 'rules' => $rules, );
 
 	}
 
@@ -873,18 +853,17 @@ class ITSEC_Tweaks_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param array  $rules_array initial rules array
 	 * @param  array $input       options to build rules from
+	 * @param bool $deactivation whether or not we're deactivating
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_wpconfig_rules( $rules_array, $input = null ) {
+	public static function build_wpconfig_rules( $input = null, $deactivation = false ) {
 
 		//Return options to default on deactivation
-		if ( $rules_array === false ) {
+		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
 
 			$input       = array();
-			$rules_array = array();
 
 			$deactivating = true;
 
@@ -933,9 +912,7 @@ class ITSEC_Tweaks_Admin {
 
 		}
 
-		$rules_array[] = array( 'type' => 'wpconfig', 'name' => 'Tweaks', 'rules' => $rule, );
-
-		return $rules_array;
+		return array( 'type' => 'wpconfig', 'name' => 'Tweaks', 'rules' => $rule, );
 
 	}
 
@@ -951,12 +928,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['protect_files'] ) && $this->settings['protect_files'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'You are protecting common WordPress files from access.', 'LION' ), 'link' => '#itsec_tweaks_server_protect_files', );
+			$status       = array( 'text' => __( 'You are protecting common WordPress files from access.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_protect_files', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'LION' ), 'link' => '#itsec_tweaks_server_protect_files', );
+			$status       = array( 'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_protect_files', );
 
 		}
 
@@ -967,12 +944,12 @@ class ITSEC_Tweaks_Admin {
 			if ( isset( $this->settings['directory_browsing'] ) && $this->settings['directory_browsing'] === true && ITSEC_Lib::get_server() != 'nginx' ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'You have successfully disabled directory browsing on your site.', 'LION' ), 'link' => '#itsec_tweaks_server_directory_browsing', );
+				$status       = array( 'text' => __( 'You have successfully disabled directory browsing on your site.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_directory_browsing', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'LION' ), 'link' => '#itsec_tweaks_server_directory_browsing', );
+				$status       = array( 'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_directory_browsing', );
 
 			}
 
@@ -983,12 +960,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['request_methods'] ) && $this->settings['request_methods'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'You are blocking HTTP request methods you do not need.', 'LION' ), 'link' => '#itsec_tweaks_server_request_methods', );
+			$status       = array( 'text' => __( 'You are blocking HTTP request methods you do not need.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_request_methods', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'LION' ), 'link' => '#itsec_tweaks_server_request_methods', );
+			$status       = array( 'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_request_methods', );
 
 		}
 
@@ -997,12 +974,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['suspicious_query_strings'] ) && $this->settings['suspicious_query_strings'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'LION' ), 'link' => '#itsec_tweaks_server_suspicious_query_strings', );
+			$status       = array( 'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_suspicious_query_strings', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'LION' ), 'link' => '#itsec_tweaks_server_suspicious_query_strings', );
+			$status       = array( 'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_suspicious_query_strings', );
 
 		}
 
@@ -1011,12 +988,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['non_english_characters'] ) && $this->settings['non_english_characters'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'LION' ), 'link' => '#itsec_tweaks_server_non_english_characters', );
+			$status       = array( 'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_non_english_characters', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_non_english_characters', );
+			$status       = array( 'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_non_english_characters', );
 
 		}
 
@@ -1025,12 +1002,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your installation does not accept long URLs.', 'LION' ), 'link' => '#itsec_tweaks_server_long_url_strings', );
+			$status       = array( 'text' => __( 'Your installation does not accept long URLs.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_long_url_strings', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_long_url_strings', );
+			$status       = array( 'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_long_url_strings', );
 
 		}
 
@@ -1039,12 +1016,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['write_permissions'] ) && $this->settings['write_permissions'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your wp-config.php and .htaccess files are not writeable.', 'LION' ), 'link' => '#itsec_tweaks_server_write_permissions', );
+			$status       = array( 'text' => __( 'Your wp-config.php and .htaccess files are not writeable.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_write_permissions', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your wp-config.php and .htaccess files are writeable. This can lead to vulnerabilities. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_write_permissions', );
+			$status       = array( 'text' => __( 'Your wp-config.php and .htaccess files are writeable. This can lead to vulnerabilities. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_write_permissions', );
 
 		}
 
@@ -1053,12 +1030,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your WordPress installation is not telling every bot that you use WordPress.', 'LION' ), 'link' => '#itsec_tweaks_server_generator_tag', );
+			$status       = array( 'text' => __( 'Your WordPress installation is not telling every bot that you use WordPress.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_generator_tag', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your WordPress installation is telling every bot that you use WordPress with a special "generator" tag. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_generator_tag', );
+			$status       = array( 'text' => __( 'Your WordPress installation is telling every bot that you use WordPress with a special "generator" tag. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_generator_tag', );
 
 		}
 
@@ -1067,12 +1044,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'LION' ), 'link' => '#itsec_tweaks_server_wlwmanifest_header', );
+			$status       = array( 'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_wlwmanifest_header', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_wlwmanifest_header', );
+			$status       = array( 'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_wlwmanifest_header', );
 
 		}
 
@@ -1081,12 +1058,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your WordPress installation is not publishing the Really Simple Discovery (RSD) header.', 'LION' ), 'link' => '#itsec_tweaks_server_edituri_header', );
+			$status       = array( 'text' => __( 'Your WordPress installation is not publishing the Really Simple Discovery (RSD) header.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_edituri_header', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your WordPress installation is publishing the Really Simple Discovery (RSD) header. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_edituri_header', );
+			$status       = array( 'text' => __( 'Your WordPress installation is publishing the Really Simple Discovery (RSD) header. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_edituri_header', );
 
 		}
 
@@ -1097,12 +1074,12 @@ class ITSEC_Tweaks_Admin {
 			if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'LION' ), 'link' => '#itsec_tweaks_server_theme_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_theme_updates', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_theme_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_theme_updates', );
 
 			}
 
@@ -1111,12 +1088,12 @@ class ITSEC_Tweaks_Admin {
 			if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'LION' ), 'link' => '#itsec_tweaks_server_plugin_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_plugin_updates', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_plugin_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_plugin_updates', );
 
 			}
 
@@ -1125,12 +1102,12 @@ class ITSEC_Tweaks_Admin {
 			if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'LION' ), 'link' => '#itsec_tweaks_server_core_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_core_updates', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_core_updates', );
+				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_core_updates', );
 
 			}
 
@@ -1141,12 +1118,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['comment_spam'] ) && $this->settings['comment_spam'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'LION' ), 'link' => '#itsec_tweaks_server_comment_spam', );
+			$status       = array( 'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_comment_spam', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'LION' ), 'link' => '#itsec_tweaks_server_comment_spam', );
+			$status       = array( 'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_comment_spam', );
 
 		}
 
@@ -1155,12 +1132,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Version information is obscured to all non admin users.', 'LION' ), 'link' => '#itsec_tweaks_server_random_version', );
+			$status       = array( 'text' => __( 'Version information is obscured to all non admin users.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_random_version', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_random_version', );
+			$status       = array( 'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_random_version', );
 
 		}
 
@@ -1169,12 +1146,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['file_editor'] ) && $this->settings['file_editor'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'LION' ), 'link' => '#itsec_tweaks_server_file_editor', );
+			$status       = array( 'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_file_editor', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'LION' ), 'link' => '#itsec_tweaks_server_file_editor', );
+			$status       = array( 'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_file_editor', );
 
 		}
 
@@ -1183,12 +1160,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'XML-RPC is not available on your WordPress installation.', 'LION' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
+			$status       = array( 'text' => __( 'XML-RPC is not available on your WordPress installation.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'LION' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
+			$status       = array( 'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
 
 		}
 
@@ -1197,12 +1174,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['uploads_php'] ) && $this->settings['uploads_php'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Users cannot execute PHP from the uploads folder.', 'LION' ), 'link' => '#itsec_tweaks_server_uploads_php', );
+			$status       = array( 'text' => __( 'Users cannot execute PHP from the uploads folder.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_uploads_php', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Users can execute PHP from the uploads folder.', 'LION' ), 'link' => '#itsec_tweaks_server_uploads_php', );
+			$status       = array( 'text' => __( 'Users can execute PHP from the uploads folder.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_uploads_php', );
 
 		}
 
@@ -1213,17 +1190,17 @@ class ITSEC_Tweaks_Admin {
 		if ( $safe_jquery === true ) {
 
 			$status_array = 'safe-high';
-			$status       = array( 'text' => __( 'The front page of your site is using a safe version of jQuery.', 'LION' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
+			$status       = array( 'text' => __( 'The front page of your site is using a safe version of jQuery.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
 
 		} elseif ( $safe_jquery === false ) {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( 'The front page of your site is not using a safe version of jQuery or the version of jQuery cannot be determined.', 'LION' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
+			$status       = array( 'text' => __( 'The front page of your site is not using a safe version of jQuery or the version of jQuery cannot be determined.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your version of jQuery has not been determined. Load your homepage while logged in to determine the version of jQuery you are using', 'LION' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
+			$status       = array( 'text' => __( 'Your version of jQuery has not been determined. Load your homepage while logged in to determine the version of jQuery you are using', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_wordpress_safe_jquery', );
 
 		}
 
@@ -1232,12 +1209,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['force_unique_nicename'] ) && $this->settings['force_unique_nicename'] === true ) {
 
 			$status_array = 'safe-high';
-			$status       = array( 'text' => __( "User's nicknames are different from their display name.", 'LION' ), 'link' => '#itsec_tweaks_server_force_unique_nicename', );
+			$status       = array( 'text' => __( "User's nicknames are different from their display name.", 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_force_unique_nicename', );
 
 		} else {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( "User nicknames may be the same as their login name. This means their login user name may be publicly available throughout the site.", 'LION' ), 'link' => '#itsec_tweaks_server_force_unique_nicename', );
+			$status       = array( 'text' => __( "User nicknames may be the same as their login name. This means their login user name may be publicly available throughout the site.", 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_force_unique_nicename', );
 
 		}
 
@@ -1246,12 +1223,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['login_errors'] ) && $this->settings['login_errors'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'Your login page is not giving out unnecessary information upon failed login.', 'LION' ), 'link' => '#itsec_tweaks_server_login_errors', );
+			$status       = array( 'text' => __( 'Your login page is not giving out unnecessary information upon failed login.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_login_errors', );
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'Your login page is giving out unnecessary information upon failed login.', 'LION' ), 'link' => '#itsec_tweaks_server_login_errors', );
+			$status       = array( 'text' => __( 'Your login page is giving out unnecessary information upon failed login.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_login_errors', );
 
 		}
 
@@ -1260,12 +1237,12 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $this->settings['disable_unused_author_pages'] ) && $this->settings['disable_unused_author_pages'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'User profiles for users without content are not publicly available.', 'LION' ), 'link' => '#itsec_tweaks_server_disable_unused_author_pages', );
+			$status       = array( 'text' => __( 'User profiles for users without content are not publicly available.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_unused_author_pages', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'User profiles for users without content are publicly available. This can make it relatively easy to gain the username of important users.', 'LION' ), 'link' => '#itsec_tweaks_server_disable_unused_author_pages', );
+			$status       = array( 'text' => __( 'User profiles for users without content are publicly available. This can make it relatively easy to gain the username of important users.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_unused_author_pages', );
 
 		}
 
@@ -1296,12 +1273,10 @@ class ITSEC_Tweaks_Admin {
 		$this->settings    = get_site_option( 'itsec_tweaks' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		add_filter( 'itsec_file_rules', array( $this, 'build_rewrite_rules' ) );
-		add_filter( 'itsec_file_rules', array( $this, 'build_wpconfig_rules' ) );
+		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
 
@@ -1321,21 +1296,21 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_section(
 			'tweaks_server',
-			__( 'Configure Server Tweaks', 'LION' ),
+			__( 'Configure Server Tweaks', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'tweaks_wordpress',
-			__( 'Configure WordPress Tweaks', 'LION' ),
+			__( 'Configure WordPress Tweaks', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
-			'tweaks_wordpress_multisite',
-			__( 'Configure Multisite Tweaks', 'LION' ),
+			'tweaks_multisite',
+			__( 'Configure Multisite Tweaks', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -1343,7 +1318,7 @@ class ITSEC_Tweaks_Admin {
 		//Add settings fields
 		add_settings_field(
 			'itsec_tweaks[protect_files]',
-			__( 'System Files', 'LION' ),
+			__( 'System Files', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_protect_files' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1353,7 +1328,7 @@ class ITSEC_Tweaks_Admin {
 
 			add_settings_field(
 				'itsec_tweaks[directory_browsing]',
-				__( 'Directory Browsing', 'LION' ),
+				__( 'Directory Browsing', 'it-l10n-better-wp-security' ),
 				array( $this, 'tweaks_server_directory_browsing' ),
 				'security_page_toplevel_page_itsec_settings',
 				'tweaks_server'
@@ -1363,7 +1338,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[request_methods]',
-			__( 'Request Methods', 'LION' ),
+			__( 'Request Methods', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_request_methods' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1371,7 +1346,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[suspicious_query_strings]',
-			__( 'Suspicious Query Strings', 'LION' ),
+			__( 'Suspicious Query Strings', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_suspicious_query_strings' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1379,7 +1354,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[non_english_characters]',
-			__( 'Non-English Characters', 'LION' ),
+			__( 'Non-English Characters', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_non_english_characters' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1387,7 +1362,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[long_url_strings]',
-			__( 'Long URL Strings', 'LION' ),
+			__( 'Long URL Strings', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_long_url_strings' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1395,7 +1370,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[write_permissions]',
-			__( 'File Writing Permissions', 'LION' ),
+			__( 'File Writing Permissions', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_server_write_permissions' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1403,7 +1378,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[uploads_php]',
-			__( 'Uploads', 'LION' ),
+			__( 'Uploads', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_uploads_php' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_server'
@@ -1411,7 +1386,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[generator_tag]',
-			__( 'Generator Meta Tag', 'LION' ),
+			__( 'Generator Meta Tag', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_generator_tag' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1419,7 +1394,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[wlwmanifest_header]',
-			__( 'Windows Live Writer Header', 'LION' ),
+			__( 'Windows Live Writer Header', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_wlwmanifest_header' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1427,7 +1402,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[edituri_header]',
-			__( 'EditURI Header', 'LION' ),
+			__( 'EditURI Header', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_edituri_header' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1435,7 +1410,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[comment_spam]',
-			__( 'Comment Spam', 'LION' ),
+			__( 'Comment Spam', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_comment_spam' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1443,7 +1418,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[random_version]',
-			__( 'Display Random Version', 'LION' ),
+			__( 'Display Random Version', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_random_version' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1451,7 +1426,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[file_editor]',
-			__( 'File Editor', 'LION' ),
+			__( 'File Editor', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_file_editor' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1459,7 +1434,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[disable_xmlrpc]',
-			__( 'XML-RPC', 'LION' ),
+			__( 'XML-RPC', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_disable_xmlrpc' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1467,7 +1442,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[safe_jquery]',
-			__( 'Replace jQuery With a Safe Version', 'LION' ),
+			__( 'Replace jQuery With a Safe Version', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_safe_jquery' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1475,7 +1450,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[login_errors]',
-			__( 'Login Error Messages', 'LION' ),
+			__( 'Login Error Messages', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_login_errors' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1483,7 +1458,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[force_unique_nicename]',
-			__( 'Force Unique Nickname', 'LION' ),
+			__( 'Force Unique Nickname', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_force_unique_nicename' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1491,7 +1466,7 @@ class ITSEC_Tweaks_Admin {
 
 		add_settings_field(
 			'itsec_tweaks[disable_unused_author_pages]',
-			__( 'Disable Extra User Archives', 'LION' ),
+			__( 'Disable Extra User Archives', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_disable_unused_author_pages' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
@@ -1501,26 +1476,26 @@ class ITSEC_Tweaks_Admin {
 
 			add_settings_field(
 				'itsec_tweaks[theme_updates]',
-				__( 'Theme Update Notifications', 'LION' ),
+				__( 'Theme Update Notifications', 'it-l10n-better-wp-security' ),
 				array( $this, 'tweaks_wordpress_theme_updates' ),
 				'security_page_toplevel_page_itsec_settings',
-				'tweaks_wordpress_multisite'
+				'tweaks_multisite'
 			);
 
 			add_settings_field(
 				'itsec_tweaks[plugin_updates]',
-				__( 'Plugin Update Notifications', 'LION' ),
+				__( 'Plugin Update Notifications', 'it-l10n-better-wp-security' ),
 				array( $this, 'tweaks_wordpress_plugin_updates' ),
 				'security_page_toplevel_page_itsec_settings',
-				'tweaks_wordpress_multisite'
+				'tweaks_multisite'
 			);
 
 			add_settings_field(
 				'itsec_tweaks[core_updates]',
-				__( 'Core Update Notifications', 'LION' ),
+				__( 'Core Update Notifications', 'it-l10n-better-wp-security' ),
 				array( $this, 'tweaks_wordpress_core_updates' ),
 				'security_page_toplevel_page_itsec_settings',
-				'tweaks_wordpress_multisite'
+				'tweaks_multisite'
 			);
 
 		}
@@ -1541,9 +1516,9 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function metabox_tweaks_system() {
 
-		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'LION' ) . '</p>';
+		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'tweaks_server', false );
 
@@ -1551,7 +1526,7 @@ class ITSEC_Tweaks_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -1564,9 +1539,9 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function metabox_tweaks_wordpress() {
 
-		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'LION' ) . '</p>';
+		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'tweaks_wordpress', false );
 
@@ -1574,7 +1549,7 @@ class ITSEC_Tweaks_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -1587,9 +1562,9 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function metabox_tweaks_multisite() {
 
-		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'LION' ) . '</p>';
-		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'LION' ) . '</p>';
+		echo '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Note: These settings are listed as advanced because they block common forms of attacks but they can also block legitimate plugins and themes that rely on the same techniques. When activating the settings below, we recommend enabling them one by one to test that everything on your site is still working as expected.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Remember, some of these settings might conflict with other plugins or themes, so test your site after enabling each setting.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'tweaks_multisite', false );
 
@@ -1597,7 +1572,7 @@ class ITSEC_Tweaks_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -1659,6 +1634,24 @@ class ITSEC_Tweaks_Admin {
 	}
 
 	/**
+	 * Register ban users for file writer
+	 *
+	 * @param  array $file_modules array of file writer modules
+	 *
+	 * @return array                   array of file writer modules
+	 */
+	public function register_file( $file_modules ) {
+
+		$file_modules['tweaks'] = array(
+			'rewrite' => array( $this, 'save_rewrite_rules' ),
+			'config'  => array( $this, 'save_config_rules' ),
+		);
+
+		return $file_modules;
+
+	}
+
+	/**
 	 * Sanitize and validate input
 	 *
 	 * @param  Array $input array of input fields
@@ -1666,6 +1659,8 @@ class ITSEC_Tweaks_Admin {
 	 * @return Array         Sanitized array
 	 */
 	public function sanitize_module_input( $input ) {
+
+		global $itsec_globals;
 
 		$input['protect_files']               = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? true : false );
 		$input['directory_browsing']          = ( isset( $input['directory_browsing'] ) && intval( $input['directory_browsing'] == 1 ) ? true : false );
@@ -1691,14 +1686,16 @@ class ITSEC_Tweaks_Admin {
 		$input['disable_unused_author_pages'] = ( isset( $input['disable_unused_author_pages'] ) && intval( $input['disable_unused_author_pages'] == 1 ) ? true : false );
 
 		if (
-			$input['protect_files'] !== $this->settings['protect_files'] ||
-			$input['directory_browsing'] !== $this->settings['directory_browsing'] ||
-			$input['request_methods'] !== $this->settings['request_methods'] ||
-			$input['suspicious_query_strings'] !== $this->settings['suspicious_query_strings'] ||
-			$input['non_english_characters'] !== $this->settings['non_english_characters'] ||
-			$input['comment_spam'] !== $this->settings['comment_spam'] ||
-			$input['disable_xmlrpc'] !== $this->settings['disable_xmlrpc'] ||
-			$input['uploads_php'] !== $this->settings['uploads_php']
+			( $input['protect_files'] !== $this->settings['protect_files'] ||
+			  $input['directory_browsing'] !== $this->settings['directory_browsing'] ||
+			  $input['request_methods'] !== $this->settings['request_methods'] ||
+			  $input['suspicious_query_strings'] !== $this->settings['suspicious_query_strings'] ||
+			  $input['non_english_characters'] !== $this->settings['non_english_characters'] ||
+			  $input['comment_spam'] !== $this->settings['comment_spam'] ||
+			  $input['disable_xmlrpc'] !== $this->settings['disable_xmlrpc'] ||
+			  $input['uploads_php'] !== $this->settings['uploads_php']
+			) ||
+			isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true
 		) {
 
 			add_site_option( 'itsec_rewrites_changed', true );
@@ -1731,12 +1728,66 @@ class ITSEC_Tweaks_Admin {
 		if ( isset( $_POST['itsec_tweaks'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'LION' ) );
+				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
 			}
 
 			update_site_option( 'itsec_tweaks', $_POST['itsec_tweaks'] ); //we must manually save network options
 
 		}
+
+	}
+
+	/**
+	 * Saves rewrite rules to file writer.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function save_config_rules() {
+
+		global $itsec_files;
+
+		$config_rules = $itsec_files->get_config_rules();
+
+		foreach ( $config_rules as $key => $rule ) {
+
+			if ( isset( $rule['name'] ) && $rule['name'] == 'Tweaks' ) {
+				unset ( $config_rules[$key] );
+			}
+
+		}
+
+		$config_rules[] = $this->build_wpconfig_rules();
+
+		$itsec_files->set_config_rules( $config_rules );
+
+	}
+
+	/**
+	 * Saves rewrite rules to file writer.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function save_rewrite_rules() {
+
+		global $itsec_files;
+
+		$rewrite_rules = $itsec_files->get_rewrite_rules();
+
+		foreach ( $rewrite_rules as $key => $rule ) {
+
+			if ( isset( $rule['name'] ) && $rule['name'] == 'Tweaks' ) {
+				unset ( $rewrite_rules[$key] );
+			}
+
+		}
+
+		$rewrite_rules[] = $this->build_rewrite_rules();
+
+		$itsec_files->set_rewrite_rules( $rewrite_rules );
 
 	}
 
@@ -1747,7 +1798,7 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function server_tweaks_intro() {
 
-		echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'LION' ) . '</h2>';
+		echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'it-l10n-better-wp-security' ) . '</h2>';
 	}
 
 	/**
@@ -1797,7 +1848,7 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function wordpress_multisite_tweaks_intro() {
 
-		echo '<h2 class="settings-section-header">' . __( 'Multisite Tweaks', 'LION' ) . '</h2>';
+		echo '<h2 class="settings-section-header">' . __( 'Multisite Tweaks', 'it-l10n-better-wp-security' ) . '</h2>';
 	}
 
 	/**
@@ -1807,7 +1858,7 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function wordpress_tweaks_intro() {
 
-		echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'LION' ) . '</h2>';
+		echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'it-l10n-better-wp-security' ) . '</h2>';
 	}
 
 }

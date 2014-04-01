@@ -44,7 +44,7 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -66,13 +66,9 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
-
-			global $itsec_files;
+		public function execute_activate() {
 
 			$options  = get_site_option( 'itsec_tweaks' );
 			$initials = get_site_option( 'itsec_initials' );
@@ -96,18 +92,8 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 
 			}
 
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
-			}
-
-			if ( ! class_exists( 'itsec_tweaks_Admin' ) ) {
-				require_once( dirname( __FILE__ ) . '/class-itsec-tweaks-admin.php' );
-			}
-			$config_rules  = itsec_tweaks_Admin::build_wpconfig_rules( array() );
-			$rewrite_rules = itsec_tweaks_Admin::build_rewrite_rules( array() );
-
-			$itsec_files->set_wpconfig( $config_rules );
-			$itsec_files->set_rewrites( $rewrite_rules );
+			add_site_option( 'itsec_rewrites_changed', true );
+			add_site_option( 'itsec_config_changed', true );
 
 		}
 
@@ -122,7 +108,7 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 
 			delete_site_transient( 'itsec_random_version' );
 
-			$config_rules = itsec_tweaks_Admin::build_wpconfig_rules( false );
+			$config_rules[] = itsec_tweaks_Admin::build_wpconfig_rules( null, true );
 			$itsec_files->set_wpconfig( $config_rules );
 
 			//Reset recommended file permissions
@@ -159,7 +145,13 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 
 				global $itsec_bwps_options;
 
+				ITSEC_Lib::create_database_tables();
+
 				$current_options = get_site_option( 'itsec_tweaks' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['protect_files']            = isset( $itsec_bwps_options['st_ht_files'] ) && $itsec_bwps_options['st_ht_files'] == 1 ? true : false;
 				$current_options['directory_browsing']       = isset( $itsec_bwps_options['st_ht_browsing'] ) && $itsec_bwps_options['st_ht_browsing'] == 1 ? true : false;
@@ -180,6 +172,7 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 
 				update_site_option( 'itsec_tweaks', $current_options );
 				add_site_option( 'itsec_rewrites_changed', true );
+				add_site_option( 'itsec_config_changed', true );
 
 			}
 

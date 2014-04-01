@@ -43,7 +43,7 @@ class ITSEC_SSL {
 
 		$hide_options = get_site_option( 'itsec_hide_backend' );
 
-		if ( isset( $hide_options['enabled'] ) && $hide_options['enabled'] === true && $_SERVER['REQUEST_URI'] == '/' . $hide_options['slug'] ) {
+		if ( isset( $hide_options['enabled'] ) && $hide_options['enabled'] === true && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . $hide_options['slug'] ) {
 
 			return;
 

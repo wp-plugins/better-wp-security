@@ -34,7 +34,7 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -56,11 +56,9 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_backup' );
 
@@ -68,10 +66,6 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 
 				add_site_option( 'itsec_backup', $this->defaults );
 
-			}
-
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
 			}
 
 		}
@@ -111,6 +105,10 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 				global $itsec_bwps_options;
 
 				$current_options = get_site_option( 'itsec_backup' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['enabled']  = isset( $itsec_bwps_options['backup_enabled'] ) && $itsec_bwps_options['backup_enabled'] == 1 ? true : false;
 				$current_options['interval'] = isset( $itsec_bwps_options['backup_interval'] ) ? intval( $itsec_bwps_options['backup_interval'] ) : 1;

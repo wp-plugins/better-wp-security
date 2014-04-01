@@ -26,8 +26,8 @@ class ITSEC_Setup {
 		$this->defaults = array(
 			'notification_email'       => array( get_option( 'admin_email' ) ),
 			'backup_email'             => array( get_option( 'admin_email' ) ),
-			'lockout_message'          => __( 'error', 'LION' ),
-			'user_lockout_message'     => __( 'You have been locked out due to too many login attempts.', 'LION' ),
+			'lockout_message'          => __( 'error', 'it-l10n-better-wp-security' ),
+			'user_lockout_message'     => __( 'You have been locked out due to too many login attempts.', 'it-l10n-better-wp-security' ),
 			'blacklist'                => true,
 			'blacklist_count'          => 3,
 			'blacklist_period'         => 7,
@@ -51,7 +51,11 @@ class ITSEC_Setup {
 		switch ( $case ) {
 
 			case 'activate': //active plugin
-				$this->activate_execute( $upgrading );
+				$this->activate_execute();
+				break;
+
+			case 'upgrade': //upgrade plugin
+				$this->upgrade_execute( $upgrading );
 				break;
 
 			case 'deactivate': //deactivate plugin
@@ -186,14 +190,14 @@ class ITSEC_Setup {
 	 *
 	 * @return void
 	 */
-	private function activate_execute( $upgrade = false ) {
+	private function activate_execute() {
 
-		global $itsec_globals, $itsec_files, $itsec_setup_action, $itsec_old_version;
+		global $itsec_globals, $itsec_files;
 
 		//if this is multisite make sure they're network activating or die
 		if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 
-			die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'LION' ) );
+			die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'it-l10n-better-wp-security' ) );
 
 		}
 
@@ -252,15 +256,7 @@ class ITSEC_Setup {
 
 		ITSEC_Lib::create_database_tables();
 
-		if ( $upgrade !== false ) {
-			$itsec_setup_action = 'upgrade';
-			$itsec_old_version  = $upgrade;
-			$this->upgrade_execute();
-		}
-
 		$this->do_modules();
-
-		$itsec_files->do_activate( $upgrade );
 
 	}
 
@@ -273,9 +269,12 @@ class ITSEC_Setup {
 	 *
 	 * @return void
 	 */
-	private function upgrade_execute() {
+	private function upgrade_execute( $upgrade = false ) {
 
-		global $itsec_old_version, $itsec_globals, $wpdb;
+		global $itsec_old_version, $itsec_globals, $wpdb, $itsec_files, $itsec_setup_action;
+
+		$itsec_setup_action = 'upgrade';
+		$itsec_old_version  = $upgrade;
 
 		if ( $itsec_old_version < 4000 ) {
 
@@ -312,6 +311,10 @@ class ITSEC_Setup {
 			if ( $itsec_bwps_options !== false ) {
 
 				$current_options = get_site_option( 'itsec_global' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['notification_email']    = array( isset( $itsec_bwps_options['ll_emailaddress'] ) && strlen( $itsec_bwps_options['ll_emailaddress'] ) ? $itsec_bwps_options['ll_emailaddress'] : get_option( 'admin_email' ) );
 				$current_options['backup_email']          = array( isset( $itsec_bwps_options['backup_emailaddress'] ) && strlen( $itsec_bwps_options['backup_emailaddress'] ) ? $itsec_bwps_options['backup_emailaddress'] : get_option( 'admin_email' ) );
@@ -359,6 +362,8 @@ class ITSEC_Setup {
 
 		}
 
+		$this->do_modules();
+
 		$itsec_globals['data']['build'] = $itsec_globals['plugin_build'];
 
 		update_site_option( 'itsec_data', $itsec_globals['data'] );
@@ -382,6 +387,7 @@ class ITSEC_Setup {
 
 		$itsec_files->do_deactivate();
 
+		delete_site_option( 'itsec_flush_old_rewrites' );
 		delete_site_option( 'itsec_manual_update' );
 		delete_site_option( 'itsec_rewrites_changed' );
 		delete_site_option( 'itsec_config_changed' );
@@ -427,22 +433,6 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_data' );
 		delete_site_option( 'itsec_initials' );
 		delete_site_option( 'itsec_jquery_version' );
-
-		$htaccess = ITSEC_Lib::get_htaccess();
-
-		//Make sure we can write to the file
-		$perms = substr( sprintf( '%o', @fileperms( $htaccess ) ), - 4 );
-
-		if ( $perms == '0444' ) {
-			@chmod( $htaccess, 0644 );
-		}
-
-		flush_rewrite_rules();
-
-		//reset file permissions if we changed them
-		if ( $perms == '0444' ) {
-			@chmod( $htaccess, 0444 );
-		}
 
 		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "itsec_log;" );
 		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "itsec_lockouts;" );

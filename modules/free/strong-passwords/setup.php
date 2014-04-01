@@ -24,7 +24,7 @@ if ( ! class_exists( 'ITSEC_Strong_Passwords_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -46,11 +46,9 @@ if ( ! class_exists( 'ITSEC_Strong_Passwords_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_strong_passwords' );
 
@@ -58,10 +56,6 @@ if ( ! class_exists( 'ITSEC_Strong_Passwords_Setup' ) ) {
 
 				add_site_option( 'itsec_strong_passwords', $this->defaults );
 
-			}
-
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
 			}
 
 		}
@@ -101,6 +95,10 @@ if ( ! class_exists( 'ITSEC_Strong_Passwords_Setup' ) ) {
 				global $itsec_bwps_options, $itsec_globals;
 
 				$current_options = get_site_option( 'itsec_strong_passwords' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['enabled'] = isset( $itsec_bwps_options['st_enablepassword'] ) && $itsec_bwps_options['st_enablepassword'] == 1 ? true : false;
 				$current_options['roll']    = isset( $itsec_bwps_options['st_passrole'] ) ? $itsec_bwps_options['st_passrole'] : 'administrator';

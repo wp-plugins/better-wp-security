@@ -97,7 +97,7 @@ class ITSEC_Brute_Force {
 
 			$lockout_modules['brute_force'] = array(
 				'type'   => 'brute_force',
-				'reason' => __( 'too many bad login attempts', 'LION' ),
+				'reason' => __( 'too many bad login attempts', 'it-l10n-better-wp-security' ),
 				'host'   => $this->settings['max_attempts_host'],
 				'user'   => $this->settings['max_attempts_user'],
 				'period' => $this->settings['check_period']
@@ -122,7 +122,7 @@ class ITSEC_Brute_Force {
 
 			$logger_modules['brute_force'] = array(
 				'type'     => 'brute_force',
-				'function' => __( 'Invalid Login Attempt', 'LION' ),
+				'function' => __( 'Invalid Login Attempt', 'it-l10n-better-wp-security' ),
 			);
 
 		}

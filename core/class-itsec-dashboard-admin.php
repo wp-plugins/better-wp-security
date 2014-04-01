@@ -28,7 +28,7 @@ class ITSEC_Dashboard_Admin {
 
 		add_meta_box(
 			'itsec_status',
-			__( 'Security Status', 'LION' ),
+			__( 'Security Status', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_normal_status' ),
 			'toplevel_page_itsec',
 			'advanced',
@@ -37,7 +37,7 @@ class ITSEC_Dashboard_Admin {
 
 		add_meta_box(
 			'itsec_system_info',
-			__( 'System Information', 'LION' ),
+			__( 'System Information', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_normal_system_info' ),
 			'toplevel_page_itsec',
 			'advanced',
@@ -93,25 +93,25 @@ class ITSEC_Dashboard_Admin {
 
 		echo '<div id="itsec_tabbed_dashboard_content">';
 		echo '<ul class="itsec-tabs">';
-		echo '<li><a href="#itsec_showall">' . __( 'All', 'LION' ) . '</a></li>';
-		echo '<li><a href="#itsec_high">' . __( 'High', 'LION' ) . '</a></li>';
-		echo '<li><a href="#itsec_medium">' . __( 'Medium', 'LION' ) . '</a></li>';
-		echo '<li><a href="#itsec_low">' . __( 'Low', 'LION' ) . '</a></li>';
-		echo '<li><a href="#itsec_completed">' . __( 'Completed', 'LION' ) . '</a></li>';
+		echo '<li><a href="#itsec_showall">' . __( 'All', 'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li><a href="#itsec_high">' . __( 'High', 'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li><a href="#itsec_medium">' . __( 'Medium', 'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li><a href="#itsec_low">' . __( 'Low', 'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li><a href="#itsec_completed">' . __( 'Completed', 'it-l10n-better-wp-security' ) . '</a></li>';
 		echo '</ul>';
 
 		// Begin High Priority Tab
 		echo '<div id="itsec_high">';
 		if ( isset ( $statuses['high'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'High Priority', 'LION' ) );
-			_e( 'These are items that should be secured immediately.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that should be secured immediately.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist high-priority">';
 
 			if ( isset ( $statuses['high'] ) ) {
 
-				$this->status_loop( $statuses['high'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['high'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -119,8 +119,8 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'High Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
@@ -131,14 +131,14 @@ class ITSEC_Dashboard_Admin {
 
 		if ( isset ( $statuses['medium'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'LION' ) );
-			_e( 'These are medium priority items that should be fixed if no conflicts are present, but they are not critical to the overall security of your site.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are medium priority items that should be fixed if no conflicts are present, but they are not critical to the overall security of your site.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist medium-priority">';
 
 			if ( isset ( $statuses['medium'] ) ) {
 
-				$this->status_loop( $statuses['medium'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['medium'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -146,8 +146,8 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
@@ -158,14 +158,14 @@ class ITSEC_Dashboard_Admin {
 
 		if ( isset ( $statuses['low'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'LION' ) );
-			_e( 'These are low priority items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are low priority items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist low-priority">';
 
 			if ( isset ( $statuses['low'] ) ) {
 
-				$this->status_loop( $statuses['low'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['low'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -173,8 +173,8 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
@@ -185,26 +185,26 @@ class ITSEC_Dashboard_Admin {
 
 		if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Completed', 'LION' ) );
-			_e( 'These are items that you have successfully secured.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Completed', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that you have successfully secured.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist completed">';
 
 			if ( isset ( $statuses['safe-high'] ) ) {
 
-				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 
 			if ( isset ( $statuses['safe-medium'] ) ) {
 
-				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 
 			if ( isset ( $statuses['safe-low'] ) ) {
 
-				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 
@@ -219,14 +219,14 @@ class ITSEC_Dashboard_Admin {
 
 		if ( isset ( $statuses['high'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'High Priority', 'LION' ) );
-			_e( 'These are items that should be secured immediately.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that should be secured immediately.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist high-priority">';
 
 			if ( isset ( $statuses['high'] ) ) {
 
-				$this->status_loop( $statuses['high'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['high'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -234,21 +234,21 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'High Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
 		if ( isset ( $statuses['medium'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'LION' ) );
-			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist medium-priority">';
 
 			if ( isset ( $statuses['medium'] ) ) {
 
-				$this->status_loop( $statuses['medium'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['medium'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -256,21 +256,21 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
 		if ( isset ( $statuses['low'][0] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'LION' ) );
-			_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist low-priority">';
 
 			if ( isset ( $statuses['low'] ) ) {
 
-				$this->status_loop( $statuses['low'], __( 'Fix it', 'LION' ), 'primary' );
+				$this->status_loop( $statuses['low'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
 
 			}
 
@@ -278,33 +278,33 @@ class ITSEC_Dashboard_Admin {
 
 		} else {
 			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'LION' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'LION' ) );
+			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
+			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'it-l10n-better-wp-security' ) );
 			echo '</div>';
 		}
 
 		if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
 
-			printf( '<h2>%s</h2>', __( 'Completed', 'LION' ) );
-			_e( 'These are items that you have successfuly secured.', 'LION' );
+			printf( '<h2>%s</h2>', __( 'Completed', 'it-l10n-better-wp-security' ) );
+			_e( 'These are items that you have successfuly secured.', 'it-l10n-better-wp-security' );
 
 			echo '<ul class="statuslist completed">';
 
 			if ( isset ( $statuses['safe-high'] ) ) {
 
-				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 
 			if ( isset ( $statuses['safe-medium'] ) ) {
 
-				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 
 			if ( isset ( $statuses['safe-low'] ) ) {
 
-				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'LION' ), 'secondary' );
+				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
 
 			}
 

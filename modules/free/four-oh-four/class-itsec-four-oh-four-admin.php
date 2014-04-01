@@ -27,7 +27,7 @@ class ITSEC_Four_Oh_Four_Admin {
 	public function add_admin_meta_boxes() {
 
 		$id    = 'intrusion_detection_404_options';
-		$title = __( '404 Detection', 'LION' );
+		$title = __( '404 Detection', 'it-l10n-better-wp-security' );
 
 		add_meta_box(
 			$id,
@@ -78,12 +78,12 @@ class ITSEC_Four_Oh_Four_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'LION' ), 'link' => '#itsec_four_oh_four_enabled', );
+			$status       = array( 'text' => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_four_oh_four_enabled', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your website is not protected against bots looking for known vulnerabilities. Consider turning on 404 protection.', 'LION' ), 'link' => '#itsec_four_oh_four_enabled', );
+			$status       = array( 'text' => __( 'Your website is not protected against bots looking for known vulnerabilities. Consider turning on 404 protection.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_four_oh_four_enabled', );
 
 		}
 
@@ -115,8 +115,8 @@ class ITSEC_Four_Oh_Four_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_four_oh_four[check_period]" id="itsec_four_oh_four_check_period" value="' . $check_period . '" type="text"> ';
-		$content .= '<label for="itsec_four_oh_four_check_period"> ' . __( 'Minutes', 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The number of minutes in which 404 errors should be remembered and counted towards lockouts.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_four_oh_four_check_period"> ' . __( 'Minutes', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The number of minutes in which 404 errors should be remembered and counted towards lockouts.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -135,7 +135,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
 
-			$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'LION' ), $adminurl, __( 'WordPress permalinks', 'LION' ), __( 'to use this feature.', 'LION' ) );
+			$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'it-l10n-better-wp-security' ), $adminurl, __( 'WordPress permalinks', 'it-l10n-better-wp-security' ), __( 'to use this feature.', 'it-l10n-better-wp-security' ) );
 
 		} else {
 
@@ -146,7 +146,7 @@ class ITSEC_Four_Oh_Four_Admin {
 			}
 
 			$content = '<input type="checkbox" id="itsec_four_oh_four_enabled" name="itsec_four_oh_four[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_four_oh_four_enabled"> ' . __( 'Enable 404 detection', 'LION' ) . '</label>';
+			$content .= '<label for="itsec_four_oh_four_enabled"> ' . __( 'Enable 404 detection', 'it-l10n-better-wp-security' ) . '</label>';
 
 		}
 
@@ -170,8 +170,8 @@ class ITSEC_Four_Oh_Four_Admin {
 		}
 
 		$content = '<input class="small-text" name="itsec_four_oh_four[error_threshold]" id="itsec_four_oh_four_error_threshold" value="' . $error_threshold . '" type="text"> ';
-		$content .= '<label for="itsec_four_oh_four_error_threshold"> ' . __( 'Errors', 'LION' ) . '</label>';
-		$content .= '<p class="description"> ' . __( 'The numbers of errors (within the check period time frame) that will trigger a lockout. Set to zero (0) to record 404 errors without locking out users. This can be useful for troubleshooting content or other errors. The default is 20.', 'LION' ) . '</p>';
+		$content .= '<label for="itsec_four_oh_four_error_threshold"> ' . __( 'Errors', 'it-l10n-better-wp-security' ) . '</label>';
+		$content .= '<p class="description"> ' . __( 'The numbers of errors (within the check period time frame) that will trigger a lockout. Set to zero (0) to record 404 errors without locking out users. This can be useful for troubleshooting content or other errors. The default is 20.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -188,7 +188,7 @@ class ITSEC_Four_Oh_Four_Admin {
 			require( dirname( __FILE__ ) . '/class-itsec-four-oh-four-log.php' );
 		}
 
-		echo __( 'Below is a summary log of all the 404 errors on your WordPress site. To get details on a particular item click the title. To adjust logging options visit the global settings page.', 'LION' );
+		echo __( 'Below is a summary log of all the 404 errors on your WordPress site. To get details on a particular item click the title. To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' );
 
 		$log_display = new ITSEC_Four_Oh_Four_Log();
 
@@ -213,7 +213,7 @@ class ITSEC_Four_Oh_Four_Admin {
 		}
 
 		$content = '<textarea id="itsec_four_oh_four_white_list" name="itsec_four_oh_four[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-		$content .= '<p class="description">' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'LION' ) . '</p>';
+		$content .= '<p class="description">' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -267,14 +267,14 @@ class ITSEC_Four_Oh_Four_Admin {
 		//Add Settings sections
 		add_settings_section(
 			'four_oh_four-enabled',
-			__( 'Enable 404 Detection', 'LION' ),
+			__( 'Enable 404 Detection', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'four_oh_four-settings',
-			__( '404 Detection Settings', 'LION' ),
+			__( '404 Detection Settings', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -282,7 +282,7 @@ class ITSEC_Four_Oh_Four_Admin {
 		//404 Detection Fields
 		add_settings_field(
 			'itsec_four_oh_four[enabled]',
-			__( '404 Detection', 'LION' ),
+			__( '404 Detection', 'it-l10n-better-wp-security' ),
 			array( $this, 'enabled' ),
 			'security_page_toplevel_page_itsec_settings',
 			'four_oh_four-enabled'
@@ -290,7 +290,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		add_settings_field(
 			'itsec_four_oh_four[check_period]',
-			__( 'Minutes to Remember 404 Error (Check Period)', 'LION' ),
+			__( 'Minutes to Remember 404 Error (Check Period)', 'it-l10n-better-wp-security' ),
 			array( $this, 'check_period' ),
 			'security_page_toplevel_page_itsec_settings',
 			'four_oh_four-settings'
@@ -298,7 +298,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		add_settings_field(
 			'itsec_four_oh_four[error_threshold]',
-			__( 'Error Threshold', 'LION' ),
+			__( 'Error Threshold', 'it-l10n-better-wp-security' ),
 			array( $this, 'error_threshold' ),
 			'security_page_toplevel_page_itsec_settings',
 			'four_oh_four-settings'
@@ -306,7 +306,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		add_settings_field(
 			'itsec_four_oh_four[white_list]',
-			__( '404 File/Folder White List', 'LION' ),
+			__( '404 File/Folder White List', 'it-l10n-better-wp-security' ),
 			array( $this, 'white_list' ),
 			'security_page_toplevel_page_itsec_settings',
 			'four_oh_four-settings'
@@ -330,7 +330,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		global $itsec_lockout;
 
-		echo '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages and getting a large number of 404 errors. 404 detection assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly. This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set thresholds for this feature below.', 'LION' ) . '</p>';
+		echo '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages and getting a large number of 404 errors. 404 detection assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly. This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set thresholds for this feature below.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo $itsec_lockout->get_lockout_description();
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'four_oh_four-enabled', false );
@@ -340,7 +340,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -386,7 +386,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 			$metaboxes[] = array(
 				'module'   => 'four_oh_four',
-				'title'    => __( '404 Errors Found', 'LION' ),
+				'title'    => __( '404 Errors Found', 'it-l10n-better-wp-security' ),
 				'callback' => array( $this, 'logs_metabox' )
 			);
 
@@ -464,7 +464,7 @@ class ITSEC_Four_Oh_Four_Admin {
 		if ( isset( $_POST['itsec_four_oh_four'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'LION' ) );
+				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
 			}
 
 			update_site_option( 'itsec_four_oh_four', $_POST['itsec_four_oh_four'] ); //we must manually save network options

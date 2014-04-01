@@ -65,7 +65,7 @@ class ITSEC_Four_Oh_Four {
 
 			$lockout_modules['four_oh_four'] = array(
 				'type'   => 'four_oh_four',
-				'reason' => __( 'too many attempts to access a file that does not exist', 'LION' ),
+				'reason' => __( 'too many attempts to access a file that does not exist', 'it-l10n-better-wp-security' ),
 				'host'   => $this->settings['error_threshold'],
 				'period' => $this->settings['check_period']
 			);
@@ -89,7 +89,7 @@ class ITSEC_Four_Oh_Four {
 
 			$logger_modules['four_oh_four'] = array(
 				'type'     => 'four_oh_four',
-				'function' => __( '404 Error', 'LION' ),
+				'function' => __( '404 Error', 'it-l10n-better-wp-security' ),
 			);
 
 		}

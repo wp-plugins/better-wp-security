@@ -26,7 +26,7 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -48,11 +48,9 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_away_mode' );
 
@@ -60,10 +58,6 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 
 				add_site_option( 'itsec_away_mode', $this->defaults );
 
-			}
-
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
 			}
 
 		}
@@ -103,6 +97,10 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 				global $itsec_bwps_options, $itsec_globals;
 
 				$current_options = get_site_option( 'itsec_away_mode' );
+
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
 
 				$current_options['enabled'] = isset( $itsec_bwps_options['am_enabled'] ) && $itsec_bwps_options['am_enabled'] == 1 ? true : false;
 				$current_options['type']    = isset( $itsec_bwps_options['am_type'] ) && $itsec_bwps_options['am_type'] == 1 ? 1 : 2;

@@ -22,6 +22,8 @@ class ITSEC_Hide_Backend {
 
 			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 
+			require( dirname( __FILE__ ) . '/function-auth-redirect.php' );
+
 		}
 
 	}
@@ -38,12 +40,12 @@ class ITSEC_Hide_Backend {
 			(
 				get_site_option( 'users_can_register' ) == false &&
 				(
-					isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == '/wp-register.php' ||
-					isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == '/wp-signup.php'
+					isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-register.php' ||
+					isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-signup.php'
 				)
 			) ||
 			(
-				isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == '/wp-login.php' && is_user_logged_in() !== true
+				isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-login.php' && is_user_logged_in() !== true
 			) ||
 			( is_admin() && is_user_logged_in() !== true ) ||
 			(
@@ -53,7 +55,20 @@ class ITSEC_Hide_Backend {
 			)
 		) {
 
-			ITSEC_Lib::set_404();
+			global $itsec_is_old_admin;
+
+			$itsec_is_old_admin = true;
+
+			if ( isset( $this->settings['theme_compat'] ) && $this->settings['theme_compat'] === true ) {
+
+				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' ), 301 );
+
+			} else {
+
+				add_action( 'wp', array( $this, 'set_404' ) );
+
+			}
+
 		}
 
 		$url_info   = parse_url( $_SERVER['REQUEST_URI'] );
@@ -69,15 +84,14 @@ class ITSEC_Hide_Backend {
 
 				status_header( 200 );
 
-				require_once( ABSPATH . 'wp-login.php' );
-
-				if ( ITSEC_Lib::get_server() == 'nginx' ) {
-					die();
-				}
+				include( ABSPATH . '/wp-login.php' );
+				exit;
 
 			} elseif ( ! isset( $_GET['action'] ) || sanitize_text_field( $_GET['action'] ) != 'logout' ) {
+
 				wp_redirect( get_admin_url() );
 				exit();
+
 			}
 
 		}
@@ -92,6 +106,10 @@ class ITSEC_Hide_Backend {
 	public function execute_hide_backend_login() {
 
 		if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) { //are we on the login page
+
+			global $itsec_is_old_admin;
+
+			$itsec_is_old_admin = true;
 
 			ITSEC_Lib::set_404();
 
@@ -156,6 +174,19 @@ class ITSEC_Hide_Backend {
 		}
 
 		return $classes;
+
+	}
+
+	/**
+	 * Sets 404 error at later time.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function set_404() {
+
+		ITSEC_Lib::set_404();
 
 	}
 

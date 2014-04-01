@@ -95,7 +95,9 @@ class ITSEC_Tweaks {
 
 	public function current_jquery() {
 
-		if ( ! is_admin() ) {
+		global $itsec_is_old_admin;
+
+		if ( ! is_admin() && ! $itsec_is_old_admin ) {
 
 			wp_deregister_script( 'jquery' );
 			wp_deregister_script( 'jquery-core' );
@@ -170,7 +172,7 @@ class ITSEC_Tweaks {
 
 			if ( $user->nickname == $user->user_login ) {
 
-				$errors->add( 'user_error', __( 'Your Nickname must be different than your login name. Please choose a different Nickname.', 'LION' ) );
+				$errors->add( 'user_error', __( 'Your Nickname must be different than your login name. Please choose a different Nickname.', 'it-l10n-better-wp-security' ) );
 
 			} else {
 
@@ -188,7 +190,7 @@ class ITSEC_Tweaks {
 
 		} else {
 
-			$errors->add( 'user_error', __( 'A Nickname is required. Please choose a nickname or fill out your first and last name.', 'LION' ) );
+			$errors->add( 'user_error', __( 'A Nickname is required. Please choose a nickname or fill out your first and last name.', 'it-l10n-better-wp-security' ) );
 
 		}
 

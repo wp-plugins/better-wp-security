@@ -168,7 +168,7 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 			$content .= '</p>';
 			$content .= '</div>';
 
-			$content .= '<a href="itsec-log-all-row-' . $item['id'] . '" class="dialog">' . __( 'Details', 'LION' ) . '</a>';
+			$content .= '<a href="itsec-log-all-row-' . $item['id'] . '" class="dialog">' . __( 'Details', 'it-l10n-better-wp-security' ) . '</a>';
 
 			return $content;
 
@@ -188,14 +188,14 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 	public function get_columns() {
 
 		return array(
-			'function' => __( 'Function', 'LION' ),
-			'priority' => __( 'Priority', 'LION' ),
-			'time'     => __( 'Time', 'LION' ),
-			'host'     => __( 'Host', 'LION' ),
-			'user'     => __( 'User', 'LION' ),
-			'url'      => __( 'URL', 'LION' ),
-			'referrer' => __( 'Referrer', 'LION' ),
-			'data'     => __( 'Data', 'LION' ),
+			'function' => __( 'Function', 'it-l10n-better-wp-security' ),
+			'priority' => __( 'Priority', 'it-l10n-better-wp-security' ),
+			'time'     => __( 'Time', 'it-l10n-better-wp-security' ),
+			'host'     => __( 'Host', 'it-l10n-better-wp-security' ),
+			'user'     => __( 'User', 'it-l10n-better-wp-security' ),
+			'url'      => __( 'URL', 'it-l10n-better-wp-security' ),
+			'referrer' => __( 'Referrer', 'it-l10n-better-wp-security' ),
+			'data'     => __( 'Data', 'it-l10n-better-wp-security' ),
 		);
 
 	}

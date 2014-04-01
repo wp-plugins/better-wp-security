@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.5
+Stable tag: 4.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,32 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.7 =
+* Removed extra quotes that could appear in user agents
+* Removed error message on login page when jQuery replace in use
+* Don't use WordPress rewrites for hide backend, we now create our own rewrite rule
+* All modules now use newer upgrade method
+* Fix modal dismiss button on settings page
+* Ban users rules now should work with proxies
+* Saving settings will always generate and write rewrite rules if file writing is allowed
+* Hide backend now works with multisite and subdirectory installs
+* Make sure tables exist if manually updating from 3.x
+* Move admin user settings to advanced page
+* Make sure logout happens after processing admin user changes
+* All modules now rewritten to call rules on build
+* Rename backup and logs folders when wp-content is renamed
+* Delay file scan by at least 2 minutes when saving settings
+* Added "theme compatibility" mode to remove errors in hide backend caused by themes conflicting with the feature.
+* Fixed history.txt (for iThemes customers)
+* Moved upgrade to separate function for more seamless update
+* Upgrade system rewritten for better functionality
+* Make sure 404 doesn't fail if there is not a 404.php in the theme
+* Make sure WordPress root URLs render correctly
+* Filewrite now only builds rules on demand.
+* Fixed dismiss button on intro modal for small screens
+* General cleanup and typo fixing
+* New .pot file with updated iThemes .pot file generator
 
 = 4.0.5 =
 * Fixed away mode not allowing PM times.
@@ -910,6 +936,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple featureset.
 
 == Upgrade Notice ==
+
+= 4.0.7 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.7 if you are not already on 4.0.
 
 = 4.0.5 =
 Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.

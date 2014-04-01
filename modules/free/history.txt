@@ -1,9 +1,27 @@
-1.0.2 - 2014-03-27
+1.0.0 - 2014-03-25 - Chris Wiegman
+	Initial Release
+1.0.1 - 2014-03-25 - Chris Wiegman
+	Better Check for empty IP strings when creating rewrite rules. Should improve upgrade process.
+1.0.2 - 2014-03-27 - Chris Wiegman
     Away mode settings now accept PM time
     Removed the pingback URL from the header if xmlrpc disabled.
     Added file locking to admin user operations to [hopefully] avoid duplicated users.
     Fixed minor typos
-1.0.1 - 2014-03-25 - Chris Wiegman
-	Better Check for empty IP strings when creating rewrite rules. Should improve upgrade process.
-1.0.0 - 2014-03-25 - Chris Wiegman
-	Initial Release
+1.0.3 - 2014-04-01 - Chris Wiegman
+	Fixed history.txt (for iThemes customers)
+	Removed extra quotes that could appear in user agents
+	Removed error message on login page when jQuery replace in use
+	Don't use WordPress rewrites for hide backend, we now create our own rewrite rule
+	All modules now use newer upgrade method
+	Fix modal dismiss button on settings page
+	Ban users rules now should work with proxies
+	Saving settings will always generate and write rewrite rules if file writing is allowed
+	Hide backend now works with multisite and subdirectory installs
+	Make sure tables exist if manually updating from 3.x
+	Move admin user settings to advanced page
+	Make sure logout happens after processing admin user changes
+	All modules now rewritten to call rules on build
+	Rename backup and logs folders when wp-content is renamed
+	Delay file scan by at least 2 minutes when saving settings
+	Added "theme compatibility" mode to remove errors in hide backend caused by themes conflicting with the feature.
+

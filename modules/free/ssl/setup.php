@@ -25,7 +25,7 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -47,11 +47,9 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
+		public function execute_activate() {
 
 			$options  = get_site_option( 'itsec_ssl' );
 			$initials = get_site_option( 'itsec_initials' );
@@ -81,11 +79,8 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 				}
 
 				add_site_option( 'itsec_ssl', $this->defaults );
+				add_site_option( 'itsec_config_changed', true );
 
-			}
-
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
 			}
 
 		}
@@ -99,7 +94,7 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 
 			global $itsec_files;
 
-			$config_rules = ITSEC_SSL_Admin::build_wpconfig_rules( false );
+			$config_rules[] = ITSEC_SSL_Admin::build_wpconfig_rules( null, true );
 			$itsec_files->set_wpconfig( $config_rules );
 
 		}
@@ -135,9 +130,14 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 
 				$current_options = get_site_option( 'itsec_ssl' );
 
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
+
 				$current_options['frontend'] = isset( $itsec_bwps_options['ssl_frontend'] ) ? intval( $itsec_bwps_options['ssl_frontend'] ) : 0;
 
 				update_site_option( 'itsec_ssl', $current_options );
+				add_site_option( 'itsec_config_changed', true );
 
 			}
 

@@ -12,6 +12,7 @@
 final class ITSEC_Files {
 
 	private
+		$file_modules,
 		$rewrite_rules,
 		$wpconfig_rules,
 		$rewrites_changed,
@@ -32,6 +33,8 @@ final class ITSEC_Files {
 
 		$this->rewrites_changed = false;
 		$this->config_changed   = false;
+		$this->rewrite_rules    = array();
+		$this->wpconfig_rules   = array();
 
 		//Add the metabox
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
@@ -51,7 +54,7 @@ final class ITSEC_Files {
 
 		add_meta_box(
 			'itsec_rewrite',
-			__( 'Rewrite Rules', 'LION' ),
+			__( 'Rewrite Rules', 'it-l10n-better-wp-security' ),
 			array( $this, 'rewrite_metabox' ),
 			'toplevel_page_itsec',
 			'bottom',
@@ -60,7 +63,7 @@ final class ITSEC_Files {
 
 		add_meta_box(
 			'itsec_wpconfig',
-			__( 'wp-config.php Rules', 'LION' ),
+			__( 'wp-config.php Rules', 'it-l10n-better-wp-security' ),
 			array( $this, 'config_metabox' ),
 			'toplevel_page_itsec',
 			'bottom',
@@ -98,7 +101,7 @@ final class ITSEC_Files {
 					$type    = 'updated';
 					$message = $rewrites['text'];
 
-					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'LION' ) . '<br />' . $message, $type );
+					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), __( 'Settings Updated', 'it-l10n-better-wp-security' ) . '<br />' . $message, $type );
 
 				}
 
@@ -231,7 +234,7 @@ final class ITSEC_Files {
 
 		} else {
 
-			_e( 'There are no rules to write.', 'LION' );
+			_e( 'There are no rules to write.', 'it-l10n-better-wp-security' );
 
 		}
 
@@ -251,26 +254,8 @@ final class ITSEC_Files {
 	 */
 	private function delete_rewrites() {
 
-		global $wp_filesystem;
-
 		$rule_open  = array( '# BEGIN iThemes Security', '# BEGIN Better WP Security' );
 		$rule_close = array( '# END iThemes Security', '# END Better WP Security' );
-
-		$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
-
-		$form_fields = array( 'save' );
-		$method      = '';
-
-		if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
-			return false; // stop the normal page form from displaying
-		}
-
-		if ( ! WP_Filesystem( $creds ) ) {
-			// our credentials were no good, ask the user for them again
-			request_filesystem_credentials( $url, $method, true, false, $form_fields );
-
-			return false;
-		}
 
 		$htaccess_file = ITSEC_Lib::get_htaccess();
 
@@ -282,13 +267,13 @@ final class ITSEC_Files {
 		}
 
 		//make sure the file exists and create it if it doesn't
-		if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
+		if ( ! file_exists( $htaccess_file ) ) {
 
-			$wp_filesystem->touch( $htaccess_file );
+			@touch( $htaccess_file );
 
 		}
 
-		$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
+		$htaccess_contents = @file_get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
 
 		if ( $htaccess_contents === false ) { //we couldn't get the file contents
 
@@ -319,7 +304,7 @@ final class ITSEC_Files {
 
 			$htaccess_contents = implode( PHP_EOL, $lines );
 
-			if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
+			if ( ! @file_put_contents( $htaccess_file, $htaccess_contents ) ) {
 				return false;
 			}
 
@@ -380,37 +365,15 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
-		if ( isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true && ( get_site_option( 'itsec_config_changed' ) == '1' || get_site_option( 'itsec_rewrites_changed' ) == '1' ) && isset( $_GET['page'] ) && sanitize_text_field( $_GET['page'] ) == 'toplevel_page_itsec_settings' && isset( $_GET['settings-updated'] ) && sanitize_text_field( $_GET['settings-updated'] ) == 'true' ) {
+		$this->file_modules = apply_filters( 'itsec_file_modules', $this->file_modules );
+
+		if ( isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true && ( get_site_option( 'itsec_config_changed' ) == '1' || get_site_option( 'itsec_rewrites_changed' ) == '1' ) ) {
 
 			$this->rewrites_changed = get_site_option( 'itsec_rewrites_changed' ) == '1' ? true : false;
 			$this->config_changed   = get_site_option( 'itsec_config_changed' ) == '1' ? true : false;
 
 			delete_site_option( 'itsec_rewrites_changed' );
 			delete_site_option( 'itsec_config_changed' );
-
-		}
-
-		$all_rules            = array(); //initialize rules array
-		$this->rewrite_rules  = array(); //rewrite rules that will need to be written
-		$this->wpconfig_rules = array(); //wp-config rules that will need to be written
-
-		$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
-
-		if ( sizeof( $all_rules ) > 0 ) {
-
-			foreach ( $all_rules as $rule ) {
-
-				if ( $rule['type'] === 'htaccess' ) {
-
-					$this->rewrite_rules[] = $rule;
-
-				} elseif ( $rule['type'] === 'wpconfig' ) {
-
-					$this->wpconfig_rules[] = $rule;
-
-				}
-
-			}
 
 		}
 
@@ -455,6 +418,32 @@ final class ITSEC_Files {
 		}
 
 		return true; //file lock was achieved
+
+	}
+
+	/**
+	 * Retrieve config rules
+	 *
+	 * @since 4.0
+	 *
+	 * @return array rewrite rules
+	 */
+	public function get_config_rules() {
+
+		return $this->wpconfig_rules;
+
+	}
+
+	/**
+	 * Retrieve rewrite rules
+	 *
+	 * @since 4.0
+	 *
+	 * @return array rewrite rules
+	 */
+	public function get_rewrite_rules() {
+
+		return $this->rewrite_rules;
 
 	}
 
@@ -506,8 +495,6 @@ final class ITSEC_Files {
 			@chmod( $htaccess_file, 0644 );
 
 			$htaccess_contents = @file( $htaccess_file );
-
-			$test = 1;
 
 			$has_itsec = false; //assume itsec hasn't written anything to htaccess
 
@@ -618,7 +605,7 @@ final class ITSEC_Files {
 
 		} else {
 
-			_e( 'There are no rules to write.', 'LION' );
+			_e( 'There are no rules to write.', 'it-l10n-better-wp-security' );
 
 		}
 
@@ -637,6 +624,20 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
+		if ( ! is_array( $this-> file_modules ) ) {
+			return;
+		}
+
+		foreach ( $this->file_modules as $module ) {
+
+			if ( isset( $module['rewrite'] ) ) {
+
+				call_user_func_array( $module['rewrite'], array() );
+
+			}
+
+		}
+
 		if ( ITSEC_Lib::get_server() == 'nginx' || ( isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true ) ) {
 
 			if ( $this->get_file_lock( 'htaccess' ) ) {
@@ -653,9 +654,9 @@ final class ITSEC_Files {
 							'success' => true,
 							'text'    => sprintf(
 								'%s %s. %s',
-								__( 'Your rewrite rules have been saved to', 'LION' ),
+								__( 'Your rewrite rules have been saved to', 'it-l10n-better-wp-security' ),
 								$itsec_globals['settings']['nginx_file'],
-								__( 'You must restart your NGINX server for the settings to take effect', 'LION' )
+								__( 'You must restart your NGINX server for the settings to take effect', 'it-l10n-better-wp-security' )
 							),
 						);
 
@@ -672,14 +673,14 @@ final class ITSEC_Files {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to release a lock on your .htaccess or nginx.conf file. If the problem persists contact support.', 'LION' ),
+						'text'    => __( 'Unable to release a lock on your .htaccess or nginx.conf file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
 					);
 
 				} else {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to write to your .htaccess or nginx.conf file. If the problem persists contact support.', 'LION' ),
+						'text'    => __( 'Unable to write to your .htaccess or nginx.conf file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
 					);
 
 				}
@@ -688,7 +689,7 @@ final class ITSEC_Files {
 
 				return array(
 					'success' => false,
-					'text'    => __( 'WordPress was unable to save the your options to .htaccess or nginx.conf file. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'LION' ),
+					'text'    => __( 'WordPress was unable to save the your options to .htaccess or nginx.conf file. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'it-l10n-better-wp-security' ),
 				);
 
 			}
@@ -714,6 +715,20 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
+		if ( ! is_array( $this-> file_modules ) ) {
+			return;
+		}
+
+		foreach ( $this->file_modules as $module ) {
+
+			if ( isset( $module['config'] ) ) {
+
+				call_user_func_array( $module['config'], array() );
+
+			}
+
+		}
+
 		if ( isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true ) {
 
 			if ( $this->get_file_lock( 'wpconfig' ) ) {
@@ -733,14 +748,14 @@ final class ITSEC_Files {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to release a lock on your wp-config.php file. If the problem persists contact support.', 'LION' ),
-					);;
+						'text'    => __( 'Unable to release a lock on your wp-config.php file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+					);
 
 				} else {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to write to your wp-config.php file. If the problem persists contact support.', 'LION' ),
+						'text'    => __( 'Unable to write to your wp-config.php file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
 					);
 
 				}
@@ -749,7 +764,7 @@ final class ITSEC_Files {
 
 				return array(
 					'success' => false,
-					'text'    => __( 'WordPress was unable to save the your options to wp-config.php. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'LION' ),
+					'text'    => __( 'WordPress was unable to save the your options to wp-config.php. It looks like another process might already be working on the file. Please wait a few minutes and try again or contact support if the problem persists.', 'it-l10n-better-wp-security' ),
 				);
 
 			}
@@ -759,6 +774,36 @@ final class ITSEC_Files {
 			return false;
 
 		}
+
+	}
+
+	/**
+	 * Set rewrite rules
+	 *
+	 * @since 4.0
+	 *
+	 * @param array $rewrite_rules rewrite rules
+	 *
+	 * @return void
+	 */
+	public function set_rewrite_rules( $rewrite_rules ) {
+
+		$this->rewrite_rules = $rewrite_rules;
+
+	}
+
+	/**
+	 * Set config rules
+	 *
+	 * @since 4.0
+	 *
+	 * @param array $wpconfig_rules rewrite rules
+	 *
+	 * @return void
+	 */
+	public function set_config_rules( $wpconfig_rules ) {
+
+		$this->wpconfig_rules = $wpconfig_rules;
 
 	}
 
@@ -824,7 +869,7 @@ final class ITSEC_Files {
 	 *
 	 * @since  4.0
 	 *
-	 * @param rules $rules array of rules to add or replace
+	 * @param array $rules array of rules to add or replace
 	 */
 	public function set_wpconfig( $rules ) {
 
@@ -885,8 +930,6 @@ final class ITSEC_Files {
 	 */
 	private function write_rewrites() {
 
-		global $wp_filesystem;
-
 		$rules_to_write = $this->build_rewrites(); //String of rules to insert into
 
 		if ( $rules_to_write === false ) { //if there is nothing to write make sure we clean up the file
@@ -898,37 +941,16 @@ final class ITSEC_Files {
 		$rule_open  = array( '# BEGIN iThemes Security', '# BEGIN Better WP Security' );
 		$rule_close = array( '# END iThemes Security', '# END Better WP Security' );
 
-		$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
-
-		$form_fields = array( 'save' );
-		$method      = '';
-
-		if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
-			return false; // stop the normal page form from displaying
-		}
-
-		if ( ! WP_Filesystem( $creds ) ) {
-			// our credentials were no good, ask the user for them again
-			request_filesystem_credentials( $url, $method, true, false, $form_fields );
-
-			return false;
-		}
-
 		$htaccess_file = ITSEC_Lib::get_htaccess();
 
-		//Make sure we can write to the file
-		$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
-
-		@chmod( $htaccess_file, 0644 );
-
 		//make sure the file exists and create it if it doesn't
-		if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
+		if ( ! file_exists( $htaccess_file ) ) {
 
-			$wp_filesystem->touch( $htaccess_file );
+			@touch( $htaccess_file );
 
 		}
 
-		$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
+		$htaccess_contents = @file_get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
 
 		$htaccess_contents = preg_replace( "/(\\r\\n|\\n|\\r)+/", PHP_EOL, $htaccess_contents );
 
@@ -968,17 +990,29 @@ final class ITSEC_Files {
 			//Actually write the new content to wp-config.
 			if ( $htaccess_contents !== false ) {
 
-				if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
+				//Make sure we can write to the file
+				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
+
+				@chmod( $htaccess_file, 0644 );
+
+				if ( ! @file_put_contents( $htaccess_file, $htaccess_contents ) ) {
+
+					//reset file permissions if we changed them
+					if ( $perms == '0444' ) {
+						@chmod( $htaccess_file, 0444 );
+					}
+
 					return false;
+
+				}
+
+				//reset file permissions if we changed them
+				if ( $perms == '0444' ) {
+					@chmod( $htaccess_file, 0444 );
 				}
 
 			}
 
-		}
-
-		//reset file permissions if we changed them
-		if ( $perms == '0444' ) {
-			@chmod( $htaccess_file, 0444 );
 		}
 
 		return true;
@@ -996,38 +1030,11 @@ final class ITSEC_Files {
 	 */
 	private function write_wpconfig() {
 
-		global $wp_filesystem;
-
-		$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
-
-		$form_fields = array( 'save' );
-		$method      = '';
-
-		if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
-			return false; // stop the normal page form from displaying
-		}
-
-		if ( ! WP_Filesystem( $creds ) ) {
-
-			// our credentials were no good, ask the user for them again
-			request_filesystem_credentials( $url, $method, true, false, $form_fields );
-
-			return false;
-
-		}
-
 		$config_file = ITSEC_Lib::get_config();
 
-		//Make sure we can write to the file
-		$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
+		if ( file_exists( $config_file ) ) { //check wp-config.php exists where we think it should
 
-		@chmod( $config_file, 0644 );
-
-		if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
-
-			$config_contents = $wp_filesystem->get_contents( $config_file ); //get the contents of wp-config.php
-
-			//$config_contents = preg_replace( "/(\\r\\n|\\n|\\r)+/", PHP_EOL, $config_contents );
+			$config_contents = @file_get_contents( $config_file ); //get the contents of wp-config.php
 
 			if ( ! $config_contents ) { //we couldn't get wp-config.php contents
 
@@ -1146,17 +1153,28 @@ final class ITSEC_Files {
 		}
 
 		//Actually write the new content to wp-config.
-		if ( $config_contents !== false ) {
+		if ( isset( $config_contents ) && $config_contents !== false ) {
 
-			if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
+
+			@chmod( $config_file, 0644 );
+
+			if ( ! @file_put_contents( $config_file, $config_contents ) ) {
+
+				//reset file permissions if we changed them
+				if ( $perms == '0444' ) {
+					@chmod( $config_file, 0444 );
+				}
+
 				return false;
 			}
 
-		}
+			//reset file permissions if we changed them
+			if ( $perms == '0444' ) {
+				@chmod( $config_file, 0444 );
+			}
 
-		//reset file permissions if we changed them
-		if ( $perms == '0444' ) {
-			@chmod( $config_file, 0444 );
 		}
 
 		return true;

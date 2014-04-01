@@ -25,7 +25,7 @@ class ITSEC_Hide_Backend_Admin {
 	public function add_admin_meta_boxes() {
 
 		$id    = 'hide_backend_options';
-		$title = __( 'Hide Login Area', 'LION' );
+		$title = __( 'Hide Login Area', 'it-l10n-better-wp-security' );
 
 		add_meta_box(
 			$id,
@@ -65,46 +65,62 @@ class ITSEC_Hide_Backend_Admin {
 	/**
 	 * Build rewrite rules
 	 *
+	 * @since 4.0
+	 *
 	 * @param  array $input options to build rules from
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_rewrite_rules( $rules_array, $input = null ) {
+	public static function build_rewrite_rules( $input = null ) {
+
+		$home_root = ITSEC_Lib::get_home_root();
 
 		$server_type = ITSEC_Lib::get_server(); //Get the server type to build the right rules
 
-		if ( $server_type == 'nginx' ) {
+		//Get the rules from the database if input wasn't sent
+		if ( $input === null ) {
+			$input = get_site_option( 'itsec_hide_backend' );
+		}
 
-			//Get the rules from the database if input wasn't sent
-			if ( $input === null ) {
-				$input = get_site_option( 'itsec_hide_backend' );
+		$rules = ''; //initialize all rules to blank string
+
+		//don't add any rules if the module hasn't been enabled
+		if ( $input['enabled'] == true ) {
+
+			if ( $server_type == 'nginx' ) {
+
+				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\trewrite ^" . $home_root . $input['slug'] . "/?$ /wp-login.php?\$query_string break;" . PHP_EOL;
+
+			} else {
+
+				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tRewriteRule ^" . $home_root . $input['slug'] . "/?$ /wp-login.php [QSA,L]" . PHP_EOL;
+
 			}
 
-			$rules = ''; //initialize all rules to blank string
+			if ( $input['register'] != 'wp-register.php' ) {
 
-			//don't add any rules if the module hasn't been enabled
-			if ( $input['enabled'] == true ) {
+				if ( $server_type == 'nginx' ) {
 
-				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'LION' ) . PHP_EOL . "\trewrite ^" . $input['slug'] . "/?$ /wp-login.php?\$query_string break;" . PHP_EOL;
+					$rules .= "\trewrite ^" . $home_root . $input['register'] . "/?$ " . $home_root . $input['slug'] . "?action=register break;" . PHP_EOL;
 
-				if ( $input['register'] != 'wp-register.php' ) {
-					$rules .= "\trewrite ^" . $input['register'] . "/?$ " . $input['slug'] . "?action=register break;" . PHP_EOL;
+				} else {
+
+					$rules .= "\tRewriteRule ^" . $home_root . $input['register'] . "/?$ /wplogin?action=register [QSA,L]" . PHP_EOL;
+
 				}
 
 			}
 
-			if ( strlen( $rules ) > 0 ) {
-				$rules = explode( PHP_EOL, $rules );
-			} else {
-				$rules = false;
-			}
-
-			//create a proper array for writing
-			$rules_array[] = array( 'type' => 'htaccess', 'priority' => 9, 'name' => 'Hide Backend', 'rules' => $rules, );
-
 		}
 
-		return $rules_array;
+		if ( strlen( $rules ) > 0 ) {
+			$rules = explode( PHP_EOL, $rules );
+		} else {
+			$rules = false;
+		}
+
+		//create a proper array for writing
+		return array( 'type' => 'htaccess', 'priority' => 9, 'name' => 'Hide Backend', 'rules' => $rules, );
 
 	}
 
@@ -120,12 +136,12 @@ class ITSEC_Hide_Backend_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'LION' ), 'link' => '#itsec_hide_backend_enabled', );
+			$status       = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_hide_backend_enabled', );
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'LION' ), 'link' => '#itsec_hide_backend_enabled', );
+			$status       = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_hide_backend_enabled', );
 
 		}
 
@@ -154,7 +170,7 @@ class ITSEC_Hide_Backend_Admin {
 
 			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
 
-			$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'LION' ), $adminurl, __( 'WordPress permalinks', 'LION' ), __( 'to use this feature.', 'LION' ) );
+			$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'it-l10n-better-wp-security' ), $adminurl, __( 'WordPress permalinks', 'it-l10n-better-wp-security' ), __( 'to use this feature.', 'it-l10n-better-wp-security' ) );
 
 		} else {
 
@@ -165,7 +181,7 @@ class ITSEC_Hide_Backend_Admin {
 			}
 
 			$content = '<input type="checkbox" id="itsec_hide_backend_enabled" name="itsec_hide_backend[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_hide_backend_enabled"> ' . __( 'Enable the hide backend feature.', 'LION' ) . '</label>';
+			$content .= '<label for="itsec_hide_backend_enabled"> ' . __( 'Enable the hide backend feature.', 'it-l10n-better-wp-security' ) . '</label>';
 
 		}
 
@@ -189,8 +205,67 @@ class ITSEC_Hide_Backend_Admin {
 		} else {
 
 			$content = '<input name="itsec_hide_backend[slug]" id="itsec_hide_backend_strong_passwords_slug" value="' . sanitize_title( $this->settings['slug'] ) . '" type="text"><br />';
-			$content .= '<label for="itsec_hide_backend_strong_passwords_slug">' . __( 'Login URL:', 'LION' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['slug'] ) . '</span></label>';
-			$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'LION' ) . '</p>';
+			$content .= '<label for="itsec_hide_backend_strong_passwords_slug">' . __( 'Login URL:', 'it-l10n-better-wp-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['slug'] ) . '</span></label>';
+			$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'it-l10n-better-wp-security' ) . '</p>';
+
+		}
+
+		echo $content;
+
+	}
+
+	/**
+	 * echos Hide Backend Slug  Field
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function hide_backend_theme_compat_slug() {
+
+		if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+			$content = '';
+
+		} else {
+
+			$slug = sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' );
+
+			$content = '<input name="itsec_hide_backend[theme_compat_slug]" id="itsec_hide_backend_strong_passwords_theme_compat_slug" value="' . $slug . '" type="text"><br />';
+			$content .= '<label for="itsec_hide_backend_strong_passwords_theme_compat_slug">' . __( '404 Slug:', 'it-l10n-better-wp-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . $slug . '</span></label>';
+			$content .= '<p class="description">' . __( 'The slug to redirect folks to when theme compatibility mode is enabled (just make sure it does not exist in your site).', 'it-l10n-better-wp-security' ) . '</p>';
+
+		}
+
+		echo $content;
+
+	}
+
+	/**
+	 * echos Hide Backend  theme compatibility Field
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function hide_backend_theme_compat() {
+
+		if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+			$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
+
+			$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'it-l10n-better-wp-security' ), $adminurl, __( 'WordPress permalinks', 'it-l10n-better-wp-security' ), __( 'to use this feature.', 'it-l10n-better-wp-security' ) );
+
+		} else {
+
+			if ( isset( $this->settings['theme_compat'] ) && $this->settings['theme_compat'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_hide_backend_theme_compat" name="itsec_hide_backend[theme_compat]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_hide_backend_theme_compat"> ' . __( 'Enable theme compatibility. If  you see errors in your theme when using hide backend, in particular when going to wp-admin while not logged in, turn this on to fix them.', 'it-l10n-better-wp-security' ) . '</label>';
 
 		}
 
@@ -214,7 +289,7 @@ class ITSEC_Hide_Backend_Admin {
 		} else {
 
 			$content = '<input name="itsec_hide_backend[register]" id="itsec_hide_backend_strong_passwords_register" value="' . ( $this->settings['register'] !== 'wp-register.php' ? sanitize_title( $this->settings['register'] ) : 'wp-register.php' ) . '" type="text"><br />';
-			$content .= '<label for="itsec_hide_backend_strong_passwords_register">' . __( 'Registration URL:', 'LION' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['register'] ) . '</span></label>';
+			$content .= '<label for="itsec_hide_backend_strong_passwords_register">' . __( 'Registration URL:', 'it-l10n-better-wp-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['register'] ) . '</span></label>';
 
 		}
 
@@ -237,8 +312,7 @@ class ITSEC_Hide_Backend_Admin {
 		$this->settings    = get_site_option( 'itsec_hide_backend' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		add_filter( 'itsec_file_rules', array( $this, 'build_rewrite_rules' ) );
-
+		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
 		add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -263,14 +337,14 @@ class ITSEC_Hide_Backend_Admin {
 		//Add Settings sections
 		add_settings_section(
 			'hide_backend-enabled',
-			__( 'Hide Login and Admin', 'LION' ),
+			__( 'Hide Login and Admin', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'hide_backend-settings',
-			__( 'Hide Login and Admin', 'LION' ),
+			__( 'Hide Login and Admin', 'it-l10n-better-wp-security' ),
 			array( $this, 'empty_callback_function' ),
 			'security_page_toplevel_page_itsec_settings'
 		);
@@ -278,7 +352,7 @@ class ITSEC_Hide_Backend_Admin {
 		//Hide Backend Fields
 		add_settings_field(
 			'itsec_hide_backend[enabled]',
-			__( 'Hide Backend', 'LION' ),
+			__( 'Hide Backend', 'it-l10n-better-wp-security' ),
 			array( $this, 'hide_backend_enabled' ),
 			'security_page_toplevel_page_itsec_settings',
 			'hide_backend-enabled'
@@ -286,7 +360,7 @@ class ITSEC_Hide_Backend_Admin {
 
 		add_settings_field(
 			'itsec_hide_backend[slug]',
-			__( 'Login Slug', 'LION' ),
+			__( 'Login Slug', 'it-l10n-better-wp-security' ),
 			array( $this, 'hide_backend_slug' ),
 			'security_page_toplevel_page_itsec_settings',
 			'hide_backend-settings'
@@ -296,13 +370,29 @@ class ITSEC_Hide_Backend_Admin {
 
 			add_settings_field(
 				'itsec_hide_backend[register]',
-				__( 'Register Slug', 'LION' ),
+				__( 'Register Slug', 'it-l10n-better-wp-security' ),
 				array( $this, 'hide_backend_register' ),
 				'security_page_toplevel_page_itsec_settings',
 				'hide_backend-settings'
 			);
 
 		}
+
+		add_settings_field(
+			'itsec_hide_backend[theme_compat]',
+			__( 'Enable Theme Compatibility', 'it-l10n-better-wp-security' ),
+			array( $this, 'hide_backend_theme_compat' ),
+			'security_page_toplevel_page_itsec_settings',
+			'hide_backend-settings'
+		);
+
+		add_settings_field(
+			'itsec_hide_backend[theme_compat_slug]',
+			__( 'Theme Compatibility Slug', 'it-l10n-better-wp-security' ),
+			array( $this, 'hide_backend_theme_compat_slug' ),
+			'security_page_toplevel_page_itsec_settings',
+			'hide_backend-settings'
+		);
 
 		//Register the settings field for the entire module
 		register_setting(
@@ -322,7 +412,7 @@ class ITSEC_Hide_Backend_Admin {
 	 */
 	public function metabox_hide_backend_settings() {
 
-		echo '<p>' . __( 'Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform.', 'LION' ) . '</p>';
+		echo '<p>' . __( 'Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'hide_backend-enabled', false );
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'hide_backend-settings', false );
@@ -331,9 +421,26 @@ class ITSEC_Hide_Backend_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'LION' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
+
+	}
+
+	/**
+	 * Register ban users for file writer
+	 *
+	 * @param  array $file_modules array of file writer modules
+	 *
+	 * @return array                   array of file writer modules
+	 */
+	public function register_file( $file_modules ) {
+
+		$file_modules['hide-backend'] = array(
+			'rewrite' => array( $this, 'save_rewrite_rules' ),
+		);
+
+		return $file_modules;
 
 	}
 
@@ -351,9 +458,9 @@ class ITSEC_Hide_Backend_Admin {
 			$tooltip_modules['hide-backend'] = array(
 				'priority'  => 0,
 				'class'     => 'itsec_tooltip_hide_backend',
-				'heading'   => __( 'Review Hide Backend Settings', 'LION' ),
-				'text'      => __( 'The hide backend system has been rewritten. You must re-activate the feature to continue using the feature.', 'LION' ),
-				'link_text' => __( 'Review Settings', 'LION' ),
+				'heading'   => __( 'Review Hide Backend Settings', 'it-l10n-better-wp-security' ),
+				'text'      => __( 'The hide backend system has been rewritten. You must re-activate the feature to continue using the feature.', 'it-l10n-better-wp-security' ),
+				'link_text' => __( 'Review Settings', 'it-l10n-better-wp-security' ),
 				'link'      => '?page=toplevel_page_itsec_settings#itsec_hide_backend_enabled',
 				'success'   => '',
 				'failure'   => '',
@@ -374,8 +481,11 @@ class ITSEC_Hide_Backend_Admin {
 	 */
 	public function sanitize_module_input( $input ) {
 
+		global $itsec_globals;
+
 		//Process hide backend settings
-		$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+		$input['enabled']      = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+		$input['theme_compat'] = ( isset( $input['theme_compat'] ) && intval( $input['theme_compat'] == 1 ) ? true : false );
 		$input['show-tooltip'] = ( isset( $this->settings['show-tooltip'] ) ? $this->settings['show-tooltip'] : false );
 
 		if ( isset( $input['slug'] ) ) {
@@ -390,6 +500,12 @@ class ITSEC_Hide_Backend_Admin {
 			$input['register'] = 'wp-register.php';
 		}
 
+		if ( isset( $input['theme_compat_slug'] ) ) {
+			$input['theme_compat_slug'] = sanitize_title( $input['theme_compat_slug'] );
+		} else {
+			$input['theme_compat_slug'] = 'not_found';
+		}
+
 		$forbidden_slugs = array( 'admin', 'login', 'wp-login.php', 'dashboard', 'wp-admin', '' );
 
 		if ( in_array( trim( $input['slug'] ), $forbidden_slugs ) && $input['enabled'] === true ) {
@@ -397,7 +513,7 @@ class ITSEC_Hide_Backend_Admin {
 			$invalid_login_slug = true;
 
 			$type    = 'error';
-			$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" ob "" (blank) as these are use by default in WordPress.', 'LION' );
+			$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" ob "" (blank) as these are use by default in WordPress.', 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -405,46 +521,22 @@ class ITSEC_Hide_Backend_Admin {
 
 			$invalid_login_slug = false;
 
-			add_rewrite_rule( $input['slug'] . '/?$', 'wp-login.php', 'top' );
-
-		}
-
-		if ( $input['register'] != 'wp-register.php' && $input['enabled'] === true ) {
-			add_rewrite_rule( $input['register'] . '/?$', $input['slug'] . '?action=register', 'top' ); //Login rewrite rule
 		}
 
 		if ( $invalid_login_slug === false ) {
 
-			$config_file = ITSEC_Lib::get_htaccess();
+			if (
+				! isset( $type ) &&
+				(
+					$input['slug'] !== $this->settings['slug'] ||
+					$input['register'] !== $this->settings['register'] ||
+					$input['enabled'] !== $this->settings['enabled']
+				) ||
+				isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true
+			) {
 
-			if ( ITSEC_Lib::get_server() == 'nginx' ) {
+				add_site_option( 'itsec_rewrites_changed', true );
 
-				if (
-					! isset( $type ) &&
-					(
-						$input['slug'] !== $this->settings['slug'] ||
-						$input['register'] !== $this->settings['register'] ||
-						$input['enabled'] !== $this->settings['enabled']
-					)
-
-				) {
-
-					add_site_option( 'itsec_rewrites_changed', true );
-
-				}
-
-			}
-
-			//Make sure we can write to the file
-			$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
-
-			@chmod( $config_file, 0644 );
-
-			flush_rewrite_rules();
-
-			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
-				@chmod( $config_file, 0444 );
 			}
 
 		}
@@ -483,12 +575,39 @@ class ITSEC_Hide_Backend_Admin {
 		if ( isset( $_POST['itsec_hide_backend'] ) ) {
 
 			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'security_page_toplevel_page_itsec_settings-options' ) ) {
-				die( __( 'Security error!', 'LION' ) );
+				die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
 			}
 
 			update_site_option( 'itsec_hide_backend', $_POST['itsec_hide_backend'] ); //we must manually save network options
 
 		}
+
+	}
+
+	/**
+	 * Saves rewrite rules to file writer.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return void
+	 */
+	public function save_rewrite_rules() {
+
+		global $itsec_files;
+
+		$rewrite_rules = $itsec_files->get_rewrite_rules();
+
+		foreach ( $rewrite_rules as $key => $rule ) {
+
+			if ( isset( $rule['name'] ) && $rule['name'] == 'Hide Backend' ) {
+				unset ( $rewrite_rules[$key] );
+			}
+
+		}
+
+		$rewrite_rules[] = $this->build_rewrite_rules();
+
+		$itsec_files->set_rewrite_rules( $rewrite_rules );
 
 	}
 

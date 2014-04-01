@@ -27,7 +27,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 						$this->execute_activate();
 						break;
 					case 'upgrade':
-						$this->execute_activate( true );
+						$this->execute_upgrade();
 						break;
 					case 'deactivate':
 						$this->execute_deactivate();
@@ -49,13 +49,9 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 		 *
 		 * @since 4.0
 		 *
-		 * @param  boolean $upgrade true if the plugin is updating
-		 *
 		 * @return void
 		 */
-		public function execute_activate( $upgrade = false ) {
-
-			global $itsec_files;
+		public function execute_activate() {
 
 			$options = get_site_option( 'itsec_ban_users' );
 
@@ -65,16 +61,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 
 			}
 
-			if ( $upgrade === true ) {
-				$this->execute_upgrade();
-			}
-
-			if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
-				require_once( dirname( __FILE__ ) . '/class-itsec-ban-users-admin.php' );
-			}
-			$rewrite_rules = ITSEC_Ban_Users_Admin::build_rewrite_rules( array(), null, true );
-
-			$itsec_files->set_rewrites( $rewrite_rules );
+			add_site_option( 'itsec_rewrites_changed', true );
 
 		}
 
@@ -115,6 +102,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 
 				$current_options = get_site_option( 'itsec_ban_users' );
 
+				if ( $current_options === false ) {
+					$current_options = $this->defaults;
+				}
+
 				$current_options['enabled'] = isset( $itsec_bwps_options['bu_enabled'] ) && $itsec_bwps_options['bu_enabled'] == 1 ? true : false;
 				$current_options['default'] = isset( $itsec_bwps_options['bu_blacklist'] ) && $itsec_bwps_options['bu_blacklist'] == 1 ? true : false;
 
@@ -149,6 +140,12 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 				}
 
 				update_site_option( 'itsec_ban_users', $current_options );
+				add_site_option( 'itsec_rewrites_changed', true );
+
+			}
+
+			if ( $itsec_old_version < 4027 ) {
+
 				add_site_option( 'itsec_rewrites_changed', true );
 
 			}
