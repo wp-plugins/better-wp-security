@@ -1,0 +1,20 @@
+1.0.0 - 2014-03-25 - Chris Wiegman
+	Initial Release
+1.0.1 - 2014-03-25 - Chris Wiegman
+	Better conversion of ip to cidr
+1.0.2 - 2014-03-27 - Chris Wiegman
+    Don't show security menu on multisite for non network admins
+    Fix for module path of windows servers
+    Module path working correctly on Windows servers
+    404 white list should transfer to global white list
+    White list implementation working across all lockouts
+    Add extra dismiss box to close welcome modal (fix for smaller screens)
+1.0.3 - 2014-04-01 - Chris Wiegman
+	Fixed history.txt (for iThemes customers)
+	Moved upgrade to separate function for more seamless update
+	Upgrade system rewritten for better functionality
+	Make sure 404 doesn't fail if there is not a 404.php in the theme
+	Make sure WordPress root URLs render correctly
+	Filewrite now only builds rules on demand.
+	Fixed dismiss button on intro modal for small screens
+	General cleanup and typo fixing
