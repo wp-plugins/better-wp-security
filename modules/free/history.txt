@@ -24,4 +24,9 @@
 	Rename backup and logs folders when wp-content is renamed
 	Delay file scan by at least 2 minutes when saving settings
 	Added "theme compatibility" mode to remove errors in hide backend caused by themes conflicting with the feature.
+1.0.4 - 2014-04-01 - Chris Wiegman
+	Removed error message that could happen on user creation with strong passwords enabled
+	Moved strong password js later in execution cycle to prevent errors
+	More hide backend tweaks to cover remaining white screen issues
+	Removed option to enqueue a new version of jQuery unless it is needed
 

@@ -9,7 +9,9 @@ if ( ! function_exists( 'auth_redirect' ) ) {
 
 			if ( isset( $settings['theme_compat'] ) && $settings['theme_compat'] === true ) {
 
-				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' ), 301 );
+				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $settings['theme_compat_slug'] ) ? $settings['theme_compat_slug'] : 'not_found' ), 301 );
+
+				exit;
 
 			} else {
 

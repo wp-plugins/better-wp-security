@@ -22,3 +22,5 @@
 	General cleanup and typo fixing
 4.0.7 - 2014-04-01 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.0.3
+4.0.8 - 2014-04-01 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.0.4

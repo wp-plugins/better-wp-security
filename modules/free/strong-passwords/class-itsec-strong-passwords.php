@@ -75,20 +75,9 @@ class ITSEC_Strong_Passwords {
 		}
 
 		if ( $password_meets_requirements === true ) {
-			?>
 
-			<script type="text/javascript">
-				jQuery( document ).ready( function () {
-					jQuery( '#resetpassform' ).submit( function () {
-						if ( ! jQuery( '#pass-strength-result' ).hasClass( 'strong' ) ) {
-							alert( '<?php _e( "Sorry, but you must enter a strong password", "ithemes-security" ); ?>' );
-							return false;
-						}
-					} );
-				} );
-			</script>
+			add_action( 'shutdown', array( $this, 'shut_down_js' ) );
 
-		<?php
 		}
 
 		if ( ! isset( $_GET['action'] ) ) {
@@ -121,6 +110,30 @@ class ITSEC_Strong_Passwords {
 
 		}
 
+	}
+
+	/**
+	 * Ad js for reset password page
+	 *
+	 * @since 4.0.10
+	 *
+	 * @return void
+	 */
+	public function shut_down_js() {
+		?>
+
+		<script type="text/javascript">
+			jQuery( document ).ready( function () {
+				jQuery( '#resetpassform' ).submit( function () {
+					if ( ! jQuery( '#pass-strength-result' ).hasClass( 'strong' ) ) {
+						alert( '<?php _e( "Sorry, but you must enter a strong password", "ithemes-security" ); ?>' );
+						return false;
+					}
+				} );
+			} );
+		</script>
+
+	<?php
 	}
 
 }

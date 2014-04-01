@@ -524,7 +524,13 @@ class ITSEC_Tweaks_Admin {
 		if ( $raw_version !== false ) {
 			$version = sanitize_text_field( $raw_version );
 		} else {
-			$version = 'undetermined';
+			$version = sprintf(
+				'%s <a href="%s" target="_blank">%s</a> %s',
+				__( 'undetermined. Please', 'it-l10n-better-wp-security' ),
+				site_url(),
+				__( 'check your homepage', 'it-l10n-better-wp-security' ),
+				__( 'to see if you even need this feature', 'it-l10n-better-wp-security' )
+			);
 		}
 
 		if ( $is_safe === true ) {
@@ -533,20 +539,21 @@ class ITSEC_Tweaks_Admin {
 			$color = 'red';
 		}
 
-		$content = '<input type="checkbox" id="itsec_tweaks_wordpress_safe_jquery" name="itsec_tweaks[safe_jquery]" value="1" ' . checked( 1, $safe_jquery, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_wordpress_safe_jquery">' . __( 'Enqueue a safe version of jQuery', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'it-l10n-better-wp-security' ) . '</p>';
+		if ( $is_safe !== true && $raw_version !== false ) {
+			echo '<input type="checkbox" id="itsec_tweaks_wordpress_safe_jquery" name="itsec_tweaks[safe_jquery]" value="1" ' . checked( 1, $safe_jquery, false ) . '/>';
+		}
 
-		$content .= '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'it-l10n-better-wp-security' ) . $version . '.</p>';
-		$content .= sprintf(
+		echo '<label for="itsec_tweaks_wordpress_safe_jquery">' . __( 'Enqueue a safe version of jQuery', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'it-l10n-better-wp-security' ) . '</p>';
+
+		echo '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'it-l10n-better-wp-security' ) . $version . '.</p>';
+		printf(
 			'<p class="description">%s <a href="%s" target="_blank">%s</a> %s</p>',
 			__( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error ', 'it-l10n-better-wp-security' ),
 			site_url(),
 			__( 'click here to check again.', 'it-l10n-better-wp-security' ),
 			__( 'This will open your homepage in a new window allowing the plugin to determine the version of jQuery actually being used. You can then come back here and reload this page to see your version.', 'it-l10n-better-wp-security' )
 		);
-
-		echo $content;
 
 	}
 
@@ -853,8 +860,8 @@ class ITSEC_Tweaks_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  array $input       options to build rules from
-	 * @param bool $deactivation whether or not we're deactivating
+	 * @param  array $input        options to build rules from
+	 * @param bool   $deactivation whether or not we're deactivating
 	 *
 	 * @return array         rules to write
 	 */
@@ -863,7 +870,7 @@ class ITSEC_Tweaks_Admin {
 		//Return options to default on deactivation
 		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
 
-			$input       = array();
+			$input = array();
 
 			$deactivating = true;
 

@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.7
+Stable tag: 4.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,12 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.8 =
+* Removed error message that could happen on user creation with strong passwords enabled
+* Moved strong password js later in execution cycle to prevent errors
+* More hide backend tweaks to cover remaining white screen issues
+* Removed option to enqueue a new version of jQuery unless it is needed
 
 = 4.0.7 =
 * Removed extra quotes that could appear in user agents
@@ -936,6 +942,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple featureset.
 
 == Upgrade Notice ==
+
+= 4.0.8 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.8 if you are not already on 4.0.
 
 = 4.0.7 =
 Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.7 if you are not already on 4.0.

@@ -63,6 +63,8 @@ class ITSEC_Hide_Backend {
 
 				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' ), 301 );
 
+				exit;
+
 			} else {
 
 				add_action( 'wp', array( $this, 'set_404' ) );
@@ -84,8 +86,10 @@ class ITSEC_Hide_Backend {
 
 				status_header( 200 );
 
-				include( ABSPATH . '/wp-login.php' );
-				exit;
+				if ( ! function_exists( 'login_header' ) ) {
+					include( ABSPATH . '/wp-login.php' );
+					exit;
+				}
 
 			} elseif ( ! isset( $_GET['action'] ) || sanitize_text_field( $_GET['action'] ) != 'logout' ) {
 

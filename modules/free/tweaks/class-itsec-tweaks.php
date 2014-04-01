@@ -168,6 +168,8 @@ class ITSEC_Tweaks {
 	 */
 	public function force_unique_nicename( &$errors, $update, &$user ) {
 
+		$display_name = isset( $user->display_name ) ? $user->display_name : ITSEC_Lib::get_random( 14 );
+
 		if ( ! empty( $user->nickname ) ) {
 
 			if ( $user->nickname == $user->user_login ) {
@@ -176,7 +178,7 @@ class ITSEC_Tweaks {
 
 			} else {
 
-				$user->user_nicename = sanitize_title( $user->nickname, $user->display_name );
+				$user->user_nicename = sanitize_title( $user->nickname, $display_name );
 
 			}
 
@@ -186,7 +188,7 @@ class ITSEC_Tweaks {
 
 			$user->nickname = $full_name;
 
-			$user->user_nicename = sanitize_title( $full_name, $user->display_name );
+			$user->user_nicename = sanitize_title( $full_name, $display_name );
 
 		} else {
 
