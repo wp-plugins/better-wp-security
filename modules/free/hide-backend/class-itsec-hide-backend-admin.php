@@ -56,7 +56,44 @@ class ITSEC_Hide_Backend_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
 
+			$new_slug = get_site_option( 'itsec_hide_backend_new_slug' );
+
+			if ( $new_slug !== false ) {
+
+				delete_site_option( 'itsec_hide_backend_new_slug' );
+
+				$new_slug = get_site_url() . '/' . $new_slug;
+
+				$slug_text = sprintf(
+					'%s%s%s%s%s',
+					__( 'Warning: Your admin URL has changed. Use the following URL to login to your site', 'it-l10n-better-wp-security' ),
+					PHP_EOL . PHP_EOL,
+					$new_slug,
+					PHP_EOL . PHP_EOL,
+					__( 'Please note this may be different than what you sent as the URL was sanitized to meet various requirements. A reminder has also been sent to the notification email(s) set in this plugins global settings.', 'it-l10n-better-wp-security' )
+				);
+
+				$this->send_new_slug( $new_slug );
+
+			} else {
+				$slug_text = false;
+			}
+
+			sprintf(
+				'%s %s %s',
+				__( 'Warning: Your admin URL has changed. Use the following URL to login to your site', 'it-l10n-better-wp-security' ),
+				get_site_url() . '/' . $new_slug,
+				__( 'Please note this may be different than what you sent as the URL was sanitized to meet various requirements.', 'it-l10n-better-wp-security' )
+			);
+
 			wp_enqueue_script( 'itsec_hide_backend_js', $this->module_path . 'js/admin-hide-backend.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_localize_script(
+				'itsec_hide_backend_js',
+				'itsec_hide_backend',
+				array(
+					'new_slug' => $slug_text,
+				)
+			);
 
 		}
 
@@ -207,6 +244,7 @@ class ITSEC_Hide_Backend_Admin {
 			$content = '<input name="itsec_hide_backend[slug]" id="itsec_hide_backend_strong_passwords_slug" value="' . sanitize_title( $this->settings['slug'] ) . '" type="text"><br />';
 			$content .= '<label for="itsec_hide_backend_strong_passwords_slug">' . __( 'Login URL:', 'it-l10n-better-wp-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['slug'] ) . '</span></label>';
 			$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'it-l10n-better-wp-security' ) . '</p>';
+			$content .= '<p class="description"><em>' . __( 'Note: The output is limited to alphanumeric characters, underscore (_) and dash (-). Special characters such as "." and "/" are not allowed and will be converted in the same manner as a post title. Please review your selection before logging out.', 'it-l10n-better-wp-security' ) . '</em></p>';
 
 		}
 
@@ -489,9 +527,17 @@ class ITSEC_Hide_Backend_Admin {
 		$input['show-tooltip'] = ( isset( $this->settings['show-tooltip'] ) ? $this->settings['show-tooltip'] : false );
 
 		if ( isset( $input['slug'] ) ) {
+
 			$input['slug'] = sanitize_title( $input['slug'] );
+
 		} else {
+
 			$input['slug'] = 'wplogin';
+
+		}
+
+		if ( $input['slug'] != $this->settings['slug'] ) {
+			add_site_option( 'itsec_hide_backend_new_slug', $input['slug'] );
 		}
 
 		if ( isset( $input['register'] ) && $input['register'] !== 'wp-register.php' ) {
@@ -608,6 +654,64 @@ class ITSEC_Hide_Backend_Admin {
 		$rewrite_rules[] = $this->build_rewrite_rules();
 
 		$itsec_files->set_rewrite_rules( $rewrite_rules );
+
+	}
+
+	/**
+	 * Sends an email to notify site admins of the new login url
+	 *
+	 * @param  string $new_slug the new login url
+	 *
+	 * @return void
+	 */
+	private function send_new_slug( $new_slug ) {
+
+		global $itsec_globals;
+
+		//Put the copy all together
+		$body = sprintf(
+			'<p>%s,</p><p>%s <a href="%s">%s</a>. %s <a href="%s">%s</a> %s.</p>',
+			__( 'Dear Site Admin', 'it-l10n-better-wp-security' ),
+			__( 'This friendly email is just a reminder that you have changed the dashboard login address on', 'it-l10n-better-wp-security' ),
+			get_site_url(),
+			get_site_url(),
+			__( 'You must now use', 'it-l10n-better-wp-security' ),
+			$new_slug,
+			$new_slug,
+			__( 'to login to your WordPress website', 'it-l10n-better-wp-security' )
+		);
+
+		//Setup the remainder of the email
+		$recipients = $itsec_globals['settings']['notification_email'];
+		$subject    = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress Login Email Changed', 'it-l10n-better-wp-security' );
+		$subject    = apply_filters( 'itsec_lockout_email_subject', $subject );
+		$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
+
+		//Use HTML Content type
+		add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+
+		//Send emails to all recipients
+		foreach ( $recipients as $recipient ) {
+
+			if ( is_email( trim( $recipient ) ) ) {
+				wp_mail( trim( $recipient ), $subject, $body, $headers );
+			}
+
+		}
+
+		//Remove HTML Content type
+		remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+
+	}
+
+	/**
+	 * Set HTML content type for email
+	 *
+	 * @return string html content type
+	 */
+	public function set_html_content_type() {
+
+		return 'text/html';
 
 	}
 

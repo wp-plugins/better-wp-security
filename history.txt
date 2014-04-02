@@ -24,3 +24,12 @@
 	Updated modules/free to version 1.0.3
 4.0.8 - 2014-04-01 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.0.4
+4.0.9 - 2014-04-02 - Packaging Bot (modules/free)
+	only save post meta for ssl when the value is true
+	fixed missing admin user settings if only one part had been changed
+	SSL Redirection working properly on front end. No more redirect errors
+	hide backend will warn of the new url when saving
+	hide backend will now email the notification email(s) when the login area has been moved
+	Added BackupBuddy coupon
+4.0.10 - 2014-04-02 - Packaging Bot (core)
+	Added ability to manually purge log table

@@ -54,22 +54,25 @@ class ITSEC_SSL {
 			$require_ssl = get_post_meta( $post->ID, 'itsec_enable_ssl', true );
 			$bwps_ssl    = get_post_meta( $post->ID, 'bwps_enable_ssl', true );
 
-			if ( $bwps_ssl == true ) {
+			if ( $bwps_ssl == 1 ) {
 
+				$require_ssl = 1;
 				delete_post_meta( $post->ID, 'bwps_enable_ssl' );
 				update_post_meta( $post->ID, 'itsec_enable_ssl', true );
 
-			} elseif ( $bwps_ssl == false ) {
+			} elseif ( $bwps_ssl != 1 ) {
 
 				delete_post_meta( $post->ID, 'bwps_enable_ssl' );
-				update_post_meta( $post->ID, 'itsec_enable_ssl', false );
+
+				if ( $require_ssl != 1 ) {
+					delete_post_meta( $post->ID, 'itsec_enable_ssl' );
+				}
 
 			}
 
-			if ( ( $require_ssl == true && ! $this->is_ssl() ) || ( $require_ssl != true && $this->is_ssl() ) ) {
+			if ( ( $require_ssl == 1 && $this->is_ssl() === false ) || ( $require_ssl != 1 && $this->is_ssl() === true ) ) {
 
 				$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
 				wp_redirect( $href, 301 );
 
 			}
@@ -79,7 +82,6 @@ class ITSEC_SSL {
 			if ( ( $this->settings['frontend'] == 2 && ! $this->is_ssl() ) || ( ( $this->settings['frontend'] == 0 || $this->settings['frontend'] == 1 ) && $this->is_ssl() ) ) {
 
 				$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
 				wp_redirect( $href, 301 );
 
 			}

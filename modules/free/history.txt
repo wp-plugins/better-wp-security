@@ -29,4 +29,10 @@
 	Moved strong password js later in execution cycle to prevent errors
 	More hide backend tweaks to cover remaining white screen issues
 	Removed option to enqueue a new version of jQuery unless it is needed
-
+1.0.5 - 2014-04-02 - Chris Wiegman
+	only save post meta for ssl when the value is true
+	fixed missing admin user settings if only one part had been changed
+	SSL Redirection working properly on front end. No more redirect errors
+	hide backend will warn of the new url when saving
+	hide backend will now email the notification email(s) when the login area has been moved
+	Added BackupBuddy coupon

@@ -100,6 +100,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		public function execute_deactivate() {
 
 			delete_site_transient( 'ITSEC_SHOW_HIDE_BACKEND_TOOLTIP' );
+			delete_site_option( 'itsec_hide_backend_new_slug' );
 
 		}
 

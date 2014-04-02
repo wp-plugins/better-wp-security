@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.8
+Stable tag: 4.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,15 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.10 =
+* only save post meta for ssl when the value is true
+* fixed missing admin user settings if only one part had been changed
+* SSL Redirection working properly on front end. No more redirect errors
+* hide backend will warn of the new url when saving
+* hide backend will now email the notification email(s) when the login area has been moved
+* Added BackupBuddy coupon
+* Added ability to manually purge log table
 
 = 4.0.8 =
 * Removed error message that could happen on user creation with strong passwords enabled
@@ -943,20 +952,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.0.8 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.8 if you are not already on 4.0.
-
-= 4.0.7 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.7 if you are not already on 4.0.
-
-= 4.0.5 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.
-
-= 4.0.2 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.
-
-= 4.0.1 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.1 if you are not already on 4.0.
-
-= 4.0.0 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.0.
+= 4.0.10 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.10 if you are not already on 4.0.

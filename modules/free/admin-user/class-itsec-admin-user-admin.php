@@ -225,7 +225,7 @@ class ITSEC_Admin_User_Admin {
 	 */
 	public function initialize_admin() {
 
-		if ( ITSEC_Lib::user_id_exists( 1 ) || username_exists( 'admin' ) ) {
+		if ( ITSEC_Lib::user_id_exists( 1 ) && username_exists( 'admin' ) ) {
 			$this->settings = false;
 		} else {
 			$this->settings = true;

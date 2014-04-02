@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.0.8\n"
+"Project-Id-Version: iThemes Security 4.0.10\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-04-01 21:33:11+00:00\n"
+"POT-Creation-Date: 2014-04-02 15:05:10+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.8)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.10)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:20
 msgid "iThemes Security"
@@ -633,7 +633,7 @@ msgstr ""
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:213
 #: modules/free/file-change/class-itsec-file-change-admin.php:617
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:343
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:424
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:462
 #: modules/free/ssl/class-itsec-ssl-admin.php:359
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:198
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1536
@@ -745,7 +745,7 @@ msgstr ""
 #: modules/free/file-change/class-itsec-file-change-admin.php:695
 #: modules/free/file-change/class-itsec-file-change-admin.php:807
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:467
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:578
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:624
 #: modules/free/ssl/class-itsec-ssl-admin.php:554
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:261
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1738
@@ -938,6 +938,7 @@ msgid "To release the lockouts please visit"
 msgstr ""
 
 #: core/class-itsec-lockout.php:824
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:674
 msgid "Dear Site Admin"
 msgstr ""
 
@@ -1012,28 +1013,50 @@ msgstr ""
 msgid "Data"
 msgstr ""
 
-#: core/class-itsec-logger.php:71
+#: core/class-itsec-logger.php:81
 msgid "Security Logs"
 msgstr ""
 
-#: core/class-itsec-logger.php:101
+#: core/class-itsec-logger.php:111
 msgid "All Logged Items"
 msgstr ""
 
-#: core/class-itsec-logger.php:249
+#: core/class-itsec-logger.php:259
 msgid "Below are various logs of information collected by"
 msgstr ""
 
-#: core/class-itsec-logger.php:251
+#: core/class-itsec-logger.php:261
 msgid ""
 "This information can help you get a picture of what is happening with your "
 "site and the level of success you have achieved in your security efforts."
 msgstr ""
 
-#: core/class-itsec-logger.php:267
+#: core/class-itsec-logger.php:279
 msgid ""
 "Below is the log of all the log items in your WordPress Database. To adjust "
 "logging options visit the global settings page."
+msgstr ""
+
+#: core/class-itsec-logger.php:294
+msgid "Log Summary"
+msgstr ""
+
+#: core/class-itsec-logger.php:298
+msgid "Your database contains"
+msgstr ""
+
+#: core/class-itsec-logger.php:299
+msgid "log entries."
+msgstr ""
+
+#: core/class-itsec-logger.php:302
+msgid ""
+"Use the button below to purge the log table in your database. Please note "
+"this will purge all log entries in the database including 404s."
+msgstr ""
+
+#: core/class-itsec-logger.php:305
+msgid "Clear Logs"
 msgstr ""
 
 #: core/class-itsec-setup.php:200
@@ -2268,31 +2291,39 @@ msgid ""
 msgstr ""
 
 #: modules/free/core/class-itsec-core-admin.php:115
+msgid "25% off BackupBuddy with coupon code"
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:115
+msgid "BACKUPPROTECT"
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:116
 msgid "Get BackupBuddy"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:130
+#: modules/free/core/class-itsec-core-admin.php:131
 msgid "Watch the Walk-Through Video"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:132
+#: modules/free/core/class-itsec-core-admin.php:133
 msgid "In this short video, we walk through"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:132
+#: modules/free/core/class-itsec-core-admin.php:133
 msgid "how to get started securing your site"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:132
+#: modules/free/core/class-itsec-core-admin.php:133
 msgid "with iThemes Security."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:139
+#: modules/free/core/class-itsec-core-admin.php:140
 msgid ""
 "Website Security is a complicated subject, but we have experts that can help."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:140
+#: modules/free/core/class-itsec-core-admin.php:141
 #: modules/free/help/class-itsec-help-admin.php:57
 msgid ""
 "Get added peace of mind with professional support from our expert team and "
@@ -2300,55 +2331,55 @@ msgid ""
 "Security Pro."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:141
+#: modules/free/core/class-itsec-core-admin.php:142
 msgid "Get Support and Pro Features"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:156
+#: modules/free/core/class-itsec-core-admin.php:157
 msgid ""
 "Be sure your site has been properly secured by having one of our security "
 "experts tailor iThemes Security settings to the specific needs of this site."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:157
+#: modules/free/core/class-itsec-core-admin.php:158
 #: modules/free/help/class-itsec-help-admin.php:63
 msgid "Have an expert secure my site"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:158
+#: modules/free/core/class-itsec-core-admin.php:159
 msgid ""
 "Get added peace of mind with professional support from our expert team and "
 "pro features with iThemes Security Pro."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:159
+#: modules/free/core/class-itsec-core-admin.php:160
 #: modules/free/help/class-itsec-help-admin.php:58
 msgid "Get iThemes Security Pro"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:184
+#: modules/free/core/class-itsec-core-admin.php:185
 msgid ""
 "Get tips for securing your site + the latest WordPress security updates, "
 "news and releases from iThemes."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:191
+#: modules/free/core/class-itsec-core-admin.php:192
 msgid "Email Address"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:195
+#: modules/free/core/class-itsec-core-admin.php:196
 msgid "Subscribe"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:232
+#: modules/free/core/class-itsec-core-admin.php:233
 msgid "is almost ready."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:232
+#: modules/free/core/class-itsec-core-admin.php:233
 msgid "Secure Your Site Now"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:232
+#: modules/free/core/class-itsec-core-admin.php:233
 msgid "See what's new in 4.0"
 msgstr ""
 
@@ -2762,20 +2793,20 @@ msgid ""
 msgstr ""
 
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:138
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:173
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:257
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:295
 msgid "You must turn on"
 msgstr ""
 
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:138
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:173
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:257
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:295
 msgid "WordPress permalinks"
 msgstr ""
 
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:138
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:173
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:257
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:295
 msgid "to use this feature."
 msgstr ""
 
@@ -2910,107 +2941,153 @@ msgstr ""
 msgid "Hide Login Area"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:92
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:96
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:69
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:84
+msgid ""
+"Warning: Your admin URL has changed. Use the following URL to login to your "
+"site"
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:73
+msgid ""
+"Please note this may be different than what you sent as the URL was "
+"sanitized to meet various requirements. A reminder has also been sent to the "
+"notification email(s) set in this plugins global settings."
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:86
+msgid ""
+"Please note this may be different than what you sent as the URL was "
+"sanitized to meet various requirements."
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:129
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:133
 msgid "Rules to hide the dashboard"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:139
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:176
 msgid "Your WordPress Dashboard is hidden."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:144
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:181
 msgid ""
 "Your WordPress Dashboard is using the default addresses. This can make a "
 "brute force attack much easier."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:184
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:221
 msgid "Enable the hide backend feature."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:208
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:245
 msgid "Login URL:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:209
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:246
 msgid ""
 "The login url slug cannot be \"login,\" \"admin,\" \"dashboard,\" or \"wp-"
 "login.php\" as these are use by default in WordPress."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:235
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:247
+msgid ""
+"Note: The output is limited to alphanumeric characters, underscore (_) and "
+"dash (-). Special characters such as \".\" and \"/\" are not allowed and "
+"will be converted in the same manner as a post title. Please review your "
+"selection before logging out."
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:273
 msgid "404 Slug:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:236
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:274
 msgid ""
 "The slug to redirect folks to when theme compatibility mode is enabled (just "
 "make sure it does not exist in your site)."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:268
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:306
 msgid ""
 "Enable theme compatibility. If  you see errors in your theme when using hide "
 "backend, in particular when going to wp-admin while not logged in, turn this "
 "on to fix them."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:292
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:330
 msgid "Registration URL:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:340
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:347
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:378
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:385
 msgid "Hide Login and Admin"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:355
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:393
 msgid "Hide Backend"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:363
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:401
 msgid "Login Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:373
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:411
 msgid "Register Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:383
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:421
 msgid "Enable Theme Compatibility"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:391
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:429
 msgid "Theme Compatibility Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:415
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:453
 msgid ""
 "Hides the login page (wp-login.php, wp-admin, admin and login) making it "
 "harder to find by automated attacks and making it easier for users "
 "unfamiliar with the WordPress platform."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:461
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:499
 msgid "Review Hide Backend Settings"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:462
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:500
 msgid ""
 "The hide backend system has been rewritten. You must re-activate the feature "
 "to continue using the feature."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:463
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:501
 msgid "Review Settings"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:516
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:562
 msgid ""
 "Invalid hide login slug used. The login url slug cannot be \"login,\" "
 "\"admin,\" \"dashboard,\" or \"wp-login.php\" ob \"\" (blank) as these are "
 "use by default in WordPress."
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:675
+msgid ""
+"This friendly email is just a reminder that you have changed the dashboard "
+"login address on"
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:678
+msgid "You must now use"
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:681
+msgid "to login to your WordPress website"
+msgstr ""
+
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:686
+msgid "WordPress Login Email Changed"
 msgstr ""
 
 #: modules/free/ssl/class-itsec-ssl-admin.php:87

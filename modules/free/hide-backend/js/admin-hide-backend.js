@@ -18,4 +18,10 @@ jQuery( document ).ready( function () {
 		jQuery( "#hide_backend-settings" ).hide();
 	}
 
+	if ( itsec_hide_backend.new_slug != false ) {
+
+		alert( itsec_hide_backend.new_slug );
+
+	}
+
 } );

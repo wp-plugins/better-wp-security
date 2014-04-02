@@ -65,7 +65,7 @@ class ITSEC_SSL_Admin {
 			if ( $itsec_enable_ssl ) {
 				update_post_meta( $id, 'itsec_enable_ssl', true );
 			} else {
-				update_post_meta( $id, 'itsec_enable_ssl', false );
+				delete_post_meta( $id, 'itsec_enable_ssl' );
 			}
 
 			return $itsec_enable_ssl;

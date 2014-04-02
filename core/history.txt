@@ -18,3 +18,5 @@
 	Filewrite now only builds rules on demand.
 	Fixed dismiss button on intro modal for small screens
 	General cleanup and typo fixing
+1.0.4 - 2014-04-02 - Chris Wiegman
+	Added ability to manually purge log table
