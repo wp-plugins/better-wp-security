@@ -669,7 +669,7 @@ final class ITSEC_Files {
 
 					}
 
-				} elseif ( $success === true && $release === false ) {
+				} elseif ( $success === true ) {
 
 					return array(
 						'success' => false,

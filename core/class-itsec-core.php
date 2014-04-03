@@ -39,8 +39,8 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * @access private
 		 *
 		 * @param string $plugin_file the main plugin file
+		 * @param string @plugin_name The plugin name
 		 *
-		 * @return void
 		 */
 		function __construct( $plugin_file, $plugin_name ) {
 
@@ -633,9 +633,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				wp_enqueue_style( 'jquery-ui-tabs' );
 				wp_enqueue_style( 'wp-jquery-ui-dialog' );
 				wp_enqueue_script( 'itsec_dashboard_js', $itsec_globals['plugin_url'] . 'core/js/admin-dashboard.js', 'jquery' );
+				wp_localize_script( 'itsec_dashboard_js', 'itsec_dashboard', array(
+					'text' => __( 'Show Intro', 'it-l10n-better-wp-security' ),
+				) );
 				wp_enqueue_script( 'itsec_footer', $itsec_globals['plugin_url'] . 'core/js/admin-dashboard-footer.js', array( 'jquery' ), $itsec_globals['plugin_build'], true );
 
-				if ( ! isset( $itsec_globals['data']['tooltips_dismissed'] ) || $itsec_globals['data']['tooltips_dismissed'] === false ) {
+				if ( ! isset( $itsec_globals['data']['tooltips_dismissed'] ) || $itsec_globals['data']['tooltips_dismissed'] === false || ( isset( $_GET['show_admin_modal'] ) && $_GET['show_admin_modal'] == 'true' ) ) {
 
 					wp_enqueue_script( 'itsec_modal', $itsec_globals['plugin_url'] . 'core/js/admin-modal.js', array( 'jquery' ), $itsec_globals['plugin_build'], true );
 					wp_localize_script( 'itsec_modal', 'itsec_tooltip_text', array(
@@ -983,7 +986,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			<div class="wrap">
 
 				<?php
-				if ( ! isset( $itsec_globals['data']['tooltips_dismissed'] ) || $itsec_globals['data']['tooltips_dismissed'] === false ) {
+				if ( ! isset( $itsec_globals['data']['tooltips_dismissed'] ) || $itsec_globals['data']['tooltips_dismissed'] === false || ( isset( $_GET['show_admin_modal'] ) && $_GET['show_admin_modal'] == 'true' ) ) {
 					$this->admin_modal();
 				}
 				?>

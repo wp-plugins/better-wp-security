@@ -1,5 +1,12 @@
 jQuery( document ).ready( function () {
 
+	jQuery('#screen-meta-links').append(
+		'<div id="itsec-meta-link-wrap" class="hide-if-no-js screen-meta-toggle">' +
+		'<a href="' + document.location + '&show_admin_modal=true" class="show-settings">' + itsec_dashboard.text + '</a>' +
+		'</div>'
+	);
+
+
 	jQuery( '.itsec_toc_item_link' ).click( function ( event ) {
 
 		event.preventDefault();

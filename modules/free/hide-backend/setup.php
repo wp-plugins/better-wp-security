@@ -15,8 +15,9 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 				'enabled'           => false,
 				'slug'              => 'wplogin',
 				'register'          => 'wp-register.php',
-				'theme_compat'      => false,
-				'theme_compat_slug' => 'not_found'
+				'theme_compat'      => true,
+				'theme_compat_slug' => 'not_found',
+				'post_logout_slug'  => '',
 			);
 
 			if ( isset( $itsec_setup_action ) ) {
@@ -48,8 +49,6 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		 * Execute module activation.
 		 *
 		 * @since 4.0
-		 *
-		 * @param  boolean $upgrade true if the plugin is updating
 		 *
 		 * @return void
 		 */

@@ -36,3 +36,10 @@
 	hide backend will warn of the new url when saving
 	hide backend will now email the notification email(s) when the login area has been moved
 	Added BackupBuddy coupon
+1.0.6 - 2014-04-03 - Chris Wiegman
+	Private posts will now work with hide backend
+	Added an option for custom login action that can bypass hide login
+	Allow admin-ajax.php to bypass hide backend
+	Added filters for external backup plugins to register with the dashboard
+	Enable theme compatibility mode by default
+	Miscellaneous copy and function doc fixes

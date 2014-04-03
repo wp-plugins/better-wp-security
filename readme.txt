@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.10
+Stable tag: 4.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,17 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.12 =
+* Added "Show intro" button next to screen options to bring the intro modal back
+* Added ability to use HTML in error messages
+* Minor copy and other tweaks
+* Private posts will now work with hide backend
+* Added an option for custom login action that can bypass hide login
+* Allow admin-ajax.php to bypass hide backend
+* Added filters for external backup plugins to register with the dashboard
+* Enable theme compatibility mode by default
+* Miscellaneous copy and function doc fixes
 
 = 4.0.10 =
 * only save post meta for ssl when the value is true
@@ -952,5 +963,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.0.10 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.10 if you are not already on 4.0.
+= 4.0.12 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.12 if you are not already on 4.0 or greater.

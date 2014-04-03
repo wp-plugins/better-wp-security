@@ -160,7 +160,6 @@ class ITSEC_Backup_Admin {
 	 */
 	public function dashboard_status( $statuses ) {
 
-
 		if ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) >= 1 ) {
 
 			$status_array = 'safe-medium';
@@ -170,6 +169,16 @@ class ITSEC_Backup_Admin {
 
 			$status_array = 'medium';
 			$status = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
+
+		} elseif ( $this->has_backup() === true && $this->scheduled_backup() === true ) {
+
+			$status_array = 'safe-medium';
+			$status       = array( 'text' => __( 'You are using a 3rd party backup solution.', 'it-l10n-better-wp-security' ), 'link' => $this->external_backup_link(), );
+
+		} elseif ( $this->has_backup() === true ) {
+
+			$status_array = 'medium';
+			$status       = array( 'text' => __( 'It looks like you have a 3rd-party backup solution in place but are not using it. Please turn on scheduled backups.', 'it-l10n-better-wp-security' ), 'link' => $this->external_backup_link(), );
 
 		} elseif ( $this->settings['enabled'] === true ) {
 
@@ -274,6 +283,30 @@ class ITSEC_Backup_Admin {
 		$content .= '<p class="description"> ' . __( 'Some plugins can create log files in your database. While these logs might be handy for some functions, they can also take up a lot of space and, in some cases, even make backing up your database almost impossible. Select log tables above to exclude their data from the backup. Note: The table itself will be backed up, but not the data in the table.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
+
+	}
+
+	public function has_backup() {
+
+		$has_backup = false;
+
+		return apply_filters( 'itsec_has_external_backup', $has_backup );
+
+	}
+
+	public function scheduled_backup() {
+
+		$has_backup = false;
+
+		return apply_filters( 'itsec_scheduled_external_backup', $has_backup );
+
+	}
+
+	public function external_backup_link() {
+
+		$backup_link = '#itsec_backup_enabled';
+
+		return apply_filters( 'itsec_external_backup_link', $backup_link );
 
 	}
 

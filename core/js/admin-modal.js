@@ -10,8 +10,8 @@ jQuery( document ).ready( function () {
 			width: 'auto',
 			resizable: false,
 			draggable: false,
-			create: function( event, ui ) {
-				jQuery(this).css("maxWidth", "600px");
+			create: function ( event, ui ) {
+				jQuery( this ).css( "maxWidth", "600px" );
 			},
 			close: function ( event, ui ) {
 
@@ -22,19 +22,27 @@ jQuery( document ).ready( function () {
 				};
 
 				//call the ajax
-				jQuery.post( ajaxurl, data, function(){ document.location.reload( true ); } );
+				jQuery.post( ajaxurl, data, function () {
+
+					var url = window.location.href;
+					console.log( url );
+					url = url.substring( 0, url.lastIndexOf( "&" ) );
+
+					window.location.replace( url );
+
+				} );
 
 			}
 
 
 		}
 	);
-	
-	jQuery('.ui-dialog a').blur();
-	
-	jQuery( '.itsec-intro-close' ).click( function(event) {
-		jQuery( '#itsec_intro_modal' ).dialog('close');
-	});
+
+	jQuery( '.ui-dialog a' ).blur();
+
+	jQuery( '.itsec-intro-close' ).click( function ( event ) {
+		jQuery( '#itsec_intro_modal' ).dialog( 'close' );
+	} );
 
 	//process tooltip actions
 	jQuery( '.itsec_tooltip_ajax' ).click( function ( event ) {

@@ -20,3 +20,7 @@
 	General cleanup and typo fixing
 1.0.4 - 2014-04-02 - Chris Wiegman
 	Added ability to manually purge log table
+1.0.5 - 2014-04-03 - Chris Wiegman
+	Added "Show intro" button next to screen options to bring the intro modal back
+	Added ability to use HTML in error messages
+	Minor copy and other tweaks

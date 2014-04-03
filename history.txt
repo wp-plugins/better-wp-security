@@ -33,3 +33,14 @@
 	Added BackupBuddy coupon
 4.0.10 - 2014-04-02 - Packaging Bot (core)
 	Added ability to manually purge log table
+4.0.11 - 2014-04-03 - Packaging Bot (core)
+	Added "Show intro" button next to screen options to bring the intro modal back
+	Added ability to use HTML in error messages
+	Minor copy and other tweaks
+4.0.12 - 2014-04-03 - Packaging Bot (modules/free)
+	Private posts will now work with hide backend
+	Added an option for custom login action that can bypass hide login
+	Allow admin-ajax.php to bypass hide backend
+	Added filters for external backup plugins to register with the dashboard
+	Enable theme compatibility mode by default
+	Miscellaneous copy and function doc fixes

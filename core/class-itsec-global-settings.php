@@ -11,7 +11,8 @@ class ITSEC_Global_Settings {
 
 	private
 		$settings,
-		$core;
+		$core,
+		$allowed_tags;
 
 	function __construct( $core ) {
 
@@ -305,6 +306,25 @@ class ITSEC_Global_Settings {
 		$this->core     = $core;
 		$this->settings = get_site_option( 'itsec_global' );
 
+		$this->allowed_tags = array(
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+			),
+			'br'     => array(),
+			'em'     => array(),
+			'strong' => array(),
+			'h1'     => array(),
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'h5'     => array(),
+			'h6'     => array(),
+			'div'    => array(
+				'style' => array(),
+			),
+		);
+
 		add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -500,13 +520,14 @@ class ITSEC_Global_Settings {
 	public function lockout_message() {
 
 		if ( isset( $this->settings['lockout_message'] ) ) {
-			$lockout_message = sanitize_text_field( $this->settings['lockout_message'] );
+			$lockout_message = wp_kses( $this->settings['lockout_message'], $this->allowed_tags );
 		} else {
 			$lockout_message = __( 'error', 'it-l10n-better-wp-security' );
 		}
 
 		echo '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea>';
 		echo '<p class="description">' . __( 'The message to display when a computer (host) has been locked out.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p class="description">' . __( 'You can use HTML in your message. Allowed tags include: a, br, em, strong, h1, h2, h3, h4, h5, h6, div', 'it-l10n-better-wp-security' ) . '</p>';
 
 	}
 
@@ -818,8 +839,8 @@ class ITSEC_Global_Settings {
 			$input['notification_email'] = $emails;
 		}
 
-		$input['lockout_message']          = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ) : '';
-		$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? sanitize_text_field( $input['user_lockout_message'] ) : '';
+		$input['lockout_message']      = isset( $input['lockout_message'] ) ? wp_kses( $input['lockout_message'], $this->allowed_tags ) : '';
+		$input['user_lockout_message'] = isset( $input['user_lockout_message'] ) ? wp_kses( $input['user_lockout_message'], $this->allowed_tags ) : '';
 		$input['blacklist']                = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
 		$input['blacklist_count']          = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
 		$input['blacklist_period']         = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
@@ -1000,13 +1021,14 @@ class ITSEC_Global_Settings {
 	public function user_lockout_message() {
 
 		if ( isset( $this->settings['user_lockout_message'] ) ) {
-			$user_lockout_message = sanitize_text_field( $this->settings['user_lockout_message'] );
+			$user_lockout_message = wp_kses( $this->settings['user_lockout_message'], $this->allowed_tags );
 		} else {
 			$user_lockout_message = __( 'You have been locked out due to too many login attempts.', 'it-l10n-better-wp-security' );
 		}
 
 		echo '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . '</textarea><br />';
 		echo '<p class="description">' . __( 'The message to display to a user when their account has been locked out.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p class="description">' . __( 'You can use HTML in your message. Allowed tags include: a, br, em, strong, h1, h2, h3, h4, h5, h6, div', 'it-l10n-better-wp-security' ) . '</p>';
 
 	}
 
