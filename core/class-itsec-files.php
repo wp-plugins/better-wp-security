@@ -475,73 +475,96 @@ final class ITSEC_Files {
 
 	public static function quick_ban( $host ) {
 
-		$host = trim( $host );
+		global $itsec_files;
 
-		if ( ITSEC_Lib::validates_ip_address( trim( $host ) ) ) {
+		if ( $itsec_files->get_file_lock( 'htaccess' ) ) {
 
-			$rule_open = array( '# BEGIN iThemes Security', '# BEGIN Better WP Security' );
+			$host = trim( $host );
 
-			$htaccess_file = ITSEC_Lib::get_htaccess();
+			if ( ITSEC_Lib::validates_ip_address( trim( $host ) ) ) {
 
-			if ( ITSEC_Lib::get_server() === 'nginx' ) { //NGINX rules
-				$host_rule = "\tdeny " . $host . ';' . PHP_EOL;
-			} else { //rules for all other servers
-				$host_rule = 'Deny from ' . trim( $host ) . PHP_EOL;
-			}
+				$rule_open = array( '# BEGIN iThemes Security', '# BEGIN Better WP Security' );
 
-			//Make sure we can write to the file
-			$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
+				$htaccess_file = ITSEC_Lib::get_htaccess();
 
-			@chmod( $htaccess_file, 0644 );
+				$host_rule = '#Quick ban IP. Will be updated on next formal rules save.' . PHP_EOL;
 
-			$htaccess_contents = @file( $htaccess_file );
+				if ( ITSEC_Lib::get_server() === 'nginx' ) { //NGINX rules
 
-			$has_itsec = false; //assume itsec hasn't written anything to htaccess
+					$host_rule .= "\tdeny " . $host . ';' . PHP_EOL;
 
-			foreach ( $htaccess_contents as $line_number => $line ) {
+				} else { //rules for all other servers
 
-				if ( in_array( trim( $line ), $rule_open ) ) {
-					$has_itsec = $line_number;
+					$dhost = str_replace( '.', '\\.', trim( $host ) ); //re-define $dhost to match required output for SetEnvIf-RegEX
+
+					$host_rule .= 'Order allow,deny' . PHP_EOL;
+					$host_rule .= "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
+					$host_rule .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
+					$host_rule .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
+					$host_rule .= 'Deny from env=DenyAccess' . PHP_EOL;
+					$host_rule .= 'Allow from all' . PHP_EOL;
+
+				}
+
+				//Make sure we can write to the file
+				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
+
+				@chmod( $htaccess_file, 0644 );
+
+				$htaccess_contents = @file( $htaccess_file );
+
+				$has_itsec = false; //assume itsec hasn't written anything to htaccess
+
+				foreach ( $htaccess_contents as $line_number => $line ) {
+
+					if ( in_array( trim( $line ), $rule_open ) ) {
+						$has_itsec = $line_number;
+					}
+
+				}
+
+				if ( $has_itsec === false ) {
+
+					array_unshift(
+						$htaccess_contents,
+						'# BEGIN iThemes Security' . PHP_EOL,
+						$host_rule,
+						'# END iThemes Security' . PHP_EOL
+					);
+
+					$content = implode( '', $htaccess_contents );
+
+				} else {
+
+					$content = implode( '', $htaccess_contents );
+					$content = str_replace( '# BEGIN iThemes Security' . PHP_EOL, '# BEGIN iThemes Security' . PHP_EOL . $host_rule, $content );
+
+				}
+
+				if ( ! $f = @fopen( $htaccess_file, 'w+' ) ) {
+
+					return false; //we can't write to the file
+
+				}
+
+				@fwrite( $f, $content );
+
+				@fclose( $f );
+
+				//reset file permissions if we changed them
+				if ( $perms == '0444' ) {
+					@chmod( $htaccess_file, 0444 );
 				}
 
 			}
 
-			if ( $has_itsec === false ) {
+			$itsec_files->release_file_lock( 'htaccess' );
 
-				array_unshift(
-					$htaccess_contents,
-					'# BEGIN iThemes Security' . PHP_EOL,
-					$host_rule,
-					'# END iThemes Security' . PHP_EOL
-				);
-
-				$content = implode( '', $htaccess_contents );
-
-			} else {
-
-				$content = implode( '', $htaccess_contents );
-				$content = str_replace( '# BEGIN iThemes Security' . PHP_EOL, '# BEGIN iThemes Security' . PHP_EOL . $host_rule, $content );
-
-			}
-
-			if ( ! $f = @fopen( $htaccess_file, 'w+' ) ) {
-
-				return false; //we can't write to the file
-
-			}
-
-			@fwrite( $f, $content );
-
-			@fclose( $f );
-
-			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
-				@chmod( $htaccess_file, 0444 );
-			}
+			return true;
 
 		}
 
-		return true;
+		return false;
 
 	}
 
@@ -624,7 +647,7 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
-		if ( ! is_array( $this-> file_modules ) ) {
+		if ( ! is_array( $this->file_modules ) ) {
 			return;
 		}
 
@@ -715,7 +738,7 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
-		if ( ! is_array( $this-> file_modules ) ) {
+		if ( ! is_array( $this->file_modules ) ) {
 			return;
 		}
 

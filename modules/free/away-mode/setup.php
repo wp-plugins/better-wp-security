@@ -80,6 +80,8 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 			$this->execute_deactivate();
 
 			delete_site_option( 'itsec_away_mode' );
+			delete_site_transient( 'itsec_away' );
+			delete_site_transient( 'itsec_away_mode' );
 
 		}
 

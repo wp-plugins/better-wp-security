@@ -23,8 +23,10 @@ class ITSEC_Away_Mode {
 	/**
 	 * Check if away mode is active
 	 *
-	 * @param bool $forms [false] Whether the call comes from the same options form
-	 * @param      array  @input[NULL] Input of options to check if calling from form
+	 * @since 4.0
+	 *
+	 * @param bool  $form  [false] Whether the call comes from the same options form
+	 * @param array $input [NULL] Input of options to check if calling from form
 	 *
 	 * @return bool true if locked out else false
 	 */
@@ -46,7 +48,7 @@ class ITSEC_Away_Mode {
 
 		}
 
-		$transaway = get_site_transient( 'itsec_away' );
+		$transaway = get_site_transient( 'itsec_away_mode' );
 
 		//if transient indicates away go ahead and lock them out
 		if ( $form === false && $transaway === true && file_exists( $this->away_file ) ) {
@@ -62,7 +64,7 @@ class ITSEC_Away_Mode {
 
 				$test_start -= strtotime( date( 'Y-m-d', $test_start ) );
 				$test_end -= strtotime( date( 'Y-m-d', $test_end ) );
-				$day_seconds = $current_time - strtotime( date( 'Y-m-d' ) );
+				$day_seconds = $current_time - strtotime( date( 'Y-m-d', $current_time ) );
 
 				if ( $test_start < $test_end ) { //same day
 
@@ -88,11 +90,11 @@ class ITSEC_Away_Mode {
 
 				if ( $form === false ) {
 
-					if ( get_site_transient( 'itsec_away' ) === true ) {
-						delete_site_transient( 'itsec_away' );
+					if ( get_site_transient( 'itsec_away_mode' ) === true ) {
+						delete_site_transient( 'itsec_away_mode' );
 					}
 
-					set_site_transient( 'itsec_away', true, $remaining );
+					set_site_transient( 'itsec_away_mode', true, $remaining );
 
 				}
 

@@ -441,8 +441,8 @@ final class ITSEC_Lockout {
 
 				$blacklist_period = isset( $itsec_globals['settings']['blacklist_period'] ) ? $itsec_globals['settings']['blacklist_period'] * 24 * 60 * 60 : 604800;
 
-				$host_count = $wpdb->get_var(
-				                   $wpdb->prepare(
+				$host_count = 1 + $wpdb->get_var(
+				                       $wpdb->prepare(
 				                        "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '%s' AND `lockout_host`='%s';",
 				                        date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] + $blacklist_period ),
 				                        $host

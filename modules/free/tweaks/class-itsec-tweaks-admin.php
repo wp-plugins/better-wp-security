@@ -672,7 +672,7 @@ class ITSEC_Tweaks_Admin {
 
 			if ( $server_type === 'nginx' ) { //NGINX rules
 
-				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tlocation ^/xmlrpc.php { deny all; }" . PHP_EOL;
+				$rules .= "\tlocation ~ xmlrpc.php { deny all; }" . PHP_EOL;
 
 			} else { //rules for all other servers
 

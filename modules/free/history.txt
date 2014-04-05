@@ -43,3 +43,8 @@
 	Added filters for external backup plugins to register with the dashboard
 	Enable theme compatibility mode by default
 	Miscellaneous copy and function doc fixes
+1.0.7 - 2014-04-05 - Chris Wiegman
+	Fixed an NGINX rule that didn't actually block XMLRPC.php
+	Updated rule order on ban users
+	Fixed a bug that could prevent away from from turning off in certain time configurations (this resulted in the return to homepage on login)
+	Updated some function doc

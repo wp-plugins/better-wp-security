@@ -24,3 +24,6 @@
 	Added "Show intro" button next to screen options to bring the intro modal back
 	Added ability to use HTML in error messages
 	Minor copy and other tweaks
+1.0.6 - 2014-05-03 - Chris Wiegman
+	Execute permanent ban on the correct lockout count, not the next one
+	Updated quick ban rules to match standard ban rules (will work with proxy)

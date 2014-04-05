@@ -356,10 +356,9 @@ class ITSEC_Ban_Users_Admin {
 			} elseif ( strlen( $host_list ) > 1 ) {
 
 				$rules .= 'Order allow,deny' . PHP_EOL .
+				          $host_list .
 				          'Deny from env=DenyAccess' . PHP_EOL .
 				          'Allow from all' . PHP_EOL;
-
-				$rules .= $host_list;
 
 			}
 

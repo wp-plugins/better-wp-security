@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.0.12\n"
+"Project-Id-Version: iThemes Security 4.0.14\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-04-03 19:59:11+00:00\n"
+"POT-Creation-Date: 2014-04-05 14:25:10+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.12)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.14)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:20
 msgid "iThemes Security"
@@ -289,31 +289,31 @@ msgstr ""
 msgid "wp-config.php Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:237 core/class-itsec-files.php:608
+#: core/class-itsec-files.php:237 core/class-itsec-files.php:631
 msgid "There are no rules to write."
 msgstr ""
 
-#: core/class-itsec-files.php:657
+#: core/class-itsec-files.php:680
 msgid "Your rewrite rules have been saved to"
 msgstr ""
 
-#: core/class-itsec-files.php:659
+#: core/class-itsec-files.php:682
 msgid "You must restart your NGINX server for the settings to take effect"
 msgstr ""
 
-#: core/class-itsec-files.php:676
+#: core/class-itsec-files.php:699
 msgid ""
 "Unable to release a lock on your .htaccess or nginx.conf file. If the "
 "problem persists contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:683
+#: core/class-itsec-files.php:706
 msgid ""
 "Unable to write to your .htaccess or nginx.conf file. If the problem "
 "persists contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:692
+#: core/class-itsec-files.php:715
 msgid ""
 "WordPress was unable to save the your options to .htaccess or nginx.conf "
 "file. It looks like another process might already be working on the file. "
@@ -321,19 +321,19 @@ msgid ""
 "persists."
 msgstr ""
 
-#: core/class-itsec-files.php:751
+#: core/class-itsec-files.php:774
 msgid ""
 "Unable to release a lock on your wp-config.php file. If the problem persists "
 "contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:758
+#: core/class-itsec-files.php:781
 msgid ""
 "Unable to write to your wp-config.php file. If the problem persists contact "
 "support."
 msgstr ""
 
-#: core/class-itsec-files.php:767
+#: core/class-itsec-files.php:790
 msgid ""
 "WordPress was unable to save the your options to wp-config.php. It looks "
 "like another process might already be working on the file. Please wait a few "
@@ -639,7 +639,7 @@ msgstr ""
 #: core/class-itsec-global-settings.php:674
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:455
 #: modules/free/backup/class-itsec-backup-admin.php:507
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:566
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:565
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:321
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:213
 #: modules/free/file-change/class-itsec-file-change-admin.php:617
@@ -749,7 +749,7 @@ msgstr ""
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:575
 #: modules/free/backup/class-itsec-backup-admin.php:589
 #: modules/free/backup/class-itsec-backup-admin.php:692
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:784
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:783
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:410
 #: modules/free/file-change/class-itsec-file-change-admin.php:323
 #: modules/free/file-change/class-itsec-file-change-admin.php:635
@@ -2017,43 +2017,43 @@ msgid ""
 "should trigger a lockout. Please note this does not override away mode."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:414
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:413
 msgid "You are blocking known bad hosts and agents with the ban users tool."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:419
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:418
 msgid ""
 "You are not blocking any users that are known to be a problem. Consider "
 "turning on the Ban Users feature."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:445
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:469
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:444
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:468
 msgid "Default Blacklist"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:453
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:461
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:452
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:460
 msgid "Configure Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:478
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:477
 msgid "Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:487
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:486
 msgid "Ban Hosts"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:496
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:495
 msgid "Ban User Agents"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:505
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:504
 msgid "Whitelist Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:556
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:555
 msgid ""
 "This feature allows you to completely ban hosts and user agents from your "
 "site without having to manage any configuration of your server. Any IP "
@@ -2061,18 +2061,18 @@ msgid ""
 "access to your site."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:660
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:713
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:659
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:712
 msgid ""
 "Note that the ban users feature has been disabled until the following errors "
 "are corrected:"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:663
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:662
 msgid "is not a valid address in the whitelist users box."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:717
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:716
 msgid "is not a valid address in the ban users box."
 msgstr ""
 
@@ -3586,7 +3586,6 @@ msgid ""
 msgstr ""
 
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:654
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:675
 msgid "Rules to block access to WordPress specific files and wp-includes"
 msgstr ""
 
