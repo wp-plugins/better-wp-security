@@ -77,7 +77,7 @@ class ITSEC_File_Change_Admin {
 					'mem_limit'    => ITSEC_Lib::get_memory_limit(),
 					'text'         => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'it-l10n-better-wp-security' ),
 					'module_path'  => $this->module_path,
-					'button_text'  => __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
+					'button_text' => isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
 					'scanning_button_text'  => __( 'Scanning... (this could take a while on a large site)', 'it-l10n-better-wp-security' ),
 					'no_changes'   => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
 					'changes'      => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
@@ -303,7 +303,7 @@ class ITSEC_File_Change_Admin {
 			echo wp_nonce_field( 'itsec_do_file_check', 'wp_nonce' );
 			echo '<input type="hidden" name="itsec_file_change_origin" value="' . sanitize_text_field( $origin ) . '"><div id="itsec_file_change_status"></div>';
 			echo '<p>' . __( "Press the button below to scan your site's files for changes. Note that if changes are found this will take you to the logs page for details.", 'it-l10n-better-wp-security' ) . '</p>';
-			echo '<p><input type="submit" id="itsec_one_time_file_check_submit" class="button-primary" value="' . __( 'Scan Files Now', 'ithemes_security' ) . '" /></p>';
+			echo '<p><input type="submit" id="itsec_one_time_file_check_submit" class="button-primary" value="' . ( isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ) ) . '" /></p>';
 			echo '</form>';
 
 		}
@@ -614,7 +614,7 @@ class ITSEC_File_Change_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save All Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -737,7 +737,7 @@ class ITSEC_File_Change_Admin {
 		$input['method']       = ( isset( $input['method'] ) && intval( $input['method'] == 1 ) ? true : false );
 		$input['email']        = ( isset( $input['email'] ) && intval( $input['email'] == 1 ) ? true : false );
 		$input['notify_admin'] = ( isset( $input['notify_admin'] ) && intval( $input['notify_admin'] == 1 ) ? true : false );
-		$input['last_chunk']   = ( isset( $this->settings['last_chunk'] ) ? $this->settings['last_chunk'] : false );
+		$input['last_chunk'] = ( isset( $input['last_chunk'] ) ? $input['last_chunk'] : false );
 
 		if ( ! is_array( $input['file_list'] ) ) {
 			$file_list = explode( PHP_EOL, $input['file_list'] );

@@ -210,7 +210,7 @@ class ITSEC_Content_Directory_Admin {
 					</table>
 					<p class="submit">
 						<input type="submit" class="button-primary"
-						       value="<?php _e( 'Save Changes', 'it-l10n-better-wp-security' ); ?>"/>
+						       value="<?php _e( 'Change Content Directory', 'it-l10n-better-wp-security' ); ?>"/>
 					</p>
 				</form>
 

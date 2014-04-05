@@ -21,8 +21,8 @@ if ( ! class_exists( 'ITSEC_File_Change_Setup' ) ) {
 					'.jpeg',
 					'.png',
 					'.log',
-				    '.mo',
-				    '.po'
+					'.mo',
+					'.po'
 				),
 				'email'        => true,
 				'last_run'     => 0,
@@ -134,6 +134,38 @@ if ( ! class_exists( 'ITSEC_File_Change_Setup' ) ) {
 				}
 
 				update_site_option( 'itsec_file_change', $current_options );
+
+			}
+
+			if ( $itsec_old_version < 4028 ) {
+
+				if ( ! is_multisite() ) {
+
+					$options = array(
+						'itsec_local_file_list',
+						'itsec_local_file_list_0',
+						'itsec_local_file_list_1',
+						'itsec_local_file_list_2',
+						'itsec_local_file_list_3',
+						'itsec_local_file_list_4',
+						'itsec_local_file_list_5',
+						'itsec_local_file_list_6',
+					);
+
+					foreach ( $options as $option ) {
+
+						$list = get_site_option( $option );
+
+						if ( $list !== false ) {
+
+							delete_site_option( $option );
+							add_option( $option, $list, '', 'no' );
+
+						}
+
+					}
+
+				}
 
 			}
 

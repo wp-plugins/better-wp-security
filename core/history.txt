@@ -27,3 +27,5 @@
 1.0.6 - 2014-05-03 - Chris Wiegman
 	Execute permanent ban on the correct lockout count, not the next one
 	Updated quick ban rules to match standard ban rules (will work with proxy)
+1.0.7 - 2014-05-03 - Chris Wiegman
+	Update plugin build

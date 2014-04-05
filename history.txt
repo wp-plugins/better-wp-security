@@ -52,3 +52,9 @@
 	Updated rule order on ban users
 	Fixed a bug that could prevent away from from turning off in certain time configurations (this resulted in the return to homepage on login)
 	Updated some function doc
+4.0.15 - 2014-04-05 - Packaging Bot (core)
+	Update plugin build
+4.0.16 - 2014-04-05 - Packaging Bot (modules/free)
+	Fixed bug preventing file change scanning from advancing when chunked
+	Don't autoload file list on non-multisite installations
+	Make sure away mode settings transfer from 3.x or disable away mode

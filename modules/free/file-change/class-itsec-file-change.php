@@ -15,7 +15,7 @@ class ITSEC_File_Change {
 			'file_change.lock',
 			$itsec_globals['ithemes_backup_dir'],
 			$itsec_globals['ithemes_log_dir'],
-		    '.lock',
+			'.lock',
 		);
 
 		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
@@ -51,7 +51,7 @@ class ITSEC_File_Change {
 			define( 'ITSEC_DOING_FILE_CHECK', true );
 
 			//figure out what chunk we're on
-			if ( $scheduled_call !== false && isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
+			if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
 
 				if ( isset( $this->settings['last_chunk'] ) && $this->settings['last_chunk'] !== false && $this->settings['last_chunk'] < 6 ) {
 
@@ -88,6 +88,16 @@ class ITSEC_File_Change {
 			if ( $logged_files === false ) {
 
 				$logged_files = array();
+
+				if ( is_multisite( '' ) ) {
+
+					add_site_option( $db_field, $logged_files );
+
+				} else {
+
+					add_option( $db_field, $logged_files, '', 'no' );
+
+				}
 
 			}
 

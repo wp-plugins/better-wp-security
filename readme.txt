@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 4.0.14
+Stable tag: 4.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,13 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.16 =
+* Fixed bug preventing file change scanning from advancing when chunked
+* Don't autoload file list on non-multisite installations
+* Make sure away mode settings transfer from 3.x or disable away mode
+* Better descriptions on save buttons
+* Admin use "Fix it" Correctly goes to advanced page
 
 = 4.0.14 =
 * Execute permanent ban on the correct lockout count, not the next one
@@ -971,5 +978,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.0.14 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.14 if you are not already on 4.0 or greater.
+= 4.0.16 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.16 if you are not already on 4.0 or greater.

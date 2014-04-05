@@ -99,6 +99,7 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 				global $itsec_bwps_options, $itsec_globals;
 
 				$current_options = get_site_option( 'itsec_away_mode' );
+				$current_time = $itsec_globals['current_time'];
 
 				if ( $current_options === false ) {
 					$current_options = $this->defaults;
@@ -108,12 +109,36 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 				$current_options['type']    = isset( $itsec_bwps_options['am_type'] ) && $itsec_bwps_options['am_type'] == 1 ? 1 : 2;
 
 				if ( isset( $current_options['am_startdate'] ) && isset( $current_options['am_starttime'] ) ) {
-					$current_options['start'] = $current_options['am_startdate'] + $current_options['am_starttime'];
+
+					$current_options['start'] = intval( $current_options['am_startdate'] ) + intval( $current_options['am_starttime'] );
+
+				} elseif ( isset( $current_options['am_starttime'] ) && $current_options['type'] == 1 ) {
+
+					$current_options['start'] = strtotime( date( 'Y-m-d', $current_time ) ) + intval( $current_options['am_starttime'] );
+
+				} else {
+
+					$current_options['enabled'] = false; //didn't have the whole start picture so disable
 
 				}
 
 				if ( isset( $current_options['am_enddate'] ) && isset( $current_options['am_endtime'] ) ) {
-					$current_options['end'] = $current_options['am_enddate'] + $current_options['am_endtime'];
+
+					$current_options['end'] = ( $current_options['am_enddate'] ) + intval( $current_options['am_endtime'] );
+
+				} elseif ( isset( $current_options['am_endtime'] ) && $current_options['type'] == 1 ) {
+
+					$current_options['end'] = strtotime( date( 'Y-m-d', $current_time ) ) + intval( $current_options['am_endtime'] );
+
+				} else {
+
+					$current_options['enabled'] = false; //didn't have the whole start picture so disable
+
+				}
+
+				//make certain we don't have bad start or end.
+				if ( $current_options['start'] == 1 || $current_options['end'] == 1 ) {
+					$input['enabled'] = false;
 				}
 
 				update_site_option( 'itsec_away_mode', $current_options );

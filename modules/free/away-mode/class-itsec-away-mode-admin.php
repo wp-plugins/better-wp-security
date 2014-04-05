@@ -3,11 +3,11 @@
 class ITSEC_Away_Mode_Admin {
 
 	private
-	$settings,
-	$core,
-	$module,
-	$away_file,
-	$module_path;
+		$settings,
+		$core,
+		$module,
+		$away_file,
+		$module_path;
 
 	function __construct( $core, $module ) {
 
@@ -39,10 +39,10 @@ class ITSEC_Away_Mode_Admin {
 		);
 
 		$this->core->add_toc_item(
-			array(
-				'id'    => $id,
-				'title' => $title,
-			)
+		           array(
+			           'id'    => $id,
+			           'title' => $title,
+		           )
 		);
 
 	}
@@ -452,7 +452,7 @@ class ITSEC_Away_Mode_Admin {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save All Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -461,7 +461,7 @@ class ITSEC_Away_Mode_Admin {
 	/**
 	 * Sanitize and validate input
 	 *
-	 * @param Array   $input array of input fields
+	 * @param Array $input array of input fields
 	 *
 	 * @return Array         Sanitized array
 	 */
@@ -586,7 +586,7 @@ class ITSEC_Away_Mode_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param array   $vars tracking vars
+	 * @param array $vars tracking vars
 	 *
 	 * @return array tracking vars
 	 */
