@@ -9,8 +9,8 @@ $htaccess = ITSEC_Lib::get_htaccess();
 	<h4><?php _e( 'User Information', 'it-l10n-better-wp-security' ); ?></h4>
 	<ul>
 		<li><?php _e( 'Public IP Address', 'it-l10n-better-wp-security' ); ?>: <strong><a target="_blank"
-		                                                                        title="<?php _e( 'Get more information on this address', 'it-l10n-better-wp-security' ); ?>"
-		                                                                        href="http://whois.domaintools.com/<?php echo ITSEC_Lib::get_ip(); ?>"><?php echo ITSEC_Lib::get_ip(); ?></a></strong>
+		                                                            title="<?php _e( 'Get more information on this address', 'it-l10n-better-wp-security' ); ?>"
+		                                                            href="http://whois.domaintools.com/<?php echo ITSEC_Lib::get_ip(); ?>"><?php echo ITSEC_Lib::get_ip(); ?></a></strong>
 		</li>
 		<li><?php _e( 'User Agent', 'it-l10n-better-wp-security' ); ?>:
 			<strong><?php echo filter_var( $_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING ); ?></strong></li>
@@ -87,8 +87,8 @@ $htaccess = ITSEC_Lib::get_htaccess();
 	<?php $server_addr = array_key_exists( 'SERVER_ADDR', $_SERVER ) ? $_SERVER['SERVER_ADDR'] : $_SERVER['LOCAL_ADDR']; ?>
 	<ul>
 		<li><?php _e( 'Server / Website IP Address', 'it-l10n-better-wp-security' ); ?>: <strong><a target="_blank"
-		                                                                                  title="<?php _e( 'Get more information on this address', 'it-l10n-better-wp-security' ); ?>"
-		                                                                                  href="http://whois.domaintools.com/<?php echo $server_addr; ?>"><?php echo $server_addr; ?></a></strong>
+		                                                                      title="<?php _e( 'Get more information on this address', 'it-l10n-better-wp-security' ); ?>"
+		                                                                      href="http://whois.domaintools.com/<?php echo $server_addr; ?>"><?php echo $server_addr; ?></a></strong>
 		</li>
 		<li><?php _e( 'Server Type', 'it-l10n-better-wp-security' ); ?>:
 			<strong><?php echo filter_var( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ), FILTER_SANITIZE_STRING ); ?></strong>
@@ -96,6 +96,40 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		<li><?php _e( 'Operating System', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo PHP_OS; ?></strong></li>
 		<li><?php _e( 'Browser Compression Supported', 'it-l10n-better-wp-security' ); ?>:
 			<strong><?php echo filter_var( $_SERVER['HTTP_ACCEPT_ENCODING'], FILTER_SANITIZE_STRING ); ?></strong></li>
+		<?php
+		// from backupbuddy
+
+		$disabled_functions = @ini_get( 'disable_functions' );
+
+		if ( $disabled_functions == '' || $disabled_functions === false ) {
+			$disabled_functions = '<i>(' . __( 'none', 'it-l10n-better-wp-security' ) . ')</i>';
+		}
+
+		$disabled_functions = str_replace( ', ', ',', $disabled_functions ); // Normalize spaces or lack of spaces between disabled functions.
+		$disabled_functions_array = explode( ',', $disabled_functions );
+
+		$php_uid = __( 'unavailable', 'it-l10n-better-wp-security' );
+		$php_user = __( 'unavailable', 'it-l10n-better-wp-security' );
+
+		if ( is_callable( 'posix_geteuid' ) && ( false === in_array( 'posix_geteuid', $disabled_functions_array ) ) ) {
+
+			$php_uid = @posix_geteuid();
+
+			if ( is_callable( 'posix_getpwuid' ) && ( false === in_array( 'posix_getpwuid', $disabled_functions_array ) ) ) {
+
+				$php_user = @posix_getpwuid( $php_uid );
+				$php_user = $php_user['name'];
+
+			}
+		}
+
+		if ( is_callable( 'posix_getegid' ) && ( false === in_array( 'posix_getegid', $disabled_functions_array ) ) ) {
+			$php_gid = @posix_getegid();
+		}
+
+		?>
+		<li><?php _e( 'PHP Process User (UID:GID)', 'it-l10n-better-wp-security' ); ?>:
+			<strong><?php echo $php_user . ' (' . $php_uid . ':' . $php_gid . ')'; ?></strong></li>
 	</ul>
 </li>
 
@@ -240,6 +274,8 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		}
 		?>
 		<li><?php _e( 'PHP Exif Support', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $exif; ?></strong></li>
+		<?php $disabled_functions = str_replace( ',', ', ', $disabled_functions ); // Normalize spaces or lack of spaces between disabled functions. ?>
+		<li><?php _e( 'Disabled PHP Functions', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $disabled_functions; ?></strong></li>
 	</ul>
 </li>
 
@@ -268,6 +304,17 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		<li><?php _e( 'WP Permalink Structure', 'it-l10n-better-wp-security' ); ?>:
 			<strong> <?php echo $copen . $permalink_structure . $cclose; ?></strong></li>
 		<li><?php _e( 'Wp-config Location', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $config_file ?></strong></li>
+		<?php
+
+		$active_plugins_raw = get_option( 'active_plugins' );
+		$active_plugins = '';
+
+		foreach ( $active_plugins_raw as $plugin ) {
+			$active_plugins .= $plugin . ',';
+		}
+
+		?>
+		<li><?php _e( 'Active Plugins', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $active_plugins ?></strong></li>
 	</ul>
 </li>
 <li>

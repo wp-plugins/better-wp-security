@@ -18,7 +18,7 @@ jQuery( document ).ready( function () {
 			jQuery( '#itsec_file_change_warning_dialog' ).remove();
 
 			if ( button == 'View Logs' ) {
-				window.location.replace( '?page=toplevel_page_itsec_logs' )
+				window.location.replace( itsec_file_change_warning.url )
 			}
 
 		} );

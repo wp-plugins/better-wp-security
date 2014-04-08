@@ -52,3 +52,12 @@
 	Fixed bug preventing file change scanning from advancing when chunked
 	Don't autoload file list on non-multisite installations
 	Make sure away mode settings transfer from 3.x or disable away mode
+1.0.9 - 2014-04-08 - Chris Wiegman
+	Make sure unset admin user field remains if the other setting has been fixed
+	Removed admin user from settings table of contents
+	Make sure array input is trimmed in file change module
+	Correct input type on file change settings sanitization
+	Use full URL on file change warning redirect to prevent invalid target
+	Reduce erroneous hide backend change warnings
+	When accessing htaccess or wpconfig make sure opening settings changes are 664 instead of 644 to reduce issues
+	Update hackrepair.com's Agents blacklist

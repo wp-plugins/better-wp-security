@@ -29,3 +29,11 @@
 	Updated quick ban rules to match standard ban rules (will work with proxy)
 1.0.7 - 2014-05-03 - Chris Wiegman
 	Update plugin build
+1.0.8 - 2014-04-08 - Chris Wiegman
+	Make sure global settings save button matches others
+	Fixed link in locout email
+	Email address settings retain end of line
+	Sanitize email addresses on save and not just use
+	Make sure whitelist is actually an array before trying to process
+	Make sure rewrite rules show on dashboard when file writing isnt allowed
+	Added extra information to dashboard server information to help troubleshooting

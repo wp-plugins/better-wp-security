@@ -64,6 +64,7 @@ class ITSEC_File_Change_Admin {
 			'itsec_file_change_warning',
 			array(
 				'nonce' => wp_create_nonce( 'itsec_file_change_warning' ),
+				'url' => admin_url() . 'admin.php?page=toplevel_page_itsec_logs',
 			)
 		);
 
@@ -74,16 +75,16 @@ class ITSEC_File_Change_Admin {
 				'itsec_file_change_js',
 				'itsec_file_change',
 				array(
-					'mem_limit'    => ITSEC_Lib::get_memory_limit(),
-					'text'         => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'it-l10n-better-wp-security' ),
-					'module_path'  => $this->module_path,
-					'button_text' => isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
-					'scanning_button_text'  => __( 'Scanning... (this could take a while on a large site)', 'it-l10n-better-wp-security' ),
-					'no_changes'   => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
-					'changes'      => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
-					'error'        => __( 'An error occured. Please try again later', 'it-l10n-better-wp-security' ),
-					'ABSPATH'      => ABSPATH,
-					'nonce'        => wp_create_nonce( 'itsec_do_file_check' ),
+					'mem_limit'            => ITSEC_Lib::get_memory_limit(),
+					'text'                 => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'it-l10n-better-wp-security' ),
+					'module_path'          => $this->module_path,
+					'button_text'          => isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
+					'scanning_button_text' => __( 'Scanning... (this could take a while on a large site)', 'it-l10n-better-wp-security' ),
+					'no_changes'           => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
+					'changes'              => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
+					'error'                => __( 'An error occured. Please try again later', 'it-l10n-better-wp-security' ),
+					'ABSPATH'              => ABSPATH,
+					'nonce'                => wp_create_nonce( 'itsec_do_file_check' ),
 				)
 			);
 
@@ -748,7 +749,7 @@ class ITSEC_File_Change_Admin {
 		$good_files = array();
 
 		foreach ( $file_list as $file ) {
-			$good_files[] = sanitize_text_field( $file );
+			$good_files[] = sanitize_text_field( trim( $file ) );
 		}
 
 		$input['file_list'] = $good_files;
@@ -756,7 +757,7 @@ class ITSEC_File_Change_Admin {
 		if ( ! is_array( $input['types'] ) ) {
 			$file_types = explode( PHP_EOL, $input['types'] );
 		} else {
-			$file_types = $input['file_list'];
+			$file_types = $input['types'];
 		}
 
 		$good_types = array();
@@ -765,7 +766,7 @@ class ITSEC_File_Change_Admin {
 
 			$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
 
-			$good_types[] = sanitize_text_field( $good_type );
+			$good_types[] = sanitize_text_field( trim( $good_type ) );
 		}
 
 		$input['types'] = $good_types;

@@ -81,7 +81,9 @@ final class ITSEC_Files {
 	 */
 	public function admin_init() {
 
-		if ( $this->rewrites_changed === true ) {
+		global $itsec_globals;
+
+		if ( $this->rewrites_changed === true && isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true ) {
 
 			do_action( 'itsec_pre_save_rewrites' );
 
@@ -111,9 +113,13 @@ final class ITSEC_Files {
 
 			}
 
+		} elseif ( $this->rewrites_changed === true ) {
+
+			add_site_option( 'itsec_manual_update', true );
+
 		}
 
-		if ( $this->config_changed === true ) {
+		if ( $this->config_changed === true && isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true ) {
 
 			do_action( 'itsec_pre_save_configs' );
 
@@ -135,6 +141,10 @@ final class ITSEC_Files {
 				add_site_option( 'itsec_manual_update', true );
 
 			}
+
+		} elseif ( $this->config_changed === true ) {
+
+			add_site_option( 'itsec_manual_update', true );
 
 		}
 
@@ -207,6 +217,16 @@ final class ITSEC_Files {
 	 */
 	public function config_metabox_contents() {
 
+		foreach ( $this->file_modules as $module ) {
+
+			if ( isset( $module['config'] ) ) {
+
+				call_user_func_array( $module['config'], array() );
+
+			}
+
+		}
+
 		$rules_to_write = ''; //String of rules to insert into wp-config
 
 		//build the rules we need to write, replace or delete
@@ -263,7 +283,7 @@ final class ITSEC_Files {
 		$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
 
 		if ( $perms == '0444' ) {
-			@chmod( $htaccess_file, 0644 );
+			@chmod( $htaccess_file, 0664 );
 		}
 
 		//make sure the file exists and create it if it doesn't
@@ -367,7 +387,7 @@ final class ITSEC_Files {
 
 		$this->file_modules = apply_filters( 'itsec_file_modules', $this->file_modules );
 
-		if ( isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true && ( get_site_option( 'itsec_config_changed' ) == '1' || get_site_option( 'itsec_rewrites_changed' ) == '1' ) ) {
+		if ( get_site_option( 'itsec_config_changed' ) == '1' || get_site_option( 'itsec_rewrites_changed' ) == '1' ) {
 
 			$this->rewrites_changed = get_site_option( 'itsec_rewrites_changed' ) == '1' ? true : false;
 			$this->config_changed   = get_site_option( 'itsec_config_changed' ) == '1' ? true : false;
@@ -509,7 +529,7 @@ final class ITSEC_Files {
 				//Make sure we can write to the file
 				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
 
-				@chmod( $htaccess_file, 0644 );
+				@chmod( $htaccess_file, 0664 );
 
 				$htaccess_contents = @file( $htaccess_file );
 
@@ -610,6 +630,16 @@ final class ITSEC_Files {
 	 * @return void
 	 */
 	public function rewrite_metabox_contents() {
+
+		foreach ( $this->file_modules as $module ) {
+
+			if ( isset( $module['rewrite'] ) ) {
+
+				call_user_func_array( $module['rewrite'], array() );
+
+			}
+
+		}
 
 		$rewrite_rules = $this->build_rewrites();
 
@@ -1016,7 +1046,7 @@ final class ITSEC_Files {
 				//Make sure we can write to the file
 				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
 
-				@chmod( $htaccess_file, 0644 );
+				@chmod( $htaccess_file, 0664 );
 
 				if ( ! @file_put_contents( $htaccess_file, $htaccess_contents ) ) {
 
@@ -1181,7 +1211,7 @@ final class ITSEC_Files {
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
 
-			@chmod( $config_file, 0644 );
+			@chmod( $config_file, 0664 );
 
 			if ( ! @file_put_contents( $config_file, $config_contents ) ) {
 

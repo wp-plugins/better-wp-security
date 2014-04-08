@@ -400,7 +400,7 @@ class ITSEC_Setup {
 		$perms = substr( sprintf( '%o', @fileperms( $htaccess ) ), - 4 );
 
 		if ( $perms == '0444' ) {
-			@chmod( $htaccess, 0644 );
+			@chmod( $htaccess, 0664 );
 		}
 
 		flush_rewrite_rules();

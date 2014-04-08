@@ -160,7 +160,6 @@ class ITSEC_Global_Settings {
 
 		if ( isset( $this->settings['backup_email'] ) && is_array( $this->settings['backup_email'] ) ) {
 			$emails = implode( PHP_EOL, $this->settings['backup_email'] );
-			$emails = sanitize_text_field( $emails );
 		} else {
 			$emails = get_option( 'admin_email' );
 		}
@@ -671,7 +670,7 @@ class ITSEC_Global_Settings {
 
 		settings_fields( 'security_page_toplevel_page_itsec_settings' );
 
-		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
+		echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save All Changes', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 		echo '</p>' . PHP_EOL;
 
@@ -709,7 +708,6 @@ class ITSEC_Global_Settings {
 
 		if ( isset( $this->settings['notification_email'] ) && is_array( $this->settings['notification_email'] ) ) {
 			$emails = implode( PHP_EOL, $this->settings['notification_email'] );
-			$emails = sanitize_text_field( $emails );
 		} else {
 			$emails = get_option( 'admin_email' );
 		}
@@ -780,6 +778,7 @@ class ITSEC_Global_Settings {
 		if ( isset( $input['backup_email'] ) ) {
 
 			$bad_emails = array();
+			$emails_to_save = array();
 
 			if ( isset( $input['backup_email'] ) && ! is_array( $input['backup_email'] ) ) {
 				$emails = explode( PHP_EOL, $input['backup_email'] );
@@ -789,9 +788,13 @@ class ITSEC_Global_Settings {
 
 			foreach ( $emails as $email ) {
 
-				if ( is_email( trim( $email ) ) === false ) {
+				$email = sanitize_text_field( trim( $email ) );
+
+				if ( is_email( $email ) === false ) {
 					$bad_emails[] = $email;
 				}
+
+				$emails_to_save[] = $email;
 
 			}
 
@@ -805,12 +808,13 @@ class ITSEC_Global_Settings {
 
 			}
 
-			$input['backup_email'] = $emails;
+			$input['backup_email'] = $emails_to_save;
 		}
 
 		if ( isset( $input['notification_email'] ) ) {
 
 			$bad_emails = array();
+			$emails_to_save = array();
 
 			if ( isset( $input['notification_email'] ) && ! is_array( $input['notification_email'] ) ) {
 				$emails = explode( PHP_EOL, $input['notification_email'] );
@@ -820,9 +824,13 @@ class ITSEC_Global_Settings {
 
 			foreach ( $emails as $email ) {
 
-				if ( is_email( trim( $email ) ) === false ) {
+				$email = sanitize_text_field( trim( $email ) );
+
+				if ( is_email( $email ) === false ) {
 					$bad_emails[] = $email;
 				}
+
+				$emails_to_save[] = $email;
 
 			}
 
@@ -836,11 +844,11 @@ class ITSEC_Global_Settings {
 
 			}
 
-			$input['notification_email'] = $emails;
+			$input['notification_email'] = $emails_to_save;
 		}
 
-		$input['lockout_message']      = isset( $input['lockout_message'] ) ? wp_kses( $input['lockout_message'], $this->allowed_tags ) : '';
-		$input['user_lockout_message'] = isset( $input['user_lockout_message'] ) ? wp_kses( $input['user_lockout_message'], $this->allowed_tags ) : '';
+		$input['lockout_message']          = isset( $input['lockout_message'] ) ? wp_kses( $input['lockout_message'], $this->allowed_tags ) : '';
+		$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? wp_kses( $input['user_lockout_message'], $this->allowed_tags ) : '';
 		$input['blacklist']                = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
 		$input['blacklist_count']          = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
 		$input['blacklist_period']         = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;

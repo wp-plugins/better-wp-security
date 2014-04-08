@@ -39,7 +39,6 @@ if ($http_user_agent ~* "^JetCar"){ return 403; }
 if ($http_user_agent ~* "^kmccrew"){ return 403; }
 if ($http_user_agent ~* "^larbin"){ return 403; }
 if ($http_user_agent ~* "^LeechFTP"){ return 403; }
-if ($http_user_agent ~* "^Link"){ return 403; }
 if ($http_user_agent ~* "^Maxthon$"){ return 403; }
 if ($http_user_agent ~* "^microsoft.url"){ return 403; }
 if ($http_user_agent ~* "^Mozilla.*Indy"){ return 403; }

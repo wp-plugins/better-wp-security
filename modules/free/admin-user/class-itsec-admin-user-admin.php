@@ -36,13 +36,6 @@ class ITSEC_Admin_User_Admin {
 			'core'
 		);
 
-		$this->core->add_toc_item(
-		           array(
-			           'id'    => $id,
-			           'title' => $title,
-		           )
-		);
-
 	}
 
 	/**
@@ -161,12 +154,12 @@ class ITSEC_Admin_User_Admin {
 		if ( ! username_exists( 'admin' ) ) {
 
 			$status_array = 'safe-high';
-			$status = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
+			$status       = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
 
 		} else {
 
 			$status_array = 'high';
-			$status = array( 'text' => __( 'The <em>admin</em> user still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
+			$status       = array( 'text' => __( 'The <em>admin</em> user still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
 
 		}
 
@@ -175,12 +168,12 @@ class ITSEC_Admin_User_Admin {
 		if ( ! ITSEC_Lib::user_id_exists( 1 ) ) {
 
 			$status_array = 'safe-medium';
-			$status = array( 'text' => __( 'The user with id 1 has been removed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
+			$status       = array( 'text' => __( 'The user with id 1 has been removed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
 
 		} else {
 
 			$status_array = 'medium';
-			$status = array( 'text' => __( 'A user with id 1 still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
+			$status       = array( 'text' => __( 'A user with id 1 still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
 
 		}
 
@@ -225,7 +218,7 @@ class ITSEC_Admin_User_Admin {
 	 */
 	public function initialize_admin() {
 
-		if ( ITSEC_Lib::user_id_exists( 1 ) && username_exists( 'admin' ) ) {
+		if ( ITSEC_Lib::user_id_exists( 1 ) || username_exists( 'admin' ) ) {
 			$this->settings = false;
 		} else {
 			$this->settings = true;

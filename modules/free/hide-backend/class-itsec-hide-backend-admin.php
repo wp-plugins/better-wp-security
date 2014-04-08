@@ -577,11 +577,11 @@ class ITSEC_Hide_Backend_Admin {
 
 		} else {
 
-			$input['slug'] = '';
+			$input['post_logout_slug'] = '';
 
 		}
 
-		if ( $input['slug'] != $this->settings['slug'] ) {
+		if ( $input['slug'] != $this->settings['slug'] && $input['enabled'] === true ) {
 			add_site_option( 'itsec_hide_backend_new_slug', $input['slug'] );
 		}
 

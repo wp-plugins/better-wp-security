@@ -179,7 +179,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 					//Make sure we can write to the file
 					$perms = substr( sprintf( '%o', @fileperms( $config_file ) ), - 4 );
 
-					@chmod( $config_file, 0644 );
+					@chmod( $config_file, 0664 );
 
 					add_action( 'admin_init', array( $this, 'flush_rewrite_rules' ) );
 
