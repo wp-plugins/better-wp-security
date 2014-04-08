@@ -75,3 +75,5 @@
 	Make sure whitelist is actually an array before trying to process
 	Make sure rewrite rules show on dashboard when file writing isnt allowed
 	Added extra information to dashboard server information to help troubleshooting
+4.0.19 - 2014-04-08 - Packaging Bot (modules/free)
+	Clean up away mode to prevent lockouts on update or other points

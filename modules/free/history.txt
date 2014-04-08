@@ -61,3 +61,5 @@
 	Reduce erroneous hide backend change warnings
 	When accessing htaccess or wpconfig make sure opening settings changes are 664 instead of 644 to reduce issues
 	Update hackrepair.com's Agents blacklist
+1.0.10 - 2014-04-08 - Chris Wiegman
+	Clean up away mode to prevent lockouts on update or other points
