@@ -280,8 +280,8 @@ class ITSEC_Global_Settings {
 			$infinitewp_compatibility = 0;
 		}
 
-		echo '<input type="checkbox" id="itsec_global_infinitewp_compatibilitys" name="itsec_global[infinitewp_compatibility]" value="1" ' . checked( 1, $infinitewp_compatibility, false ) . '/>';
-		echo '<label for="itsec_global_email_notifications">' . __( 'Enable InfiniteWP Compatibility', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<input type="checkbox" id="itsec_global_infinitewp_compatibility" name="itsec_global[infinitewp_compatibility]" value="1" ' . checked( 1, $infinitewp_compatibility, false ) . '/>';
+		echo '<label for="itsec_global_infinitewp_compatibility">' . __( 'Enable InfiniteWP Compatibility', 'it-l10n-better-wp-security' ) . '</label>';
 		printf(
 			'<p class="description">%s <a href="http://infinitewp.com" target=""_blank">%s</a> %s</p>',
 			__( 'Turning this feature on will enable compatibility with', 'it-l10n-better-wp-security' ),
@@ -500,11 +500,43 @@ class ITSEC_Global_Settings {
 
 		}
 
+		add_settings_field(
+			'itsec_global[lock_file]',
+			__( 'Disable File Locking', 'it-l10n-better-wp-security' ),
+			array( $this, 'lock_file' ),
+			'security_page_toplevel_page_itsec_settings',
+			'global'
+		);
+
 		//Register the settings field for the entire module
 		register_setting(
 			'security_page_toplevel_page_itsec_settings',
 			'itsec_global',
 			array( $this, 'sanitize_module_input' )
+		);
+
+	}
+
+	/**
+	 * echos Lock File Field
+	 *
+	 * @since 4.0.20
+	 *
+	 * @return void
+	 */
+	public function lock_file() {
+
+		if ( isset( $this->settings['lock_file'] ) && $this->settings['lock_file'] === true ) {
+			$lock_file = 1;
+		} else {
+			$lock_file = 0;
+		}
+
+		echo '<input type="checkbox" id="itsec_global_lock_file" name="itsec_global[lock_file]" value="1" ' . checked( 1, $lock_file, false ) . '/>';
+		echo '<label for="itsec_global_lock_file">' . __( 'Disable File Locking', 'it-l10n-better-wp-security' ) . '</label>';
+		printf(
+			'<p class="description">%s</p>',
+			__( 'Turning this option on will prevent errors related to file locking however might result in operations being executed twice. We do not recommend turning this off unless your host prevents the file locking feature from working correctly.', 'it-l10n-better-wp-security' )
 		);
 
 	}
@@ -860,6 +892,7 @@ class ITSEC_Global_Settings {
 		$input['nginx_file']               = isset( $input['nginx_file'] ) ? sanitize_text_field( $input['nginx_file'] ) : ABSPATH . 'nginx.conf';
 		$input['infinitewp_compatibility'] = ( isset( $input['infinitewp_compatibility'] ) && intval( $input['infinitewp_compatibility'] == 1 ) ? true : false );
 		$input['log_info']                 = $itsec_globals['settings']['log_info'];
+		$input['lock_file'] = ( isset( $input['lock_file'] ) && intval( $input['lock_file'] == 1 ) ? true : false );
 
 		$input['log_location'] = isset( $input['log_location'] ) ? sanitize_text_field( $input['log_location'] ) : $itsec_globals['ithemes_log_dir'];
 

@@ -23,8 +23,12 @@ class ITSEC_Tweaks {
 			remove_action( 'wp_head', 'rsd_link' );
 		}
 
-		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == true ) {
+		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 2 ) {
 			add_filter( 'bloginfo_url', array( $this, 'remove_pingback_url' ), 10, 2 );
+		}
+
+		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 1 ) {
+			add_filter( 'xmlrpc_methods', array( $this, 'xmlrpc_methods' ) );
 		}
 
 		//ban extra-long urls if turned on
@@ -312,6 +316,29 @@ class ITSEC_Tweaks {
 			wp_clear_scheduled_hook( 'wp_update_themes' );
 
 		}
+
+	}
+
+	/**
+	 * Removes the pingback ability from XMLRPC
+	 *
+	 * @since 4.0.20
+	 *
+	 * @param array $methods XMLRPC methods
+	 *
+	 * @return array XMLRPC methods
+	 */
+	public function xmlrpc_methods( $methods ) {
+
+		if ( isset( $methods['pingback.ping'] ) ) {
+			unset( $methods['pingback.ping'] );
+		}
+
+		if ( isset( $methods['pingback.extensions.getPingbacks'] ) ) {
+			unset( $methods['pingback.extensions.getPingbacks'] );
+		}
+
+		return $methods;
 
 	}
 

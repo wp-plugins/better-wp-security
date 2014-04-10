@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 4.0.19
+Stable tag: 4.0.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,8 @@ For complete site backups and the ability to restore or move WordPress easily, c
 
 = Translations =
 
+* Spanish by <a href="http://www.webhostinghub.com/">Andrew Kurtis</a>
+
 Please <a href="http://ithemes.com/contact" target="_blank">let us know</a> if you would like to contribute a translation.
 
 = Warning =
@@ -158,6 +160,22 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.21 =
+* Added ability to "soft" block XMLRPC to prevent pingback vulnerability while still allowing other access
+* Updated "Suspicious queary strings" to not block plugin updates
+* Update NGINX comment spam rewrite rules to better work with multi-site domain mapping
+* Move 404 hook in hide backend from wp to wp_loaded
+* Make sure super-admin role is maintained on multi-site when changing user id 1 and admin username at the same time
+* Make sure all redirects for hide backend and ssl are 302, not 301
+* Better resetting of SSL and disallow file editor on deactivation to account for more states
+* Make sure hide backend works with registration
+* Minor copy and other fixes
+* Update nginx rewrite rule on comment spam when domain mapping is active
+* Added the ability to disable file locking (old behavior)
+* Better file lock release (try more than 1 method) before failing
+* Don't automatically show file lock error on first attempt
+* Added Spanish translation by <a href="http://www.webhostinghub.com/">Andrew Kurtis</a>
 
 = 4.0.19 =
 * Clean up away mode to prevent lockouts on update or other points
@@ -998,5 +1016,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.0.19 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.19 if you are not already on 4.0 or greater.
+= 4.0.21 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.21 if you are not already on 4.0 or greater.

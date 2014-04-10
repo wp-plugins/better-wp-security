@@ -77,3 +77,7 @@
 	Added extra information to dashboard server information to help troubleshooting
 4.0.19 - 2014-04-08 - Packaging Bot (modules/free)
 	Clean up away mode to prevent lockouts on update or other points
+4.0.20 - 2014-04-10 - Packaging Bot (core)
+	Updated core to version 1.0.9
+4.0.21 - 2014-04-10 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.0.11

@@ -415,8 +415,12 @@ final class ITSEC_Files {
 
 		clearstatcache();
 
-		$lock_file = $itsec_globals['ithemes_dir'] . '/' . sanitize_text_field( $lock_file ) . '.lock';
-		$dir_age   = @filectime( $lock_file );
+		if ( isset( $itsec_globals['settings']['lock_file'] ) && $itsec_globals['settings']['lock_file'] === true ) {
+			return true;
+		}
+
+		$lock_file    = $itsec_globals['ithemes_dir'] . '/' . sanitize_text_field( $lock_file ) . '.lock';
+		$dir_age      = @filectime( $lock_file );
 
 		if ( @mkdir( $lock_file ) === false ) {
 
@@ -432,6 +436,10 @@ final class ITSEC_Files {
 					return false;
 
 				}
+
+			} else {
+
+				return false;
 
 			}
 
@@ -603,9 +611,35 @@ final class ITSEC_Files {
 
 		global $itsec_globals;
 
+		if ( isset( $itsec_globals['settings']['lock_file'] ) && $itsec_globals['settings']['lock_file'] === true ) {
+			return true;
+		}
+
 		$lock_file = $itsec_globals['ithemes_dir'] . '/' . sanitize_text_field( $lock_file ) . '.lock';
 
-		return @rmdir( $lock_file );
+		if ( ! is_dir( $lock_file ) ) {
+
+			return true;
+
+		} else {
+
+			if ( ! @rmdir( $lock_file ) ) {
+
+				@chmod( $itsec_globals['ithemes_dir'], 0775 );
+
+				if ( file_exists( $lock_file . '/Thumbs.db' ) ) {
+					unlink( $lock_file . '/Thumbs.db' );
+				}
+
+				return @rmdir( $lock_file );
+
+			} else {
+
+				return true;
+
+			}
+
+		}
 
 	}
 
@@ -726,7 +760,7 @@ final class ITSEC_Files {
 
 					return array(
 						'success' => false,
-						'text'    => __( 'Unable to release a lock on your .htaccess or nginx.conf file. If the problem persists contact support.', 'it-l10n-better-wp-security' ),
+						'text'    => __( 'It looks like we have not been able to release the lock file on your computer. Most likely this is due to folder permissions on your computer. You can manually delete and folders with the ".lock" extension in ', 'it-l10n-better-wp-security' ) . $itsec_globals['ithemes_dir'] . __( ' and make sure that the folder allows for the creation AND deletion of subfolders. If the issue continues please contact your web host. This message is advisory only and should not affect the functionality of the plugin.', 'it-l10n-better-wp-security' ),
 					);
 
 				} else {

@@ -42,6 +42,7 @@ class ITSEC_Setup {
 			'nginx_file'               => ABSPATH . 'nginx.conf',
 			'infinitewp_compatibility' => false,
 			'did_upgrade'              => false,
+			'lock_file' => false,
 		);
 
 		if ( ! $case ) {
@@ -392,6 +393,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_rewrites_changed' );
 		delete_site_option( 'itsec_config_changed' );
 		delete_site_option( 'itsec_had_other_version' );
+		delete_site_option( 'itsec_no_file_lock_release' );
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
 
 		$htaccess = ITSEC_Lib::get_htaccess();

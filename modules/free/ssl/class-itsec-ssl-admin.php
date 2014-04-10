@@ -367,8 +367,8 @@ class ITSEC_SSL_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param  array $input       options to build rules from
-	 * @param bool $deactivation whether or not we're deactivating
+	 * @param  array $input        options to build rules from
+	 * @param bool   $deactivation whether or not we're deactivating
 	 *
 	 * @return array         rules to write
 	 */
@@ -377,23 +377,44 @@ class ITSEC_SSL_Admin {
 		//Return options to default on deactivation
 		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
 
-			$input       = array();
-			$rules_array = array();
-
+			$input        = array();
 			$deactivating = true;
+			$initials     = get_site_option( 'itsec_initials' );
 
-			$initials = get_site_option( 'itsec_initials' );
+			if ( isset( $initials['login'] ) && $initials['login'] === false && defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) { //initially off, now on
 
-			if ( isset( $initials['login'] ) && $initials['login'] === false ) {
 				$input['login'] = false;
-			} else {
+
+			} elseif ( isset( $initials['login'] ) && $initials['login'] === true && ( ! defined( 'FORCE_SSL_LOGIN' ) || FORCE_SSL_LOGIN === false ) ) { //initially on, now off
+
 				$input['login'] = true;
+
+			} elseif ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) { //no initial state, now on
+
+				$input['login'] = true;
+
+			} else { //no initial state or other info. Set off
+
+				$input['login'] = false;
+
 			}
 
-			if ( isset( $initials['admin'] ) && $initials['admin'] === false ) {
+			if ( isset( $initials['admin'] ) && $initials['admin'] === false && defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) { //initially off, now on
+
 				$input['admin'] = false;
-			} else {
+
+			} elseif ( isset( $initials['admin'] ) && $initials['admin'] === true && ( ! defined( 'FORCE_SSL_ADMIN' ) || FORCE_SSL_ADMIN === false ) ) { //initially on, now off
+
 				$input['admin'] = true;
+
+			} elseif ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) { //no initial state, now on
+
+				$input['admin'] = true;
+
+			} else { //no initial state or other info. Set off
+
+				$input['admin'] = false;
+
 			}
 
 		} else {
@@ -478,7 +499,7 @@ class ITSEC_SSL_Admin {
 	public function register_file( $file_modules ) {
 
 		$file_modules['ssl'] = array(
-			'config'  => array( $this, 'save_config_rules' ),
+			'config' => array( $this, 'save_config_rules' ),
 		);
 
 		return $file_modules;

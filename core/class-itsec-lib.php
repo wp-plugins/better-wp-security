@@ -218,11 +218,21 @@ final class ITSEC_Lib {
 		// because they aren't coming from the "top-level" domain. blog_id 1, the parent site,
 		// is a completely different, unrelated domain in this configuration.
 		if ( is_multisite() && function_exists( 'domain_mapping_warning' ) ) {
-			return $wc;
+
+			if ( $apache == true ) {
+				return $wc;
+			} else {
+				return '*';
+			}
+
 		} elseif ( isset( $matches[0] ) ) {
+
 			return $wc . $matches[0];
+
 		} else {
+
 			return false;
+
 		}
 
 	}
@@ -572,6 +582,10 @@ final class ITSEC_Lib {
 		global $wp_query;
 
 		status_header( 404 );
+
+		if ( function_exists( 'nocache_headers' ) ) {
+			nocache_headers();
+		}
 
 		$wp_query->set_404();
 		$page_404 = get_404_template();

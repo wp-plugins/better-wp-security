@@ -63,3 +63,15 @@
 	Update hackrepair.com's Agents blacklist
 1.0.10 - 2014-04-08 - Chris Wiegman
 	Clean up away mode to prevent lockouts on update or other points
+1.0.11 - 2014-04-10 - Chris Wiegman
+	Added ability to "soft" block XMLRPC to prevent pingback vulnerability while still allowing other access
+	Updated "Suspicious queary strings" to not block plugin updates
+	Update NGINX comment spam rewrite rules to better work with multi-site domain mapping
+	Move 404 hook in hide backend from wp to wp_loaded
+	Make sure super-admin role is maintained on multi-site when changing user id 1 and admin username at the same time
+	Make sure all redirects for hide backend and ssl are 302, not 301
+	Better resetting of SSL and disallow file editor on deactivation to account for more states
+	Make sure hide backend works with registration
+	Minor copy and other fixes
+
+

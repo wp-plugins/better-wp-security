@@ -22,8 +22,6 @@ class ITSEC_Hide_Backend {
 
 			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 
-			require( dirname( __FILE__ ) . '/function-auth-redirect.php' );
-
 		}
 
 	}
@@ -33,7 +31,14 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public function execute_hide_backend() {
+	public
+	function execute_hide_backend() {
+
+		if ( get_site_option( 'users_can_register' ) == 1 && isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . $this->settings['register'] ) {
+			$t = wp_login_url() . '?action=register';
+			wp_redirect( wp_login_url() . '?action=register' );
+			exit;
+		}
 
 		//redirect wp-admin and wp-register.php to 404 when not logged in
 		if (
@@ -64,12 +69,12 @@ class ITSEC_Hide_Backend {
 
 			if ( isset( $this->settings['theme_compat'] ) && $this->settings['theme_compat'] === true ) { //theme compat (process theme and redirect to a 404)
 
-				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' ), 301 );
+				wp_redirect( ITSEC_Lib::get_home_root() . sanitize_title( isset( $this->settings['theme_compat_slug'] ) ? $this->settings['theme_compat_slug'] : 'not_found' ), 302 );
 				exit;
 
 			} else { //just set the current page as a 404
 
-				add_action( 'wp', array( $this, 'set_404' ) );
+				add_action( 'wp_loaded', array( $this, 'set_404' ) );
 
 			}
 
@@ -140,7 +145,8 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public function execute_hide_backend_login() {
+	public
+	function execute_hide_backend_login() {
 
 		if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) { //are we on the login page
 
@@ -161,7 +167,8 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return string       Correct redirect URL
 	 */
-	public function filter_login_url( $url ) {
+	public
+	function filter_login_url( $url ) {
 
 		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
@@ -174,7 +181,8 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public function plugins_loaded() {
+	public
+	function plugins_loaded() {
 
 		if ( isset( $_GET['action'] ) && sanitize_text_field( $_GET['action'] ) == 'logout' ) {
 
@@ -221,7 +229,8 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public function set_404() {
+	public
+	function set_404() {
 
 		ITSEC_Lib::set_404();
 

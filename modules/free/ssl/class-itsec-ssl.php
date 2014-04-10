@@ -73,7 +73,7 @@ class ITSEC_SSL {
 			if ( ( $require_ssl == 1 && $this->is_ssl() === false ) || ( $require_ssl != 1 && $this->is_ssl() === true ) ) {
 
 				$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-				wp_redirect( $href, 301 );
+				wp_redirect( $href, 302 );
 
 			}
 
@@ -82,7 +82,7 @@ class ITSEC_SSL {
 			if ( ( $this->settings['frontend'] == 2 && ! $this->is_ssl() ) || ( ( $this->settings['frontend'] == 0 || $this->settings['frontend'] == 1 ) && $this->is_ssl() ) ) {
 
 				$href = ( $_SERVER['SERVER_PORT'] == '443' ? 'http' : 'https' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-				wp_redirect( $href, 301 );
+				wp_redirect( $href, 302 );
 
 			}
 
