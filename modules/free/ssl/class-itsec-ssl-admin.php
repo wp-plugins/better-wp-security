@@ -115,7 +115,7 @@ class ITSEC_SSL_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_ssl_js', $this->module_path . 'js/admin-ssl.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_ssl_js', $this->module_path . 'js/admin-ssl.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 			//make sure the text of the warning is translatable
 			wp_localize_script( 'itsec_ssl_js', 'ssl_warning_text', array( 'text' => __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress Dashboard.', 'it-l10n-better-wp-security' ) ) );
@@ -348,6 +348,8 @@ class ITSEC_SSL_Admin {
 
 		}
 
+		$content .= '<p>' . __( 'Note: When turning SSL on you will be logged out and you will have to log back in. This is to prevent possible cookie conflicts that could make it more difficult to get in otherwise.', 'it-l10n-better-wp-security' ) . '</p>';
+
 		echo $content;
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'ssl_settings', false );
@@ -522,6 +524,10 @@ class ITSEC_SSL_Admin {
 		if ( $input['login'] !== $this->settings['login'] || $input['admin'] !== $this->settings['admin'] ) {
 
 			add_site_option( 'itsec_config_changed', true );
+
+			if ( $input['admin'] === true || $input['admin'] === true ) {
+				add_site_option( 'itsec_clear_login', true );
+			}
 
 		}
 

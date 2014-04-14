@@ -73,5 +73,12 @@
 	Better resetting of SSL and disallow file editor on deactivation to account for more states
 	Make sure hide backend works with registration
 	Minor copy and other fixes
+1.0.12 - 2014-04-14 - Chris Wiegman
+	Fix sorting by count in 404 Logs
+	Minor code cleanup
+    Make sure all wp_enqueue_script dependencies are in proper format
+    Reduce priority of hide backend init for better compatibility with other plugins
+    SSL now logs users out when activating to prevent cookie conflicts
+
 
 

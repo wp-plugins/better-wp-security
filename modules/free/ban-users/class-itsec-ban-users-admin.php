@@ -58,7 +58,7 @@ class ITSEC_Ban_Users_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_ban_users_js', $this->module_path . 'js/admin-ban_users.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_ban_users_js', $this->module_path . 'js/admin-ban_users.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 		}
 

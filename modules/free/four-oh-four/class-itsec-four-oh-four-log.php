@@ -154,7 +154,7 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 
 			if ( isset( $table_data[$item['log_url']] ) ) {
 
-				$table_data[$item['log_url']]['id'] = $item['log_id'];
+				$table_data[$item['log_url']]['id']         = $item['log_id'];
 				$table_data[$item['log_url']]['count']      = $table_data[$item['log_url']]['count'] + 1;
 				$table_data[$item['log_url']]['last_time']  = strtotime( $table_data[$item['log_url']]['last_time'] ) > strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['last_time'] : sanitize_text_field( $item['log_date'] );
 				$table_data[$item['log_url']]['first_time'] = strtotime( $table_data[$item['log_url']]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['first_time'] : sanitize_text_field( $item['log_date'] );
@@ -162,7 +162,7 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 
 			} else {
 
-				$table_data[$item['log_url']]['id'] = $item['log_id'];
+				$table_data[$item['log_url']]['id']         = $item['log_id'];
 				$table_data[$item['log_url']]['count']      = 1;
 				$table_data[$item['log_url']]['last_time']  = sanitize_text_field( $item['log_date'] );
 				$table_data[$item['log_url']]['first_time'] = sanitize_text_field( $item['log_date'] );
@@ -208,8 +208,22 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 		// If no order, default to desc
 		$order = ( ! empty( $_GET['order'] ) ) ? esc_attr( $_GET['order'] ) : 'desc';
 
-		// Determine sort order
-		$result = strcmp( $a[$orderby], $b[$orderby] );
+		if ( $orderby == 'count' ) {
+
+			if ( intval( $a[$orderby] )  < intval ( $b[$orderby] ) ) {
+				$result  = -1;
+			} elseif( intval( $a[$orderby] ) === intval( $b[$orderby] ) ) {
+				$result  = 0;
+			} else {
+				$result  = 1;
+			}
+
+		} else {
+
+			// Determine sort order
+			$result = strcmp( $a[$orderby], $b[$orderby] );
+
+		}
 
 		// Send final sort direction to usort
 		return ( $order === 'asc' ) ? $result : - $result;

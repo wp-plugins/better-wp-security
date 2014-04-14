@@ -86,7 +86,7 @@ class ITSEC_Hide_Backend_Admin {
 				__( 'Please note this may be different than what you sent as the URL was sanitized to meet various requirements.', 'it-l10n-better-wp-security' )
 			);
 
-			wp_enqueue_script( 'itsec_hide_backend_js', $this->module_path . 'js/admin-hide-backend.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_hide_backend_js', $this->module_path . 'js/admin-hide-backend.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 			wp_localize_script(
 				'itsec_hide_backend_js',
 				'itsec_hide_backend',

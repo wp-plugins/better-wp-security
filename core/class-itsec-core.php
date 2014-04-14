@@ -39,7 +39,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * @access private
 		 *
 		 * @param string $plugin_file the main plugin file
-		 * @param string @plugin_name The plugin name
+		 * @param        string       @plugin_name The plugin name
 		 *
 		 */
 		function __construct( $plugin_file, $plugin_name ) {
@@ -53,7 +53,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build' => 4028, //plugin build number - used to trigger updates
+				'plugin_build'       => 4028, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -95,25 +95,25 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					'priority' => 1,
 					'title'    => __( 'Settings', 'it-l10n-better-wp-security' ),
 					'slug'     => 'settings',
-					'has_tab' => true,
+					'has_tab'  => true,
 				),
 				array(
 					'priority' => 5,
 					'title'    => __( 'Advanced', 'it-l10n-better-wp-security' ),
 					'slug'     => 'advanced',
-					'has_tab' => true,
+					'has_tab'  => true,
 				),
 				array(
 					'priority' => 15,
 					'title'    => __( 'Logs', 'it-l10n-better-wp-security' ),
 					'slug'     => 'logs',
-					'has_tab' => true,
+					'has_tab'  => true,
 				),
 				array(
 					'priority' => 20,
 					'title'    => __( 'Help', 'it-l10n-better-wp-security' ),
 					'slug'     => 'help',
-					'has_tab' => true,
+					'has_tab'  => true,
 				),
 			);
 
@@ -159,7 +159,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-logger.php' );
-				$itsec_logger = new ITSEC_Logger( $this );
+				$itsec_logger = new ITSEC_Logger();
 
 			}
 
@@ -260,11 +260,11 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//see if the saved build version is older than the current build version
 			if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $itsec_globals['plugin_build'] ) {
-				add_action ( 'plugins_loaded', array( $this, 'execute_upgrade' ) );
+				add_action( 'plugins_loaded', array( $this, 'execute_upgrade' ) );
 			}
 
 			//See if they're upgrade from Better WP Security
-			if ( is_multisite() && isset( $itsec_globals['settings']['did_upgrade'] ) && $itsec_globals['settings']['did_upgrade'] === true  ) {
+			if ( is_multisite() && isset( $itsec_globals['settings']['did_upgrade'] ) && $itsec_globals['settings']['did_upgrade'] === true ) {
 
 				switch_to_blog( 1 );
 
@@ -632,7 +632,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				wp_enqueue_script( 'jquery-ui-dialog' );
 				wp_enqueue_style( 'jquery-ui-tabs' );
 				wp_enqueue_style( 'wp-jquery-ui-dialog' );
-				wp_enqueue_script( 'itsec_dashboard_js', $itsec_globals['plugin_url'] . 'core/js/admin-dashboard.js', 'jquery' );
+				wp_enqueue_script( 'itsec_dashboard_js', $itsec_globals['plugin_url'] . 'core/js/admin-dashboard.js', array( 'jquery' ) );
 				wp_localize_script( 'itsec_dashboard_js', 'itsec_dashboard', array(
 					'text' => __( 'Show Intro', 'it-l10n-better-wp-security' ),
 				) );
@@ -644,7 +644,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					wp_localize_script( 'itsec_modal', 'itsec_tooltip_text', array(
 						'nonce'    => wp_create_nonce( 'itsec_tooltip_nonce' ),
 						'messages' => $messages,
-						'title' => __( 'Important First Steps', 'it-l10n-better-wp-security' ),
+						'title'    => __( 'Important First Steps', 'it-l10n-better-wp-security' ),
 					) );
 
 				}
@@ -934,7 +934,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$this->tooltip_modules = apply_filters( 'itsec_tooltip_modules', $this->tooltip_modules );
 			$this->tracking_vars   = apply_filters( 'itsec_tracking_vars', $this->tracking_vars );
 			$this->one_click       = apply_filters( 'itsec_one_click_settings', $this->one_click );
-			$this->pages = apply_filters( 'itsec_pages', $this->pages );
+			$this->pages           = apply_filters( 'itsec_pages', $this->pages );
 
 			uasort( $this->pages, array( $this, 'sort_pages' ) );
 

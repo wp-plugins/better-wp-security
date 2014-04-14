@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.0.21\n"
+"Project-Id-Version: iThemes Security 4.0.23\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-04-10 19:09:10+00:00\n"
+"POT-Creation-Date: 2014-04-14 18:17:10+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.21)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.23)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:21
 msgid "iThemes Security"
@@ -289,26 +289,26 @@ msgstr ""
 msgid "wp-config.php Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:257 core/class-itsec-files.php:695
+#: core/class-itsec-files.php:269 core/class-itsec-files.php:705
 msgid "There are no rules to write."
 msgstr ""
 
-#: core/class-itsec-files.php:744
+#: core/class-itsec-files.php:754
 msgid "Your rewrite rules have been saved to"
 msgstr ""
 
-#: core/class-itsec-files.php:746
+#: core/class-itsec-files.php:756
 msgid "You must restart your NGINX server for the settings to take effect"
 msgstr ""
 
-#: core/class-itsec-files.php:763
+#: core/class-itsec-files.php:773
 msgid ""
 "It looks like we have not been able to release the lock file on your "
 "computer. Most likely this is due to folder permissions on your computer. "
 "You can manually delete and folders with the \".lock\" extension in "
 msgstr ""
 
-#: core/class-itsec-files.php:763
+#: core/class-itsec-files.php:773
 msgid ""
 " and make sure that the folder allows for the creation AND deletion of "
 "subfolders. If the issue continues please contact your web host. This "
@@ -316,13 +316,13 @@ msgid ""
 "plugin."
 msgstr ""
 
-#: core/class-itsec-files.php:770
+#: core/class-itsec-files.php:780
 msgid ""
 "Unable to write to your .htaccess or nginx.conf file. If the problem "
 "persists contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:779
+#: core/class-itsec-files.php:789
 msgid ""
 "WordPress was unable to save the your options to .htaccess or nginx.conf "
 "file. It looks like another process might already be working on the file. "
@@ -330,19 +330,19 @@ msgid ""
 "persists."
 msgstr ""
 
-#: core/class-itsec-files.php:838
+#: core/class-itsec-files.php:848
 msgid ""
 "Unable to release a lock on your wp-config.php file. If the problem persists "
 "contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:845
+#: core/class-itsec-files.php:855
 msgid ""
 "Unable to write to your wp-config.php file. If the problem persists contact "
 "support."
 msgstr ""
 
-#: core/class-itsec-files.php:854
+#: core/class-itsec-files.php:864
 msgid ""
 "WordPress was unable to save the your options to wp-config.php. It looks "
 "like another process might already be working on the file. Please wait a few "
@@ -666,7 +666,7 @@ msgstr ""
 #: modules/free/file-change/class-itsec-file-change-admin.php:618
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:343
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:497
-#: modules/free/ssl/class-itsec-ssl-admin.php:359
+#: modules/free/ssl/class-itsec-ssl-admin.php:361
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:198
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1579
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1602
@@ -778,7 +778,7 @@ msgstr ""
 #: modules/free/file-change/class-itsec-file-change-admin.php:808
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:467
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:669
-#: modules/free/ssl/class-itsec-ssl-admin.php:575
+#: modules/free/ssl/class-itsec-ssl-admin.php:581
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:261
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1781
 msgid "Security error!"
@@ -1045,49 +1045,49 @@ msgstr ""
 msgid "Data"
 msgstr ""
 
-#: core/class-itsec-logger.php:81
+#: core/class-itsec-logger.php:78
 msgid "Security Logs"
 msgstr ""
 
-#: core/class-itsec-logger.php:111
+#: core/class-itsec-logger.php:108
 msgid "All Logged Items"
 msgstr ""
 
-#: core/class-itsec-logger.php:259
+#: core/class-itsec-logger.php:256
 msgid "Below are various logs of information collected by"
 msgstr ""
 
-#: core/class-itsec-logger.php:261
+#: core/class-itsec-logger.php:258
 msgid ""
 "This information can help you get a picture of what is happening with your "
 "site and the level of success you have achieved in your security efforts."
 msgstr ""
 
-#: core/class-itsec-logger.php:279
+#: core/class-itsec-logger.php:276
 msgid ""
 "Below is the log of all the log items in your WordPress Database. To adjust "
 "logging options visit the global settings page."
 msgstr ""
 
-#: core/class-itsec-logger.php:294
+#: core/class-itsec-logger.php:291
 msgid "Log Summary"
 msgstr ""
 
-#: core/class-itsec-logger.php:298
+#: core/class-itsec-logger.php:295
 msgid "Your database contains"
 msgstr ""
 
-#: core/class-itsec-logger.php:299
+#: core/class-itsec-logger.php:296
 msgid "log entries."
 msgstr ""
 
-#: core/class-itsec-logger.php:302
+#: core/class-itsec-logger.php:299
 msgid ""
 "Use the button below to purge the log table in your database. Please note "
 "this will purge all log entries in the database including 404s."
 msgstr ""
 
-#: core/class-itsec-logger.php:305
+#: core/class-itsec-logger.php:302
 msgid "Clear Logs"
 msgstr ""
 
@@ -3288,6 +3288,13 @@ msgid ""
 "Your server does appear to support SSL. Using these features without SSL "
 "support on your server or host will cause some or all of your site to become "
 "unavailable."
+msgstr ""
+
+#: modules/free/ssl/class-itsec-ssl-admin.php:351
+msgid ""
+"Note: When turning SSL on you will be logged out and you will have to log "
+"back in. This is to prevent possible cookie conflicts that could make it "
+"more difficult to get in otherwise."
 msgstr ""
 
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:28

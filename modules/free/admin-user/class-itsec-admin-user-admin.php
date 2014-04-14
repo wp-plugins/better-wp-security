@@ -49,7 +49,7 @@ class ITSEC_Admin_User_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_admin_user_js', $this->module_path . 'js/admin-admin-user.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_admin_user_js', $this->module_path . 'js/admin-admin-user.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 		}
 

@@ -136,6 +136,18 @@ final class ITSEC_Files {
 
 				}
 
+				if ( get_site_option( 'itsec_clear_login' ) == 1 ) {
+
+					delete_site_option( 'itsec_clear_login' );
+
+					wp_clear_auth_cookie();
+
+					$redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '/wp-login.php?loggedout=true';
+					wp_safe_redirect( $redirect_to );
+					exit();
+
+				}
+
 			} else {
 
 				add_site_option( 'itsec_manual_update', true );
@@ -324,7 +336,7 @@ final class ITSEC_Files {
 
 			$htaccess_contents = implode( PHP_EOL, $lines );
 
-			if ( ! @file_put_contents( $htaccess_file, $htaccess_contents ) ) {
+			if ( ! @file_put_contents( $htaccess_file, $htaccess_contents, LOCK_EX ) ) {
 				return false;
 			}
 
@@ -382,8 +394,6 @@ final class ITSEC_Files {
 	 * @return void
 	 */
 	public function file_writer_init() {
-
-		global $itsec_globals;
 
 		$this->file_modules = apply_filters( 'itsec_file_modules', $this->file_modules );
 
@@ -1082,7 +1092,7 @@ final class ITSEC_Files {
 
 				@chmod( $htaccess_file, 0664 );
 
-				if ( ! @file_put_contents( $htaccess_file, $htaccess_contents ) ) {
+				if ( ! @file_put_contents( $htaccess_file, $htaccess_contents, LOCK_EX ) ) {
 
 					//reset file permissions if we changed them
 					if ( $perms == '0444' ) {
@@ -1247,7 +1257,7 @@ final class ITSEC_Files {
 
 			@chmod( $config_file, 0664 );
 
-			if ( ! @file_put_contents( $config_file, $config_contents ) ) {
+			if ( ! @file_put_contents( $config_file, $config_contents, LOCK_EX ) ) {
 
 				//reset file permissions if we changed them
 				if ( $perms == '0444' ) {

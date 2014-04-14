@@ -52,7 +52,7 @@ class ITSEC_Content_Directory_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_content_directory_js', $this->module_path . 'js/admin-content_directory.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_content_directory_js', $this->module_path . 'js/admin-content_directory.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 		}
 

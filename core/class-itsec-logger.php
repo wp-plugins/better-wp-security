@@ -9,17 +9,14 @@
 final class ITSEC_Logger {
 
 	private
-		$core,
 		$log_file,
 		$logger_modules,
 		$metaboxes,
 		$module_path;
 
-	function __construct( $core ) {
+	function __construct() {
 
 		global $itsec_globals;
-
-		$this->core = $core;
 
 		//make sure the log file info is there or generate it. This should only affect beta users.
 		if ( ! isset( $itsec_globals['settings']['log_info'] ) ) {

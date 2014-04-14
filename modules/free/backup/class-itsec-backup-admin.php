@@ -109,8 +109,8 @@ class ITSEC_Backup_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_backup_js', $this->module_path . 'js/admin-backup.js', 'jquery', $itsec_globals['plugin_build'] );
-			wp_enqueue_script( 'jquery_multiselect', $this->module_path . 'js/jquery.multi-select.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_backup_js', $this->module_path . 'js/admin-backup.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'jquery_multiselect', $this->module_path . 'js/jquery.multi-select.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 			wp_register_style( 'itsec_ms_styles', $this->module_path . 'css/multi-select.css' ); //add multi-select css
 			wp_enqueue_style( 'itsec_ms_styles' );

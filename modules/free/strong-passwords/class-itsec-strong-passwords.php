@@ -103,7 +103,7 @@ class ITSEC_Strong_Passwords {
 
 		if ( $this->settings['enabled'] === true ) {
 
-			wp_enqueue_script( 'itsec_strong_passwords', $this->module_path . 'js/strong-passwords.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_strong_passwords', $this->module_path . 'js/strong-passwords.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 			//make sure the text of the warning is translatable
 			wp_localize_script( 'itsec_strong_passwords', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'it-l10n-better-wp-security' ) ) );

@@ -56,7 +56,7 @@ class ITSEC_Strong_Passwords_Admin {
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false ) {
 
-			wp_enqueue_script( 'itsec_strong_passwords_js', $this->module_path . 'js/admin-strong-passwords.js', 'jquery', $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_strong_passwords_js', $this->module_path . 'js/admin-strong-passwords.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
 		}
 

@@ -12,7 +12,7 @@ class ITSEC_Hide_Backend {
 		//Execute module functions on frontend init
 		if ( $this->settings['enabled'] === true ) {
 
-			add_action( 'init', array( $this, 'execute_hide_backend' ) );
+			add_action( 'init', array( $this, 'execute_hide_backend' ), 1000 );
 			add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
