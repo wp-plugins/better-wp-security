@@ -7,7 +7,7 @@ class ITSEC_Hide_Backend_Admin {
 		$core,
 		$module_path;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 
@@ -298,7 +298,7 @@ class ITSEC_Hide_Backend_Admin {
 
 			$content = '<input name="itsec_hide_backend[post_logout_slug]" id="itsec_hide_backend_strong_passwords_post_logout_slug" value="' . $slug . '" type="text"><br />';
 			$content .= '<label for="itsec_hide_backend_strong_passwords_post_logout_slug">' . __( 'Custom Action:', 'it-l10n-better-wp-security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'WordPress uses the "action" variable to handle many login and logout functions. By default this plugin can handle the normal ones but some plugins and themes may utilize a custom action (such as logging out of a private post). If you need a custom action please enter it hear.', 'it-l10n-better-wp-security' ) . '</p>';
+			$content .= '<p class="description">' . __( 'WordPress uses the "action" variable to handle many login and logout functions. By default this plugin can handle the normal ones but some plugins and themes may utilize a custom action (such as logging out of a private post). If you need a custom action please enter it here.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		}
 

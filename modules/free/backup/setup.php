@@ -24,6 +24,7 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 					'itsec_temp',
 					'itsec_lockouts',
 				),
+				'retain'    => 0,
 			);
 
 			if ( isset( $itsec_setup_action ) ) {

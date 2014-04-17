@@ -2,6 +2,10 @@
 
 class ITSEC_Ban_Users {
 
+	function run() {
+		return null;
+	}
+
 	/**
 	 * Inserts an IP address into the htaccess ban list.
 	 *

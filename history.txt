@@ -85,3 +85,21 @@
 	Updated core to version 1.0.10
 4.0.23 - 2014-04-14 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.0.12
+4.0.24 - 2014-04-17 - Packaging Bot (core)
+	Make sure logs directory is present before trying to use it
+	Log a message when witelisted host triggers a lockout
+	Don't create log files if they're not going to be used
+	Miscellaneous typos and orther bugfixes
+	Add pro tab if pro modules need it
+	Upgrade module loader to only load what is needed
+4.0.25 - 2014-04-17 - Packaging Bot (modules/free)
+	Make sure backup directory is present before trying to use it
+	Make sure backup file method is respected on all backup operations
+	Added ability to limit number of backups saved to disk
+	Minor typo and other fixes
+	Only load front-end classes as needed
+	Add link to free support at .org forums
+	Remove select(?ed) from suspicious query strings for 3.9 compatibility
+	Fixed domain mapping issue (requires http://wordpress.org/plugins/wordpress-mu-domain-mapping/ domain mapping plugin)
+	Remove array type errors on 404 pages
+	Remove remaining create function calls

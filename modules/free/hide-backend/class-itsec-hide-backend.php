@@ -5,7 +5,7 @@ class ITSEC_Hide_Backend {
 	private
 		$settings;
 
-	function __construct() {
+	function run() {
 
 		$this->settings = get_site_option( 'itsec_hide_backend' );
 
@@ -35,9 +35,10 @@ class ITSEC_Hide_Backend {
 	function execute_hide_backend() {
 
 		if ( get_site_option( 'users_can_register' ) == 1 && isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . $this->settings['register'] ) {
-			$t = wp_login_url() . '?action=register';
+
 			wp_redirect( wp_login_url() . '?action=register' );
 			exit;
+
 		}
 
 		//redirect wp-admin and wp-register.php to 404 when not logged in
@@ -98,9 +99,16 @@ class ITSEC_Hide_Backend {
 
 				status_header( 200 );
 
+				//don't allow domain mapping to redirect
+				if( defined( 'DOMAIN_MAPPING' ) && DOMAIN_MAPPING == 1 ) {
+					remove_action( 'login_head', 'redirect_login_to_orig' );
+				}
+
 				if ( ! function_exists( 'login_header' ) ) {
-					include( ABSPATH . '/wp-login.php' );
+
+					include( ABSPATH . 'wp-login.php' );
 					exit;
+
 				}
 
 			} elseif ( ! isset( $_GET['action'] ) || ( sanitize_text_field( $_GET['action'] ) != 'logout' && sanitize_text_field( $_GET['action'] ) != 'postpass' && ( isset( $this->settings['post_logout_slug'] ) && strlen( trim( $this->settings['post_logout_slug'] ) ) > 0 && sanitize_text_field( $_GET['action'] ) != trim( $this->settings['post_logout_slug'] ) ) ) ) {

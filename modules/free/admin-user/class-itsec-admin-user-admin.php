@@ -7,7 +7,7 @@ class ITSEC_Admin_User_Admin {
 		$core,
 		$module_path;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 

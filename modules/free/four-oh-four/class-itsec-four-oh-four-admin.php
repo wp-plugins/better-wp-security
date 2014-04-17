@@ -9,7 +9,7 @@ class ITSEC_Four_Oh_Four_Admin {
 		$module,
 		$module_path;
 
-	function __construct( $core, $module ) {
+	function run( $core, $module ) {
 
 		if ( is_admin() ) {
 

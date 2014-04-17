@@ -6,7 +6,7 @@ class ITSEC_File_Change {
 		$excludes,
 		$settings;
 
-	function __construct() {
+	function run() {
 
 		global $itsec_globals;
 

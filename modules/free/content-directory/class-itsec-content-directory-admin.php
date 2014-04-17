@@ -7,7 +7,7 @@ class ITSEC_Content_Directory_Admin {
 		$core,
 		$module_path;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 

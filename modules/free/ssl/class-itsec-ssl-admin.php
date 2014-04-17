@@ -9,7 +9,7 @@ class ITSEC_SSL_Admin {
 		$module_path,
 		$has_ssl;
 
-	function __construct( $core, $module ) {
+	function run( $core, $module ) {
 
 		if ( is_admin() ) {
 

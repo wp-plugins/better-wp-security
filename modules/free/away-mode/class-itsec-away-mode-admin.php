@@ -9,7 +9,7 @@ class ITSEC_Away_Mode_Admin {
 		$away_file,
 		$module_path;
 
-	function __construct( $core, $module ) {
+	function run( $core, $module ) {
 
 		if ( is_admin() ) {
 

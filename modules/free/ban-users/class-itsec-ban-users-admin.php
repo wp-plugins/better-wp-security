@@ -7,7 +7,7 @@ class ITSEC_Ban_Users_Admin {
 		$core,
 		$module_path;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 

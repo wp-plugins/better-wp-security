@@ -23,7 +23,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$one_click,
 			$pages,
 			$tracking_vars,
-			$toc_items;
+			$toc_items,
+			$free_modules,
+			$pro_modules;
 
 		public
 			$available_pages;
@@ -68,27 +70,110 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				'current_time_gmt'   => current_time( 'timestamp', 1 ), //the current gmt time in unix timestamp format
 				'settings'           => get_site_option( 'itsec_global' ),
 				'free_modules'       => array(
-					'four-oh-four',
-					'admin-user',
-					'away-mode',
-					'ban-users',
-					'brute-force',
-					'backup',
-					'file-change',
-					'hide-backend',
-					'ssl',
-					'strong-passwords',
-					'tweaks',
-					'content-directory',
-					'database-prefix',
-					'help',
-					'core',
+					'four-oh-four'      => array(
+						'has_front' => true,
+						'option'    => 'itsec_four_oh_four',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Four_Oh_Four',
+					),
+					'admin-user'        => array(
+						'has_front' => false,
+						'class_id'  => 'Admin_User',
+					),
+					'away-mode'         => array(
+						'has_front' => true,
+						'option'    => 'itsec_away_mode',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Away_Mode',
+					),
+					'ban-users'         => array(
+						'has_front' => true,
+						'option'    => 'itsec_global',
+						'setting'   => 'blacklist',
+						'value'     => true,
+						'class_id'  => 'Ban_Users',
+					),
+					'brute-force'       => array(
+						'has_front' => true,
+						'option'    => 'itsec_brute_force',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Brute_Force',
+					),
+					'backup'            => array(
+						'has_front' => true,
+						'option'    => 'itsec_backup',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Backup',
+					),
+					'file-change'       => array(
+						'has_front' => true,
+						'option'    => 'itsec_file_change',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'File_Change',
+					),
+					'hide-backend'      => array(
+						'has_front' => true,
+						'option'    => 'itsec_hide_backend',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Hide_Backend',
+					),
+					'ssl'               => array(
+						'has_front' => true,
+						'option'    => 'itsec_ssl',
+						'setting'   => 'frontend',
+						'value'     => array( 1, 2 ),
+						'class_id'  => 'SSL',
+					),
+					'strong-passwords'  => array(
+						'has_front' => true,
+						'option'    => 'itsec_strong_passwords',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Strong_Passwords',
+					),
+					'tweaks'            => array(
+						'has_front' => true,
+						'class_id'  => 'Tweaks',
+					),
+					'content-directory' => array(
+						'has_front' => false,
+						'class_id'  => 'Content_Directory',
+					),
+					'database-prefix'   => array(
+						'has_front' => false,
+						'class_id'  => 'Database_Prefix',
+					),
+					'help'              => array(
+						'has_front' => false,
+						'class_id'  => 'Help',
+					),
+					'core'              => array(
+						'has_front' => false,
+						'class_id'  => 'Core',
+					),
 				),
 				'pro_modules'        => array(
-					'help',
-					'core',
+					'help' => array(
+						'has_front' => false,
+						'class_id'  => 'Help',
+					),
+					'core' => array(
+						'has_front' => false,
+						'class_id'  => 'Core',
+					),
 				),
 			);
+
+			$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
+			$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
+
+			$itsec_globals['has_pro'] = is_dir( $pro_modules_folder );
 
 			$this->pages = array(
 				array(
@@ -256,7 +341,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//load all present modules
-			$this->load_modules();
+			$this->load_modules( $free_modules_folder, $pro_modules_folder, $itsec_globals['has_pro'] );
 
 			//see if the saved build version is older than the current build version
 			if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $itsec_globals['plugin_build'] ) {
@@ -360,8 +445,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * Add admin bar item
 		 *
 		 * @since 4.0
-		 *
-		 * @param array $item the item to add to the table of content
 		 *
 		 * @return void
 		 */
@@ -855,32 +938,127 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @since 4.0
 		 *
+		 * @param string $free_modules_folder location of free modules
+		 * @param string $pro_modules_folder  location of pro modules
+		 * @param bool   $has_pro             whether or not pro is present
+		 *
 		 * @return void
 		 */
-		public function load_modules() {
+		public function load_modules( $free_modules_folder, $pro_modules_folder, $has_pro ) {
 
 			global $itsec_globals;
 
-			$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
-			$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
-
-			$has_pro = is_dir( $pro_modules_folder );
+			$modules = $itsec_globals['free_modules'];
 
 			if ( $has_pro ) {
 
-				foreach ( $itsec_globals['pro_modules'] as $module ) {
+				$modules = array_merge( $modules, $itsec_globals['pro_modules'] );
 
-					require( $pro_modules_folder . '/' . $module . '/index.php' );
+			}
+
+			foreach ( $modules as $module => $info ) {
+
+				if ( $has_pro === false || ! array_key_exists( $module, $itsec_globals['pro_modules'] ) ) { //don't duplicate module if pro version already loaded
+
+					$this->module_loader( $free_modules_folder, $module, $info );
+
+				} else {
+
+					$this->module_loader( $pro_modules_folder, $module, $info );
 
 				}
 
 			}
 
-			foreach ( $itsec_globals['free_modules'] as $module ) {
+		}
 
-				if ( $has_pro === false || ! in_array( $module, $itsec_globals['pro_modules'] ) ) {
-					require( $free_modules_folder . '/' . $module . '/index.php' );
+		/**
+		 * Actually does the module loading
+		 *
+		 * @since 4.0.27
+		 *
+		 * @param string $module_folder the location of the module
+		 * @param string $module        the name of the module
+		 * @param        $info          array of module info for loading
+		 *
+		 * @return void
+		 */
+		private function module_loader( $module_folder, $module, $info ) {
+
+			$run_front = false;
+			$run_admin = false;
+			$front     = null;
+
+			if ( is_admin() ) {
+
+				if ( isset( $info['has_front'] ) && $info['has_front'] === true ) { //load front-end classes in admin regardless
+
+					$run_front = true;
+
 				}
+
+				$run_admin = true;
+
+			} else {
+
+				//Front end class loading
+				if ( isset( $info['has_front'] ) && $info['has_front'] === true ) {
+
+					$option = isset( $info['option'] ) ? get_site_option( $info['option'] ) : false;
+
+					//If there is a setting to check and it is write then load it
+					if ( isset( $info['setting'] ) && ! is_array( $info['value'] ) && isset( $option[$info['setting']] ) && $option[$info['setting']] == $info['value'] ) {
+
+						$run_front = true;
+
+						//check an array of settings
+					} elseif ( isset( $info['setting'] ) && is_array( $info['value'] ) ) {
+
+						foreach ( $info['value'] as $value ) {
+
+							if ( isset( $option[$info['setting']] ) && $option[$info['setting']] == $value ) {
+
+								$run_front = true;
+
+							}
+
+						}
+
+						//Always load front-end class, not setting dependent
+					} elseif ( ! isset( $info['setting'] ) ) {
+
+						$run_front = true;
+
+					}
+
+				}
+
+			}
+
+			if ( $run_front === true ) { //load the front end class
+
+				$front_class = 'ITSEC_' . $info['class_id'];
+
+				if ( ! class_exists( $front_class ) ) {
+					require( $module_folder . '/' . $module . '/class-itsec-' . $module . '.php' );
+				}
+
+				$front = new $front_class;
+				$front->run( $this );
+
+			}
+
+			if ( $run_admin === true ) { //load the admin class
+
+				//Always load the admin class
+				$admin_class = 'ITSEC_' . $info['class_id'] . '_Admin';
+
+				if ( ! class_exists( $admin_class ) ) {
+					require( $module_folder . '/' . $module . '/class-itsec-' . $module . '-admin.php' );
+				}
+
+				$admin = new $admin_class;
+				$admin->run( $this, $front );
 
 			}
 

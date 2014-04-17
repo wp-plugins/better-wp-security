@@ -6,7 +6,7 @@ class ITSEC_Away_Mode {
 		$settings,
 		$away_file;
 
-	function __construct() {
+	function run() {
 
 		global $itsec_globals;
 

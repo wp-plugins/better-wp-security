@@ -8,7 +8,7 @@ class ITSEC_Backup_Admin {
 		$module_path,
 		$settings;
 
-	function __construct( $core, $module ) {
+	function run( $core, $module ) {
 
 		if ( is_admin() ) {
 
@@ -163,12 +163,12 @@ class ITSEC_Backup_Admin {
 		if ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) >= 1 ) {
 
 			$status_array = 'safe-medium';
-			$status = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
+			$status       = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
 
 		} elseif ( class_exists( 'backupbuddy_api0' ) ) {
 
 			$status_array = 'medium';
-			$status = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
+			$status       = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
 
 		} elseif ( $this->has_backup() === true && $this->scheduled_backup() === true ) {
 
@@ -415,6 +415,14 @@ class ITSEC_Backup_Admin {
 		);
 
 		add_settings_field(
+			'itsec_backup[retain]',
+			__( 'Backups to Retain', 'it-l10n-better-wp-security' ),
+			array( $this, 'retain' ),
+			'security_page_toplevel_page_itsec_settings',
+			'backup-settings-2'
+		);
+
+		add_settings_field(
 			'itsec_backup[zip]',
 			__( 'Compress Backup Files', 'it-l10n-better-wp-security' ),
 			array( $this, 'zip' ),
@@ -618,6 +626,27 @@ class ITSEC_Backup_Admin {
 	}
 
 	/**
+	 * echos Files to Retain Field
+	 *
+	 * @since 4.0.27
+	 *
+	 * @return void
+	 */
+	public function retain() {
+
+		if ( isset( $this->settings['retain'] ) ) {
+			$retain = absint( $this->settings['retain'] );
+		} else {
+			$retain = 0;
+		}
+
+		echo '<input class="small-text" name="itsec_backup[retain]" id="itsec_backup_retain" value="' . $retain . '" type="text">';
+		echo '<label for="itsec_backup_retain"> ' . __( 'Backups', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<p class="description"> ' . __( 'The number of backups that should be kept on disk. This only applies to backups saved to disk. Set to "0" to disable.', 'it-l10n-better-wp-security' ) . '</p>';
+
+	}
+
+	/**
 	 * Sanitize and validate input
 	 *
 	 * @param  Array $input array of input fields
@@ -634,6 +663,7 @@ class ITSEC_Backup_Admin {
 		$input['method']    = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
 		$input['location']  = isset( $input['location'] ) ? sanitize_text_field( $input['location'] ) : $itsec_globals['ithemes_backup_dir'];
 		$input['last_run']  = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
+		$input['retain']    = isset( $input['retain'] ) ? absint( $input['retain'] ) : 0;
 
 		if ( isset( $input['location'] ) && $input['location'] != $itsec_globals['ithemes_backup_dir'] ) {
 			$good_path = ITSEC_Lib::validate_path( $input['location'] );

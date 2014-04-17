@@ -4,7 +4,7 @@ class ITSEC_Database_Prefix_Admin {
 
 	private $settings, $core;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 

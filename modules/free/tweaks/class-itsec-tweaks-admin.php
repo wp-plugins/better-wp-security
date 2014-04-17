@@ -7,7 +7,7 @@ class ITSEC_Tweaks_Admin {
 		$core,
 		$module_path;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		if ( is_admin() ) {
 
@@ -796,7 +796,7 @@ class ITSEC_Tweaks_Admin {
 					          "\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){ set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(127.0)\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(globals|encode|localhost|loopback)\") { set \$susquery 1; }" . PHP_EOL .
-					          "\tif (\$args ~* \"(request|select(?!ed)|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL .
+					          "\tif (\$args ~* \"(request|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$susquery = 1) { return 403; }" . PHP_EOL;
 
 				} else { //rules for all other servers
@@ -816,7 +816,7 @@ class ITSEC_Tweaks_Admin {
 					          "\tRewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
-					          "\tRewriteCond %{QUERY_STRING} ^.*(request|select(?!ed)|concat|insert|union|declare).* [NC]" . PHP_EOL .
+					          "\tRewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
 					          "\tRewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .

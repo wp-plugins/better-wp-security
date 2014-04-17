@@ -9,7 +9,7 @@ class ITSEC_File_Change_Admin {
 		$module_path,
 		$module_path_relative;
 
-	function __construct( $core, $module ) {
+	function run( $core, $module ) {
 
 		if ( is_admin() ) {
 

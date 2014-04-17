@@ -27,8 +27,19 @@ final class ITSEC_Logger {
 
 		}
 
-		$this->log_file = $itsec_globals['ithemes_log_dir'] . '/event-log-' . $itsec_globals['settings']['log_info'] . '.log';
-		$this->start_log(); //create a log file if we don't have one
+		//Make sure the logs directory was created
+		if ( ! is_dir( $itsec_globals['ithemes_log_dir'] ) ) {
+			@mkdir( trailingslashit( $itsec_globals['ithemes_dir'] ) . 'logs' );
+		}
+
+		//don't create a log file if we don't need it.
+		if ( isset( $itsec_globals['settings']['log_type'] ) && $itsec_globals['settings']['log_type'] !== 0  ) {
+
+			$this->log_file = $itsec_globals['ithemes_log_dir'] . '/event-log-' . $itsec_globals['settings']['log_info'] . '.log';
+			$this->start_log(); //create a log file if we don't have one
+
+		}
+
 		$this->logger_modules = array(); //array to hold information on modules using this feature
 		$this->metaboxes      = array(); //array to hold metabox information
 		$this->module_path    = ITSEC_Lib::get_module_path( __FILE__ );

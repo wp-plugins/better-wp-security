@@ -6,7 +6,7 @@ class ITSEC_Strong_Passwords {
 		$settings,
 		$module_path;
 
-	function __construct() {
+	function run() {
 
 		$this->settings    = get_site_option( 'itsec_strong_passwords' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );

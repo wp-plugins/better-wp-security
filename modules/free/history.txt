@@ -79,6 +79,14 @@
     Make sure all wp_enqueue_script dependencies are in proper format
     Reduce priority of hide backend init for better compatibility with other plugins
     SSL now logs users out when activating to prevent cookie conflicts
-
-
-
+1.0.13 - 2014-04-17 - Chris Wiegman
+	Make sure backup directory is present before trying to use it
+	Make sure backup file method is respected on all backup operations
+	Added ability to limit number of backups saved to disk
+	Minor typo and other fixes
+	Only load front-end classes as needed
+	Add link to free support at .org forums
+	Remove select(?ed) from suspicious query strings for 3.9 compatibility
+	Fixed domain mapping issue (requires http://wordpress.org/plugins/wordpress-mu-domain-mapping/ domain mapping plugin)
+	Remove array type errors on 404 pages
+	Remove remaining create function calls

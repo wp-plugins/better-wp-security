@@ -191,6 +191,12 @@ final class ITSEC_Lockout {
 				$this->lockout( $options['type'], $options['reason'], $lock_host, $lock_user );
 			}
 
+		} else {
+
+			global $itsec_logger;
+
+			$itsec_logger->log_event( __( 'lockout', 'it-l10n-better-wp-security' ), 10, array( __( 'A whitelisted host has triggered a lockout condition but was not locked out.', 'it-l10n-better-wp-security' ) ), sanitize_text_field( $host ) );
+
 		}
 
 	}

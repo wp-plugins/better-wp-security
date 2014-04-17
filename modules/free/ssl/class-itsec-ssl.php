@@ -4,7 +4,7 @@ class ITSEC_SSL {
 
 	private $settings;
 
-	function __construct() {
+	function run() {
 
 		$this->settings = get_site_option( 'itsec_ssl' );
 

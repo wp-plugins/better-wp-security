@@ -6,11 +6,11 @@ class ITSEC_Backup {
 		$core,
 		$settings;
 
-	function __construct( $core ) {
+	function run( $core ) {
 
 		global $itsec_globals;
 
-		$this->core = $core;
+		$this->core     = $core;
 		$this->settings = get_site_option( 'itsec_backup' );
 
 		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
@@ -171,7 +171,10 @@ class ITSEC_Backup {
 		$current_time = current_time( 'timestamp' );
 
 		//save file
-		$file   = 'backup-' . substr( sanitize_title( get_bloginfo( 'name' ) ), 0, 20 ) . '-' . $current_time . '-' . ITSEC_Lib::get_random( mt_rand( 0, 10 ) );
+		$file = 'backup-' . substr( sanitize_title( get_bloginfo( 'name' ) ), 0, 20 ) . '-' . $current_time . '-' . ITSEC_Lib::get_random( mt_rand( 5, 10 ) );
+		if ( ! is_dir( $itsec_globals['ithemes_backup_dir'] ) ) {
+			@mkdir( trailingslashit( $itsec_globals['ithemes_dir'] ) . 'backups' );
+		}
 		$handle = @fopen( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql', 'w+' );
 		@fwrite( $handle, $return );
 		@fclose( $handle );
@@ -205,7 +208,7 @@ class ITSEC_Backup {
 			//Setup the remainder of the email
 			$recipients = $option['backup_email'];
 			$subject    = __( 'Site Database Backup', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
-			$subject = apply_filters( 'itsec_backup_email_subject', $subject );
+			$subject    = apply_filters( 'itsec_backup_email_subject', $subject );
 			$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
 
 			//Use HTML Content type
@@ -225,9 +228,39 @@ class ITSEC_Backup {
 
 		}
 
-		if ( $this->settings['method'] === 1 && $one_time === false ) {
+		if ( $this->settings['method'] === 1 ) {
 
 			@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . $fileext );
+
+		} else {
+
+			$retain = isset( $this->settings['retain'] ) ?  absint( $this->settings['retain'] ) : 0;
+
+			//delete extra files
+			if ( $retain > 0 ) {
+
+				$files = scandir( $itsec_globals['ithemes_backup_dir'], 1 );
+
+				$count = 0;
+
+				if ( is_array( $files ) && count( $files ) > 0 ) {
+
+					foreach ( $files as $file ) {
+
+						if ( strstr( $file, 'backup' ) ) {
+
+							if ( $count >= $retain ) {
+								@unlink( trailingslashit( $itsec_globals['ithemes_backup_dir'] ) . $file );
+							}
+
+							$count ++;
+						}
+
+					}
+
+				}
+
+			}
 
 		}
 

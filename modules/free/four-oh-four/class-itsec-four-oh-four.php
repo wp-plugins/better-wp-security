@@ -5,7 +5,7 @@ class ITSEC_Four_Oh_Four {
 	private
 		$settings;
 
-	function __construct() {
+	function run() {
 
 		$this->settings = get_site_option( 'itsec_four_oh_four' );
 
@@ -28,6 +28,10 @@ class ITSEC_Four_Oh_Four {
 		if ( $this->settings['enabled'] === true && is_404() ) {
 
 			$uri = explode( '?', $_SERVER['REQUEST_URI'] );
+
+			if ( ! is_array( $this->settings['white_list'] ) ) {
+				$this->settings['white_list'] = explode( PHP_EOL, $this->settings['white_list'] );
+			}
 
 			if ( in_array( $uri[0], $this->settings['white_list'] ) === false ) {
 

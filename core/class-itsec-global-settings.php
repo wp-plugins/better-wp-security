@@ -110,7 +110,7 @@ class ITSEC_Global_Settings {
 
 		global $itsec_globals;
 
-		if ( in_array( 'backup', $itsec_globals['free_modules'] ) ) {
+		if ( array_key_exists( 'backup', $itsec_globals['free_modules'] ) ) {
 			$backup_link_open  = '<strong><a href="?page=toplevel_page_itsec_backups">';
 			$backup_link_close = '</a></strong>';
 		} else {

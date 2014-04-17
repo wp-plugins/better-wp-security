@@ -2,7 +2,7 @@
 
 class ITSEC_Core_Admin {
 
-	function __construct() {
+	function run() {
 
 		if ( is_admin() ) {
 
@@ -18,6 +18,8 @@ class ITSEC_Core_Admin {
 	 * @since 4.0
 	 *
 	 * @param array $available_pages array of available page_hooks
+	 *
+	 * @return void
 	 */
 	public function add_admin_meta_boxes( $available_pages ) {
 
@@ -154,6 +156,8 @@ class ITSEC_Core_Admin {
 	 */
 	public function metabox_need_help() {
 
+		echo '<p>' . __( 'Since you are using the free version of iThemes Security from WordPress.org, you can get free support from the WordPress community.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p><a class="button-secondary" href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">' . __( 'Get Free Support', 'it-l10n-better-wp-security' ) . '</a></p>';
 		echo '<p>' . __( 'Be sure your site has been properly secured by having one of our security experts tailor iThemes Security settings to the specific needs of this site.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo '<p><a class="button-secondary" href="http://ithemes.com/security/ithemes-security-professional-setup" target="_blank">' . __( 'Have an expert secure my site', 'it-l10n-better-wp-security' ) . '</a></p>';
 		echo '<p>' . __( 'Get added peace of mind with professional support from our expert team and pro features with iThemes Security Pro.', 'it-l10n-better-wp-security' ) . '</p>';
