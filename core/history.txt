@@ -55,3 +55,6 @@
 	Miscellaneous typos and orther bugfixes
 	Add pro tab if pro modules need it
 	Upgrade module loader to only load what is needed
+1.0.12 - 2014-04-18 - Chris Wiegman
+	Make sure uploads directory is only working in blog 1 in multisite
+	Better checks for run method in module loader

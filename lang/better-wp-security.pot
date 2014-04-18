@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.0.25\n"
+"Project-Id-Version: iThemes Security 4.0.27\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-04-17 20:05:10+00:00\n"
+"POT-Creation-Date: 2014-04-18 13:39:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,148 +13,148 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.25)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.0.27)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:181
+#: core/class-itsec-core.php:199
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:226
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:185
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:187
+#: core/class-itsec-core.php:205
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:193
+#: core/class-itsec-core.php:211
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:199
+#: core/class-itsec-core.php:217
 #: modules/free/help/class-itsec-help-admin.php:23
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:209 core/class-itsec-core.php:219
+#: core/class-itsec-core.php:227 core/class-itsec-core.php:237
 #: modules/free/backup/class-itsec-backup-admin.php:644
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:399 core/class-itsec-core.php:477
-#: core/class-itsec-core.php:760 core/class-itsec-core.php:1307
-#: core/class-itsec-core.php:1346
+#: core/class-itsec-core.php:417 core/class-itsec-core.php:495
+#: core/class-itsec-core.php:778 core/class-itsec-core.php:1343
+#: core/class-itsec-core.php:1382
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:468 core/class-itsec-core.php:1308
+#: core/class-itsec-core.php:486 core/class-itsec-core.php:1344
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:612
+#: core/class-itsec-core.php:630
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:639 core/class-itsec-core.php:1391
+#: core/class-itsec-core.php:657 core/class-itsec-core.php:1427
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:643 core/class-itsec-core.php:1395
+#: core/class-itsec-core.php:661 core/class-itsec-core.php:1431
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:649 core/class-itsec-core.php:1401
+#: core/class-itsec-core.php:667 core/class-itsec-core.php:1437
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:651 core/class-itsec-core.php:1403
+#: core/class-itsec-core.php:669 core/class-itsec-core.php:1439
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:653
+#: core/class-itsec-core.php:671
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:654
+#: core/class-itsec-core.php:672
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:661 core/class-itsec-core.php:1408
+#: core/class-itsec-core.php:679 core/class-itsec-core.php:1444
 #: core/class-itsec-files.php:106
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:236
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:720
+#: core/class-itsec-core.php:738
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:730
+#: core/class-itsec-core.php:748
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:1133
+#: core/class-itsec-core.php:1169
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1134
+#: core/class-itsec-core.php:1170
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1135
+#: core/class-itsec-core.php:1171
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1137
+#: core/class-itsec-core.php:1173
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1138
+#: core/class-itsec-core.php:1174
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1219
+#: core/class-itsec-core.php:1255
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1501
+#: core/class-itsec-core.php:1537
 msgid "It looks like you've been enjoying"
 msgstr ""
 
-#: core/class-itsec-core.php:1501
+#: core/class-itsec-core.php:1537
 msgid ""
 "for at least 30 days. Would you consider a small donation to help support "
 "continued development of the plugin?"
 msgstr ""
 
-#: core/class-itsec-core.php:1501
+#: core/class-itsec-core.php:1537
 msgid "Support This Plugin"
 msgstr ""
 
-#: core/class-itsec-core.php:1501
+#: core/class-itsec-core.php:1537
 msgid "Rate it 5★'s"
 msgstr ""
 
-#: core/class-itsec-core.php:1501
+#: core/class-itsec-core.php:1537
 msgid "Tell Your Followers"
 msgstr ""
 
-#: core/class-itsec-core.php:1613
+#: core/class-itsec-core.php:1649
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1613
+#: core/class-itsec-core.php:1649
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -4104,13 +4104,13 @@ msgstr ""
 msgid "Multisite Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks.php:181
+#: modules/free/tweaks/class-itsec-tweaks.php:180
 msgid ""
 "Your Nickname must be different than your login name. Please choose a "
 "different Nickname."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks.php:199
+#: modules/free/tweaks/class-itsec-tweaks.php:198
 msgid ""
 "A Nickname is required. Please choose a nickname or fill out your first and "
 "last name."

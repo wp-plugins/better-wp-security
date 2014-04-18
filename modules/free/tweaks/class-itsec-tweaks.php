@@ -23,8 +23,12 @@ class ITSEC_Tweaks {
 			remove_action( 'wp_head', 'rsd_link' );
 		}
 
+		//Disable XML-RPC
 		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 2 ) {
+
+			add_filter( 'xmlrpc_enabled', array( $this, 'empty_return_function' ) );
 			add_filter( 'bloginfo_url', array( $this, 'remove_pingback_url' ), 10, 2 );
+
 		}
 
 		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 1 ) {
@@ -66,11 +70,6 @@ class ITSEC_Tweaks {
 		//remove core update notifications if turned on
 		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == true ) {
 			add_action( 'plugins_loaded', array( $this, 'core_updates' ) );
-		}
-
-		//Disable XML-RPC
-		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == true ) {
-			add_filter( 'xmlrpc_enabled', '__return_false' );
 		}
 
 		//Execute jQuery check

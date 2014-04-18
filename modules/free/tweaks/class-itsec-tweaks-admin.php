@@ -903,9 +903,9 @@ class ITSEC_Tweaks_Admin {
 		//Return options to default on deactivation
 		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
 
-			$input = array();
+			$input        = array();
 			$deactivating = true;
-			$initials = get_site_option( 'itsec_initials' );
+			$initials     = get_site_option( 'itsec_initials' );
 
 			if ( isset( $initials['file_editor'] ) && $initials['file_editor'] === false && defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) { //initially off, now on
 
@@ -1728,7 +1728,7 @@ class ITSEC_Tweaks_Admin {
 		$input['comment_spam']                = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? true : false );
 		$input['random_version']              = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? true : false );
 		$input['file_editor']                 = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? true : false );
-		$input['disable_xmlrpc'] = isset( $input['disable_xmlrpc'] ) ? intval( $input['disable_xmlrpc'] ) : 0;
+		$input['disable_xmlrpc']              = isset( $input['disable_xmlrpc'] ) ? intval( $input['disable_xmlrpc'] ) : 0;
 		$input['uploads_php']                 = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? true : false );
 		$input['safe_jquery']                 = ( isset( $input['safe_jquery'] ) && intval( $input['safe_jquery'] == 1 ) ? true : false );
 		$input['login_errors']                = ( isset( $input['login_errors'] ) && intval( $input['login_errors'] == 1 ) ? true : false );

@@ -396,6 +396,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_no_file_lock_release' );
 		delete_site_option( 'itsec_clear_login' );
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
+		delete_site_transient( 'itsec_upload_dir' );
 
 		$htaccess = ITSEC_Lib::get_htaccess();
 

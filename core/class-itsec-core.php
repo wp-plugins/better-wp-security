@@ -23,9 +23,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$one_click,
 			$pages,
 			$tracking_vars,
-			$toc_items,
-			$free_modules,
-			$pro_modules;
+			$toc_items;
 
 		public
 			$available_pages;
@@ -51,7 +49,27 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$this->tooltip_modules = array(); //initialize tooltip modules.
 			$this->one_click       = array(); //initialize one-click settings
 
-			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+			if ( get_site_transient( 'itsec_upload_dir' ) === false ) {
+
+				if ( is_multisite() ) {
+
+					switch_to_blog( 1 );
+					$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+					restore_current_blog();
+
+				} else {
+
+					$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+
+				}
+
+				set_site_transient( 'itsec_upload_dir', $upload_dir, 86400 );
+
+			} else {
+
+				$upload_dir = get_site_transient( 'itsec_upload_dir' );
+
+			}
 
 			//Set plugin defaults
 			$itsec_globals = array(
@@ -1037,28 +1055,46 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			if ( $run_front === true ) { //load the front end class
 
-				$front_class = 'ITSEC_' . $info['class_id'];
+				$front_file = $module_folder . '/' . $module . '/class-itsec-' . $module . '.php';
 
-				if ( ! class_exists( $front_class ) ) {
-					require( $module_folder . '/' . $module . '/class-itsec-' . $module . '.php' );
+				if ( file_exists( $front_file ) ) {
+
+					$front_class = 'ITSEC_' . $info['class_id'];
+
+					if ( ! class_exists( $front_class ) ) {
+						require( $front_file );
+					}
+
+					$front = new $front_class;
+
+					if ( method_exists( $front, 'run' ) ) {
+						$front->run( $this );
+					}
+
 				}
-
-				$front = new $front_class;
-				$front->run( $this );
 
 			}
 
 			if ( $run_admin === true ) { //load the admin class
 
+				$admin_file = $module_folder . '/' . $module . '/class-itsec-' . $module . '-admin.php';
+
+				if ( file_exists( $admin_file ) ) {
+
 				//Always load the admin class
 				$admin_class = 'ITSEC_' . $info['class_id'] . '_Admin';
 
 				if ( ! class_exists( $admin_class ) ) {
-					require( $module_folder . '/' . $module . '/class-itsec-' . $module . '-admin.php' );
+					require( $admin_file );
 				}
 
 				$admin = new $admin_class;
-				$admin->run( $this, $front );
+
+				if ( method_exists( $admin, 'run' ) ) {
+					$admin->run( $this, $front );
+				}
+
+				}
 
 			}
 

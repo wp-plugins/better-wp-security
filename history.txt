@@ -103,3 +103,8 @@
 	Fixed domain mapping issue (requires http://wordpress.org/plugins/wordpress-mu-domain-mapping/ domain mapping plugin)
 	Remove array type errors on 404 pages
 	Remove remaining create function calls
+4.0.26 - 2014-04-18 - Packaging Bot (core)
+	Make sure uploads directory is only working in blog 1 in multisite
+	Better checks for run method in module loader
+4.0.27 - 2014-04-18 - Packaging Bot (modules/free)
+	XMLRPC soft block should now work with WordPress mobile app
