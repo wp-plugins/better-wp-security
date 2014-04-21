@@ -16,7 +16,8 @@ final class ITSEC_Files {
 		$rewrite_rules,
 		$wpconfig_rules,
 		$rewrites_changed,
-		$config_changed;
+		$config_changed,
+		$write_files;
 
 	/**
 	 * Create and manage wp_config.php or .htaccess/nginx rewrites.
@@ -35,6 +36,19 @@ final class ITSEC_Files {
 		$this->config_changed   = false;
 		$this->rewrite_rules    = array();
 		$this->wpconfig_rules   = array();
+
+		//look for the tweaks module to see if we should reset to 0444
+		$tweaks = get_site_option( 'itsec_tweaks' );
+
+		if ( $tweaks !== false && isset( $tweaks['write_permissions'] ) ) {
+
+			$this->write_files = $tweaks['write_permissions'];
+
+		} else{
+
+			$this->write_files = false;
+
+		}
 
 		//Add the metabox
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
@@ -294,7 +308,7 @@ final class ITSEC_Files {
 		//Make sure we can write to the file
 		$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
 
-		if ( $perms == '0444' ) {
+		if ( $perms == '0444' || $this->write_files === true ) {
 			@chmod( $htaccess_file, 0664 );
 		}
 
@@ -343,7 +357,7 @@ final class ITSEC_Files {
 		}
 
 		//reset file permissions if we changed them
-		if ( $perms == '0444' ) {
+		if ( $perms == '0444' || $this->write_files === true ) {
 			@chmod( $htaccess_file, 0444 );
 		}
 
@@ -589,8 +603,21 @@ final class ITSEC_Files {
 
 				@fclose( $f );
 
+				//look for the tweaks module to see if we should reset to 0444
+				$tweaks = get_site_option( 'itsec_tweaks' );
+
+				if ( $tweaks !== false && isset( $tweaks['write_permissions'] ) ) {
+
+					$write_files = $tweaks['write_permissions'];
+
+				} else{
+
+					$write_files = false;
+
+				}
+
 				//reset file permissions if we changed them
-				if ( $perms == '0444' ) {
+				if ( $perms == '0444' || $write_files === true ) {
 					@chmod( $htaccess_file, 0444 );
 				}
 
@@ -1095,7 +1122,7 @@ final class ITSEC_Files {
 				if ( ! @file_put_contents( $htaccess_file, $htaccess_contents, LOCK_EX ) ) {
 
 					//reset file permissions if we changed them
-					if ( $perms == '0444' ) {
+					if ( $perms == '0444' || $this->write_files === true ) {
 						@chmod( $htaccess_file, 0444 );
 					}
 
@@ -1104,7 +1131,7 @@ final class ITSEC_Files {
 				}
 
 				//reset file permissions if we changed them
-				if ( $perms == '0444' ) {
+				if ( $perms == '0444' || $this->write_files === true ) {
 					@chmod( $htaccess_file, 0444 );
 				}
 
@@ -1260,7 +1287,7 @@ final class ITSEC_Files {
 			if ( ! @file_put_contents( $config_file, $config_contents, LOCK_EX ) ) {
 
 				//reset file permissions if we changed them
-				if ( $perms == '0444' ) {
+				if ( $perms == '0444' || $this->write_files === true ) {
 					@chmod( $config_file, 0444 );
 				}
 
@@ -1268,7 +1295,7 @@ final class ITSEC_Files {
 			}
 
 			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
+			if ( $perms == '0444' || $this->write_files === true ) {
 				@chmod( $config_file, 0444 );
 			}
 

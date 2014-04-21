@@ -192,7 +192,7 @@ class ITSEC_Hide_Backend {
 	public
 	function plugins_loaded() {
 
-		if ( isset( $_GET['action'] ) && sanitize_text_field( $_GET['action'] ) == 'logout' ) {
+		if ( is_user_logged_in() && isset( $_GET['action'] ) && sanitize_text_field( $_GET['action'] ) == 'logout' ) {
 
 			check_admin_referer( 'log-out' );
 			wp_logout();

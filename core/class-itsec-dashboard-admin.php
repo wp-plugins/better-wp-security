@@ -345,6 +345,8 @@ class ITSEC_Dashboard_Admin {
 
 			if ( isset( $status['advanced'] ) && $status['advanced'] === true ) {
 				$page = 'advanced';
+			} elseif ( isset( $status['pro'] ) && $status['pro'] === true ) {
+				$page = 'pro';
 			} else {
 				$page = 'settings';
 			}

@@ -92,3 +92,14 @@
 	Remove remaining create function calls
 1.0.14 - 2014-04-18 - Chris Wiegman
 	XMLRPC soft block should now work with WordPress mobile app
+1.1.0 - 2014-04-21 - Chris Wiegman
+	Log when Away-mode is triggered
+	Make sure away mode file isn't accidently deleted
+	Make sure away mode doesn't even allow access to the login form (as it didn't in 3.x)
+	Enhance warnings on "Change content directory" settings
+	Better descriptions on white lists
+	Fixed XMLRPC label
+	Better XMLRPC Dashboard status
+	Don't allow logout action on wp-login.php with hide backend
+1.1.1 - 2014-4-31 0 Chris Wiegman
+	Better check for variable in SSL admin

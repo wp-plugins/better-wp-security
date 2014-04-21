@@ -108,3 +108,24 @@
 	Better checks for run method in module loader
 4.0.27 - 2014-04-18 - Packaging Bot (modules/free)
 	XMLRPC soft block should now work with WordPress mobile app
+4.1.1 - 2014-04-21 - Packaging Bot (core)
+	Make sure "remove write permissions" works
+	Better descriptions on white list
+	Add pro table of contents if needed
+	Make sure security admin bar item works
+	Make sure lockout message only happens when needed
+	Suppress errors on readlink calls
+	Make sure class is present for permanent ban
+	Make sure white list is an array
+	Fix white listed IPs not working
+4.1.2 - 2014-04-21 - Packaging Bot (modules/free)
+	Log when Away-mode is triggered
+	Make sure away mode file isn't accidently deleted
+	Make sure away mode doesn't even allow access to the login form (as it didn't in 3.x)
+	Enhance warnings on "Change content directory" settings
+	Better descriptions on white lists
+	Fixed XMLRPC label
+	Better XMLRPC Dashboard status
+	Don't allow logout action on wp-login.php with hide backend
+4.1.3 - 2014-04-21 - Packaging Bot (modules/free)
+	Better check for variable in SSL admin

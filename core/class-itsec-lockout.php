@@ -123,9 +123,39 @@ final class ITSEC_Lockout {
 
 		$host = ITSEC_Lib::get_ip();
 
-		if ( ! $this->is_ip_whitelisted( $host ) ) {
+		if ( isset( $options['host'] ) && $options['host'] > 0 ) {
 
-			if ( isset( $options['host'] ) && $options['host'] > 0 ) {
+			$wpdb->insert(
+			     $wpdb->base_prefix . 'itsec_temp',
+			     array(
+				     'temp_type'     => $options['type'],
+				     'temp_date'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
+				     'temp_date_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
+				     'temp_host'     => $host,
+			     )
+			);
+
+			$host_count = $wpdb->get_var(
+			                   $wpdb->prepare(
+			                        "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_host`='%s';",
+			                        date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] - ( $options['period'] * 60 ) ),
+			                        $host
+			                   )
+			);
+
+			if ( $host_count >= $options['host'] ) {
+
+				$lock_host = $host;
+
+			}
+
+		}
+
+		if ( $user !== null && isset( $options['user'] ) && $options['user'] > 0 ) {
+
+			$user_id = username_exists( sanitize_text_field( $user ) );
+
+			if ( $user_id !== null ) {
 
 				$wpdb->insert(
 				     $wpdb->base_prefix . 'itsec_temp',
@@ -133,65 +163,33 @@ final class ITSEC_Lockout {
 					     'temp_type'     => $options['type'],
 					     'temp_date'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
 					     'temp_date_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
-					     'temp_host'     => $host,
+					     'temp_user'     => intval( $user_id ),
 				     )
 				);
 
-				$host_count = $wpdb->get_var(
+				$user_count = $wpdb->get_var(
 				                   $wpdb->prepare(
-				                        "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_host`='%s';",
+				                        "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_user`=%s;",
 				                        date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] - ( $options['period'] * 60 ) ),
-				                        $host
+				                        $user_id
 				                   )
 				);
 
-				if ( $host_count >= $options['host'] ) {
+				if ( $user_count >= $options['user'] ) {
 
-					$lock_host = $host;
-
-				}
-
-			}
-
-			if ( $user !== null && isset( $options['user'] ) && $options['user'] > 0 ) {
-
-				$user_id = username_exists( sanitize_text_field( $user ) );
-
-				if ( $user_id !== null ) {
-
-					$wpdb->insert(
-					     $wpdb->base_prefix . 'itsec_temp',
-					     array(
-						     'temp_type'     => $options['type'],
-						     'temp_date'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
-						     'temp_date_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
-						     'temp_user'     => intval( $user_id ),
-					     )
-					);
-
-					$user_count = $wpdb->get_var(
-					                   $wpdb->prepare(
-					                        "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_user`=%s;",
-					                        date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] - ( $options['period'] * 60 ) ),
-					                        $user_id
-					                   )
-					);
-
-					if ( $user_count >= $options['user'] ) {
-
-						$lock_user = $user_id;
-
-					}
+					$lock_user = $user_id;
 
 				}
 
 			}
 
-			if ( ( $lock_host !== null || $lock_user !== null ) ) {
-				$this->lockout( $options['type'], $options['reason'], $lock_host, $lock_user );
-			}
+		}
 
-		} else {
+		if ( ! $this->is_ip_whitelisted( $host ) && ( $lock_host !== null || $lock_user !== null ) ) {
+
+			$this->lockout( $options['type'], $options['reason'], $lock_host, $lock_user );
+
+		} elseif ( $lock_host !== null || $lock_user !== null ) {
 
 			global $itsec_logger;
 
@@ -338,6 +336,10 @@ final class ITSEC_Lockout {
 
 		$white_ips = $itsec_globals['settings']['lockout_white_list'];
 
+		if ( ! is_array( $white_ips ) ) {
+			$white_ips = explode( PHP_EOL, $white_ips );
+		}
+
 		if ( $current === true ) {
 			$white_ips[] = ITSEC_Lib::get_ip(); //add current user ip to whitelist to check automatically
 		}
@@ -428,7 +430,7 @@ final class ITSEC_Lockout {
 		if ( $itsec_files->get_file_lock( 'lockout_' . $host . $user ) ) {
 
 			//Do we have a good host to lock out or not
-			if ( $host != null && ITSEC_Ban_Users::is_ip_whitelisted( sanitize_text_field( $host ) ) === false && ITSEC_Lib::validates_ip_address( $host ) === true ) {
+			if ( $host != null && $this->is_ip_whitelisted( sanitize_text_field( $host ) ) === false && ITSEC_Lib::validates_ip_address( $host ) === true ) {
 				$good_host = sanitize_text_field( $host );
 			} else {
 				$good_host = false;
@@ -462,6 +464,10 @@ final class ITSEC_Lockout {
 				if ( $host_count >= $itsec_globals['settings']['blacklist_count'] && isset( $itsec_globals['settings']['write_files'] ) && $itsec_globals['settings']['write_files'] === true ) {
 
 					$host_expiration = false;
+
+					if ( ! class_exists( 'ITSEC_Ban_Users' ) ) {
+						require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free/ban-users/class-itsec-ban-users.php' );
+					}
 
 					ITSEC_Ban_Users::insert_ip( sanitize_text_field( $host ) ); //Send it to the Ban Users module for banning
 

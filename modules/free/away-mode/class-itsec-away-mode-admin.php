@@ -498,7 +498,7 @@ class ITSEC_Away_Mode_Admin {
 			$input['enabled'] = false; //disable away mode
 
 			$type    = 'error';
-			$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'it-l10n-better-wp-security' );
+			$message = __( 'Invalid  away mode time listed. The time entered would lock you out of your site now. Please try again.', 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -509,7 +509,7 @@ class ITSEC_Away_Mode_Admin {
 			$input['enabled'] = false; //disable away mode
 
 			$type    = 'error';
-			$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'it-l10n-better-wp-security' );
+			$message = __( 'Invalid  away mode time listed. The start time selected is after the end time selected.', 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -520,17 +520,17 @@ class ITSEC_Away_Mode_Admin {
 			$input['enabled'] = false; //disable away mode
 
 			$type    = 'error';
-			$message = __( 'Invalid time listed. The period selected already ended.', 'it-l10n-better-wp-security' );
+			$message = __( 'Invalid away mode time listed. The period selected already ended.', 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
 		}
 
-		if ( $input['enabled'] == 1 && ! file_exists( $this->away_file ) ) {
+		if ( $input['enabled'] === true && ! file_exists( $this->away_file ) ) {
 
 			@file_put_contents( $this->away_file, 'true' );
 
-		} else {
+		} elseif ( $input['enabled'] === false ) {
 
 			@unlink( $this->away_file );
 

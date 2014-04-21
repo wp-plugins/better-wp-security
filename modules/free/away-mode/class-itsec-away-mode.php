@@ -15,7 +15,9 @@ class ITSEC_Away_Mode {
 
 		//Execute away mode functions on admin init
 		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
+			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
 			add_action( 'itsec_admin_init', array( $this, 'execute_away_mode' ) );
+			add_action( 'login_init', array( $this, 'execute_away_mode' ) );
 		}
 
 	}
@@ -92,13 +94,46 @@ class ITSEC_Away_Mode {
 	 */
 	public function execute_away_mode() {
 
+		global $itsec_logger;
+
 		//execute lockout if applicable
 		if ( $this->check_away() ) {
+
+			$itsec_logger->log_event(
+			             'away_mode',
+			             5,
+			             array(
+				             __( 'A host was prevented from accessing the dashboard due to away-mode restrictions being in effect', 'it-l10n-better-wp-security' ),
+			             ),
+			             ITSEC_Lib::get_ip(),
+			             '',
+			             '',
+			             '',
+			             ''
+			);
 
 			wp_redirect( get_option( 'siteurl' ) );
 			wp_clear_auth_cookie();
 
 		}
+
+	}
+
+	/**
+	 * Register 404 and file change detection for logger
+	 *
+	 * @param  array $logger_modules array of logger modules
+	 *
+	 * @return array                   array of logger modules
+	 */
+	public function register_logger( $logger_modules ) {
+
+		$logger_modules['away_mode'] = array(
+			'type'     => 'away_mode',
+			'function' => __( 'Away Mode Triggered', 'it-l10n-better-wp-security' ),
+		);
+
+		return $logger_modules;
 
 	}
 

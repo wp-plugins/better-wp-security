@@ -374,8 +374,6 @@ class ITSEC_Tweaks_Admin {
 	 */
 	public function tweaks_wordpress_disable_xmlrpc() {
 
-		global $itsec_globals;
-
 		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === true ) {
 
 			$log_type = 2;
@@ -390,13 +388,13 @@ class ITSEC_Tweaks_Admin {
 
 		}
 
-		echo '<select id="itsec_global_disable_xmlrpc" name="itsec_tweaks[disable_xmlrpc]">';
+		echo '<select id="itsec_tweaks_server_disable_xmlrpc" name="itsec_tweaks[disable_xmlrpc]">';
 
 		echo '<option value="0" ' . selected( $log_type, '0' ) . '>' . __( 'Off', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '<option value="1" ' . selected( $log_type, '1' ) . '>' . __( 'Only Disable Trackbacks/Pingbacks', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '<option value="2" ' . selected( $log_type, '2' ) . '>' . __( 'Completely Disable XMLRPC', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '</select>';
-		echo '<label for="itsec_global_disable_xmlrpc"> ' . __( 'Disable XMLRPC', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<label for="itsec_tweaks_server_disable_xmlrpc"> ' . __( 'Disable XMLRPC', 'it-l10n-better-wp-security' ) . '</label>';
 		printf(
 			'<p class="description"><ul><li>%s</li><li>%s</li><li>%s</li></ul></p>',
 			__( 'Off = XMLRPC is fully enabled and will function as normal.', 'it-l10n-better-wp-security' ),
@@ -1207,14 +1205,19 @@ class ITSEC_Tweaks_Admin {
 
 		array_push( $statuses[$status_array], $status );
 
-		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === true ) {
+		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === 2 ) {
 
 			$status_array = 'safe-low';
 			$status       = array( 'text' => __( 'XML-RPC is not available on your WordPress installation.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
 
-		} else {
+		} elseif ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === 1 ) {
 
 			$status_array = 'low';
+			$status       = array( 'text' => __( 'XML-RPC is protecting you from the trackback and pingback attack but is still available on your site.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
+
+		}else {
+
+			$status_array = 'medium';
 			$status       = array( 'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_tweaks_server_disable_xmlrpc', );
 
 		}

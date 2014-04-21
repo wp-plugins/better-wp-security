@@ -58,3 +58,13 @@
 1.0.12 - 2014-04-18 - Chris Wiegman
 	Make sure uploads directory is only working in blog 1 in multisite
 	Better checks for run method in module loader
+1.1.0 - 2014-04-21 - Chris Wiegman
+	Make sure "remove write permissions" works
+	Better descriptions on white list
+	Add pro table of contents if needed
+	Make sure security admin bar item works
+	Make sure lockout message only happens when needed
+	Suppress errors on readlink calls
+	Make sure class is present for permanent ban
+	Make sure white list is an array
+	Fix white listed IPs not working

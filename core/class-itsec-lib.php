@@ -834,7 +834,7 @@ final class ITSEC_Lib {
 
 		// resolve any symlinks
 		if ( file_exists( $path ) && linkinfo( $path ) > 0 )
-			$path = readlink( $path );
+			$path = @readlink( $path );
 
 		// put initial separator that could have been lost
 		$path = ! $unipath ? '/' . $path : $path;

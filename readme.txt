@@ -1,11 +1,11 @@
 
 === iThemes Security (formerly Better WP Security) ===
-Contributors: ithemes, ChrisWiegman, mattdanner, chrisbliss18
+Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
 Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 4.0.27
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,26 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.1.3 =
+* Make sure "remove write permissions" works
+* Better descriptions on white list
+* Add pro table of contents if needed
+* Make sure security admin bar item works
+* Make sure lockout message only happens when needed
+* Suppress errors on readlink calls
+* Make sure class is present for permanent ban
+* Make sure white list is an array
+* Fix white listed IPs not working
+* Log when Away-mode is triggered
+* Make sure away mode file isn't accidently deleted
+* Make sure away mode doesn't even allow access to the login form (as it didn't in 3.x)
+* Enhance warnings on "Change content directory" settings
+* Better descriptions on white lists
+* Fixed XMLRPC label
+* Better XMLRPC Dashboard status
+* Don't allow logout action on wp-login.php with hide backend
+* Better check for variable in SSL admin
 
 = 4.0.27 =
 * XMLRPC soft block should now work with WordPress mobile app
@@ -1049,5 +1069,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.0.27 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.0.27 if you are not already on 4.0 or greater. 
+= 4.1.3 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.1.3 if you are not already on 4.0 or greater.

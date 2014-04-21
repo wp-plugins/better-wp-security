@@ -22,6 +22,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$tooltip_modules,
 			$one_click,
 			$pages,
+			$pro_toc_items,
 			$tracking_vars,
 			$toc_items;
 
@@ -219,6 +220,17 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					'has_tab'  => true,
 				),
 			);
+
+			if ( isset( $itsec_globals['has_pro'] ) && $itsec_globals['has_pro'] === true && sizeof( $itsec_globals['pro_modules'] ) > 2 ) {
+
+				$this->pages[] = array(
+					'priority' => 8,
+					'title'    => __( 'Pro', 'it-l10n-better-wp-security' ),
+					'slug'     => 'pro',
+					'has_tab'  => true,
+				);
+
+			}
 
 			if ( class_exists( 'backupbuddy_api0' ) ) {
 
@@ -460,6 +472,21 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Add items to the table of contents
+		 *
+		 * @since 4.1
+		 *
+		 * @param array $item the item to add to the table of content
+		 *
+		 * @return void
+		 */
+		public function add_pro_toc_item( $item ) {
+
+			$this->pro_toc_items[] = $item;
+
+		}
+
+		/**
 		 * Add admin bar item
 		 *
 		 * @since 4.0
@@ -470,7 +497,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			global $wp_admin_bar, $itsec_globals;
 
-			if ( ( ! is_multisite() && ! current_user_can( $itsec_globals['plugin_access_lvl'] ) ) || ! current_user_can( 'manage_network' ) ) {
+			if ( ( ! is_multisite() && ! current_user_can( $itsec_globals['plugin_access_lvl'] ) ) || ( is_multisite() && ! current_user_can( 'manage_network' ) ) ) {
 				return;
 			}
 
@@ -642,7 +669,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function admin_notices() {
 
-			if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false ) {
+			if ( isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_pro' ) !== false ) ) {
 
 				$errors = get_settings_errors( 'itsec' );
 
@@ -1229,8 +1256,8 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						$action = 'options.php';
 					}
 					?>
-					<?php if ($screen == 'security_page_toplevel_page_itsec_settings') { ?>
-					<form name="security_page_toplevel_page_itsec_settings" method="post"
+					<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' || $screen == 'security_page_toplevel_page_itsec_pro' ) { ?>
+					<form name="<?php echo $screen; ?>" method="post"
 					      action="<?php echo $action; ?>" class="itsec-settings-form">
 						<?php } ?>
 
@@ -1250,7 +1277,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 							<div id="postbox-container-1" class="postbox-container">
 								<?php do_meta_boxes( $screen, 'priority_side', null ); ?>
 								<?php do_meta_boxes( $screen, 'side', null ); ?>
-								<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' ) { ?>
+								<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' || $screen == 'security_page_toplevel_page_itsec_pro' ) { ?>
 									<a href="#"
 									   class="itsec_return_to_top"><?php _e( 'Return to top', 'it-l10n-better-wp-security' ); ?></a>
 								<?php } ?>
@@ -1259,7 +1286,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 						</div>
 
-						<?php if ($screen == 'security_page_toplevel_page_itsec_settings') { ?>
+						<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' || $screen == 'security_page_toplevel_page_itsec_pro' ) { ?>
 					</form>
 				<?php } ?>
 					<!-- #post-body -->
@@ -1412,7 +1439,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
 
-			if ( ( ! defined( 'DOING_AJAX' ) || DOING_AJAX == false ) && function_exists( 'get_current_screen' ) && isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false ) ) {
+			if ( ( ! defined( 'DOING_AJAX' ) || DOING_AJAX == false ) && function_exists( 'get_current_screen' ) && isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_pro' ) !== false ) ) {
 
 				if ( $errors === false && isset ( $_GET['settings-updated'] ) && sanitize_text_field( $_GET['settings-updated'] ) == 'true' ) {
 

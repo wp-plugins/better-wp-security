@@ -185,7 +185,7 @@ class ITSEC_SSL_Admin {
 			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
-		if ( $this->settings['frontend'] == 1 ) {
+		if ( isset( $this->settings['frontend'] ) && $this->settings['frontend'] == 1 ) {
 
 			add_action( 'post_submitbox_misc_actions', array( $this, 'ssl_enable_per_content' ) );
 			add_action( 'save_post', array( $this, 'save_post' ) );
