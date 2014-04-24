@@ -101,5 +101,10 @@
 	Fixed XMLRPC label
 	Better XMLRPC Dashboard status
 	Don't allow logout action on wp-login.php with hide backend
-1.1.1 - 2014-4-31 0 Chris Wiegman
+1.1.1 - 2014-04-21 - Chris Wiegman
 	Better check for variable in SSL admin
+1.1.2 - 2014-04-24 - Chris Wiegman
+	Fixed a function not found error in the brute force module
+	Improved content filtering in SSL so that more images and other content will link with appropriate protocol.
+	Fixed hide backend in cases where a lockout has expired
+	Miscelaneous typos and other fixes.

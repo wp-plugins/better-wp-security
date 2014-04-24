@@ -129,3 +129,11 @@
 	Don't allow logout action on wp-login.php with hide backend
 4.1.3 - 2014-04-21 - Packaging Bot (modules/free)
 	Better check for variable in SSL admin
+4.1.4 - 2014-04-24 - Packaging Bot (core)
+	Miscelaneous typos and other fixes
+	Remove extra file lock on saving .htaccess, nginx.conf and wp-config.php. Only flock will be used in these operations
+4.1.5 - 2014-04-24 - Packaging Bot (modules/free)
+	Fixed a function not found error in the brute force module
+	Improved content filtering in SSL so that more images and other content will link with appropriate protocol.
+	Fixed hide backend in cases where a lockout has expired
+	Miscelaneous typos and other fixes.

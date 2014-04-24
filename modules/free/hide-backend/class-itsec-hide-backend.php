@@ -3,7 +3,8 @@
 class ITSEC_Hide_Backend {
 
 	private
-		$settings;
+		$settings,
+		$auth_cookie_expired;
 
 	function run() {
 
@@ -12,6 +13,9 @@ class ITSEC_Hide_Backend {
 		//Execute module functions on frontend init
 		if ( $this->settings['enabled'] === true ) {
 
+			$this->auth_cookie_expired = false;
+
+			add_action( 'auth_cookie_expired', array( $this, 'auth_cookie_expired' ) );
 			add_action( 'init', array( $this, 'execute_hide_backend' ), 1000 );
 			add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
@@ -27,12 +31,27 @@ class ITSEC_Hide_Backend {
 	}
 
 	/**
-	 * Execute hide backend functionality
+	 * Lets the module know that this is a reauthorization
+	 *
+	 * @since 4.1
 	 *
 	 * @return void
 	 */
-	public
-	function execute_hide_backend() {
+	public function auth_cookie_expired() {
+
+		$this->auth_cookie_expired = true;
+		wp_clear_auth_cookie();
+
+	}
+
+	/**
+	 * Execute hide backend functionality
+	 *
+	 * @since 4.0
+	 *
+	 * @return void
+	 */
+	public function execute_hide_backend() {
 
 		if ( get_site_option( 'users_can_register' ) == 1 && isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . $this->settings['register'] ) {
 
@@ -62,6 +81,7 @@ class ITSEC_Hide_Backend {
 				)
 			) &&
 			strpos( $_SERVER['REQUEST_URI'], 'admin-ajax.php' ) === false
+			&& $this->auth_cookie_expired === false
 		) {
 
 			global $itsec_is_old_admin;
@@ -100,7 +120,7 @@ class ITSEC_Hide_Backend {
 				status_header( 200 );
 
 				//don't allow domain mapping to redirect
-				if( defined( 'DOMAIN_MAPPING' ) && DOMAIN_MAPPING == 1 ) {
+				if ( defined( 'DOMAIN_MAPPING' ) && DOMAIN_MAPPING == 1 ) {
 					remove_action( 'login_head', 'redirect_login_to_orig' );
 				}
 
@@ -114,8 +134,12 @@ class ITSEC_Hide_Backend {
 			} elseif ( ! isset( $_GET['action'] ) || ( sanitize_text_field( $_GET['action'] ) != 'logout' && sanitize_text_field( $_GET['action'] ) != 'postpass' && ( isset( $this->settings['post_logout_slug'] ) && strlen( trim( $this->settings['post_logout_slug'] ) ) > 0 && sanitize_text_field( $_GET['action'] ) != trim( $this->settings['post_logout_slug'] ) ) ) ) {
 				//Just redirect them to the dashboard (for logged in users)
 
-				wp_redirect( get_admin_url() );
-				exit();
+				if ( $this->auth_cookie_expired === false ) {
+
+					wp_redirect( get_admin_url() );
+					exit();
+
+				}
 
 			} elseif ( isset( $_GET['action'] ) && ( sanitize_text_field( $_GET['action'] ) == 'postpass' || ( isset( $this->settings['post_logout_slug'] ) && strlen( trim( $this->settings['post_logout_slug'] ) ) > 0 && sanitize_text_field( $_GET['action'] ) == trim( $this->settings['post_logout_slug'] ) ) ) ) {
 				//handle private posts for

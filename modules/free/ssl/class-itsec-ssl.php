@@ -10,7 +10,10 @@ class ITSEC_SSL {
 
 		//Don't redirect any SSL if SSL is turned off.
 		if ( isset( $this->settings['frontend'] ) && $this->settings['frontend'] >= 1 ) {
+
 			add_action( 'template_redirect', array( $this, 'ssl_redirect' ) );
+			add_filter( 'the_content', array( $this, 'replace_content_urls' ) );
+
 		}
 
 	}
@@ -88,6 +91,26 @@ class ITSEC_SSL {
 
 		}
 
+	}
+
+	/**
+	 * Replace urls in content with ssl
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $content the content
+	 *
+	 * @return string the content
+	 */
+	public function replace_content_urls( $content ) {
+
+		if ( $this->is_ssl() ) {
+
+			$content = str_replace( site_url( '', 'http' ), site_url( '', 'https' ), $content );
+
+		}
+
+		return $content;
 	}
 
 }

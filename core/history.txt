@@ -68,3 +68,6 @@
 	Make sure class is present for permanent ban
 	Make sure white list is an array
 	Fix white listed IPs not working
+1.1.1 - 2014-04-24 - Chris Wiegman
+	Miscelaneous typos and other fixes
+	Remove extra file lock on saving .htaccess, nginx.conf and wp-config.php. Only flock will be used in these operations

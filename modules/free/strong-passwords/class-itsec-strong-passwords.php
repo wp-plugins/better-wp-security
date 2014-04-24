@@ -14,7 +14,7 @@ class ITSEC_Strong_Passwords {
 		//require strong passwords if turned on
 		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
 			add_action( 'user_profile_update_errors', array( $this, 'enforce_strong_password' ), 0, 3 );
-			add_action( 'validate_password_reset', 'enforce_strong_password', 10, 2 );
+			add_action( 'validate_password_reset', array( $this, 'enforce_strong_password' ), 10, 2 );
 
 			if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
 				add_action( 'login_head', array( $this, 'enforce_strong_password' ) );

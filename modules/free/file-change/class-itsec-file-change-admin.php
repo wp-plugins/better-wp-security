@@ -64,7 +64,7 @@ class ITSEC_File_Change_Admin {
 			'itsec_file_change_warning',
 			array(
 				'nonce' => wp_create_nonce( 'itsec_file_change_warning' ),
-				'url' => admin_url() . 'admin.php?page=toplevel_page_itsec_logs',
+				'url'   => admin_url() . 'admin.php?page=toplevel_page_itsec_logs',
 			)
 		);
 
@@ -738,7 +738,7 @@ class ITSEC_File_Change_Admin {
 		$input['method']       = ( isset( $input['method'] ) && intval( $input['method'] == 1 ) ? true : false );
 		$input['email']        = ( isset( $input['email'] ) && intval( $input['email'] == 1 ) ? true : false );
 		$input['notify_admin'] = ( isset( $input['notify_admin'] ) && intval( $input['notify_admin'] == 1 ) ? true : false );
-		$input['last_chunk'] = ( isset( $input['last_chunk'] ) ? $input['last_chunk'] : false );
+		$input['last_chunk']   = ( isset( $input['last_chunk'] ) ? $input['last_chunk'] : false );
 
 		if ( ! is_array( $input['file_list'] ) ) {
 			$file_list = explode( PHP_EOL, $input['file_list'] );
@@ -764,9 +764,15 @@ class ITSEC_File_Change_Admin {
 
 		foreach ( $file_types as $file_type ) {
 
-			$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
+			$file_type = trim( $file_type );
 
-			$good_types[] = sanitize_text_field( trim( $good_type ) );
+			if ( strlen( $file_type ) > 0 && $file_type != '.' ) {
+
+				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
+
+				$good_types[] = sanitize_text_field( trim( $good_type ) );
+
+			}
 		}
 
 		$input['types'] = $good_types;

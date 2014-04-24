@@ -123,7 +123,7 @@ if ( ! class_exists( 'ITSEC_Hide_Backend_Setup' ) ) {
 		 */
 		public function execute_upgrade() {
 
-			global $itsec_old_version, $itsec_files;
+			global $itsec_old_version;
 
 			if ( $itsec_old_version < 4000 ) {
 
