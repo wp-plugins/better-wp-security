@@ -33,7 +33,7 @@ final class ITSEC_Logger {
 		}
 
 		//don't create a log file if we don't need it.
-		if ( isset( $itsec_globals['settings']['log_type'] ) && $itsec_globals['settings']['log_type'] !== 0  ) {
+		if ( isset( $itsec_globals['settings']['log_type'] ) && $itsec_globals['settings']['log_type'] !== 0 ) {
 
 			$this->log_file = $itsec_globals['ithemes_log_dir'] . '/event-log-' . $itsec_globals['settings']['log_info'] . '.log';
 			$this->start_log(); //create a log file if we don't have one
@@ -320,6 +320,59 @@ final class ITSEC_Logger {
 	}
 
 	/**
+	 * A better print array function to display array data in the logs
+	 *
+	 * @since 4.2
+	 *
+	 * @param array $array_items array to print or return
+	 * @param bool  $return      true to return the data false to echo it
+	 */
+	public function print_array( $array_items, $return = true ) {
+
+		$items = '';
+
+		//make sure we're working with an array
+		if ( ! is_array( $array_items ) ) {
+			return false;
+		}
+
+		if ( sizeof( $array_items ) > 0 ) {
+
+			$items .= '<ul>';
+
+			foreach ( $array_items as $key => $item ) {
+
+				if ( is_array( $item ) ) {
+
+					$items .= '<li>';
+
+						if ( ! is_numeric( $key ) ) {
+							$items .= '<h3>' . $key . '</h3>';
+						}
+	
+						$items .= $this->print_array( $item, true ) . PHP_EOL;
+
+					$items .= '</li>';
+
+				} else {
+
+					if ( strlen( trim( $item ) ) > 0 ) {
+						$items .= '<li><h3>' . $key . ' = ' . $item . '</h3></li>' . PHP_EOL;
+					}
+
+				}
+
+			}
+
+			$items .= '</ul>';
+
+		}
+
+		return $items;
+
+	}
+
+	/**
 	 * Purges database logs and rotates file logs (when needed)
 	 *
 	 * @return void
@@ -386,8 +439,9 @@ final class ITSEC_Logger {
 
 		foreach ( new DirectoryIterator( $base_directory ) as $fInfo ) {
 
-			if ( $fInfo->isDot() || ! $fInfo->isFile() )
+			if ( $fInfo->isDot() || ! $fInfo->isFile() ) {
 				continue;
+			}
 
 			if ( preg_match( '/^' . $base_name . '\.?([0-9]*)$/', $fInfo->getFilename(), $matches ) ) {
 

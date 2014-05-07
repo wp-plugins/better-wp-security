@@ -69,5 +69,20 @@
 	Make sure white list is an array
 	Fix white listed IPs not working
 1.1.1 - 2014-04-24 - Chris Wiegman
-	Miscelaneous typos and other fixes
+	Miscellaneous typos and other fixes
 	Remove extra file lock on saving .htaccess, nginx.conf and wp-config.php. Only flock will be used in these operations
+1.2.0 - 2014-05-07 - Chris Wiegman
+    Better cache clearing and formatting updates
+    Make sure rewrite rules are updated on this update
+    Remove extra (settings) items from admin bar menu (leave logs and important information)
+    Add WP_CONTENT_DIR to system information on dashboard
+    Move support nag to free version only and make sure it properly redirects
+    Fix check for presence of BackupBuddy to work with BackupBuddy >=4.2.16.0
+    Clean up details views on log pages
+    Add username column to temp and lockouts tables
+    Lockout usernames whether they exist or not
+    Don't duplicate lockouts
+    Fixed malformed lockout error on lockout message
+    Don't display a host lockout when none exists
+    Add Sync integration to release lockouts
+    Improved reliability of brute force user lockouts

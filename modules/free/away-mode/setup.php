@@ -69,6 +69,7 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 		 */
 		public function execute_deactivate() {
 
+			delete_site_option( 'itsec_away_mode_sync_override' );
 			delete_site_transient( 'itsec_away' );
 			delete_site_transient( 'itsec_away_mode' );
 

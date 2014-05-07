@@ -369,6 +369,13 @@ class ITSEC_Setup {
 
 		update_site_option( 'itsec_data', $itsec_globals['data'] );
 
+		if ( $itsec_old_version < 4030 ) {
+
+			ITSEC_Lib::create_database_tables(); //adds username field to lockouts and temp
+			add_site_option( 'itsec_rewrites_changed', true );
+
+		}
+
 	}
 
 	/**

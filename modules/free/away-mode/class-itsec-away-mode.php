@@ -2,88 +2,186 @@
 
 class ITSEC_Away_Mode {
 
-	private
-		$settings,
-		$away_file;
-
 	function run() {
 
-		global $itsec_globals;
-
-		$this->settings  = get_site_option( 'itsec_away_mode' );
-		$this->away_file = $itsec_globals['ithemes_dir'] . '/itsec_away.confg'; //override file
-
 		//Execute away mode functions on admin init
-		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
-			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
-			add_action( 'itsec_admin_init', array( $this, 'execute_away_mode' ) );
-			add_action( 'login_init', array( $this, 'execute_away_mode' ) );
-		}
+		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
+		add_action( 'itsec_admin_init', array( $this, 'execute_away_mode' ) );
+		add_action( 'login_init', array( $this, 'execute_away_mode' ) );
+
+		//Register Sync
+		add_filter( 'itsec_sync_modules', array( $this, 'register_sync' ) );
 
 	}
 
 	/**
 	 * Check if away mode is active
 	 *
-	 * @since 4.0
+	 * @since 4.4
 	 *
-	 * @param bool  $form  [false] Whether the call comes from the same options form
-	 * @param array $input [NULL] Input of options to check if calling from form
+	 * @param array $input     [NULL] Input of options to check if calling from form
+	 * @param bool  $remaining will return the number of seconds remaining
+	 * @param bool  $override  Whether or not we're calculating override values
 	 *
-	 * @return bool true if locked out else false
+	 * @return mixed true if locked out else false or times until next condition (negative until lockout, positive until release)
 	 */
-	public function check_away( $form = false, $input = null ) {
+	public static function check_away( $input = NULL, $remaining = false, $override = false ) {
 
 		global $itsec_globals;
 
-		if ( $form === false ) {
+		ITSEC_Lib::clear_caches(); //lets try to make sure nothing is storing a bad time
 
-			$test_type  = $this->settings['type'];
-			$test_start = $this->settings['start'];
-			$test_end   = $this->settings['end'];
+		$form          = true;
+		$has_away_file = @file_exists( $itsec_globals['ithemes_dir'] . '/itsec_away.confg' );
+		$status        = false; //assume they're not locked out to start
 
-		} else {
+		//Normal usage check
+		if ( $input === NULL ) { //if we didn't provide input to check we need to get it
 
-			$test_type  = $input['type'];
-			$test_start = $input['start'];
-			$test_end   = $input['end'];
+			$form  = false;
+			$input = get_site_option( 'itsec_away_mode' );
 
 		}
 
-		$current_time  = $itsec_globals['current_time'];
-		$has_away_file = @file_exists( $this->away_file );
+		if ( ( $form === false && ! isset( $input['enabled'] ) ) || ! isset( $input['type'] ) || ! isset( $input['start'] ) || ! isset( $input['end'] ) || ! $has_away_file ) {
+			return false; //if we don't have complete settings don't lock them out
+		}
 
-		if ( 1 == $test_type ) { //daily
+		$current_time = $itsec_globals['current_time']; //use current time
+		$enabled      = isset( $input['enabled'] ) ? $input['enabled'] : $form;
+		$test_type    = $input['type'];
+		$test_start   = $input['start'];
+		$test_end     = $input['end'];
+
+		if ( $test_type === 1 ) { //daily
 
 			$test_start -= strtotime( date( 'Y-m-d', $test_start ) );
 			$test_end -= strtotime( date( 'Y-m-d', $test_end ) );
 			$day_seconds = $current_time - strtotime( date( 'Y-m-d', $current_time ) );
 
 			if ( $test_start === $test_end ) {
-				return false;
+				$status = false;
 			}
 
 			if ( $test_start < $test_end ) { //same day
 
-				if ( $test_start <= $day_seconds && $test_end >= $day_seconds && ( $form === true || ( $this->settings['enabled'] === true && $has_away_file ) ) ) {
-					return true;
+				if ( $test_start <= $day_seconds && $test_end >= $day_seconds && $enabled === true ) {
+					$status = $test_end - $day_seconds;
 				}
 
 			} else { //overnight
 
-				if ( ( $test_start < $day_seconds || $test_end > $day_seconds ) && ( $form === true || ( $this->settings['enabled'] === true && $has_away_file ) ) ) {
-					return true;
+				if ( ( $test_start < $day_seconds || $test_end > $day_seconds ) && $enabled === true ) {
+
+					if ( $day_seconds >= $test_start ) {
+
+						$status = ( 86400 - $day_seconds ) + $test_end;
+
+					} else {
+
+						$status = $test_end - $day_seconds;
+
+					}
+
 				}
 
 			}
 
-		} else if ( $test_start !== $test_end && $test_start <= $current_time && $test_end >= $current_time && ( $form === true || ( $this->settings['enabled'] === true && $has_away_file ) ) ) { //one time
+		} else if ( $test_start !== $test_end && $test_start <= $current_time && $test_end >= $current_time && $enabled === true ) { //one time
 
-			return true;
+			$status = $test_end - $current_time;
 
 		}
 
-		return false; //they are allowed to log in
+		//they are allowed to log in
+		if ( $status === false ) {
+
+			if ( $test_type === 1 ) {
+
+				if ( $day_seconds > $test_start ) { //actually starts tomorrow
+
+					$status = - ( ( 86400 + $test_start ) - $day_seconds );
+
+				} else { //starts today
+
+					$status = - ( $test_start - $day_seconds );
+
+				}
+
+			} else {
+
+				$status = - ( $test_start - $current_time );
+
+				if ( $status > 0 ) {
+
+					$status = 0;
+
+				}
+
+			}
+
+		}
+
+		if ( $override === false ) {
+
+			//work in an override from sync
+			$override_option = get_site_option( 'itsec_away_mode_sync_override' );
+			$override        = $override_option['intention'];
+			$expires         = $override_option['expires'];
+
+			if ( $expires < $itsec_globals['current_time'] ) {
+
+				delete_site_option( 'itsec_away_mode_sync_override' );
+
+			} else {
+
+				if ( $override === 'activate' ) {
+
+					if ( $status <= 0 ) { //not currently locked out
+
+						$input['start'] = $current_time - 1;
+
+						$status = ITSEC_Away_Mode::check_away( $input, true, true );
+
+					} else {
+
+						delete_site_option( 'itsec_away_mode_sync_override' );
+
+					}
+
+				} elseif ( $override === 'deactivate' ) {
+
+					if ( $status > 0 ) { //currently locked out
+
+						$input['end'] = $current_time - 1;
+
+						$status = ITSEC_Away_Mode::check_away( $input, true, true );
+
+					} else {
+
+						delete_site_option( 'itsec_away_mode_sync_override' );
+
+					}
+
+				}
+
+			}
+
+		}
+
+		if ( $remaining === true ) {
+
+			return $status;
+
+		} else {
+
+			if ( $status > 0 && $status !== false ) {
+				return true;
+			}
+
+		}
+
+		return false; //always default to NOT locking folks out
 
 	}
 
@@ -103,7 +201,8 @@ class ITSEC_Away_Mode {
 			             'away_mode',
 			             5,
 			             array(
-				             __( 'A host was prevented from accessing the dashboard due to away-mode restrictions being in effect', 'it-l10n-better-wp-security' ),
+				             __( 'A host was prevented from accessing the dashboard due to away-mode restrictions being in effect',
+				                 'it-l10n-better-wp-security' ),
 			             ),
 			             ITSEC_Lib::get_ip(),
 			             '',
@@ -134,6 +233,28 @@ class ITSEC_Away_Mode {
 		);
 
 		return $logger_modules;
+
+	}
+
+	/**
+	 * Register Lockouts for Sync
+	 *
+	 * @param  array $sync_modules array of logger modules
+	 *
+	 * @return array                   array of logger modules
+	 */
+	public function register_sync( $sync_modules ) {
+
+		$sync_modules['away_mode'] = array(
+			'verbs'      => array(
+				'itsec-get-away-mode'      => 'Ithemes_Sync_Verb_ITSEC_Get_Away_Mode',
+				'itsec-override-away-mode' => 'Ithemes_Sync_Verb_ITSEC_Override_Away_Mode'
+			),
+			'everything' => 'itsec-get-away-mode',
+			'path'       => dirname( __FILE__ ),
+		);
+
+		return $sync_modules;
 
 	}
 

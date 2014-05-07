@@ -176,6 +176,10 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 
 			}
 
+			if ( $itsec_old_version < 4029 ) {
+				add_site_option( 'itsec_rewrites_changed', true );
+			}
+
 		}
 
 	}

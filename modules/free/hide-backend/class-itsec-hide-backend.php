@@ -23,6 +23,7 @@ class ITSEC_Hide_Backend {
 			add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
 			add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
 			add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
+			add_filter( 'retrieve_password_message', array( $this, 'retrieve_password_message' ) );
 
 			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 
@@ -77,7 +78,12 @@ class ITSEC_Hide_Backend {
 				(
 					$this->settings['register'] != 'wp-register.php' &&
 					strpos( $_SERVER['REQUEST_URI'], 'wp-register.php' ) !== false ||
-					strpos( $_SERVER['REQUEST_URI'], 'wp-signup.php' ) !== false
+					strpos( $_SERVER['REQUEST_URI'], 'wp-signup.php' ) !== false ||
+					(
+						isset( $_REQUEST['redirect_to'] ) &&
+						strpos( $_REQUEST['redirect_to'], 'wp-admin/customize.php' ) !== false
+
+					)
 				)
 			) &&
 			strpos( $_SERVER['REQUEST_URI'], 'admin-ajax.php' ) === false
@@ -101,10 +107,11 @@ class ITSEC_Hide_Backend {
 
 		}
 
-		$url_info   = parse_url( $_SERVER['REQUEST_URI'] );
-		$login_path = site_url( $this->settings['slug'], 'relative' );
+		$url_info                  = parse_url( $_SERVER['REQUEST_URI'] );
+		$login_path                = site_url( $this->settings['slug'], 'relative' );
+		$login_path_trailing_slash = site_url( $this->settings['slug'] . '/', 'relative' );
 
-		if ( $url_info['path'] === $login_path ) {
+		if ( $url_info['path'] === $login_path || $url_info['path'] === $login_path_trailing_slash ) {
 
 			if ( ! is_user_logged_in() ) {
 				//Add the login form
@@ -193,7 +200,7 @@ class ITSEC_Hide_Backend {
 	}
 
 	/**
-	 * Filters redirects for currect login URL
+	 * Filters redirects for correct login URL
 	 *
 	 * @param  string $url URL redirecting to
 	 *
@@ -251,6 +258,14 @@ class ITSEC_Hide_Backend {
 		}
 
 		return $classes;
+
+	}
+
+	public function retrieve_password_message( $message ) {
+
+		return str_replace( 'wp-login.php', $this->settings['slug'], $message );
+
+		return $message;
 
 	}
 

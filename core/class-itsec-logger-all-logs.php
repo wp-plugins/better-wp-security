@@ -142,11 +142,13 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 	 **/
 	function column_data( $item ) {
 
+		global $itsec_logger;
+
 		$raw_data = maybe_unserialize( $item['data'] );
 
 		if ( is_array( $raw_data ) && sizeof( $raw_data ) > 0 ) {
 
-			$data = var_export( $raw_data, true );
+			$data = $itsec_logger->print_array( $raw_data, true );
 
 		} elseif ( ! is_array( $raw_data ) ) {
 
@@ -160,12 +162,8 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 
 		if ( strlen( $data ) > 1 ) {
 
-			$content = '<div id="itsec-log-all-row-' . $item['id'] . '" style="display:none;">';
-			$content .= '<p>';
-			$content .= '<pre>';
-			$content .= print_r( maybe_unserialize( $item['data'] ), true );
-			$content .= '</pre>';
-			$content .= '</p>';
+			$content = '<div class="itsec-all-log-dialog" id="itsec-log-all-row-' . $item['id'] . '" style="display:none;">';
+			$content .= $data;
 			$content .= '</div>';
 
 			$content .= '<a href="itsec-log-all-row-' . $item['id'] . '" class="dialog">' . __( 'Details', 'it-l10n-better-wp-security' ) . '</a>';

@@ -83,6 +83,7 @@ if ($http_user_agent ~* "^WebFetch"){ return 403; }
 if ($http_user_agent ~* "^WebLeacher"){ return 403; }
 if ($http_user_agent ~* "^WebReaper"){ return 403; }
 if ($http_user_agent ~* "^WebSauger"){ return 403; }
+if ($http_user_agent ~* "^WPScan"){ return 403; }
 if ($http_user_agent ~* "^WebStripper"){ return 403; }
 if ($http_user_agent ~* "^WebWhacker"){ return 403; }
 if ($http_user_agent ~* "^WebZIP"){ return 403; }

@@ -35,8 +35,8 @@ final class ITSEC_Lib {
 
 			$cidr = explode( '/', $cidr );
 
-			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( ( - 1 << ( 32 - (int)$cidr[1] ) ) ) );
-			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int)$cidr[1] ) ) - 1 );
+			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( ( - 1 << ( 32 - (int) $cidr[1] ) ) ) );
+			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
 
 		} else { //if not a range just return the original ip
 
@@ -71,11 +71,11 @@ final class ITSEC_Lib {
 
 			if ( $page == true ) {
 				w3tc_pgcache_flush();
+				w3tc_minify_flush();
 			}
 
 			w3tc_dbcache_flush();
 			w3tc_objectcache_flush();
-			w3tc_minify_flush();
 
 		} else if ( function_exists( 'wp_cache_clear_cache' ) && $page == true ) {
 
@@ -135,11 +135,13 @@ final class ITSEC_Lib {
 				lockout_expire_gmt datetime NOT NULL,
 				lockout_host varchar(20),
 				lockout_user bigint(20) UNSIGNED,
+				lockout_username varchar(20),
 				lockout_active int(1) NOT NULL DEFAULT 1,
 				PRIMARY KEY  (lockout_id),
 				KEY lockout_expire_gmt (lockout_expire_gmt),
 				KEY lockout_host (lockout_host),
 				KEY lockout_user (lockout_user),
+				KEY lockout_username (lockout_username),
 				KEY lockout_active (lockout_active)
 				) " . $charset_collate . ";";
 
@@ -151,10 +153,12 @@ final class ITSEC_Lib {
 				temp_date_gmt datetime NOT NULL,
 				temp_host varchar(20),
 				temp_user bigint(20) UNSIGNED,
+				temp_username varchar(20),
 				PRIMARY KEY  (temp_id),
 				KEY temp_date_gmt (temp_date_gmt),
 				KEY temp_host (temp_host),
-				KEY temp_user (temp_user)
+				KEY temp_user (temp_user),
+				KEY temp_username (temp_username)
 				) " . $charset_collate . ";";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -312,11 +316,21 @@ final class ITSEC_Lib {
 		}
 
 		//Get the forwarded IP if it exists
-		if ( array_key_exists( 'X-Forwarded-For', $headers ) && ( filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) || filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) ) {
+		if ( array_key_exists( 'X-Forwarded-For', $headers ) && ( filter_var( $headers['X-Forwarded-For'],
+		                                                                      FILTER_VALIDATE_IP,
+		                                                                      FILTER_FLAG_IPV4 ) || filter_var( $headers['X-Forwarded-For'],
+		                                                                                                        FILTER_VALIDATE_IP,
+		                                                                                                        FILTER_FLAG_IPV6 ) )
+		) {
 
 			$the_ip = $headers['X-Forwarded-For'];
 
-		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && ( filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) || filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) ) {
+		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR',
+		                             $headers ) && ( filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP,
+		                                                         FILTER_FLAG_IPV4 ) || filter_var( $headers['HTTP_X_FORWARDED_FOR'],
+		                                                                                           FILTER_VALIDATE_IP,
+		                                                                                           FILTER_FLAG_IPV6 ) )
+		) {
 
 			$the_ip = $headers['HTTP_X_FORWARDED_FOR'];
 
@@ -339,7 +353,7 @@ final class ITSEC_Lib {
 	 */
 	public static function get_memory_limit() {
 
-		return (int)ini_get( 'memory_limit' );
+		return (int) ini_get( 'memory_limit' );
 
 	}
 
@@ -359,7 +373,9 @@ final class ITSEC_Lib {
 
 		$path_info = parse_url( get_bloginfo( 'url' ) );
 
-		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/', str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ), '\\\/' ) );
+		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/',
+		                                                   str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ),
+		                                      '\\\/' ) );
 
 		if ( $with_sub === true && isset( $path_info['path'] ) ) {
 
@@ -563,7 +579,7 @@ final class ITSEC_Lib {
 		if ( $jquery_version !== false and version_compare( $jquery_version, '1.6.3', '>=' ) ) {
 			return true;
 		} elseif ( $jquery_version === false ) {
-			return null;
+			return NULL;
 		}
 
 		return false;
@@ -622,22 +638,25 @@ final class ITSEC_Lib {
 
 			$new_unit = strtolower( substr( $new_memory_limit, - 1 ) );
 
-			if ( 'm' == $unit )
+			if ( 'm' == $unit ) {
 				$memory_limit *= 1048576;
-			else if ( 'g' == $unit )
+			} else if ( 'g' == $unit ) {
 				$memory_limit *= 1073741824;
-			else if ( 'k' == $unit )
+			} else if ( 'k' == $unit ) {
 				$memory_limit *= 1024;
+			}
 
-			if ( 'm' == $new_unit )
+			if ( 'm' == $new_unit ) {
 				$new_memory_limit *= 1048576;
-			else if ( 'g' == $new_unit )
+			} else if ( 'g' == $new_unit ) {
 				$new_memory_limit *= 1073741824;
-			else if ( 'k' == $new_unit )
+			} else if ( 'k' == $new_unit ) {
 				$new_memory_limit *= 1024;
+			}
 
-			if ( (int)$memory_limit < (int)$new_memory_limit )
+			if ( (int) $memory_limit < (int) $new_memory_limit ) {
 				@ini_set( 'memory_limit', $new_memory_limit );
+			}
 
 		}
 
@@ -663,7 +682,8 @@ final class ITSEC_Lib {
 		}
 
 		//queary the user table to see if the user is there
-		$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
+		$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';",
+		                                          sanitize_text_field( $user_id ) ) );
 
 		if ( $userid == $user_id ) {
 			return true;
@@ -685,7 +705,7 @@ final class ITSEC_Lib {
 		//validate list
 		$ip             = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
 		$ip_parts       = explode( '.', $ip );
-		$error_handler  = null;
+		$error_handler  = NULL;
 		$is_ip          = 0;
 		$part_count     = 1;
 		$good_ip        = true;
@@ -695,7 +715,9 @@ final class ITSEC_Lib {
 
 			if ( $good_ip == true ) {
 
-				if ( ( is_numeric( $part ) && $part <= 255 && $part >= 0 ) || $part === '*' || ( $part_count === 3 && strpos( $part, '/' ) !== false ) ) {
+				if ( ( is_numeric( $part ) && $part <= 255 && $part >= 0 ) || $part === '*' || ( $part_count === 3 && strpos( $part,
+				                                                                                                              '/' ) !== false )
+				) {
 					$is_ip ++;
 				}
 
@@ -779,7 +801,12 @@ final class ITSEC_Lib {
 
 		}
 
-		if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false ) || ( strpos( $ip, '/' ) === false && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
+		if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip,
+		                                                                              '/' ) ) ) ) === false ) || ( strpos( $ip,
+		                                                                                                                   '/' ) === false && ip2long( trim( str_replace( '*',
+		                                                                                                                                                                  '0',
+		                                                                                                                                                                  $ip ) ) ) === false )
+		) { //invalid ip
 
 			return false;
 
@@ -804,8 +831,9 @@ final class ITSEC_Lib {
 		$unipath = strlen( $path ) == 0 || $path{0} != '/';
 
 		// attempts to detect if path is relative in which case, add cwd
-		if ( strpos( $path, ':' ) === false && $unipath )
+		if ( strpos( $path, ':' ) === false && $unipath ) {
 			$path = getcwd() . DIRECTORY_SEPARATOR . $path;
+		}
 
 		// resolve path parts (single dot, double dot and double delimiters)
 		$path      = str_replace( array( '/', '\\' ), DIRECTORY_SEPARATOR, $path );
@@ -814,9 +842,9 @@ final class ITSEC_Lib {
 
 		foreach ( $parts as $part ) {
 
-			if ( '.' == $part )
-
+			if ( '.' == $part ) {
 				continue;
+			}
 
 			if ( '..' == $part ) {
 
@@ -833,8 +861,9 @@ final class ITSEC_Lib {
 		$path = implode( DIRECTORY_SEPARATOR, $absolutes );
 
 		// resolve any symlinks
-		if ( file_exists( $path ) && linkinfo( $path ) > 0 )
+		if ( file_exists( $path ) && linkinfo( $path ) > 0 ) {
 			$path = @readlink( $path );
+		}
 
 		// put initial separator that could have been lost
 		$path = ! $unipath ? '/' . $path : $path;

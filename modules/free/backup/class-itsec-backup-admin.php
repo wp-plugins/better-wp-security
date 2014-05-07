@@ -27,7 +27,7 @@ class ITSEC_Backup_Admin {
 	 */
 	public function add_admin_meta_boxes() {
 
-		if ( ! class_exists( 'backupbuddy_api0' ) ) {
+		if ( ! class_exists( 'backupbuddy_api' ) ) {
 
 			add_meta_box(
 				'backup_description',
@@ -59,7 +59,7 @@ class ITSEC_Backup_Admin {
 				'core'
 			);
 
-			if ( ! class_exists( 'backupbuddy_api0' ) ) {
+			if ( ! class_exists( 'backupbuddy_api' ) ) {
 				add_meta_box(
 					'backupbuddy_info',
 					__( 'Take the Next Steps in Security with BackupBuddy', 'it-l10n-better-wp-security' ),
@@ -160,12 +160,12 @@ class ITSEC_Backup_Admin {
 	 */
 	public function dashboard_status( $statuses ) {
 
-		if ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) >= 1 ) {
+		if ( class_exists( 'backupbuddy_api' ) && sizeof( backupbuddy_api::getSchedules() ) >= 1 ) {
 
 			$status_array = 'safe-medium';
 			$status       = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
 
-		} elseif ( class_exists( 'backupbuddy_api0' ) ) {
+		} elseif ( class_exists( 'backupbuddy_api' ) ) {
 
 			$status_array = 'medium';
 			$status       = array( 'text' => __( 'BackupBuddy is installed but backups do not appear to have been scheduled. Please schedule backups.', 'it-l10n-better-wp-security' ), 'link' => '?page=pb_backupbuddy_scheduling', );
@@ -529,7 +529,7 @@ class ITSEC_Backup_Admin {
 		$content .= wp_nonce_field( 'itsec_do_backup', 'wp_nonce' );
 		$content .= '<input type="hidden" name="itsec_backup" value="one_time_backup" />';
 		$content .= '<p>' . __( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', 'it-l10n-better-wp-security' ) . '</p>';
-		$content .= '<p class="submit"><input type="submit" class="button-primary" value="' . __( 'Create Database Backup', 'ithemes_security' ) . '" /></p>';
+		$content .= '<p class="submit"><input type="submit" class="button-primary" value="' . __( 'Create Database Backup', 'it-l10n-better-wp-security' ) . '" /></p>';
 		$content .= '<p><a href="?page=toplevel_page_itsec_settings#itsec_backup_all_sites">' . __( 'Adjust Backup Settings', 'it-l10n-better-wp-security' ) . '</a>';
 		$content .= '</form>';
 

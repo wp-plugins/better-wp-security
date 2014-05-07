@@ -43,10 +43,18 @@ class ITSEC_Strong_Passwords {
 		$minRole = $this->settings['roll'];
 
 		//all the standard roles and level equivalents
-		$availableRoles = array( 'administrator' => '8', 'editor' => '5', 'author' => '2', 'contributor' => '1', 'subscriber' => '0' );
+		$availableRoles = array(
+			'administrator' => '8', 'editor' => '5', 'author' => '2', 'contributor' => '1', 'subscriber' => '0'
+		);
 
 		//roles and subroles
-		$rollists = array( 'administrator' => array( 'subscriber', 'author', 'contributor', 'editor' ), 'editor' => array( 'subscriber', 'author', 'contributor' ), 'author' => array( 'subscriber', 'contributor' ), 'contributor' => array( 'subscriber' ), 'subscriber' => array(), );
+		$rollists = array(
+			'administrator' => array( 'subscriber', 'author', 'contributor', 'editor' ),
+			'editor'        => array( 'subscriber', 'author', 'contributor' ),
+			'author'        => array( 'subscriber', 'contributor' ),
+			'contributor'   => array( 'subscriber' ),
+			'subscriber'    => array(),
+		);
 
 		$password_meets_requirements = false;
 		$args                        = func_get_args();
@@ -120,6 +128,7 @@ class ITSEC_Strong_Passwords {
 	 * @return void
 	 */
 	public function shut_down_js() {
+
 		?>
 
 		<script type="text/javascript">

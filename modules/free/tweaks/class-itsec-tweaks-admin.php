@@ -667,11 +667,38 @@ class ITSEC_Tweaks_Admin {
 
 			if ( $server_type === 'nginx' ) { //NGINX rules
 
-				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tlocation ~ /\.ht { deny all; }" . PHP_EOL . "\tlocation ~ wp-config.php { deny all; }" . PHP_EOL . "\tlocation ~ readme.html { deny all; }" . PHP_EOL . "\tlocation ~ readme.txt { deny all; }" . PHP_EOL . "\tlocation ~ /install.php { deny all; }" . PHP_EOL . "\tlocation ^wp-includes/(.*).php { deny all; }" . PHP_EOL . "\tlocation ^/wp-admin/includes(.*)$ { deny all; }" . PHP_EOL;
+				$rules .= "\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL .
+				          "\tlocation ~ /\.ht { deny all; }" . PHP_EOL .
+				          "\tlocation ~ wp-config.php { deny all; }" . PHP_EOL .
+				          "\tlocation ~ readme.html { deny all; }" . PHP_EOL .
+				          "\tlocation ~ readme.txt { deny all; }" . PHP_EOL .
+				          "\tlocation ~ /install.php { deny all; }" . PHP_EOL .
+				          "\tlocation ^wp-includes/(.*).php { deny all; }" . PHP_EOL .
+				          "\tlocation ^/wp-admin/includes(.*)$ { deny all; }" . PHP_EOL;
 
 			} else { //rules for all other servers
 
-				$rules .= "# " . __( 'Rules to block access to WordPress specific files', 'it-l10n-better-wp-security' ) . PHP_EOL . "<files .htaccess>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.html>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files readme.txt>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files install.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL . "<files wp-config.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL;
+				$rules .= "# " . __( 'Rules to block access to WordPress specific files', 'it-l10n-better-wp-security' ) . PHP_EOL .
+				          "<files .htaccess>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL .
+				          "<files readme.html>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL .
+				          "<files readme.txt>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL .
+				          "<files install.php>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL .
+				          "<files wp-config.php>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL;
 
 			}
 
@@ -692,7 +719,10 @@ class ITSEC_Tweaks_Admin {
 
 			} else { //rules for all other servers
 
-				$rules .= "<files xmlrpc.php>" . PHP_EOL . "\tOrder allow,deny" . PHP_EOL . "\tDeny from all" . PHP_EOL . "</files>" . PHP_EOL;
+				$rules .= "<files xmlrpc.php>" . PHP_EOL .
+				          "\tOrder allow,deny" . PHP_EOL .
+				          "\tDeny from all" . PHP_EOL .
+				          "</files>" . PHP_EOL;
 
 			}
 
@@ -725,7 +755,8 @@ class ITSEC_Tweaks_Admin {
 			//Open Apache rewrite rules
 			if ( $server_type !== 'nginx' ) {
 
-				$rules .= "<IfModule mod_rewrite.c>" . PHP_EOL . "\tRewriteEngine On" . PHP_EOL;
+				$rules .= "<IfModule mod_rewrite.c>" . PHP_EOL .
+				          "\tRewriteEngine On" . PHP_EOL;
 
 			}
 
@@ -734,7 +765,12 @@ class ITSEC_Tweaks_Admin {
 
 				$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'it-l10n-better-wp-security' ) . PHP_EOL;
 
-				$rules .= "\tRewriteRule ^wp-admin/includes/ - [F]" . PHP_EOL . "\tRewriteRule !^wp-includes/ - [S=3]" . PHP_EOL . "\tRewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php" . PHP_EOL . "\tRewriteRule ^wp-includes/[^/]+\.php$ - [F]" . PHP_EOL . "\tRewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F]" . PHP_EOL . "\tRewriteRule ^wp-includes/theme-compat/ - [F]" . PHP_EOL;
+				$rules .= "\tRewriteRule ^wp-admin/includes/ - [F]" . PHP_EOL .
+				          "\tRewriteRule !^wp-includes/ - [S=3]" . PHP_EOL .
+				          "\tRewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php" . PHP_EOL .
+				          "\tRewriteRule ^wp-includes/[^/]+\.php$ - [F]" . PHP_EOL .
+				          "\tRewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F]" . PHP_EOL .
+				          "\tRewriteRule ^wp-includes/theme-compat/ - [F]" . PHP_EOL;
 
 			}
 

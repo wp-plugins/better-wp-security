@@ -315,6 +315,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 
 		?>
 		<li><?php _e( 'Active Plugins', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $active_plugins ?></strong></li>
+		<li><?php _e( 'Content Directory', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo WP_CONTENT_DIR ?></strong></li>
 	</ul>
 </li>
 <li>

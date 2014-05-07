@@ -493,7 +493,7 @@ class ITSEC_Away_Mode_Admin {
 
 		}
 
-		if ( $input['enabled'] === true && $this->module->check_away( true, $input ) === true ) {
+		if ( $input['enabled'] === true && $this->module->check_away( $input ) === true ) {
 
 			$input['enabled'] = false; //disable away mode
 

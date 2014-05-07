@@ -35,6 +35,16 @@ class ITSEC_Brute_Force {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
 
+			if ( $user_id === false || $user_id === NULL ) {
+
+				$itsec_lockout->check_lockout( false, $username );
+
+			} else {
+
+				$itsec_lockout->check_lockout( $user_id );
+
+			};
+
 			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), sanitize_text_field( $username ), intval( $user_id ) );
 
 			$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
@@ -49,11 +59,21 @@ class ITSEC_Brute_Force {
 	 * @param string $username the username attempted
 	 * @param        object    wp_user the user
 	 */
-	public function execute_brute_force_login_successful( $username, $user ) {
+	public function execute_brute_force_login_successful( $username, $user = NULL ) {
 
 		global $itsec_lockout;
 
-		$itsec_lockout->check_lockout( $user );
+		if ( ! $user === NULL ) {
+
+			$itsec_lockout->check_lockout( $user );
+
+		} elseif ( is_user_logged_in() ) {
+
+			$current_user = wp_get_current_user();
+
+			$itsec_lockout->check_lockout( $current_user->ID );
+
+		}
 
 	}
 
@@ -73,6 +93,16 @@ class ITSEC_Brute_Force {
 		if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
+
+			if ( $user_id === false || $user_id === NULL ) {
+
+				$itsec_lockout->check_lockout( false, $username );
+
+			} else {
+
+				$itsec_lockout->check_lockout( $user_id );
+
+			}
 
 			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), sanitize_text_field( $username ), intval( $user_id ) );
 

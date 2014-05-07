@@ -461,7 +461,7 @@ class ITSEC_Hide_Backend_Admin {
 
 		add_settings_field(
 			'itsec_hide_backend[post_logout_slug]',
-			__( 'Custom Login Slug', 'it-l10n-better-wp-security' ),
+			__( 'Custom Login Action', 'it-l10n-better-wp-security' ),
 			array( $this, 'hide_backend_post_logout_slug' ),
 			'security_page_toplevel_page_itsec_settings',
 			'hide_backend-settings'
