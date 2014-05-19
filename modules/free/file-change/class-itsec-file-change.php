@@ -89,7 +89,7 @@ class ITSEC_File_Change {
 
 				$logged_files = array();
 
-				if ( is_multisite( '' ) ) {
+				if ( is_multisite() ) {
 
 					add_site_option( $db_field, $logged_files );
 
@@ -117,10 +117,10 @@ class ITSEC_File_Change {
 				if ( array_key_exists( $current_file, $logged_minus_deleted ) ) {
 
 					//if attributes differ added to changed files array
-					if ( strcmp( $current_attr['mod_date'], $logged_minus_deleted[$current_file]['mod_date'] ) != 0 || strcmp( $current_attr['hash'], $logged_minus_deleted[$current_file]['hash'] ) != 0 ) {
+					if ( ( ( isset( $current_attr['mod_date'] ) && strcmp( $current_attr['mod_date'], $logged_minus_deleted[$current_file]['mod_date'] ) != 0 ) || strcmp( $current_attr['d'], $logged_minus_deleted[$current_file]['d'] ) != 0 ) || ( ( isset( $current_attr['hash'] ) && strcmp( $current_attr['hash'], $logged_minus_deleted[$current_file]['hash'] ) != 0 ) || strcmp( $current_attr['h'], $logged_minus_deleted[$current_file]['h'] ) != 0 ) ) {
 
-						$files_changed[$current_file]['hash']     = $current_attr['hash'];
-						$files_changed[$current_file]['mod_date'] = $current_attr['mod_date'];
+						$files_changed[$current_file]['h'] = isset( $current_attr['hash'] ) ? $current_attr['hash'] : $current_attr['h'];
+						$files_changed[$current_file]['d'] = isset( $current_attr['mod_date'] ) ? $current_attr['mod_date'] : $current_attr['d'];
 
 					}
 
@@ -231,8 +231,8 @@ class ITSEC_File_Change {
 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', ( isset( $attr['mod_date'] ) ? $attr['mod_date'] : $attr['d'] ) ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . ( isset( $attr['hash'] ) ? $attr['hash'] : $attr['h'] ) . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 
 			}
@@ -261,8 +261,8 @@ class ITSEC_File_Change {
 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', ( isset( $attr['mod_date'] ) ? $attr['mod_date'] : $attr['d'] ) ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . ( isset( $attr['hash'] ) ? $attr['hash'] : $attr['h'] ) . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 
 			}
@@ -291,8 +291,8 @@ class ITSEC_File_Change {
 
 				$report .= '<tr>' . PHP_EOL;
 				$report .= '<td>' . $item . '</td>' . PHP_EOL;
-				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', $attr['mod_date'] ) . '</td>' . PHP_EOL;
-				$report .= '<td>' . $attr['hash'] . '</td>' . PHP_EOL;
+				$report .= '<td>' . date( 'l F jS, Y \a\t g:i a e', ( isset( $attr['mod_date'] ) ? $attr['mod_date'] : $attr['d'] ) ) . '</td>' . PHP_EOL;
+				$report .= '<td>' . ( isset( $attr['hash'] ) ? $attr['hash'] : $attr['h'] ) . '</td>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
 
 			}
@@ -460,9 +460,9 @@ class ITSEC_File_Change {
 
 						} else { //is file so add to array
 
-							$data[$relname]             = array();
-							$data[$relname]['mod_date'] = @filemtime( $absname ) + $time_offset;
-							$data[$relname]['hash']     = @md5_file( $absname );
+							$data[$relname]      = array();
+							$data[$relname]['d'] = @filemtime( $absname ) + $time_offset;
+							$data[$relname]['h'] = @md5_file( $absname );
 
 						}
 

@@ -9,11 +9,24 @@ class ITSEC_Content_Directory_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core );
-
+		if ( strpos( WP_CONTENT_DIR, 'wp-content' ) === false || strpos( WP_CONTENT_URL, 'wp-content' ) === false ) {
+			$this->settings = true;
+		} else {
+			$this->settings = false;
 		}
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
 	}
 
@@ -70,12 +83,18 @@ class ITSEC_Content_Directory_Admin {
 		if ( $this->settings === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'You have renamed the wp-content directory of your site.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_enable_content_dir', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'You have renamed the wp-content directory of your site.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_enable_content_dir', 'advanced' => true,
+			);
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You should rename the wp-content directory of your site.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_enable_content_dir', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'You should rename the wp-content directory of your site.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_enable_content_dir', 'advanced' => true,
+			);
 
 		}
 
@@ -103,34 +122,6 @@ class ITSEC_Content_Directory_Admin {
 			$this->process_directory();
 
 		}
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core        = $core;
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		if ( strpos( WP_CONTENT_DIR, 'wp-content' ) === false || strpos( WP_CONTENT_URL, 'wp-content' ) === false ) {
-			$this->settings = true;
-		} else {
-			$this->settings = false;
-		}
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
 	}
 
@@ -240,20 +231,29 @@ class ITSEC_Content_Directory_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public function build_wpconfig_rules( $rules_array, $input = null ) {
+	public function build_wpconfig_rules( $rules_array, $input = NULL ) {
 
 		//Get the rules from the database if input wasn't sent
-		if ( $input === null ) {
+		if ( $input === NULL ) {
 			return $rules_array;
 		}
 
 		$new_dir = trailingslashit( ABSPATH ) . $input;
 
-		$rules[] = array( 'type' => 'add', 'search_text' => '//Do not delete these. Doing so WILL break your site.', 'rule' => "//Do not delete these. Doing so WILL break your site.", );
+		$rules[] = array(
+			'type' => 'add', 'search_text' => '//Do not delete these. Doing so WILL break your site.',
+			'rule' => "//Do not delete these. Doing so WILL break your site.",
+		);
 
-		$rules[] = array( 'type' => 'add', 'search_text' => 'WP_CONTENT_URL', 'rule' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );", );
+		$rules[] = array(
+			'type' => 'add', 'search_text' => 'WP_CONTENT_URL',
+			'rule' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );",
+		);
 
-		$rules[] = array( 'type' => 'add', 'search_text' => 'WP_CONTENT_DIR', 'rule' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );", );
+		$rules[] = array(
+			'type' => 'add', 'search_text' => 'WP_CONTENT_DIR',
+			'rule' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+		);
 
 		$rules_array[] = array( 'type' => 'wpconfig', 'name' => 'Content Directory', 'rules' => $rules, );
 

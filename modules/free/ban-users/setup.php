@@ -16,7 +16,6 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 				'default'    => false,
 				'host_list'  => array(),
 				'agent_list' => array(),
-				'white_list' => array(),
 			);
 
 			if ( isset( $itsec_setup_action ) ) {

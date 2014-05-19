@@ -4,11 +4,7 @@ class ITSEC_Help_Admin {
 
 	function run() {
 
-		if ( is_admin() ) {
-
-			$this->initialize();
-
-		}
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 
 	}
 
@@ -26,21 +22,6 @@ class ITSEC_Help_Admin {
 			'normal',
 			'core'
 		);
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize() {
-
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 
 	}
 

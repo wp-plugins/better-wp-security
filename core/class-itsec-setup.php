@@ -42,7 +42,7 @@ class ITSEC_Setup {
 			'nginx_file'               => ABSPATH . 'nginx.conf',
 			'infinitewp_compatibility' => false,
 			'did_upgrade'              => false,
-			'lock_file' => false,
+			'lock_file'                => false,
 		);
 
 		if ( ! $case ) {
@@ -376,6 +376,34 @@ class ITSEC_Setup {
 
 		}
 
+		if ( $itsec_old_version < 4031 ) {
+
+			$banned_option = get_site_option( 'itsec_ban_users' );
+
+			if ( isset( $banned_option['white_list'] ) ) {
+
+				$banned_white_list = $banned_option['white_list'];
+				$options           = get_site_option( 'itsec_global' );
+				$white_list        = isset( $options['lockout_white_list'] ) ? $options['lockout_white_list'] : array();
+
+				if ( ! is_array( $white_list ) ) {
+					$white_list = explode( PHP_EOL, $white_list );
+				}
+
+				if ( ! is_array( $banned_white_list ) ) {
+					$banned_white_list = explode( PHP_EOL, $banned_white_list );
+				}
+
+				$new_white_list = array_merge( $white_list, $banned_white_list );
+
+				$options['lockout_white_list'] = $new_white_list;
+
+				update_site_option( 'itsec_global', $options );
+
+			}
+
+		}
+
 	}
 
 	/**
@@ -402,6 +430,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_had_other_version' );
 		delete_site_option( 'itsec_no_file_lock_release' );
 		delete_site_option( 'itsec_clear_login' );
+		delete_site_option( 'itsec_temp_whitelist_ip' );
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
 		delete_site_transient( 'itsec_upload_dir' );
 

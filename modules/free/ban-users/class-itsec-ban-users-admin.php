@@ -9,10 +9,24 @@ class ITSEC_Ban_Users_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->settings    = get_site_option( 'itsec_ban_users' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core );
+		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
 	}
@@ -178,41 +192,6 @@ class ITSEC_Ban_Users_Admin {
 	}
 
 	/**
-	 * echos Banned white list field
-	 *
-	 * @since 4.0
-	 *
-	 * @return void
-	 */
-	public function ban_users_white_list() {
-
-		$white_list = '';
-
-		//Convert and show the agent list
-		if ( isset( $this->settings['white_list'] ) && is_array( $this->settings['white_list'] ) && sizeof( $this->settings['white_list'] ) >= 1 ) {
-
-			$white_list = implode( PHP_EOL, $this->settings['white_list'] );
-
-		} elseif ( isset( $this->settings['white_list'] ) && ! is_array( $this->settings['white_list'] ) && strlen( $this->settings['white_list'] ) > 1 ) {
-
-			$white_list = $this->settings['white_list'];
-
-		}
-
-		echo '<textarea id="itsec_ban_users_white_list" name="itsec_ban_users[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-		echo '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'it-l10n-better-wp-security' ) . '</p>';
-		echo '<ul>';
-		echo '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
-		echo '</ul>';
-		echo '<p class="description"><strong>' . __( 'Note: this white list is only to prevent your IP from getting banned at the server level (which is much more difficult to clear). If you want to whitelist your IP from all lockouts use the whitelist option in the Global Settings.', 'it-l10n-better-wp-security' ) . '</strong></p>';
-
-	}
-
-	/**
 	 * Build the rewrite rules and sends them to the file writer
 	 *
 	 * @param array   $input   array of options, ips, etc
@@ -220,10 +199,10 @@ class ITSEC_Ban_Users_Admin {
 	 *
 	 * @return array array of rules to send to file writer
 	 */
-	public static function build_rewrite_rules( $input = null, $current = false ) {
+	public static function build_rewrite_rules( $input = NULL, $current = false ) {
 
 		//setup data structures to write. These are simply lists of all IPs and hosts as well as options to check
-		if ( $input === null ) { //blocking ip on the fly
+		if ( $input === NULL ) { //blocking ip on the fly
 
 			$input = get_site_option( 'itsec_ban_users' );
 
@@ -233,7 +212,6 @@ class ITSEC_Ban_Users_Admin {
 		$enabled        = $input['enabled'];
 		$raw_host_list  = $input['host_list'];
 		$raw_agent_list = $input['agent_list'];
-		$raw_white_list = $input['white_list'];
 
 		$server_type = ITSEC_Lib::get_server(); //Get the server type to build the right rules
 
@@ -259,7 +237,7 @@ class ITSEC_Ban_Users_Admin {
 
 					$host = ITSEC_Lib::ip_wild_to_mask( $host );
 
-					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $host, $raw_white_list, $current ) ) {
+					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $host, NULL, $current ) ) {
 
 						$converted_host = ITSEC_Lib::ip_mask_to_range( $host );
 
@@ -267,7 +245,7 @@ class ITSEC_Ban_Users_Admin {
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
 
-								$host_rule = "\tdeny " . trim( $converted_host ) . ';';
+								$host_rule = "\tdeny " . trim( $host ) . ';';
 
 							} else { //rules for all other servers
 
@@ -409,12 +387,18 @@ class ITSEC_Ban_Users_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ban_users_enabled', );
+			$status       = array(
+				'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_ban_users_enabled',
+			);
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ban_users_enabled', );
+			$status       = array(
+				'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_ban_users_enabled',
+			);
 
 		}
 
@@ -422,12 +406,6 @@ class ITSEC_Ban_Users_Admin {
 
 		return $statuses;
 
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
 	}
 
 	/**
@@ -441,7 +419,7 @@ class ITSEC_Ban_Users_Admin {
 		add_settings_section(
 			'ban_users_default',
 			__( 'Default Blacklist', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -449,7 +427,7 @@ class ITSEC_Ban_Users_Admin {
 		add_settings_section(
 			'ban_users_enabled',
 			__( 'Configure Ban Users', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -457,7 +435,7 @@ class ITSEC_Ban_Users_Admin {
 		add_settings_section(
 			'ban_users_settings',
 			__( 'Configure Ban Users', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -497,50 +475,12 @@ class ITSEC_Ban_Users_Admin {
 			'ban_users_settings'
 		);
 
-		//agent _list field
-		add_settings_field(
-			'itsec_ban_users[white_list]',
-			__( 'Whitelist Users', 'it-l10n-better-wp-security' ),
-			array( $this, 'ban_users_white_list' ),
-			'security_page_toplevel_page_itsec_settings',
-			'ban_users_settings'
-		);
-
 		//Register the settings field for the entire module
 		register_setting(
 			'security_page_toplevel_page_itsec_settings',
 			'itsec_ban_users',
 			array( $this, 'sanitize_module_input' )
 		);
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core        = $core;
-		$this->settings    = get_site_option( 'itsec_ban_users' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
 
 	}
 
@@ -579,7 +519,7 @@ class ITSEC_Ban_Users_Admin {
 	public function register_file( $file_modules ) {
 
 		$file_modules['ban-users'] = array(
-			'rewrite'  => array( $this, 'save_rewrite_rules' ),
+			'rewrite' => array( $this, 'save_rewrite_rules' ),
 		);
 
 		return $file_modules;
@@ -618,59 +558,6 @@ class ITSEC_Ban_Users_Admin {
 
 		$input['agent_list'] = $good_agents;
 
-		//Process white list
-		if ( isset( $input['white_list'] ) && ! is_array( $input['white_list'] ) ) {
-			$white_listed_addresses = explode( PHP_EOL, $input['white_list'] );
-		} else {
-			$white_listed_addresses = array();
-		}
-
-		$bad_white_listed_ips = array();
-		$raw_white_listed_ips = array();
-
-		foreach ( $white_listed_addresses as $index => $address ) {
-
-			if ( strlen( trim( $address ) ) > 0 ) {
-
-				if ( ITSEC_Lib::validates_ip_address( $address ) === false ) {
-
-					$bad_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
-
-				}
-
-				$raw_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
-
-			} else {
-				unset( $white_listed_addresses[$index] );
-			}
-
-		}
-
-		$raw_white_listed_ips = array_unique( $raw_white_listed_ips );
-
-		if ( sizeof( $bad_white_listed_ips ) > 0 ) {
-
-			$input['enabled'] = false; //disable ban users list
-
-			$type    = 'error';
-			$message = '';
-
-			$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
-
-			foreach ( $bad_white_listed_ips as $bad_ip ) {
-				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the whitelist users box.', 'it-l10n-better-wp-security' ) );
-			}
-
-			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
-
-		} else {
-
-			$no_errors = true;
-
-		}
-
-		$input['white_list'] = $raw_white_listed_ips;
-
 		//Process hosts list
 		if ( isset( $input['host_list'] ) && ! is_array( $input['host_list'] ) ) {
 			$addresses = explode( PHP_EOL, $input['host_list'] );
@@ -678,8 +565,9 @@ class ITSEC_Ban_Users_Admin {
 			$addresses = array();
 		}
 
-		$bad_ips = array();
-		$raw_ips = array();
+		$bad_ips   = array();
+		$white_ips = array();
+		$raw_ips   = array();
 
 		foreach ( $addresses as $index => $address ) {
 
@@ -688,6 +576,12 @@ class ITSEC_Ban_Users_Admin {
 				if ( ITSEC_Lib::validates_ip_address( $address ) === false ) {
 
 					$bad_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+				}
+
+				if ( ITSEC_Ban_Users::is_ip_whitelisted( $address, NULL, true ) ) {
+
+					$white_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
 
 				}
 
@@ -708,11 +602,33 @@ class ITSEC_Ban_Users_Admin {
 			$type = 'error';
 
 			if ( $no_errors === true ) {
-				$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
+				$message = sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
 			}
 
 			foreach ( $bad_ips as $bad_ip ) {
 				$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the ban users box.', 'it-l10n-better-wp-security' ) );
+			}
+
+			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
+
+		} else {
+
+			$no_errors = true;
+
+		}
+
+		if ( sizeof( $white_ips ) > 0 ) {
+
+			$input['enabled'] = false; //disable ban users list
+
+			$type = 'error';
+
+			if ( $no_errors === true ) {
+				$message = sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'it-l10n-better-wp-security' ) );
+			}
+
+			foreach ( $white_ips as $white_ip ) {
+				$message .= sprintf( '%s %s<br />', $white_ip, __( 'is not a valid address as it has been white listed.', 'it-l10n-better-wp-security' ) );
 			}
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
@@ -731,7 +647,6 @@ class ITSEC_Ban_Users_Admin {
 				! isset( $type ) &&
 				(
 					$input['host_list'] !== $this->settings['host_list'] ||
-					$input['white_list'] !== $this->settings['white_list'] ||
 					$input['enabled'] !== $this->settings['enabled'] ||
 					$input['default'] !== $this->settings['default'] ||
 					$input['agent_list'] !== $this->settings['agent_list']

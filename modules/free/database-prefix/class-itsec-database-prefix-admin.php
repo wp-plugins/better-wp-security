@@ -6,11 +6,24 @@ class ITSEC_Database_Prefix_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		global $wpdb;
 
-			$this->initialize( $core );
+		$this->core = $core;
 
+		if ( $wpdb->base_prefix === 'wp_' ) {
+			$this->settings = true;
+		} else {
+			$this->settings = false;
 		}
+
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
 	}
 
@@ -45,12 +58,18 @@ class ITSEC_Database_Prefix_Admin {
 		if ( $this->settings !== true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'it-l10n-better-wp-security' ) ), 'link' => '#itsec_change_table_prefix', 'advanced' => true, );
+			$status       = array(
+				'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'it-l10n-better-wp-security' ) ),
+				'link' => '#itsec_change_table_prefix', 'advanced' => true,
+			);
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'it-l10n-better-wp-security' ) ), 'link' => '#itsec_change_table_prefix', 'advanced' => true, );
+			$status       = array(
+				'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'it-l10n-better-wp-security' ) ),
+				'link' => '#itsec_change_table_prefix', 'advanced' => true,
+			);
 
 		}
 
@@ -78,34 +97,6 @@ class ITSEC_Database_Prefix_Admin {
 			$this->process_database_prefix();
 
 		}
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		global $wpdb;
-
-		$this->core = $core;
-
-		if ( $wpdb->base_prefix === 'wp_' ) {
-			$this->settings = true;
-		} else {
-			$this->settings = false;
-		}
-
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
 	}
 
@@ -306,7 +297,14 @@ class ITSEC_Database_Prefix_Admin {
 
 		}
 
-		$rules[] = array( 'type' => 'wpconfig', 'name' => 'Database Prefix', 'rules' => array( array( 'type' => 'replace', 'search_text' => 'table_prefix', 'rule' => "\$table_prefix = '" . $new_prefix . "';", ), ), );
+		$rules[] = array(
+			'type' => 'wpconfig', 'name' => 'Database Prefix', 'rules' => array(
+				array(
+					'type' => 'replace', 'search_text' => 'table_prefix',
+					'rule' => "\$table_prefix = '" . $new_prefix . "';",
+				),
+			),
+		);
 
 		$itsec_files->set_wpconfig( $rules );
 

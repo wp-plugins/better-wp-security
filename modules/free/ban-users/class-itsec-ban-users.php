@@ -3,7 +3,8 @@
 class ITSEC_Ban_Users {
 
 	function run() {
-		return null;
+
+		return NULL;
 	}
 
 	/**
@@ -17,21 +18,23 @@ class ITSEC_Ban_Users {
 	 *
 	 * @return void
 	 */
-	public static function insert_ip( $ip, $ban_list = null, $white_list = null ) {
+	public static function insert_ip( $ip, $ban_list = NULL, $white_list = NULL ) {
 
 		$settings = get_site_option( 'itsec_ban_users' );
 
 		$host = sanitize_text_field( $ip );
 
-		if ( $ban_list === null ) {
+		if ( $ban_list === NULL ) {
 
 			$ban_list = $settings['host_list'];
 
 		}
 
-		if ( $white_list === null ) {
+		if ( $white_list === NULL ) {
 
-			$white_list = $settings['white_list'];
+			$global_settings = get_site_option( 'itsec_global' );
+
+			$white_list = isset( $global_settings['lockout_white_list'] ) ? $global_settings['lockout_white_list'] : array();
 
 		}
 
@@ -56,13 +59,15 @@ class ITSEC_Ban_Users {
 	 *
 	 * @return boolean               true if whitelisted or false
 	 */
-	public static function is_ip_whitelisted( $ip_to_check, $white_ips = null, $current = false ) {
+	public static function is_ip_whitelisted( $ip_to_check, $white_ips = NULL, $current = false ) {
 
-		if ( $white_ips === null ) {
+		$ip_to_check = trim( $ip_to_check );
 
-			$settings = get_site_option( 'itsec_ban_users' );
+		if ( $white_ips === NULL ) {
 
-			$white_ips = $settings['white_list'];
+			$global_settings = get_site_option( 'itsec_global' );
+
+			$white_ips = ( isset( $global_settings['lockout_white_list'] ) ? $global_settings['lockout_white_list'] : array() );
 
 		}
 

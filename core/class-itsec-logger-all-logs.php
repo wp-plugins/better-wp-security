@@ -236,7 +236,7 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 
 		usort( $table_data, array( $this, 'sortrows' ) );
 
-		$per_page     = 50; //20 items per page
+		$per_page     = 20; //20 items per page
 		$current_page = $this->get_pagenum();
 		$total_items  = count( $table_data );
 

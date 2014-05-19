@@ -141,3 +141,7 @@
 	Updated core to version 1.2.0
 4.2.2 - 2014-05-07 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.2.0
+4.2.3 - 2014-05-19 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.2.1
+4.2.4 - 2014-05-19 - Packaging Bot (core)
+	Updated core to version 1.2.1

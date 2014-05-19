@@ -92,7 +92,7 @@ if ( ! class_exists( 'ITSEC_Strong_Passwords_Setup' ) ) {
 
 			if ( $itsec_old_version < 4000 ) {
 
-				global $itsec_bwps_options, $itsec_globals;
+				global $itsec_bwps_options;
 
 				$current_options = get_site_option( 'itsec_strong_passwords' );
 

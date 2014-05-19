@@ -4,11 +4,16 @@ class ITSEC_Core_Admin {
 
 	function run() {
 
-		if ( is_admin() ) {
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_filter( 'itsec_meta_links', array( $this, 'add_plugin_meta_links' ) );
 
-			$this->initialize();
+		//Process support plugin nag
+		add_action( 'itsec_admin_init', array( $this, 'setup_nag' ) );
 
-		}
+		//Process support plugin nag
+		add_action( 'itsec_admin_init', array( $this, 'support_nag' ) );
 
 	}
 
@@ -24,6 +29,15 @@ class ITSEC_Core_Admin {
 	public function add_admin_meta_boxes( $available_pages ) {
 
 		foreach ( $available_pages as $page ) {
+
+			add_meta_box(
+				'itsec_sync_integration',
+				__( 'Sync 10 Sites For Free', 'it-l10n-better-wp-security' ),
+				array( $this, 'metabox_sync_integration' ),
+				$page,
+				'priority_side',
+				'core'
+			);
 
 			add_meta_box(
 				'itsec_security_updates',
@@ -82,30 +96,6 @@ class ITSEC_Core_Admin {
 		$meta[] = '<a href="http://ithemes.com/security" target="_blank">' . __( 'Get Support', 'it-l10n-better-wp-security' ) . '</a>';
 
 		return $meta;
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize() {
-
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
-		add_filter( 'itsec_meta_links', array( $this, 'add_plugin_meta_links' ) );
-
-		//Process support plugin nag
-		add_action( 'itsec_admin_init', array( $this, 'setup_nag' ) );
-
-		//Process support plugin nag
-		add_action( 'itsec_admin_init', array( $this, 'support_nag' ) );
-
 	}
 
 	/**
@@ -208,6 +198,30 @@ class ITSEC_Core_Admin {
 
 		<?php
 		ob_end_flush();
+
+	}
+
+	/**
+	 * Display the Need Help metabox
+	 *
+	 * @since 4.0
+	 *
+	 * @return void
+	 */
+	public function metabox_sync_integration() {
+
+		?>
+		<div style="text-align: center;">
+			<img src="<?php echo plugins_url( 'img/sync-logo.jpg', __FILE__ ) ?>" width="60"
+			     height="47" alt="Sync 10 Sites For Free">
+		</div>
+		<?php
+
+		echo '<p>' . __( 'Manage updates remotely for up to 10 WordPress sites today for free!', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( 'Integrated with iThemes Security, so you can release lockouts and turn Away Mode on or off right from your Sync dashboard or your phone.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<div style="text-align: center;">';
+		echo '<p><a class="button-primary" href="http://www.ithemes.com/sync" target="_blank">' . __( 'Try iThemes Sync for Free', 'it-l10n-better-wp-security' ) . '</a></p>';
+		echo '</div>';
 
 	}
 

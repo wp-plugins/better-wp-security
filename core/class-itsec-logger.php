@@ -10,8 +10,8 @@ final class ITSEC_Logger {
 
 	private
 		$log_file,
+		$logger_displays,
 		$logger_modules,
-		$metaboxes,
 		$module_path;
 
 	function __construct() {
@@ -40,11 +40,13 @@ final class ITSEC_Logger {
 
 		}
 
-		$this->logger_modules = array(); //array to hold information on modules using this feature
-		$this->metaboxes      = array(); //array to hold metabox information
-		$this->module_path    = ITSEC_Lib::get_module_path( __FILE__ );
+		$this->logger_modules  = array(); //array to hold information on modules using this feature
+		$this->logger_displays = array(); //array to hold metabox information
+		$this->module_path     = ITSEC_Lib::get_module_path( __FILE__ );
 
 		add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 
 		//Run database cleanup daily with cron
 		if ( ! wp_next_scheduled( 'itsec_purge_logs' ) ) {
@@ -86,7 +88,7 @@ final class ITSEC_Logger {
 
 		add_meta_box(
 			'itsec_log_header',
-			__( 'Security Logs', 'it-l10n-better-wp-security' ),
+			__( 'Security Log Information', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_logs_header' ),
 			'security_page_toplevel_page_itsec_logs',
 			'top',
@@ -95,33 +97,82 @@ final class ITSEC_Logger {
 
 		if ( isset( $itsec_globals['settings']['log_type'] ) && ( $itsec_globals['settings']['log_type'] === 0 || $itsec_globals['settings']['log_type'] === 2 ) ) {
 
-			if ( sizeof( $this->metaboxes ) > 0 ) {
-
-				foreach ( $this->metaboxes as $metabox ) {
-
-					add_meta_box(
-						'log-' . sanitize_text_field( $metabox['module'] ),
-						$metabox['title'],
-						$metabox['callback'],
-						'security_page_toplevel_page_itsec_logs',
-						'normal',
-						'core'
-					);
-
-				}
-
-			}
+			add_meta_box(
+				'itsec_log_all',
+				__( 'Security Log Data', 'it-l10n-better-wp-security' ),
+				array( $this, 'metabox_all_logs' ),
+				'security_page_toplevel_page_itsec_logs',
+				'normal',
+				'core'
+			);
 
 		}
 
-		add_meta_box(
-			'itsec_log_all',
-			__( 'All Logged Items', 'it-l10n-better-wp-security' ),
-			array( $this, 'metabox_all_logs' ),
-			'security_page_toplevel_page_itsec_logs',
-			'advanced',
-			'core'
-		);
+	}
+
+	/**
+	 * Add Logger Admin Javascript
+	 *
+	 * @since 4.3
+	 *
+	 * @return void
+	 */
+	public function admin_script() {
+
+		global $itsec_globals;
+
+		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'toplevel_page_itsec_logs' ) !== false ) {
+
+			wp_enqueue_script( 'itsec_logger', $itsec_globals['plugin_url'] . 'core/js/admin-logs.js', array( 'jquery' ), $itsec_globals['plugin_build'], true );
+			wp_enqueue_script( 'itsec_url_js', $itsec_globals['plugin_url'] . 'core/js/url.js', array(), $itsec_globals['plugin_build'], true );
+
+		}
+
+	}
+
+	/**
+	 * Displays all logs content
+	 *
+	 * @since 4.3
+	 *
+	 * @return void
+	 */
+	public function all_logs_content() {
+
+		global $wpdb;
+
+		require( dirname( __FILE__ ) . '/class-itsec-logger-all-logs.php' );
+
+		$log_display = new ITSEC_Logger_All_Logs();
+		$log_display->prepare_items();
+		$log_display->display();
+
+		$log_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_log`;" );
+
+		?>
+		<form method="post" action="">
+			<?php wp_nonce_field( 'itsec_clear_logs', 'wp_nonce' ); ?>
+			<input type="hidden" name="itsec_clear_logs" value="clear_logs"/>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row" class="settinglabel">
+						<?php _e( 'Log Summary', 'it-l10n-better-wp-security' ); ?>
+					</th>
+					<td class="settingfield">
+
+						<p><?php _e( 'Your database contains', 'it-l10n-better-wp-security' ); ?>
+							<strong><?php echo $log_count; ?></strong> <?php _e( 'log entries.', 'it-l10n-better-wp-security' ); ?>
+						</p>
+
+						<p><?php _e( 'Use the button below to purge the log table in your database. Please note this will purge all log entries in the database including 404s.', 'it-l10n-better-wp-security' ); ?></p>
+
+						<p class="submit"><input type="submit" class="button-primary"
+						                         value="<?php _e( 'Clear Logs', 'it-l10n-better-wp-security' ); ?>"/></p>
+					</td>
+				</tr>
+			</table>
+		</form>
+	<?php
 
 	}
 
@@ -280,42 +331,40 @@ final class ITSEC_Logger {
 	 */
 	public function metabox_all_logs() {
 
-		global $wpdb;
+		$log_filter = isset( $_GET['itsec_log_filter'] ) ? sanitize_text_field( $_GET['itsec_log_filter'] ) : 'all-log-data';
+		$callback   = NULL;
 
-		require( dirname( __FILE__ ) . '/class-itsec-logger-all-logs.php' );
+		echo '<p>' . __( 'To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' ) . '</p>';
 
-		echo __( 'Below is the log of all the log items in your WordPress Database. To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' );
+		echo '<label for="itsec_log_filter"><strong>' . __( 'Select Filter: ', 'it-l10n-better-wp-security' ) . '</strong></label>';
+		echo '<select id="itsec_log_filter" name="itsec_log_filter">';
+		echo '<option value="all-log-data" ' . selected( $log_filter, 'all-log-data' ) . '>' . __( 'All Log Data', 'it-l10n-better-wp-security' ) . '</option>';
 
-		$log_display = new ITSEC_Logger_All_Logs();
-		$log_display->prepare_items();
-		$log_display->display();
+		if ( sizeof( $this->logger_displays ) > 0 ) {
 
-		$log_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_log`;" );
+			foreach ( $this->logger_displays as $display ) {
 
-		?>
-		<form method="post" action="">
-			<?php wp_nonce_field( 'itsec_clear_logs', 'wp_nonce' ); ?>
-			<input type="hidden" name="itsec_clear_logs" value="clear_logs"/>
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row" class="settinglabel">
-						<?php _e( 'Log Summary', 'it-l10n-better-wp-security' ); ?>
-					</th>
-					<td class="settingfield">
+				if ( $display['module'] === $log_filter ) {
+					$callback = $display['callback'];
+				}
 
-						<p><?php _e( 'Your database contains', 'it-l10n-better-wp-security' ); ?>
-							<strong><?php echo $log_count; ?></strong> <?php _e( 'log entries.', 'it-l10n-better-wp-security' ); ?>
-						</p>
+				echo '<option value="' . $display['module'] . '" ' . selected( $_GET['itsec_log_filter'], $display['module'] ) . '>' . $display['title'] . '</option>';
 
-						<p><?php _e( 'Use the button below to purge the log table in your database. Please note this will purge all log entries in the database including 404s.', 'it-l10n-better-wp-security' ); ?></p>
+			}
 
-						<p class="submit"><input type="submit" class="button-primary"
-						                         value="<?php _e( 'Clear Logs', 'it-l10n-better-wp-security' ); ?>"/></p>
-					</td>
-				</tr>
-			</table>
-		</form>
-	<?php
+		}
+
+		echo '</select>';
+
+		if ( $log_filter === 'all-log-data' || $callback === NULL ) {
+
+			$this->all_logs_content();
+
+		} else {
+
+			call_user_func_array( $callback, array() );
+
+		}
 
 	}
 
@@ -346,11 +395,11 @@ final class ITSEC_Logger {
 
 					$items .= '<li>';
 
-						if ( ! is_numeric( $key ) ) {
-							$items .= '<h3>' . $key . '</h3>';
-						}
-	
-						$items .= $this->print_array( $item, true ) . PHP_EOL;
+					if ( ! is_numeric( $key ) ) {
+						$items .= '<h3>' . $key . '</h3>';
+					}
+
+					$items .= $this->print_array( $item, true ) . PHP_EOL;
 
 					$items .= '</li>';
 
@@ -417,8 +466,8 @@ final class ITSEC_Logger {
 	 */
 	public function register_modules() {
 
-		$this->logger_modules = apply_filters( 'itsec_logger_modules', $this->logger_modules );
-		$this->metaboxes      = apply_filters( 'itsec_metaboxes', $this->metaboxes );
+		$this->logger_modules  = apply_filters( 'itsec_logger_modules', $this->logger_modules );
+		$this->logger_displays = apply_filters( 'itsec_logger_displays', $this->logger_displays );
 
 	}
 

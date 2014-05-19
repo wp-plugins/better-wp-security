@@ -9,10 +9,25 @@ class ITSEC_Hide_Backend_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->settings    = get_site_option( 'itsec_hide_backend' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core );
+		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
+		add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
 	}
@@ -108,14 +123,14 @@ class ITSEC_Hide_Backend_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_rewrite_rules( $input = null ) {
+	public static function build_rewrite_rules( $input = NULL ) {
 
 		$home_root = ITSEC_Lib::get_home_root();
 
 		$server_type = ITSEC_Lib::get_server(); //Get the server type to build the right rules
 
 		//Get the rules from the database if input wasn't sent
-		if ( $input === null ) {
+		if ( $input === NULL ) {
 			$input = get_site_option( 'itsec_hide_backend' );
 		}
 
@@ -173,12 +188,17 @@ class ITSEC_Hide_Backend_Admin {
 		if ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_hide_backend_enabled', );
+			$status       = array(
+				'text' => __( 'Your WordPress Dashboard is hidden.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_hide_backend_enabled',
+			);
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_hide_backend_enabled', );
+			$status       = array(
+				'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_hide_backend_enabled',
+			);
 
 		}
 
@@ -186,12 +206,6 @@ class ITSEC_Hide_Backend_Admin {
 
 		return $statuses;
 
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
 	}
 
 	/**
@@ -363,36 +377,6 @@ class ITSEC_Hide_Backend_Admin {
 	}
 
 	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core        = $core;
-		$this->settings    = get_site_option( 'itsec_hide_backend' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
-		add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
-
-	}
-
-	/**
 	 * Execute admin initializations
 	 *
 	 * @return void
@@ -403,14 +387,14 @@ class ITSEC_Hide_Backend_Admin {
 		add_settings_section(
 			'hide_backend-enabled',
 			__( 'Hide Login and Admin', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'hide_backend-settings',
 			__( 'Hide Login and Admin', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 

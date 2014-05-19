@@ -278,12 +278,6 @@ class ITSEC_Global_Settings {
 	}
 
 	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
-	}
-
-	/**
 	 * echos Lockout Email Field
 	 *
 	 * @since 4.0
@@ -368,7 +362,7 @@ class ITSEC_Global_Settings {
 		add_settings_section(
 			'global',
 			__( 'Global Settings', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -957,6 +951,8 @@ class ITSEC_Global_Settings {
 		$raw_white_listed_ips = array();
 
 		foreach ( $white_listed_addresses as $index => $address ) {
+
+			$address = trim( $address );
 
 			if ( strlen( trim( $address ) ) > 0 ) {
 

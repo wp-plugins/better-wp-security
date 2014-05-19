@@ -86,3 +86,8 @@
     Don't display a host lockout when none exists
     Add Sync integration to release lockouts
     Improved reliability of brute force user lockouts
+1.2.1 - 2014-05-19 - Chris Wiegman
+    Fixed links in lockout emails
+    Fixed IP mask calculations
+    Add call to pro user-logging module
+    Add ability to temporarily whitelist an IP address

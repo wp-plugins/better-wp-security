@@ -9,10 +9,24 @@ class ITSEC_Strong_Passwords_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->settings    = get_site_option( 'itsec_strong_passwords' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core );
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
+		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
 
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
 	}
@@ -74,58 +88,32 @@ class ITSEC_Strong_Passwords_Admin {
 		if ( $this->settings['enabled'] === true && $this->settings['roll'] == 'subscriber' ) {
 
 			$status_array = 'safe-high';
-			$status       = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_strong_passwords_enabled', );
+			$status       = array(
+				'text' => __( 'You are enforcing strong passwords for all users.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_strong_passwords_enabled',
+			);
 
 		} elseif ( $this->settings['enabled'] === true ) {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are enforcing strong passwords, but not for all users.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_strong_passwords_enabled', );
+			$status       = array(
+				'text' => __( 'You are enforcing strong passwords, but not for all users.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_strong_passwords_enabled',
+			);
 
 		} else {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_strong_passwords_enabled', );
+			$status       = array(
+				'text' => __( 'You are not enforcing strong passwords for any users.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_strong_passwords_enabled',
+			);
 
 		}
 
 		array_push( $statuses[$status_array], $status );
 
 		return $statuses;
-
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core        = $core;
-		$this->settings    = get_site_option( 'itsec_strong_passwords' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
 
 	}
 
@@ -140,14 +128,14 @@ class ITSEC_Strong_Passwords_Admin {
 		add_settings_section(
 			'strong_passwords-enabled',
 			__( 'Enforce Strong Passwords', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'strong_passwords-settings',
 			__( 'Enforce Strong Passwords', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 

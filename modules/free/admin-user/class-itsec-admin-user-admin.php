@@ -9,11 +9,18 @@ class ITSEC_Admin_User_Admin {
 
 	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core = $core;
 
-			$this->initialize( $core );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		}
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
 
 	}
 
@@ -66,7 +73,7 @@ class ITSEC_Admin_User_Admin {
 	 * @return bool success or failure
 	 *
 	 **/
-	private function change_admin_user( $username = null, $id = false ) {
+	private function change_admin_user( $username = NULL, $id = false ) {
 
 		global $itsec_files, $wpdb;
 
@@ -78,7 +85,7 @@ class ITSEC_Admin_User_Admin {
 			//Get the full user object
 			$user_object = get_user_by( 'id', '1' );
 
-			if ( $username !== null && validate_username( $new_user ) && username_exists( $new_user ) === null ) { //there is a valid username to change
+			if ( $username !== NULL && validate_username( $new_user ) && username_exists( $new_user ) === NULL ) { //there is a valid username to change
 
 				if ( $id === true ) { //we're changing the id too so we'll set the username
 
@@ -104,7 +111,7 @@ class ITSEC_Admin_User_Admin {
 
 				}
 
-			} elseif ( $username !== null ) { //username didn't validate
+			} elseif ( $username !== NULL ) { //username didn't validate
 
 				$itsec_files->release_file_lock( 'admin_user' );
 
@@ -120,9 +127,15 @@ class ITSEC_Admin_User_Admin {
 
 				$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
 
-				$wpdb->insert( $wpdb->users, array( 'user_login' => $user_login, 'user_pass' => $user_object->user_pass, 'user_nicename' => $user_object->user_nicename, 'user_email' => $user_object->user_email, 'user_url' => $user_object->user_url, 'user_registered' => $user_object->user_registered, 'user_activation_key' => $user_object->user_activation_key, 'user_status' => $user_object->user_status, 'display_name' => $user_object->display_name ) );
+				$wpdb->insert( $wpdb->users, array(
+					'user_login' => $user_login, 'user_pass' => $user_object->user_pass,
+					'user_nicename' => $user_object->user_nicename, 'user_email' => $user_object->user_email,
+					'user_url' => $user_object->user_url, 'user_registered' => $user_object->user_registered,
+					'user_activation_key' => $user_object->user_activation_key,
+					'user_status' => $user_object->user_status, 'display_name' => $user_object->display_name
+				) );
 
-				if ( is_multisite() && $username !== null && validate_username( $new_user ) ) { //process sitemeta if we're in a multi-site situation
+				if ( is_multisite() && $username !== NULL && validate_username( $new_user ) ) { //process sitemeta if we're in a multi-site situation
 
 					$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
 					$newAdmins = str_replace( '5:"admin"', strlen( $new_user ) . ':"' . esc_sql( $new_user ) . '"', $oldAdmins );
@@ -162,12 +175,18 @@ class ITSEC_Admin_User_Admin {
 		if ( ! username_exists( 'admin' ) ) {
 
 			$status_array = 'safe-high';
-			$status       = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_authentication_admin_user_username', 'advanced' => true,
+			);
 
 		} else {
 
 			$status_array = 'high';
-			$status       = array( 'text' => __( 'The <em>admin</em> user still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_username', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'The <em>admin</em> user still exists.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_authentication_admin_user_username', 'advanced' => true,
+			);
 
 		}
 
@@ -176,46 +195,24 @@ class ITSEC_Admin_User_Admin {
 		if ( ! ITSEC_Lib::user_id_exists( 1 ) ) {
 
 			$status_array = 'safe-medium';
-			$status       = array( 'text' => __( 'The user with id 1 has been removed.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'The user with id 1 has been removed.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true,
+			);
 
 		} else {
 
 			$status_array = 'medium';
-			$status       = array( 'text' => __( 'A user with id 1 still exists.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true, );
+			$status       = array(
+				'text' => __( 'A user with id 1 still exists.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_authentication_admin_user_userid', 'advanced' => true,
+			);
 
 		}
 
 		array_push( $statuses[$status_array], $status );
 
 		return $statuses;
-
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core = $core;
-
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 	}
 
@@ -235,7 +232,7 @@ class ITSEC_Admin_User_Admin {
 		if ( ! $this->settings === true && isset( $_POST['itsec_enable_admin_user'] ) && $_POST['itsec_enable_admin_user'] == 'true' ) {
 
 			//Process admin user
-			$username    = isset( $_POST['itsec_admin_user_username'] ) ? trim( sanitize_text_field( $_POST['itsec_admin_user_username'] ) ) : null;
+			$username    = isset( $_POST['itsec_admin_user_username'] ) ? trim( sanitize_text_field( $_POST['itsec_admin_user_username'] ) ) : NULL;
 			$change_id_1 = ( isset( $_POST['itsec_admin_user_id'] ) && intval( $_POST['itsec_admin_user_id'] == 1 ) ? true : false );
 
 			$admin_success = true;
@@ -246,7 +243,7 @@ class ITSEC_Admin_User_Admin {
 
 			} elseif ( $change_id_1 === true ) {
 
-				$admin_success = $this->change_admin_user( null, $change_id_1 );
+				$admin_success = $this->change_admin_user( NULL, $change_id_1 );
 
 			}
 

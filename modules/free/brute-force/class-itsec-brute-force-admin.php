@@ -5,15 +5,25 @@ class ITSEC_Brute_Force_Admin {
 	private
 		$settings,
 		$core,
-		$module,
 		$module_path;
 
-	function run( $core, $module ) {
+	function run( $core ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->settings    = get_site_option( 'itsec_brute_force' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core, $module );
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+		add_filter( 'itsec_logger_displays', array( $this, 'register_logger_displays' ) ); //adds logs metaboxes
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
+		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
 
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
 	}
@@ -182,43 +192,6 @@ class ITSEC_Brute_Force_Admin {
 	}
 
 	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core, $module ) {
-
-		$this->core        = $core;
-		$this->module      = $module;
-		$this->settings    = get_site_option( 'itsec_brute_force' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_metaboxes', array( $this, 'register_logger_metaboxes' ) ); //adds logs metaboxes
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
-
-	}
-
-	/**
 	 * Execute admin initializations
 	 *
 	 * @return void
@@ -229,14 +202,14 @@ class ITSEC_Brute_Force_Admin {
 		add_settings_section(
 			'brute_force-enabled',
 			__( 'Enable Brute Force Protection', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'brute_force-settings',
 			__( 'Brute Force Protection Settings', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -281,15 +254,15 @@ class ITSEC_Brute_Force_Admin {
 	/**
 	 * Render the settings metabox
 	 *
+	 * @since 4.0
+	 *
 	 * @return void
 	 */
-	public function logs_metabox() {
+	public function logs_metabox_content() {
 
 		if ( ! class_exists( 'ITSEC_Brute_Force_Log' ) ) {
 			require( dirname( __FILE__ ) . '/class-itsec-brute-force-log.php' );
 		}
-
-		echo __( 'Below is the log of all the invalid login attempts in the WordPress Database. To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' );
 
 		$log_display = new ITSEC_Brute_Force_Log();
 		$log_display->prepare_items();
@@ -349,24 +322,24 @@ class ITSEC_Brute_Force_Admin {
 	 *
 	 * @since 4.0
 	 *
-	 * @param object $metaboxes metabox array
+	 * @param object $displays metabox array
 	 *
 	 * @return array metabox array
 	 */
-	public function register_logger_metaboxes( $metaboxes ) {
+	public function register_logger_displays( $displays ) {
 
 		//Don't attempt to display logs if brute force isn't enabled
 		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
 
-			$metaboxes[] = array(
+			$displays[] = array(
 				'module'   => 'brute_force',
 				'title'    => __( 'Invalid Login Attempts', 'it-l10n-better-wp-security' ),
-				'callback' => array( $this, 'logs_metabox' )
+				'callback' => array( $this, 'logs_metabox_content' )
 			);
 
 		}
 
-		return $metaboxes;
+		return $displays;
 
 	}
 

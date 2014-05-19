@@ -373,9 +373,7 @@ final class ITSEC_Lib {
 
 		$path_info = parse_url( get_bloginfo( 'url' ) );
 
-		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/',
-		                                                   str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ),
-		                                      '\\\/' ) );
+		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/', str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ), '\\\/' ) );
 
 		if ( $with_sub === true && isset( $path_info['path'] ) ) {
 
@@ -494,7 +492,7 @@ final class ITSEC_Lib {
 
 			if ( isset( $parts[1] ) && intval( $parts[1] ) > 0 ) {
 
-				$wildcards = $parts[1] / 8;
+				$wildcards = ( 32 - $parts[1] ) / 8;
 
 				for ( $count = 0; $count < $wildcards; $count ++ ) {
 
@@ -529,14 +527,14 @@ final class ITSEC_Lib {
 
 		if ( strpos( $ip, '*' ) ) {
 
-			$mask           = 0; //used to calculate netmask with wildcards
+			$mask           = 32; //used to calculate netmask with wildcards
 			$converted_host = str_replace( '*', '0', $ip );
 
 			//convert hosts with wildcards to host with netmask and create rule lines
 			foreach ( $host_parts as $part ) {
 
 				if ( $part === '*' ) {
-					$mask = $mask + 8;
+					$mask = $mask - 8;
 				}
 
 			}

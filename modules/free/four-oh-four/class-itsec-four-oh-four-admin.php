@@ -11,10 +11,32 @@ class ITSEC_Four_Oh_Four_Admin {
 
 	function run( $core, $module ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->module      = $module;
+		$this->settings    = get_site_option( 'itsec_four_oh_four' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core, $module );
+		$this->default_white_list = array(
+			'/favicon.ico',
+			'/robots.txt',
+			'/apple-touch-icon.png',
+			'/apple-touch-icon-precomposed.png',
+		);
 
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_filter( 'itsec_logger_displays', array( $this, 'register_logger_displays' ) ); //adds logs metaboxes
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
+
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
 		}
 
 	}
@@ -100,12 +122,6 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		return $statuses;
 
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
 	}
 
 	/**
@@ -197,14 +213,11 @@ class ITSEC_Four_Oh_Four_Admin {
 	 *
 	 * @return void
 	 */
-	public function logs_metabox() {
+	public function logs_metabox_content() {
 
 		if ( ! class_exists( 'ITSEC_Four_Oh_Four_Log' ) ) {
 			require( dirname( __FILE__ ) . '/class-itsec-four-oh-four-log.php' );
 		}
-
-		echo __( 'Below is a summary log of all the 404 errors on your WordPress site. To get details on a particular item click the title. To adjust logging options visit the global settings page.',
-		         'it-l10n-better-wp-security' );
 
 		$log_display = new ITSEC_Four_Oh_Four_Log();
 
@@ -237,45 +250,6 @@ class ITSEC_Four_Oh_Four_Admin {
 	}
 
 	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core, $module ) {
-
-		$this->core        = $core;
-		$this->module      = $module;
-		$this->settings    = get_site_option( 'itsec_four_oh_four' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		$this->default_white_list = array(
-			'/favicon.ico',
-			'/robots.txt',
-			'/apple-touch-icon.png',
-			'/apple-touch-icon-precomposed.png',
-		);
-
-		add_action( 'itsec_add_admin_meta_boxes',
-		            array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status',
-		            array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_filter( 'itsec_metaboxes', array( $this, 'register_logger_metaboxes' ) ); //adds logs metaboxes
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
-
-	}
-
-	/**
 	 * Execute admin initializations
 	 *
 	 * @return void
@@ -286,14 +260,14 @@ class ITSEC_Four_Oh_Four_Admin {
 		add_settings_section(
 			'four_oh_four-enabled',
 			__( 'Enable 404 Detection', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
 		add_settings_section(
 			'four_oh_four-settings',
 			__( '404 Detection Settings', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -368,28 +342,28 @@ class ITSEC_Four_Oh_Four_Admin {
 	}
 
 	/**
-	 * Array of metaboxes for the logs screen
+	 * Array of displays for the logs screen
 	 *
 	 * @since 4.0
 	 *
-	 * @param array $metaboxes metabox array
+	 * @param array $logger_displays metabox array
 	 *
 	 * @return array metabox array
 	 */
-	public function register_logger_metaboxes( $metaboxes ) {
+	public function register_logger_displays( $logger_displays ) {
 
 		//Don't attempt to display logs if brute force isn't enabled
 		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
 
-			$metaboxes[] = array(
+			$logger_displays[] = array(
 				'module'   => 'four_oh_four',
 				'title'    => __( '404 Errors Found', 'it-l10n-better-wp-security' ),
-				'callback' => array( $this, 'logs_metabox' )
+				'callback' => array( $this, 'logs_metabox_content' )
 			);
 
 		}
 
-		return $metaboxes;
+		return $logger_displays;
 
 	}
 

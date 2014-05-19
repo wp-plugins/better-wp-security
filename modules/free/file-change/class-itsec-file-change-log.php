@@ -112,7 +112,7 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['added_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
 			}
 
 			$content .= '</ol>';
@@ -122,7 +122,7 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['removed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
 			}
 
 			$content .= '</ol>';
@@ -132,7 +132,7 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 			$content .= '<ol class="file_change_detail_list">';
 
 			foreach ( $item['changed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', $details['mod_date'] ) . '</li>';
+				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
 			}
 
 			$content .= '</ol>';

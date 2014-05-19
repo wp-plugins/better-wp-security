@@ -11,9 +11,32 @@ class ITSEC_SSL_Admin {
 
 	function run( $core, $module ) {
 
-		if ( is_admin() ) {
+		$this->core        = $core;
+		$this->module      = $module;
+		$this->settings    = get_site_option( 'itsec_ssl' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-			$this->initialize( $core, $module );
+		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
+		add_action( 'current_screen', array( $this, 'plugin_init' ) );
+		add_action( 'itsec_add_admin_meta_boxes', array(
+			$this, 'add_admin_meta_boxes'
+		) ); //add meta boxes to admin page
+		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		add_filter( 'itsec_add_dashboard_status', array(
+			$this, 'dashboard_status'
+		) ); //add information for plugin status
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
+
+		//manually save options on multisite
+		if ( is_multisite() ) {
+			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
+		}
+
+		if ( isset( $this->settings['frontend'] ) && $this->settings['frontend'] == 1 ) {
+
+			add_action( 'post_submitbox_misc_actions', array( $this, 'ssl_enable_per_content' ) );
+			add_action( 'save_post', array( $this, 'save_post' ) );
 
 		}
 
@@ -136,61 +159,32 @@ class ITSEC_SSL_Admin {
 		if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) {
 
 			$status_array = 'safe-low';
-			$status       = array( 'text' => __( 'You are requiring a secure connection for logins and the admin area.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ssl_login', );
+			$status       = array(
+				'text' => __( 'You are requiring a secure connection for logins and the admin area.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_ssl_login',
+			);
 
 		} elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are requiring a secure connection for logins or the admin area but not both.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ssl_login', );
+			$status       = array(
+				'text' => __( 'You are requiring a secure connection for logins or the admin area but not both.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_ssl_login',
+			);
 
 		} else {
 
 			$status_array = 'low';
-			$status       = array( 'text' => __( 'You are not requiring a secure connection for logins or for the admin area.', 'it-l10n-better-wp-security' ), 'link' => '#itsec_ssl_login', );
+			$status       = array(
+				'text' => __( 'You are not requiring a secure connection for logins or for the admin area.', 'it-l10n-better-wp-security' ),
+				'link' => '#itsec_ssl_login',
+			);
 
 		}
 
 		array_push( $statuses[$status_array], $status );
 
 		return $statuses;
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core, $module ) {
-
-		$this->core        = $core;
-		$this->module      = $module;
-		$this->settings    = get_site_option( 'itsec_ssl' );
-		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
-
-		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
-		add_action( 'current_screen', array( $this, 'plugin_init' ) );
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
-
-		if ( isset( $this->settings['frontend'] ) && $this->settings['frontend'] == 1 ) {
-
-			add_action( 'post_submitbox_misc_actions', array( $this, 'ssl_enable_per_content' ) );
-			add_action( 'save_post', array( $this, 'save_post' ) );
-
-		}
 
 	}
 
@@ -209,7 +203,7 @@ class ITSEC_SSL_Admin {
 		add_settings_section(
 			'ssl_settings',
 			__( 'Configure SSL', 'it-l10n-better-wp-security' ),
-			array( $this, 'empty_callback_function' ),
+			'__return_empty_string',
 			'security_page_toplevel_page_itsec_settings'
 		);
 
@@ -247,12 +241,6 @@ class ITSEC_SSL_Admin {
 			array( $this, 'sanitize_module_input' )
 		);
 
-	}
-
-	/**
-	 * Empty callback function
-	 */
-	public function empty_callback_function() {
 	}
 
 	/**
@@ -374,7 +362,7 @@ class ITSEC_SSL_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_wpconfig_rules( $input = null, $deactivation = false ) {
+	public static function build_wpconfig_rules( $input = NULL, $deactivation = false ) {
 
 		//Return options to default on deactivation
 		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
@@ -424,7 +412,7 @@ class ITSEC_SSL_Admin {
 			$deactivating = false;
 
 			//Get the rules from the database if input wasn't sent
-			if ( $input === null ) {
+			if ( $input === NULL ) {
 				$input = get_site_option( 'itsec_ssl' );
 			}
 
@@ -432,7 +420,9 @@ class ITSEC_SSL_Admin {
 
 		if ( $input['login'] == true ) {
 
-			$rules[] = array( 'type' => 'add', 'search_text' => 'FORCE_SSL_LOGIN', 'rule' => "define( 'FORCE_SSL_LOGIN', true );", );
+			$rules[] = array(
+				'type' => 'add', 'search_text' => 'FORCE_SSL_LOGIN', 'rule' => "define( 'FORCE_SSL_LOGIN', true );",
+			);
 
 			$has_login = true;
 
@@ -446,7 +436,9 @@ class ITSEC_SSL_Admin {
 
 		if ( $input['admin'] == true ) {
 
-			$rules[] = array( 'type' => 'add', 'search_text' => 'FORCE_SSL_ADMIN', 'rule' => "define( 'FORCE_SSL_ADMIN', true );", );
+			$rules[] = array(
+				'type' => 'add', 'search_text' => 'FORCE_SSL_ADMIN', 'rule' => "define( 'FORCE_SSL_ADMIN', true );",
+			);
 
 			$has_admin = true;
 
@@ -460,11 +452,17 @@ class ITSEC_SSL_Admin {
 
 		if ( ( $has_login === false && $has_admin == false ) || $deactivating === true ) {
 
-			$comment = array( 'type' => 'delete', 'search_text' => '//The entries below were created by iThemes Security to enforce SSL', 'rule' => false, );
+			$comment = array(
+				'type'        => 'delete',
+				'search_text' => '//The entries below were created by iThemes Security to enforce SSL', 'rule' => false,
+			);
 
 		} else {
 
-			$comment = array( 'type' => 'add', 'search_text' => '//The entries below were created by iThemes Security to enforce SSL', 'rule' => '//The entries below were created by iThemes Security to enforce SSL', );
+			$comment = array(
+				'type' => 'add', 'search_text' => '//The entries below were created by iThemes Security to enforce SSL',
+				'rule' => '//The entries below were created by iThemes Security to enforce SSL',
+			);
 
 		}
 

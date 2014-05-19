@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.2.2\n"
+"Project-Id-Version: iThemes Security 4.2.4\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-05-07 16:09:10+00:00\n"
+"POT-Creation-Date: 2014-05-19 19:19:10+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,130 +13,130 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.2)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:203
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:226
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:185
+#: core/class-itsec-core.php:210
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:217
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:210
+#: core/class-itsec-core.php:217
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:217
+#: core/class-itsec-core.php:224
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:224
-#: modules/free/help/class-itsec-help-admin.php:23
+#: core/class-itsec-core.php:231
+#: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:235
+#: core/class-itsec-core.php:242
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:247 core/class-itsec-core.php:258
-#: modules/free/backup/class-itsec-backup-admin.php:644
+#: core/class-itsec-core.php:254 core/class-itsec-core.php:265
+#: modules/free/backup/class-itsec-backup-admin.php:643
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:444 core/class-itsec-core.php:537
-#: core/class-itsec-core.php:828 core/class-itsec-core.php:1398
-#: core/class-itsec-core.php:1437
+#: core/class-itsec-core.php:451 core/class-itsec-core.php:544
+#: core/class-itsec-core.php:835 core/class-itsec-core.php:1397
+#: core/class-itsec-core.php:1436
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:528 core/class-itsec-core.php:1399
+#: core/class-itsec-core.php:535 core/class-itsec-core.php:1398
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:677
+#: core/class-itsec-core.php:684
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:704 core/class-itsec-core.php:1482
+#: core/class-itsec-core.php:711 core/class-itsec-core.php:1481
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:708 core/class-itsec-core.php:1486
+#: core/class-itsec-core.php:715 core/class-itsec-core.php:1485
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:714 core/class-itsec-core.php:1492
+#: core/class-itsec-core.php:721 core/class-itsec-core.php:1491
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:716 core/class-itsec-core.php:1494
+#: core/class-itsec-core.php:723 core/class-itsec-core.php:1493
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:718
+#: core/class-itsec-core.php:725
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:719
+#: core/class-itsec-core.php:726
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:726 core/class-itsec-core.php:1499
+#: core/class-itsec-core.php:733 core/class-itsec-core.php:1498
 #: core/class-itsec-files.php:120
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:236
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:788
+#: core/class-itsec-core.php:795
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:798
+#: core/class-itsec-core.php:805
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:1224
+#: core/class-itsec-core.php:1223
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1225
+#: core/class-itsec-core.php:1224
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1226
+#: core/class-itsec-core.php:1225
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1228
+#: core/class-itsec-core.php:1227
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1229
+#: core/class-itsec-core.php:1228
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1310
+#: core/class-itsec-core.php:1309
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1615
+#: core/class-itsec-core.php:1614
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1615
+#: core/class-itsec-core.php:1614
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -305,7 +305,7 @@ msgid "Welcome"
 msgstr ""
 
 #: core/class-itsec-global-settings.php:54
-#: core/class-itsec-global-settings.php:370 core/class-itsec-lockout.php:293
+#: core/class-itsec-global-settings.php:364 core/class-itsec-lockout.php:347
 msgid "Global Settings"
 msgstr ""
 
@@ -365,8 +365,8 @@ msgid ""
 msgstr ""
 
 #: core/class-itsec-global-settings.php:247
-#: core/class-itsec-global-settings.php:695
-#: modules/free/backup/class-itsec-backup-admin.php:466
+#: core/class-itsec-global-settings.php:689
+#: modules/free/backup/class-itsec-backup-admin.php:465
 msgid "Days"
 msgstr ""
 
@@ -392,96 +392,96 @@ msgstr ""
 msgid " whenever a host or user is locked out of the system."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:304
+#: core/class-itsec-global-settings.php:298
 msgid "Enable InfiniteWP Compatibility"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:308
+#: core/class-itsec-global-settings.php:302
 msgid "Turning this feature on will enable compatibility with"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:309
+#: core/class-itsec-global-settings.php:303
 msgid "InfiniteWP."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:310
+#: core/class-itsec-global-settings.php:304
 msgid "Do not turn it on unless you use the InfiniteWP service."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:378
+#: core/class-itsec-global-settings.php:372
 msgid "Write to Files"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:386
+#: core/class-itsec-global-settings.php:380
 msgid "Notification Email"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:395
+#: core/class-itsec-global-settings.php:389
 msgid "Backup Delivery Email"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:404
+#: core/class-itsec-global-settings.php:398
 msgid "Host Lockout Message"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:413
+#: core/class-itsec-global-settings.php:407
 msgid "User Lockout Message"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:422
+#: core/class-itsec-global-settings.php:416
 msgid "Blacklist Repeat Offender"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:430
+#: core/class-itsec-global-settings.php:424
 msgid "Blacklist Threshold"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:438
+#: core/class-itsec-global-settings.php:432
 msgid "Blacklist Lookback Period"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:446
+#: core/class-itsec-global-settings.php:440
 msgid "Lockout Period"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:454
+#: core/class-itsec-global-settings.php:448
 msgid "Lockout White List"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:463
+#: core/class-itsec-global-settings.php:457
 msgid "Email Lockout Notifications"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:471
+#: core/class-itsec-global-settings.php:465
 msgid "Log Type"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:479
+#: core/class-itsec-global-settings.php:473
 msgid "Days to Keep Database Logs"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:487
+#: core/class-itsec-global-settings.php:481
 msgid "Path to Log Files"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:497
+#: core/class-itsec-global-settings.php:491
 msgid "Add InfiniteWP Compatibility"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:507
+#: core/class-itsec-global-settings.php:501
 msgid "Allow Data Tracking"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:517
+#: core/class-itsec-global-settings.php:511
 msgid "NGINX Conf File"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:527
-#: core/class-itsec-global-settings.php:560
+#: core/class-itsec-global-settings.php:521
+#: core/class-itsec-global-settings.php:554
 msgid "Disable File Locking"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:563
+#: core/class-itsec-global-settings.php:557
 msgid ""
 "Turning this option on will prevent errors related to file locking however "
 "might result in operations being executed twice. We do not recommend turning "
@@ -489,34 +489,34 @@ msgid ""
 "correctly."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:581 core/class-itsec-setup.php:29
+#: core/class-itsec-global-settings.php:575 core/class-itsec-setup.php:29
 msgid "error"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:585
+#: core/class-itsec-global-settings.php:579
 msgid "The message to display when a computer (host) has been locked out."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:587
-#: core/class-itsec-global-settings.php:1126
+#: core/class-itsec-global-settings.php:581
+#: core/class-itsec-global-settings.php:1122
 msgid ""
 "You can use HTML in your message. Allowed tags include: a, br, em, strong, "
 "h1, h2, h3, h4, h5, h6, div"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:608
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:82
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:127
+#: core/class-itsec-global-settings.php:602
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:92
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:143
 msgid "Minutes"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:609
+#: core/class-itsec-global-settings.php:603
 msgid ""
 "The length of time a host or user will be banned from this site after "
 "hitting the limit of bad logins."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:637
+#: core/class-itsec-global-settings.php:631
 msgid ""
 "Use the guidelines below to enter hosts that will not be locked out from "
 "your site. This will keep you from locking yourself out of any features if "
@@ -526,81 +526,76 @@ msgid ""
 "also white listed in that section."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:640
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:205
+#: core/class-itsec-global-settings.php:634
 msgid "You may white list users by individual IP address or IP address range."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:641
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:170
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:206
+#: core/class-itsec-global-settings.php:635
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:184
 msgid ""
 "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### "
 "or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a "
 "range of ip addresses."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:643
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:171
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:207
+#: core/class-itsec-global-settings.php:637
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:185
 msgid ""
 "If using a wildcard (*) you must start with the right-most number in the ip "
 "field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*."
 "### is not."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:645
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:172
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:208
+#: core/class-itsec-global-settings.php:639
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:186
 msgid "Lookup IP Address."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:647
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:173
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:209
+#: core/class-itsec-global-settings.php:641
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:187
 msgid "Enter only 1 IP address or 1 IP address range per line."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:649
+#: core/class-itsec-global-settings.php:643
 msgid ""
 "This white list will prevent any ip listed from triggering an automatic "
 "lockout. You can still block the IP address manually in the banned users "
 "settings."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:672
+#: core/class-itsec-global-settings.php:666
 msgid "The path on your server where log files should be stored."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:674
+#: core/class-itsec-global-settings.php:668
 msgid ""
 "This path must be writable by your website. For added security it is "
 "recommended you do not include it in your website root folder."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:696
+#: core/class-itsec-global-settings.php:690
 msgid ""
 "The number of days database logs should be kept. File logs will be kept "
 "indefinitely but will be rotated once the file hits 10MB."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:720
+#: core/class-itsec-global-settings.php:714
 msgid "Database Only"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:721
+#: core/class-itsec-global-settings.php:715
 msgid "File Only"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:722
+#: core/class-itsec-global-settings.php:716
 msgid "Both"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:724
+#: core/class-itsec-global-settings.php:718
 msgid "How should event logs be kept"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:725
+#: core/class-itsec-global-settings.php:719
 msgid ""
 " can log events in multiple ways, each with advantages and disadvantages. "
 "Database Only puts all events in the database with your posts and other "
@@ -612,360 +607,398 @@ msgid ""
 "option."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:742
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:455
-#: modules/free/backup/class-itsec-backup-admin.php:515
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:564
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:321
-#: modules/free/file-change/class-itsec-file-change-admin.php:628
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:363
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:497
-#: modules/free/ssl/class-itsec-ssl-admin.php:361
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:198
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1618
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1641
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1664
+#: core/class-itsec-global-settings.php:736
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:440
+#: modules/free/backup/class-itsec-backup-admin.php:514
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:504
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:294
+#: modules/free/file-change/class-itsec-file-change-admin.php:601
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:337
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:481
+#: modules/free/ssl/class-itsec-ssl-admin.php:349
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:186
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1745
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1768
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1791
 msgid "Save All Changes"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:765
+#: core/class-itsec-global-settings.php:759
 msgid "The path on your server where backup files should be stored."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:767
-#: modules/free/backup/class-itsec-backup-admin.php:492
+#: core/class-itsec-global-settings.php:761
+#: modules/free/backup/class-itsec-backup-admin.php:491
 msgid ""
 "This path must be writable by your website. For added security, it is "
 "recommended you do not include it in your website root folder."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:788
+#: core/class-itsec-global-settings.php:782
 msgid ""
 "The email address(es) all security notifications will be sent to. One "
 "address per line."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:809
+#: core/class-itsec-global-settings.php:803
 msgid "Allow File Updates"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:810
+#: core/class-itsec-global-settings.php:804
 msgid ""
 "Many of the functions of this plugin require editing your wp-config.php or ."
 "htaccess files. Would you like to allow us to safely update these files for "
 "you automatically?"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:812
+#: core/class-itsec-global-settings.php:806
 msgid "Allow file updates"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:814
+#: core/class-itsec-global-settings.php:808
 msgid "Setting Saved. File updates allowed."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:815
+#: core/class-itsec-global-settings.php:809
 msgid ""
 "Whoops. Something went wrong. Check the \"Global Settings\" section on the "
 "settings page (it is the first setting) to make sure your option was saved "
 "or contact support."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:826
+#: core/class-itsec-global-settings.php:820
 msgid "Help Us Improve"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:828
+#: core/class-itsec-global-settings.php:822
 msgid ""
 "would like to collect anonymous data about features you use to help improve "
 "this plugin. Absolutely no information that can identify you will be "
 "collected."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:830
+#: core/class-itsec-global-settings.php:824
 msgid "Yes, I'd like to help"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:832
+#: core/class-itsec-global-settings.php:826
 msgid "Setting Saved. Thanks for helping us make this plugin better."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:833
+#: core/class-itsec-global-settings.php:827
 msgid ""
 "Whoops. Something went wrong. Check the global settings page or contact "
 "support."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:883
+#: core/class-itsec-global-settings.php:877
 msgid "The following backup email address(es) do not appear to be valid: "
 msgstr ""
 
-#: core/class-itsec-global-settings.php:920
+#: core/class-itsec-global-settings.php:914
 msgid ""
 "The following notification email address(es) do not appear to be valid: "
 msgstr ""
 
-#: core/class-itsec-global-settings.php:985
+#: core/class-itsec-global-settings.php:981
 msgid "There is a problem with an IP address in the white list:"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:989
+#: core/class-itsec-global-settings.php:985
 msgid "is not a valid address in the white list users box."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1007
-#: modules/free/backup/class-itsec-backup-admin.php:677
+#: core/class-itsec-global-settings.php:1003
+#: modules/free/backup/class-itsec-backup-admin.php:676
 msgid ""
 "The file path entered does not appear to be valid. Please ensure it exists "
 "and that WordPress can write to it. "
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1057 core/class-itsec-lockout.php:880
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:575
-#: modules/free/backup/class-itsec-backup-admin.php:597
-#: modules/free/backup/class-itsec-backup-admin.php:722
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:782
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:410
-#: modules/free/file-change/class-itsec-file-change-admin.php:330
-#: modules/free/file-change/class-itsec-file-change-admin.php:646
-#: modules/free/file-change/class-itsec-file-change-admin.php:706
-#: modules/free/file-change/class-itsec-file-change-admin.php:828
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:464
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:669
-#: modules/free/ssl/class-itsec-ssl-admin.php:581
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:261
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1820
+#: core/class-itsec-global-settings.php:1053 core/class-itsec-lockout.php:1007
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:560
+#: modules/free/backup/class-itsec-backup-admin.php:596
+#: modules/free/backup/class-itsec-backup-admin.php:721
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:697
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:383
+#: modules/free/file-change/class-itsec-file-change-admin.php:342
+#: modules/free/file-change/class-itsec-file-change-admin.php:619
+#: modules/free/file-change/class-itsec-file-change-admin.php:677
+#: modules/free/file-change/class-itsec-file-change-admin.php:799
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:438
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
+#: modules/free/ssl/class-itsec-ssl-admin.php:579
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:249
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1947
 msgid "Security error!"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1120 core/class-itsec-setup.php:30
+#: core/class-itsec-global-settings.php:1116 core/class-itsec-setup.php:30
 msgid "You have been locked out due to too many login attempts."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1124
+#: core/class-itsec-global-settings.php:1120
 msgid ""
 "The message to display to a user when their account has been locked out."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1159
+#: core/class-itsec-global-settings.php:1155
 msgid "Allow"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1161
+#: core/class-itsec-global-settings.php:1157
 msgid "to write to wp-config.php"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1166
+#: core/class-itsec-global-settings.php:1162
 msgid "Whether or not"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1168
+#: core/class-itsec-global-settings.php:1164
 msgid "should be allowed to write to wp-config.php"
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1170
+#: core/class-itsec-global-settings.php:1166
 msgid ""
 " automatically. If disabled you will need to manually place configuration "
 "options in those files."
 msgstr ""
 
-#: core/class-itsec-lockout.php:59
+#: core/class-itsec-lockout.php:65
 msgid "Active Lockouts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:241 core/class-itsec-lockout.php:574
+#: core/class-itsec-lockout.php:84
+msgid "Don't Lock Yourself Out"
+msgstr ""
+
+#: core/class-itsec-lockout.php:295 core/class-itsec-lockout.php:701
 msgid "lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:241
+#: core/class-itsec-lockout.php:295
 msgid ""
 "A whitelisted host has triggered a lockout condition but was not locked out."
 msgstr ""
 
-#: core/class-itsec-lockout.php:291
+#: core/class-itsec-lockout.php:345
 msgid "About Lockouts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:292
+#: core/class-itsec-lockout.php:346
 msgid "Your lockout settings can be configured in"
 msgstr ""
 
-#: core/class-itsec-lockout.php:294
+#: core/class-itsec-lockout.php:348
 msgid "Your current settings are configured as follows:"
 msgstr ""
 
-#: core/class-itsec-lockout.php:295
+#: core/class-itsec-lockout.php:349
 msgid "Permanently ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:296 core/class-itsec-lockout.php:306
+#: core/class-itsec-lockout.php:350 core/class-itsec-lockout.php:360
 msgid "yes"
 msgstr ""
 
-#: core/class-itsec-lockout.php:296 core/class-itsec-lockout.php:306
+#: core/class-itsec-lockout.php:350 core/class-itsec-lockout.php:360
 msgid "no"
 msgstr ""
 
-#: core/class-itsec-lockout.php:297
+#: core/class-itsec-lockout.php:351
 msgid "Number of lockouts before permanent ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:299
+#: core/class-itsec-lockout.php:353
 msgid "How long lockouts will be remembered for ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:301
+#: core/class-itsec-lockout.php:355
 msgid "Host lockout message"
 msgstr ""
 
-#: core/class-itsec-lockout.php:303
+#: core/class-itsec-lockout.php:357
 msgid "User lockout message"
 msgstr ""
 
-#: core/class-itsec-lockout.php:305
+#: core/class-itsec-lockout.php:359
 msgid "Is this computer white-listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:603 core/class-itsec-lockout.php:632
+#: core/class-itsec-lockout.php:579 core/class-itsec-lockout.php:1069
+msgid "Your IP Address"
+msgstr ""
+
+#: core/class-itsec-lockout.php:580 core/class-itsec-lockout.php:1069
+msgid "is whitelisted until"
+msgstr ""
+
+#: core/class-itsec-lockout.php:730 core/class-itsec-lockout.php:759
 msgid "White Listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:687
+#: core/class-itsec-lockout.php:814
 msgid "Locked out hosts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:707
+#: core/class-itsec-lockout.php:834
 msgid "Currently no hosts are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:715
+#: core/class-itsec-lockout.php:842
 msgid "Locked out users"
 msgstr ""
 
-#: core/class-itsec-lockout.php:736
+#: core/class-itsec-lockout.php:863
 msgid "Currently no users are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:744
+#: core/class-itsec-lockout.php:871
 msgid "Locked out usernames (not real users)"
 msgstr ""
 
-#: core/class-itsec-lockout.php:764
+#: core/class-itsec-lockout.php:891
 msgid "Currently no usernames are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:772
+#: core/class-itsec-lockout.php:899
 msgid "Release Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:802
+#: core/class-itsec-lockout.php:929
 msgid "Host or User Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:884
+#: core/class-itsec-lockout.php:1011
 msgid "The selected lockouts have been cleared."
 msgstr ""
 
-#: core/class-itsec-lockout.php:942
+#: core/class-itsec-lockout.php:1062
+msgid ""
+"Security is a delicate item. It does not care who you are, if it sees that "
+"you are trying to do something strange it will lock you out. This can be "
+"troublesome on sites with existing errors, particularly missing assets such "
+"as images and others."
+msgstr ""
+
+#: core/class-itsec-lockout.php:1063
+msgid ""
+"Use the button below to temporarily white list your IP from lockouts for 24 "
+"hours. It will still notify you of the situation but it will not lock you "
+"out of your site allowing you a chance to fix the issue."
+msgstr ""
+
+#: core/class-itsec-lockout.php:1064
+msgid ""
+"Please note that if your IP address changes at any time during the period "
+"(such as you switch locations) you could still inadvertently lock yourself "
+"out."
+msgstr ""
+
+#: core/class-itsec-lockout.php:1071
+msgid "Temporarily Whitelist my IP"
+msgstr ""
+
+#: core/class-itsec-lockout.php:1095
 msgid "has"
 msgstr ""
 
-#: core/class-itsec-lockout.php:947
+#: core/class-itsec-lockout.php:1100
 msgid "host"
 msgstr ""
 
-#: core/class-itsec-lockout.php:949
+#: core/class-itsec-lockout.php:1102
 msgid "The host has been locked out "
 msgstr ""
 
-#: core/class-itsec-lockout.php:953
+#: core/class-itsec-lockout.php:1106
 msgid "permanently"
 msgstr ""
 
-#: core/class-itsec-lockout.php:954
+#: core/class-itsec-lockout.php:1107
 msgid "To release the host lockout you can remove the host from the"
 msgstr ""
 
-#: core/class-itsec-lockout.php:954
+#: core/class-itsec-lockout.php:1107
 msgid "host list"
 msgstr ""
 
-#: core/class-itsec-lockout.php:958 core/class-itsec-lockout.php:984
-#: core/class-itsec-lockout.php:992
+#: core/class-itsec-lockout.php:1111 core/class-itsec-lockout.php:1137
+#: core/class-itsec-lockout.php:1145
 msgid "until"
 msgstr ""
 
-#: core/class-itsec-lockout.php:959 core/class-itsec-lockout.php:988
+#: core/class-itsec-lockout.php:1112 core/class-itsec-lockout.php:1141
 msgid "To release the lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:959
+#: core/class-itsec-lockout.php:1112
 msgid "the admin area"
 msgstr ""
 
-#: core/class-itsec-lockout.php:984
+#: core/class-itsec-lockout.php:1137
 msgid "The user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:986
+#: core/class-itsec-lockout.php:1139
 msgid "user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:988 core/class-itsec-lockout.php:998
-#: core/class-itsec-lockout.php:1002
+#: core/class-itsec-lockout.php:1141 core/class-itsec-lockout.php:1151
+#: core/class-itsec-lockout.php:1155
 msgid "the lockouts page"
 msgstr ""
 
-#: core/class-itsec-lockout.php:992
+#: core/class-itsec-lockout.php:1145
 msgid "and the user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:993
+#: core/class-itsec-lockout.php:1146
 msgid "have"
 msgstr ""
 
-#: core/class-itsec-lockout.php:994
+#: core/class-itsec-lockout.php:1147
 msgid "and a user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:998
+#: core/class-itsec-lockout.php:1151
 msgid "To release the user lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1002
+#: core/class-itsec-lockout.php:1155
 msgid "To release the lockouts please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1019
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:719
+#: core/class-itsec-lockout.php:1172
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:703
 msgid "Dear Site Admin"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1020
+#: core/class-itsec-lockout.php:1173
 msgid "A"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1024
+#: core/class-itsec-lockout.php:1177
 msgid " been locked out of the WordPress site at"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1027
+#: core/class-itsec-lockout.php:1180
 msgid "due to"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1032
+#: core/class-itsec-lockout.php:1185
 msgid "This email was generated automatically by"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1034
+#: core/class-itsec-lockout.php:1187
 msgid "To change your email preferences please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1036
+#: core/class-itsec-lockout.php:1189
 msgid "the plugin settings"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1040
+#: core/class-itsec-lockout.php:1193
 msgid "Site Lockout Notification"
 msgstr ""
 
@@ -1012,50 +1045,56 @@ msgstr ""
 msgid "Data"
 msgstr ""
 
-#: core/class-itsec-logger.php:89
-msgid "Security Logs"
+#: core/class-itsec-logger.php:91
+msgid "Security Log Information"
 msgstr ""
 
-#: core/class-itsec-logger.php:119
-msgid "All Logged Items"
+#: core/class-itsec-logger.php:102
+msgid "Security Log Data"
 msgstr ""
 
-#: core/class-itsec-logger.php:267
-msgid "Below are various logs of information collected by"
-msgstr ""
-
-#: core/class-itsec-logger.php:269
-msgid ""
-"This information can help you get a picture of what is happening with your "
-"site and the level of success you have achieved in your security efforts."
-msgstr ""
-
-#: core/class-itsec-logger.php:287
-msgid ""
-"Below is the log of all the log items in your WordPress Database. To adjust "
-"logging options visit the global settings page."
-msgstr ""
-
-#: core/class-itsec-logger.php:302
+#: core/class-itsec-logger.php:159
 msgid "Log Summary"
 msgstr ""
 
-#: core/class-itsec-logger.php:306
+#: core/class-itsec-logger.php:163
 msgid "Your database contains"
 msgstr ""
 
-#: core/class-itsec-logger.php:307
+#: core/class-itsec-logger.php:164
 msgid "log entries."
 msgstr ""
 
-#: core/class-itsec-logger.php:310
+#: core/class-itsec-logger.php:167
 msgid ""
 "Use the button below to purge the log table in your database. Please note "
 "this will purge all log entries in the database including 404s."
 msgstr ""
 
-#: core/class-itsec-logger.php:313
+#: core/class-itsec-logger.php:170
 msgid "Clear Logs"
+msgstr ""
+
+#: core/class-itsec-logger.php:318
+msgid "Below are various logs of information collected by"
+msgstr ""
+
+#: core/class-itsec-logger.php:320
+msgid ""
+"This information can help you get a picture of what is happening with your "
+"site and the level of success you have achieved in your security efforts."
+msgstr ""
+
+#: core/class-itsec-logger.php:337
+msgid "To adjust logging options visit the global settings page."
+msgstr ""
+
+#: core/class-itsec-logger.php:339
+msgid "Select Filter: "
+msgstr ""
+
+#: core/class-itsec-logger.php:341
+msgid "All Log Data"
 msgstr ""
 
 #: core/class-itsec-setup.php:201
@@ -1143,8 +1182,8 @@ msgstr ""
 #: core/content/system.php:196 core/content/system.php:205
 #: core/content/system.php:214 core/content/system.php:222
 #: core/content/system.php:240 core/content/system.php:249
-#: modules/free/ssl/class-itsec-ssl-admin.php:275
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:393
+#: modules/free/ssl/class-itsec-ssl-admin.php:263
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:407
 msgid "Off"
 msgstr ""
 
@@ -1415,185 +1454,185 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:28
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:35
 msgid "Admin User"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:165
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:179
 msgid "The <em>admin</em> user has been removed or renamed."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:170
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:187
 msgid "The <em>admin</em> user still exists."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:179
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:199
 msgid "The user with id 1 has been removed."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:184
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:207
 msgid "A user with id 1 still exists."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:256
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:253
 msgid ""
 "The new admin username you entered is invalid or WordPress could not change "
 "the user id or username. Please check the name and try again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:304
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:301
 msgid ""
 "It looks like you have already removed the admin user. No further action is "
 "necessary."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:308
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:305
 msgid ""
 "This feature will improve the security of your WordPress installation by "
 "removing common user attributes that can be used to target your site."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:151
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:121
-#: modules/free/ssl/class-itsec-ssl-admin.php:343
-#: modules/free/ssl/class-itsec-ssl-admin.php:347
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:142
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:112
+#: modules/free/ssl/class-itsec-ssl-admin.php:331
+#: modules/free/ssl/class-itsec-ssl-admin.php:335
 msgid "WARNING"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:151
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:121
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:142
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:112
 msgid "Backup your database"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
 msgid "before changing the admin user."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:310
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:307
 msgid "Notice"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:310
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:307
 msgid ""
 "Changing the admin username or id of user 1 will log you out of your site "
 "requiring you to log back in again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:323
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:320
 msgid "Enable Change Admin User"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:330
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:327
 msgid "Check this box to enable admin user renaming."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:338
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:335
 msgid "New Admin Username"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:345
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:342
 msgid ""
 "Enter a new username to replace \"admin.\" Please note that if you are "
 "logged in as admin you will have to log in again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:353
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:350
 msgid "Change User ID 1"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:359
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:356
 msgid "Change the ID of the user with ID 1."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:366
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:363
 msgid "Save Admin User"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:30
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:47
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:319
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:326
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:334
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:341
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:349
 msgid "Away Mode"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:86
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:103
 msgid "Enable away mode"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:112
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:129
 msgid "Set the date at which the admin dashboard should become available"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:157
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:231
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:174
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:248
 msgid "am"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:158
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:232
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:175
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:249
 msgid "pm"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:160
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:177
 msgid ""
 "Set the time at which the admin dashboard should become available again."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:186
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:203
 msgid "Set the date at which the admin dashboard should become unavailable"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:234
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:251
 msgid "Set the time at which the admin dashboard should become unavailable."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:250
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:267
 msgid "Daily"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:251
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:268
 msgid "One Time"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:253
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:270
 msgid "Select the type of restriction you would like to enable"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:271
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:289
 msgid ""
 "Away Mode is enabled and your WordPress Dashboard is not available when you "
 "will not be needing it."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:276
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:297
 msgid ""
 "Your WordPress Dashboard is available 24/7. Do you really update 24 hours a "
 "day? Consider using Away Mode."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:357
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:342
 msgid "Type of Restriction"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:364
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:349
 msgid "Start Date"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:371
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:356
 msgid "Start Time"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:379
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:364
 msgid "End Date"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:387
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:372
 msgid "End Time"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:411
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:396
 msgid ""
 "As most sites are only updated at certain times of the day it is not always "
 "necessary to provide access to the WordPress dashboard 24 hours a day, 7 "
@@ -1603,57 +1642,57 @@ msgid ""
 "on a schedule for classroom or other reasons."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:419
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:404
 msgid ""
 "Please note that according to your %sWordPress timezone settings%s your "
 "current time is:"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:421
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:406
 msgid ""
 "If this is incorrect please correct it on the %sWordPress general settings "
 "page%s by setting the appropriate time zone. Failure to set the correct "
 "timezone may result in unintended lockouts."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:430
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:415
 msgid "Away mode is currently enabled."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:435
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:420
 msgid ""
 "The dashboard of this website will become unavailable %s%s%s from %s%s%s "
 "until %s%s%s."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:435
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:420
 msgid "every day"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:439
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:424
 msgid ""
 "The dashboard of this website will become unavailable from %s%s%s on %s%s%s "
 "until %s%s%s on %s%s%s."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:443
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:428
 msgid ""
 "You will not be able to log into this website when the site is unavailable."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:501
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:486
 msgid ""
 "Invalid  away mode time listed. The time entered would lock you out of your "
 "site now. Please try again."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:512
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:497
 msgid ""
 "Invalid  away mode time listed. The start time selected is after the end "
 "time selected."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode-admin.php:523
+#: modules/free/away-mode/class-itsec-away-mode-admin.php:508
 msgid "Invalid away mode time listed. The period selected already ended."
 msgstr ""
 
@@ -1667,24 +1706,24 @@ msgstr ""
 msgid "Away Mode Triggered"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:34
+#: modules/free/backup/class-itsec-backup-admin.php:53
 msgid "Description"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:43
+#: modules/free/backup/class-itsec-backup-admin.php:62
 msgid "Make a Database Backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:51
+#: modules/free/backup/class-itsec-backup-admin.php:70
 msgid "Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:65
+#: modules/free/backup/class-itsec-backup-admin.php:84
 msgid "Take the Next Steps in Security with BackupBuddy"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:91
-#: modules/free/backup/class-itsec-backup-admin.php:505
+#: modules/free/backup/class-itsec-backup-admin.php:110
+#: modules/free/backup/class-itsec-backup-admin.php:504
 msgid ""
 "One of the best ways to protect yourself from an attack is to have access to "
 "a database backup of your site. If something goes wrong, you can get your "
@@ -1694,60 +1733,60 @@ msgid ""
 "delete previous backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:121
+#: modules/free/backup/class-itsec-backup-admin.php:141
 msgid "Tables for Backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:121
+#: modules/free/backup/class-itsec-backup-admin.php:141
 msgid "Excluded Tables"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:148
+#: modules/free/backup/class-itsec-backup-admin.php:169
 msgid ""
 "Checking this box will have the backup script backup all tables in your "
 "database, even if they are not part of this WordPress site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:166
+#: modules/free/backup/class-itsec-backup-admin.php:188
 msgid "Your site is performing scheduled database and file backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:171
+#: modules/free/backup/class-itsec-backup-admin.php:196
 msgid ""
 "BackupBuddy is installed but backups do not appear to have been scheduled. "
 "Please schedule backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:176
+#: modules/free/backup/class-itsec-backup-admin.php:204
 msgid "You are using a 3rd party backup solution."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:181
+#: modules/free/backup/class-itsec-backup-admin.php:212
 msgid ""
 "It looks like you have a 3rd-party backup solution in place but are not "
 "using it. Please turn on scheduled backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:186
+#: modules/free/backup/class-itsec-backup-admin.php:220
 msgid ""
 "Your site is performing scheduled database backups but is not backing up "
 "files. Consider purchasing or scheduling BackupBuddy to protect your "
 "investment."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:191
+#: modules/free/backup/class-itsec-backup-admin.php:228
 msgid "Your site is not performing any scheduled database backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:223
+#: modules/free/backup/class-itsec-backup-admin.php:256
 msgid "Enable Scheduled Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:261
+#: modules/free/backup/class-itsec-backup-admin.php:294
 msgid "Tables with data that does not need to be backed up"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:283
+#: modules/free/backup/class-itsec-backup-admin.php:316
 msgid ""
 "Some plugins can create log files in your database. While these logs might "
 "be handy for some functions, they can also take up a lot of space and, in "
@@ -1756,74 +1795,74 @@ msgid ""
 "will be backed up, but not the data in the table."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:357
+#: modules/free/backup/class-itsec-backup-admin.php:356
 msgid "Configure Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:364
+#: modules/free/backup/class-itsec-backup-admin.php:363
 msgid "Enable Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:371
+#: modules/free/backup/class-itsec-backup-admin.php:370
 msgid "Backup Schedule Settings"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:379
+#: modules/free/backup/class-itsec-backup-admin.php:378
 msgid "Schedule Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:387
+#: modules/free/backup/class-itsec-backup-admin.php:386
 msgid "Backup Interval"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:395
+#: modules/free/backup/class-itsec-backup-admin.php:394
 msgid "Backup Full Database"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:403
+#: modules/free/backup/class-itsec-backup-admin.php:402
 msgid "Backup Method"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:411
+#: modules/free/backup/class-itsec-backup-admin.php:410
 msgid "Backup Location"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:419
+#: modules/free/backup/class-itsec-backup-admin.php:418
 msgid "Backups to Retain"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:427
+#: modules/free/backup/class-itsec-backup-admin.php:426
 msgid "Compress Backup Files"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:435
+#: modules/free/backup/class-itsec-backup-admin.php:434
 msgid "Exclude Tables"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:467
+#: modules/free/backup/class-itsec-backup-admin.php:466
 msgid "The number of days between database backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:491
+#: modules/free/backup/class-itsec-backup-admin.php:490
 msgid "The path on your machine where backup files should be stored."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:531
+#: modules/free/backup/class-itsec-backup-admin.php:530
 msgid ""
 "Press the button below to create a backup of your WordPress database. If you "
 "have \"Send Backups By Email\" selected in automated backups you will "
 "receive an email containing the backup file."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:532
+#: modules/free/backup/class-itsec-backup-admin.php:531
 msgid "Create Database Backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:533
+#: modules/free/backup/class-itsec-backup-admin.php:532
 msgid "Adjust Backup Settings"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:546
+#: modules/free/backup/class-itsec-backup-admin.php:545
 msgid ""
 "A database backup is just a simple start. BackupBuddy goes one step further "
 "to provide complete backups of all your site files (including image and "
@@ -1834,120 +1873,120 @@ msgid ""
 "host or domain."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:547
+#: modules/free/backup/class-itsec-backup-admin.php:546
 msgid "5 Reasons You Need a Complete Backup Strategy"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:549
+#: modules/free/backup/class-itsec-backup-admin.php:548
 msgid "Database backups aren't enough."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:549
+#: modules/free/backup/class-itsec-backup-admin.php:548
 msgid ""
 "You need complete backups of your entire site (including images and media "
 "files, themes, plugins, widgets and settings)."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:550
+#: modules/free/backup/class-itsec-backup-admin.php:549
 msgid "Backup files should be protected."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:550
+#: modules/free/backup/class-itsec-backup-admin.php:549
 msgid ""
 "Send and store them safely off-site to a secure remote destination (like "
 "email, Dropbox, Amazon S3, etc.)"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:551
+#: modules/free/backup/class-itsec-backup-admin.php:550
 msgid "Backups should be automated and scheduled so you don't forget."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:551
+#: modules/free/backup/class-itsec-backup-admin.php:550
 msgid ""
 "Set daily, weekly or monthly backups that automatically send backups off-"
 "site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:552
+#: modules/free/backup/class-itsec-backup-admin.php:551
 msgid "Restoring your site should be quick and easy."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:552
+#: modules/free/backup/class-itsec-backup-admin.php:551
 msgid ""
 "If you get hacked or your server crashes, you shouldn't have to worry about "
 "restoring your site. Reliable backups mean nothing gets corrupted or broken "
 "during the restore process."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:553
+#: modules/free/backup/class-itsec-backup-admin.php:552
 msgid "You should own your backup files."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:553
+#: modules/free/backup/class-itsec-backup-admin.php:552
 msgid ""
 "Don't just rely on a host or service. It's your site, so you should own "
 "everything on it."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:556
+#: modules/free/backup/class-itsec-backup-admin.php:555
 msgid "Learn more about BackupBuddy"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:578
+#: modules/free/backup/class-itsec-backup-admin.php:577
 msgid "Save Locally and Email"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:579
+#: modules/free/backup/class-itsec-backup-admin.php:578
 msgid "Email Only"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:580
+#: modules/free/backup/class-itsec-backup-admin.php:579
 msgid "Save Locally Only"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:582
+#: modules/free/backup/class-itsec-backup-admin.php:581
 msgid "Backup Save Method"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:583
+#: modules/free/backup/class-itsec-backup-admin.php:582
 msgid ""
 "Select what we should do with your backup file. You can have it emailed to "
 "you, saved locally or both."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:616
+#: modules/free/backup/class-itsec-backup-admin.php:615
 msgid "Back up your site"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:617
+#: modules/free/backup/class-itsec-backup-admin.php:616
 msgid ""
 "We recommend making a database backup before you get started securing your "
 "site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:618
+#: modules/free/backup/class-itsec-backup-admin.php:617
 msgid "Make a backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:620
+#: modules/free/backup/class-itsec-backup-admin.php:619
 msgid "Backup completed. Please check your email or uploads folder."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:621
+#: modules/free/backup/class-itsec-backup-admin.php:620
 msgid "Whoops. Something went wrong. Check the backup page or contact support."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:645
+#: modules/free/backup/class-itsec-backup-admin.php:644
 msgid ""
 "The number of backups that should be kept on disk. This only applies to "
 "backups saved to disk. Set to \"0\" to disable."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:787
+#: modules/free/backup/class-itsec-backup-admin.php:786
 msgid "Zip Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:788
+#: modules/free/backup/class-itsec-backup-admin.php:787
 msgid "You may need to turn this off if you are having problems with backups."
 msgstr ""
 
@@ -2004,25 +2043,25 @@ msgstr ""
 msgid "Database Backup Executed"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:30
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:44
 msgid "Banned Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:90
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:104
 msgid ""
 "Use the guidelines below to enter user agents that will not be allowed "
 "access to your site."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:92
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:106
 msgid "Enter only 1 user agent per line."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:115
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:129
 msgid "Enable HackRepair.com's blacklist feature"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:116
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:130
 msgid ""
 "As a getting-started point you can include the excellent blacklist developed "
 "by Jim Walker of <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
@@ -2030,72 +2069,53 @@ msgid ""
 "\">HackRepair.com</a>."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:138
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:152
 msgid "Enable ban users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:167
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:181
 msgid ""
 "Use the guidelines below to enter hosts that will not be allowed access to "
 "your site. Note you cannot ban yourself."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:169
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:183
 msgid "You may ban users by individual IP address or IP address range."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:203
-msgid ""
-"Use the guidelines below to enter hosts that will not be banned from your "
-"site. This will keep you from locking yourself out of any features if you "
-"should trigger a lockout. Please note this does not override away mode."
-msgstr ""
-
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:211
-msgid ""
-"Note: this white list is only to prevent your IP from getting banned at the "
-"server level (which is much more difficult to clear). If you want to "
-"whitelist your IP from all lockouts use the whitelist option in the Global "
-"Settings."
-msgstr ""
-
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:412
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:391
 msgid "You are blocking known bad hosts and agents with the ban users tool."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:417
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:399
 msgid ""
 "You are not blocking any users that are known to be a problem. Consider "
 "turning on the Ban Users feature."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:443
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:467
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:421
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:445
 msgid "Default Blacklist"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:451
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:459
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:429
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:437
 msgid "Configure Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:476
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:454
 msgid "Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:485
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:463
 msgid "Ban Hosts"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:494
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:472
 msgid "Ban User Agents"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:503
-msgid "Whitelist Users"
-msgstr ""
-
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:554
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:494
 msgid ""
 "This feature allows you to completely ban hosts and user agents from your "
 "site without having to manage any configuration of your server. Any IP "
@@ -2103,47 +2123,47 @@ msgid ""
 "access to your site."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:658
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:711
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:605
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:627
 msgid ""
 "Note that the ban users feature has been disabled until the following errors "
 "are corrected:"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:661
-msgid "is not a valid address in the whitelist users box."
-msgstr ""
-
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:715
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:609
 msgid "is not a valid address in the ban users box."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:29
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:246
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:631
+msgid "is not a valid address as it has been white listed."
+msgstr ""
+
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:39
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:219
 msgid "Brute Force Protection"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:83
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:93
 msgid "The number of minutes in which bad logins should be remembered."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:105
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:115
 msgid "Enable brute force protection."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:127
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:150
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:137
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:160
 msgid "Attempts"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:128
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:138
 msgid ""
 "The number of login attempts a user has before their host or computer is "
 "locked out of the system. Set to 0 to record bad login attempts without "
 "locking out the host."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:151
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:161
 msgid ""
 "The number of login attempts a user has before their username is locked out "
 "of the system. Note that this is different from hosts in case an attacker is "
@@ -2152,41 +2172,35 @@ msgid ""
 "without ever locking the user out (this is not recommended)"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:169
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:179
 msgid "Your login area is protected from brute force attacks."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:174
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:184
 msgid "Your login area is not protected from brute force attacks."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:231
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:204
 msgid "Enable Brute Force Protection"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:238
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:211
 msgid "Brute Force Protection Settings"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:253
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:226
 msgid "Max Login Attempts Per Host"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:260
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:233
 msgid "Max Login Attempts Per User"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:267
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:240
 msgid "Minutes to Remember Bad Login (check period)"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:292
-msgid ""
-"Below is the log of all the invalid login attempts in the WordPress "
-"Database. To adjust logging options visit the global settings page."
-msgstr ""
-
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:311
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:284
 msgid ""
 "If one had unlimited time and wanted to try an unlimited number of password "
 "combinations to get into your site they eventually would, right? This method "
@@ -2197,7 +2211,7 @@ msgid ""
 "specified bad login threshold has been reached."
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force-admin.php:363
+#: modules/free/brute-force/class-itsec-brute-force-admin.php:336
 msgid "Invalid Login Attempts"
 msgstr ""
 
@@ -2213,25 +2227,25 @@ msgstr ""
 msgid "Invalid Login Attempt"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:33
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:213
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:46
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:204
 msgid "Change Content Directory"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:73
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:87
 msgid "You have renamed the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:78
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:95
 msgid "You should rename the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:99
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:74
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:118
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:93
 msgid "Security check"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:148
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:139
 msgid ""
 "By default, WordPress puts all your content (including images, plugins, "
 "themes, uploads and more) in a directory called \"wp-content.\" This default "
@@ -2242,26 +2256,26 @@ msgid ""
 "your site's file system will not produce any results."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:149
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:140
 msgid ""
 "This tool will not allow further changes to your wp-content folder once it "
 "has been renamed in order to avoid accidentally breaking the site later. "
 "Uninstalling this plugin will not revert the changes made by this page."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:150
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 msgid ""
 "Changing the name of the wp-content directory may in fact break plugins and "
 "themes that have \"hard-coded\" it into their design rather than calling it "
 "dynamically."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:151
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:121
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:142
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:112
 msgid "before using this tool."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:152
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:143
 msgid ""
 "Please note: Changing the name of your wp-content directory on a site that "
 "already has images and other content referencing it will break your site. "
@@ -2269,44 +2283,44 @@ msgid ""
 "WordPress install."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:165
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:156
 msgid ""
 "Congratulations! You have already renamed your \"wp-content\" directory."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:166
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:157
 msgid "Your current content directory is: "
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:168
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:159
 msgid "No further actions are available on this page."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:188
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:179
 msgid "Enable Change Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:195
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:186
 msgid "Check this box to enable content directory renaming."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:201
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:192
 msgid "Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:207
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:198
 msgid ""
 "Enter a new directory name to replace \"wp-content.\" You may need to log in "
 "again after performing this operation."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:225
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:184
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:216
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:175
 msgid "You must allow this plugin to write to the wp-config.php file on the"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:227
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:186
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:218
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:177
 msgid "page to use this feature."
 msgstr ""
 
@@ -2323,178 +2337,196 @@ msgstr ""
 msgid "Unable to rename the wp-content folder. Operation cancelled."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:30
+#: modules/free/core/class-itsec-core-admin.php:35
+msgid "Sync 10 Sites For Free"
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:44
 msgid "Download Our WordPress Security Pocket Guide"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:39
+#: modules/free/core/class-itsec-core-admin.php:53
 msgid "Need Help Securing Your Site?"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:49
+#: modules/free/core/class-itsec-core-admin.php:63
 msgid "Complete Your Security Strategy With BackupBuddy"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:61
+#: modules/free/core/class-itsec-core-admin.php:75
 msgid "Getting Started"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:81
+#: modules/free/core/class-itsec-core-admin.php:95
 msgid "Get Pro Setup"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:82
+#: modules/free/core/class-itsec-core-admin.php:96
 msgid "Get Support"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:121
+#: modules/free/core/class-itsec-core-admin.php:111
 msgid ""
 "BackupBuddy is the complete backup, restore and migration solution for your "
 "WordPress site. Schedule automated backups, store your backups safely off-"
 "site and restore your site quickly & easily."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:122
+#: modules/free/core/class-itsec-core-admin.php:112
 msgid "25% off BackupBuddy with coupon code"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:122
+#: modules/free/core/class-itsec-core-admin.php:112
 msgid "BACKUPPROTECT"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:123
+#: modules/free/core/class-itsec-core-admin.php:113
 msgid "Get BackupBuddy"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:138
+#: modules/free/core/class-itsec-core-admin.php:128
 msgid "Watch the Walk-Through Video"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:140
+#: modules/free/core/class-itsec-core-admin.php:130
 msgid "In this short video, we walk through"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:140
+#: modules/free/core/class-itsec-core-admin.php:130
 msgid "how to get started securing your site"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:140
+#: modules/free/core/class-itsec-core-admin.php:130
 msgid "with iThemes Security."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:146
+#: modules/free/core/class-itsec-core-admin.php:136
 msgid ""
 "Website Security is a complicated subject, but we have experts that can help."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:147
-#: modules/free/help/class-itsec-help-admin.php:62
+#: modules/free/core/class-itsec-core-admin.php:137
+#: modules/free/help/class-itsec-help-admin.php:43
 msgid ""
 "Get added peace of mind with professional support from our expert team and "
 "pro features to take your site security to the next level with iThemes "
 "Security Pro."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:148
+#: modules/free/core/class-itsec-core-admin.php:138
 msgid "Get Support and Pro Features"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:163
-#: modules/free/help/class-itsec-help-admin.php:57
+#: modules/free/core/class-itsec-core-admin.php:153
+#: modules/free/help/class-itsec-help-admin.php:38
 msgid ""
 "Since you are using the free version of iThemes Security from WordPress.org, "
 "you can get free support from the WordPress community."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:164
-#: modules/free/help/class-itsec-help-admin.php:58
+#: modules/free/core/class-itsec-core-admin.php:154
+#: modules/free/help/class-itsec-help-admin.php:39
 msgid "Get Free Support"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:165
+#: modules/free/core/class-itsec-core-admin.php:155
 msgid ""
 "Be sure your site has been properly secured by having one of our security "
 "experts tailor iThemes Security settings to the specific needs of this site."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:166
-#: modules/free/help/class-itsec-help-admin.php:68
+#: modules/free/core/class-itsec-core-admin.php:156
+#: modules/free/help/class-itsec-help-admin.php:49
 msgid "Have an expert secure my site"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:167
+#: modules/free/core/class-itsec-core-admin.php:157
 msgid ""
 "Get added peace of mind with professional support from our expert team and "
 "pro features with iThemes Security Pro."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:168
-#: modules/free/help/class-itsec-help-admin.php:63
+#: modules/free/core/class-itsec-core-admin.php:158
+#: modules/free/help/class-itsec-help-admin.php:44
 msgid "Get iThemes Security Pro"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:193
+#: modules/free/core/class-itsec-core-admin.php:183
 msgid ""
 "Get tips for securing your site + the latest WordPress security updates, "
 "news and releases from iThemes."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:200
+#: modules/free/core/class-itsec-core-admin.php:190
 msgid "Email Address"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:204
+#: modules/free/core/class-itsec-core-admin.php:194
 msgid "Subscribe"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:241
+#: modules/free/core/class-itsec-core-admin.php:220
+msgid "Manage updates remotely for up to 10 WordPress sites today for free!"
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:221
+msgid ""
+"Integrated with iThemes Security, so you can release lockouts and turn Away "
+"Mode on or off right from your Sync dashboard or your phone."
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:223
+msgid "Try iThemes Sync for Free"
+msgstr ""
+
+#: modules/free/core/class-itsec-core-admin.php:255
 msgid "is almost ready."
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:241
+#: modules/free/core/class-itsec-core-admin.php:255
 msgid "Secure Your Site Now"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:241
+#: modules/free/core/class-itsec-core-admin.php:255
 msgid "See what's new in 4.0"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:315
+#: modules/free/core/class-itsec-core-admin.php:329
 msgid "It looks like you've been enjoying"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:315
+#: modules/free/core/class-itsec-core-admin.php:329
 msgid ""
 "for at least 30 days. Would you consider a small donation to help support "
 "continued development of the plugin?"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:315
+#: modules/free/core/class-itsec-core-admin.php:329
 msgid "Support This Plugin"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:315
+#: modules/free/core/class-itsec-core-admin.php:329
 msgid "Rate it 5★'s"
 msgstr ""
 
-#: modules/free/core/class-itsec-core-admin.php:315
+#: modules/free/core/class-itsec-core-admin.php:329
 msgid "Tell Your Followers"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:27
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:174
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:40
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:165
 msgid "Change Database Prefix"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:48
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:62
 msgid "Your database table prefix is not using"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:53
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:70
 msgid "Your database table prefix should not be"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:119
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:110
 msgid ""
 "By default, WordPress assigns the prefix \"wp\" to all tables in the "
 "database where your content, users, and objects exist. For potential "
@@ -2505,13 +2537,13 @@ msgid ""
 "affect the database of your site."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:119
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:110
 msgid ""
 "Before using this tool, we strongly recommend running a backup of your "
 "database."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:120
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:111
 msgid ""
 "Note: The use of this tool requires quite a bit of system memory which may "
 "be more than some hosts can handle. If you back your database up you can't "
@@ -2519,49 +2551,49 @@ msgid ""
 "site and having to perform a rather difficult fix."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:134
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:125
 msgid "Your database is using the default table prefix"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:135
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:126
 msgid "You should change this."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:143
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:134
 msgid "Your current database table prefix is"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:159
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:150
 msgid "Change Table Prefix"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:166
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:157
 msgid "Check this box to generate a new database table prefix."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:249
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:240
 msgid "Error: Could not rename table"
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:249
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:240
 msgid "You may have to rename the table manually."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:279
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:270
 msgid "Could not update prefix references in options table."
 msgstr ""
 
-#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:299
+#: modules/free/database-prefix/class-itsec-database-prefix-admin.php:290
 msgid "Could not update prefix references in usermeta table."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:30
-#: modules/free/file-change/class-itsec-file-change-admin.php:532
-#: modules/free/file-change/class-itsec-file-change-admin.php:547
+#: modules/free/file-change/class-itsec-file-change-admin.php:48
+#: modules/free/file-change/class-itsec-file-change-admin.php:505
+#: modules/free/file-change/class-itsec-file-change-admin.php:520
 msgid "File Change Detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:79
+#: modules/free/file-change/class-itsec-file-change-admin.php:97
 msgid ""
 "Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
 "have many files in your installation or a lot of active plugins activating "
@@ -2569,75 +2601,75 @@ msgid ""
 "See the plugin homepage for more information."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:81
-#: modules/free/file-change/class-itsec-file-change-admin.php:313
+#: modules/free/file-change/class-itsec-file-change-admin.php:99
+#: modules/free/file-change/class-itsec-file-change-admin.php:325
 msgid "Scan Next File Chunk"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:81
-#: modules/free/file-change/class-itsec-file-change-admin.php:313
+#: modules/free/file-change/class-itsec-file-change-admin.php:99
+#: modules/free/file-change/class-itsec-file-change-admin.php:325
 msgid "Scan Files Now"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:82
+#: modules/free/file-change/class-itsec-file-change-admin.php:100
 msgid "Scanning... (this could take a while on a large site)"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:83
+#: modules/free/file-change/class-itsec-file-change-admin.php:101
 msgid "No changes were detected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:84
+#: modules/free/file-change/class-itsec-file-change-admin.php:102
 msgid "Changes were detected. Please check the log page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:85
+#: modules/free/file-change/class-itsec-file-change-admin.php:103
 msgid "An error occured. Please try again later"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:123
+#: modules/free/file-change/class-itsec-file-change-admin.php:141
 msgid "Your site will detect changes to your files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:131
+#: modules/free/file-change/class-itsec-file-change-admin.php:149
 msgid ""
 "Your website is not looking for changed files. Consider turning on file "
 "change detections."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:169
+#: modules/free/file-change/class-itsec-file-change-admin.php:187
 msgid ""
 "has noticed a change to some files in your WordPress site. Please review the "
 "logs to make sure your system has not been compromised."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:170
+#: modules/free/file-change/class-itsec-file-change-admin.php:188
 msgid "View Logs"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:171
+#: modules/free/file-change/class-itsec-file-change-admin.php:189
 msgid "Dismiss Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:246
+#: modules/free/file-change/class-itsec-file-change-admin.php:258
 msgid "Email file change notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:247
+#: modules/free/file-change/class-itsec-file-change-admin.php:259
 msgid ""
 "Notifications will be sent to all emails set to receive notifications on the "
 "global settings page."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:269
+#: modules/free/file-change/class-itsec-file-change-admin.php:281
 msgid "Enable File Change detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:291
+#: modules/free/file-change/class-itsec-file-change-admin.php:303
 msgid "Split file checking into chunks."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:292
+#: modules/free/file-change/class-itsec-file-change-admin.php:304
 msgid ""
 "Splits file checking into 7 chunks (plugins, themes, wp-admin, wp-includes, "
 "uploads, the rest of wp-content and everything that is left over) and "
@@ -2646,67 +2678,60 @@ msgid ""
 "continue even on a lower-end web host."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:312
+#: modules/free/file-change/class-itsec-file-change-admin.php:324
 msgid ""
 "Press the button below to scan your site's files for changes. Note that if "
 "changes are found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:352
+#: modules/free/file-change/class-itsec-file-change-admin.php:364
 msgid ""
 "Exclude files or folders by clicking the red minus next to the file or "
 "folder name."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:378
-msgid ""
-"Below is a summary log of all the file changes recorded for your WordPress "
-"site. To get details on a particular item click the title. To adjust logging "
-"options visit the global settings page."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:392
+#: modules/free/file-change/class-itsec-file-change-admin.php:404
 msgid "Today"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:394
+#: modules/free/file-change/class-itsec-file-change-admin.php:406
 msgid "Tomorrow"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:399
+#: modules/free/file-change/class-itsec-file-change-admin.php:411
 msgid "Next automatic scan at: "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:400
+#: modules/free/file-change/class-itsec-file-change-admin.php:412
 msgid ""
 "Automatic file change scanning is triggered by a user visiting your page and "
 "may not happen exactly at the time listed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:428
+#: modules/free/file-change/class-itsec-file-change-admin.php:440
 msgid "Exclude Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:429
+#: modules/free/file-change/class-itsec-file-change-admin.php:441
 msgid "Include Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:431
+#: modules/free/file-change/class-itsec-file-change-admin.php:443
 msgid "Include/Exclude Files"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:432
+#: modules/free/file-change/class-itsec-file-change-admin.php:444
 msgid ""
 "Select what we should exclude files and folders selected or whether the scan "
 "should only include files and folders selected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:452
-#: modules/free/file-change/class-itsec-file-change-admin.php:595
+#: modules/free/file-change/class-itsec-file-change-admin.php:464
+#: modules/free/file-change/class-itsec-file-change-admin.php:568
 msgid "Display file change admin warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:453
+#: modules/free/file-change/class-itsec-file-change-admin.php:465
 msgid ""
 "Disabling this feature will prevent the file change warning from displaying "
 "to the site administrator in the WordPress Dashboard. Note that disabling "
@@ -2715,38 +2740,38 @@ msgid ""
 "manually checking the log files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:475
+#: modules/free/file-change/class-itsec-file-change-admin.php:487
 msgid ""
 "File types listed here will not be checked for changes. While it is possible "
 "to change files such as images it is quite rare and nearly all known "
 "WordPress attacks exploit php, js and other text files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:539
+#: modules/free/file-change/class-itsec-file-change-admin.php:512
 msgid "File Change Detection Settings"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:555
+#: modules/free/file-change/class-itsec-file-change-admin.php:528
 msgid "Split File Scanning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:563
+#: modules/free/file-change/class-itsec-file-change-admin.php:536
 msgid "Include/Exclude Files and Folders"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:571
+#: modules/free/file-change/class-itsec-file-change-admin.php:544
 msgid "Files and Folders List"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:579
+#: modules/free/file-change/class-itsec-file-change-admin.php:552
 msgid "Ignore File Types"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:587
+#: modules/free/file-change/class-itsec-file-change-admin.php:560
 msgid "Email File Change Notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:617
+#: modules/free/file-change/class-itsec-file-change-admin.php:590
 msgid ""
 "Even the best security solutions can fail. How do you know if someone gets "
 "into your site? You will know because they will change something. File "
@@ -2757,7 +2782,7 @@ msgid ""
 "thereby taking into account whether or not you modify the files yourself."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:728
+#: modules/free/file-change/class-itsec-file-change-admin.php:699
 msgid "File Change History"
 msgstr ""
 
@@ -2874,54 +2899,54 @@ msgid ""
 "the result of a compromise."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:30
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:303
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:52
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:277
 msgid "404 Detection"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:85
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:107
 msgid "Your site is protecting against bots looking for known vulnerabilities."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:93
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:115
 msgid ""
 "Your website is not protected against bots looking for known "
 "vulnerabilities. Consider turning on 404 protection."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:128
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:144
 msgid ""
 "The number of minutes in which 404 errors should be remembered and counted "
 "towards lockouts."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:149
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:322
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:165
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:224
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:336
 msgid "You must turn on"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:149
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:322
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:165
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:224
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:336
 msgid "WordPress permalinks"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:150
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:210
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:322
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:166
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:224
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:336
 msgid "to use this feature."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:163
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:179
 msgid "Enable 404 detection"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:187
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:203
 msgid "Errors"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:188
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:204
 msgid ""
 "The numbers of errors (within the check period time frame) that will trigger "
 "a lockout. Set to zero (0) to record 404 errors without locking out users. "
@@ -2929,14 +2954,7 @@ msgid ""
 "is 20."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:206
-msgid ""
-"Below is a summary log of all the 404 errors on your WordPress site. To get "
-"details on a particular item click the title. To adjust logging options "
-"visit the global settings page."
-msgstr ""
-
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:232
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:245
 msgid ""
 "Use the whitelist above to prevent recording common 404 errors. If you know "
 "a common file on your site is missing and you do not want it to count "
@@ -2944,27 +2962,27 @@ msgid ""
 "the \"/\""
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:288
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:262
 msgid "Enable 404 Detection"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:295
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:269
 msgid "404 Detection Settings"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:311
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:285
 msgid "Minutes to Remember 404 Error (Check Period)"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:319
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:293
 msgid "Error Threshold"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:327
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:301
 msgid "404 File/Folder White List"
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:351
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:325
 msgid ""
 "404 detection looks at a user who is hitting a large number of non-existent "
 "pages and getting a large number of 404 errors. 404 detection assumes that a "
@@ -2975,7 +2993,7 @@ msgid ""
 "\"View Logs\" page. You can set thresholds for this feature below."
 msgstr ""
 
-#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:386
+#: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:360
 msgid "404 Errors Found"
 msgstr ""
 
@@ -3007,97 +3025,97 @@ msgstr ""
 msgid "404 Error"
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:54
+#: modules/free/help/class-itsec-help-admin.php:35
 msgid ""
 "Website security is a complicated subject, but we have experts that can help."
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:56
+#: modules/free/help/class-itsec-help-admin.php:37
 msgid "Community Support from WordPress.org"
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:61
+#: modules/free/help/class-itsec-help-admin.php:42
 msgid "Support & Pro Features with iThemes Security Pro"
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:66
+#: modules/free/help/class-itsec-help-admin.php:47
 msgid "Have a Pro Secure Your Site"
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:67
+#: modules/free/help/class-itsec-help-admin.php:48
 msgid ""
 "Be sure your site has been properly secured by having one of our security "
 "experts tailor your security settings to the specific needs of your site."
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:71
+#: modules/free/help/class-itsec-help-admin.php:52
 msgid "Hack Repair"
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:72
+#: modules/free/help/class-itsec-help-admin.php:53
 msgid ""
 "Has your site been hacked? Contact one of our recommended hack repair "
 "partners to get things back in order."
 msgstr ""
 
-#: modules/free/help/class-itsec-help-admin.php:73
+#: modules/free/help/class-itsec-help-admin.php:54
 msgid "Get hack repair"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:28
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:43
 msgid "Hide Login Area"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:69
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:84
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:99
 msgid ""
 "Warning: Your admin URL has changed. Use the following URL to login to your "
 "site"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:73
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:88
 msgid ""
 "Please note this may be different than what you sent as the URL was "
 "sanitized to meet various requirements. A reminder has also been sent to the "
 "notification email(s) set in this plugins global settings."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:86
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:101
 msgid ""
 "Please note this may be different than what you sent as the URL was "
 "sanitized to meet various requirements."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:129
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:133
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:144
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:148
 msgid "Rules to hide the dashboard"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:176
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:192
 msgid "Your WordPress Dashboard is hidden."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:181
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:199
 msgid ""
 "Your WordPress Dashboard is using the default addresses. This can make a "
 "brute force attack much easier."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:221
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:235
 msgid "Enable the hide backend feature."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:245
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:259
 msgid "Login URL:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:246
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:260
 msgid ""
 "The login url slug cannot be \"login,\" \"admin,\" \"dashboard,\" or \"wp-"
 "login.php\" as these are use by default in WordPress."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:247
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:261
 msgid ""
 "Note: The output is limited to alphanumeric characters, underscore (_) and "
 "dash (-). Special characters such as \".\" and \"/\" are not allowed and "
@@ -3105,21 +3123,21 @@ msgid ""
 "selection before logging out."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:273
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:287
 msgid "404 Slug:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:274
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:288
 msgid ""
 "The slug to redirect folks to when theme compatibility mode is enabled (just "
 "make sure it does not exist in your site)."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:300
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:314
 msgid "Custom Action:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:301
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:315
 msgid ""
 "WordPress uses the \"action\" variable to handle many login and logout "
 "functions. By default this plugin can handle the normal ones but some "
@@ -3127,143 +3145,143 @@ msgid ""
 "private post). If you need a custom action please enter it here."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:333
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:347
 msgid ""
 "Enable theme compatibility. If  you see errors in your theme when using hide "
 "backend, in particular when going to wp-admin while not logged in, turn this "
 "on to fix them."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:357
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:371
 msgid "Registration URL:"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:405
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:412
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:389
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:396
 msgid "Hide Login and Admin"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:420
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:404
 msgid "Hide Backend"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:428
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:412
 msgid "Login Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:438
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:422
 msgid "Register Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:448
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:432
 msgid "Enable Theme Compatibility"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:456
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:440
 msgid "Theme Compatibility Slug"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:464
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:448
 msgid "Custom Login Action"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:488
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:472
 msgid ""
 "Hides the login page (wp-login.php, wp-admin, admin and login) making it "
 "harder to find by automated attacks and making it easier for users "
 "unfamiliar with the WordPress platform."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:534
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:518
 msgid "Review Hide Backend Settings"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:535
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:519
 msgid ""
 "The hide backend system has been rewritten. You must re-activate the feature "
 "to continue using the feature."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:536
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:520
 msgid "Review Settings"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:607
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:591
 msgid ""
 "Invalid hide login slug used. The login url slug cannot be \"login,\" "
 "\"admin,\" \"dashboard,\" or \"wp-login.php\" ob \"\" (blank) as these are "
 "use by default in WordPress."
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:720
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:704
 msgid ""
 "This friendly email is just a reminder that you have changed the dashboard "
 "login address on"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:723
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:707
 msgid "You must now use"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:726
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:710
 msgid "to login to your WordPress website"
 msgstr ""
 
-#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:731
+#: modules/free/hide-backend/class-itsec-hide-backend-admin.php:715
 msgid "WordPress Login Email Changed"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:87
+#: modules/free/ssl/class-itsec-ssl-admin.php:110
 msgid "Secure Socket Layers (SSL)"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:121
+#: modules/free/ssl/class-itsec-ssl-admin.php:144
 msgid ""
 "Are you sure you want to enable SSL? If your server does not support SSL you "
 "will be locked out of your WordPress Dashboard."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:139
+#: modules/free/ssl/class-itsec-ssl-admin.php:163
 msgid "You are requiring a secure connection for logins and the admin area."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:144
+#: modules/free/ssl/class-itsec-ssl-admin.php:171
 msgid ""
 "You are requiring a secure connection for logins or the admin area but not "
 "both."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:149
+#: modules/free/ssl/class-itsec-ssl-admin.php:179
 msgid ""
 "You are not requiring a secure connection for logins or for the admin area."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:211
+#: modules/free/ssl/class-itsec-ssl-admin.php:205
 msgid "Configure SSL"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:219
-#: modules/free/ssl/class-itsec-ssl-admin.php:279
+#: modules/free/ssl/class-itsec-ssl-admin.php:213
+#: modules/free/ssl/class-itsec-ssl-admin.php:267
 msgid "Front End SSL Mode"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:228
+#: modules/free/ssl/class-itsec-ssl-admin.php:222
 msgid "SSL for Login"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:237
+#: modules/free/ssl/class-itsec-ssl-admin.php:231
 msgid "SSL for Dashboard"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:276
+#: modules/free/ssl/class-itsec-ssl-admin.php:264
 msgid "Per Content"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:277
+#: modules/free/ssl/class-itsec-ssl-admin.php:265
 msgid "Whole Site"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:280
+#: modules/free/ssl/class-itsec-ssl-admin.php:268
 msgid ""
 "Enables secure SSL connection for the front-end (public parts of your site). "
 "Turning this off will disable front-end SSL control, turning this on \"Per "
@@ -3273,20 +3291,20 @@ msgid ""
 "(not recommended unless you have a really good reason to use it"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:300
+#: modules/free/ssl/class-itsec-ssl-admin.php:288
 msgid "Force SSL for Login"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:301
-#: modules/free/ssl/class-itsec-ssl-admin.php:324
+#: modules/free/ssl/class-itsec-ssl-admin.php:289
+#: modules/free/ssl/class-itsec-ssl-admin.php:312
 msgid "Forces all logins to be served only over a secure SSL connection."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:323
+#: modules/free/ssl/class-itsec-ssl-admin.php:311
 msgid "Force SSL for Dashboard"
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:337
+#: modules/free/ssl/class-itsec-ssl-admin.php:325
 msgid ""
 "Secure Socket Layers (SSL) is a technology that is used to encrypt the data "
 "sent between your server or host and a visitor to your web page. When SSL is "
@@ -3295,7 +3313,7 @@ msgid ""
 "encrypted data much safer."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:338
+#: modules/free/ssl/class-itsec-ssl-admin.php:326
 msgid ""
 "This plugin gives you the option of turning on SSL (if your server or host "
 "supports it) for all or part of your site. The options below allow you to "
@@ -3305,7 +3323,7 @@ msgid ""
 "publishing options of the content in question."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:339
+#: modules/free/ssl/class-itsec-ssl-admin.php:327
 msgid ""
 "Note: While this plugin does give you the option of encrypting everything, "
 "SSL may not be for you. SSL does add overhead to your site which will "
@@ -3314,71 +3332,71 @@ msgid ""
 "individual pages or posts with forms that require sensitive information."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:343
+#: modules/free/ssl/class-itsec-ssl-admin.php:331
 msgid ""
 "Your server does not appear to support SSL. Your server MUST support SSL to "
 "use these features. Using these features without SSL support on your server "
 "or host will cause some or all of your site to become unavailable."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:347
+#: modules/free/ssl/class-itsec-ssl-admin.php:335
 msgid ""
 "Your server does appear to support SSL. Using these features without SSL "
 "support on your server or host will cause some or all of your site to become "
 "unavailable."
 msgstr ""
 
-#: modules/free/ssl/class-itsec-ssl-admin.php:351
+#: modules/free/ssl/class-itsec-ssl-admin.php:339
 msgid ""
 "Note: When turning SSL on you will be logged out and you will have to log "
 "back in. This is to prevent possible cookie conflicts that could make it "
 "more difficult to get in otherwise."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:28
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:157
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:42
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:145
 msgid "Strong Passwords"
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:77
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:92
 msgid "You are enforcing strong passwords for all users."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:82
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:100
 msgid "You are enforcing strong passwords, but not for all users."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:87
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:108
 msgid "You are not enforcing strong passwords for any users."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:142
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:149
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:130
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:137
 msgid "Enforce Strong Passwords"
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:165
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:153
 msgid "Select Role for Strong Passwords"
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:189
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:177
 msgid ""
 "Force users to use strong passwords as rated by the WordPress password meter."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:286
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:274
 msgid "Enable strong password enforcement."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:314
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:302
 msgid "Minimum role at which a user must choose a strong password."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:316
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:304
 msgid "For more information on WordPress roles and capabilities please see"
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:317
+#: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:305
 msgid ""
 "Warning: If your site invites public registrations setting the role too low "
 "may annoy your members."
@@ -3398,55 +3416,55 @@ msgstr ""
 msgid "Sorry, but you must enter a strong password"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:30
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:44
 msgid "System Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:49
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1950
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:63
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2077
 msgid "WordPress Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:70
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:84
 msgid "Multi-site Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:108
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:122
 msgid "Disable Directory Browsing"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:109
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:123
 msgid ""
 "Prevents users from seeing a list of files in a directory when no index file "
 "is present."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:131
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:145
 msgid "Filter Long URL Strings"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:132
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:146
 msgid ""
 "Limits the number of characters that can be sent in the URL. Hackers often "
 "take advantage of long URLs to try to inject information into your database."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:154
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:168
 msgid "Filter Non-English Characters"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:155
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:169
 msgid ""
 "Filter out non-english characters from the query string. This should not be "
 "used on non-english sites and only works when \"Filter Suspicious Query "
 "String\" has been selected."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:177
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:191
 msgid "Protect System Files"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:178
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:192
 msgid ""
 "Prevent public access to readme.html, readme.txt, wp-config.php, install."
 "php, wp-includes, and .htaccess. These files can give away important "
@@ -3454,29 +3472,29 @@ msgid ""
 "has been successfully installed."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:200
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:214
 msgid "Filter Request Methods"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:201
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:215
 msgid "Filter out hits with the trace, delete, or track request methods."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:223
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:237
 msgid "Filter Suspicious Query Strings in the URL"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:224
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:238
 msgid ""
 "These are very often signs of someone trying to gain access to your site but "
 "some plugins and themes can also be blocked."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:246
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:260
 msgid "Remove File Writing Permissions"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:247
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:261
 msgid ""
 "Prevents scripts and users from being able to write to the wp-config.php "
 "file and .htaccess file. Note that in the case of this and many plugins this "
@@ -3485,21 +3503,21 @@ msgid ""
 "turning it off will set the permissions to 0664."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:269
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:283
 msgid "Disables a user's author page if their post count is 0."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:270
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:284
 msgid ""
 "This makes it harder for bots to determine usernames by disabling post "
 "archives for users that don't post to your site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:292
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:306
 msgid "Force users to choose a unique nickname"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:293
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:307
 msgid ""
 "This forces users to choose a unique nickname when updating their profile or "
 "creating a new account which prevents bots and attackers from easily "
@@ -3508,53 +3526,53 @@ msgid ""
 "urls if used."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:315
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:329
 msgid "Disable login error messages"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:316
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:330
 msgid ""
 "Prevents error messages from being displayed to a user upon a failed login "
 "attempt."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:338
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:352
 msgid "Reduce Comment Spam"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:339
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:353
 msgid ""
 "This option will cut down on comment spam by denying comments from bots with "
 "no referrer or without a user-agent identified."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:361
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:375
 msgid "Hide Core Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:362
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:376
 msgid ""
 "Hides core update notifications from users who cannot update core. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:394
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:408
 msgid "Only Disable Trackbacks/Pingbacks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:395
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:409
 msgid "Completely Disable XMLRPC"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:397
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:411
 msgid "Disable XMLRPC"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:400
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:414
 msgid "Off = XMLRPC is fully enabled and will function as normal."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:401
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:415
 msgid ""
 "Only Diable Trackbacks/Pingbacks = Your site will not be susceptible to "
 "denial of service attacks via the trackback/pingback feature. Other XMLRPC "
@@ -3562,40 +3580,40 @@ msgid ""
 "Jetpack or the WordPress Mobile app."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:402
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:416
 msgid ""
 "Completely Disable XMLRPC is the safest, XMLRPC will be completely disabled "
 "by your webserver. This will prevent features such as Jetpack that require "
 "XMLRPC from working."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:423
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:437
 msgid "Remove the RSD (Really Simple Discovery) header. "
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:424
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:438
 msgid ""
 "Removes the RSD (Really Simple Discovery) header. If you don't integrate "
 "your blog with external XML-RPC services such as Flickr then the \"RSD\" "
 "function is pretty much useless to you."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:446
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:460
 msgid "Disable File Editor"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:447
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:461
 msgid ""
 "Disables the file editor for plugins and themes requiring users to have "
 "access to the file system to modify files. Once activated you will need to "
 "manually edit theme and other files using a tool other than WordPress."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:469
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:483
 msgid "Remove WordPress Generator Meta Tag"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:470
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:484
 msgid ""
 "Removes the <code>&lt;meta name=\"generator\" content=\"WordPress "
 "[version]\" /&gt;</code></pre> meta tag from your sites header. This process "
@@ -3603,495 +3621,495 @@ msgid ""
 "to determine vulnerabilities."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:492
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:506
 msgid "Hide Plugin Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:493
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:507
 msgid ""
 "Hides plugin update notifications from users who cannot update plugins. "
 "Please note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:515
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1510
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:529
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1637
 msgid "Display Random Version"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:516
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:530
 msgid ""
 "Where a WordPress version must be displayed, it will display a random "
 "WordPress version and will remove the WordPress version completely where "
 "possible."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:545
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:559
 msgid "undetermined. Please"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:547
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:561
 msgid "check your homepage"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:548
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:562
 msgid "to see if you even need this feature"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:562
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:576
 msgid "Enqueue a safe version of jQuery"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:563
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:577
 msgid ""
 "Remove the existing jQuery version used and replace it with a safe version "
 "(the version that comes default with WordPress)."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:565
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:579
 msgid "Your current jQuery version is "
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:568
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:582
 msgid ""
 "Note that this only checks the homepage of your site and only for users who "
 "are logged in. This is done intentionally to save resources. If you think "
 "this is in error "
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:570
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:584
 msgid "click here to check again."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:571
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:585
 msgid ""
 "This will open your homepage in a new window allowing the plugin to "
 "determine the version of jQuery actually being used. You can then come back "
 "here and reload this page to see your version."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:592
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:606
 msgid "Hide Theme Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:593
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:607
 msgid ""
 "Hides theme update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:615
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:629
 msgid "Disable PHP in Uploads"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:616
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:630
 msgid ""
 "Disable PHP execution in the uploads directory. This will prevent uploading "
 "of malicious scripts to uploads."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:638
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:652
 msgid "Remove the Windows Live Writer header. "
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:639
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:653
 msgid ""
 "This is not needed if you do not use Windows Live Writer or other blogging "
 "clients that rely on this file."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:670
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:684
 msgid "Rules to block access to WordPress specific files and wp-includes"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:681
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:695
 msgid "Rules to block access to WordPress specific files"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:714
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:728
 msgid "Rules to disable XML-RPC"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:738
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:752
 msgid "Rules to disable directory browsing"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:766
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:780
 msgid "Rules to protect wp-includes"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:780
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:794
 msgid "Rules to prevent php execution in uploads"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:797
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:811
 msgid "Rules to block unneeded HTTP methods"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:814
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:828
 msgid "Rules to block suspicious URIs"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:867
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:881
 msgid "Rules to block foreign characters in URLs"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:884
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:898
 msgid "Rules to help reduce spam"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1015
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1040
 msgid "You are protecting common WordPress files from access."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1020
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1048
 msgid ""
 "You are not protecting common WordPress files from access. Click here to "
 "protect WordPress files."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1031
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1062
 msgid "You have successfully disabled directory browsing on your site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1036
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1070
 msgid ""
 "You have not disabled directory browsing on your site. Click here to prevent "
 "a user from seeing every file present in your WordPress site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1047
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1084
 msgid "You are blocking HTTP request methods you do not need."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1052
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1092
 msgid ""
 "You are not blocking HTTP request methods you do not need. Click here to "
 "block extra HTTP request methods that WordPress should not normally need."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1061
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1104
 msgid ""
 "Your WordPress site is blocking suspicious looking information in the URL."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1066
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1112
 msgid ""
 "Your WordPress site is not blocking suspicious looking information in the "
 "URL. Click here to block users from trying to execute code that they should "
 "not be able to execute."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1075
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1124
 msgid "Your WordPress site is blocking non-english characters in the URL."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1080
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1132
 msgid ""
 "Your WordPress site is not blocking non-english characters in the URL. Click "
 "here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1089
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1144
 msgid "Your installation does not accept long URLs."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1094
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1152
 msgid ""
 "Your installation accepts long (over 255 character) URLS. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1103
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1164
 msgid "Your wp-config.php and .htaccess files are not writeable."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1108
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1172
 msgid ""
 "Your wp-config.php and .htaccess files are writeable. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1117
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1184
 msgid ""
 "Your WordPress installation is not telling every bot that you use WordPress."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1122
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1192
 msgid ""
 "Your WordPress installation is telling every bot that you use WordPress with "
 "a special \"generator\" tag. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1131
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1204
 msgid ""
 "Your WordPress installation is not publishing the Windows Live Writer header."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1136
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1212
 msgid ""
 "Your WordPress installation is publishing the Windows Live Writer header. "
 "Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1145
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1224
 msgid ""
 "Your WordPress installation is not publishing the Really Simple Discovery "
 "(RSD) header."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1150
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1232
 msgid ""
 "Your WordPress installation is publishing the Really Simple Discovery (RSD) "
 "header. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1161
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1246
 msgid ""
 "Your WordPress installation is not telling users who cannot update themes "
 "about theme updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1166
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1254
 msgid ""
 "Your WordPress installation is telling users who cannot update themes about "
 "theme updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1175
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1266
 msgid ""
 "Your WordPress installation is not telling users who cannot update plugins "
 "about plugin updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1180
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1274
 msgid ""
 "Your WordPress installation is telling users who cannot update plugins about "
 "plugin updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1189
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1286
 msgid ""
 "Your WordPress installation is not telling users who cannot update WordPress "
 "core about WordPress core updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1194
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1294
 msgid ""
 "Your WordPress installation is telling users who cannot update WordPress "
 "core about WordPress core updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1205
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1308
 msgid ""
 "Your WordPress installation is not allowing users without a user agent to "
 "post comments."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1210
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1316
 msgid ""
 "Your WordPress installation is allowing users without a user agent to post "
 "comments. Fix this to reduce comment spam."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1219
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1328
 msgid "Version information is obscured to all non admin users."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1224
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1336
 msgid ""
 "Users may still be able to get version information from various plugins and "
 "themes. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1233
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1348
 msgid ""
 "Users cannot edit plugin and themes files directly from within the WordPress "
 "Dashboard."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1238
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1356
 msgid ""
 "Users can edit plugin and themes files directly from within the WordPress "
 "Dashboard. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1247
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1368
 msgid "XML-RPC is not available on your WordPress installation."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1252
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1376
 msgid ""
 "XML-RPC is protecting you from the trackback and pingback attack but is "
 "still available on your site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1257
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1384
 msgid ""
 "XML-RPC is available on your WordPress installation. Attackers can use this "
 "feature to attack your site. Click here to disable access to XML-RPC."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1266
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1396
 msgid "Users cannot execute PHP from the uploads folder."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1271
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1404
 msgid "Users can execute PHP from the uploads folder."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1282
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1418
 msgid "The front page of your site is using a safe version of jQuery."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1287
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1426
 msgid ""
 "The front page of your site is not using a safe version of jQuery or the "
 "version of jQuery cannot be determined."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1292
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1434
 msgid ""
 "Your version of jQuery has not been determined. Load your homepage while "
 "logged in to determine the version of jQuery you are using"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1301
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1446
 msgid "User's nicknames are different from their display name."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1306
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1454
 msgid ""
 "User nicknames may be the same as their login name. This means their login "
 "user name may be publicly available throughout the site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1315
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1466
 msgid ""
 "Your login page is not giving out unnecessary information upon failed login."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1320
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1474
 msgid ""
 "Your login page is giving out unnecessary information upon failed login."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1329
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1486
 msgid "User profiles for users without content are not publicly available."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1334
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1494
 msgid ""
 "User profiles for users without content are publicly available. This can "
 "make it relatively easy to gain the username of important users."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1388
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1515
 msgid "Configure Server Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1395
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1522
 msgid "Configure WordPress Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1402
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1529
 msgid "Configure Multisite Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1410
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1537
 msgid "System Files"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1420
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1547
 msgid "Directory Browsing"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1430
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1557
 msgid "Request Methods"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1438
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1565
 msgid "Suspicious Query Strings"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1446
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1573
 msgid "Non-English Characters"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1454
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1581
 msgid "Long URL Strings"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1462
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1589
 msgid "File Writing Permissions"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1470
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1597
 msgid "Uploads"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1478
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1605
 msgid "Generator Meta Tag"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1486
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1613
 msgid "Windows Live Writer Header"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1494
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1621
 msgid "EditURI Header"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1502
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1629
 msgid "Comment Spam"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1518
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1645
 msgid "File Editor"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1526
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1653
 msgid "XML-RPC"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1534
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1661
 msgid "Replace jQuery With a Safe Version"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1542
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1669
 msgid "Login Error Messages"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1550
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1677
 msgid "Force Unique Nickname"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1558
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1685
 msgid "Disable Extra User Archives"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1568
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1695
 msgid "Theme Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1576
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1703
 msgid "Plugin Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1584
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1711
 msgid "Core Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1608
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1631
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1654
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1735
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1758
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1781
 msgid ""
 "These are advanced settings that may be utilized to further strengthen the "
 "security of your WordPress site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1609
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1632
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1655
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1736
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1759
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1782
 msgid ""
 "Note: These settings are listed as advanced because they block common forms "
 "of attacks but they can also block legitimate plugins and themes that rely "
@@ -4100,19 +4118,19 @@ msgid ""
 "working as expected."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1610
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1633
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1656
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1737
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1760
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1783
 msgid ""
 "Remember, some of these settings might conflict with other plugins or "
 "themes, so test your site after enabling each setting."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1890
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2017
 msgid "Server Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1940
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2067
 msgid "Multisite Tweaks"
 msgstr ""
 

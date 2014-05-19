@@ -112,5 +112,14 @@
     Don't allow empty file types in file change exclusions
     Add Sync integration for Away Mode
     Minor typo and other fixes
+1.2.1 - 2014-05-19 - Chris Wiegman
+    Consolidate white lists into one option
+    Fix IP mask calculations
+    Fix NGINX IP range blocking
+    Update modules to use new logging
+    Minor refactoring
+    Add metabox for iThemes Sync
+    Update jQuery version in tweaks
+    Shortened file change array names to save space
 
 

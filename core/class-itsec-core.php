@@ -74,7 +74,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4030, //plugin build number - used to trigger updates
+				'plugin_build'       => 4031, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -181,6 +181,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					),
 				),
 				'pro_modules'        => array(
+					'user-logging'  => array(
+						'has_front' => true,
+						'option'    => 'itsec_user_logging',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'User_Logging',
+					),
 					'help' => array(
 						'has_front' => false,
 						'class_id'  => 'Help',
@@ -926,12 +933,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
-		 * Empty callback function
-		 */
-		public function empty_callback_function() {
-		}
-
-		/**
 		 * Enqueue the styles for the admin area so WordPress can load them.
 		 *
 		 * @since 4.0
@@ -1198,8 +1199,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function register_modules() {
 
-			global $itsec_globals;
-
 			$this->tooltip_modules = apply_filters( 'itsec_tooltip_modules', $this->tooltip_modules );
 			$this->tracking_vars   = apply_filters( 'itsec_tracking_vars', $this->tracking_vars );
 			$this->one_click       = apply_filters( 'itsec_one_click_settings', $this->one_click );
@@ -1412,7 +1411,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						$page['title'],
 						$itsec_globals['plugin_access_lvl'],
 						$page['link'],
-						array( $this, 'empty_callback_function' )
+						'__return_empty_string'
 					);
 
 				} else {

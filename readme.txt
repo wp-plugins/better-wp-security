@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 4.2.2
+Stable tag: 4.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,20 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.2.4 =
+* Consolidate white lists into one option
+* Fix IP mask calculations
+* Fix NGINX IP range blocking
+* Update modules to use new logging
+* Minor refactoring
+* Add metabox for iThemes Sync
+* Update jQuery version in tweaks
+* Shortened file change array names to save space
+* Fixed links in lockout emails
+* Fixed IP mask calculations
+* Add call to pro user-logging module
+* Add ability to temporarily whitelist an IP address
 
 = 4.2.2 =
 * Don't allow empty file types in file change exclusions
@@ -1096,5 +1110,5 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.2.2 =
-Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.2.0 if you are not already on 4.0 or greater.
+= 4.2.4 =
+Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.2.4 if you are not already on 4.0 or greater.
