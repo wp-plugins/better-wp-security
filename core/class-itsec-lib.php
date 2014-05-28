@@ -193,13 +193,16 @@ final class ITSEC_Lib {
 	 *
 	 * Returns primary domain name (without subdomains) of given URL
 	 *
-	 * @param string  $address address to filter
-	 * @param boolean $apache  [true] does this require an apache style wildcard
+	 * @since 4.0
+	 *
+	 * @param string $address  address to filter
+	 * @param bool   $apache   [true] does this require an apache style wildcard
+	 * @param bool   $wildcard false if a wildcard shouldn't be included at all
 	 *
 	 * @return string domain name
 	 *
 	 * */
-	public static function get_domain( $address, $apache = true ) {
+	public static function get_domain( $address, $apache = true, $wildcard = true ) {
 
 		preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
 
@@ -207,10 +210,22 @@ final class ITSEC_Lib {
 
 		preg_match( "/[^\.\/]+\.[^\.\/]+$/", $host, $matches );
 
-		if ( $apache == true ) {
-			$wc = '(.*)';
+		if ( $wildcard === true ) {
+
+			if ( $apache === true ) {
+
+				$wc = '(.*)';
+
+			} else {
+
+				$wc = '*.';
+
+			}
+
 		} else {
-			$wc = '*.';
+
+			$wc = '';
+
 		}
 
 		if ( ! is_array( $matches ) ) {
@@ -388,13 +403,22 @@ final class ITSEC_Lib {
 	/**
 	 * Returns a psuedo-random string of requested length.
 	 *
-	 * @param int $length how long the string should be (max 62)
+	 * @param int  $length how long the string should be (max 62)
+	 * @param bool $base32 true if use only base32 characters to generate
 	 *
 	 * @return string
 	 */
-	public static function get_random( $length ) {
+	public static function get_random( $length, $base32 = false ) {
 
-		$string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		if ( $base32 === true ) {
+
+			$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+
+		} else {
+
+			$string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+		}
 
 		return substr( str_shuffle( $string ), mt_rand( 0, strlen( $string ) - $length ), $length );
 

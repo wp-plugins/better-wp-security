@@ -121,5 +121,7 @@
     Add metabox for iThemes Sync
     Update jQuery version in tweaks
     Shortened file change array names to save space
-
-
+1.2.2 - 2014-05-28 - Chris Wiegman
+    Make sure backup disables itself when other backup solutions are present
+    Fix tweet link
+    Minor fixes and cleanup

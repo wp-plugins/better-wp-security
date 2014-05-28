@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.2.4\n"
+"Project-Id-Version: iThemes Security 4.2.6\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-05-19 19:19:10+00:00\n"
+"POT-Creation-Date: 2014-05-28 14:11:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,130 +13,130 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.4)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:210
+#: core/class-itsec-core.php:217
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:217
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:217
+#: core/class-itsec-core.php:224
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:224
+#: core/class-itsec-core.php:231
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:231
+#: core/class-itsec-core.php:238
 #: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:242
+#: core/class-itsec-core.php:249
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:254 core/class-itsec-core.php:265
-#: modules/free/backup/class-itsec-backup-admin.php:643
+#: core/class-itsec-core.php:261 core/class-itsec-core.php:272
+#: modules/free/backup/class-itsec-backup-admin.php:671
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:451 core/class-itsec-core.php:544
-#: core/class-itsec-core.php:835 core/class-itsec-core.php:1397
-#: core/class-itsec-core.php:1436
+#: core/class-itsec-core.php:458 core/class-itsec-core.php:551
+#: core/class-itsec-core.php:842 core/class-itsec-core.php:1404
+#: core/class-itsec-core.php:1443
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:535 core/class-itsec-core.php:1398
+#: core/class-itsec-core.php:542 core/class-itsec-core.php:1405
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:684
+#: core/class-itsec-core.php:691
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:711 core/class-itsec-core.php:1481
+#: core/class-itsec-core.php:718 core/class-itsec-core.php:1488
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:715 core/class-itsec-core.php:1485
+#: core/class-itsec-core.php:722 core/class-itsec-core.php:1492
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:721 core/class-itsec-core.php:1491
+#: core/class-itsec-core.php:728 core/class-itsec-core.php:1498
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:723 core/class-itsec-core.php:1493
+#: core/class-itsec-core.php:730 core/class-itsec-core.php:1500
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:725
+#: core/class-itsec-core.php:732
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:726
+#: core/class-itsec-core.php:733
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:733 core/class-itsec-core.php:1498
+#: core/class-itsec-core.php:740 core/class-itsec-core.php:1505
 #: core/class-itsec-files.php:120
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:795
+#: core/class-itsec-core.php:802
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:805
+#: core/class-itsec-core.php:812
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:1223
+#: core/class-itsec-core.php:1230
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1224
+#: core/class-itsec-core.php:1231
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1225
+#: core/class-itsec-core.php:1232
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1227
+#: core/class-itsec-core.php:1234
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1228
+#: core/class-itsec-core.php:1235
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1309
+#: core/class-itsec-core.php:1316
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1614
+#: core/class-itsec-core.php:1621
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1614
+#: core/class-itsec-core.php:1621
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -366,7 +366,7 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:247
 #: core/class-itsec-global-settings.php:689
-#: modules/free/backup/class-itsec-backup-admin.php:465
+#: modules/free/backup/class-itsec-backup-admin.php:493
 msgid "Days"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:736
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:440
-#: modules/free/backup/class-itsec-backup-admin.php:514
+#: modules/free/backup/class-itsec-backup-admin.php:542
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:504
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:294
 #: modules/free/file-change/class-itsec-file-change-admin.php:601
@@ -628,7 +628,7 @@ msgid "The path on your server where backup files should be stored."
 msgstr ""
 
 #: core/class-itsec-global-settings.php:761
-#: modules/free/backup/class-itsec-backup-admin.php:491
+#: modules/free/backup/class-itsec-backup-admin.php:519
 msgid ""
 "This path must be writable by your website. For added security, it is "
 "recommended you do not include it in your website root folder."
@@ -709,7 +709,7 @@ msgid "is not a valid address in the white list users box."
 msgstr ""
 
 #: core/class-itsec-global-settings.php:1003
-#: modules/free/backup/class-itsec-backup-admin.php:676
+#: modules/free/backup/class-itsec-backup-admin.php:704
 msgid ""
 "The file path entered does not appear to be valid. Please ensure it exists "
 "and that WordPress can write to it. "
@@ -717,8 +717,8 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:1053 core/class-itsec-lockout.php:1007
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:560
-#: modules/free/backup/class-itsec-backup-admin.php:596
-#: modules/free/backup/class-itsec-backup-admin.php:721
+#: modules/free/backup/class-itsec-backup-admin.php:624
+#: modules/free/backup/class-itsec-backup-admin.php:749
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:697
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:383
 #: modules/free/file-change/class-itsec-file-change-admin.php:342
@@ -1723,7 +1723,7 @@ msgid "Take the Next Steps in Security with BackupBuddy"
 msgstr ""
 
 #: modules/free/backup/class-itsec-backup-admin.php:110
-#: modules/free/backup/class-itsec-backup-admin.php:504
+#: modules/free/backup/class-itsec-backup-admin.php:532
 msgid ""
 "One of the best ways to protect yourself from an attack is to have access to "
 "a database backup of your site. If something goes wrong, you can get your "
@@ -1747,46 +1747,46 @@ msgid ""
 "database, even if they are not part of this WordPress site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:188
+#: modules/free/backup/class-itsec-backup-admin.php:195
 msgid "Your site is performing scheduled database and file backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:196
+#: modules/free/backup/class-itsec-backup-admin.php:210
 msgid ""
 "BackupBuddy is installed but backups do not appear to have been scheduled. "
 "Please schedule backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:204
+#: modules/free/backup/class-itsec-backup-admin.php:225
 msgid "You are using a 3rd party backup solution."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:212
+#: modules/free/backup/class-itsec-backup-admin.php:240
 msgid ""
 "It looks like you have a 3rd-party backup solution in place but are not "
 "using it. Please turn on scheduled backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:220
+#: modules/free/backup/class-itsec-backup-admin.php:248
 msgid ""
 "Your site is performing scheduled database backups but is not backing up "
 "files. Consider purchasing or scheduling BackupBuddy to protect your "
 "investment."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:228
+#: modules/free/backup/class-itsec-backup-admin.php:256
 msgid "Your site is not performing any scheduled database backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:256
+#: modules/free/backup/class-itsec-backup-admin.php:284
 msgid "Enable Scheduled Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:294
+#: modules/free/backup/class-itsec-backup-admin.php:322
 msgid "Tables with data that does not need to be backed up"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:316
+#: modules/free/backup/class-itsec-backup-admin.php:344
 msgid ""
 "Some plugins can create log files in your database. While these logs might "
 "be handy for some functions, they can also take up a lot of space and, in "
@@ -1795,74 +1795,74 @@ msgid ""
 "will be backed up, but not the data in the table."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:356
+#: modules/free/backup/class-itsec-backup-admin.php:384
 msgid "Configure Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:363
+#: modules/free/backup/class-itsec-backup-admin.php:391
 msgid "Enable Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:370
+#: modules/free/backup/class-itsec-backup-admin.php:398
 msgid "Backup Schedule Settings"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:378
+#: modules/free/backup/class-itsec-backup-admin.php:406
 msgid "Schedule Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:386
+#: modules/free/backup/class-itsec-backup-admin.php:414
 msgid "Backup Interval"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:394
+#: modules/free/backup/class-itsec-backup-admin.php:422
 msgid "Backup Full Database"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:402
+#: modules/free/backup/class-itsec-backup-admin.php:430
 msgid "Backup Method"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:410
+#: modules/free/backup/class-itsec-backup-admin.php:438
 msgid "Backup Location"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:418
+#: modules/free/backup/class-itsec-backup-admin.php:446
 msgid "Backups to Retain"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:426
+#: modules/free/backup/class-itsec-backup-admin.php:454
 msgid "Compress Backup Files"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:434
+#: modules/free/backup/class-itsec-backup-admin.php:462
 msgid "Exclude Tables"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:466
+#: modules/free/backup/class-itsec-backup-admin.php:494
 msgid "The number of days between database backups."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:490
+#: modules/free/backup/class-itsec-backup-admin.php:518
 msgid "The path on your machine where backup files should be stored."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:530
+#: modules/free/backup/class-itsec-backup-admin.php:558
 msgid ""
 "Press the button below to create a backup of your WordPress database. If you "
 "have \"Send Backups By Email\" selected in automated backups you will "
 "receive an email containing the backup file."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:531
+#: modules/free/backup/class-itsec-backup-admin.php:559
 msgid "Create Database Backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:532
+#: modules/free/backup/class-itsec-backup-admin.php:560
 msgid "Adjust Backup Settings"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:545
+#: modules/free/backup/class-itsec-backup-admin.php:573
 msgid ""
 "A database backup is just a simple start. BackupBuddy goes one step further "
 "to provide complete backups of all your site files (including image and "
@@ -1873,120 +1873,120 @@ msgid ""
 "host or domain."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:546
+#: modules/free/backup/class-itsec-backup-admin.php:574
 msgid "5 Reasons You Need a Complete Backup Strategy"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:548
+#: modules/free/backup/class-itsec-backup-admin.php:576
 msgid "Database backups aren't enough."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:548
+#: modules/free/backup/class-itsec-backup-admin.php:576
 msgid ""
 "You need complete backups of your entire site (including images and media "
 "files, themes, plugins, widgets and settings)."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:549
+#: modules/free/backup/class-itsec-backup-admin.php:577
 msgid "Backup files should be protected."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:549
+#: modules/free/backup/class-itsec-backup-admin.php:577
 msgid ""
 "Send and store them safely off-site to a secure remote destination (like "
 "email, Dropbox, Amazon S3, etc.)"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:550
+#: modules/free/backup/class-itsec-backup-admin.php:578
 msgid "Backups should be automated and scheduled so you don't forget."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:550
+#: modules/free/backup/class-itsec-backup-admin.php:578
 msgid ""
 "Set daily, weekly or monthly backups that automatically send backups off-"
 "site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:551
+#: modules/free/backup/class-itsec-backup-admin.php:579
 msgid "Restoring your site should be quick and easy."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:551
+#: modules/free/backup/class-itsec-backup-admin.php:579
 msgid ""
 "If you get hacked or your server crashes, you shouldn't have to worry about "
 "restoring your site. Reliable backups mean nothing gets corrupted or broken "
 "during the restore process."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:552
+#: modules/free/backup/class-itsec-backup-admin.php:580
 msgid "You should own your backup files."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:552
+#: modules/free/backup/class-itsec-backup-admin.php:580
 msgid ""
 "Don't just rely on a host or service. It's your site, so you should own "
 "everything on it."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:555
+#: modules/free/backup/class-itsec-backup-admin.php:583
 msgid "Learn more about BackupBuddy"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:577
+#: modules/free/backup/class-itsec-backup-admin.php:605
 msgid "Save Locally and Email"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:578
+#: modules/free/backup/class-itsec-backup-admin.php:606
 msgid "Email Only"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:579
+#: modules/free/backup/class-itsec-backup-admin.php:607
 msgid "Save Locally Only"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:581
+#: modules/free/backup/class-itsec-backup-admin.php:609
 msgid "Backup Save Method"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:582
+#: modules/free/backup/class-itsec-backup-admin.php:610
 msgid ""
 "Select what we should do with your backup file. You can have it emailed to "
 "you, saved locally or both."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:615
+#: modules/free/backup/class-itsec-backup-admin.php:643
 msgid "Back up your site"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:616
+#: modules/free/backup/class-itsec-backup-admin.php:644
 msgid ""
 "We recommend making a database backup before you get started securing your "
 "site."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:617
+#: modules/free/backup/class-itsec-backup-admin.php:645
 msgid "Make a backup"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:619
+#: modules/free/backup/class-itsec-backup-admin.php:647
 msgid "Backup completed. Please check your email or uploads folder."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:620
+#: modules/free/backup/class-itsec-backup-admin.php:648
 msgid "Whoops. Something went wrong. Check the backup page or contact support."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:644
+#: modules/free/backup/class-itsec-backup-admin.php:672
 msgid ""
 "The number of backups that should be kept on disk. This only applies to "
 "backups saved to disk. Set to \"0\" to disable."
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:786
+#: modules/free/backup/class-itsec-backup-admin.php:814
 msgid "Zip Database Backups"
 msgstr ""
 
-#: modules/free/backup/class-itsec-backup-admin.php:787
+#: modules/free/backup/class-itsec-backup-admin.php:815
 msgid "You may need to turn this off if you are having problems with backups."
 msgstr ""
 

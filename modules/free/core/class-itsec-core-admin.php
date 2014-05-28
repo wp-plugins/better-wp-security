@@ -370,7 +370,7 @@ class ITSEC_Core_Admin {
 
 			//Compose a Tweet
 			if ( isset( $_GET['itsec_tweet'] ) ) {
-				wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $itsec_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - http://bit51.com/software/better-wp-security/' ), '302' );
+				wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $itsec_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - http://ithemes.com/security' ), '302' );
 				exit();
 			}
 

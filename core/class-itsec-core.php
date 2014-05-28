@@ -181,6 +181,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					),
 				),
 				'pro_modules'        => array(
+					'two-factor'  => array(
+						'has_front' => true,
+						'option'    => 'itsec_two_factor',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Two_Factor',
+					),
 					'user-logging'  => array(
 						'has_front' => true,
 						'option'    => 'itsec_user_logging',

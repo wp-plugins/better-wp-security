@@ -183,6 +183,13 @@ class ITSEC_Backup_Admin {
 
 		if ( class_exists( 'backupbuddy_api' ) && sizeof( backupbuddy_api::getSchedules() ) >= 1 ) {
 
+			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
+
+				$this->settings['enabled'] = false;
+				update_site_option( 'itsec_backup', $this->settings );
+
+			}
+
 			$status_array = 'safe-medium';
 			$status       = array(
 				'text' => __( 'Your site is performing scheduled database and file backups.', 'it-l10n-better-wp-security' ),
@@ -190,6 +197,13 @@ class ITSEC_Backup_Admin {
 			);
 
 		} elseif ( class_exists( 'backupbuddy_api' ) ) {
+
+			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
+
+				$this->settings['enabled'] = false;
+				update_site_option( 'itsec_backup', $this->settings );
+
+			}
 
 			$status_array = 'medium';
 			$status       = array(
@@ -199,6 +213,13 @@ class ITSEC_Backup_Admin {
 
 		} elseif ( $this->has_backup() === true && $this->scheduled_backup() === true ) {
 
+			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
+
+				$this->settings['enabled'] = false;
+				update_site_option( 'itsec_backup', $this->settings );
+
+			}
+
 			$status_array = 'safe-medium';
 			$status       = array(
 				'text' => __( 'You are using a 3rd party backup solution.', 'it-l10n-better-wp-security' ),
@@ -206,6 +227,13 @@ class ITSEC_Backup_Admin {
 			);
 
 		} elseif ( $this->has_backup() === true ) {
+
+			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
+
+				$this->settings['enabled'] = false;
+				update_site_option( 'itsec_backup', $this->settings );
+
+			}
 
 			$status_array = 'medium';
 			$status       = array(
@@ -329,9 +357,9 @@ class ITSEC_Backup_Admin {
 
 	public function scheduled_backup() {
 
-		$has_backup = false;
+		$sceduled_backup = false;
 
-		return apply_filters( 'itsec_scheduled_external_backup', $has_backup );
+		return apply_filters( 'itsec_scheduled_external_backup', $sceduled_backup );
 
 	}
 
