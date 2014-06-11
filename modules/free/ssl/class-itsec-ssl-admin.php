@@ -5,14 +5,12 @@ class ITSEC_SSL_Admin {
 	private
 		$settings,
 		$core,
-		$module,
 		$module_path,
 		$has_ssl;
 
-	function run( $core, $module ) {
+	function run( $core ) {
 
 		$this->core        = $core;
-		$this->module      = $module;
 		$this->settings    = get_site_option( 'itsec_ssl' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
@@ -156,7 +154,7 @@ class ITSEC_SSL_Admin {
 	 */
 	public function dashboard_status( $statuses ) {
 
-		if ( FORCE_SSL_LOGIN === true && FORCE_SSL_ADMIN === true ) {
+		if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true && defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
 
 			$status_array = 'safe-low';
 			$status       = array(
@@ -164,7 +162,7 @@ class ITSEC_SSL_Admin {
 				'link' => '#itsec_ssl_login',
 			);
 
-		} elseif ( FORCE_SSL_LOGIN === true || FORCE_SSL_ADMIN === true ) {
+		} elseif ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) ) {
 
 			$status_array = 'low';
 			$status       = array(

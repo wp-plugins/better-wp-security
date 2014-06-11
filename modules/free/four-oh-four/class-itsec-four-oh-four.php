@@ -29,8 +29,10 @@ class ITSEC_Four_Oh_Four {
 
 			$uri = explode( '?', $_SERVER['REQUEST_URI'] );
 
-			if ( ! is_array( $this->settings['white_list'] ) ) {
+			if ( isset( $this->settings['white_list'] ) && ! is_array( $this->settings['white_list'] ) ) {
 				$this->settings['white_list'] = explode( PHP_EOL, $this->settings['white_list'] );
+			} elseif ( ! isset( $this->settings['white_list'] ) ) {
+				$this->settings['white_list'] = array();
 			}
 
 			if ( in_array( $uri[0], $this->settings['white_list'] ) === false ) {
@@ -48,7 +50,13 @@ class ITSEC_Four_Oh_Four {
 				             isset( $_SERVER['HTTP_REFERER'] ) ? esc_sql( $_SERVER['HTTP_REFERER'] ) : ''
 				);
 
-				$itsec_lockout->do_lockout( 'four_oh_four' );
+				$path_info = pathinfo( $uri[0] );
+
+				if ( ! isset( $path_info['extension'] ) || in_array( '.' . $path_info['extension'], $this->settings['types'] ) === false ) {
+
+					$itsec_lockout->do_lockout( 'four_oh_four' );
+
+				}
 
 			}
 

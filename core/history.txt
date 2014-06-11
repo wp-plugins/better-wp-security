@@ -93,3 +93,14 @@
     Add ability to temporarily whitelist an IP address
 1.3.0 - 2014-05-28 - Chris Wiegman
     Added call to two-factor module
+1.4.0 - 2014-06-11 - Chris Wiegman
+    Added call to settings import/export module (pro)
+    Added button to restore default log location
+    Don't automatically load front-end classes in dashboard pages
+    Avoid errors on save if htaccess is completely empty
+    Only register activation/deactivation/install hooks in admin
+    Make sure temporary white-list is always available
+    Improved check for white-listed IP during lockout
+    Added ability to use constant to override server detection
+    Don't remove extra line spaces in .htaccess
+    Minor reformating and typo fixes

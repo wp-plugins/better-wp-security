@@ -180,17 +180,22 @@ class ITSEC_Backup {
 		@fclose( $handle );
 
 		//zip the file
-		if ( $this->settings['zip'] === true && class_exists( 'ZipArchive' ) ) {
+		if ( $this->settings['zip'] === true ) {
 
-			$zip = new ZipArchive();
-			$zip->open( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.zip', ZipArchive::CREATE );
-			$zip->addFile( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql', $file . '.sql' );
-			$zip->close();
+			if ( ! class_exists( 'PclZip' ) ) {
+				require( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+			}
 
-			//delete .sql and keep zip
-			@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' );
+			$zip = new PclZip( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.zip' );
 
-			$fileext = '.zip';
+			if ( $zip->create( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' ) != 0 ) {
+
+				//delete .sql and keep zip
+				@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' );
+
+				$fileext = '.zip';
+
+			}
 
 		} else {
 
@@ -206,10 +211,11 @@ class ITSEC_Backup {
 			$body       = __( 'Attached is the backup file for the database powering', 'it-l10n-better-wp-security' ) . ' ' . get_option( 'siteurl' ) . __( ' taken', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
 
 			//Setup the remainder of the email
-			$recipients = $option['backup_email'];
-			$subject    = __( 'Site Database Backup', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
-			$subject    = apply_filters( 'itsec_backup_email_subject', $subject );
-			$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
+			$recipients   = $option['backup_email'];
+			$subject      = __( 'Site Database Backup', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', $itsec_globals['current_time'] );
+			$subject      = apply_filters( 'itsec_backup_email_subject', $subject );
+			$headers      = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
+			$mail_success = false;
 
 			//Use HTML Content type
 			add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
@@ -218,7 +224,7 @@ class ITSEC_Backup {
 			foreach ( $recipients as $recipient ) {
 
 				if ( is_email( trim( $recipient ) ) ) {
-					wp_mail( trim( $recipient ), $subject, $body, $headers, $attachment );
+					$mail_success = wp_mail( trim( $recipient ), $subject, $body, $headers, $attachment );
 				}
 
 			}
@@ -234,7 +240,7 @@ class ITSEC_Backup {
 
 		} else {
 
-			$retain = isset( $this->settings['retain'] ) ?  absint( $this->settings['retain'] ) : 0;
+			$retain = isset( $this->settings['retain'] ) ? absint( $this->settings['retain'] ) : 0;
 
 			//delete extra files
 			if ( $retain > 0 ) {
@@ -275,17 +281,42 @@ class ITSEC_Backup {
 		switch ( $this->settings['method'] ) {
 
 			case 0:
-				$status = array(
-					'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
-					'details' => __( 'emailed to backup recipients and saved locally', 'it-l10n-better-wp-security' ),
-				);
+
+				if ( $mail_success === false ) {
+
+					$status = array(
+						'status'  => __( 'Error', 'it-l10n-better-wp-security' ),
+						'details' => __( 'saved locally but email to backup recipients could not be sent.', 'it-l10n-better-wp-security' ),
+					);
+
+				} else {
+
+					$status = array(
+						'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
+						'details' => __( 'emailed to backup recipients and saved locally', 'it-l10n-better-wp-security' ),
+					);
+
+				}
 
 				break;
 			case 1:
-				$status = array(
-					'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
-					'details' => __( 'emailed to backup recipients', 'it-l10n-better-wp-security' ),
-				);
+
+				if ( $mail_success === false ) {
+
+					$status = array(
+						'status'  => __( 'Error', 'it-l10n-better-wp-security' ),
+						'details' => __( 'email to backup recipients could not be sent.', 'it-l10n-better-wp-security' ),
+					);
+
+				} else {
+
+					$status = array(
+						'status'  => __( 'Success', 'it-l10n-better-wp-security' ),
+						'details' => __( 'emailed to backup recipients', 'it-l10n-better-wp-security' ),
+					);
+
+				}
+
 				break;
 			default:
 				$status = array(

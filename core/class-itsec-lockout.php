@@ -69,26 +69,22 @@ final class ITSEC_Lockout {
 			'core'
 		);
 
-		if ( ! empty( $this->lockout_modules ) ) {
+		$lockout_pages = array(
+			'toplevel_page_itsec',
+			'security_page_toplevel_page_itsec_settings',
+			'security_page_toplevel_page_itsec_logs'
+		);
 
-			$lockout_pages = array(
-				'toplevel_page_itsec',
-				'security_page_toplevel_page_itsec_settings',
-				'security_page_toplevel_page_itsec_logs'
+		foreach ( $lockout_pages as $page ) {
+
+			add_meta_box(
+				'itsec_self_protect',
+				__( "Don't Lock Yourself Out", 'it-l10n-better-wp-security' ),
+				array( $this, 'self_protect_metabox' ),
+				$page,
+				'top',
+				'core'
 			);
-
-			foreach ( $lockout_pages as $page ) {
-
-				add_meta_box(
-					'itsec_self_protect',
-					__( "Don't Lock Yourself Out", 'it-l10n-better-wp-security' ),
-					array( $this, 'self_protect_metabox' ),
-					$page,
-					'top',
-					'core'
-				);
-
-			}
 
 		}
 
@@ -164,9 +160,13 @@ final class ITSEC_Lockout {
 		}
 
 		if ( $host_check !== NULL && $host_check !== false ) {
+
 			$this->execute_lock();
+
 		} elseif ( ( $user_check !== false && $user_check !== NULL ) || ( $username_check !== false && $username_check !== NULL ) ) {
+
 			$this->execute_lock( true );
+
 		}
 
 	}
@@ -306,6 +306,10 @@ final class ITSEC_Lockout {
 	 * @return void
 	 */
 	private function execute_lock( $user = false ) {
+
+		if ( $this->is_ip_whitelisted( ITSEC_Lib::get_ip() ) ) {
+			return;
+		}
 
 		global $itsec_globals;
 

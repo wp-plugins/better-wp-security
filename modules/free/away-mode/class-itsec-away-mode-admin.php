@@ -5,16 +5,14 @@ class ITSEC_Away_Mode_Admin {
 	private
 		$settings,
 		$core,
-		$module,
 		$away_file,
 		$module_path;
 
-	function run( $core, $module ) {
+	function run( $core ) {
 
 		global $itsec_globals;
 
 		$this->core        = $core;
-		$this->module      = $module;
 		$this->settings    = get_site_option( 'itsec_away_mode' );
 		$this->away_file   = $itsec_globals['ithemes_dir'] . '/itsec_away.confg'; //override file
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
@@ -456,9 +454,13 @@ class ITSEC_Away_Mode_Admin {
 		$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
 		$input['type']    = ( isset( $input['type'] ) && intval( $input['type'] == 1 ) ? 1 : 2 );
 
-		if ( ! isset( $input['away_start'] ) ) {
+		if ( ! isset( $input['away_start'] ) && ! isset( $input['start'] ) ) {
 
 			$input['start'] = $this->settings['start'];
+
+		} elseif ( ! isset( $input['away_start'] ) && isset( $input['start'] ) ) {
+
+			$input['start'] = intval( $input['start'] );
 
 		} else {
 
@@ -467,9 +469,13 @@ class ITSEC_Away_Mode_Admin {
 
 		}
 
-		if ( ! isset( $input['away_end'] ) ) {
+		if ( ! isset( $input['away_end'] ) && ! isset( $input['end'] ) ) {
 
 			$input['end'] = $this->settings['end'];
+
+		} elseif ( ! isset( $input['away_end'] ) && isset( $input['end'] ) ) {
+
+			$input['end'] = intval( $input['end'] );
 
 		} else {
 
@@ -478,7 +484,15 @@ class ITSEC_Away_Mode_Admin {
 
 		}
 
-		if ( $input['enabled'] === true && $this->module->check_away( $input ) === true ) {
+		if ( $input['enabled'] === true && $input['start'] === 1 && $input['end'] === 1 ) {
+			$input['enabled'] = false;
+		}
+
+		if ( ! class_exists( 'ITSEC_Away_Mode' ) ) {
+			require( dirname( __FILE__ ) . '/class-itsec-away-mode.php' );
+		}
+
+		if ( $input['enabled'] === true && ITSEC_Away_Mode::check_away( $input ) === true ) {
 
 			$input['enabled'] = false; //disable away mode
 

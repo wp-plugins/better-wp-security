@@ -18,7 +18,37 @@ class ITSEC_Global_Settings {
 
 		if ( is_admin() ) {
 
-			$this->initialize( $core );
+			$this->core     = $core;
+			$this->settings = get_site_option( 'itsec_global' );
+
+			$this->allowed_tags = array(
+				'a'      => array(
+					'href'  => array(),
+					'title' => array(),
+				),
+				'br'     => array(),
+				'em'     => array(),
+				'strong' => array(),
+				'h1'     => array(),
+				'h2'     => array(),
+				'h3'     => array(),
+				'h4'     => array(),
+				'h5'     => array(),
+				'h6'     => array(),
+				'div'    => array(
+					'style' => array(),
+				),
+			);
+
+			add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
+			add_action( 'itsec_add_admin_meta_boxes',
+			            array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+
+			//manually save options on multisite
+			if ( is_multisite() ) {
+				add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
+			}
 
 		}
 
@@ -303,51 +333,6 @@ class ITSEC_Global_Settings {
 			__( 'InfiniteWP.', 'it-l10n-better-wp-security' ),
 			__( 'Do not turn it on unless you use the InfiniteWP service.', 'it-l10n-better-wp-security' )
 		);
-
-	}
-
-	/**
-	 * Initializes all admin functionality.
-	 *
-	 * @since 4.0
-	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize( $core ) {
-
-		$this->core     = $core;
-		$this->settings = get_site_option( 'itsec_global' );
-
-		$this->allowed_tags = array(
-			'a'      => array(
-				'href'  => array(),
-				'title' => array(),
-			),
-			'br'     => array(),
-			'em'     => array(),
-			'strong' => array(),
-			'h1'     => array(),
-			'h2'     => array(),
-			'h3'     => array(),
-			'h4'     => array(),
-			'h5'     => array(),
-			'h6'     => array(),
-			'div'    => array(
-				'style' => array(),
-			),
-		);
-
-		add_filter( 'itsec_tooltip_modules', array( $this, 'register_tooltip' ) ); //register tooltip action
-		add_action( 'itsec_add_admin_meta_boxes',
-		            array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
-			add_action( 'itsec_admin_init', array( $this, 'save_network_options' ) ); //save multisite options
-		}
 
 	}
 
@@ -663,10 +648,9 @@ class ITSEC_Global_Settings {
 		}
 
 		echo '<input class="large-text" name="itsec_global[log_location]" id="itsec_global_log_location" value="' . $log_location . '" type="text">';
-		echo '<label for="itsec_global_log_location"> ' . __( 'The path on your server where log files should be stored.',
-		                                                      'it-l10n-better-wp-security' ) . '</label>';
-		echo '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.',
-		                                      'it-l10n-better-wp-security' ) . '</p>';
+		echo '<label for="itsec_global_log_location"> ' . __( 'The path on your server where log files should be stored.', 'it-l10n-better-wp-security' ) . '</label>';
+		echo '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<input id="itsec_reset_log_location" class="button-secondary" name="itsec_reset_log_location" type="button" value="' . __( 'Restore Default Location', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 	}
 
@@ -942,9 +926,17 @@ class ITSEC_Global_Settings {
 
 		//Process white list
 		if ( isset( $input['lockout_white_list'] ) && ! is_array( $input['lockout_white_list'] ) ) {
+
 			$white_listed_addresses = explode( PHP_EOL, $input['lockout_white_list'] );
+
+		} elseif ( isset( $input['lockout_white_list'] ) ) {
+
+			$white_listed_addresses = $input['lockout_white_list'];
+
 		} else {
+
 			$white_listed_addresses = array();
+
 		}
 
 		$bad_white_listed_ips = array();

@@ -412,7 +412,7 @@ class ITSEC_Tweaks_Admin {
 		printf(
 			'<p class="description"><ul><li>%s</li><li>%s</li><li>%s</li></ul></p>',
 			__( 'Off = XMLRPC is fully enabled and will function as normal.', 'it-l10n-better-wp-security' ),
-			__( 'Only Diable Trackbacks/Pingbacks = Your site will not be susceptible to denial of service attacks via the trackback/pingback feature. Other XMLRPC features will work as normal. You need this if you require features such as Jetpack or the WordPress Mobile app.', 'it-l10n-better-wp-security' ),
+			__( 'Only Disable Trackbacks/Pingbacks = Your site will not be susceptible to denial of service attacks via the trackback/pingback feature. Other XMLRPC features will work as normal. You need this if you require features such as Jetpack or the WordPress Mobile app.', 'it-l10n-better-wp-security' ),
 			__( 'Completely Disable XMLRPC is the safest, XMLRPC will be completely disabled by your webserver. This will prevent features such as Jetpack that require XMLRPC from working.', 'it-l10n-better-wp-security' )
 		);
 
@@ -866,6 +866,7 @@ class ITSEC_Tweaks_Admin {
 					          "\tRewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
+					          "\tRewriteCond %{QUERY_STRING} !^action=jetpack-sso" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
 					          "\tRewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
 					          "\tRewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$" . PHP_EOL .

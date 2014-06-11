@@ -6,13 +6,11 @@ class ITSEC_Four_Oh_Four_Admin {
 		$default_white_list,
 		$settings,
 		$core,
-		$module,
 		$module_path;
 
-	function run( $core, $module ) {
+	function run( $core ) {
 
 		$this->core        = $core;
-		$this->module      = $module;
 		$this->settings    = get_site_option( 'itsec_four_oh_four' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
@@ -304,6 +302,14 @@ class ITSEC_Four_Oh_Four_Admin {
 			'four_oh_four-settings'
 		);
 
+		add_settings_field(
+			'itsec_four_oh_four[types]',
+			__( 'Ignored File Types', 'it-l10n-better-wp-security' ),
+			array( $this, 'types' ),
+			'security_page_toplevel_page_itsec_settings',
+			'four_oh_four-settings'
+		);
+
 		//Register the settings field for the entire module
 		register_setting(
 			'security_page_toplevel_page_itsec_settings',
@@ -413,6 +419,29 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		}
 
+		if ( ! is_array( $input['types'] ) ) {
+			$file_types = explode( PHP_EOL, $input['types'] );
+		} else {
+			$file_types = $input['types'];
+		}
+
+		$good_types = array();
+
+		foreach ( $file_types as $file_type ) {
+
+			$file_type = trim( $file_type );
+
+			if ( strlen( $file_type ) > 0 && $file_type != '.' ) {
+
+				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
+
+				$good_types[] = sanitize_text_field( trim( $good_type ) );
+
+			}
+		}
+
+		$input['types'] = $good_types;
+
 		if ( is_multisite() ) {
 
 			$this->core->show_network_admin_notice( false );
@@ -461,6 +490,32 @@ class ITSEC_Four_Oh_Four_Admin {
 		);
 
 		return $vars;
+
+	}
+
+	/**
+	 * echos 404 file types Field
+	 *
+	 * @since 4.5
+	 *
+	 * @return void
+	 */
+	public function types() {
+
+		if ( isset( $this->settings['types'] ) && is_array( $this->settings['types'] ) ) {
+			$types = implode( PHP_EOL, $this->settings['types'] );
+		} else {
+			$types = implode( PHP_EOL, array(
+				'.jpg',
+				'.jpeg',
+				'.png',
+				'.gif',
+				'.css',
+			) );
+		}
+
+		echo '<textarea id="itsec_four_oh_four_types" name="itsec_four_oh_four[types]" wrap="off" cols="20" rows="10">' . $types . '</textarea><br />';
+		echo '<label for="itsec_four_oh_four_types"> ' . __( 'File types listed here will be recorded as 404 errors but will not lead to lockouts.', 'it-l10n-better-wp-security' ) . '</label>';
 
 	}
 

@@ -431,6 +431,11 @@ final class ITSEC_Lib {
 	 */
 	public static function get_server() {
 
+		//Allows to override server authentication for testing or other reasons.
+		if ( defined( 'ITSEC_SERVER_OVERRIDE' ) ) {
+			return ITSEC_SERVER_OVERRIDE;
+		}
+
 		$server_raw = strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) );
 
 		//figure out what server they're using

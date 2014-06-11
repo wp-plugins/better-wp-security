@@ -22,4 +22,12 @@ jQuery( document ).ready( function () {
 		}
 	);
 
+	jQuery( '#itsec_reset_backup_location' ).click( function ( event ) {
+
+		event.preventDefault();
+
+		jQuery( '#itsec_backup_location' ).val( exclude_text.location );
+
+	} );
+
 } );

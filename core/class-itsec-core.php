@@ -181,25 +181,29 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					),
 				),
 				'pro_modules'        => array(
-					'two-factor'  => array(
+					'settings'     => array(
+						'has_front' => false,
+						'class_id'  => 'Settings',
+					),
+					'two-factor'   => array(
 						'has_front' => true,
 						'option'    => 'itsec_two_factor',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'Two_Factor',
 					),
-					'user-logging'  => array(
+					'user-logging' => array(
 						'has_front' => true,
 						'option'    => 'itsec_user_logging',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'User_Logging',
 					),
-					'help' => array(
+					'help'         => array(
 						'has_front' => false,
 						'class_id'  => 'Help',
 					),
-					'core' => array(
+					'core'         => array(
 						'has_front' => false,
 						'class_id'  => 'Core',
 					),
@@ -369,19 +373,14 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				$this->build_admin(); //call before function
 
+				register_activation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Core', 'on_activate' ) );
+				register_deactivation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Core', 'on_deactivate' ) );
+				register_uninstall_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Core', 'on_uninstall' ) );
+
 			}
 
 			//Admin bar links
 			add_action( 'admin_bar_menu', array( $this, 'admin_bar_links' ), 99 );
-
-			//require plugin setup information
-			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
-			}
-
-			register_activation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_activate' ) );
-			register_deactivation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_deactivate' ) );
-			register_uninstall_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_uninstall' ) );
 
 			if ( isset( $itsec_globals['settings']['infinitewp_compatibility'] ) && $itsec_globals['settings']['infinitewp_compatibility'] === true ) {
 
@@ -793,6 +792,11 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				}
 
+				wp_enqueue_script( 'itsec_global_settings_js', $itsec_globals['plugin_url'] . 'core/js/admin-global-settings.js', array( 'jquery' ) );
+				wp_localize_script( 'itsec_global_settings_js', 'itsec_global_settings', array(
+					'location' => $itsec_globals['ithemes_log_dir'],
+				) );
+
 				wp_enqueue_script( 'jquery-ui-tabs' );
 				wp_enqueue_script( 'jquery-ui-dialog' );
 				wp_enqueue_style( 'jquery-ui-tabs' );
@@ -935,6 +939,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function do_upgrade() {
 
+			global $itsec_globals;
+
+			//require plugin setup information
+			if ( ! class_exists( 'ITSEC_Setup' ) ) {
+				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+			}
+
 			new ITSEC_Setup( 'upgrade', 3064 ); //run upgrade scripts
 
 		}
@@ -981,6 +992,11 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		public function execute_upgrade() {
 
 			global $itsec_globals;
+
+			//require plugin setup information
+			if ( ! class_exists( 'ITSEC_Setup' ) ) {
+				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+			}
 
 			new ITSEC_Setup( 'upgrade', $itsec_globals['data']['build'] ); //run upgrade scripts
 
@@ -1070,45 +1086,37 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			if ( is_admin() ) {
 
-				if ( isset( $info['has_front'] ) && $info['has_front'] === true ) { //load front-end classes in admin regardless
+				$run_admin = true;
+
+			}
+
+			//Front end class loading
+			if ( isset( $info['has_front'] ) && $info['has_front'] === true ) {
+
+				$option = isset( $info['option'] ) ? get_site_option( $info['option'] ) : false;
+
+				//If there is a setting to check and it is write then load it
+				if ( isset( $info['setting'] ) && ! is_array( $info['value'] ) && isset( $option[$info['setting']] ) && $option[$info['setting']] == $info['value'] ) {
 
 					$run_front = true;
 
-				}
+					//check an array of settings
+				} elseif ( isset( $info['setting'] ) && is_array( $info['value'] ) ) {
 
-				$run_admin = true;
+					foreach ( $info['value'] as $value ) {
 
-			} else {
+						if ( isset( $option[$info['setting']] ) && $option[$info['setting']] == $value ) {
 
-				//Front end class loading
-				if ( isset( $info['has_front'] ) && $info['has_front'] === true ) {
-
-					$option = isset( $info['option'] ) ? get_site_option( $info['option'] ) : false;
-
-					//If there is a setting to check and it is write then load it
-					if ( isset( $info['setting'] ) && ! is_array( $info['value'] ) && isset( $option[$info['setting']] ) && $option[$info['setting']] == $info['value'] ) {
-
-						$run_front = true;
-
-						//check an array of settings
-					} elseif ( isset( $info['setting'] ) && is_array( $info['value'] ) ) {
-
-						foreach ( $info['value'] as $value ) {
-
-							if ( isset( $option[$info['setting']] ) && $option[$info['setting']] == $value ) {
-
-								$run_front = true;
-
-							}
+							$run_front = true;
 
 						}
 
-						//Always load front-end class, not setting dependent
-					} elseif ( ! isset( $info['setting'] ) ) {
-
-						$run_front = true;
-
 					}
+
+					//Always load front-end class, not setting dependent
+				} elseif ( ! isset( $info['setting'] ) ) {
+
+					$run_front = true;
 
 				}
 
@@ -1152,12 +1160,72 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					$admin = new $admin_class;
 
 					if ( method_exists( $admin, 'run' ) ) {
-						$admin->run( $this, $front );
+						$admin->run( $this );
 					}
 
 				}
 
 			}
+
+		}
+
+		/**
+		 * Call activation script
+		 *
+		 * @since 4.5
+		 *
+		 * @return void
+		 */
+		public static function on_activate() {
+
+			global $itsec_globals;
+
+			//require plugin setup information
+			if ( ! class_exists( 'ITSEC_Setup' ) ) {
+				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+			}
+
+			ITSEC_Setup::on_activate();
+
+		}
+
+		/**
+		 * Call deactivation script
+		 *
+		 * @since 4.5
+		 *
+		 * @return void
+		 */
+		public static function on_deactivate() {
+
+			global $itsec_globals;
+
+			//require plugin setup information
+			if ( ! class_exists( 'ITSEC_Setup' ) ) {
+				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+			}
+
+			ITSEC_Setup::on_deactivate();
+
+		}
+
+		/**
+		 * Call uninstall script
+		 *
+		 * @since 4.5
+		 *
+		 * @return void
+		 */
+		public static function on_uninstall() {
+
+			global $itsec_globals;
+
+			//require plugin setup information
+			if ( ! class_exists( 'ITSEC_Setup' ) ) {
+				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+			}
+
+			ITSEC_Setup::on_uninstall();
 
 		}
 

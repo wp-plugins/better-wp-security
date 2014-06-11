@@ -237,6 +237,10 @@ class ITSEC_Ban_Users_Admin {
 
 					$host = ITSEC_Lib::ip_wild_to_mask( $host );
 
+					if ( ! class_exists( 'ITSEC_Ban_Users' ) ) {
+						require( dirname( __FILE__ ) . '/class-itsec-ban-users.php' );
+					}
+
 					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $host, NULL, $current ) ) {
 
 						$converted_host = ITSEC_Lib::ip_mask_to_range( $host );
@@ -545,24 +549,40 @@ class ITSEC_Ban_Users_Admin {
 
 		//process agent list
 		if ( isset( $input['agent_list'] ) && ! is_array( $input['agent_list'] ) ) {
+
 			$agents = explode( PHP_EOL, $input['agent_list'] );
+
+		} elseif ( isset( $input['agent_list'] ) ) {
+
+			$agents = $input['agent_list'];
+
 		} else {
+
 			$agents = array();
+
 		}
 
 		$good_agents = array();
 
 		foreach ( $agents as $agent ) {
-			$good_agents[] = sanitize_text_field( $agent );
+			$good_agents[] = trim( sanitize_text_field( $agent ) );
 		}
 
 		$input['agent_list'] = $good_agents;
 
 		//Process hosts list
 		if ( isset( $input['host_list'] ) && ! is_array( $input['host_list'] ) ) {
+
 			$addresses = explode( PHP_EOL, $input['host_list'] );
+
+		} elseif ( isset( $input['host_list'] ) ) {
+
+			$addresses = $input['host_list'];
+
 		} else {
+
 			$addresses = array();
+
 		}
 
 		$bad_ips   = array();
@@ -575,17 +595,21 @@ class ITSEC_Ban_Users_Admin {
 
 				if ( ITSEC_Lib::validates_ip_address( $address ) === false ) {
 
-					$bad_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+					$bad_ips[] = trim( filter_var( $address, FILTER_SANITIZE_STRING ) );
 
+				}
+
+				if ( ! class_exists( 'ITSEC_Ban_Users' ) ) {
+					require( dirname( __FILE__ ) . '/class-itsec-ban-users.php' );
 				}
 
 				if ( ITSEC_Ban_Users::is_ip_whitelisted( $address, NULL, true ) ) {
 
-					$white_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+					$white_ips[] = trim( filter_var( $address, FILTER_SANITIZE_STRING ) );
 
 				}
 
-				$raw_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+				$raw_ips[] = trim( filter_var( $address, FILTER_SANITIZE_STRING ) );
 
 			} else {
 				unset( $addresses[$index] );

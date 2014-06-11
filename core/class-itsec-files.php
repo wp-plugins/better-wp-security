@@ -348,7 +348,11 @@ final class ITSEC_Files {
 
 			}
 
-			$htaccess_contents = implode( PHP_EOL, $lines );
+			$htaccess_contents = trim( implode( PHP_EOL, $lines ) );
+
+			if ( strlen( $htaccess_contents ) < 1 ) {
+				$htaccess_contents = PHP_EOL;
+			}
 
 			if ( ! @file_put_contents( $htaccess_file, $htaccess_contents, LOCK_EX ) ) {
 				return false;
@@ -1036,7 +1040,7 @@ final class ITSEC_Files {
 
 		$htaccess_contents = @file_get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
 
-		$htaccess_contents = preg_replace( "/(\\r\\n|\\n|\\r)+/", PHP_EOL, $htaccess_contents );
+		$htaccess_contents = preg_replace( "/(\\r\\n|\\n|\\r)/", PHP_EOL, $htaccess_contents );
 
 		if ( $htaccess_contents === false ) { //we couldn't get the file contents
 

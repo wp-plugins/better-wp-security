@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 4.2.6
+Stable tag: 4.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,23 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.2.8 =
+* Added call to settings import/export module (pro)
+* Added button to restore default log location
+* Don't automatically load front-end classes in dashboard pages
+* Avoid errors on save if htaccess is completely empty
+* Only register activation/deactivation/install hooks in admin
+* Make sure temporary white-list is always available
+* Improved check for white-listed IP during lockout
+* Added ability to use constant to override server detection
+* Don't remove extra line spaces in .htaccess
+* Minor reformating and typo fixes
+* Make sure front-end classes are available only when needed
+* Fixed default types in file change settings
+* Added file type exclusion to 404 settings
+* Allow for Jetpack SSO to function with suspicious queries turned on
+* Use WordPress' PclZip for backup zip
 
 = 4.2.6 =
 * Make sure backup disables itself when other backup solutions are present
@@ -1115,6 +1132,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple featureset.
 
 == Upgrade Notice ==
+
+= 4.2.8 =
+Version 4.2.8 delivers fixes for minor bugs and some enhancements including the ability to whitelist file types in 404 detection.
 
 = 4.2.6 =
 Better WP Security is now iThemes Security with new features and a greatly improved code base. We recommend disabling Better WP Security before upgrading to 4.2.6 if you are not already on 4.0 or greater.

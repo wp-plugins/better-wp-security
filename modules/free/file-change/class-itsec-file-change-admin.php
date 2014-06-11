@@ -5,15 +5,13 @@ class ITSEC_File_Change_Admin {
 	private
 		$settings,
 		$core,
-		$module,
 		$module_path;
 
-	function run( $core, $module ) {
+	function run( $core ) {
 
-		$this->core                 = $core;
-		$this->module               = $module;
-		$this->settings             = get_site_option( 'itsec_file_change' );
-		$this->module_path          = ITSEC_Lib::get_module_path( __FILE__ );
+		$this->core        = $core;
+		$this->settings    = get_site_option( 'itsec_file_change' );
+		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
 		add_action( 'itsec_add_admin_meta_boxes', array(
 			$this, 'add_admin_meta_boxes'
@@ -471,7 +469,7 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos file change types Field
 	 *
-	 * @param  array $args field arguments
+	 * @since 4.0
 	 *
 	 * @return void
 	 */
@@ -480,7 +478,14 @@ class ITSEC_File_Change_Admin {
 		if ( isset( $this->settings['types'] ) && is_array( $this->settings['types'] ) ) {
 			$types = implode( PHP_EOL, $this->settings['types'] );
 		} else {
-			$types = implode( PHP_EOL, array( '.jpg', '.jpeg', '.png' ) );
+			$types = implode( PHP_EOL, array(
+				'.jpg',
+				'.jpeg',
+				'.png',
+				'.log',
+				'.mo',
+				'.po',
+			) );
 		}
 
 		$content = '<textarea id="itsec_file_change_types" name="itsec_file_change[types]" wrap="off" cols="20" rows="10">' . $types . '</textarea><br />';
