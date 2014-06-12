@@ -219,6 +219,7 @@ class ITSEC_Ban_Users_Admin {
 		$host_list    = '';
 		$agent_list   = '';
 		$default_list = '';
+		$host_rule2   = '';
 
 		//load the default blacklist if needed
 		if ( $default === true && $server_type === 'nginx' ) {
@@ -257,6 +258,8 @@ class ITSEC_Ban_Users_Admin {
 								$host_rule = "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
 								$host_rule .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
 								$host_rule .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
+
+								$host_rule2 .= "deny from " . str_replace( '.[0-9]+', '', trim( $converted_host ) ) . PHP_EOL;
 
 							}
 
@@ -336,10 +339,12 @@ class ITSEC_Ban_Users_Admin {
 
 			} elseif ( strlen( $host_list ) > 1 ) {
 
-				$rules .= 'Order allow,deny' . PHP_EOL .
-				          $host_list .
-				          'Deny from env=DenyAccess' . PHP_EOL .
-				          'Allow from all' . PHP_EOL;
+				$rules .=
+					$host_list .
+					'order allow,deny' . PHP_EOL .
+				    'deny from env=DenyAccess' . PHP_EOL .
+				    $host_rule2 .
+				    'allow from all' . PHP_EOL;
 
 			}
 

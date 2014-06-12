@@ -373,30 +373,21 @@ final class ITSEC_Lib {
 	}
 
 	/**
-	 * Returns the URI path of the current module
+	 * Returns the URL of the current module
 	 *
 	 * @since 4.0
 	 *
 	 * @param string $file     the module file from which to derive the path
-	 * @param bool   $with_sub include the subdirectory if needed
 	 *
 	 * @return string the path of the current module
 	 */
-	public static function get_module_path( $file, $with_sub = false ) {
+	public static function get_module_path( $file ) {
 
-		$directory = dirname( $file );
+		global $itsec_globals;
 
-		$path_info = parse_url( get_bloginfo( 'url' ) );
+		$path = str_replace( $itsec_globals['plugin_dir'], '', dirname( $file ) );
 
-		$path = trailingslashit( '/' . ltrim( str_replace( '\\', '/', str_replace( rtrim( ABSPATH, '\\\/' ), '', $directory ) ), '\\\/' ) );
-
-		if ( $with_sub === true && isset( $path_info['path'] ) ) {
-
-			$path = $path_info['path'] . $path;
-
-		}
-
-		return $path;
+		return trailingslashit( $itsec_globals['plugin_url'] . $path );
 
 	}
 

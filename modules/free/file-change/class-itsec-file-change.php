@@ -44,6 +44,8 @@ class ITSEC_File_Change {
 
 		global $itsec_files, $itsec_logger, $itsec_globals;
 
+		$send_email = true;
+
 		ITSEC_Lib::set_minimum_memory_limit( '128M' );
 
 		if ( $itsec_files->get_file_lock( 'file_change', 300 ) ) { //make sure it isn't already running
@@ -86,6 +88,8 @@ class ITSEC_File_Change {
 
 			//if there are no old files old file list is an empty array
 			if ( $logged_files === false ) {
+
+				$send_email = false;
 
 				$logged_files = array();
 
@@ -161,7 +165,7 @@ class ITSEC_File_Change {
 			             $full_change_list
 			);
 
-			if ( $scheduled_call !== false && isset( $this->settings['email'] ) && $this->settings['email'] === true && ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) ) {
+			if ( $send_email === true && $scheduled_call !== false && isset( $this->settings['email'] ) && $this->settings['email'] === true && ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) ) {
 
 				$email_details = array(
 					$files_added_count,

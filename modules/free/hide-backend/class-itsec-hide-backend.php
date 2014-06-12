@@ -21,6 +21,7 @@ class ITSEC_Hide_Backend {
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
 			add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
+			add_filter( 'loginout', array( $this, 'filter_loginout' ) );
 			add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
 			add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
 			add_filter( 'retrieve_password_message', array( $this, 'retrieve_password_message' ) );
@@ -201,13 +202,38 @@ class ITSEC_Hide_Backend {
 	/**
 	 * Filters redirects for correct login URL
 	 *
+	 * @since 4.0
+	 *
 	 * @param  string $url URL redirecting to
 	 *
 	 * @return string       Correct redirect URL
 	 */
 	public function filter_login_url( $url ) {
 
-		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
+		if ( ( ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) ) && $_SERVER['REQUEST_SCHEME'] === 'https' ) || ( ( ( ! defined( 'FORCE_SSL_LOGIN' ) || FORCE_SSL_LOGIN !== true ) || ( ! defined( 'FORCE_SSL_ADMIN' ) || FORCE_SSL_ADMIN !== true ) ) && $_SERVER['REQUEST_SCHEME'] === 'http' ) ) {
+
+			return str_replace( 'wp-login.php', $this->settings['slug'], $url );
+
+		} else {
+
+			return $url;
+
+		}
+
+	}
+
+	/**
+	 * Filter meta link
+	 *
+	 * @since 4.2
+	 *
+	 * @param string $link the link
+	 *
+	 * @return string the link
+	 */
+	public function filter_loginout( $link ) {
+
+		return str_replace( 'wp-login.php', $this->settings['slug'], $link );
 
 	}
 
@@ -240,7 +266,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return array          body tag classes
 	 */
-	function remove_admin_bar( $classes ) {
+	public function remove_admin_bar( $classes ) {
 
 		if ( is_admin() && is_user_logged_in() !== true ) {
 

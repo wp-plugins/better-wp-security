@@ -104,3 +104,6 @@
     Added ability to use constant to override server detection
     Don't remove extra line spaces in .htaccess
     Minor reformating and typo fixes
+1.4.1 - 2014-06-12 - Chris Wiegman
+    Fixed get_module_path to prevent 404 errors on plugin assets
+    Fixed misplaced parenthesis forcing computer to always display it isn't whitelisted

@@ -361,7 +361,7 @@ final class ITSEC_Lockout {
 			__( 'User lockout message', 'it-l10n-better-wp-security' ),
 			$settings['user_lockout_message'],
 			__( 'Is this computer white-listed', 'it-l10n-better-wp-security' ),
-			( $this->is_ip_whitelisted( ITSEC_Lib::get_ip() === true ) ? __( 'yes', 'it-l10n-better-wp-security' ) : __( 'no', 'it-l10n-better-wp-security' ) )
+			( $this->is_ip_whitelisted( ITSEC_Lib::get_ip() ) === true ? __( 'yes', 'it-l10n-better-wp-security' ) : __( 'no', 'it-l10n-better-wp-security' ) )
 		);
 
 		return $description;

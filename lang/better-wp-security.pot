@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.2.8\n"
+"Project-Id-Version: iThemes Security 4.2.10\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-06-11 14:59:11+00:00\n"
+"POT-Creation-Date: 2014-06-12 20:08:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.8)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.2.10)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -615,7 +615,7 @@ msgstr ""
 #: core/class-itsec-global-settings.php:720
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:438
 #: modules/free/backup/class-itsec-backup-admin.php:541
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:508
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:513
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:294
 #: modules/free/file-change/class-itsec-file-change-admin.php:606
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:343
@@ -724,7 +724,7 @@ msgstr ""
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:574
 #: modules/free/backup/class-itsec-backup-admin.php:623
 #: modules/free/backup/class-itsec-backup-admin.php:754
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:721
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:726
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:383
 #: modules/free/file-change/class-itsec-file-change-admin.php:340
 #: modules/free/file-change/class-itsec-file-change-admin.php:624
@@ -2101,39 +2101,39 @@ msgstr ""
 msgid "You may ban users by individual IP address or IP address range."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:395
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:400
 msgid "You are blocking known bad hosts and agents with the ban users tool."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:403
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:408
 msgid ""
 "You are not blocking any users that are known to be a problem. Consider "
 "turning on the Ban Users feature."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:425
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:449
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:430
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:454
 msgid "Default Blacklist"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:433
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:441
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:438
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:446
 msgid "Configure Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:458
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:463
 msgid "Ban Users"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:467
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:472
 msgid "Ban Hosts"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:476
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:481
 msgid "Ban User Agents"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:498
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:503
 msgid ""
 "This feature allows you to completely ban hosts and user agents from your "
 "site without having to manage any configuration of your server. Any IP "
@@ -2141,18 +2141,18 @@ msgid ""
 "access to your site."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:629
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:651
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:634
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:656
 msgid ""
 "Note that the ban users feature has been disabled until the following errors "
 "are corrected:"
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:633
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:638
 msgid "is not a valid address in the ban users box."
 msgstr ""
 
-#: modules/free/ban-users/class-itsec-ban-users-admin.php:655
+#: modules/free/ban-users/class-itsec-ban-users-admin.php:660
 msgid "is not a valid address as it has been white listed."
 msgstr ""
 
@@ -2810,16 +2810,16 @@ msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:110
 #: modules/free/file-change/class-itsec-file-change-log.php:156
-#: modules/free/file-change/class-itsec-file-change.php:220
+#: modules/free/file-change/class-itsec-file-change.php:224
 msgid "Files Added"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:115
 #: modules/free/file-change/class-itsec-file-change-log.php:125
 #: modules/free/file-change/class-itsec-file-change-log.php:135
-#: modules/free/file-change/class-itsec-file-change.php:223
-#: modules/free/file-change/class-itsec-file-change.php:253
-#: modules/free/file-change/class-itsec-file-change.php:283
+#: modules/free/file-change/class-itsec-file-change.php:227
+#: modules/free/file-change/class-itsec-file-change.php:257
+#: modules/free/file-change/class-itsec-file-change.php:287
 msgid "File"
 msgstr ""
 
@@ -2843,7 +2843,7 @@ msgid "Check Time"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:157
-#: modules/free/file-change/class-itsec-file-change.php:250
+#: modules/free/file-change/class-itsec-file-change.php:254
 msgid "Files Deleted"
 msgstr ""
 
@@ -2851,67 +2851,67 @@ msgstr ""
 msgid "Memory Used"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:214
+#: modules/free/file-change/class-itsec-file-change.php:218
 msgid "Scan Time:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:215
+#: modules/free/file-change/class-itsec-file-change.php:219
 msgid "Files Added:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:216
+#: modules/free/file-change/class-itsec-file-change.php:220
 msgid "Files Deleted:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:217
+#: modules/free/file-change/class-itsec-file-change.php:221
 msgid "Files Modified:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:218
+#: modules/free/file-change/class-itsec-file-change.php:222
 msgid "Memory Used:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:224
-#: modules/free/file-change/class-itsec-file-change.php:254
-#: modules/free/file-change/class-itsec-file-change.php:284
+#: modules/free/file-change/class-itsec-file-change.php:228
+#: modules/free/file-change/class-itsec-file-change.php:258
+#: modules/free/file-change/class-itsec-file-change.php:288
 msgid "Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:225
-#: modules/free/file-change/class-itsec-file-change.php:255
-#: modules/free/file-change/class-itsec-file-change.php:285
+#: modules/free/file-change/class-itsec-file-change.php:229
+#: modules/free/file-change/class-itsec-file-change.php:259
+#: modules/free/file-change/class-itsec-file-change.php:289
 msgid "File Hash"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:243
+#: modules/free/file-change/class-itsec-file-change.php:247
 msgid "No files were added."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:273
+#: modules/free/file-change/class-itsec-file-change.php:277
 msgid "No files were removed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:280
+#: modules/free/file-change/class-itsec-file-change.php:284
 msgid "Files Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:303
+#: modules/free/file-change/class-itsec-file-change.php:307
 msgid "No files were changed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:387
+#: modules/free/file-change/class-itsec-file-change.php:391
 msgid "File Changes Detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:497
+#: modules/free/file-change/class-itsec-file-change.php:501
 msgid "WordPress File Change Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:499
+#: modules/free/file-change/class-itsec-file-change.php:503
 msgid "A file (or files) on your site at "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:499
+#: modules/free/file-change/class-itsec-file-change.php:503
 msgid ""
 " have been changed. Please review the report below to verify changes are not "
 "the result of a compromise."
@@ -3256,7 +3256,7 @@ msgid "to login to your WordPress website"
 msgstr ""
 
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:715
-msgid "WordPress Login Email Changed"
+msgid "WordPress Login Address Changed"
 msgstr ""
 
 #: modules/free/ssl/class-itsec-ssl-admin.php:108

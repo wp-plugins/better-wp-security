@@ -712,7 +712,7 @@ class ITSEC_Hide_Backend_Admin {
 
 		//Setup the remainder of the email
 		$recipients = $itsec_globals['settings']['notification_email'];
-		$subject    = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress Login Email Changed', 'it-l10n-better-wp-security' );
+		$subject    = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress Login Address Changed', 'it-l10n-better-wp-security' );
 		$subject    = apply_filters( 'itsec_lockout_email_subject', $subject );
 		$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
 

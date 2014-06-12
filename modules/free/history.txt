@@ -132,3 +132,8 @@
     Added file type exclusion to 404 settings
     Allow for Jetpack SSO to function with suspicious queries turned on
     Use WordPress' PclZip for backup zip
+1.2.4 - 2014-06-12 - Chris Wiegman
+    Don't filter hide backend hash until after schema redirect
+    don't send file change email on first scan
+    Fixed verbage when changing login URL
+    Modified ban users rewrites for apache. Should work with proxy and if setenvif isn't enabled.
