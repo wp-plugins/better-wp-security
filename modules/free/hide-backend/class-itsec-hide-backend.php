@@ -210,13 +210,13 @@ class ITSEC_Hide_Backend {
 	 */
 	public function filter_login_url( $url ) {
 
-		if ( ( ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) ) && $_SERVER['REQUEST_SCHEME'] === 'https' ) || ( ( ( ! defined( 'FORCE_SSL_LOGIN' ) || FORCE_SSL_LOGIN !== true ) || ( ! defined( 'FORCE_SSL_ADMIN' ) || FORCE_SSL_ADMIN !== true ) ) && $_SERVER['REQUEST_SCHEME'] === 'http' ) ) {
+		if ( ! is_user_logged_in() && ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) ) && $_SERVER['REQUEST_SCHEME'] === 'http' ) {
 
-			return str_replace( 'wp-login.php', $this->settings['slug'], $url );
+			return $url;
 
 		} else {
 
-			return $url;
+			return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
 		}
 

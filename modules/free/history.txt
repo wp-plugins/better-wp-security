@@ -139,3 +139,5 @@
     Modified ban users rewrites for apache. Should work with proxy and if setenvif isn't enabled.
 1.2.5 - 2014-06-12 - Chris Wiegman
     Fixed error on line 55 of class-itsec-four-oh-four.php that could occur under certain circumstances
+1.2.6 - 2014-06-12 - Chris Wiegman
+    Fixed 404 error on https with hide backend.
