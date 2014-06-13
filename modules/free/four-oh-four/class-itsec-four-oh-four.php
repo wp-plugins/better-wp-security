@@ -52,7 +52,7 @@ class ITSEC_Four_Oh_Four {
 
 				$path_info = pathinfo( $uri[0] );
 
-				if ( ! isset( $path_info['extension'] ) || in_array( '.' . $path_info['extension'], $this->settings['types'] ) === false ) {
+				if ( ! isset( $path_info['extension'] ) || ( isset( $this->settings['types'] ) && is_array( $this->settings['types'] ) && in_array( '.' . $path_info['extension'], $this->settings['types'] ) === false ) ) {
 
 					$itsec_lockout->do_lockout( 'four_oh_four' );
 

@@ -137,3 +137,5 @@
     don't send file change email on first scan
     Fixed verbage when changing login URL
     Modified ban users rewrites for apache. Should work with proxy and if setenvif isn't enabled.
+1.2.5 - 2014-06-12 - Chris Wiegman
+    Fixed error on line 55 of class-itsec-four-oh-four.php that could occur under certain circumstances
