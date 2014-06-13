@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 4.2.12
+Stable tag: 4.2.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,9 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.2.13 =
+* Fixed error for missing function in hide backend
 
 = 4.2.12 =
 * Fixed an error that could cause a 404 on the admin with hide-backend enabled.
@@ -1172,8 +1175,8 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.2.12 =
-Version 4.2.12 delivers fixes for minor bugs experienced by some users.
+= 4.2.13 =
+Version 4.2.13 delivers fixes for minor bugs experienced by some users.
 
 = 4.2.8 =
 Version 4.2.8 delivers fixes for minor bugs and some enhancements including the ability to whitelist file types in 404 detection.

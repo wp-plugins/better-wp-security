@@ -141,3 +141,5 @@
     Fixed error on line 55 of class-itsec-four-oh-four.php that could occur under certain circumstances
 1.2.6 - 2014-06-12 - Chris Wiegman
     Fixed 404 error on https with hide backend.
+1.2.7 - 2014-06-12 - Chris Wiegman
+    Fixed error for missing function in hide backend

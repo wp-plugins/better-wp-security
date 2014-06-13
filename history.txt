@@ -161,3 +161,5 @@
 	Updated modules/free to version 1.2.5
 4.2.12 - 2014-06-12 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.2.6
+4.2.13 - 2014-06-12 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.2.7

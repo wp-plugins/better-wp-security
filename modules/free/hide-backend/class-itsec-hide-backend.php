@@ -68,12 +68,12 @@ class ITSEC_Hide_Backend {
 				(
 					get_site_option( 'users_can_register' ) == false &&
 					(
-						isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-register.php' ||
-						isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-signup.php'
+						isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'wp-register.php' ) ||
+						isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'wp-signup.php' )
 					)
 				) ||
 				(
-					isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] == ITSEC_Lib::get_home_root() . 'wp-login.php' && is_user_logged_in() !== true
+					isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) && is_user_logged_in() !== true
 				) ||
 				( is_admin() && is_user_logged_in() !== true ) ||
 				(
@@ -210,15 +210,8 @@ class ITSEC_Hide_Backend {
 	 */
 	public function filter_login_url( $url ) {
 
-		if ( ! is_user_logged_in() && ( ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) || ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) ) && $_SERVER['REQUEST_SCHEME'] === 'http' ) {
+		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
-			return $url;
-
-		} else {
-
-			return str_replace( 'wp-login.php', $this->settings['slug'], $url );
-
-		}
 
 	}
 
