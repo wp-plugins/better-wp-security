@@ -553,12 +553,13 @@ final class ITSEC_Files {
 
 					$dhost = str_replace( '.', '\\.', trim( $host ) ); //re-define $dhost to match required output for SetEnvIf-RegEX
 
-					$host_rule .= 'Order allow,deny' . PHP_EOL;
 					$host_rule .= "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
 					$host_rule .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
 					$host_rule .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
-					$host_rule .= 'Deny from env=DenyAccess' . PHP_EOL;
-					$host_rule .= 'Allow from all' . PHP_EOL;
+					$host_rule .= 'order allow,deny' . PHP_EOL;
+					$host_rule .= 'deny from env=DenyAccess' . PHP_EOL;
+					$host_rule .= 'deny from ' . trim( $host ) . PHP_EOL;
+					$host_rule .= 'allow from all' . PHP_EOL;
 
 				}
 

@@ -331,6 +331,11 @@ class ITSEC_File_Change {
 		$file_list = $this->settings['file_list'];
 		$type_list = $this->settings['types'];
 
+		//Make sure the file list is an array
+		if ( ! is_array( $file_list ) ) {
+			$file_list = array();
+		}
+
 		//lets check the absolute path too for excludes just to be sure
 		$abs_file = ABSPATH . $file;
 

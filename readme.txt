@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 4.2.13
+Stable tag: 4.2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,14 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.2.15 =
+* Fixed a bug preventing file-change scanning from running when manually executed from the "Logs" page
+* Fixed a bug where an error could be generated if the saved files from the file change feature weren't properly saved
+* Fixed comment approval email links to make sure they work when a user is not logged in and hide backend is in effect
+* Fixed an issue that was preventing an IP from being permanently banned due to too many lockouts
+* Updated .htaccess rules for an IP that has been banned from too many lockouts to be more effective in more hosting environments
+* Fixed responsive issues in iThemes notifications that prevented notifications from being easily read on small screens.
 
 = 4.2.13 =
 * Fixed error for missing function in hide backend
@@ -1174,6 +1182,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.2.15 =
+Version 4.2.15 delivers fixes for minor bugs experienced by some users.
 
 = 4.2.13 =
 Version 4.2.13 delivers fixes for minor bugs experienced by some users.

@@ -107,3 +107,7 @@
 1.4.1 - 2014-06-12 - Chris Wiegman
     Fixed get_module_path to prevent 404 errors on plugin assets
     Fixed misplaced parenthesis forcing computer to always display it isn't whitelisted
+1.4.2 - 2014-07-02 - Chris Wiegman
+    Fixed an issue that was preventing an IP from being permanently banned due to too many lockouts
+    Updated .htaccess rules for an IP that has been banned from too many lockouts to be more effective in more hosting environments
+    Fixed responsive issues in iThemes notifications that prevented notifications from being easily read on small screens.

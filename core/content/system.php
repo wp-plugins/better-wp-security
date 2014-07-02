@@ -309,9 +309,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		$active_plugins_raw = get_option( 'active_plugins' );
 		$active_plugins = '';
 
-		foreach ( $active_plugins_raw as $plugin ) {
-			$active_plugins .= $plugin . ',';
-		}
+		$active_plugins = implode( ',', get_option( 'active_plugins' ) );
 
 		?>
 		<li><?php _e( 'Active Plugins', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $active_plugins ?></strong></li>

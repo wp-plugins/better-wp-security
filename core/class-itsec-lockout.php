@@ -647,7 +647,7 @@ final class ITSEC_Lockout {
 				$host_count = 1 + $wpdb->get_var(
 				                       $wpdb->prepare(
 				                            "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '%s' AND `lockout_host`='%s';",
-				                            date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] + $blacklist_period ),
+				                            date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] - $blacklist_period ),
 				                            $host
 				                       )
 					);

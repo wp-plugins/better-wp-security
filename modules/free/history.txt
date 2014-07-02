@@ -143,3 +143,8 @@
     Fixed 404 error on https with hide backend.
 1.2.7 - 2014-06-12 - Chris Wiegman
     Fixed error for missing function in hide backend
+1.2.8 - 2014-07-02 - Chris Wiegman
+    Fixed a bug preventing file-change scanning from running when manually executed from the "Logs" page
+    Fixed a bug where an error could be generated if the saved files from the file change feature weren't properly saved
+    Fixed comment approval email links to make sure they work when a user is not logged in and hide backend is in effect
+    Fixed responsive issues in iThemes notifications that prevented notifications from being easily read on small screens.

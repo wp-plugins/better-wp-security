@@ -682,7 +682,10 @@ class ITSEC_File_Change_Admin {
 			die( __( 'Security error!', 'it-l10n-better-wp-security' ) );
 		}
 
-		die( $this->module->execute_file_check( false ) );
+		$module = new ITSEC_File_Change();
+		$module->run();
+
+		die( $module->execute_file_check( false ) );
 
 	}
 

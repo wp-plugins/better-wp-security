@@ -203,10 +203,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'has_front' => false,
 						'class_id'  => 'Help',
 					),
-					'core'         => array(
-						'has_front' => false,
-						'class_id'  => 'Core',
-					),
+
 				),
 			);
 
@@ -1686,7 +1683,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						global $itsec_globals;
 
 						echo '<div class="updated" id="itsec_upgrade_notice">
-						<span>' . __( 'Thank you for activating', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . '. ' . __( 'It looks like you had another version of this plugin activated. To avoid conflicts the extra version has been deactivated and we recommend you delete it.', 'it-l10n-better-wp-security' ) . '</span><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_upgrade_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
+						<span class="itsec_notice_text">' . __( 'Thank you for activating', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . '. ' . __( 'It looks like you had another version of this plugin activated. To avoid conflicts the extra version has been deactivated and we recommend you delete it.', 'it-l10n-better-wp-security' ) . '</span><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_upgrade_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
 						</div>';
 
 					}
