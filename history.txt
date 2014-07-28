@@ -186,3 +186,5 @@
 	Added exception for 127.0.0.1 to prevent a local server from being locked out of a site during wp-cron or other calls
 	Added button to quickly add current IP address to permanent whitelist
 	Added appropriate message for logs page when logs are not available due to "file only" logging being selected
+4.3.3 - 2014-07-28 - Packaging Bot (modules/free)
+	Fixed an inadvertant disabling of file change scans intrudced in 4.3

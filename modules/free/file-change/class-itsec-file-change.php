@@ -34,7 +34,7 @@ class ITSEC_File_Change {
 			( $itsec_globals['current_time'] - $interval ) > $this->settings['last_run'] &&
 			( ! defined( 'ITSEC_FILE_CHECK_CRON' ) || ITSEC_FILE_CHECK_CRON === false )
 		) {
-			//add_action( 'init', array( $this, 'execute_file_check' ) );
+			add_action( 'init', array( $this, 'execute_file_check' ) );
 		}
 
 	}

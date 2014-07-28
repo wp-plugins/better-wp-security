@@ -161,3 +161,5 @@
 	Added feature to immediately ban user "admin" when no user "admin" exists on the site and a host tries to log in with it anyway
 	Added blank line to end of all textarea input to make it easier to input data
 	Added brute force checks to XMLRPC calls to prevent brute force attacks against XMLRPC
+1.3.1 - 2014-07-28 - Chris Wiegman
+	Fixed an inadvertant disabling of file change scans intrudced in 4.3
