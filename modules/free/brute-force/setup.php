@@ -16,6 +16,7 @@ if ( ! class_exists( 'ITSEC_Brute_Force_Setup' ) ) {
 				'max_attempts_host' => 5,
 				'max_attempts_user' => 10,
 				'check_period'      => 5,
+				'auto_ban_admin'    => false,
 			);
 
 			if ( isset( $itsec_setup_action ) ) {

@@ -27,8 +27,14 @@ class ITSEC_File_Change {
 			$interval = 86400;
 		}
 
-		if ( ( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) && isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true && isset( $this->settings['last_run'] ) && ( $itsec_globals['current_time'] - $interval ) > $this->settings['last_run'] ) {
-			add_action( 'init', array( $this, 'execute_file_check' ) );
+		if (
+			( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) &&
+			isset( $this->settings['enabled'] ) &&
+			$this->settings['enabled'] === true && isset( $this->settings['last_run'] ) &&
+			( $itsec_globals['current_time'] - $interval ) > $this->settings['last_run'] &&
+			( ! defined( 'ITSEC_FILE_CHECK_CRON' ) || ITSEC_FILE_CHECK_CRON === false )
+		) {
+			//add_action( 'init', array( $this, 'execute_file_check' ) );
 		}
 
 	}
@@ -337,7 +343,7 @@ class ITSEC_File_Change {
 		}
 
 		//lets check the absolute path too for excludes just to be sure
-		$abs_file = ABSPATH . $file;
+		$abs_file =ITSEC_Lib::get_home_path() . $file;
 
 		//assume not a directory and not checked
 		$flag = false;
@@ -443,7 +449,7 @@ class ITSEC_File_Change {
 
 		$clean_path = sanitize_text_field( $path );
 
-		if ( $directory_handle = @opendir( ABSPATH . $clean_path ) ) { //get the directory
+		if ( $directory_handle = opendir(ITSEC_Lib::get_home_path() . $clean_path ) ) { //get the directory
 
 			while ( ( $item = readdir( $directory_handle ) ) !== false ) { // loop through dirs
 
@@ -451,7 +457,7 @@ class ITSEC_File_Change {
 
 					$relname = $path . $item;
 
-					$absname = ABSPATH . $relname;
+					$absname =ITSEC_Lib::get_home_path() . $relname;
 
 					if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) {
 						$is_dir     = true;

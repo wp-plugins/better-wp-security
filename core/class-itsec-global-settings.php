@@ -199,7 +199,7 @@ class ITSEC_Global_Settings {
 			$emails = get_option( 'admin_email' );
 		}
 
-		echo '<textarea id="itsec_global_backup_email" name="itsec_global[backup_email]">' . $emails . '</textarea>';
+		echo '<textarea id="itsec_global_backup_email" name="itsec_global[backup_email]">' . $emails . PHP_EOL . '</textarea>';
 		echo '<p class="description">' . __( 'The email address(es) all database backups will be sent to. One address per line.',
 		                                     'it-l10n-better-wp-security' ) . '</p>';
 
@@ -560,7 +560,7 @@ class ITSEC_Global_Settings {
 			$lockout_message = __( 'error', 'it-l10n-better-wp-security' );
 		}
 
-		echo '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea>';
+		echo '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . PHP_EOL . '</textarea>';
 		echo '<p class="description">' . __( 'The message to display when a computer (host) has been locked out.',
 		                                     'it-l10n-better-wp-security' ) . '</p>';
 		echo '<p class="description">' . __( 'You can use HTML in your message. Allowed tags include: a, br, em, strong, h1, h2, h3, h4, h5, h6, div',
@@ -612,21 +612,17 @@ class ITSEC_Global_Settings {
 
 		}
 
-		echo '<textarea id="itsec_global_lockout_white_list" name="itsec_global[lockout_white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-		echo '<p class="description">' . __( 'Use the guidelines below to enter hosts that will not be locked out from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode and will only prevent a temporary ban. Should a permanent ban be triggered you will still be added to the "Ban Users" list unless the IP address is also white listed in that section.',
-		                                     'it-l10n-better-wp-security' ) . '</p>';
+		echo '<textarea id="itsec_global_lockout_white_list" name="itsec_global[lockout_white_list]" rows="10" cols="50">' . $white_list . PHP_EOL . '</textarea>';
+		echo '<p class="submit"><a href="' . PHP_EOL . ITSEC_Lib::get_ip() . '" class="itsec_add_ip_to_whitelist button-primary">' . __( 'Add my current IP to Whitelist', 'it-l10n-better-wp-security' ) . '</a></p>';
+		echo '<p class="description">' . __( 'Use the guidelines below to enter hosts that will not be locked out from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode and will only prevent a temporary ban. Should a permanent ban be triggered you will still be added to the "Ban Users" list unless the IP address is also white listed in that section.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo '<ul>';
 		echo '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.',
-		                  'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.',
-		                  'it-l10n-better-wp-security' ) . '</li>';
-		echo '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.',
-		                                                                                   'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
 		echo '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
 		echo '</ul>';
-		echo '<p class="description"><strong>' . __( 'This white list will prevent any ip listed from triggering an automatic lockout. You can still block the IP address manually in the banned users settings.',
-		                                             'it-l10n-better-wp-security' ) . '</strong></p>';
+		echo '<p class="description"><strong>' . __( 'This white list will prevent any ip listed from triggering an automatic lockout. You can still block the IP address manually in the banned users settings.', 'it-l10n-better-wp-security' ) . '</strong></p>';
 
 	}
 
@@ -649,7 +645,7 @@ class ITSEC_Global_Settings {
 
 		echo '<input class="large-text" name="itsec_global[log_location]" id="itsec_global_log_location" value="' . $log_location . '" type="text">';
 		echo '<label for="itsec_global_log_location"> ' . __( 'The path on your server where log files should be stored.', 'it-l10n-better-wp-security' ) . '</label>';
-		echo '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p class="description"> ' . __( 'This path must be writable by your website. For added security, it is recommended you do not include it in your website root folder.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo '<input id="itsec_reset_log_location" class="button-secondary" name="itsec_reset_log_location" type="button" value="' . __( 'Restore Default Location', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
 	}
@@ -762,7 +758,7 @@ class ITSEC_Global_Settings {
 			$emails = get_option( 'admin_email' );
 		}
 
-		echo '<textarea id="itsec_global_notification_email" name="itsec_global[notification_email]">' . $emails . '</textarea>';
+		echo '<textarea id="itsec_global_notification_email" name="itsec_global[notification_email]">' . $emails . PHP_EOL . '</textarea>';
 		echo '<p class="description">' . __( 'The email address(es) all security notifications will be sent to. One address per line.',
 		                                     'it-l10n-better-wp-security' ) . '</p>';
 
@@ -787,7 +783,7 @@ class ITSEC_Global_Settings {
 				'heading'   => __( 'Allow File Updates', 'it-l10n-better-wp-security' ),
 				'text'      => __( 'Many of the functions of this plugin require editing your wp-config.php or .htaccess files. Would you like to allow us to safely update these files for you automatically?',
 				                   'it-l10n-better-wp-security' ),
-				'link_text' => __( 'Allow file updates', 'it-l10n-better-wp-security' ),
+				'link_text' => __( 'Allow File Updates', 'it-l10n-better-wp-security' ),
 				'callback'  => array( $this, 'tooltip_ajax_writing' ),
 				'success'   => __( 'Setting Saved. File updates allowed.', 'it-l10n-better-wp-security' ),
 				'failure'   => __( 'Whoops. Something went wrong. Check the "Global Settings" section on the settings page (it is the first setting) to make sure your option was saved or contact support.',
@@ -846,11 +842,15 @@ class ITSEC_Global_Settings {
 
 				$email = sanitize_text_field( trim( $email ) );
 
-				if ( is_email( $email ) === false ) {
-					$bad_emails[] = $email;
-				}
+				if ( strlen( $email ) > 0 ) {
 
-				$emails_to_save[] = $email;
+					if ( is_email( $email ) === false ) {
+						$bad_emails[] = $email;
+					}
+
+					$emails_to_save[] = $email;
+
+				}
 
 			}
 
@@ -883,11 +883,15 @@ class ITSEC_Global_Settings {
 
 				$email = sanitize_text_field( trim( $email ) );
 
-				if ( is_email( $email ) === false ) {
-					$bad_emails[] = $email;
-				}
+				if ( strlen( $email ) > 0 ) {
 
-				$emails_to_save[] = $email;
+					if ( is_email( $email ) === false ) {
+						$bad_emails[] = $email;
+					}
+
+					$emails_to_save[] = $email;
+
+				}
 
 			}
 
@@ -905,10 +909,8 @@ class ITSEC_Global_Settings {
 			$input['notification_email'] = $emails_to_save;
 		}
 
-		$input['lockout_message']          = isset( $input['lockout_message'] ) ? wp_kses( $input['lockout_message'],
-		                                                                                   $this->allowed_tags ) : '';
-		$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? wp_kses( $input['user_lockout_message'],
-		                                                                                        $this->allowed_tags ) : '';
+		$input['lockout_message']          = isset( $input['lockout_message'] ) ? trim( wp_kses( $input['lockout_message'], $this->allowed_tags ) ) : '';
+		$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? trim( wp_kses( $input['user_lockout_message'], $this->allowed_tags ) ) : '';
 		$input['blacklist']                = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
 		$input['blacklist_count']          = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
 		$input['blacklist_period']         = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
@@ -1108,7 +1110,7 @@ class ITSEC_Global_Settings {
 			$user_lockout_message = __( 'You have been locked out due to too many login attempts.', 'it-l10n-better-wp-security' );
 		}
 
-		echo '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . '</textarea><br />';
+		echo '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . PHP_EOL . '</textarea><br />';
 		echo '<p class="description">' . __( 'The message to display to a user when their account has been locked out.',
 		                                     'it-l10n-better-wp-security' ) . '</p>';
 		echo '<p class="description">' . __( 'You can use HTML in your message. Allowed tags include: a, br, em, strong, h1, h2, h3, h4, h5, h6, div',

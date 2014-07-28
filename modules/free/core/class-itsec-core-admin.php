@@ -326,7 +326,7 @@ class ITSEC_Core_Admin {
 					global $itsec_globals;
 
 					echo '<div class="updated" id="itsec_support_notice">
-						<span class="itsec_notice_text">' . __( 'It looks like you\'ve been enjoying', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'it-l10n-better-wp-security' ) . '</span><input type="button" class="itsec-notice-button" value="' . __( 'Support This Plugin', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_donate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Rate it 5★\'s', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_rate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Tell Your Followers', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_tweet=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-hide" value="&times;" onclick="document.location.href=\'?itsec_no_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">
+						<span class="itsec_notice_text">' . __( 'It looks like you\'ve been enjoying', 'it-l10n-better-wp-security' ) . ' ' . $itsec_globals['plugin_name'] . ' ' . __( "for at least 30 days. It's time to take the next step.", 'it-l10n-better-wp-security' ) . '</span><input type="button" class="itsec-notice-button" value="' . __( 'Upgrade to Pro', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_donate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Rate it 5★\'s', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_rate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-button" value="' . __( 'Tell Your Followers', 'it-l10n-better-wp-security' ) . '" onclick="document.location.href=\'?itsec_tweet=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="itsec-notice-hide" value="&times;" onclick="document.location.href=\'?itsec_no_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">
 						</div>';
 
 				}
@@ -358,7 +358,7 @@ class ITSEC_Core_Admin {
 
 			//take the user to paypal if they've clicked donate
 			if ( isset( $_GET['itsec_donate'] ) ) {
-				wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V647NGJSBC882', '302' );
+				wp_redirect( 'http://ithemes.com/security', '302' );
 				exit();
 			}
 

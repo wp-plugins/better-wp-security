@@ -148,3 +148,16 @@
     Fixed a bug where an error could be generated if the saved files from the file change feature weren't properly saved
     Fixed comment approval email links to make sure they work when a user is not logged in and hide backend is in effect
     Fixed responsive issues in iThemes notifications that prevented notifications from being easily read on small screens.
+1.3.0 - 2014-07-28 - Chris Wiegman
+	Added on-demand malware scanning for the homepage
+	Fixed Error in 404 scanning if path field was empty
+	Updated hackrepair.com's default blacklist
+	Modified support reminder to ask users to upgrade rather than donate
+	Use get_home_path() in place of ABSPATH to account for WordPress core in a different directory than wp-content
+	Use PHP comments in index.php file to account for the possibility of a scan including the file in which case the html comment could result in an error
+	Fixed various typos throughout the plugin dashboard
+	Added ability to prevent file change scanning from running on a given page load by defining ITSEC_FILE_CHECK_CRON to true
+	Cleaned up file change logging reports to me more clear when no files have been changed
+	Added feature to immediately ban user "admin" when no user "admin" exists on the site and a host tries to log in with it anyway
+	Added blank line to end of all textarea input to make it easier to input data
+	Added brute force checks to XMLRPC calls to prevent brute force attacks against XMLRPC

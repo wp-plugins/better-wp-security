@@ -588,7 +588,7 @@ class ITSEC_Hide_Backend_Admin {
 			$invalid_login_slug = true;
 
 			$type    = 'error';
-			$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" ob "" (blank) as these are use by default in WordPress.', 'it-l10n-better-wp-security' );
+			$message = __( 'Invalid hide login slug used. The login url slug cannot be \"login,\" \"admin,\" \"dashboard,\" or \"wp-login.php\" or \"\" (blank) as these are use by default in WordPress.', 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 

@@ -304,14 +304,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		<li><?php _e( 'WP Permalink Structure', 'it-l10n-better-wp-security' ); ?>:
 			<strong> <?php echo $copen . $permalink_structure . $cclose; ?></strong></li>
 		<li><?php _e( 'Wp-config Location', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $config_file ?></strong></li>
-		<?php
-
-		$active_plugins_raw = get_option( 'active_plugins' );
-		$active_plugins = '';
-
-		$active_plugins = implode( ',', get_option( 'active_plugins' ) );
-
-		?>
+		<?php $active_plugins = implode( ',', get_option( 'active_plugins' ) ); ?>
 		<li><?php _e( 'Active Plugins', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $active_plugins ?></strong></li>
 		<li><?php _e( 'Content Directory', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo WP_CONTENT_DIR ?></strong></li>
 	</ul>

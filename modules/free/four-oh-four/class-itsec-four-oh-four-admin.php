@@ -239,9 +239,8 @@ class ITSEC_Four_Oh_Four_Admin {
 			$white_list = implode( PHP_EOL, $this->default_white_list );
 		}
 
-		$content = '<textarea id="itsec_four_oh_four_white_list" name="itsec_four_oh_four[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-		$content .= '<p class="description">' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"',
-		                                            'it-l10n-better-wp-security' ) . '</p>';
+		$content = '<textarea id="itsec_four_oh_four_white_list" name="itsec_four_oh_four[white_list]" rows="10" cols="50">' . $white_list . PHP_EOL . '</textarea>';
+		$content .= '<p class="description">' . __( 'Use the white list above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -328,8 +327,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 		global $itsec_lockout;
 
-		echo '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages and getting a large number of 404 errors. 404 detection assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly. This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set thresholds for this feature below.',
-		                 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages and getting a large number of 404 errors. 404 detection assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly. This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site. All errors will be logged in the \"View Logs\" page. You can set thresholds for this feature below.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo $itsec_lockout->get_lockout_description();
 
 		$this->core->do_settings_section( 'security_page_toplevel_page_itsec_settings', 'four_oh_four-enabled', false );
@@ -401,7 +399,7 @@ class ITSEC_Four_Oh_Four_Admin {
 
 				$path = sanitize_text_field( trim( $path ) );
 
-				if ( $path[0] != '/' ) {
+				if ( strlen( $path ) > 0 && $path[0] != '/' ) {
 					$path = '/' . $path;
 				}
 
@@ -514,7 +512,7 @@ class ITSEC_Four_Oh_Four_Admin {
 			) );
 		}
 
-		echo '<textarea id="itsec_four_oh_four_types" name="itsec_four_oh_four[types]" wrap="off" cols="20" rows="10">' . $types . '</textarea><br />';
+		echo '<textarea id="itsec_four_oh_four_types" name="itsec_four_oh_four[types]" wrap="off" cols="20" rows="10">' . $types . PHP_EOL . '</textarea><br />';
 		echo '<label for="itsec_four_oh_four_types"> ' . __( 'File types listed here will be recorded as 404 errors but will not lead to lockouts.', 'it-l10n-better-wp-security' ) . '</label>';
 
 	}

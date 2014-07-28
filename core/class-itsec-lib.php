@@ -257,6 +257,36 @@ final class ITSEC_Lib {
 	}
 
 	/**
+	 * Get the absolute filesystem path to the root of the WordPress installation
+	 *
+	 * @since 4.3
+	 *
+	 * @uses  get_option
+	 * @return string Full filesystem path to the root of the WordPress installation
+	 */
+	public static function get_home_path() {
+
+		$home    = set_url_scheme( get_option( 'home' ), 'http' );
+		$siteurl = set_url_scheme( get_option( 'siteurl' ), 'http' );
+
+		if ( ! empty( $home ) && 0 !== strcasecmp( $home, $siteurl ) ) {
+
+			$wp_path_rel_to_home = str_ireplace( $home, '', $siteurl ); /* $siteurl - $home */
+			$pos                 = strripos( str_replace( '\\', '/', $_SERVER['SCRIPT_FILENAME'] ), trailingslashit( $wp_path_rel_to_home ) );
+			$home_path           = substr( $_SERVER['SCRIPT_FILENAME'], 0, $pos );
+			$home_path           = trailingslashit( $home_path );
+
+		} else {
+
+			$home_path = ABSPATH;
+
+		}
+
+		return str_replace( '\\', '/', $home_path );
+
+	}
+
+	/**
 	 * Returns the root of the WordPress install
 	 *
 	 * @since 4.0.6
@@ -300,7 +330,7 @@ final class ITSEC_Lib {
 
 		} else {
 
-			return ABSPATH . '.htaccess';
+			return ITSEC_Lib::get_home_path() . '.htaccess';
 
 		}
 
@@ -377,7 +407,7 @@ final class ITSEC_Lib {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $file     the module file from which to derive the path
+	 * @param string $file the module file from which to derive the path
 	 *
 	 * @return string the path of the current module
 	 */
@@ -597,7 +627,7 @@ final class ITSEC_Lib {
 		if ( $jquery_version !== false and version_compare( $jquery_version, '1.6.3', '>=' ) ) {
 			return true;
 		} elseif ( $jquery_version === false ) {
-			return NULL;
+			return null;
 		}
 
 		return false;
@@ -723,7 +753,7 @@ final class ITSEC_Lib {
 		//validate list
 		$ip             = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
 		$ip_parts       = explode( '.', $ip );
-		$error_handler  = NULL;
+		$error_handler  = null;
 		$is_ip          = 0;
 		$part_count     = 1;
 		$good_ip        = true;
@@ -890,6 +920,23 @@ final class ITSEC_Lib {
 		@unlink( $path . '/test.txt' );
 
 		return $test;
+
+	}
+
+	/**
+	 * Validates a URL
+	 *
+	 * @since 4.3
+	 *
+	 * @param string $url the url to validate
+	 *
+	 * @return bool true if valid url else false
+	 */
+	public static function validate_url( $url ) {
+
+		$pattern = "/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i";
+
+		return (bool) preg_match( $pattern, $url );
 
 	}
 

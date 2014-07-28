@@ -100,7 +100,7 @@ class ITSEC_Ban_Users_Admin {
 
 		}
 
-		$content = '<textarea id="itsec_ban_users_agent_list" name="itsec_ban_users[agent_list]" rows="10" cols="50">' . $agent_list . '</textarea>';
+		$content = '<textarea id="itsec_ban_users_agent_list" name="itsec_ban_users[agent_list]" rows="10" cols="50">' . $agent_list . PHP_EOL . '</textarea>';
 		$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'it-l10n-better-wp-security' ) . '</p>';
 		$content .= '<ul>';
 		$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'it-l10n-better-wp-security' ) . '</li>';
@@ -177,17 +177,15 @@ class ITSEC_Ban_Users_Admin {
 
 		}
 
-		$content = '<textarea id="itsec_ban_users_host_list" name="itsec_ban_users[host_list]" rows="10" cols="50">' . $host_list . '</textarea>';
-		$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'it-l10n-better-wp-security' ) . '</p>';
-		$content .= '<ul>';
-		$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
-		$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
-		$content .= '</ul>';
-
-		echo $content;
+		echo '<textarea id="itsec_ban_users_host_list" name="itsec_ban_users[host_list]" rows="10" cols="50">' . $host_list . PHP_EOL . '</textarea>';
+		echo '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<ul>';
+		echo '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'it-l10n-better-wp-security' ) . '</a></li>';
+		echo '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'it-l10n-better-wp-security' ) . '</li>';
+		echo '</ul>';
 
 	}
 

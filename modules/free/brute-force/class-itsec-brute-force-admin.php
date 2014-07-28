@@ -74,6 +74,34 @@ class ITSEC_Brute_Force_Admin {
 	}
 
 	/**
+	 * echos Auto ban admin login Field
+	 *
+	 * @since 4.3
+	 *
+	 * @return void
+	 */
+	public function brute_force_auto_ban_admin() {
+
+		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true ) {
+			$auto_ban_admin = 1;
+		} else {
+			$auto_ban_admin = 0;
+		}
+
+		if ( ! username_exists( 'admin' ) ) {
+
+		echo '<input type="checkbox" id="itsec_brute_force_auto_ban_admin" name="itsec_brute_force[auto_ban_admin]" value="1" ' . checked( 1, $auto_ban_admin, false ) . '/>';
+		echo '<label for="itsec_brute_force_auto_ban_admin"> ' . __( 'Immediately ban a host that attempts to login using the "admin" username.', 'it-l10n-better-wp-security' ) . '</label>';
+
+		} else {
+
+			echo '<p>' . __( 'You are still using an account with the username "admin." Please rename it before using this feature', 'it-l10n-better-wp-security' ) . '</p>';
+
+		}
+
+	}
+
+	/**
 	 * echos Check Period Field
 	 *
 	 * @since 4.0
@@ -242,6 +270,13 @@ class ITSEC_Brute_Force_Admin {
 			'security_page_toplevel_page_itsec_settings', 'brute_force-settings'
 		);
 
+		add_settings_field(
+			'itsec_brute_force[auto_ban_admin]',
+			__( 'Automatically ban "admin" user', 'it-l10n-better-wp-security' ),
+			array( $this, 'brute_force_auto_ban_admin' ),
+			'security_page_toplevel_page_itsec_settings', 'brute_force-settings'
+		);
+
 		//Register the settings field for the entire module
 		register_setting(
 			'security_page_toplevel_page_itsec_settings',
@@ -354,6 +389,7 @@ class ITSEC_Brute_Force_Admin {
 
 		//process brute force settings
 		$input['enabled']           = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+		$input['auto_ban_admin']    = ( isset( $input['auto_ban_admin'] ) && intval( $input['auto_ban_admin'] == 1 ) ? true : false );
 		$input['max_attempts_host'] = isset( $input['max_attempts_host'] ) ? absint( $input['max_attempts_host'] ) : 5;
 		$input['max_attempts_user'] = isset( $input['max_attempts_user'] ) ? absint( $input['max_attempts_user'] ) : 10;
 		$input['check_period']      = isset( $input['check_period'] ) ? absint( $input['check_period'] ) : 5;

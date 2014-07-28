@@ -446,6 +446,17 @@ final class ITSEC_Lockout {
 			$white_ips = explode( PHP_EOL, $white_ips );
 		}
 
+		//Add the server IP address
+		if ( isset( $_SERVER['LOCAL_ADDR'] ) ) {
+
+			$white_ips[] = $_SERVER['LOCAL_ADDR'];
+
+		} elseif( isset( $_SERVER['SERVER_ADDR'] ) ) {
+
+			$white_ips[] = $_SERVER['SERVER_ADDR'];
+
+		}
+
 		if ( $current === true ) {
 			$white_ips[] = ITSEC_Lib::get_ip(); //add current user ip to whitelist to check automatically
 		}

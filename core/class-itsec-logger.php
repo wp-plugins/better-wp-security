@@ -86,16 +86,16 @@ final class ITSEC_Logger {
 
 		global $itsec_globals;
 
-		add_meta_box(
-			'itsec_log_header',
-			__( 'Security Log Information', 'it-l10n-better-wp-security' ),
-			array( $this, 'metabox_logs_header' ),
-			'security_page_toplevel_page_itsec_logs',
-			'top',
-			'core'
-		);
-
 		if ( isset( $itsec_globals['settings']['log_type'] ) && ( $itsec_globals['settings']['log_type'] === 0 || $itsec_globals['settings']['log_type'] === 2 ) ) {
+
+			add_meta_box(
+				'itsec_log_header',
+				__( 'Security Log Information', 'it-l10n-better-wp-security' ),
+				array( $this, 'metabox_logs_header' ),
+				'security_page_toplevel_page_itsec_logs',
+				'top',
+				'core'
+			);
 
 			add_meta_box(
 				'itsec_log_all',
@@ -103,6 +103,17 @@ final class ITSEC_Logger {
 				array( $this, 'metabox_all_logs' ),
 				'security_page_toplevel_page_itsec_logs',
 				'normal',
+				'core'
+			);
+
+		} else {
+
+			add_meta_box(
+				'itsec_log_header',
+				__( 'Security Log Information', 'it-l10n-better-wp-security' ),
+				array( $this, 'metabox_logs_header_no_logs' ),
+				'security_page_toplevel_page_itsec_logs',
+				'top',
 				'core'
 			);
 
@@ -181,10 +192,11 @@ final class ITSEC_Logger {
 	 *
 	 * @param string $module module or type of events to fetch
 	 * @param array  $params array of extra query parameters
+	 * @param int    $limit  the maximum number of rows to retrieve
 	 *
 	 * @return bool|mixed false on error, null if no events or array of events
 	 */
-	public function get_events( $module, $params = array() ) {
+	public function get_events( $module, $params = array(), $limit = null ) {
 
 		global $wpdb;
 
@@ -212,6 +224,16 @@ final class ITSEC_Logger {
 
 		}
 
+		if ( $limit !== null ) {
+
+			$result_limit = ' LIMIT ' . absint( $limit );
+
+		} else {
+
+			$result_limit = '';
+
+		}
+
 		if ( sizeof( $params ) > 0 ) {
 
 			foreach ( $params as $field => $value ) {
@@ -226,7 +248,7 @@ final class ITSEC_Logger {
 
 		}
 
-		$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log`" . $where . $module_sql . $param_search . ";", ARRAY_A );
+		$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log`" . $where . $module_sql . $param_search . ' ORDER BY `log_id` DESC' . $result_limit . ";", ARRAY_A );
 
 		return $items;
 
@@ -323,6 +345,24 @@ final class ITSEC_Logger {
 	}
 
 	/**
+	 * Displays into box for logs page when only file logging is enabled
+	 *
+	 * @since 4.0
+	 *
+	 * @return void
+	 */
+	public function metabox_logs_header_no_logs() {
+
+		global $itsec_globals;
+
+		printf(
+			'<p>%s</p>',
+			__( 'To view logs within the plugin you must enable database logging in the plugin settings. File logging is not available for access within the plugin itself.', 'it-l10n-better-wp-security' )
+		);
+
+	}
+
+	/**
 	 * Displays into box for logs page
 	 *
 	 * @since 4.0
@@ -332,7 +372,7 @@ final class ITSEC_Logger {
 	public function metabox_all_logs() {
 
 		$log_filter = isset( $_GET['itsec_log_filter'] ) ? sanitize_text_field( $_GET['itsec_log_filter'] ) : 'all-log-data';
-		$callback   = NULL;
+		$callback   = null;
 
 		echo '<p>' . __( 'To adjust logging options visit the global settings page.', 'it-l10n-better-wp-security' ) . '</p>';
 
@@ -356,7 +396,7 @@ final class ITSEC_Logger {
 
 		echo '</select>';
 
-		if ( $log_filter === 'all-log-data' || $callback === NULL ) {
+		if ( $log_filter === 'all-log-data' || $callback === null ) {
 
 			$this->all_logs_content();
 

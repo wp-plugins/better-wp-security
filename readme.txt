@@ -2,10 +2,10 @@
 === iThemes Security (formerly Better WP Security) ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
 Donate link: http://ithemes.com
-Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
-Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 4.2.15
+Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
+Requires at least: 3.9
+Tested up to: 4.0
+Stable tag: 4.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,12 +35,12 @@ Pro Features:
 * User action logging - track when user's edit content, login or logout
 * 2-factor authentication - Use Google Authenticator or Authy to send a custom code to your phone when you log in
 * Import/export settings - saves time setting up multiple WordPress sites
+* Malware scanning - Automatically check any URL or individual file on a specified schedule and scan your whole site automatically as users browse through it
 * GeoIP banning - coming soon
-* Malware scanning - coming soon
 
 = iThemes Sync Integration =
 
-Manage more than one site? Manage away mode, release lockouts and make sure your WordPress site is up to date with <a href="http://ithemes.com/sync/">iThemes Sync</a>.
+Manage more than one site? Manage away mode, handle malware scanning, release lockouts and make sure your WordPress site is up to date with <a href="http://ithemes.com/sync/">iThemes Sync</a>.
 
 = Obscure =
 
@@ -79,6 +79,7 @@ iThemes Security monitors your site and reports changes to the filesystem and da
 
 * Detects bots and other attempts to search for vulnerabilities
 * Monitors filesystem for unauthorized changes
+* Run a scan for malware and blacklists on the homepage of your site
 * Receive email notifications when someone gets locked out after too many failed login attempts or when a file on your site has been changed.
 
 = Recover =
@@ -184,6 +185,24 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.3.2 =
+* Added on-demand malware scanning for the homepage
+* Added better URL validation to ITSEC_LIB
+* Added exception for 127.0.0.1 to prevent a local server from being locked out of a site during wp-cron or other calls
+* Added button to quickly add current IP address to permanent whitelist
+* Added appropriate message for logs page when logs are not available due to "file only" logging being selected
+* Fixed Error in 404 scanning if path field was empty
+* Updated hackrepair.com's default blacklist
+* Modified support reminder to ask users to upgrade rather than donate
+* Use get_home_path() in place of ABSPATH to account for WordPress core in a different directory than wp-content
+* Use PHP comments in index.php file to account for the possibility of a scan including the file in which case the html comment could result in an error
+* Fixed various typos throughout the plugin dashboard
+* Added ability to prevent file change scanning from running on a given page load by defining ITSEC_FILE_CHECK_CRON to true
+* Cleaned up file change logging reports to me more clear when no files have been changed
+* Added feature to immediately ban user "admin" when no user "admin" exists on the site and a host tries to log in with it anyway
+* Added blank line to end of all textarea input to make it easier to input data
+* Added brute force checks to XMLRPC calls to prevent brute force attacks against XMLRPC
 
 = 4.2.15 =
 * Fixed a bug preventing file-change scanning from running when manually executed from the "Logs" page
@@ -1182,6 +1201,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.3.2 =
+Version 4.3.2 adds malware scheduling and other features as well as numerous minor bugfixes and enhancements. It is recommended for all users.
 
 = 4.2.15 =
 Version 4.2.15 delivers fixes for minor bugs experienced by some users.

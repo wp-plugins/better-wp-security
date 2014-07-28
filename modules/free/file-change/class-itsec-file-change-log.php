@@ -105,40 +105,62 @@ final class ITSEC_File_Change_Log extends ITSEC_WP_List_Table {
 
 			echo '<a href="itsec-log-file-change-row-' . $item['detail'] . '" class="dialog">' . __( 'Details', 'it-l10n-better-wp-security' ) . '</a>';
 
-			$content = '<div id="itsec-log-file-change-row-' . $item['detail'] . '" style="display:none;">';
+			echo '<div id="itsec-log-file-change-row-' . $item['detail'] . '" style="display:none;">';
 
-			$content .= '<h3>' . __( 'Files Added', 'it-l10n-better-wp-security' ) . '</h3>';
+			echo '<h3>' . __( 'Files Added', 'it-l10n-better-wp-security' ) . '</h3>';
 
-			$content .= '<ol class="file_change_detail_list">';
+			echo '<ol class="file_change_detail_list">';
 
-			foreach ( $item['added_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+			if ( sizeof( $item['added_detail'] ) > 0 ) {
+
+				foreach ( $item['added_detail'] as $file => $details ) {
+					echo '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+				}
+
+			} else {
+
+				echo '<li class="file_change_detail">' . __( 'There are no added files to report', 'it-l10n-better-wp-security' ) . '</li>';
+
 			}
 
-			$content .= '</ol>';
+			echo '</ol>';
 
-			$content .= '<h3>' . __( 'Files Removed', 'it-l10n-better-wp-security' ) . '</h3>';
+			echo '<h3>' . __( 'Files Removed', 'it-l10n-better-wp-security' ) . '</h3>';
 
-			$content .= '<ol class="file_change_detail_list">';
+			echo '<ol class="file_change_detail_list">';
 
-			foreach ( $item['removed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+			if ( sizeof( $item['removed_detail'] ) > 0 ) {
+
+				foreach ( $item['removed_detail'] as $file => $details ) {
+					echo '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>:' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+				}
+
+			} else {
+
+				echo '<li class="file_change_detail">' . __( 'There are no deleted files to report', 'it-l10n-better-wp-security' ) . '</li>';
+
 			}
 
-			$content .= '</ol>';
+			echo '</ol>';
 
-			$content .= '<h3>' . __( 'Files Changed', 'it-l10n-better-wp-security' ) . '</h3>';
+			echo '<h3>' . __( 'Files Changed', 'it-l10n-better-wp-security' ) . '</h3>';
 
-			$content .= '<ol class="file_change_detail_list">';
+			echo '<ol class="file_change_detail_list">';
 
-			foreach ( $item['changed_detail'] as $file => $details ) {
-				$content .= '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+			if ( sizeof( $item['changed_detail'] ) > 0 ) {
+
+				foreach ( $item['changed_detail'] as $file => $details ) {
+					echo '<li class="file_change_detail"><strong>' . __( 'File', 'it-l10n-better-wp-security' ) . '</strong>: ' . $file . '<br /><strong>' . __( 'Date', 'it-l10n-better-wp-security' ) . '</strong>: ' . date( ' Y-m-d g:i a', ( isset( $details['mod_date'] ) ? $details['mod_date'] : $details['d'] ) ) . '</li>';
+				}
+
+			} else {
+
+				echo '<li class="file_change_detail">' . __( 'There are no changed files to report', 'it-l10n-better-wp-security' ) . '</li>';
+
 			}
 
-			$content .= '</ol>';
-			$content .= '</div>';
-
-			echo $content;
+			echo '</ol>';
+			echo '</div>';
 
 		}
 

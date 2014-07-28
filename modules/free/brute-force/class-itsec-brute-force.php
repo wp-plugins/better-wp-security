@@ -31,6 +31,14 @@ class ITSEC_Brute_Force {
 
 		global $itsec_lockout, $itsec_logger;
 
+		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true && trim( sanitize_text_field( $username ) ) == 'admin' ) {
+
+			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), sanitize_text_field( $username ) );
+
+			$itsec_lockout->do_lockout( 'brute_force_admin_user', sanitize_text_field( $username ) );
+
+		}
+
 		if ( isset( $_POST['log'] ) && $_POST['log'] != '' && isset( $_POST['pwd'] ) && $_POST['pwd'] != '' ) {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
@@ -90,7 +98,15 @@ class ITSEC_Brute_Force {
 
 		global $itsec_lockout, $itsec_logger;
 
-		if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
+		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true && trim( sanitize_text_field( $username ) ) == 'admin' ) {
+
+			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), sanitize_text_field( $username ) );
+
+			$itsec_lockout->do_lockout( 'brute_force_admin_user', sanitize_text_field( $username ) );
+
+		}
+
+		if ( ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST === true ) || ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) ) {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
 
@@ -130,6 +146,14 @@ class ITSEC_Brute_Force {
 				'reason' => __( 'too many bad login attempts', 'it-l10n-better-wp-security' ),
 				'host'   => $this->settings['max_attempts_host'],
 				'user'   => $this->settings['max_attempts_user'],
+				'period' => $this->settings['check_period']
+			);
+
+			$lockout_modules['brute_force_admin_user'] = array(
+				'type'   => 'brute_force',
+				'reason' => __( 'user tried to login as "admin."', 'it-l10n-better-wp-security' ),
+				'host'   => 1,
+				'user'   => 1,
 				'period' => $this->settings['check_period']
 			);
 

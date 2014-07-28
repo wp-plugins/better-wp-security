@@ -145,6 +145,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Hide_Backend',
 					),
+					'malware'  => array(
+						'has_front' => true,
+						'option'    => 'itsec_malware',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Malware',
+					),
 					'ssl'               => array(
 						'has_front' => true,
 						'option'    => 'itsec_ssl',
@@ -181,6 +188,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					),
 				),
 				'pro_modules'        => array(
+					'malware-scheduling'  => array(
+						'has_front' => true,
+						'option'    => 'itsec_malware_scheduling',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Malware_Scheduling',
+					),
 					'settings'     => array(
 						'has_front' => false,
 						'class_id'  => 'Settings',

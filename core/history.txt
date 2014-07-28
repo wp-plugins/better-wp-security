@@ -111,3 +111,9 @@
     Fixed an issue that was preventing an IP from being permanently banned due to too many lockouts
     Updated .htaccess rules for an IP that has been banned from too many lockouts to be more effective in more hosting environments
     Fixed responsive issues in iThemes notifications that prevented notifications from being easily read on small screens.
+1.5.0 - 2014-07-28 - Chris Wiegman
+	Added malware and malware scheduling modules
+	Added better URL validation to ITSEC_LIB
+	Added exception for 127.0.0.1 to prevent a local server from being locked out of a site during wp-cron or other calls
+	Added button to quickly add current IP address to permanent whitelist
+	Added appropriate message for logs page when logs are not available due to "file only" logging being selected
