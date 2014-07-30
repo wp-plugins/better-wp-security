@@ -908,9 +908,20 @@ final class ITSEC_Lib {
 
 		$path = implode( DIRECTORY_SEPARATOR, $absolutes );
 
+
 		// resolve any symlinks
-		if ( file_exists( $path ) && linkinfo( $path ) > 0 ) {
-			$path = @readlink( $path );
+		if ( function_exists( 'linkinfo' ) ) { //linkinfo not available on Windows with PHP < 5.3.0
+
+			if ( file_exists( $path ) && linkinfo( $path ) > 0 ) {
+				$path = @readlink( $path );
+			}
+
+		} else {
+
+			if ( file_exists( $path ) && linkinfo( $path ) > 0 ) {
+				$path = @readlink( $path );
+			}
+
 		}
 
 		// put initial separator that could have been lost

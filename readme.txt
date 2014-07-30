@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.3.3
+Stable tag: 4.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,8 +186,13 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Changelog ==
 
+= 4.3.7 =
+* Updated descriptions an instructions in malware scheduling to make the feature easier to use
+* Numerous typo corrections throughout dashboard
+* Clean up notifications for file change detection and malware scanning
+
 = 4.3.3 =
-* Fixed an inadvertant disabling of file change scans intrudced in 4.3
+* Fixed an accidental disabling of file change scans introduced in 4.3
 
 = 4.3.2 =
 * Added on-demand malware scanning for the homepage
@@ -1204,6 +1209,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.3.7 =
+Version 4.3.7 adds malware scheduling and other features as well as numerous minor bugfixes and enhancements. It is recommended for all users.
 
 = 4.3.3 =
 Version 4.3.3 adds malware scheduling and other features as well as numerous minor bugfixes and enhancements. It is recommended for all users.

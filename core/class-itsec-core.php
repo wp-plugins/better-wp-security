@@ -217,6 +217,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'has_front' => false,
 						'class_id'  => 'Help',
 					),
+					'core'              => array(
+						'has_front' => false,
+						'class_id'  => 'Core',
+					),
 
 				),
 			);

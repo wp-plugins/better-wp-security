@@ -318,9 +318,10 @@ class ITSEC_File_Change_Admin {
 
 			echo '<form id="itsec_one_time_file_check" method="post" action="">';
 			echo wp_nonce_field( 'itsec_do_file_check', 'wp_nonce' );
-			echo '<input type="hidden" name="itsec_file_change_origin" value="' . sanitize_text_field( $origin ) . '"><div id="itsec_file_change_status"></div>';
+			echo '<input type="hidden" name="itsec_file_change_origin" value="' . sanitize_text_field( $origin ) . '">';
 			echo '<p>' . __( "Press the button below to scan your site's files for changes. Note that if changes are found this will take you to the logs page for details.", 'it-l10n-better-wp-security' ) . '</p>';
 			echo '<p><input type="submit" id="itsec_one_time_file_check_submit" class="button-primary" value="' . ( isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ) ) . '" /></p>';
+			echo '<div id="itsec_file_change_status"><p></p></div>';
 			echo '</form>';
 
 		}

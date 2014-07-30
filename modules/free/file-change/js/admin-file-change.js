@@ -74,7 +74,8 @@ jQuery( document ).ready( function () {
 					jQuery( "#itsec_one_time_file_check_submit" ).removeClass( 'button-secondary' ).addClass( 'button-primary' ).attr( 'value', itsec_file_change.button_text );
 
 					if ( response.responseText == 0 ) {
-						jQuery( "#itsec_file_change_status" ).text( itsec_file_change.no_changes );
+						jQuery( "#itsec_one_time_file_check_submit" ).hide();
+						jQuery( "#itsec_file_change_status" ).show().find('p').text( itsec_file_change.no_changes );
 					}
 
 				}

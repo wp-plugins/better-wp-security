@@ -188,3 +188,11 @@
 	Added appropriate message for logs page when logs are not available due to "file only" logging being selected
 4.3.3 - 2014-07-28 - Packaging Bot (modules/free)
 	Fixed an inadvertant disabling of file change scans intrudced in 4.3
+4.3.4 - 2014-07-29 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.3.2
+4.3.5 - 2014-07-29 - Packaging Bot (core)
+	Make sure pro core module loads to remove upsell when pro has already been purchased.
+4.3.6 - 2014-07-30 - Packaging Bot (modules/free)
+	Clean up notifications for file change detection and malware scanning
+4.3.7 - 2014-07-30 - Packaging Bot (core)
+	Clean up notifications for file change detection and malware scanning

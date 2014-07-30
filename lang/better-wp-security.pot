@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.3.3\n"
+"Project-Id-Version: iThemes Security 4.3.7\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-07-28 16:35:11+00:00\n"
+"POT-Creation-Date: 2014-07-30 14:05:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,130 +13,130 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.3.3)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.3.7)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:232
+#: core/class-itsec-core.php:236
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:217
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:239
+#: core/class-itsec-core.php:243
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:246
+#: core/class-itsec-core.php:250
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:253
+#: core/class-itsec-core.php:257
 #: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:264
+#: core/class-itsec-core.php:268
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:276 core/class-itsec-core.php:287
+#: core/class-itsec-core.php:280 core/class-itsec-core.php:291
 #: modules/free/backup/class-itsec-backup-admin.php:676
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:468 core/class-itsec-core.php:561
-#: core/class-itsec-core.php:857 core/class-itsec-core.php:1483
-#: core/class-itsec-core.php:1522
+#: core/class-itsec-core.php:472 core/class-itsec-core.php:565
+#: core/class-itsec-core.php:861 core/class-itsec-core.php:1487
+#: core/class-itsec-core.php:1526
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:552 core/class-itsec-core.php:1484
+#: core/class-itsec-core.php:556 core/class-itsec-core.php:1488
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:701
+#: core/class-itsec-core.php:705
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:728 core/class-itsec-core.php:1567
+#: core/class-itsec-core.php:732 core/class-itsec-core.php:1571
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:732 core/class-itsec-core.php:1571
+#: core/class-itsec-core.php:736 core/class-itsec-core.php:1575
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:738 core/class-itsec-core.php:1577
+#: core/class-itsec-core.php:742 core/class-itsec-core.php:1581
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:740 core/class-itsec-core.php:1579
+#: core/class-itsec-core.php:744 core/class-itsec-core.php:1583
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:742
+#: core/class-itsec-core.php:746
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:743
+#: core/class-itsec-core.php:747
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:750 core/class-itsec-core.php:1584
+#: core/class-itsec-core.php:754 core/class-itsec-core.php:1588
 #: core/class-itsec-files.php:120
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:817
+#: core/class-itsec-core.php:821
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:827
+#: core/class-itsec-core.php:831
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:1309
+#: core/class-itsec-core.php:1313
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1310
+#: core/class-itsec-core.php:1314
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1311
+#: core/class-itsec-core.php:1315
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1313
+#: core/class-itsec-core.php:1317
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1314
+#: core/class-itsec-core.php:1318
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1395
+#: core/class-itsec-core.php:1399
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1700
+#: core/class-itsec-core.php:1704
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1700
+#: core/class-itsec-core.php:1704
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -623,10 +623,10 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:541
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:511
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:329
-#: modules/free/file-change/class-itsec-file-change-admin.php:606
+#: modules/free/file-change/class-itsec-file-change-admin.php:607
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:341
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:481
-#: modules/free/malware/class-itsec-malware-admin.php:309
+#: modules/free/malware/class-itsec-malware-admin.php:306
 #: modules/free/ssl/class-itsec-ssl-admin.php:347
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:186
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1746
@@ -723,15 +723,15 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:754
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:724
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:419
-#: modules/free/file-change/class-itsec-file-change-admin.php:340
-#: modules/free/file-change/class-itsec-file-change-admin.php:624
-#: modules/free/file-change/class-itsec-file-change-admin.php:684
-#: modules/free/file-change/class-itsec-file-change-admin.php:809
+#: modules/free/file-change/class-itsec-file-change-admin.php:341
+#: modules/free/file-change/class-itsec-file-change-admin.php:625
+#: modules/free/file-change/class-itsec-file-change-admin.php:685
+#: modules/free/file-change/class-itsec-file-change-admin.php:810
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:465
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
-#: modules/free/malware/class-itsec-malware-admin.php:360
-#: modules/free/malware/class-itsec-malware-admin.php:398
-#: modules/free/malware/class-itsec-malware-admin.php:428
+#: modules/free/malware/class-itsec-malware-admin.php:357
+#: modules/free/malware/class-itsec-malware-admin.php:395
+#: modules/free/malware/class-itsec-malware-admin.php:425
 #: modules/free/ssl/class-itsec-ssl-admin.php:577
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:249
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:1948
@@ -2634,8 +2634,8 @@ msgid "Could not update prefix references in usermeta table."
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-admin.php:46
-#: modules/free/file-change/class-itsec-file-change-admin.php:510
-#: modules/free/file-change/class-itsec-file-change-admin.php:525
+#: modules/free/file-change/class-itsec-file-change-admin.php:511
+#: modules/free/file-change/class-itsec-file-change-admin.php:526
 msgid "File Change Detection"
 msgstr ""
 
@@ -2731,54 +2731,54 @@ msgid ""
 "changes are found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:362
+#: modules/free/file-change/class-itsec-file-change-admin.php:363
 msgid ""
 "Exclude files or folders by clicking the red minus next to the file or "
 "folder name."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:402
+#: modules/free/file-change/class-itsec-file-change-admin.php:403
 msgid "Today"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:404
+#: modules/free/file-change/class-itsec-file-change-admin.php:405
 msgid "Tomorrow"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:409
+#: modules/free/file-change/class-itsec-file-change-admin.php:410
 msgid "Next automatic scan at: "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:410
+#: modules/free/file-change/class-itsec-file-change-admin.php:411
 msgid ""
 "Automatic file change scanning is triggered by a user visiting your page and "
 "may not happen exactly at the time listed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:438
+#: modules/free/file-change/class-itsec-file-change-admin.php:439
 msgid "Exclude Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:439
+#: modules/free/file-change/class-itsec-file-change-admin.php:440
 msgid "Include Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:441
+#: modules/free/file-change/class-itsec-file-change-admin.php:442
 msgid "Include/Exclude Files"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:442
+#: modules/free/file-change/class-itsec-file-change-admin.php:443
 msgid ""
 "Select what we should exclude files and folders selected or whether the scan "
 "should only include files and folders selected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:462
-#: modules/free/file-change/class-itsec-file-change-admin.php:573
+#: modules/free/file-change/class-itsec-file-change-admin.php:463
+#: modules/free/file-change/class-itsec-file-change-admin.php:574
 msgid "Display file change admin warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:463
+#: modules/free/file-change/class-itsec-file-change-admin.php:464
 msgid ""
 "Disabling this feature will prevent the file change warning from displaying "
 "to the site administrator in the WordPress Dashboard. Note that disabling "
@@ -2787,38 +2787,38 @@ msgid ""
 "manually checking the log files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:492
+#: modules/free/file-change/class-itsec-file-change-admin.php:493
 msgid ""
 "File types listed here will not be checked for changes. While it is possible "
 "to change files such as images it is quite rare and nearly all known "
 "WordPress attacks exploit php, js and other text files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:517
+#: modules/free/file-change/class-itsec-file-change-admin.php:518
 msgid "File Change Detection Settings"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:533
+#: modules/free/file-change/class-itsec-file-change-admin.php:534
 msgid "Split File Scanning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:541
+#: modules/free/file-change/class-itsec-file-change-admin.php:542
 msgid "Include/Exclude Files and Folders"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:549
+#: modules/free/file-change/class-itsec-file-change-admin.php:550
 msgid "Files and Folders List"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:557
+#: modules/free/file-change/class-itsec-file-change-admin.php:558
 msgid "Ignore File Types"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:565
+#: modules/free/file-change/class-itsec-file-change-admin.php:566
 msgid "Email File Change Notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:595
+#: modules/free/file-change/class-itsec-file-change-admin.php:596
 msgid ""
 "Even the best security solutions can fail. How do you know if someone gets "
 "into your site? You will know because they will change something. File "
@@ -2829,7 +2829,7 @@ msgid ""
 "thereby taking into account whether or not you modify the files yourself."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:709
+#: modules/free/file-change/class-itsec-file-change-admin.php:710
 msgid "File Change History"
 msgstr ""
 
@@ -3306,7 +3306,7 @@ msgid "Malware Scanning"
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:79
-#: modules/free/malware/class-itsec-malware-admin.php:281
+#: modules/free/malware/class-itsec-malware-admin.php:280
 msgid "Scan Homepage for Malware"
 msgstr ""
 
@@ -3326,55 +3326,59 @@ msgstr ""
 msgid "You will need to get a free api key from "
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:128
+#: modules/free/malware/class-itsec-malware-admin.php:109
+msgid "For more information on setting up your account, visit this"
+msgstr ""
+
+#: modules/free/malware/class-itsec-malware-admin.php:127
 msgid ""
 "Malware scanning is enabled and running at scheduled intervals on your "
 "computer"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:133
+#: modules/free/malware/class-itsec-malware-admin.php:132
 msgid ""
 "Malware scanning is enabled but not scheduled. Consider enabling scheduled "
 "scans."
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:138
+#: modules/free/malware/class-itsec-malware-admin.php:137
 msgid "Malware scanning is not enabled."
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:164
+#: modules/free/malware/class-itsec-malware-admin.php:163
 msgid "Enable malware scanning."
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:180
-#: modules/free/malware/class-itsec-malware-admin.php:195
+#: modules/free/malware/class-itsec-malware-admin.php:179
+#: modules/free/malware/class-itsec-malware-admin.php:194
 msgid "Enable Malware Scanning"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:187
+#: modules/free/malware/class-itsec-malware-admin.php:186
 msgid "Malware Scanning Settings"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:203
+#: modules/free/malware/class-itsec-malware-admin.php:202
 msgid "API Key"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:234
+#: modules/free/malware/class-itsec-malware-admin.php:233
 #: modules/free/malware/class-itsec-malware.php:36
 msgid "Malware Scan"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:280
+#: modules/free/malware/class-itsec-malware-admin.php:279
 msgid ""
 "Press the button below to scan your site's homepage for malware. Note that "
 "if malware is found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:298
-msgid "Scan your site regularly for malware and other issues."
+#: modules/free/malware/class-itsec-malware-admin.php:282
+msgid "View logs of previous scans"
 msgstr ""
 
-#: modules/free/malware/class-itsec-malware-admin.php:331
+#: modules/free/malware/class-itsec-malware-admin.php:328
 msgid "You must enter a valid API key to use the malware scanner."
 msgstr ""
 

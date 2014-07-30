@@ -533,7 +533,18 @@ div.itsec_rewrite_rules code {
 	padding-left : 40px;
 }
 
-/* Walkthrough video modal */
+/* Malware & File Change status message */
+#itsec_malware_scan_status,
+#itsec_file_change_status {
+	display:none;
+}
+#itsec_malware_scan_status p,
+#itsec_file_change_status p {
+	padding: 5px 10px 5px 30px;
+	border: 1px solid #a8d657;
+	background: #e2edce url(../img/green-check16.png) 10px center no-repeat;
+	color: #435523;
+}
 
 /***************************************
 	Media Queries

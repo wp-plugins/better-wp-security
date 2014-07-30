@@ -117,3 +117,7 @@
 	Added exception for 127.0.0.1 to prevent a local server from being locked out of a site during wp-cron or other calls
 	Added button to quickly add current IP address to permanent whitelist
 	Added appropriate message for logs page when logs are not available due to "file only" logging being selected
+1.5.1 - 2014-07-29 - Chris Wiegman
+	Make sure pro core module loads to remove upsell when pro has already been purchased.
+1.5.2 - 2014-07-30 - Chris Wiegman
+	Clean up notifications for file change detection and malware scanning
