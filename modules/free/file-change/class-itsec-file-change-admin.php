@@ -440,7 +440,7 @@ class ITSEC_File_Change_Admin {
 		echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Include Selected', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '</select><br />';
 		echo '<label for="itsec_file_change_method"> ' . __( 'Include/Exclude Files', 'it-l10n-better-wp-security' ) . '</label>';
-		echo '<p class="description">' . __( 'Select what we should exclude files and folders selected or whether the scan should only include files and folders selected.' ) . '</p>';
+		echo '<p class="description">' . __( 'Select whether we should exclude files and folders selected or whether the scan should only include files and folders selected.' ) . '</p>';
 
 	}
 

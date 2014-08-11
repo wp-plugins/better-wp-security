@@ -74,7 +74,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4031, //plugin build number - used to trigger updates
+				'plugin_build'       => 4032, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -145,7 +145,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Hide_Backend',
 					),
-					'malware'  => array(
+					'malware'           => array(
 						'has_front' => true,
 						'option'    => 'itsec_malware',
 						'setting'   => 'enabled',
@@ -188,36 +188,36 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					),
 				),
 				'pro_modules'        => array(
-					'malware-scheduling'  => array(
+					'malware-scheduling' => array(
 						'has_front' => true,
 						'option'    => 'itsec_malware_scheduling',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'Malware_Scheduling',
 					),
-					'settings'     => array(
+					'settings'           => array(
 						'has_front' => false,
 						'class_id'  => 'Settings',
 					),
-					'two-factor'   => array(
+					'two-factor'         => array(
 						'has_front' => true,
 						'option'    => 'itsec_two_factor',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'Two_Factor',
 					),
-					'user-logging' => array(
+					'user-logging'       => array(
 						'has_front' => true,
 						'option'    => 'itsec_user_logging',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'User_Logging',
 					),
-					'help'         => array(
+					'help'               => array(
 						'has_front' => false,
 						'class_id'  => 'Help',
 					),
-					'core'              => array(
+					'core'               => array(
 						'has_front' => false,
 						'class_id'  => 'Core',
 					),
@@ -848,9 +848,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @return void
 		 */
-		public function admin_tabs( $current = NULL ) {
+		public function admin_tabs( $current = null ) {
 
-			if ( $current == NULL ) {
+			if ( $current == null ) {
 				$current = 'itsec';
 			}
 
@@ -1015,6 +1015,43 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			new ITSEC_Setup( 'upgrade', $itsec_globals['data']['build'] ); //run upgrade scripts
 
+			$modules             = $itsec_globals['free_modules'];
+			$has_pro             = $itsec_globals['has_pro'];
+			$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
+			$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
+
+			if ( $has_pro ) {
+
+				$modules = array_merge( $modules, $itsec_globals['pro_modules'] );
+
+			}
+
+			foreach ( $modules as $module => $info ) {
+
+				if ( $has_pro === false || ! array_key_exists( $module, $itsec_globals['pro_modules'] ) ) { //don't duplicate module if pro version already loaded
+
+					$setup_file = $pro_modules_folder . '/' . $module . '/setup.php';
+
+				} else {
+
+					$setup_file = $free_modules_folder . '/' . $module . '/setup.php';
+
+				}
+
+				if ( file_exists( $setup_file ) ) {
+
+					$setup_class = 'ITSEC_' . $info['class_id'] . '_SETUP';
+
+					if ( ! class_exists( $setup_class ) ) {
+						require( $setup_file );
+					}
+
+					new $setup_class;
+
+				}
+
+			}
+
 		}
 
 		/**
@@ -1097,7 +1134,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			$run_front = false;
 			$run_admin = false;
-			$front     = NULL;
+			$front     = null;
 
 			if ( is_admin() ) {
 
@@ -1383,17 +1420,17 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 							<div id="postbox-container-2" class="postbox-container">
 								<?php do_action( 'itsec_page_top', $screen ); ?>
-								<?php do_meta_boxes( $screen, 'top', NULL ); ?>
-								<?php do_meta_boxes( $screen, 'normal', NULL ); ?>
+								<?php do_meta_boxes( $screen, 'top', null ); ?>
+								<?php do_meta_boxes( $screen, 'normal', null ); ?>
 								<?php do_action( 'itsec_page_middle', $screen ); ?>
-								<?php do_meta_boxes( $screen, 'advanced', NULL ); ?>
-								<?php do_meta_boxes( $screen, 'bottom', NULL ); ?>
+								<?php do_meta_boxes( $screen, 'advanced', null ); ?>
+								<?php do_meta_boxes( $screen, 'bottom', null ); ?>
 								<?php do_action( 'itsec_page_bottom', $screen ); ?>
 							</div>
 
 							<div id="postbox-container-1" class="postbox-container">
-								<?php do_meta_boxes( $screen, 'priority_side', NULL ); ?>
-								<?php do_meta_boxes( $screen, 'side', NULL ); ?>
+								<?php do_meta_boxes( $screen, 'priority_side', null ); ?>
+								<?php do_meta_boxes( $screen, 'side', null ); ?>
 								<?php if ( $screen == 'security_page_toplevel_page_itsec_settings' || $screen == 'security_page_toplevel_page_itsec_pro' ) { ?>
 									<a href="#"
 									   class="itsec_return_to_top"><?php _e( 'Return to top', 'it-l10n-better-wp-security' ); ?></a>

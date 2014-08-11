@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.3.7\n"
+"Project-Id-Version: iThemes Security 4.3.9\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-07-30 14:05:11+00:00\n"
+"POT-Creation-Date: 2014-08-11 19:36:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.3.7)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.3.9)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -48,12 +48,12 @@ msgid "Backups"
 msgstr ""
 
 #: core/class-itsec-core.php:472 core/class-itsec-core.php:565
-#: core/class-itsec-core.php:861 core/class-itsec-core.php:1487
-#: core/class-itsec-core.php:1526
+#: core/class-itsec-core.php:861 core/class-itsec-core.php:1524
+#: core/class-itsec-core.php:1563
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:556 core/class-itsec-core.php:1488
+#: core/class-itsec-core.php:556 core/class-itsec-core.php:1525
 msgid "Security"
 msgstr ""
 
@@ -61,21 +61,21 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:732 core/class-itsec-core.php:1571
+#: core/class-itsec-core.php:732 core/class-itsec-core.php:1608
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:736 core/class-itsec-core.php:1575
+#: core/class-itsec-core.php:736 core/class-itsec-core.php:1612
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:742 core/class-itsec-core.php:1581
+#: core/class-itsec-core.php:742 core/class-itsec-core.php:1618
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:744 core/class-itsec-core.php:1583
+#: core/class-itsec-core.php:744 core/class-itsec-core.php:1620
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
@@ -89,7 +89,7 @@ msgstr ""
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:754 core/class-itsec-core.php:1588
+#: core/class-itsec-core.php:754 core/class-itsec-core.php:1625
 #: core/class-itsec-files.php:120
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
@@ -103,40 +103,40 @@ msgstr ""
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:1313
+#: core/class-itsec-core.php:1350
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1314
+#: core/class-itsec-core.php:1351
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1315
+#: core/class-itsec-core.php:1352
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1317
+#: core/class-itsec-core.php:1354
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1318
+#: core/class-itsec-core.php:1355
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1399
+#: core/class-itsec-core.php:1436
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1704
+#: core/class-itsec-core.php:1741
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1704
+#: core/class-itsec-core.php:1741
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -1712,13 +1712,13 @@ msgstr ""
 msgid "Invalid away mode time listed. The period selected already ended."
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode.php:204
+#: modules/free/away-mode/class-itsec-away-mode.php:211
 msgid ""
 "A host was prevented from accessing the dashboard due to away-mode "
 "restrictions being in effect"
 msgstr ""
 
-#: modules/free/away-mode/class-itsec-away-mode.php:232
+#: modules/free/away-mode/class-itsec-away-mode.php:239
 msgid "Away Mode Triggered"
 msgstr ""
 
@@ -2263,15 +2263,15 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force.php:146
+#: modules/free/brute-force/class-itsec-brute-force.php:150
 msgid "too many bad login attempts"
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force.php:154
+#: modules/free/brute-force/class-itsec-brute-force.php:158
 msgid "user tried to login as \"admin.\""
 msgstr ""
 
-#: modules/free/brute-force/class-itsec-brute-force.php:179
+#: modules/free/brute-force/class-itsec-brute-force.php:183
 msgid "Invalid Login Attempt"
 msgstr ""
 
@@ -2769,8 +2769,8 @@ msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-admin.php:443
 msgid ""
-"Select what we should exclude files and folders selected or whether the scan "
-"should only include files and folders selected."
+"Select whether we should exclude files and folders selected or whether the "
+"scan should only include files and folders selected."
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-admin.php:463

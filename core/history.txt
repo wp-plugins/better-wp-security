@@ -121,3 +121,6 @@
 	Make sure pro core module loads to remove upsell when pro has already been purchased.
 1.5.2 - 2014-07-30 - Chris Wiegman
 	Clean up notifications for file change detection and malware scanning
+1.5.3 - 2014-08-11 - Chris Wiegman
+	Ensure that individual module updates fire when updating the plugin
+	Added function to retrieve current URL from the front-end

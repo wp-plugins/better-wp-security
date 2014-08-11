@@ -272,7 +272,7 @@ class ITSEC_Setup {
 	 */
 	private function upgrade_execute( $upgrade = false ) {
 
-		global $itsec_old_version, $itsec_globals, $wpdb, $itsec_files, $itsec_setup_action;
+		global $itsec_old_version, $itsec_globals, $wpdb, $itsec_setup_action;
 
 		$itsec_setup_action = 'upgrade';
 		$itsec_old_version  = $upgrade;

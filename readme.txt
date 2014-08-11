@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.3.7
+Stable tag: 4.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +185,13 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.3.9 =
+* Remove error message if WP_Error is returned with wp_remote_post in malware scan
+* Fixed bug where away-mode was still enabled after one-time period has passed which could result in away mode activating when it should not
+* Ensure that individual module updates fire when updating the plugin
+* Added function to retrieve current URL from the front-end
+* Fixed error in brute force protection that counts valid logins with XML-RPC as bad logins towards a brute force lockout
 
 = 4.3.7 =
 * Updated descriptions an instructions in malware scheduling to make the feature easier to use
@@ -1209,6 +1216,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.3.9 =
+Version 4.3.9 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
 
 = 4.3.7 =
 Version 4.3.7 adds malware scheduling and other features as well as numerous minor bugfixes and enhancements. It is recommended for all users.

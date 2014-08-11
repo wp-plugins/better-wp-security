@@ -169,6 +169,8 @@ final class ITSEC_Lib {
 	/**
 	 * Gets location of wp-config.php
 	 *
+	 * @since 4.0
+	 *
 	 * Finds and returns path to wp-config.php
 	 *
 	 * @return string path to wp-config.php
@@ -186,6 +188,43 @@ final class ITSEC_Lib {
 
 		}
 
+	}
+
+	/**
+	 * Gets current url
+	 *
+	 * @since 4.3
+	 *
+	 * Finds and returns current url
+	 *
+	 * @return string current url
+	 *
+	 * */
+	public static function get_current_url() {
+
+		$page_url = 'http';
+
+		if ( isset( $_SERVER["HTTPS"] ) ) {
+
+			if ( $_SERVER["HTTPS"] == "on" ) {
+				$page_url .= "s";
+			}
+
+		}
+
+		$page_url .= "://";
+
+		if ( $_SERVER["SERVER_PORT"] != "80" ) {
+
+			$page_url .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+
+		} else {
+
+			$page_url .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+
+		}
+
+		return $page_url;
 	}
 
 	/**
@@ -907,7 +946,6 @@ final class ITSEC_Lib {
 		}
 
 		$path = implode( DIRECTORY_SEPARATOR, $absolutes );
-
 
 		// resolve any symlinks
 		if ( function_exists( 'linkinfo' ) ) { //linkinfo not available on Windows with PHP < 5.3.0

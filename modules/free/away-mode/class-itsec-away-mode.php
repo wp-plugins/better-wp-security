@@ -114,6 +114,13 @@ class ITSEC_Away_Mode {
 
 				if ( $status > 0 ) {
 
+					if ( $form === false && isset( $input['enabled'] ) && $input['enabled'] === true ) { //disable away mode if one-time is in the past
+
+						$input['enabled'] = false;
+						update_site_option( 'itsec_away_mode', $input );
+
+					}
+
 					$status = 0;
 
 				}

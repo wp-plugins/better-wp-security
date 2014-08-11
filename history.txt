@@ -196,3 +196,10 @@
 	Clean up notifications for file change detection and malware scanning
 4.3.7 - 2014-07-30 - Packaging Bot (core)
 	Clean up notifications for file change detection and malware scanning
+4.3.8 - 2014-08-11 - Packaging Bot (core)
+	Ensure that individual module updates fire when updating the plugin
+	Added function to retrieve current URL from the front-end
+4.3.9 - 2014-08-11 - Packaging Bot (modules/free)
+	Remove error message if WP_Error is returned with wp_remote_post in malware scan
+	Fixed bug where away-mode was still enabled after one-time period has passed which could result in away mode activating when it should not
+	Fixed error in brute force protection that counts valid logins with XML-RPC as bad logins towards a brute force lockout.

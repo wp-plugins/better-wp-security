@@ -3,11 +3,13 @@
 class ITSEC_Brute_Force {
 
 	private
-		$settings;
+		$settings,
+		$username;
 
 	function run() {
 
 		$this->settings = get_site_option( 'itsec_brute_force' );
+		$this->username = null;
 
 		//execute login limits
 		if ( $this->settings['enabled'] === true ) {
@@ -17,6 +19,8 @@ class ITSEC_Brute_Force {
 			add_action( 'wp_login', array( $this, 'execute_brute_force_login_successful' ), 10, 2 );
 			add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
+			add_filter( 'xmlrpc_login_error', array( $this, 'xmlrpc_login_error' ), 10, 2 );
+			add_filter( 'authenticate', array( $this, 'xmlrpc_authenticate' ), 10, 2 );
 
 		}
 
@@ -43,7 +47,7 @@ class ITSEC_Brute_Force {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
 
-			if ( $user_id === false || $user_id === NULL ) {
+			if ( $user_id === false || $user_id === null ) {
 
 				$itsec_lockout->check_lockout( false, $username );
 
@@ -67,11 +71,11 @@ class ITSEC_Brute_Force {
 	 * @param string $username the username attempted
 	 * @param        object    wp_user the user
 	 */
-	public function execute_brute_force_login_successful( $username, $user = NULL ) {
+	public function execute_brute_force_login_successful( $username, $user = null ) {
 
 		global $itsec_lockout;
 
-		if ( ! $user === NULL ) {
+		if ( ! $user === null ) {
 
 			$itsec_lockout->check_lockout( $user );
 
@@ -106,11 +110,11 @@ class ITSEC_Brute_Force {
 
 		}
 
-		if ( ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST === true ) || ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) ) {
+		if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
 
 			$user_id = username_exists( sanitize_text_field( $username ) );
 
-			if ( $user_id === false || $user_id === NULL ) {
+			if ( $user_id === false || $user_id === null ) {
 
 				$itsec_lockout->check_lockout( false, $username );
 
@@ -183,6 +187,70 @@ class ITSEC_Brute_Force {
 
 		return $logger_modules;
 
+	}
+
+	/**
+	 * Set the username during XML_RPC calls for later checking
+	 *
+	 * @since 4.4
+	 *
+	 * @param mixed $user the WordPress user object
+	 * @param string $username The username
+	 *
+	 * @return mixed The WordPress user
+	 */
+	public function xmlrpc_authenticate( $user, $username ) {
+
+		if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST === true ) {
+
+			$this->username = trim( sanitize_text_field( $username ) );
+
+		}
+
+		return $user;
+
+	}
+
+	/**
+	 * Execute brute force against xml_rpc login
+	 *
+	 * @Since 4.4
+	 *
+	 * @param mixed $error WordPress error
+	 *
+	 * @return mixed WordPress error
+	 */
+	public function xmlrpc_login_error( $error ) {
+
+		global $itsec_lockout, $itsec_logger;
+
+		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true && trim( sanitize_text_field( $username ) ) == 'admin' ) {
+
+			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), $this->username );
+
+			$itsec_lockout->do_lockout( 'brute_force_admin_user', $this->username );
+
+		} else {
+
+			$user_id = username_exists( $this - $username );
+
+			if ( $user_id === false || $user_id === null ) {
+
+				$itsec_lockout->check_lockout( false, $this->username );
+
+			} else {
+
+				$itsec_lockout->check_lockout( $user_id );
+
+			};
+
+			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), $this->username, intval( $user_id ) );
+
+			$itsec_lockout->do_lockout( 'brute_force', $this->username );
+
+		}
+
+		return $error;
 	}
 
 }
