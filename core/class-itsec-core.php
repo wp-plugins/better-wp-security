@@ -992,8 +992,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			global $itsec_globals;
 
-			wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'core/css/ithemes.css' );
-			do_action( 'itsec_admin_init' ); //execute modules init scripts
+			if ( current_user_can( $itsec_globals['plugin_access_lvl'] ) ) {
+
+				wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'core/css/ithemes.css' );
+				do_action( 'itsec_admin_init' ); //execute modules init scripts
+
+			}
 
 		}
 

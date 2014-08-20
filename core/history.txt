@@ -124,3 +124,6 @@
 1.5.3 - 2014-08-11 - Chris Wiegman
 	Ensure that individual module updates fire when updating the plugin
 	Added function to retrieve current URL from the front-end
+1.5.4 - 2014-08-20 - Chris Wiegman
+	Low Severity Security Fix - Lack of access control patched - Sucuri (reported 19Aug2014)
+

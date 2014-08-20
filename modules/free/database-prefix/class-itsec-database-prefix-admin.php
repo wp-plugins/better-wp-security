@@ -17,13 +17,13 @@ class ITSEC_Database_Prefix_Admin {
 		}
 
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
-		add_filter( 'itsec_add_dashboard_status', array(
-			$this, 'dashboard_status'
-		) ); //add information for plugin status
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
+
+		if ( ! empty( $_POST ) ) {
+			add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+		}
 
 	}
 

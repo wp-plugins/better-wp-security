@@ -1,11 +1,10 @@
-
 === iThemes Security (formerly Better WP Security) ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
 Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.3.9
+Stable tag: 4.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +184,10 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.3.11 =
+* Low Severity Security Fix - Lack of access control patched - Sucuri (reported 19Aug2014)
+* Fixed an error in XMLRPC blocking when $username variable cannot be found
 
 = 4.3.9 =
 * Remove error message if WP_Error is returned with wp_remote_post in malware scan
@@ -1216,6 +1219,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.3.11 =
+Version 4.3.11 contains a security fix and should be installed by all users.
 
 = 4.3.9 =
 Version 4.3.9 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.

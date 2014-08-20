@@ -203,3 +203,8 @@
 	Remove error message if WP_Error is returned with wp_remote_post in malware scan
 	Fixed bug where away-mode was still enabled after one-time period has passed which could result in away mode activating when it should not
 	Fixed error in brute force protection that counts valid logins with XML-RPC as bad logins towards a brute force lockout.
+4.3.10 - 2014-08-20 - Packaging Bot (core)
+	Updated core to version 1.5.4
+4.3.11 - 2014-08-20 - Packaging Bot (modules/free)
+	Low Severity Security Fix - Lack of access control patched - Sucuri (reported 19Aug2014)
+	Fixed an error in XMLRPC blocking when $username variable cannot be found

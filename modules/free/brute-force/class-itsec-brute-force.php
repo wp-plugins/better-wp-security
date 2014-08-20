@@ -146,11 +146,12 @@ class ITSEC_Brute_Force {
 		if ( $this->settings['enabled'] === true ) {
 
 			$lockout_modules['brute_force'] = array(
-				'type'   => 'brute_force',
-				'reason' => __( 'too many bad login attempts', 'it-l10n-better-wp-security' ),
-				'host'   => $this->settings['max_attempts_host'],
-				'user'   => $this->settings['max_attempts_user'],
-				'period' => $this->settings['check_period']
+				'type'      => 'brute_force',
+				'reason'    => __( 'too many bad login attempts', 'it-l10n-better-wp-security' ),
+				'host'      => $this->settings['max_attempts_host'],
+				'user'      => $this->settings['max_attempts_user'],
+				'period'    => $this->settings['check_period'],
+				'community' => true,
 			);
 
 			$lockout_modules['brute_force_admin_user'] = array(
@@ -194,7 +195,7 @@ class ITSEC_Brute_Force {
 	 *
 	 * @since 4.4
 	 *
-	 * @param mixed $user the WordPress user object
+	 * @param mixed  $user     the WordPress user object
 	 * @param string $username The username
 	 *
 	 * @return mixed The WordPress user
@@ -224,7 +225,7 @@ class ITSEC_Brute_Force {
 
 		global $itsec_lockout, $itsec_logger;
 
-		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true && trim( sanitize_text_field( $username ) ) == 'admin' ) {
+		if ( isset( $this->settings['auto_ban_admin'] ) && $this->settings['auto_ban_admin'] === true && trim( sanitize_text_field( $this->username ) ) == 'admin' ) {
 
 			$itsec_logger->log_event( 'brute_force', 5, array(), ITSEC_Lib::get_ip(), $this->username );
 
@@ -232,7 +233,7 @@ class ITSEC_Brute_Force {
 
 		} else {
 
-			$user_id = username_exists( $this - $username );
+			$user_id = username_exists( $this->username );
 
 			if ( $user_id === false || $user_id === null ) {
 
