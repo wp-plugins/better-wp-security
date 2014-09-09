@@ -102,7 +102,7 @@ if ( ! class_exists( 'ITSEC_Away_Mode_Setup' ) ) {
 				global $itsec_bwps_options, $itsec_globals;
 
 				$current_options = get_site_option( 'itsec_away_mode' );
-				$current_time = $itsec_globals['current_time'];
+				$current_time    = $itsec_globals['current_time'];
 
 				if ( $current_options === false ) {
 					$current_options = $this->defaults;

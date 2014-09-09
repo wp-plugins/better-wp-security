@@ -312,8 +312,16 @@ final class ITSEC_Lib {
 
 			$wp_path_rel_to_home = str_ireplace( $home, '', $siteurl ); /* $siteurl - $home */
 			$pos                 = strripos( str_replace( '\\', '/', $_SERVER['SCRIPT_FILENAME'] ), trailingslashit( $wp_path_rel_to_home ) );
-			$home_path           = substr( $_SERVER['SCRIPT_FILENAME'], 0, $pos );
-			$home_path           = trailingslashit( $home_path );
+
+			if ( $pos === false ) {
+
+				$home_path = dirname( $_SERVER['SCRIPT_FILENAME'] );
+
+			} else {
+
+				$home_path = substr( $_SERVER['SCRIPT_FILENAME'], 0, $pos );
+
+			}
 
 		} else {
 
@@ -321,7 +329,7 @@ final class ITSEC_Lib {
 
 		}
 
-		return str_replace( '\\', '/', $home_path );
+		return trailingslashit( str_replace( '\\', '/', $home_path ) );
 
 	}
 
@@ -335,7 +343,7 @@ final class ITSEC_Lib {
 	public static function get_home_root() {
 
 		//homeroot from wp_rewrite
-		$home_root = parse_url( home_url() );
+		$home_root = parse_url( site_url() );
 
 		if ( isset( $home_root['path'] ) ) {
 
@@ -400,20 +408,20 @@ final class ITSEC_Lib {
 		}
 
 		//Get the forwarded IP if it exists
-		if ( array_key_exists( 'X-Forwarded-For', $headers ) && ( filter_var( $headers['X-Forwarded-For'],
-		                                                                      FILTER_VALIDATE_IP,
-		                                                                      FILTER_FLAG_IPV4 ) || filter_var( $headers['X-Forwarded-For'],
-		                                                                                                        FILTER_VALIDATE_IP,
-		                                                                                                        FILTER_FLAG_IPV6 ) )
+		if ( array_key_exists( 'X-Forwarded-For', $headers ) &&
+		     (
+			     filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ||
+			     filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) )
 		) {
 
 			$the_ip = $headers['X-Forwarded-For'];
 
-		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR',
-		                             $headers ) && ( filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP,
-		                                                         FILTER_FLAG_IPV4 ) || filter_var( $headers['HTTP_X_FORWARDED_FOR'],
-		                                                                                           FILTER_VALIDATE_IP,
-		                                                                                           FILTER_FLAG_IPV6 ) )
+		} elseif (
+			array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) &&
+			(
+				filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ||
+				filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 )
+			)
 		) {
 
 			$the_ip = $headers['HTTP_X_FORWARDED_FOR'];
@@ -435,7 +443,8 @@ final class ITSEC_Lib {
 	 *
 	 * @return int php memory limit in megabytes
 	 */
-	public static function get_memory_limit() {
+	public
+	static function get_memory_limit() {
 
 		return (int) ini_get( 'memory_limit' );
 
@@ -455,8 +464,9 @@ final class ITSEC_Lib {
 		global $itsec_globals;
 
 		$path = str_replace( $itsec_globals['plugin_dir'], '', dirname( $file ) );
+		$path = ltrim( str_replace( '\\', '/', $path ), '/' );
 
-		return trailingslashit( $itsec_globals['plugin_url'] . $path );
+		return trailingslashit( trailingslashit( $itsec_globals['plugin_url'] ) . $path );
 
 	}
 

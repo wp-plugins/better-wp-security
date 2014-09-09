@@ -67,16 +67,19 @@ $htaccess = ITSEC_Lib::get_htaccess();
 		<li><?php _e( 'MySQL Database Version', 'it-l10n-better-wp-security' ); ?>
 			: <?php $sqlversion = $wpdb->get_var( "SELECT VERSION() AS version" ); ?>
 			<strong><?php echo $sqlversion; ?></strong></li>
-		<li><?php _e( 'MySQL Client Version', 'it-l10n-better-wp-security' ); ?>:
-			<strong><?php echo mysql_get_client_info(); ?></strong></li>
+		<li><?php _e( 'MySQL Client Version', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo mysql_get_client_info(); ?></strong></li>
 		<li><?php _e( 'Database Host', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo DB_HOST; ?></strong></li>
 		<li><?php _e( 'Database Name', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo DB_NAME; ?></strong></li>
 		<li><?php _e( 'Database User', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo DB_USER; ?></strong></li>
 		<?php $mysqlinfo = $wpdb->get_results( "SHOW VARIABLES LIKE 'sql_mode'" );
-		if ( is_array( $mysqlinfo ) )
+		if ( is_array( $mysqlinfo ) ) {
 			$sql_mode = $mysqlinfo[0]->Value;
-		if ( empty( $sql_mode ) )
-			$sql_mode = __( 'Not Set', 'it-l10n-better-wp-security' ); else $sql_mode = __( 'Off', 'it-l10n-better-wp-security' );
+		}
+		if ( empty( $sql_mode ) ) {
+			$sql_mode = __( 'Not Set', 'it-l10n-better-wp-security' );
+		} else {
+			$sql_mode = __( 'Off', 'it-l10n-better-wp-security' );
+		}
 		?>
 		<li><?php _e( 'SQL Mode', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $sql_mode; ?></strong></li>
 	</ul>
@@ -222,8 +225,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 			$register_globals = __( 'Off', 'it-l10n-better-wp-security' );
 		}
 		?>
-		<li><?php _e( 'PHP Register Globals', 'it-l10n-better-wp-security' ); ?>:
-			<strong><?php echo $register_globals; ?></strong></li>
+		<li><?php _e( 'PHP Register Globals', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $register_globals; ?></strong></li>
 		<?php
 		if ( ini_get( 'max_execution_time' ) ) {
 			$max_execute = filter_var( ini_get( 'max_execution_time' ) );
@@ -240,8 +242,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 			$magic_quotes_gpc = __( 'Off', 'it-l10n-better-wp-security' );
 		}
 		?>
-		<li><?php _e( 'PHP Magic Quotes GPC', 'it-l10n-better-wp-security' ); ?>:
-			<strong><?php echo $magic_quotes_gpc; ?></strong></li>
+		<li><?php _e( 'PHP Magic Quotes GPC', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $magic_quotes_gpc; ?></strong></li>
 		<?php
 		if ( ini_get( 'open_basedir' ) ) {
 			$open_basedir = __( 'On', 'it-l10n-better-wp-security' );
@@ -312,8 +313,7 @@ $htaccess = ITSEC_Lib::get_htaccess();
 <li>
 	<h4><?php echo $itsec_globals['plugin_name'] . __( ' variables', 'it-l10n-better-wp-security' ); ?></h4>
 	<ul>
-		<li><?php _e( 'Build Version', 'it-l10n-better-wp-security' ); ?>:
-			<strong><?php echo $itsec_globals['plugin_build']; ?></strong><br/>
+		<li><?php _e( 'Build Version', 'it-l10n-better-wp-security' ); ?>: <strong><?php echo $itsec_globals['plugin_build']; ?></strong><br/>
 			<em><?php _e( 'Note: this is NOT the same as the version number on the plugin page or WordPress.org page and is instead used for support.', 'it-l10n-better-wp-security' ); ?></em>
 		</li>
 	</ul>

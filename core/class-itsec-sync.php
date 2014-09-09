@@ -44,11 +44,11 @@ final class ITSEC_Sync {
 	 */
 	public function ithemes_sync_register_verbs( $api ) {
 
-		foreach( $this->sync_modules as $module ) {
+		foreach ( $this->sync_modules as $module ) {
 
 			if ( isset( $module['verbs'] ) && isset( $module['path'] ) ) {
 
-				foreach( $module['verbs'] as $name => $class ) {
+				foreach ( $module['verbs'] as $name => $class ) {
 
 					$api->register( $name, $class, trailingslashit( $module['path'] ) . 'class-ithemes-sync-verb-' . $name . '.php' );
 

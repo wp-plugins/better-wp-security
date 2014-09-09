@@ -447,6 +447,16 @@ final class ITSEC_Files {
 			return true;
 		}
 
+		//Make sure the iThemes directory is actually there
+		if ( ! @is_dir( $itsec_globals['ithemes_dir'] ) ) {
+
+			@mkdir( $itsec_globals['ithemes_dir'] );
+			$handle = @fopen( $itsec_globals['ithemes_dir'] . '/.htaccess', 'w+' );
+			@fwrite( $handle, 'Deny from all' );
+			@fclose( $handle );
+
+		}
+
 		$lock_file = $itsec_globals['ithemes_dir'] . '/' . sanitize_text_field( $lock_file ) . '.lock';
 		$dir_age   = @filectime( $lock_file );
 
@@ -531,110 +541,78 @@ final class ITSEC_Files {
 
 	public static function quick_ban( $host ) {
 
-		global $itsec_files;
+		$host = trim( $host );
 
-		if ( $itsec_files->get_file_lock( 'htaccess' ) ) {
+		if ( ITSEC_Lib::validates_ip_address( trim( $host ) ) ) {
 
-			$host = trim( $host );
+			$htaccess_file = ITSEC_Lib::get_htaccess();
 
-			if ( ITSEC_Lib::validates_ip_address( trim( $host ) ) ) {
+			$host_rule = '#Quick ban IP. Will be updated on next formal rules save.' . PHP_EOL;
 
-				$rule_open = array( '# BEGIN iThemes Security', '# BEGIN Better WP Security' );
+			if ( ITSEC_Lib::get_server() === 'nginx' ) { //NGINX rules
 
-				$htaccess_file = ITSEC_Lib::get_htaccess();
+				$host_rule .= "\tdeny " . $host . ';' . PHP_EOL;
 
-				$host_rule = '#Quick ban IP. Will be updated on next formal rules save.' . PHP_EOL;
+			} else { //rules for all other servers
 
-				if ( ITSEC_Lib::get_server() === 'nginx' ) { //NGINX rules
+				$dhost = str_replace( '.', '\\.', trim( $host ) ); //re-define $dhost to match required output for SetEnvIf-RegEX
 
-					$host_rule .= "\tdeny " . $host . ';' . PHP_EOL;
-
-				} else { //rules for all other servers
-
-					$dhost = str_replace( '.', '\\.', trim( $host ) ); //re-define $dhost to match required output for SetEnvIf-RegEX
-
-					$host_rule .= "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
-					$host_rule .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
-					$host_rule .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
-					$host_rule .= 'order allow,deny' . PHP_EOL;
-					$host_rule .= 'deny from env=DenyAccess' . PHP_EOL;
-					$host_rule .= 'deny from ' . trim( $host ) . PHP_EOL;
-					$host_rule .= 'allow from all' . PHP_EOL;
-
-				}
-
-				//Make sure we can write to the file
-				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
-
-				@chmod( $htaccess_file, 0664 );
-
-				$htaccess_contents = @file( $htaccess_file );
-
-				$has_itsec = false; //assume itsec hasn't written anything to htaccess
-
-				foreach ( $htaccess_contents as $line_number => $line ) {
-
-					if ( in_array( trim( $line ), $rule_open ) ) {
-						$has_itsec = $line_number;
-					}
-
-				}
-
-				if ( $has_itsec === false ) {
-
-					array_unshift(
-						$htaccess_contents,
-						'# BEGIN iThemes Security' . PHP_EOL,
-						$host_rule,
-						'# END iThemes Security' . PHP_EOL
-					);
-
-					$content = implode( '', $htaccess_contents );
-
-				} else {
-
-					$content = implode( '', $htaccess_contents );
-					$content = str_replace( '# BEGIN iThemes Security' . PHP_EOL, '# BEGIN iThemes Security' . PHP_EOL . $host_rule, $content );
-
-				}
-
-				if ( ! $f = @fopen( $htaccess_file, 'w+' ) ) {
-
-					return false; //we can't write to the file
-
-				}
-
-				@fwrite( $f, $content );
-
-				@fclose( $f );
-
-				//look for the tweaks module to see if we should reset to 0444
-				$tweaks = get_site_option( 'itsec_tweaks' );
-
-				if ( $tweaks !== false && isset( $tweaks['write_permissions'] ) ) {
-
-					$write_files = $tweaks['write_permissions'];
-
-				} else {
-
-					$write_files = false;
-
-				}
-
-				//reset file permissions if we changed them
-				if ( $perms == '0444' || $write_files === true ) {
-					@chmod( $htaccess_file, 0444 );
-				}
+				$host_rule .= "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
+				$host_rule .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
+				$host_rule .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
+				$host_rule .= 'order allow,deny' . PHP_EOL;
+				$host_rule .= 'deny from env=DenyAccess' . PHP_EOL;
+				$host_rule .= 'deny from ' . trim( $host ) . PHP_EOL;
+				$host_rule .= 'allow from all' . PHP_EOL;
 
 			}
 
-			$itsec_files->release_file_lock( 'htaccess' );
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
 
-			return true;
+			@chmod( $htaccess_file, 0664 );
+
+			$htaccess_contents = @file_get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
+
+			if ( $htaccess_contents === false ) {
+				return false;
+			}
+
+			$htaccess_contents = preg_replace( "/(\\r\\n|\\n|\\r)/", PHP_EOL, $htaccess_contents );
+
+			if ( strpos( $htaccess_contents, '# BEGIN iThemes Security' ) !== false ) {
+
+				$htaccess_contents = str_replace( '# BEGIN iThemes Security' . PHP_EOL, '# BEGIN iThemes Security' . PHP_EOL . $host_rule, $htaccess_contents );
+
+			} else {
+
+				$htaccess_contents = '# BEGIN iThemes Security' . PHP_EOL . $host_rule . '# BEGIN iThemes Security' . PHP_EOL . $htaccess_contents;
+
+			}
+
+			@file_put_contents( $htaccess_file, $htaccess_contents, LOCK_EX );
+
+			//look for the tweaks module to see if we should reset to 0444
+			$tweaks = get_site_option( 'itsec_tweaks' );
+
+			if ( $tweaks !== false && isset( $tweaks['write_permissions'] ) ) {
+
+				$write_files = $tweaks['write_permissions'];
+
+			} else {
+
+				$write_files = false;
+
+			}
+
+			//reset file permissions if we changed them
+			if ( $perms == '0444' || $write_files === true ) {
+				@chmod( $htaccess_file, 0444 );
+			}
 
 		}
 
-		return false;
+		return true;
 
 	}
 

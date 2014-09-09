@@ -281,6 +281,53 @@ class ITSEC_Global_Settings {
 	}
 
 	/**
+	 * echos Admin User Username Field
+	 *
+	 * @since 4.0
+	 *
+	 * @return void
+	 */
+	public function community_lockout_message() {
+
+		if ( isset( $this->settings['community_lockout_message'] ) ) {
+			$community_lockout_message = wp_kses( $this->settings['community_lockout_message'], $this->allowed_tags );
+		} else {
+			$community_lockout_message = __( "You're IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' );
+		}
+
+		echo '<textarea class="widefat" name="itsec_global[community_lockout_message]" id="itsec_global_community_lockout_message" rows="5" >' . $community_lockout_message . PHP_EOL . '</textarea><br />';
+		echo '<p class="description">' . __( 'The message to display to a user when their IP has been flagged as bad by the iThemes network.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p class="description">' . __( 'You can use HTML in your message. Allowed tags include: a, br, em, strong, h1, h2, h3, h4, h5, h6, div', 'it-l10n-better-wp-security' ) . '</p>';
+
+	}
+
+	/**
+	 * echos digest email field
+	 *
+	 * @since 4.5
+	 *
+	 * @return void
+	 */
+	public function digest_email() {
+
+		if ( isset( $this->settings['digest_email'] ) && $this->settings['digest_email'] === false ) {
+			$digest_email = 0;
+		} else {
+			$digest_email = 1;
+		}
+
+		echo '<input type="checkbox" id="itsec_global_digest_email" name="itsec_global[digest_email]" value="1" ' . checked( 1,
+		                                                                                                                     $digest_email,
+		                                                                                                                     false ) . '/>';
+		echo '<label for="itsec_global_digest_email">' . __( 'Send digest email', 'it-l10n-better-wp-security' ) . '</label>';
+
+		printf( '<p class="description">%s</p>',
+		        __( 'During periods of heavy attack or other times a security plugin can generate a LOT of email just telling you that it is doing its job. Turning this on will reduce the emails from this plugin to no more than one per day for any notification.', 'it-l10n-better-wp-security' )
+		);
+
+	}
+
+	/**
 	 * echos Lockout Email Field
 	 *
 	 * @since 4.0
@@ -370,6 +417,14 @@ class ITSEC_Global_Settings {
 		);
 
 		add_settings_field(
+			'itsec_global[digest_email]',
+			__( 'Send Digest Email', 'it-l10n-better-wp-security' ),
+			array( $this, 'digest_email' ),
+			'security_page_toplevel_page_itsec_settings',
+			'global'
+		);
+
+		add_settings_field(
 			'itsec_global[backup_email]',
 			__( 'Backup Delivery Email', 'it-l10n-better-wp-security' ),
 			array( $this, 'backup_email' ),
@@ -394,6 +449,15 @@ class ITSEC_Global_Settings {
 			'security_page_toplevel_page_itsec_settings',
 			'global',
 			array( 'label_for' => 'itsec_global_user_lockout_message' )
+		);
+
+		add_settings_field(
+			'itsec_global[community_lockout_message]',
+			__( 'Community Lockout Message', 'it-l10n-better-wp-security' ),
+			array( $this, 'community_lockout_message' ),
+			'security_page_toplevel_page_itsec_settings',
+			'global',
+			array( 'label_for' => 'itsec_global_community_lockout_message' )
 		);
 
 		add_settings_field(
@@ -909,20 +973,34 @@ class ITSEC_Global_Settings {
 			$input['notification_email'] = $emails_to_save;
 		}
 
-		$input['lockout_message']          = isset( $input['lockout_message'] ) ? trim( wp_kses( $input['lockout_message'], $this->allowed_tags ) ) : '';
-		$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? trim( wp_kses( $input['user_lockout_message'], $this->allowed_tags ) ) : '';
-		$input['blacklist']                = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
-		$input['blacklist_count']          = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
-		$input['blacklist_period']         = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
-		$input['email_notifications']      = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
-		$input['lockout_period']           = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
-		$input['log_rotation']             = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
-		$input['allow_tracking']           = ( isset( $input['allow_tracking'] ) && intval( $input['allow_tracking'] == 1 ) ? true : false );
-		$input['write_files']              = ( isset( $input['write_files'] ) && intval( $input['write_files'] == 1 ) ? true : false );
-		$input['nginx_file']               = isset( $input['nginx_file'] ) ? sanitize_text_field( $input['nginx_file'] ) : ABSPATH . 'nginx.conf';
-		$input['infinitewp_compatibility'] = ( isset( $input['infinitewp_compatibility'] ) && intval( $input['infinitewp_compatibility'] == 1 ) ? true : false );
-		$input['log_info']                 = $itsec_globals['settings']['log_info'];
-		$input['lock_file']                = ( isset( $input['lock_file'] ) && intval( $input['lock_file'] == 1 ) ? true : false );
+		$input['lockout_message']           = isset( $input['lockout_message'] ) ? trim( wp_kses( $input['lockout_message'], $this->allowed_tags ) ) : '';
+		$input['user_lockout_message']      = isset( $input['user_lockout_message'] ) ? trim( wp_kses( $input['user_lockout_message'], $this->allowed_tags ) ) : '';
+		$input['community_lockout_message'] = isset( $input['community_lockout_message'] ) ? trim( wp_kses( $input['community_lockout_message'], $this->allowed_tags ) ) : '';
+		$input['blacklist']                 = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
+		$input['blacklist_count']           = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
+		$input['blacklist_period']          = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
+		$input['email_notifications']       = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
+		$input['lockout_period']            = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
+		$input['log_rotation']              = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
+		$input['allow_tracking']            = ( isset( $input['allow_tracking'] ) && intval( $input['allow_tracking'] == 1 ) ? true : false );
+		$input['write_files']               = ( isset( $input['write_files'] ) && intval( $input['write_files'] == 1 ) ? true : false );
+		$input['nginx_file']                = isset( $input['nginx_file'] ) ? sanitize_text_field( $input['nginx_file'] ) : ABSPATH . 'nginx.conf';
+		$input['infinitewp_compatibility']  = ( isset( $input['infinitewp_compatibility'] ) && intval( $input['infinitewp_compatibility'] == 1 ) ? true : false );
+		$input['log_info']                  = $itsec_globals['settings']['log_info'];
+		$input['lock_file']                 = ( isset( $input['lock_file'] ) && intval( $input['lock_file'] == 1 ) ? true : false );
+		$input['digest_email']              = ( isset( $input['digest_email'] ) && intval( $input['digest_email'] == 1 ) ? true : false );
+
+		//Set a fresh message queue if we're just turning on the digest.
+		if ( $input['digest_email'] === true && ( ! isset( $this->settings['digest_email'] ) || $this->settings['digest_email'] === false ) ) {
+
+			$digest_queue = array(
+				'last_sent' => $itsec_globals['current_time_gmt'],
+				'messages'  => array(),
+			);
+
+			update_site_option( 'itsec_message_queue', $digest_queue );
+
+		}
 
 		$input['log_location'] = isset( $input['log_location'] ) ? sanitize_text_field( $input['log_location'] ) : $itsec_globals['ithemes_log_dir'];
 

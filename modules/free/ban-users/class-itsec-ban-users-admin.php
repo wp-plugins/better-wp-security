@@ -197,10 +197,10 @@ class ITSEC_Ban_Users_Admin {
 	 *
 	 * @return array array of rules to send to file writer
 	 */
-	public static function build_rewrite_rules( $input = NULL, $current = false ) {
+	public static function build_rewrite_rules( $input = null, $current = false ) {
 
 		//setup data structures to write. These are simply lists of all IPs and hosts as well as options to check
-		if ( $input === NULL ) { //blocking ip on the fly
+		if ( $input === null ) { //blocking ip on the fly
 
 			$input = get_site_option( 'itsec_ban_users' );
 
@@ -240,7 +240,7 @@ class ITSEC_Ban_Users_Admin {
 						require( dirname( __FILE__ ) . '/class-itsec-ban-users.php' );
 					}
 
-					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $host, NULL, $current ) ) {
+					if ( ! ITSEC_Ban_Users::is_ip_whitelisted( $host, null, $current ) ) {
 
 						$converted_host = ITSEC_Lib::ip_mask_to_range( $host );
 
@@ -340,9 +340,9 @@ class ITSEC_Ban_Users_Admin {
 				$rules .=
 					$host_list .
 					'order allow,deny' . PHP_EOL .
-				    'deny from env=DenyAccess' . PHP_EOL .
-				    $host_rule2 .
-				    'allow from all' . PHP_EOL;
+					'deny from env=DenyAccess' . PHP_EOL .
+					$host_rule2 .
+					'allow from all' . PHP_EOL;
 
 			}
 
@@ -606,7 +606,7 @@ class ITSEC_Ban_Users_Admin {
 					require( dirname( __FILE__ ) . '/class-itsec-ban-users.php' );
 				}
 
-				if ( ITSEC_Ban_Users::is_ip_whitelisted( $address, NULL, true ) ) {
+				if ( ITSEC_Ban_Users::is_ip_whitelisted( $address, null, true ) ) {
 
 					$white_ips[] = trim( filter_var( $address, FILTER_SANITIZE_STRING ) );
 

@@ -16,9 +16,9 @@ jQuery( document ).ready( function () {
 
 	jQuery( '#itsec_backup_exclude' ).multiSelect(
 		{
-			selectableHeader: '<div class="custom-header">' + exclude_text.available + '</div>',
-			selectionHeader: '<div class="custom-header">' + exclude_text.excluded + '</div>',
-			keepOrder: true
+			selectableHeader : '<div class="custom-header">' + exclude_text.available + '</div>',
+			selectionHeader  : '<div class="custom-header">' + exclude_text.excluded + '</div>',
+			keepOrder        : true
 		}
 	);
 

@@ -24,25 +24,27 @@ class ITSEC_Setup {
 		global $itsec_globals;
 
 		$this->defaults = array(
-			'notification_email'       => array( get_option( 'admin_email' ) ),
-			'backup_email'             => array( get_option( 'admin_email' ) ),
-			'lockout_message'          => __( 'error', 'it-l10n-better-wp-security' ),
-			'user_lockout_message'     => __( 'You have been locked out due to too many login attempts.', 'it-l10n-better-wp-security' ),
-			'blacklist'                => true,
-			'blacklist_count'          => 3,
-			'blacklist_period'         => 7,
-			'email_notifications'      => true,
-			'lockout_period'           => 15,
-			'lockout_white_list'       => array(),
-			'log_rotation'             => 30,
-			'log_type'                 => 0,
-			'log_location'             => $itsec_globals['ithemes_log_dir'],
-			'allow_tracking'           => false,
-			'write_files'              => false,
-			'nginx_file'               => ABSPATH . 'nginx.conf',
-			'infinitewp_compatibility' => false,
-			'did_upgrade'              => false,
-			'lock_file'                => false,
+			'notification_email'        => array( get_option( 'admin_email' ) ),
+			'backup_email'              => array( get_option( 'admin_email' ) ),
+			'lockout_message'           => __( 'error', 'it-l10n-better-wp-security' ),
+			'user_lockout_message'      => __( 'You have been locked out due to too many invalid login attempts.', 'it-l10n-better-wp-security' ),
+			'community_lockout_message' => __( "You're IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' ),
+			'blacklist'                 => true,
+			'blacklist_count'           => 3,
+			'blacklist_period'          => 7,
+			'email_notifications'       => true,
+			'lockout_period'            => 15,
+			'lockout_white_list'        => array(),
+			'log_rotation'              => 30,
+			'log_type'                  => 0,
+			'log_location'              => $itsec_globals['ithemes_log_dir'],
+			'allow_tracking'            => false,
+			'write_files'               => false,
+			'nginx_file'                => ABSPATH . 'nginx.conf',
+			'infinitewp_compatibility'  => false,
+			'did_upgrade'               => false,
+			'lock_file'                 => false,
+			'digest_email'              => false,
 		);
 
 		if ( ! $case ) {
@@ -104,8 +106,8 @@ class ITSEC_Setup {
 
 		global $itsec_globals;
 
-		$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
-		$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
+		$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free';
+		$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/pro';
 
 		$has_pro = is_dir( $pro_modules_folder );
 
@@ -238,6 +240,10 @@ class ITSEC_Setup {
 			add_site_option( 'itsec_initials', array(), false );
 		}
 
+		if ( get_site_option( 'itsec_api_nag' ) === false ) { //show the nag to activate an API key
+			add_site_option( 'itsec_api_nag', true, false );
+		}
+
 		$options = get_site_option( 'itsec_global' );
 
 		if ( $options === false || ( isset( $options['log_info'] ) && sizeof( $options ) <= 2 ) ) {
@@ -252,7 +258,7 @@ class ITSEC_Setup {
 
 		//load utility functions
 		if ( ! class_exists( 'ITSEC_Lib' ) ) {
-			require( $itsec_globals['plugin_dir'] . 'core/class-itsec-lib.php' );
+			require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-lib.php' );
 		}
 
 		ITSEC_Lib::create_database_tables();
@@ -404,6 +410,14 @@ class ITSEC_Setup {
 
 		}
 
+		if ( $itsec_old_version < 4033 ) {
+
+			if ( get_site_option( 'itsec_api_nag' ) === false ) { //show the nag to activate an API key
+				add_site_option( 'itsec_api_nag', true, false );
+			}
+
+		}
+
 	}
 
 	/**
@@ -415,7 +429,7 @@ class ITSEC_Setup {
 	 * */
 	private function deactivate_execute() {
 
-		global $itsec_files;
+		global $itsec_files, $wpdb;
 
 		wp_clear_scheduled_hook( 'itsec_purge_lockouts' );
 
@@ -431,6 +445,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_no_file_lock_release' );
 		delete_site_option( 'itsec_clear_login' );
 		delete_site_option( 'itsec_temp_whitelist_ip' );
+		delete_site_option( 'itsec_api_nag' );
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
 		delete_site_transient( 'itsec_upload_dir' );
 
@@ -473,6 +488,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_data' );
 		delete_site_option( 'itsec_initials' );
 		delete_site_option( 'itsec_jquery_version' );
+		delete_site_option( 'itsec_message_queue' );
 
 		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "itsec_log;" );
 		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "itsec_lockouts;" );

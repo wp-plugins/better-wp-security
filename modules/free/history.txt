@@ -175,3 +175,12 @@
 1.3.5 - 2014-08-20 - Chris Wiegman
 	Low Severity Security Fix - Lack of access control patched - Sucuri (reported 19Aug2014)
 	Fixed an error in XMLRPC blocking when $username variable cannot be found
+1.4.0 - 2014-09-09 - Chris Wiegman
+	New Feature: Add IPCheck Brute Force API integration
+	Enhancement: Reordered sidebar items to make it easier for the user to get to the information they need from iThemes
+	Fixed: The plugins_loaded hook which fires on logout will now fire later to improve compatibility with iThemes Exchange
+	Fixed: multisite bug that still showed BackupBuddy (if present) even though BackupBuddy is not multisite compatible.
+	Fixed: Added an extra flag in an attempt to reduce duplicate file-change detection executions.
+	Fixed: Added missing index.php files to directories that were missing them to ensure no information could be attained if directory is turned on.
+	Fixed: Make sure hide backend rewrite rules are consistent with the correct location of the WordPress login page when WordPress is not installed in the main website folder.
+	Fixed: Fixed an error whereas an empty filter could display an error when building the log tables.

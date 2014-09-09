@@ -17,9 +17,9 @@ if ( typeof itsec_tracking_vars != 'undefined' ) {
 	function itsec_get_vars( type, values ) {
 
 		var data = {
-			action: 'itsec_tracking_ajax',
-			type: type,
-			nonce: itsec_tracking_vars.nonce
+			action : 'itsec_tracking_ajax',
+			type   : type,
+			nonce  : itsec_tracking_vars.nonce
 		};
 
 		if ( type != 'receive' ) {
@@ -68,11 +68,13 @@ if ( typeof itsec_tracking_vars != 'undefined' ) {
 
 						var saved_value = 'true';
 
-					} else {
+					}
+					else {
 
 						if ( default_type == 'b' ) {
 							var saved_value = 'false';
-						} else {
+						}
+						else {
 							var saved_value = value.value;
 						}
 

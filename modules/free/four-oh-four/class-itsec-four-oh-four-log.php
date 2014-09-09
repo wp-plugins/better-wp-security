@@ -210,12 +210,12 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 
 		if ( $orderby == 'count' ) {
 
-			if ( intval( $a[$orderby] )  < intval ( $b[$orderby] ) ) {
-				$result  = -1;
-			} elseif( intval( $a[$orderby] ) === intval( $b[$orderby] ) ) {
-				$result  = 0;
+			if ( intval( $a[$orderby] ) < intval( $b[$orderby] ) ) {
+				$result = - 1;
+			} elseif ( intval( $a[$orderby] ) === intval( $b[$orderby] ) ) {
+				$result = 0;
 			} else {
-				$result  = 1;
+				$result = 1;
 			}
 
 		} else {

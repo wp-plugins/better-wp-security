@@ -26,7 +26,7 @@ if ( ! class_exists( 'ITSEC_Four_Oh_Four_Setup' ) ) {
 					'/labels.rdf',
 					'/trafficbasedsspsitemap.xml',
 				),
-				'types'        => array(
+				'types'           => array(
 					'.jpg',
 					'.jpeg',
 					'.png',

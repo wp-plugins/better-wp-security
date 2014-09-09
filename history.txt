@@ -208,3 +208,22 @@
 4.3.11 - 2014-08-20 - Packaging Bot (modules/free)
 	Low Severity Security Fix - Lack of access control patched - Sucuri (reported 19Aug2014)
 	Fixed an error in XMLRPC blocking when $username variable cannot be found
+4.4.1 - 2014-09-09 - Packaging Bot (core)
+	New Feature: Add IPCheck Brute Force API integration
+	New Feature: Add ability to receive a daily digest email instead of individual emails per event.
+	Enhancement: Added "Go Pro" menu item to admin menus.
+	Enhancement: Added button to release IP address from temporary whitelist.
+	Fixed: introduction screen should now display completely on computers with low-resolution screens.
+	Fixed: multisite bug that still showed BackupBuddy (if present) even though BackupBuddy is not multisite compatible.
+	Fixed: Scrolling table of contents should not cover side-bar items on pro.
+	Fixed: When changing admin user login form will no show the correct path when WordPress is not installed in the same directory as the website address.
+	Fixed: File locking will try to create the iThemes Directory if it isn't already present rather than just saying a lock could not be attained.
+4.4.2 - 2014-09-09 - Packaging Bot (modules/free)
+	New Feature: Add IPCheck Brute Force API integration
+	Enhancement: Reordered sidebar items to make it easier for the user to get to the information they need from iThemes
+	Fixed: The plugins_loaded hook which fires on logout will now fire later to improve compatibility with iThemes Exchange
+	Fixed: multisite bug that still showed BackupBuddy (if present) even though BackupBuddy is not multisite compatible.
+	Fixed: Added an extra flag in an attempt to reduce duplicate file-change detection executions.
+	Fixed: Added missing index.php files to directories that were missing them to ensure no information could be attained if directory is turned on.
+	Fixed: Make sure hide backend rewrite rules are consistent with the correct location of the WordPress login page when WordPress is not installed in the main website folder.
+	Fixed: Fixed an error whereas an empty filter could display an error when building the log tables.

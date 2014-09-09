@@ -16,8 +16,8 @@ div.inside .jqueryFileTree li {
 }
 
 .file_list {
-	width: 100%;
-	position: relative;
+	width    : 100%;
+	position : relative;
 }
 
 .file_chooser {
@@ -26,9 +26,9 @@ div.inside .jqueryFileTree li {
 }
 
 .list_field {
-	float:left;
-	height      : 200px;
-	width       : 50%;
+	float  : left;
+	height : 200px;
+	width  : 50%;
 }
 
 .list_field textarea {
@@ -64,28 +64,29 @@ UL.jqueryFileTree LI {
 }
 
 .file_change_detail_list {
-	margin: 1em 1em 1em 1.5em;
-	border: 1px solid #ebebeb;
+	margin : 1em 1em 1em 1.5em;
+	border : 1px solid #ebebeb;
 }
 
 .file_change_detail_list .file_change_detail {
-	padding: .75em 1em .75em .25em;
-	margin: 0;
+	padding : .75em 1em .75em .25em;
+	margin  : 0;
 }
 
 .file_change_detail_list .file_change_detail:nth-child(2n) {
-	background: #ebebeb;
+	background : #ebebeb;
 }
 
 @media only screen and (max-width : 850px) {
 	.file_chooser {
-		float:none;
-		width: 100%;
+		float : none;
+		width : 100%;
 	}
+
 	.list_field {
-		float:none;
-		margin-left: 0;
-		margin-top: 1em;
-		width: 100%;
+		float       : none;
+		margin-left : 0;
+		margin-top  : 1em;
+		width       : 100%;
 	}
 }

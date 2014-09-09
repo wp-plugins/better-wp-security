@@ -16,13 +16,9 @@ class ITSEC_SSL_Admin {
 
 		add_filter( 'itsec_file_modules', array( $this, 'register_file' ) ); //register tooltip action
 		add_action( 'current_screen', array( $this, 'plugin_init' ) );
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-		add_filter( 'itsec_add_dashboard_status', array(
-			$this, 'dashboard_status'
-		) ); //add information for plugin status
+		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
@@ -360,7 +356,7 @@ class ITSEC_SSL_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_wpconfig_rules( $input = NULL, $deactivation = false ) {
+	public static function build_wpconfig_rules( $input = null, $deactivation = false ) {
 
 		//Return options to default on deactivation
 		if ( $deactivation === true || ( isset( $_GET['action'] ) && $_GET['action'] == 'deactivate' ) ) {
@@ -410,7 +406,7 @@ class ITSEC_SSL_Admin {
 			$deactivating = false;
 
 			//Get the rules from the database if input wasn't sent
-			if ( $input === NULL ) {
+			if ( $input === null ) {
 				$input = get_site_option( 'itsec_ssl' );
 			}
 

@@ -8,8 +8,8 @@ jQuery( document ).ready( function () {
 		var button = this.value;
 
 		var data = {
-			action: 'itsec_file_change_warning_ajax',
-			nonce: itsec_file_change_warning.nonce
+			action : 'itsec_file_change_warning_ajax',
+			nonce  : itsec_file_change_warning.nonce
 		};
 
 		//call the ajax

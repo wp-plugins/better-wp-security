@@ -230,10 +230,10 @@ class ITSEC_Content_Directory_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public function build_wpconfig_rules( $rules_array, $input = NULL ) {
+	public function build_wpconfig_rules( $rules_array, $input = null ) {
 
 		//Get the rules from the database if input wasn't sent
-		if ( $input === NULL ) {
+		if ( $input === null ) {
 			return $rules_array;
 		}
 

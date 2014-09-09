@@ -45,7 +45,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		function __construct( $plugin_file, $plugin_name ) {
 
-			global $itsec_globals, $itsec_files, $itsec_logger, $itsec_lockout, $itsec_sync;
+			global $itsec_globals, $itsec_files, $itsec_logger, $itsec_lockout, $itsec_notify, $itsec_sync;
 
 			$this->tooltip_modules = array(); //initialize tooltip modules.
 			$this->one_click       = array(); //initialize one-click settings
@@ -74,12 +74,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4032, //plugin build number - used to trigger updates
+				'plugin_build'       => 4033, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
 				'plugin_file'        => $plugin_file, //the main plugin file
-				'plugin_dir'         => plugin_dir_path( $plugin_file ), //the path of the plugin directory
+				'plugin_dir'         => dirname( $plugin_file ), //the path of the plugin directory
 				'plugin_url'         => plugin_dir_url( $plugin_file ), //the URL of the plugin directory
 				'is_iwp_call'        => false,
 				'ithemes_dir'        => $upload_dir['basedir'] . '/ithemes-security',
@@ -92,6 +92,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				'current_time_gmt'   => current_time( 'timestamp', 1 ), //the current gmt time in unix timestamp format
 				'settings'           => get_site_option( 'itsec_global' ),
 				'free_modules'       => array(
+					'ipcheck'           => array(
+						'has_front' => true,
+						'option'    => 'itsec_ipcheck',
+						'setting'   => 'api_s',
+						'value'     => 'present',
+						'class_id'  => 'ipcheck',
+					),
 					'four-oh-four'      => array(
 						'has_front' => true,
 						'option'    => 'itsec_four_oh_four',
@@ -225,8 +232,8 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				),
 			);
 
-			$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
-			$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
+			$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free';
+			$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/pro';
 
 			$itsec_globals['has_pro'] = is_dir( $pro_modules_folder );
 
@@ -271,9 +278,20 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					'admin_bar' => false,
 				);
 
+			} elseif ( ! isset( $itsec_globals['has_pro'] ) || $itsec_globals['has_pro'] !== true ) {
+
+				$this->pages[] = array(
+					'priority'  => 25,
+					'title'     => '<span style="color:#2EA2CC">' . __( 'Go Pro', 'it-l10n-better-wp-security' ) . '</span>',
+					'slug'      => 'go_pro_link',
+					'external'  => true,
+					'has_tab'   => false,
+					'admin_bar' => false,
+				);
+
 			}
 
-			if ( class_exists( 'backupbuddy_api' ) ) {
+			if ( class_exists( 'backupbuddy_api' ) && ! is_multisite() ) {
 
 				$this->pages[] = array(
 					'priority'  => 10,
@@ -310,13 +328,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//load utility functions
 			if ( ! class_exists( 'ITSEC_Lib' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-lib.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-lib.php' );
 			}
 
 			//load logging functions
 			if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-logger.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-logger.php' );
 				$itsec_logger = new ITSEC_Logger();
 
 			}
@@ -324,7 +342,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			//load lockout functions
 			if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-lockout.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-lockout.php' );
 				$itsec_lockout = new ITSEC_Lockout();
 
 			}
@@ -332,21 +350,30 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			//load file utility functions
 			if ( ! class_exists( 'ITSEC_Files' ) ) {
 
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-files.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-files.php' );
 				$itsec_files = new ITSEC_Files();
+
+			}
+
+			//Load itsec notification class
+
+			if ( ! class_exists( 'ITSEC_Notify' ) ) {
+
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-notify.php' );
+				$itsec_notify = new ITSEC_Notify();
 
 			}
 
 			//Load Sync integration
 			if ( get_site_option( 'ithemes-sync-authenticated' ) !== false && ! class_exists( 'ITSEC_Sync' ) ) {
 
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-sync.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-sync.php' );
 				$itsec_sync = new ITSEC_Sync();
 
 			}
 
 			//load the text domain
-			load_plugin_textdomain( 'it-l10n-better-wp-security', false, $itsec_globals['plugin_dir'] . '/lang' );
+			load_plugin_textdomain( 'it-l10n-better-wp-security', false, trailingslashit( $itsec_globals['plugin_dir'] ) . 'lang' );
 
 			//builds admin menus after modules are loaded
 			if ( is_admin() ) {
@@ -354,7 +381,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				//load logging functions
 				if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
-					require( $itsec_globals['plugin_dir'] . 'core/class-itsec-dashboard-admin.php' );
+					require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-dashboard-admin.php' );
 					new ITSEC_Dashboard_Admin( $this );
 
 				}
@@ -362,13 +389,16 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				//load logging functions
 				if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
-					require( $itsec_globals['plugin_dir'] . 'core/class-itsec-global-settings.php' );
+					require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-global-settings.php' );
 					new ITSEC_Global_Settings( $this );
 
 				}
 
 				//Process support plugin nag
 				add_action( 'itsec_admin_init', array( $this, 'upgrade_nag' ) );
+
+				//Process plugin api nag
+				add_action( 'itsec_admin_init', array( $this, 'api_nag' ) );
 
 				//add action link
 				add_filter( 'plugin_action_links', array( $this, 'add_action_link' ), 10, 2 );
@@ -882,6 +912,73 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Display (and hide) api reminder.
+		 *
+		 * This will display a notice to the admin of the site asking them to activate an iThemes API key (if they haven't already)
+		 *
+		 * @since 4.4
+		 *
+		 * @return void
+		 */
+		public function api_nag() {
+
+			global $blog_id;
+
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+
+			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
+			if ( get_site_option( 'itsec_api_nag' ) !== false ) {
+
+				if ( ! function_exists( 'ithemes_plugin_api_notice' ) ) {
+
+					function ithemes_plugin_api_notice() {
+
+						global $itsec_globals;
+
+						echo '<div class="updated" id="itsec_api_notice"><span class="it-icon-itsec"></span>'
+						. __( 'New! Take your site security to the next level by activating iThemes Brute Force Network Protection.', 'it-l10n-better-wp-security' ) . '<a class="itsec-notice-button" onclick="document.location.href=\'?itsec_no_api_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">'. __( 'Get Free API Key', 'it-l10n-better-wp-security' ) . '</a><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_api_nag=on&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
+						</div>';
+
+					}
+
+				}
+
+				if ( is_multisite() ) {
+					add_action( 'network_admin_notices', 'ithemes_plugin_api_notice' ); //register notification
+				} else {
+					add_action( 'admin_notices', 'ithemes_plugin_api_notice' ); //register notification
+				}
+
+			}
+
+			//if they've clicked a button hide the notice
+			if ( isset( $_GET['itsec_no_api_nag'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'itsec-nag' ) ) {
+
+				delete_site_option( 'itsec_api_nag' );
+
+				if ( is_multisite() ) {
+					remove_action( 'network_admin_notices', 'ithemes_plugin_api_notice' );
+				} else {
+					remove_action( 'admin_notices', 'ithemes_plugin_api_notice' );
+				}
+
+				if ( sanitize_text_field( $_GET['itsec_no_api_nag'] ) == 'on' && isset( $_SERVER['HTTP_REFERER'] ) ) {
+
+					wp_redirect( $_SERVER['HTTP_REFERER'], '302' );
+
+				} else {
+
+					wp_redirect( 'admin.php?page=toplevel_page_itsec_settings#itsec_ipcheck_email', '302' );
+
+				}
+
+			}
+
+		}
+
+		/**
 		 * Enqueue actions to build the admin pages.
 		 *
 		 * Calls all the needed actions to build any given admin page.
@@ -958,7 +1055,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-setup.php' );
 			}
 
 			new ITSEC_Setup( 'upgrade', 3064 ); //run upgrade scripts
@@ -999,6 +1096,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			}
 
+			if ( isset( $_GET['page'] ) && $_GET['page'] === 'toplevel_page_itsec_go_pro_link' ) {
+
+				wp_redirect( 'http://ithemes.com/security', 301 );
+				exit();
+
+			}
+
 		}
 
 		/**
@@ -1014,15 +1118,15 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-setup.php' );
 			}
 
 			new ITSEC_Setup( 'upgrade', $itsec_globals['data']['build'] ); //run upgrade scripts
 
 			$modules             = $itsec_globals['free_modules'];
 			$has_pro             = $itsec_globals['has_pro'];
-			$free_modules_folder = $itsec_globals['plugin_dir'] . 'modules/free';
-			$pro_modules_folder  = $itsec_globals['plugin_dir'] . 'modules/pro';
+			$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free';
+			$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/pro';
 
 			if ( $has_pro ) {
 
@@ -1152,7 +1256,15 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				$option = isset( $info['option'] ) ? get_site_option( $info['option'] ) : false;
 
 				//If there is a setting to check and it is write then load it
-				if ( isset( $info['setting'] ) && ! is_array( $info['value'] ) && isset( $option[$info['setting']] ) && $option[$info['setting']] == $info['value'] ) {
+				if (
+					isset( $info['setting'] ) &&
+					! is_array( $info['value'] ) &&
+					isset( $option[$info['setting']] ) &&
+					(
+						$info['value'] === 'present' ||
+						$option[$info['setting']] == $info['value']
+					)
+				) {
 
 					$run_front = true;
 
@@ -1238,7 +1350,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-setup.php' );
 			}
 
 			ITSEC_Setup::on_activate();
@@ -1258,7 +1370,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-setup.php' );
 			}
 
 			ITSEC_Setup::on_deactivate();
@@ -1278,7 +1390,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			if ( ! class_exists( 'ITSEC_Setup' ) ) {
-				require( $itsec_globals['plugin_dir'] . 'core/class-itsec-setup.php' );
+				require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/class-itsec-setup.php' );
 			}
 
 			ITSEC_Setup::on_uninstall();
@@ -1440,7 +1552,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 									   class="itsec_return_to_top"><?php _e( 'Return to top', 'it-l10n-better-wp-security' ); ?></a>
 								<?php } ?>
 							</div>
-
 
 						</div>
 

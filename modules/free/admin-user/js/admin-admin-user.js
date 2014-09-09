@@ -6,7 +6,7 @@ jQuery( document ).ready( function () {
 			jQuery( "#admin_user_username_field, #admin_user_id_field" ).show();
 
 		} else {
-			jQuery(  "#admin_user_username_field, #admin_user_id_field" ).hide();
+			jQuery( "#admin_user_username_field, #admin_user_id_field" ).hide();
 
 		}
 

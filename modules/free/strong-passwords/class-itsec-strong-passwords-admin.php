@@ -13,14 +13,10 @@ class ITSEC_Strong_Passwords_Admin {
 		$this->settings    = get_site_option( 'itsec_strong_passwords' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array(
-			$this, 'dashboard_status'
-		) ); //add information for plugin status
+		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 		add_filter( 'itsec_one_click_settings', array( $this, 'one_click_settings' ) );
 

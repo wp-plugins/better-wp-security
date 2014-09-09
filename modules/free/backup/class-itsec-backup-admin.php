@@ -44,7 +44,7 @@ class ITSEC_Backup_Admin {
 	 */
 	public function add_admin_meta_boxes() {
 
-		if ( ! class_exists( 'backupbuddy_api' ) ) {
+		if ( ! class_exists( 'backupbuddy_api' ) || is_multisite() ) {
 
 			add_meta_box(
 				'backup_description',
@@ -76,16 +76,14 @@ class ITSEC_Backup_Admin {
 				'core'
 			);
 
-			if ( ! class_exists( 'backupbuddy_api' ) ) {
-				add_meta_box(
-					'backupbuddy_info',
-					__( 'Take the Next Steps in Security with BackupBuddy', 'it-l10n-better-wp-security' ),
-					array( $this, 'backupbuddy_metabox' ),
-					'security_page_toplevel_page_itsec_backups',
-					'advanced',
-					'core'
-				);
-			}
+			add_meta_box(
+				'backupbuddy_info',
+				__( 'Take the Next Steps in Security with BackupBuddy', 'it-l10n-better-wp-security' ),
+				array( $this, 'backupbuddy_metabox' ),
+				'security_page_toplevel_page_itsec_backups',
+				'advanced',
+				'core'
+			);
 
 			$this->core->add_toc_item(
 			           array(
@@ -137,7 +135,7 @@ class ITSEC_Backup_Admin {
 
 			wp_localize_script( 'itsec_backup_js', 'exclude_text', array(
 				'available' => __( 'Tables for Backup', 'it-l10n-better-wp-security' ), 'excluded' => __( 'Excluded Tables', 'it-l10n-better-wp-security' ),
-				'location' => $itsec_globals['ithemes_backup_dir'],
+				'location'  => $itsec_globals['ithemes_backup_dir'],
 			) );
 
 		}
@@ -180,7 +178,7 @@ class ITSEC_Backup_Admin {
 	 */
 	public function dashboard_status( $statuses ) {
 
-		if ( class_exists( 'backupbuddy_api' ) && sizeof( backupbuddy_api::getSchedules() ) >= 1 ) {
+		if ( ! is_multisite() && class_exists( 'backupbuddy_api' ) && sizeof( backupbuddy_api::getSchedules() ) >= 1 ) {
 
 			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
 
@@ -195,7 +193,7 @@ class ITSEC_Backup_Admin {
 				'link' => '?page=pb_backupbuddy_scheduling',
 			);
 
-		} elseif ( class_exists( 'backupbuddy_api' ) ) {
+		} elseif ( ! is_multisite() && class_exists( 'backupbuddy_api' ) ) {
 
 			if ( $this->settings['enabled'] === true ) { //disable our backups if we have to
 
@@ -518,7 +516,6 @@ class ITSEC_Backup_Admin {
 		echo '<p class="description"> ' . __( 'This path must be writable by your website. For added security, it is recommended you do not include it in your website root folder.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo '<input id="itsec_reset_backup_location" class="button-secondary" name="itsec_reset_backup_location" type="button" value="' . __( 'Restore Default Location', 'it-l10n-better-wp-security' ) . '" />' . PHP_EOL;
 
-
 	}
 
 	/**
@@ -624,7 +621,7 @@ class ITSEC_Backup_Admin {
 		}
 
 		if ( ! class_exists( 'ITSEC_Backup' ) ) {
-			require( dirname( __FILE__) . '/class-itsec-backup.php' );
+			require( dirname( __FILE__ ) . '/class-itsec-backup.php' );
 		}
 
 		$module = new ITSEC_Backup();
@@ -770,7 +767,7 @@ class ITSEC_Backup_Admin {
 	public function tooltip_ajax() {
 
 		if ( ! class_exists( 'ITSEC_Backup' ) ) {
-			require( dirname( __FILE__) . '/class-itsec-backup.php' );
+			require( dirname( __FILE__ ) . '/class-itsec-backup.php' );
 		}
 
 		$module = new ITSEC_Backup();

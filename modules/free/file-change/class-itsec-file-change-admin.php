@@ -13,14 +13,10 @@ class ITSEC_File_Change_Admin {
 		$this->settings    = get_site_option( 'itsec_file_change' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array(
-			$this, 'dashboard_status'
-		) ); //add information for plugin status
+		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 		add_filter( 'itsec_logger_displays', array( $this, 'register_logger_displays' ) ); //adds logs metaboxes
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
@@ -99,7 +95,7 @@ class ITSEC_File_Change_Admin {
 					'no_changes'           => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
 					'changes'              => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
 					'error'                => __( 'An error occured. Please try again later', 'it-l10n-better-wp-security' ),
-					'ABSPATH'              =>ITSEC_Lib::get_home_path(),
+					'ABSPATH'              => ITSEC_Lib::get_home_path(),
 					'nonce'                => wp_create_nonce( 'itsec_do_file_check' ),
 				)
 			);

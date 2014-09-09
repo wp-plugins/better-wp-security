@@ -18,7 +18,7 @@ class ITSEC_Hide_Backend {
 			add_action( 'auth_cookie_expired', array( $this, 'auth_cookie_expired' ) );
 			add_action( 'init', array( $this, 'execute_hide_backend' ), 1000 );
 			add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 11 );
 
 			add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
 			add_filter( 'loginout', array( $this, 'filter_loginout' ) );
@@ -48,11 +48,12 @@ class ITSEC_Hide_Backend {
 	}
 
 	/**
-	 * @param $notify_message
+	 * @param       $notify_message
 	 *
 	 * @since 4.5
 	 *
 	 * @param sting $notify_message Notification message
+	 *
 	 * @return string Notification message
 	 */
 	public function comment_moderation_text( $notify_message ) {
@@ -213,8 +214,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public
-	function execute_hide_backend_login() {
+	public function execute_hide_backend_login() {
 
 		if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) { //are we on the login page
 
@@ -237,8 +237,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return string       Correct redirect URL
 	 */
-	public
-	function filter_login_url( $url ) {
+	public function filter_login_url( $url ) {
 
 		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
@@ -253,8 +252,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return string the link
 	 */
-	public
-	function filter_loginout( $link ) {
+	public function filter_loginout( $link ) {
 
 		return str_replace( 'wp-login.php', $this->settings['slug'], $link );
 
@@ -267,8 +265,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public
-	function plugins_loaded() {
+	public function plugins_loaded() {
 
 		if ( is_user_logged_in() && isset( $_GET['action'] ) && sanitize_text_field( $_GET['action'] ) == 'logout' ) {
 

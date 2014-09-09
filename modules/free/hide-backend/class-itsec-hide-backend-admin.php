@@ -123,14 +123,14 @@ class ITSEC_Hide_Backend_Admin {
 	 *
 	 * @return array         rules to write
 	 */
-	public static function build_rewrite_rules( $input = NULL ) {
+	public static function build_rewrite_rules( $input = null ) {
 
 		$home_root = ITSEC_Lib::get_home_root();
 
 		$server_type = ITSEC_Lib::get_server(); //Get the server type to build the right rules
 
 		//Get the rules from the database if input wasn't sent
-		if ( $input === NULL ) {
+		if ( $input === null ) {
 			$input = get_site_option( 'itsec_hide_backend' );
 		}
 
@@ -141,11 +141,11 @@ class ITSEC_Hide_Backend_Admin {
 
 			if ( $server_type == 'nginx' ) {
 
-				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\trewrite ^" . $home_root . $input['slug'] . "/?$ /wp-login.php?\$query_string break;" . PHP_EOL;
+				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\trewrite ^" . $home_root . $input['slug'] . "/?$ " . $home_root . "wp-login.php?\$query_string break;" . PHP_EOL;
 
 			} else {
 
-				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tRewriteRule ^" . $home_root . $input['slug'] . "/?$ /wp-login.php [QSA,L]" . PHP_EOL;
+				$rules .= "\t# " . __( 'Rules to hide the dashboard', 'it-l10n-better-wp-security' ) . PHP_EOL . "\tRewriteRule ^" . $home_root . $input['slug'] . "/?$ " . $home_root . "wp-login.php [QSA,L]" . PHP_EOL;
 
 			}
 

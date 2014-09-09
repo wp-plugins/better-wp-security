@@ -17,9 +17,13 @@ class Ithemes_Sync_Verb_ITSEC_Release_Lockout extends Ithemes_Sync_Verb {
 		$result = $itsec_lockout->release_lockout( $id );
 
 		if ( $result === false ) {
+
 			$status = 'error';
+
 		} else {
+
 			$status = 'ok';
+
 		}
 
 		return array(

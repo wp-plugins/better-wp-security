@@ -29,11 +29,11 @@ jQuery( document ).ready( function () {
 
 	jQuery( '.jquery_file_tree' ).fileTree(
 		{
-			root: itsec_file_change.ABSPATH,
-			script: ajaxurl,
-			expandSpeed: - 1,
-			collapseSpeed: - 1,
-			multiFolder: false
+			root          : itsec_file_change.ABSPATH,
+			script        : ajaxurl,
+			expandSpeed   : - 1,
+			collapseSpeed : - 1,
+			multiFolder   : false
 
 		}, function ( file ) {
 
@@ -52,8 +52,8 @@ jQuery( document ).ready( function () {
 		event.preventDefault();
 
 		var data = {
-			action: 'itsec_file_change_ajax',
-			nonce: itsec_file_change.nonce
+			action : 'itsec_file_change_ajax',
+			nonce  : itsec_file_change.nonce
 		};
 
 		//let user know we're working
@@ -62,10 +62,10 @@ jQuery( document ).ready( function () {
 		//call the ajax
 		jQuery.ajax(
 			{
-				url: ajaxurl,
-				type: 'POST',
-				data: data,
-				complete: function ( response ) {
+				url      : ajaxurl,
+				type     : 'POST',
+				data     : data,
+				complete : function ( response ) {
 
 					if ( response.responseText == 1 || response.responseText == - 1 ) {
 						window.location.replace( '?page=toplevel_page_itsec_logs&itsec_log_filter=file_change' )
@@ -75,7 +75,7 @@ jQuery( document ).ready( function () {
 
 					if ( response.responseText == 0 ) {
 						jQuery( "#itsec_one_time_file_check_submit" ).hide();
-						jQuery( "#itsec_file_change_status" ).show().find('p').text( itsec_file_change.no_changes );
+						jQuery( "#itsec_file_change_status" ).show().find( 'p' ).text( itsec_file_change.no_changes );
 					}
 
 				}

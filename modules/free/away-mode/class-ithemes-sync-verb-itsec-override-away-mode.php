@@ -13,7 +13,7 @@ class Ithemes_Sync_Verb_ITSEC_Override_Away_Mode extends Ithemes_Sync_Verb {
 
 		global $itsec_globals;
 
-		$current_status  = ITSEC_Away_Mode::check_away( NULL, true );
+		$current_status  = ITSEC_Away_Mode::check_away( null, true );
 		$intention       = sanitize_text_field( $arguments['intention'] );
 		$saved_options   = get_site_option( 'itsec_away_mode_sync_override' );
 		$saved_intention = isset( $saved_options['intention'] ) ? $saved_options['intention'] : false;

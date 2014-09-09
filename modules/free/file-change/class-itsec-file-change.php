@@ -4,6 +4,7 @@ class ITSEC_File_Change {
 
 	private
 		$excludes,
+		$running,
 		$settings;
 
 	function run() {
@@ -11,6 +12,7 @@ class ITSEC_File_Change {
 		global $itsec_globals;
 
 		$this->settings = get_site_option( 'itsec_file_change' );
+		$this->running  = false;
 		$this->excludes = array(
 			'file_change.lock',
 			$itsec_globals['ithemes_backup_dir'],
@@ -44,164 +46,175 @@ class ITSEC_File_Change {
 	 *
 	 * @param bool $scheduled_call [optional] is this an automatic check
 	 *
-	 * @return void
+	 * @return mixed
 	 **/
 	public function execute_file_check( $scheduled_call = true ) {
 
 		global $itsec_files, $itsec_logger, $itsec_globals;
 
-		$send_email = true;
+		if ( $this->running === false ) {
 
-		ITSEC_Lib::set_minimum_memory_limit( '128M' );
+			$this->running = true;
+			$send_email    = true;
 
-		if ( $itsec_files->get_file_lock( 'file_change', 300 ) ) { //make sure it isn't already running
+			ITSEC_Lib::set_minimum_memory_limit( '128M' );
 
-			define( 'ITSEC_DOING_FILE_CHECK', true );
+			if ( $itsec_files->get_file_lock( 'file_change', 300 ) ) { //make sure it isn't already running
 
-			//figure out what chunk we're on
-			if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
+				define( 'ITSEC_DOING_FILE_CHECK', true );
 
-				if ( isset( $this->settings['last_chunk'] ) && $this->settings['last_chunk'] !== false && $this->settings['last_chunk'] < 6 ) {
+				//figure out what chunk we're on
+				if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
 
-					$chunk = $this->settings['last_chunk'] + 1;
+					if ( isset( $this->settings['last_chunk'] ) && $this->settings['last_chunk'] !== false && $this->settings['last_chunk'] < 6 ) {
 
-				} else {
+						$chunk = $this->settings['last_chunk'] + 1;
 
-					$chunk = 0;
+					} else {
 
-				}
+						$chunk = 0;
 
-			} else {
-
-				$chunk = false;
-
-			}
-
-			if ( $chunk !== false ) {
-
-				$db_field = 'itsec_local_file_list_' . $chunk;
-
-			} else {
-
-				$db_field = 'itsec_local_file_list';
-
-			}
-
-			//set base memory
-			$memory_used = @memory_get_peak_usage();
-
-			$logged_files = get_site_option( $db_field );
-
-			//if there are no old files old file list is an empty array
-			if ( $logged_files === false ) {
-
-				$send_email = false;
-
-				$logged_files = array();
-
-				if ( is_multisite() ) {
-
-					add_site_option( $db_field, $logged_files );
+					}
 
 				} else {
 
-					add_option( $db_field, $logged_files, '', 'no' );
+					$chunk = false;
 
 				}
 
-			}
+				if ( $chunk !== false ) {
 
-			$current_files = $this->scan_files( '', $scheduled_call, $chunk ); //scan current files
+					$db_field = 'itsec_local_file_list_' . $chunk;
 
-			$itsec_files->release_file_lock( 'file_change' );
+				} else {
 
-			$files_added          = @array_diff_assoc( $current_files, $logged_files ); //files added
-			$files_removed        = @array_diff_assoc( $logged_files, $current_files ); //files deleted
-			$current_minus_added  = @array_diff_key( $current_files, $files_added ); //remove all added files from current filelist
-			$logged_minus_deleted = @array_diff_key( $logged_files, $files_removed ); //remove all deleted files from old file list
-			$files_changed        = array(); //array of changed files
+					$db_field = 'itsec_local_file_list';
 
-			//compare file hashes and mod dates
-			foreach ( $current_minus_added as $current_file => $current_attr ) {
+				}
 
-				if ( array_key_exists( $current_file, $logged_minus_deleted ) ) {
+				//set base memory
+				$memory_used = @memory_get_peak_usage();
 
-					//if attributes differ added to changed files array
-					if ( ( ( isset( $current_attr['mod_date'] ) && strcmp( $current_attr['mod_date'], $logged_minus_deleted[$current_file]['mod_date'] ) != 0 ) || strcmp( $current_attr['d'], $logged_minus_deleted[$current_file]['d'] ) != 0 ) || ( ( isset( $current_attr['hash'] ) && strcmp( $current_attr['hash'], $logged_minus_deleted[$current_file]['hash'] ) != 0 ) || strcmp( $current_attr['h'], $logged_minus_deleted[$current_file]['h'] ) != 0 ) ) {
+				$logged_files = get_site_option( $db_field );
 
-						$files_changed[$current_file]['h'] = isset( $current_attr['hash'] ) ? $current_attr['hash'] : $current_attr['h'];
-						$files_changed[$current_file]['d'] = isset( $current_attr['mod_date'] ) ? $current_attr['mod_date'] : $current_attr['d'];
+				//if there are no old files old file list is an empty array
+				if ( $logged_files === false ) {
+
+					$send_email = false;
+
+					$logged_files = array();
+
+					if ( is_multisite() ) {
+
+						add_site_option( $db_field, $logged_files );
+
+					} else {
+
+						add_option( $db_field, $logged_files, '', 'no' );
 
 					}
 
 				}
 
-			}
+				$current_files = $this->scan_files( '', $scheduled_call, $chunk ); //scan current files
 
-			//get count of changes
-			$files_added_count   = sizeof( $files_added );
-			$files_deleted_count = sizeof( $files_removed );
-			$files_changed_count = sizeof( $files_changed );
+				$itsec_files->release_file_lock( 'file_change' );
 
-			//create single array of all changes
-			$full_change_list = array(
-				'added'   => $files_added,
-				'removed' => $files_removed,
-				'changed' => $files_changed,
-			);
+				$files_added          = @array_diff_assoc( $current_files, $logged_files ); //files added
+				$files_removed        = @array_diff_assoc( $logged_files, $current_files ); //files deleted
+				$current_minus_added  = @array_diff_key( $current_files, $files_added ); //remove all added files from current filelist
+				$logged_minus_deleted = @array_diff_key( $logged_files, $files_removed ); //remove all deleted files from old file list
+				$files_changed        = array(); //array of changed files
 
-			update_site_option( $db_field, $current_files );
+				//compare file hashes and mod dates
+				foreach ( $current_minus_added as $current_file => $current_attr ) {
 
-			$this->settings['last_run']   = $itsec_globals['current_time'];
-			$this->settings['last_chunk'] = $chunk;
+					if ( array_key_exists( $current_file, $logged_minus_deleted ) ) {
 
-			update_site_option( 'itsec_file_change', $this->settings );
+						//if attributes differ added to changed files array
+						if ( ( ( isset( $current_attr['mod_date'] ) && strcmp( $current_attr['mod_date'], $logged_minus_deleted[$current_file]['mod_date'] ) != 0 ) || strcmp( $current_attr['d'], $logged_minus_deleted[$current_file]['d'] ) != 0 ) || ( ( isset( $current_attr['hash'] ) && strcmp( $current_attr['hash'], $logged_minus_deleted[$current_file]['hash'] ) != 0 ) || strcmp( $current_attr['h'], $logged_minus_deleted[$current_file]['h'] ) != 0 ) ) {
 
-			//get new max memory
-			$check_memory = @memory_get_peak_usage();
-			if ( $check_memory > $memory_used ) {
-				$memory_used = $check_memory - $memory_used;
-			}
+							$files_changed[$current_file]['h'] = isset( $current_attr['hash'] ) ? $current_attr['hash'] : $current_attr['h'];
+							$files_changed[$current_file]['d'] = isset( $current_attr['mod_date'] ) ? $current_attr['mod_date'] : $current_attr['d'];
 
-			$full_change_list['memory'] = round( ( $memory_used / 1000000 ), 2 );
+						}
 
-			$itsec_logger->log_event(
-			             'file_change',
-			             8,
-			             $full_change_list
-			);
+					}
 
-			if ( $send_email === true && $scheduled_call !== false && isset( $this->settings['email'] ) && $this->settings['email'] === true && ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) ) {
+				}
 
-				$email_details = array(
-					$files_added_count,
-					$files_deleted_count,
-					$files_changed_count,
-					$full_change_list
+				//get count of changes
+				$files_added_count   = sizeof( $files_added );
+				$files_deleted_count = sizeof( $files_removed );
+				$files_changed_count = sizeof( $files_changed );
+
+				//create single array of all changes
+				$full_change_list = array(
+					'added'   => $files_added,
+					'removed' => $files_removed,
+					'changed' => $files_changed,
 				);
 
-				$this->send_notification_email( $email_details );
+				update_site_option( $db_field, $current_files );
+
+				$this->settings['last_run']   = $itsec_globals['current_time'];
+				$this->settings['last_chunk'] = $chunk;
+
+				update_site_option( 'itsec_file_change', $this->settings );
+
+				//get new max memory
+				$check_memory = @memory_get_peak_usage();
+				if ( $check_memory > $memory_used ) {
+					$memory_used = $check_memory - $memory_used;
+				}
+
+				$full_change_list['memory'] = round( ( $memory_used / 1000000 ), 2 );
+
+				$itsec_logger->log_event(
+				             'file_change',
+				             8,
+				             $full_change_list
+				);
+
+				if ( $send_email === true && $scheduled_call !== false && isset( $this->settings['email'] ) && $this->settings['email'] === true && ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) ) {
+
+					$email_details = array(
+						$files_added_count,
+						$files_deleted_count,
+						$files_changed_count,
+						$full_change_list
+					);
+
+					$this->send_notification_email( $email_details );
+				}
+
+				if ( function_exists( 'get_current_screen' ) && ( ! isset( get_current_screen()->id ) || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) === false ) && isset( $this->settings['notify_admin'] ) && $this->settings['notify_admin'] === true ) {
+					add_site_option( 'itsec_file_change_warning', true );
+				}
+
+				$itsec_files->release_file_lock( 'file_change' );
+
+				if ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) {
+
+					$this->running = false;
+
+					return true;
+
+				} else {
+
+					$this->running = false;
+
+					return false;
+
+				}
+
 			}
 
-			if ( function_exists( 'get_current_screen' ) && ( ! isset( get_current_screen()->id ) || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) === false ) && isset( $this->settings['notify_admin'] ) && $this->settings['notify_admin'] === true ) {
-				add_site_option( 'itsec_file_change_warning', true );
-			}
+			$this->running = false;
 
-			$itsec_files->release_file_lock( 'file_change' );
-
-			if ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) {
-
-				return true;
-
-			} else {
-
-				return false;
-
-			}
+			return -1;
 
 		}
-
-		return - 1;
 
 	}
 
@@ -343,7 +356,7 @@ class ITSEC_File_Change {
 		}
 
 		//lets check the absolute path too for excludes just to be sure
-		$abs_file =ITSEC_Lib::get_home_path() . $file;
+		$abs_file = ITSEC_Lib::get_home_path() . $file;
 
 		//assume not a directory and not checked
 		$flag = false;
@@ -449,7 +462,7 @@ class ITSEC_File_Change {
 
 		$clean_path = sanitize_text_field( $path );
 
-		if ( $directory_handle = opendir(ITSEC_Lib::get_home_path() . $clean_path ) ) { //get the directory
+		if ( $directory_handle = opendir( ITSEC_Lib::get_home_path() . $clean_path ) ) { //get the directory
 
 			while ( ( $item = readdir( $directory_handle ) ) !== false ) { // loop through dirs
 
@@ -457,7 +470,7 @@ class ITSEC_File_Change {
 
 					$relname = $path . $item;
 
-					$absname =ITSEC_Lib::get_home_path() . $relname;
+					$absname = ITSEC_Lib::get_home_path() . $relname;
 
 					if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) {
 						$is_dir     = true;
@@ -504,29 +517,44 @@ class ITSEC_File_Change {
 	 */
 	private function send_notification_email( $email_details ) {
 
-		global $itsec_globals;
+		global $itsec_globals, $itsec_notify;
 
-		$global_options = get_site_option( 'itsec_global' );
+		if ( ! isset( $itsec_globals['settings']['digest_email'] ) || $itsec_globals['settings']['digest_email'] === false ) {
 
-		$headers = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
-		$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', $itsec_globals['current_time'] );
+			$headers = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
+			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'WordPress File Change Warning', 'it-l10n-better-wp-security' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a e', $itsec_globals['current_time'] );
 
-		$body = '<p>' . __( 'A file (or files) on your site at ', 'it-l10n-better-wp-security' ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', 'it-l10n-better-wp-security' ) . '</p>';
-		$body .= $this->get_email_report( $email_details ); //get report
+			$body = '<p>' . __( 'A file (or files) on your site at ', 'it-l10n-better-wp-security' ) . ' ' . get_option( 'siteurl' ) . __( ' have been changed. Please review the report below to verify changes are not the result of a compromise.', 'it-l10n-better-wp-security' ) . '</p>';
+			$body .= $this->get_email_report( $email_details ); //get report
 
-		//Use HTML Content type
-		add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+			$args = array(
+				'headers' => $headers,
+				'message' => $body,
+				'subject' => $subject,
+			);
 
-		foreach ( $global_options['notification_email'] as $recipient ) {
+			$itsec_notify->notify( $args );
 
-			if ( is_email( trim( $recipient ) ) ) {
-				wp_mail( trim( $recipient ), $subject, $body, $headers );
+		} else {
+
+			$changed = $email_details[0] + $email_details[1] + $email_details[2];
+
+			if ( $changed > 0 ) {
+
+				$message = sprintf(
+					'<strong>%s:</strong> %s %s <em>%s</em> %s.',
+					__( 'File changes detected', 'it-l10n-better-wp-security' ),
+					$itsec_globals['plugin_name'],
+					__( 'detected', 'it-l10n-better-wp-security' ),
+					$changed,
+					__( 'file changes on your system', 'it-l10n-better-wp-security' )
+				);
+
+				$itsec_notify->notify( $message );
+
 			}
 
 		}
-
-		//Remove HTML Content type
-		remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
 
 	}
 

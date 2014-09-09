@@ -4,11 +4,11 @@ jQuery( document ).ready( function () {
 
 		if ( jQuery( "#itsec_brute_force_enabled" ).is( ':checked' ) ) {
 
-			jQuery( "#brute_force-settings" ).show();
+			jQuery( "#brute_force-settings, .itsec_brute_force_lockout_information" ).show();
 
 		} else {
 
-			jQuery( "#brute_force-settings" ).hide();
+			jQuery( "#brute_force-settings, .itsec_brute_force_lockout_information" ).hide();
 
 		}
 

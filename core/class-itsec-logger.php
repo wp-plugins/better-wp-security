@@ -57,7 +57,7 @@ final class ITSEC_Logger {
 
 		if ( is_admin() ) {
 
-			require( $itsec_globals['plugin_dir'] . 'core/lib/class-itsec-wp-list-table.php' ); //used for generating log tables
+			require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/lib/class-itsec-wp-list-table.php' ); //used for generating log tables
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add log meta boxes
 
@@ -388,7 +388,7 @@ final class ITSEC_Logger {
 					$callback = $display['callback'];
 				}
 
-				echo '<option value="' . $display['module'] . '" ' . selected( $_GET['itsec_log_filter'], $display['module'] ) . '>' . $display['title'] . '</option>';
+				echo '<option value="' . $display['module'] . '" ' . selected( $log_filter, $display['module'] ) . '>' . $display['title'] . '</option>';
 
 			}
 

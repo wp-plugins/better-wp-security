@@ -4,9 +4,8 @@ class ITSEC_Core_Admin {
 
 	function run() {
 
-		add_action( 'itsec_add_admin_meta_boxes', array(
-			$this, 'add_admin_meta_boxes'
-		) ); //add meta boxes to admin page
+		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+
 		add_filter( 'itsec_meta_links', array( $this, 'add_plugin_meta_links' ) );
 
 		//Process support plugin nag
@@ -31,20 +30,33 @@ class ITSEC_Core_Admin {
 		foreach ( $available_pages as $page ) {
 
 			add_meta_box(
-				'itsec_sync_integration',
-				__( 'Sync 10 Sites For Free', 'it-l10n-better-wp-security' ),
-				array( $this, 'metabox_sync_integration' ),
-				$page,
-				'priority_side',
-				'core'
-			);
-
-			add_meta_box(
 				'itsec_security_updates',
 				__( 'Download Our WordPress Security Pocket Guide', 'it-l10n-better-wp-security' ),
 				array( $this, 'metabox_security_updates' ),
 				$page,
 				'priority_side',
+				'core'
+			);
+
+			if ( ! class_exists( 'backupbuddy_api' ) ) {
+
+				add_meta_box(
+					'itsec_get_backup',
+					__( 'Complete Your Security Strategy With BackupBuddy', 'it-l10n-better-wp-security' ),
+					array( $this, 'metabox_get_backupbuddy' ),
+					$page,
+					'priority_side',
+					'core'
+				);
+
+			}
+
+			add_meta_box(
+				'itsec_sync_integration',
+				__( 'Manage Your Sites Remotely', 'it-l10n-better-wp-security' ),
+				array( $this, 'metabox_sync_integration' ),
+				$page,
+				'side',
 				'core'
 			);
 
@@ -56,17 +68,6 @@ class ITSEC_Core_Admin {
 				'side',
 				'core'
 			);
-
-			if ( ! class_exists( 'backupbuddy_api' ) ) {
-				add_meta_box(
-					'itsec_get_backup',
-					__( 'Complete Your Security Strategy With BackupBuddy', 'it-l10n-better-wp-security' ),
-					array( $this, 'metabox_get_backupbuddy' ),
-					$page,
-					'side',
-					'core'
-				);
-			}
 
 		}
 
@@ -189,10 +190,11 @@ class ITSEC_Core_Admin {
 				<label for="mce-EMAIL"
 				       style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
 				<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL"
-				       placeholder="email@domain.com">
-				<br/><br/>
-				<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe"
-				       id="mc-embedded-subscribe" class="button button-secondary">
+				       placeholder="email@domain.com"> <br/><br/> <input type="submit"
+				                                                         value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>"
+				                                                         name="subscribe"
+				                                                         id="mc-embedded-subscribe"
+				                                                         class="button button-secondary">
 			</form>
 		</div>
 
@@ -212,8 +214,8 @@ class ITSEC_Core_Admin {
 
 		?>
 		<div style="text-align: center;">
-			<img src="<?php echo plugins_url( 'img/sync-logo.jpg', __FILE__ ) ?>" width="60"
-			     height="47" alt="Sync 10 Sites For Free">
+			<img src="<?php echo plugins_url( 'img/sync-logo.png', __FILE__ ) ?>" width="173"
+			     height="65" alt="Manage Your Sites Remotely">
 		</div>
 		<?php
 
