@@ -292,7 +292,7 @@ class ITSEC_Global_Settings {
 		if ( isset( $this->settings['community_lockout_message'] ) ) {
 			$community_lockout_message = wp_kses( $this->settings['community_lockout_message'], $this->allowed_tags );
 		} else {
-			$community_lockout_message = __( "You're IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' );
+			$community_lockout_message = __( "Your IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' );
 		}
 
 		echo '<textarea class="widefat" name="itsec_global[community_lockout_message]" id="itsec_global_community_lockout_message" rows="5" >' . $community_lockout_message . PHP_EOL . '</textarea><br />';

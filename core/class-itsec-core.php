@@ -821,7 +821,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			}
 
-			wp_register_style( 'itsec_notice_css', $itsec_globals['plugin_url'] . 'core/css/itsec_notice.css' ); //add multi-select css
+			wp_register_style( 'itsec_notice_css', $itsec_globals['plugin_url'] . 'core/css/itsec_notice.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_notice_css' );
 
 			//scripts for all itsec pages
@@ -1091,7 +1091,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			if ( current_user_can( $itsec_globals['plugin_access_lvl'] ) ) {
 
-				wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'core/css/ithemes.css' );
+				wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'core/css/ithemes.css', array(), $itsec_globals['plugin_build'] );
 				do_action( 'itsec_admin_init' ); //execute modules init scripts
 
 			}

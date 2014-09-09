@@ -75,7 +75,7 @@ class ITSEC_Away_Mode_Admin {
 
 			wp_enqueue_script( 'itsec_away_mode_js', $this->module_path . 'js/admin-away-mode.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_style( 'jquery-datepicker-style', $this->module_path . 'css/smoothness/jquery-ui-1.10.4.custom.css' );
+			wp_enqueue_style( 'jquery-datepicker-style', $this->module_path . 'css/smoothness/jquery-ui-1.10.4.custom.css', array(), $itsec_globals['plugin_build'] );
 
 		}
 

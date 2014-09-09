@@ -229,3 +229,9 @@
 	Fixed: Fixed an error whereas an empty filter could display an error when building the log tables.
 4.4.3 - 2014-09-09 - Packaging Bot (modules/free)
 	Fixed: Fixed an error that could occur on multisite due to a missing "core" object
+4.4.4 - 2014-09-09 - Packaging Bot (modules/free)
+	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations
+4.4.5 - 2014-09-09 - Packaging Bot (core)
+	Fixed: Fixed typos in digest email.
+	Fixed: Fixed typos in default network lockout message.
+	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations

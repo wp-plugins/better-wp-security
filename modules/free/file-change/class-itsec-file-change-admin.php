@@ -109,10 +109,10 @@ class ITSEC_File_Change_Admin {
 				)
 			);
 
-			wp_register_style( 'itsec_jquery_filetree_style', $this->module_path . 'filetree/jqueryFileTree.css' ); //add multi-select css
+			wp_register_style( 'itsec_jquery_filetree_style', $this->module_path . 'filetree/jqueryFileTree.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_jquery_filetree_style' );
 
-			wp_register_style( 'itsec_file_change_css', $this->module_path . 'css/admin-file-change.css' ); //add multi-select css
+			wp_register_style( 'itsec_file_change_css', $this->module_path . 'css/admin-file-change.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_file_change_css' );
 
 		}

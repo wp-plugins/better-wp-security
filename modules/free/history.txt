@@ -186,3 +186,5 @@
 	Fixed: Fixed an error whereas an empty filter could display an error when building the log tables.
 1.4.1 - 2014-09-09 - Chris Wiegman
 	Fixed: Fixed an error that could occur on multisite due to a missing "core" object
+1.4.2 - 2014-09-09 - Chris Wiegman
+	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations

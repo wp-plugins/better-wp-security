@@ -134,9 +134,9 @@ class ITSEC_Notify {
 			}
 
 			$body = sprintf(
-				'<p>%s,</p><p>%s <a href="%s">%s</a></p><p><strong>%s: </strong>%s</p>%s<p>%s %s</p><p>%s<a href="%s">%s</a>.</p>',
+				'<p>%s,</p><p>%s <a href="%s">%s</a></p><p><strong>%s: </strong>%s</p>%s<p>%s %s</p><p>%s <a href="%s">%s</a>.</p>',
 				__( 'Dear Site Admin', 'it-l10n-better-wp-security' ),
-				__( 'The following is a summary of security related activity on your site. For details plase visit', 'it-l10n-better-wp-security' ),
+				__( 'The following is a summary of security related activity on your site. For details please visit', 'it-l10n-better-wp-security' ),
 				wp_login_url( get_admin_url( '', 'admin.php?page=toplevel_page_itsec_logs' ) ),
 				__( 'the security logs', 'it-l10n-better-wp-security' ),
 				__( 'Lockouts', 'it-l10n-better-wp-security' ),

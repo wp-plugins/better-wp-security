@@ -127,10 +127,10 @@ class ITSEC_Backup_Admin {
 			wp_enqueue_script( 'itsec_backup_js', $this->module_path . 'js/admin-backup.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 			wp_enqueue_script( 'jquery_multiselect', $this->module_path . 'js/jquery.multi-select.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 
-			wp_register_style( 'itsec_ms_styles', $this->module_path . 'css/multi-select.css' ); //add multi-select css
+			wp_register_style( 'itsec_ms_styles', $this->module_path . 'css/multi-select.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_ms_styles' );
 
-			wp_register_style( 'itsec_backup_styles', $this->module_path . 'css/admin-backup.css' ); //add multi-select css
+			wp_register_style( 'itsec_backup_styles', $this->module_path . 'css/admin-backup.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_backup_styles' );
 
 			wp_localize_script( 'itsec_backup_js', 'exclude_text', array(
@@ -141,7 +141,7 @@ class ITSEC_Backup_Admin {
 		}
 
 		if ( isset( get_current_screen()->id ) && strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_backups' ) !== false ) {
-			wp_register_style( 'itsec_backup_styles', $this->module_path . 'css/admin-backup.css' ); //add multi-select css
+			wp_register_style( 'itsec_backup_styles', $this->module_path . 'css/admin-backup.css', array(), $itsec_globals['plugin_build'] ); //add multi-select css
 			wp_enqueue_style( 'itsec_backup_styles' );
 		}
 

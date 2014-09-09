@@ -136,3 +136,7 @@
 	Fixed: Scrolling table of contents should not cover side-bar items on pro.
 	Fixed: When changing admin user login form will no show the correct path when WordPress is not installed in the same directory as the website address.
 	Fixed: File locking will try to create the iThemes Directory if it isn't already present rather than just saying a lock could not be attained.
+1.6.1 - 2014-09-09 - Chris Wiegman
+	Fixed: Fixed typos in digest email.
+	Fixed: Fixed typos in default network lockout message.
+	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations

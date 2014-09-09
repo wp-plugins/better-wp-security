@@ -28,7 +28,7 @@ class ITSEC_Setup {
 			'backup_email'              => array( get_option( 'admin_email' ) ),
 			'lockout_message'           => __( 'error', 'it-l10n-better-wp-security' ),
 			'user_lockout_message'      => __( 'You have been locked out due to too many invalid login attempts.', 'it-l10n-better-wp-security' ),
-			'community_lockout_message' => __( "You're IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' ),
+			'community_lockout_message' => __( "Your IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' ),
 			'blacklist'                 => true,
 			'blacklist_count'           => 3,
 			'blacklist_period'          => 7,

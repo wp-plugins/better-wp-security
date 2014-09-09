@@ -329,7 +329,7 @@ class ITSEC_Lockout {
 
 			} else {
 
-				die( __( "You're IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' ) );
+				die( __( "Your IP address has been flagged as a threat by the iThemes Security network.", 'it-l10n-better-wp-security' ) );
 
 			}
 
