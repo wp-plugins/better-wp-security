@@ -4,12 +4,14 @@ class ITSEC_IPCheck_Admin {
 
 	private
 		$module_path,
-		$settings;
+		$settings,
+		$core;
 
 	private static $endpoint = 'http://ipcheck-api.ithemes.com/?action=';
 
-	function run() {
+	function run( $core ) {
 
+		$this->core        = $core;
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 		$this->settings    = get_site_option( 'itsec_ipcheck' );
 

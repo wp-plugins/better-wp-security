@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.2
+Stable tag: 4.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,6 +188,9 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.3 =
+* Fixed: Fixed an error that could occur on multisite due to a missing "core" object
 
 = 4.4.2 =
 * New Feature: Add IPCheck Brute Force API integration
@@ -1242,8 +1245,8 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.4.2 =
-Version 4.4.2 adds new features, enhancements, bug fixes and more. It is recommended for all users.
+= 4.4.3 =
+Version 4.4.3 adds new features, enhancements, bug fixes and more. It is recommended for all users.
 
 = 4.3.11 =
 Version 4.3.11 contains a security fix and should be installed by all users.

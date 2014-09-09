@@ -18,6 +18,7 @@ class ITSEC_Brute_Force {
 		add_filter( 'itsec_lockout_modules', array( $this, 'itsec_lockout_modules' ) );
 		add_filter( 'itsec_logger_modules', array( $this, 'itsec_logger_modules' ) );
 		add_filter( 'xmlrpc_login_error', array( $this, 'xmlrpc_login_error' ), 10, 2 );
+		add_filter( 'jetpack_get_default_modules', array( $this, 'jetpack_get_default_modules' ) ); //disable jetpack protect via Geoge Stephanis
 
 	}
 
@@ -133,6 +134,23 @@ class ITSEC_Brute_Force {
 		}
 
 		return $logger_modules;
+
+	}
+
+	/**
+	 * Disables the jetpack protect module
+	 *
+	 * Sent by George Stephanis
+	 *
+	 * @since 4.5
+	 *
+	 * @param array $modules array of Jetpack modules
+	 *
+	 * @return array array of Jetpack modules
+	 */
+	public function jetpack_get_default_modules( $modules ) {
+
+		return array_diff( $modules, array( 'protect' ) );
 
 	}
 
