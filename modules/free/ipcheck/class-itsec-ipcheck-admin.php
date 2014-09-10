@@ -272,7 +272,8 @@ class ITSEC_IPCheck_Admin {
 
 			if ( strlen( $raw_email ) > 0 ) {
 
-				$email = is_email( $raw_email ) ? $raw_email : false;
+				$email     = is_email( $raw_email ) ? $raw_email : false;
+				$api_error = false;
 
 				if ( $email === false ) {
 
@@ -282,8 +283,6 @@ class ITSEC_IPCheck_Admin {
 					add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
 				} else {
-
-					$api_error = false;
 
 					$key = $this->get_api_key( $email, $optin );
 

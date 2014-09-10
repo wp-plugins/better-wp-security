@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.5
+Stable tag: 4.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,6 +188,10 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.6 =
+* Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
+* Fixed: failed calls to various apis will no longer throw a php error on failure.
 
 = 4.4.5 =
 * Fixed: Fixed typos in digest email.
@@ -1250,8 +1254,8 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 
 == Upgrade Notice ==
 
-= 4.4.5 =
-Version 4.4.5 adds new features, enhancements, bug fixes and more. It is recommended for all users.
+= 4.4.6 =
+Version 4.4.6 adds new features, enhancements, bug fixes and more. It is recommended for all users.
 
 = 4.3.11 =
 Version 4.3.11 contains a security fix and should be installed by all users.

@@ -188,3 +188,6 @@
 	Fixed: Fixed an error that could occur on multisite due to a missing "core" object
 1.4.2 - 2014-09-09 - Chris Wiegman
 	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations
+1.4.3 - 2014-09-10 - Chris Wiegman
+	Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
+	Fixed: failed calls to various apis will no longer throw a php error on failure.

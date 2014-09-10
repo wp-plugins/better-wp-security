@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.5\n"
+"Project-Id-Version: iThemes Security 4.4.6\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-09-09 20:38:11+00:00\n"
+"POT-Creation-Date: 2014-09-10 19:50:12+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.5)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -778,7 +778,7 @@ msgstr ""
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:465
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
 #: modules/free/ipcheck/class-itsec-ipcheck-admin.php:222
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:438
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:437
 #: modules/free/malware/class-itsec-malware-admin.php:363
 #: modules/free/malware/class-itsec-malware-admin.php:401
 #: modules/free/malware/class-itsec-malware-admin.php:431
@@ -3468,7 +3468,7 @@ msgid ""
 msgstr ""
 
 #: modules/free/ipcheck/class-itsec-ipcheck-admin.php:93
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:397
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:396
 msgid "Enter email and click Save All Changes"
 msgstr ""
 
@@ -3481,39 +3481,39 @@ msgstr ""
 msgid "Enable iThemes Brute Force Network Protection"
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:280
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:281
 msgid ""
 "The email address you used to get an iThemes API key appears to be invalid. "
 "Please enter a valid email address"
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:319
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:318
 msgid ""
 "There was an error getting an API key from the IPCheck server. If the "
 "problem persists please contact support."
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:363
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:362
 msgid ""
 "Use the iThemes IPCheck Service to ban IPs reported as a problem by other "
 "users in the community."
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:399
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:398
 msgid "Receive email updates about WP Security from iThemes"
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:401
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:400
 msgid ""
 "Leverage the power of the iThemes Brute Force Protection network to ban IPs "
 "hitting your site. "
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:407
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:406
 msgid "Reset API Key"
 msgstr ""
 
-#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:408
+#: modules/free/ipcheck/class-itsec-ipcheck-admin.php:407
 msgid "Your API key for the iThemes Security community appears to be valid."
 msgstr ""
 

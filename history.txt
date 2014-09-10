@@ -235,3 +235,6 @@
 	Fixed: Fixed typos in digest email.
 	Fixed: Fixed typos in default network lockout message.
 	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations
+4.4.6 - 2014-09-10 - Packaging Bot (modules/free)
+	Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
+	Fixed: failed calls to various apis will no longer throw a php error on failure.
