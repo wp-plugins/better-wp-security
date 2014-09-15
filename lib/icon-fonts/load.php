@@ -4,10 +4,10 @@
  *
  * @package icon-fonts
  * @author iThemes
- * @version 1.1.2
+ * @version 1.2.0
 */
 
-$it_registration_list_version   = '1.1.2';
+$it_registration_list_version   = '1.2.0';
 $it_registration_list_library   = 'icon-fonts';
 $it_registration_list_init_file = dirname( __FILE__ ) . '/init.php';
 
@@ -20,35 +20,35 @@ if ( ! function_exists( 'it_registration_list_init' ) ) {
 		global $wp_locale;
 		if ( ! isset( $wp_locale ) )
 			return;
-		
-		
+
+
 		$init_files = array();
-		
+
 		foreach ( (array) $GLOBALS['it_classes_registration_list'] as $library => $versions ) {
 			$max_version = '-10000';
 			$init_file = '';
-			
+
 			foreach ( (array) $versions as $version => $file ) {
 				if ( version_compare( $version, $max_version, '>' ) ) {
 					$max_version = $version;
 					$init_file = $file;
 				}
 			}
-			
+
 			if ( ! empty( $init_file ) )
 				$init_files[] = $init_file;
 		}
-		
+
 		unset( $GLOBALS['it_classes_registration_list'] );
-		
+
 		foreach ( (array) $init_files as $init_file )
 			require_once( $init_file );
-		
+
 		do_action( 'it_libraries_loaded' );
 	}
-	
+
 	global $wp_version;
-	
+
 	if ( version_compare( $wp_version, '2.9.7', '>' ) )
 		add_action( 'after_setup_theme', 'it_registration_list_init' );
 	else

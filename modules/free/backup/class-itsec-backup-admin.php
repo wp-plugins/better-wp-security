@@ -702,9 +702,10 @@ class ITSEC_Backup_Admin {
 
 		if ( $good_path !== true ) {
 
-			$type            = 'error';
-			$message         = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ', 'it-l10n-better-wp-security' );
-			$input['method'] = 2;
+			$input['location'] = $itsec_globals['ithemes_backup_dir'];
+
+			$type              = 'error';
+			$message           = __( 'The file path entered for the backup file location does not appear to be valid. it has been reset to: ' . $itsec_globals['ithemes_backup_dir'], 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 

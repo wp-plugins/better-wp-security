@@ -764,7 +764,7 @@ final class ITSEC_Lib {
 	 *
 	 * Checks to see if WordPress user with given id exists
 	 *
-	 * @param int $id user id of user to check
+	 * @param int $user_id user id of user to check
 	 *
 	 * @return bool true if user exists otherwise false
 	 *
@@ -779,10 +779,9 @@ final class ITSEC_Lib {
 		}
 
 		//queary the user table to see if the user is there
-		$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';",
-		                                          sanitize_text_field( $user_id ) ) );
+		$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
 
-		if ( $userid == $user_id ) {
+		if ( $user_id == $user_id ) {
 			return true;
 		} else {
 			return false;

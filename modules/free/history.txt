@@ -191,3 +191,9 @@
 1.4.3 - 2014-09-10 - Chris Wiegman
 	Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
 	Fixed: failed calls to various apis will no longer throw a php error on failure.
+1.4.4 - 2014-09-15 - Chris Wiegman
+	Enhancement: Added a link to the actual timezone settings in the general settings page (instead of the top of the page)
+	Fixed: Fixed missing "no changes" text in file change emails.
+	Fixed: Formatting of individual file change emails will now work.
+	Fixed: Fixed a bug in ban users user agents that would cause a crash on Apache if the user agent contained a space
+	Fixed: When an invalid backup directory is detected it will not fail but will instead reset it to the original.

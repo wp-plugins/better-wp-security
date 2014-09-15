@@ -290,7 +290,7 @@ class ITSEC_Ban_Users_Admin {
 						if ( $count < sizeof( $agent ) ) {
 							$end = ' [NC,OR]' . PHP_EOL;
 						} else {
-							$end = '[NC]' . PHP_EOL;
+							$end = ' [NC]' . PHP_EOL;
 						}
 
 						if ( strlen( trim( $agent ) ) > 1 ) {
@@ -298,7 +298,7 @@ class ITSEC_Ban_Users_Admin {
 							if ( $server_type === 'nginx' ) { //NGINX rule
 								$converted_agent = 'if ($http_user_agent ~* "^' . quotemeta( trim( $agent ) ) . '"){ return 403; }' . PHP_EOL;
 							} else { //Rule for all other servers
-								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . quotemeta( trim( $agent ) ) . $end;
+								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . str_replace( ' ', '\ ', quotemeta( trim( $agent ) ) ) . $end;
 							}
 
 						}

@@ -17,16 +17,20 @@ class ITSEC_Notify {
 
 		$this->queue = get_site_option( 'itsec_message_queue' );
 
-		//Send digest if it has been 24 hours
-		if (
-			$this->queue === false ||
-			(
-				is_array( $this->queue ) &&
-				isset( $this->queue['last_sent'] ) &&
-				$this->queue['last_sent'] < ( $itsec_globals['current_time_gmt'] - 86400 )
-			)
-		) {
-			add_action( 'init', array( $this, 'init' ) );
+		if ( isset( $itsec_globals['settings']['digest_email'] ) && $itsec_globals['settings']['digest_email'] === true ) {
+
+			//Send digest if it has been 24 hours
+			if (
+				$this->queue === false ||
+				(
+					is_array( $this->queue ) &&
+					isset( $this->queue['last_sent'] ) &&
+					$this->queue['last_sent'] < ( $itsec_globals['current_time_gmt'] - 86400 )
+				)
+			) {
+				add_action( 'init', array( $this, 'init' ) );
+			}
+
 		}
 
 	}
@@ -58,7 +62,7 @@ class ITSEC_Notify {
 
 		$user_count = absint( $wpdb->get_var(
 		                           $wpdb->prepare(
-		                                "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND `lockout_user`!=0 OR `lockout_username` is not NULL;",
+		                                "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND ( `lockout_user`!=0 OR `lockout_username` ) is not NULL;",
 		                                date( 'Y-m-d H:i:s', $this->queue['last_sent'] )
 		                           )
 		                      ) );
@@ -177,7 +181,7 @@ class ITSEC_Notify {
 	 *
 	 * @return bool whether the message was successfully enqueue or sent
 	 */
-	function notify( $body = null ) {
+	public function notify( $body = null ) {
 
 		global $itsec_globals;
 
@@ -188,6 +192,17 @@ class ITSEC_Notify {
 			'em'     => array(),
 			'p'      => array(),
 			'strong' => array(),
+			'table'  => array(
+				'border' => array(),
+				'style'  => array(),
+			),
+			'tr'     => array(),
+			'td'     => array(
+				'colspan' => array(),
+			),
+			'th'     => array(),
+			'br'     => array(),
+			'h4'     => array(),
 		);
 
 		if ( isset( $itsec_globals['settings']['digest_email'] ) && $itsec_globals['settings']['digest_email'] === true ) {
@@ -203,13 +218,9 @@ class ITSEC_Notify {
 			$subject = trim( sanitize_text_field( $body['subject'] ) );
 			$message = wp_kses( $body['message'], $allowed_tags );
 
-			if ( isset( $body['headers'] ) && is_array( $body['headers'] ) ) {
+			if ( isset( $body['headers'] ) ) {
 
 				$headers = $body['headers'];
-
-			} elseif ( isset( $body['headers'] ) ) {
-
-				$headers = trim( sanitize_text_field( $body['headers'] ) );
 
 			} else {
 

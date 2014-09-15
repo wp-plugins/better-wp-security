@@ -282,6 +282,8 @@ final class ITSEC_Logger {
 
 			if ( $itsec_globals['settings']['log_type'] === 0 || $itsec_globals['settings']['log_type'] == 2 ) {
 
+				$wpdb->hide_errors(); //Don't show error if table isn't present. Instead we'll just try to reconstruct the tables.
+
 				$wpdb->insert(
 				     $wpdb->base_prefix . 'itsec_log',
 				     array(
@@ -298,6 +300,12 @@ final class ITSEC_Logger {
 					     'log_data'     => serialize( $sanitized_data ),
 				     )
 				);
+
+				$error = $wpdb->last_error;
+
+				if ( strlen( trim( $error ) ) > 0 ) {
+					ITSEC_Lib::create_database_tables();
+				}
 
 			}
 

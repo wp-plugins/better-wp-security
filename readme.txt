@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.6
+Stable tag: 4.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,8 @@ Pro Features:
 * 2-factor authentication - Use Google Authenticator or Authy to send a custom code to your phone when you log in
 * Import/export settings - saves time setting up multiple WordPress sites
 * Malware scanning - Automatically check any URL or individual file on a specified schedule and scan your whole site automatically as users browse through it
+* Password Expiration - Set a maximum password age and force users to choose a new password. You can also force all users to choose a new password immediately (if needed)
+* Generate Strong Passwords - Generate strong passwords right from your profile screen
 * GeoIP banning - coming soon
 
 = iThemes Sync Integration =
@@ -188,6 +190,21 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.9 =
+* New Pro Feature: Automatically generate strong passwords
+* New Pro Feature: Password expiration
+* Enhancement: Added a link to the actual timezone settings in the general settings page (instead of the top of the page)
+* Fixed: When an invalid log directory is detected it will not fail but will instead reset it to the original.
+* Fixed: No more duplicate digest emails
+* Fixed: No more "Array" message appearing in digest emails from user lockouts
+* Fixed: HTML in traditional file log emails will display correctly.
+* Fixed: From address in notification emails will now display correctly.
+* Fixed: MySQL errors will no longer appear for missing iThemes Security tables. Instead it will attempt to recreate them.
+* Fixed: Fixed missing "no changes" text in file change emails.
+* Fixed: Formatting of individual file change emails will now work.
+* Fixed: Fixed a bug in ban users user agents that would cause a crash on Apache if the user agent contained a space
+* Fixed: When an invalid backup directory is detected it will not fail but will instead reset it to the original.
 
 = 4.4.6 =
 * Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
@@ -1253,6 +1270,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.9 =
+Version 4.4.9 is a bugfix release for the free version and contains new features for pro users. It is a recommended update for all users.
 
 = 4.4.6 =
 Version 4.4.6 adds new features, enhancements, bug fixes and more. It is recommended for all users.

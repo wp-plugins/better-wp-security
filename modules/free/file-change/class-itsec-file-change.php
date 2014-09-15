@@ -212,7 +212,7 @@ class ITSEC_File_Change {
 
 			$this->running = false;
 
-			return -1;
+			return - 1;
 
 		}
 
@@ -248,7 +248,7 @@ class ITSEC_File_Change {
 		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
-		if ( isset( $added ) && is_array( $added ) && sizeof( $added > 0 ) ) {
+		if ( isset( $added ) && is_array( $added ) && sizeof( $added ) > 0 ) {
 
 			foreach ( $added as $item => $attr ) {
 
@@ -278,7 +278,7 @@ class ITSEC_File_Change {
 		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
-		if ( isset( $removed ) && is_array( $removed ) && sizeof( $removed > 0 ) ) {
+		if ( isset( $removed ) && is_array( $removed ) && sizeof( $removed ) > 0 ) {
 
 			foreach ( $removed as $item => $attr ) {
 
@@ -308,7 +308,7 @@ class ITSEC_File_Change {
 		$report .= '<th>' . __( 'File Hash', 'it-l10n-better-wp-security' ) . '</th>' . PHP_EOL;
 		$report .= '</tr>' . PHP_EOL;
 
-		if ( isset( $changed ) && is_array( $changed ) && sizeof( $changed > 0 ) ) {
+		if ( isset( $changed ) && is_array( $changed ) && sizeof( $changed ) > 0 ) {
 
 			foreach ( $changed as $item => $attr ) {
 

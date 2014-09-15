@@ -238,3 +238,20 @@
 4.4.6 - 2014-09-10 - Packaging Bot (modules/free)
 	Fixed: fixed possible undefined api_error variable on line 316 if WordPress believes the email address is invalid.
 	Fixed: failed calls to various apis will no longer throw a php error on failure.
+4.4.7 - 2014-09-11 - Packaging Bot (lib/icon-fonts)
+	Add support for ContactBuddy
+4.4.8 - 2014-09-15 - Packaging Bot (modules/free)
+	Enhancement: Added a link to the actual timezone settings in the general settings page (instead of the top of the page)
+	Fixed: Fixed missing "no changes" text in file change emails.
+	Fixed: Formatting of individual file change emails will now work.
+	Fixed: Fixed a bug in ban users user agents that would cause a crash on Apache if the user agent contained a space
+	Fixed: When an invalid backup directory is detected it will not fail but will instead reset it to the original.
+4.4.9 - 2014-09-15 - Packaging Bot (core)
+	New Feature: Automatically generate strong passwords
+	New Feature: Password expiration
+	Fixed: When an invalid log directory is detected it will not fail but will instead reset it to the original.
+	Fixed: No more duplicate digest emails
+	Fixed: No more "Array" message appearing in digest emails from user lockouts
+	Fixed: HTML in traditional file log emails will display correctly.
+	Fixed: From address in notification emails will now display correctly.
+	Fixed: MySQL errors will no longer appear for missing iThemes Security tables. Instead it will attempt to recreate them.

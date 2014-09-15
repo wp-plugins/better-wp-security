@@ -1071,16 +1071,16 @@ class ITSEC_Global_Settings {
 
 		if ( $good_path !== true ) {
 
+			$input['log_location'] = $itsec_globals['ithemes_log_dir'];
+
 			$type              = 'error';
-			$message           = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ',
-			                         'it-l10n-better-wp-security' );
-			$input['log_type'] = 0;
+			$message           = __( 'The file path entered for the log location does not appear to be valid. it has been reset to: ' . $itsec_globals['ithemes_log_dir'], 'it-l10n-better-wp-security' );
 
 			add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
 
-		} else {
-			$input['log_type'] = isset( $input['log_type'] ) ? intval( $input['log_type'] ) : 0;
 		}
+
+		$input['log_type'] = isset( $input['log_type'] ) ? intval( $input['log_type'] ) : 0;
 
 		if ( ! isset( $type ) && $input['write_files'] === true && $this->settings['write_files'] === false ) {
 

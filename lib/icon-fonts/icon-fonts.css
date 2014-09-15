@@ -14,10 +14,12 @@
 #toplevel_page_it-exchange div.wp-menu-image:before,
 #toplevel_page_ithemes-builder-theme div.wp-menu-image:before,
 #toplevel_page_itsec div.wp-menu-image:before,
+#toplevel_page_contactbuddy div.wp-menu-image:before,
 .it-icon-exchange-e,
 .it-icon-builder,
 .it-icon-backupbuddy-drive,
-.it-icon-itsec {
+.it-icon-itsec,
+.it-icon-contactbuddy {
 	font-family: 'ithemes-icons' !important;
 	speak: none;
 	font-style: normal;
@@ -32,37 +34,45 @@
 #toplevel_page_ithemes-builder-theme div.wp-menu-image,
 #toplevel_page_pb_backupbuddy_multisite_export div.wp-menu-image,
 #toplevel_page_pb_backupbuddy_getting_started div.wp-menu-image,
-#toplevel_page_itsec div.wp-menu-image {
+#toplevel_page_itsec div.wp-menu-image,
+#toplevel_page_contactbuddy div.wp-menu-image {
 	background: none !important;
 }
 #toplevel_page_ithemes-builder-theme div.wp-menu-image img,
 #toplevel_page_pb_backupbuddy_multisite_export div.wp-menu-image img,
 #toplevel_page_pb_backupbuddy_getting_started div.wp-menu-image img,
-#toplevel_page_itsec div.wp-menu-image img {
+#toplevel_page_itsec div.wp-menu-image img,
+#toplevel_page_contactbuddy div.wp-menu-image img {
 	display: none !important;
 }
 
 /** ----------------------------------------:[ exchange ]:--- */
 #toplevel_page_it-exchange div.wp-menu-image:before,
 .it-icon-exchange-e:before {
-	content: "\e602" !important;
+	content: "\f103" !important;
 }
 
 /** ----------------------------------------:[ builder ]:--- */
 #toplevel_page_ithemes-builder-theme div.wp-menu-image:before,
 .it-icon-builder:before {
-	content: "\e600" !important;
+	content: "\f101" !important;
 }
 
 /** ----------------------------------------:[ backupbuddy ]:--- */
 #toplevel_page_pb_backupbuddy_getting_started div.wp-menu-image:before,
 #toplevel_page_pb_backupbuddy_multisite_export div.wp-menu-image:before,
 .it-icon-backupbuddy-drive:before {
-	content: "\e601" !important;
+	content: "\f100" !important;
 }
 
 /** ----------------------------------------:[ security ]:--- */
 #toplevel_page_itsec div.wp-menu-image:before,
 .it-icon-itsec:before {
-	content: "\e603" !important;
+	content: "\f105" !important;
+}
+
+/** ----------------------------------------:[ contactbuddy ]:--- */
+#toplevel_page_contactbuddy div.wp-menu-image:before,
+.it-icon-contactbuddy:before {
+	content: "\f102" !important;
 }

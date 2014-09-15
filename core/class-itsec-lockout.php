@@ -131,6 +131,8 @@ class ITSEC_Lockout {
 
 		global $wpdb, $itsec_globals;
 
+		$wpdb->hide_errors(); //Hide database errors in case the tables aren't there
+
 		$host           = ITSEC_Lib::get_ip();
 		$username       = sanitize_text_field( trim( $username ) );
 		$username_check = false;
@@ -161,6 +163,12 @@ class ITSEC_Lockout {
 
 		}
 
+		$error = $wpdb->last_error;
+
+		if ( strlen( trim( $error ) ) > 0 ) {
+			ITSEC_Lib::create_database_tables();
+		}
+
 		if ( $host_check !== null && $host_check !== false ) {
 
 			$this->execute_lock();
@@ -186,6 +194,8 @@ class ITSEC_Lockout {
 	public function do_lockout( $module, $user = null ) {
 
 		global $wpdb, $itsec_globals;
+
+		$wpdb->hide_errors(); //Hide database errors in case the tables aren't there
 
 		$lock_host     = null;
 		$lock_user     = null;
@@ -284,6 +294,12 @@ class ITSEC_Lockout {
 
 			}
 
+		}
+
+		$error = $wpdb->last_error;
+
+		if ( strlen( trim( $error ) ) > 0 ) {
+			ITSEC_Lib::create_database_tables();
 		}
 
 		if ( ! $this->is_ip_whitelisted( $host ) && ( $lock_host !== null || $lock_user !== null || $lock_username !== null ) ) {
@@ -1155,11 +1171,9 @@ class ITSEC_Lockout {
 	 */
 	private function send_lockout_email( $host, $user, $username, $host_expiration, $user_expiration, $reason ) {
 
-		global $itsec_notify;
+		global $itsec_notify, $itsec_globals;
 
 		if ( ! isset( $itsec_globals['settings']['digest_email'] ) || $itsec_globals['settings']['digest_email'] === false ) {
-
-			global $itsec_globals;
 
 			$plural_text = __( 'has', 'it-l10n-better-wp-security' );
 

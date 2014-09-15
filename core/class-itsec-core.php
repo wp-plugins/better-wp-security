@@ -202,6 +202,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Malware_Scheduling',
 					),
+					'password' => array(
+						'has_front' => true,
+						'option'    => 'itsec_password',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Password',
+					),
 					'settings'           => array(
 						'has_front' => false,
 						'class_id'  => 'Settings',
