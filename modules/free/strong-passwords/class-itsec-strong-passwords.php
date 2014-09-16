@@ -59,7 +59,17 @@ class ITSEC_Strong_Passwords {
 
 		$password_meets_requirements = false;
 		$args                        = func_get_args();
-		$user_id                      = isset( $args[2]->user_login ) ? $args[2]->user_login : $_GET['login'];
+		$user_id                      = isset( $args[2]->user_login ) ? $args[2]->user_login : false;
+
+		if ( $user_id === false ) { //try to get a working user ID
+
+			if ( isset( $args[1] ) && isset( $args[1]->ID ) ) {
+
+				$user_id = $args[1]->get( 'user_login' );
+
+			}
+
+		}
 
 		if ( $user_id ) { //if updating an existing user
 
@@ -67,7 +77,7 @@ class ITSEC_Strong_Passwords {
 
 				foreach ( $user_info->roles as $capability ) {
 
-					if ( $available_roles[$capability] >= $available_roles[$min_role] ) {
+					if ( isset( $available_roles[ $capability ] ) && $available_roles[$capability] >= $available_roles[$min_role] ) {
 						$password_meets_requirements = true;
 					}
 

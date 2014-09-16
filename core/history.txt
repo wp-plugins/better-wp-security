@@ -140,7 +140,7 @@
 	Fixed: Fixed typos in digest email.
 	Fixed: Fixed typos in default network lockout message.
 	Fixed: Force stylesheet reload for new nags and other items by pushing plugin build number to stylesheet registrations
-1.7.0 - 2014-09 - 15 - Chris Wiegman
+1.7.0 - 2014-09-15 - Chris Wiegman
 	New Feature: Automatically generate strong passwords
 	New Feature: Password expiration
 	Fixed: When an invalid log directory is detected it will not fail but will instead reset it to the original.
@@ -149,3 +149,5 @@
 	Fixed: HTML in traditional file log emails will display correctly.
 	Fixed: From address in notification emails will now display correctly.
 	Fixed: MySQL errors will no longer appear for missing iThemes Security tables. Instead it will attempt to recreate them.
+1.7.1 - 2014-09-16 - Chris Wiegman
+    Fixed: Version bump to break cache.

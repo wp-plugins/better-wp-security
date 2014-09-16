@@ -255,3 +255,10 @@
 	Fixed: HTML in traditional file log emails will display correctly.
 	Fixed: From address in notification emails will now display correctly.
 	Fixed: MySQL errors will no longer appear for missing iThemes Security tables. Instead it will attempt to recreate them.
+4.4.10 - 2014-09-16 - Packaging Bot (modules/free)
+	Enhancement: Updated copy on Virustotal API key to indicate that a private key is not needed.
+	Fixed: More complete check for user id when resettings password will prevent undefined index login on line 62 error.
+	Fixed: Fixed a bug that prevented the api key from saving after resetting the key.
+	Fixed: Removed errors that could occur due to the use of custom capabilities and roles.
+4.4.11 - 2014-09-16 - Packaging Bot (core)
+	Updated core to version 1.7.1

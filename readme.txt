@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.9
+Stable tag: 4.4.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,12 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.11 =
+* Enhancement: Updated copy on Virustotal API key to indicate that a private key is not needed.
+* Fixed: More complete check for user id when resettings password will prevent undefined index login on line 62 error.
+* Fixed: Fixed a bug that prevented the api key from saving after resetting the key.
+* Fixed: Removed errors that could occur due to the use of custom capabilities and roles.
 
 = 4.4.9 =
 * New Pro Feature: Automatically generate strong passwords
@@ -1270,6 +1276,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.11 =
+Version 4.4.11 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
 
 = 4.4.9 =
 Version 4.4.9 is a bugfix release for the free version and contains new features for pro users. It is a recommended update for all users.

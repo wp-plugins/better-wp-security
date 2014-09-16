@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.9\n"
+"Project-Id-Version: iThemes Security 4.4.11\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-09-15 15:27:11+00:00\n"
+"POT-Creation-Date: 2014-09-16 20:26:11+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.9)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.11)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -3143,7 +3143,6 @@ msgstr ""
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:164
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:224
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:336
-#: modules/free/malware/class-itsec-malware-admin.php:109
 msgid "to use this feature."
 msgstr ""
 
@@ -3540,6 +3539,12 @@ msgid "You will need to get a free api key from "
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:109
+msgid ""
+"to use this feature. (note you only need a public key and do not need to ask "
+"them for a private key.)"
+msgstr ""
+
+#: modules/free/malware/class-itsec-malware-admin.php:109
 msgid "For more information on setting up your account, visit this"
 msgstr ""
 
@@ -3798,17 +3803,17 @@ msgid ""
 "may annoy your members."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:96
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:106
 msgid ""
 "<strong>ERROR</strong>: You MUST Choose a password that rates at least "
 "<em>Strong</em> on the meter. Your setting have NOT been saved."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:118
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:128
 msgid "Sorry, but you must enter a strong password."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:139
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:149
 msgid "Sorry, but you must enter a strong password"
 msgstr ""
 

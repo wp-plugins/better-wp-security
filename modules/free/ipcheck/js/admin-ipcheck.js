@@ -20,7 +20,7 @@ jQuery( document ).ready( function () {
 				data     : data,
 				complete : function ( response ) {
 
-					var new_content = '<input id="itsec_ipcheck_email"  class="regular-text" name="itsec_ipcheck[email]" value="" type="text" placeholder="' + itsec_ipcheck.text3 + '"><br /><input id="itsec_ipcheck_optin" name="itsec_ipcheck[optin]" value="1" checked="" type="checkbox"><label for="itsec_ipcheck_optin">' + itsec_ipcheck.text1 + '</label><p class="description">' + itsec_ipcheck.text2 + '</p>';
+					var new_content = '<input id="itsec_ipcheck_email"  class="regular-text" name="itsec_ipcheck[email-brute-force]" value="" type="text" placeholder="' + itsec_ipcheck.text3 + '"><br /><input id="itsec_ipcheck_optin" name="itsec_ipcheck[optin-brute-force]" value="1" checked="" type="checkbox"><label for="itsec_ipcheck_optin">' + itsec_ipcheck.text1 + '</label><p class="description">' + itsec_ipcheck.text2 + '</p>';
 					var new_enable = '';
 
 					jQuery( '.itsec_api_key_field' ).replaceWith( new_content );
