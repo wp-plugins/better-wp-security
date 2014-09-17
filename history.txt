@@ -262,3 +262,7 @@
 	Fixed: Removed errors that could occur due to the use of custom capabilities and roles.
 4.4.11 - 2014-09-16 - Packaging Bot (core)
 	Updated core to version 1.7.1
+4.4.12 - 2014-09-17 - Packaging Bot (core)
+	Updated core to version 1.7.2
+4.4.13 - 2014-09-17 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.4.6

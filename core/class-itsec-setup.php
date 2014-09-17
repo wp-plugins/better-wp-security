@@ -35,7 +35,7 @@ class ITSEC_Setup {
 			'email_notifications'       => true,
 			'lockout_period'            => 15,
 			'lockout_white_list'        => array(),
-			'log_rotation'              => 30,
+			'log_rotation'              => 14,
 			'log_type'                  => 0,
 			'log_location'              => $itsec_globals['ithemes_log_dir'],
 			'allow_tracking'            => false,

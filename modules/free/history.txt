@@ -202,3 +202,5 @@
 	Fixed: More complete check for user id when resettings password will prevent undefined index login on line 62 error.
 	Fixed: Fixed a bug that prevented the api key from saving after resetting the key.
 	Fixed: Removed errors that could occur due to the use of custom capabilities and roles.
+1.4.6 - 2014-09-17 - Chris Wiegman
+    Only code cleanup

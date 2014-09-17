@@ -726,7 +726,7 @@ class ITSEC_Global_Settings {
 		if ( isset( $this->settings['log_rotation'] ) ) {
 			$log_rotation = absint( $this->settings['log_rotation'] );
 		} else {
-			$log_rotation = 30;
+			$log_rotation = 14;
 		}
 
 		echo '<input class="small-text" name="itsec_global[log_rotation]" id="itsec_global_log_rotation" value="' . $log_rotation . '" type="text">';
@@ -981,7 +981,7 @@ class ITSEC_Global_Settings {
 		$input['blacklist_period']          = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
 		$input['email_notifications']       = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 		$input['lockout_period']            = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
-		$input['log_rotation']              = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
+		$input['log_rotation']              = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 14;
 		$input['allow_tracking']            = ( isset( $input['allow_tracking'] ) && intval( $input['allow_tracking'] == 1 ) ? true : false );
 		$input['write_files']               = ( isset( $input['write_files'] ) && intval( $input['write_files'] == 1 ) ? true : false );
 		$input['nginx_file']                = isset( $input['nginx_file'] ) ? sanitize_text_field( $input['nginx_file'] ) : ABSPATH . 'nginx.conf';

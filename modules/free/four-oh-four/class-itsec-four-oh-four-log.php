@@ -12,11 +12,11 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 	function __construct() {
 
 		parent::__construct(
-		      array(
-			      'singular' => 'itsec_four_oh_four_log_item',
-			      'plural'   => 'itsec_four_oh_four_log_items',
-			      'ajax'     => true
-		      )
+			array(
+				'singular' => 'itsec_four_oh_four_log_item',
+				'plural'   => 'itsec_four_oh_four_log_items',
+				'ajax'     => true
+			)
 		);
 
 	}
@@ -152,21 +152,21 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 
 		foreach ( $items as $item ) { //loop through and group 404s
 
-			if ( isset( $table_data[$item['log_url']] ) ) {
+			if ( isset( $table_data[ $item['log_url'] ] ) ) {
 
-				$table_data[$item['log_url']]['id']         = $item['log_id'];
-				$table_data[$item['log_url']]['count']      = $table_data[$item['log_url']]['count'] + 1;
-				$table_data[$item['log_url']]['last_time']  = strtotime( $table_data[$item['log_url']]['last_time'] ) > strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['last_time'] : sanitize_text_field( $item['log_date'] );
-				$table_data[$item['log_url']]['first_time'] = strtotime( $table_data[$item['log_url']]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['first_time'] : sanitize_text_field( $item['log_date'] );
-				$table_data[$item['log_url']]['uri']        = sanitize_text_field( $item['log_url'] );
+				$table_data[ $item['log_url'] ]['id']         = $item['log_id'];
+				$table_data[ $item['log_url'] ]['count']      = $table_data[ $item['log_url'] ]['count'] + 1;
+				$table_data[ $item['log_url'] ]['last_time']  = strtotime( $table_data[ $item['log_url'] ]['last_time'] ) > strtotime( $item['log_date'] ) ? $table_data[ $item['log_url'] ]['last_time'] : sanitize_text_field( $item['log_date'] );
+				$table_data[ $item['log_url'] ]['first_time'] = strtotime( $table_data[ $item['log_url'] ]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[ $item['log_url'] ]['first_time'] : sanitize_text_field( $item['log_date'] );
+				$table_data[ $item['log_url'] ]['uri']        = sanitize_text_field( $item['log_url'] );
 
 			} else {
 
-				$table_data[$item['log_url']]['id']         = $item['log_id'];
-				$table_data[$item['log_url']]['count']      = 1;
-				$table_data[$item['log_url']]['last_time']  = sanitize_text_field( $item['log_date'] );
-				$table_data[$item['log_url']]['first_time'] = sanitize_text_field( $item['log_date'] );
-				$table_data[$item['log_url']]['uri']        = sanitize_text_field( $item['log_url'] );
+				$table_data[ $item['log_url'] ]['id']         = $item['log_id'];
+				$table_data[ $item['log_url'] ]['count']      = 1;
+				$table_data[ $item['log_url'] ]['last_time']  = sanitize_text_field( $item['log_date'] );
+				$table_data[ $item['log_url'] ]['first_time'] = sanitize_text_field( $item['log_date'] );
+				$table_data[ $item['log_url'] ]['uri']        = sanitize_text_field( $item['log_url'] );
 
 			}
 
@@ -183,11 +183,11 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 		$this->items = $table_data;
 
 		$this->set_pagination_args(
-		     array(
-			     'total_items' => $total_items,
-			     'per_page'    => $per_page,
-			     'total_pages' => ceil( $total_items / $per_page )
-		     )
+			array(
+				'total_items' => $total_items,
+				'per_page'    => $per_page,
+				'total_pages' => ceil( $total_items / $per_page )
+			)
 		);
 
 	}
@@ -210,9 +210,9 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 
 		if ( $orderby == 'count' ) {
 
-			if ( intval( $a[$orderby] ) < intval( $b[$orderby] ) ) {
+			if ( intval( $a[ $orderby ] ) < intval( $b[ $orderby ] ) ) {
 				$result = - 1;
-			} elseif ( intval( $a[$orderby] ) === intval( $b[$orderby] ) ) {
+			} elseif ( intval( $a[ $orderby ] ) === intval( $b[ $orderby ] ) ) {
 				$result = 0;
 			} else {
 				$result = 1;
@@ -221,7 +221,7 @@ final class ITSEC_Four_Oh_Four_Log extends ITSEC_WP_List_Table {
 		} else {
 
 			// Determine sort order
-			$result = strcmp( $a[$orderby], $b[$orderby] );
+			$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
 
 		}
 

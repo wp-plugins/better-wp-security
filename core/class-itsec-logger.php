@@ -190,13 +190,16 @@ final class ITSEC_Logger {
 	/**
 	 * Gets events from the logs for a specified module
 	 *
-	 * @param string $module module or type of events to fetch
-	 * @param array  $params array of extra query parameters
-	 * @param int    $limit  the maximum number of rows to retrieve
+	 * @param string $module    module or type of events to fetch
+	 * @param array  $params    array of extra query parameters
+	 * @param int    $limit     the maximum number of rows to retrieve
+	 * @param int    $offset    the offset of the data
+	 * @param string $order     order by column
+	 * @param bool   $direction false for descending or true for ascending
 	 *
 	 * @return bool|mixed false on error, null if no events or array of events
 	 */
-	public function get_events( $module, $params = array(), $limit = null ) {
+	public function get_events( $module, $params = array(), $limit = null, $offset = null, $order = null, $direction = false ) {
 
 		global $wpdb;
 
@@ -224,9 +227,37 @@ final class ITSEC_Logger {
 
 		}
 
+		if ( $direction === false ) {
+
+			$order_direction = ' DESC';
+
+		} else {
+
+			$order_direction = ' ASC';
+
+		}
+
+		if ( $order !== null ) {
+
+			$order_statement = ' ORDER BY `' . esc_sql( $order ) . '`';
+
+		} else {
+
+			$order_statement = ' ORDER BY `log_id`';
+
+		}
+
 		if ( $limit !== null ) {
 
-			$result_limit = ' LIMIT ' . absint( $limit );
+			if ( $offset !== null ) {
+
+				$result_limit = ' LIMIT ' . absint( $offset ) . ', ' . absint( $limit );
+
+			} else {
+
+				$result_limit = ' LIMIT ' . absint( $limit );
+
+			}
 
 		} else {
 
@@ -248,7 +279,7 @@ final class ITSEC_Logger {
 
 		}
 
-		$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log`" . $where . $module_sql . $param_search . ' ORDER BY `log_id` DESC' . $result_limit . ";", ARRAY_A );
+		$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log`" . $where . $module_sql . $param_search . $order_statement . $order_direction . $result_limit . ";", ARRAY_A );
 
 		return $items;
 
@@ -272,9 +303,9 @@ final class ITSEC_Logger {
 
 		global $wpdb, $itsec_globals;
 
-		if ( isset( $this->logger_modules[$module] ) ) {
+		if ( isset( $this->logger_modules[ $module ] ) ) {
 
-			$options = $this->logger_modules[$module];
+			$options = $this->logger_modules[ $module ];
 
 			$file_data = $this->sanitize_array( $data, true );
 
@@ -285,20 +316,20 @@ final class ITSEC_Logger {
 				$wpdb->hide_errors(); //Don't show error if table isn't present. Instead we'll just try to reconstruct the tables.
 
 				$wpdb->insert(
-				     $wpdb->base_prefix . 'itsec_log',
-				     array(
-					     'log_type'     => $options['type'],
-					     'log_priority' => intval( $priority ),
-					     'log_function' => $options['function'],
-					     'log_date'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
-					     'log_date_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
-					     'log_host'     => sanitize_text_field( $host ),
-					     'log_username' => sanitize_text_field( $username ),
-					     'log_user'     => intval( $user ),
-					     'log_url'      => esc_sql( $url ),
-					     'log_referrer' => esc_sql( $referrer ),
-					     'log_data'     => serialize( $sanitized_data ),
-				     )
+					$wpdb->base_prefix . 'itsec_log',
+					array(
+						'log_type'     => $options['type'],
+						'log_priority' => intval( $priority ),
+						'log_function' => $options['function'],
+						'log_date'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
+						'log_date_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
+						'log_host'     => sanitize_text_field( $host ),
+						'log_username' => sanitize_text_field( $username ),
+						'log_user'     => intval( $user ),
+						'log_url'      => esc_sql( $url ),
+						'log_referrer' => esc_sql( $referrer ),
+						'log_data'     => serialize( $sanitized_data ),
+					)
 				);
 
 				$error = $wpdb->last_error;
@@ -549,7 +580,7 @@ final class ITSEC_Logger {
 					$num = - 1;
 				}
 
-				$num_map[$num] = $old_file;
+				$num_map[ $num ] = $old_file;
 
 			}
 
@@ -587,14 +618,14 @@ final class ITSEC_Logger {
 			if ( is_array( $value ) ) {
 
 				if ( $to_string === false ) {
-					$sanitized_array[esc_sql( $key )] = $this->sanitize_array( $value );
+					$sanitized_array[ esc_sql( $key ) ] = $this->sanitize_array( $value );
 				} else {
 					$string .= esc_sql( $key ) . '=' . $this->sanitize_array( $value, true );
 				}
 
 			} else {
 
-				$sanitized_array[esc_sql( $key )] = esc_sql( $value );
+				$sanitized_array[ esc_sql( $key ) ] = esc_sql( $value );
 
 				$string .= esc_sql( $key ) . '=' . esc_sql( $value );
 

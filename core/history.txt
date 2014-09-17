@@ -151,3 +151,6 @@
 	Fixed: MySQL errors will no longer appear for missing iThemes Security tables. Instead it will attempt to recreate them.
 1.7.1 - 2014-09-16 - Chris Wiegman
     Fixed: Version bump to break cache.
+1.7.2 - 2014-09-17 - Chris Wiegman
+    Enhancement: Default log rotation changed from 30 days to 14 days
+    Fixed: All logs page will properly display even with 50,000+ entries in the log

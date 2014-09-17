@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.11\n"
+"Project-Id-Version: iThemes Security 4.4.13\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-09-16 20:26:11+00:00\n"
+"POT-Creation-Date: 2014-09-17 20:23:12+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.11)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.13)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -1137,32 +1137,32 @@ msgstr ""
 msgid "Clear Logs"
 msgstr ""
 
-#: core/class-itsec-logger.php:348
+#: core/class-itsec-logger.php:379
 msgid "Below are various logs of information collected by"
 msgstr ""
 
-#: core/class-itsec-logger.php:350
+#: core/class-itsec-logger.php:381
 msgid ""
 "This information can help you get a picture of what is happening with your "
 "site and the level of success you have achieved in your security efforts."
 msgstr ""
 
-#: core/class-itsec-logger.php:368
+#: core/class-itsec-logger.php:399
 msgid ""
 "To view logs within the plugin you must enable database logging in the "
 "plugin settings. File logging is not available for access within the plugin "
 "itself."
 msgstr ""
 
-#: core/class-itsec-logger.php:385
+#: core/class-itsec-logger.php:416
 msgid "To adjust logging options visit the global settings page."
 msgstr ""
 
-#: core/class-itsec-logger.php:387
+#: core/class-itsec-logger.php:418
 msgid "Select Filter: "
 msgstr ""
 
-#: core/class-itsec-logger.php:389
+#: core/class-itsec-logger.php:420
 msgid "All Log Data"
 msgstr ""
 
