@@ -275,3 +275,5 @@
 	Fixed: User lockout count in email notifications will now be correct
 4.4.15 - 2014-10-09 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.4.7
+4.4.16 - 2014-10-09 - Packaging Bot (core)
+	Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15

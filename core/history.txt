@@ -161,3 +161,5 @@
 	Fixed: Duplicate messages will not be allowed in digest emails
 	Fixed: Duplicate digest emails will have a far lesser chance of sending
 	Fixed: User lockout count in email notifications will now be correct
+1.7.4 - 2014-10-09 - Chris Wiegman
+	Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15

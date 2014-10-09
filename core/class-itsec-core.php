@@ -1309,7 +1309,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						require( $front_file );
 					}
 
-					$front = new $front_class;
+					$front = new $front_class( $this );
 
 					if ( method_exists( $front, 'run' ) ) {
 						$front->run( $this );

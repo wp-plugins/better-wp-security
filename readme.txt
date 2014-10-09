@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.15
+Stable tag: 4.4.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.16 =
+* Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15
 
 = 4.4.15 =
 * Enhancement: File change summary emails are more concise and will avoid extra information
@@ -1296,6 +1299,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.16 =
+Version 4.4.16 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
 
 = 4.4.15 =
 Version 4.4.15 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
