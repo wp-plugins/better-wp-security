@@ -68,7 +68,7 @@ jQuery( document ).ready( function () {
 				complete : function ( response ) {
 
 					if ( response.responseText == 1 || response.responseText == - 1 ) {
-						window.location.replace( '?page=toplevel_page_itsec_logs&itsec_log_filter=file_change' )
+						window.location.replace( 'admin.php?page=toplevel_page_itsec_logs&itsec_log_filter=file_change' )
 					}
 
 					jQuery( "#itsec_one_time_file_check_submit" ).removeClass( 'button-secondary' ).addClass( 'button-primary' ).attr( 'value', itsec_file_change.button_text );

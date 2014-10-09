@@ -4,7 +4,7 @@ Donate link: http://ithemes.com
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.13
+Stable tag: 4.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,22 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.15 =
+* Enhancement: File change summary emails are more concise and will avoid extra information
+* Fixed: Hide backend will now work with Jetpack's JSON API authorization.
+* Fixed: Option to change user ID 1 will correctly disappear when not present
+* Fixed: Removed empty user agent from default blacklist to avoid issues with external services
+* Fixed: File change folder check will no longer scan directories outside of ABSPATH for any reason
+* Fixed: Adding define( 'ITSEC_FILE_CHANGE_CRON', true ); to wp-config.php will cause the file change scanner to only run once daily via wp-cron.
+* Fixed: Compatibility issue where strong password enforcement could cause an error if passwords are changed outside of the core of WordPress
+* Fixed: Lost password url should now be correct on multisite.
+* Fixed: fixed duplicate ID issue from user_id_exists calls.
+* Fixed: Fixed an error in the lockout module that results in an error for users of multisite
+* Fixed: Notification emails will no longer send if not turned on
+* Fixed: Duplicate messages will not be allowed in digest emails
+* Fixed: Duplicate digest emails will have a far lesser chance of sending
+* Fixed: User lockout count in email notifications will now be correct
 
 = 4.4.13 =
 * Enhancement: Default log rotation changed from 30 days to 14 days
@@ -1280,6 +1296,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.15 =
+Version 4.4.15 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
 
 = 4.4.13 =
 Version 4.4.13 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.

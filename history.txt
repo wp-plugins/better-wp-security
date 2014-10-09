@@ -266,3 +266,12 @@
 	Updated core to version 1.7.2
 4.4.13 - 2014-09-17 - Packaging Bot (modules/free)
 	Updated modules/free to version 1.4.6
+4.4.14 - 2014-10-09 - Packaging Bot (core)
+	Fixed: fixed duplicate ID issue from user_id_exists calls.
+	Fixed: Fixed an error in the lockout module that results in an error for users of multisite
+	Fixed: Notification emails will no longer send if not turned on
+	Fixed: Duplicate messages will not be allowed in digest emails
+	Fixed: Duplicate digest emails will have a far lesser chance of sending
+	Fixed: User lockout count in email notifications will now be correct
+4.4.15 - 2014-10-09 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.4.7

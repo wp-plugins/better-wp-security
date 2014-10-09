@@ -13,21 +13,46 @@ class ITSEC_Hide_Backend {
 		//Execute module functions on frontend init
 		if ( $this->settings['enabled'] === true ) {
 
-			$this->auth_cookie_expired = false;
+			$jetpack_active_modules = get_option( 'jetpack_active_modules' );
 
-			add_action( 'auth_cookie_expired', array( $this, 'auth_cookie_expired' ) );
-			add_action( 'init', array( $this, 'execute_hide_backend' ), 1000 );
-			add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 11 );
+			if ( is_multisite() && function_exists( 'is_plugin_active_for_network' ) ) { //see if Jetpack is active
 
-			add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
-			add_filter( 'loginout', array( $this, 'filter_loginout' ) );
-			add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
-			add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
-			add_filter( 'retrieve_password_message', array( $this, 'retrieve_password_message' ) );
-			add_filter( 'comment_moderation_text', array( $this, 'comment_moderation_text' ) );
+				$is_jetpack_active = in_array( 'jetpack/jetpack.php', (array) get_option( 'active_plugins', array() ) ) || is_plugin_active_for_network( 'jetpack/jetpack.php' );
 
-			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+			} else {
+
+				$is_jetpack_active = in_array( 'jetpack/jetpack.php', (array) get_option( 'active_plugins', array() ) );
+
+			}
+
+			if (
+			! (
+				$is_jetpack_active === true &&
+				is_array( $jetpack_active_modules ) &&
+				in_array( 'json-api', $jetpack_active_modules ) &&
+				isset( $_GET['action'] ) &&
+				$_GET['action'] == 'jetpack_json_api_authorization'
+			)
+			) {
+
+				$this->auth_cookie_expired = false;
+
+				add_action( 'auth_cookie_expired', array( $this, 'auth_cookie_expired' ) );
+				add_action( 'init', array( $this, 'execute_hide_backend' ), 1000 );
+				add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
+				add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 11 );
+
+				add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
+				add_filter( 'loginout', array( $this, 'filter_loginout' ) );
+				add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
+				add_filter( 'lostpassword_url', array( $this, 'filter_login_url' ), 10, 2 );
+				add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
+				add_filter( 'retrieve_password_message', array( $this, 'retrieve_password_message' ) );
+				add_filter( 'comment_moderation_text', array( $this, 'comment_moderation_text' ) );
+
+				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+
+			}
 
 		}
 
@@ -239,6 +264,8 @@ class ITSEC_Hide_Backend {
 	 */
 	public function filter_login_url( $url ) {
 
+		$t = str_replace( 'wp-login.php', $this->settings['slug'], $url );
+
 		return str_replace( 'wp-login.php', $this->settings['slug'], $url );
 
 	}
@@ -287,15 +314,14 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return array          body tag classes
 	 */
-	public
-	function remove_admin_bar( $classes ) {
+	public function remove_admin_bar( $classes ) {
 
 		if ( is_admin() && is_user_logged_in() !== true ) {
 
 			foreach ( $classes as $key => $value ) {
 
 				if ( $value == 'admin-bar' ) {
-					unset( $classes[$key] );
+					unset( $classes[ $key ] );
 				}
 
 			}
@@ -306,8 +332,7 @@ class ITSEC_Hide_Backend {
 
 	}
 
-	public
-	function retrieve_password_message( $message ) {
+	public function retrieve_password_message( $message ) {
 
 		return str_replace( 'wp-login.php', $this->settings['slug'], $message );
 
@@ -322,8 +347,7 @@ class ITSEC_Hide_Backend {
 	 *
 	 * @return void
 	 */
-	public
-	function set_404() {
+	public function set_404() {
 
 		ITSEC_Lib::set_404();
 

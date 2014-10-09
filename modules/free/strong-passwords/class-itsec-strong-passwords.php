@@ -45,7 +45,11 @@ class ITSEC_Strong_Passwords {
 
 		//all the standard roles and level equivalents
 		$available_roles = array(
-			'administrator' => '8', 'editor' => '5', 'author' => '2', 'contributor' => '1', 'subscriber' => '0'
+			'administrator' => '8',
+			'editor'        => '5',
+			'author'        => '2',
+			'contributor'   => '1',
+			'subscriber'    => '0'
 		);
 
 		//roles and subroles
@@ -59,13 +63,20 @@ class ITSEC_Strong_Passwords {
 
 		$password_meets_requirements = false;
 		$args                        = func_get_args();
-		$user_id                      = isset( $args[2]->user_login ) ? $args[2]->user_login : false;
+		$user_id                     = isset( $args[2]->user_login ) ? $args[2]->user_login : false;
 
 		if ( $user_id === false ) { //try to get a working user ID
 
 			if ( isset( $args[1] ) && isset( $args[1]->ID ) ) {
 
-				$user_id = $args[1]->get( 'user_login' );
+				if ( isset( $args[1]->user_login ) ) {
+
+					$user_id = $args[1]->user_login;
+
+				} else {
+
+					$user_id = $args[1]->get( 'user_login' );
+				}
 
 			}
 
@@ -77,7 +88,7 @@ class ITSEC_Strong_Passwords {
 
 				foreach ( $user_info->roles as $capability ) {
 
-					if ( isset( $available_roles[ $capability ] ) && $available_roles[$capability] >= $available_roles[$min_role] ) {
+					if ( isset( $available_roles[ $capability ] ) && $available_roles[ $capability ] >= $available_roles[ $min_role ] ) {
 						$password_meets_requirements = true;
 					}
 
@@ -85,7 +96,7 @@ class ITSEC_Strong_Passwords {
 
 			} else { //a new user
 
-				if ( ! empty( $_POST['role'] ) && ! in_array( $_POST["role"], $rollists[$min_role] ) ) {
+				if ( ! empty( $_POST['role'] ) && ! in_array( $_POST["role"], $rollists[ $min_role ] ) ) {
 					$password_meets_requirements = true;
 				}
 

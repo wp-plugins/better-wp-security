@@ -204,3 +204,12 @@
 	Fixed: Removed errors that could occur due to the use of custom capabilities and roles.
 1.4.6 - 2014-09-17 - Chris Wiegman
     Only code cleanup
+1.4.7 - 2014-10-09 - Chris Wiegman
+	Enhancement: File change summary emails are more concise and will avoid extra information
+    Fixed: Hide backend will now work with Jetpack's JSON API authorization.
+    Fixed: Option to change user ID 1 will correctly disappear when not present
+    Fixed: Removed empty user agent from default blacklist to avoid issues with external services
+    Fixed: File change folder check will no longer scan directories outside of ABSPATH for any reason
+    Fixed: Adding define( 'ITSEC_FILE_CHANGE_CRON', true ); to wp-config.php will cause the file change scanner to only run once daily via wp-cron.
+    Fixed: Compatibility issue where strong password enforcement could cause an error if passwords are changed outside of the core of WordPress
+	Fixed: Lost password url should now be correct on multisite.

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.13\n"
+"Project-Id-Version: iThemes Security 4.4.15\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-09-17 20:23:12+00:00\n"
+"POT-Creation-Date: 2014-10-09 19:10:53+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.13)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.15)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -319,7 +319,7 @@ msgid "Welcome"
 msgstr ""
 
 #: core/class-itsec-global-settings.php:84
-#: core/class-itsec-global-settings.php:396 core/class-itsec-lockout.php:397
+#: core/class-itsec-global-settings.php:396 core/class-itsec-lockout.php:399
 msgid "Global Settings"
 msgstr ""
 
@@ -368,7 +368,7 @@ msgid ""
 "server even though the users will be added to the banned users list."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:255 core/class-itsec-notify.php:146
+#: core/class-itsec-global-settings.php:255 core/class-itsec-notify.php:152
 msgid "Lockouts"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgid ""
 "above."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:295 core/class-itsec-lockout.php:348
+#: core/class-itsec-global-settings.php:295 core/class-itsec-lockout.php:350
 #: core/class-itsec-setup.php:31
 msgid ""
 "Your IP address has been flagged as a threat by the iThemes Security network."
@@ -543,7 +543,7 @@ msgid ""
 "correctly."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:624 core/class-itsec-lockout.php:372
+#: core/class-itsec-global-settings.php:624 core/class-itsec-lockout.php:374
 #: core/class-itsec-setup.php:29
 msgid "error"
 msgstr ""
@@ -671,7 +671,7 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:538
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:511
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:304
-#: modules/free/file-change/class-itsec-file-change-admin.php:603
+#: modules/free/file-change/class-itsec-file-change-admin.php:609
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:341
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:481
 #: modules/free/malware/class-itsec-malware-admin.php:312
@@ -758,16 +758,16 @@ msgstr ""
 msgid "is not a valid address in the white list users box."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1125 core/class-itsec-lockout.php:1084
+#: core/class-itsec-global-settings.php:1125 core/class-itsec-lockout.php:1086
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:574
 #: modules/free/backup/class-itsec-backup-admin.php:620
 #: modules/free/backup/class-itsec-backup-admin.php:752
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:724
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:350
-#: modules/free/file-change/class-itsec-file-change-admin.php:337
-#: modules/free/file-change/class-itsec-file-change-admin.php:621
-#: modules/free/file-change/class-itsec-file-change-admin.php:681
-#: modules/free/file-change/class-itsec-file-change-admin.php:806
+#: modules/free/file-change/class-itsec-file-change-admin.php:343
+#: modules/free/file-change/class-itsec-file-change-admin.php:627
+#: modules/free/file-change/class-itsec-file-change-admin.php:682
+#: modules/free/file-change/class-itsec-file-change-admin.php:807
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:465
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
 #: modules/free/ipcheck/class-itsec-ipcheck-admin.php:222
@@ -812,130 +812,130 @@ msgid ""
 "options in those files."
 msgstr ""
 
-#: core/class-itsec-lockout.php:66
+#: core/class-itsec-lockout.php:68
 msgid "Active Lockouts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:83
+#: core/class-itsec-lockout.php:85
 msgid "Don't Lock Yourself Out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:113 core/class-itsec-lockout.php:1152
+#: core/class-itsec-lockout.php:115 core/class-itsec-lockout.php:1154
 msgid "Temporarily Whitelist my IP"
 msgstr ""
 
-#: core/class-itsec-lockout.php:313 core/class-itsec-lockout.php:781
+#: core/class-itsec-lockout.php:315 core/class-itsec-lockout.php:783
 #: modules/free/ipcheck/class-itsec-ipcheck.php:164
 #: modules/free/ipcheck/class-itsec-ipcheck.php:328
 msgid "lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:313
+#: core/class-itsec-lockout.php:315
 msgid ""
 "A whitelisted host has triggered a lockout condition but was not locked out."
 msgstr ""
 
-#: core/class-itsec-lockout.php:360 core/class-itsec-setup.php:30
+#: core/class-itsec-lockout.php:362 core/class-itsec-setup.php:30
 msgid "You have been locked out due to too many invalid login attempts."
 msgstr ""
 
-#: core/class-itsec-lockout.php:395
+#: core/class-itsec-lockout.php:397
 msgid "About Lockouts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:396
+#: core/class-itsec-lockout.php:398
 msgid "Your lockout settings can be configured in"
 msgstr ""
 
-#: core/class-itsec-lockout.php:398
+#: core/class-itsec-lockout.php:400
 msgid "Your current settings are configured as follows:"
 msgstr ""
 
-#: core/class-itsec-lockout.php:399
+#: core/class-itsec-lockout.php:401
 msgid "Permanently ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:400 core/class-itsec-lockout.php:410
+#: core/class-itsec-lockout.php:402 core/class-itsec-lockout.php:412
 msgid "yes"
 msgstr ""
 
-#: core/class-itsec-lockout.php:400 core/class-itsec-lockout.php:410
+#: core/class-itsec-lockout.php:402 core/class-itsec-lockout.php:412
 msgid "no"
 msgstr ""
 
-#: core/class-itsec-lockout.php:401
+#: core/class-itsec-lockout.php:403
 msgid "Number of lockouts before permanent ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:403
+#: core/class-itsec-lockout.php:405
 msgid "How long lockouts will be remembered for ban"
 msgstr ""
 
-#: core/class-itsec-lockout.php:405
+#: core/class-itsec-lockout.php:407
 msgid "Host lockout message"
 msgstr ""
 
-#: core/class-itsec-lockout.php:407
+#: core/class-itsec-lockout.php:409
 msgid "User lockout message"
 msgstr ""
 
-#: core/class-itsec-lockout.php:409
+#: core/class-itsec-lockout.php:411
 msgid "Is this computer white-listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:640 core/class-itsec-lockout.php:1146
+#: core/class-itsec-lockout.php:642 core/class-itsec-lockout.php:1148
 msgid "Your IP Address"
 msgstr ""
 
-#: core/class-itsec-lockout.php:641 core/class-itsec-lockout.php:1146
+#: core/class-itsec-lockout.php:643 core/class-itsec-lockout.php:1148
 msgid "is whitelisted until"
 msgstr ""
 
-#: core/class-itsec-lockout.php:642 core/class-itsec-lockout.php:1147
+#: core/class-itsec-lockout.php:644 core/class-itsec-lockout.php:1149
 msgid "Remove IP from Whitelist"
 msgstr ""
 
-#: core/class-itsec-lockout.php:810 core/class-itsec-lockout.php:839
+#: core/class-itsec-lockout.php:812 core/class-itsec-lockout.php:841
 msgid "White Listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:894
+#: core/class-itsec-lockout.php:896
 msgid "Locked out hosts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:913
+#: core/class-itsec-lockout.php:915
 msgid "Currently no hosts are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:921
+#: core/class-itsec-lockout.php:923
 msgid "Locked out users"
 msgstr ""
 
-#: core/class-itsec-lockout.php:941
+#: core/class-itsec-lockout.php:943
 msgid "Currently no users are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:949
+#: core/class-itsec-lockout.php:951
 msgid "Locked out usernames (not real users)"
 msgstr ""
 
-#: core/class-itsec-lockout.php:968
+#: core/class-itsec-lockout.php:970
 msgid "Currently no usernames are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:976
+#: core/class-itsec-lockout.php:978
 msgid "Release Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1006
+#: core/class-itsec-lockout.php:1008
 msgid "Host or User Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1088
+#: core/class-itsec-lockout.php:1090
 msgid "The selected lockouts have been cleared."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1137
+#: core/class-itsec-lockout.php:1139
 msgid ""
 "Security is a delicate item. It does not care who you are, if it sees that "
 "you are trying to do something strange it will lock you out. This can be "
@@ -943,120 +943,120 @@ msgid ""
 "as images and others."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1138
+#: core/class-itsec-lockout.php:1140
 msgid ""
 "Use the button below to temporarily white list your IP from lockouts for 24 "
 "hours. It will still notify you of the situation but it will not lock you "
 "out of your site allowing you a chance to fix the issue."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1139
+#: core/class-itsec-lockout.php:1141
 msgid ""
 "Please note that if your IP address changes at any time during the period "
 "(such as you switch locations) you could still inadvertently lock yourself "
 "out."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1178
+#: core/class-itsec-lockout.php:1180
 msgid "has"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1183
+#: core/class-itsec-lockout.php:1185
 msgid "host"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1185
+#: core/class-itsec-lockout.php:1187
 msgid "The host has been locked out "
 msgstr ""
 
-#: core/class-itsec-lockout.php:1189
+#: core/class-itsec-lockout.php:1191
 msgid "permanently"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1190
+#: core/class-itsec-lockout.php:1192
 msgid "To release the host lockout you can remove the host from the"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1190
+#: core/class-itsec-lockout.php:1192
 msgid "host list"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1194 core/class-itsec-lockout.php:1220
-#: core/class-itsec-lockout.php:1228
+#: core/class-itsec-lockout.php:1196 core/class-itsec-lockout.php:1222
+#: core/class-itsec-lockout.php:1230
 msgid "until"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1195 core/class-itsec-lockout.php:1224
+#: core/class-itsec-lockout.php:1197 core/class-itsec-lockout.php:1226
 msgid "To release the lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1195
+#: core/class-itsec-lockout.php:1197
 msgid "the admin area"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1220
+#: core/class-itsec-lockout.php:1222
 msgid "The user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1222
+#: core/class-itsec-lockout.php:1224
 msgid "user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1224 core/class-itsec-lockout.php:1234
-#: core/class-itsec-lockout.php:1238
+#: core/class-itsec-lockout.php:1226 core/class-itsec-lockout.php:1236
+#: core/class-itsec-lockout.php:1240
 msgid "the lockouts page"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1228
+#: core/class-itsec-lockout.php:1230
 msgid "and the user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1229
+#: core/class-itsec-lockout.php:1231
 msgid "have"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1230
+#: core/class-itsec-lockout.php:1232
 msgid "and a user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1234
+#: core/class-itsec-lockout.php:1236
 msgid "To release the user lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1238
+#: core/class-itsec-lockout.php:1240
 msgid "To release the lockouts please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1255 core/class-itsec-notify.php:142
+#: core/class-itsec-lockout.php:1257 core/class-itsec-notify.php:148
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:703
 msgid "Dear Site Admin"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1256
+#: core/class-itsec-lockout.php:1258
 msgid "A"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1260
+#: core/class-itsec-lockout.php:1262
 msgid " been locked out of the WordPress site at"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1263
+#: core/class-itsec-lockout.php:1265
 msgid "due to"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1268 core/class-itsec-notify.php:149
+#: core/class-itsec-lockout.php:1270 core/class-itsec-notify.php:155
 msgid "This email was generated automatically by"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1270 core/class-itsec-notify.php:151
+#: core/class-itsec-lockout.php:1272 core/class-itsec-notify.php:157
 msgid "To change your email preferences please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1272 core/class-itsec-notify.php:153
+#: core/class-itsec-lockout.php:1274 core/class-itsec-notify.php:159
 msgid "the plugin settings"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1275
+#: core/class-itsec-lockout.php:1277
 msgid "Site Lockout Notification"
 msgstr ""
 
@@ -1166,62 +1166,62 @@ msgstr ""
 msgid "All Log Data"
 msgstr ""
 
-#: core/class-itsec-notify.php:73
+#: core/class-itsec-notify.php:77
 msgid "There have been no lockouts since the last email check."
 msgstr ""
 
-#: core/class-itsec-notify.php:79 core/class-itsec-notify.php:106
-#: core/class-itsec-notify.php:115
+#: core/class-itsec-notify.php:83 core/class-itsec-notify.php:110
+#: core/class-itsec-notify.php:119
 msgid "There have been"
 msgstr ""
 
-#: core/class-itsec-notify.php:81
+#: core/class-itsec-notify.php:85
 msgid ""
 "users or usernames locked out for attempting to log in with incorrect "
 "credentials."
 msgstr ""
 
-#: core/class-itsec-notify.php:88 core/class-itsec-notify.php:97
+#: core/class-itsec-notify.php:92 core/class-itsec-notify.php:101
 msgid "There has been"
 msgstr ""
 
-#: core/class-itsec-notify.php:90
+#: core/class-itsec-notify.php:94
 msgid ""
 "user or username locked out for attempting to log in with incorrect "
 "credentials."
 msgstr ""
 
-#: core/class-itsec-notify.php:99
+#: core/class-itsec-notify.php:103
 msgid "host locked out."
 msgstr ""
 
-#: core/class-itsec-notify.php:108
+#: core/class-itsec-notify.php:112
 msgid "hosts locked out."
 msgstr ""
 
-#: core/class-itsec-notify.php:117
+#: core/class-itsec-notify.php:121
 msgid "lockout(s) including"
 msgstr ""
 
-#: core/class-itsec-notify.php:119
+#: core/class-itsec-notify.php:123
 msgid "user(s) and"
 msgstr ""
 
-#: core/class-itsec-notify.php:121
+#: core/class-itsec-notify.php:125
 msgid "host(s) locked out of your site."
 msgstr ""
 
-#: core/class-itsec-notify.php:143
+#: core/class-itsec-notify.php:149
 msgid ""
 "The following is a summary of security related activity on your site. For "
 "details please visit"
 msgstr ""
 
-#: core/class-itsec-notify.php:145
+#: core/class-itsec-notify.php:151
 msgid "the security logs"
 msgstr ""
 
-#: core/class-itsec-notify.php:157
+#: core/class-itsec-notify.php:163
 msgid "Daily Security Digest"
 msgstr ""
 
@@ -1582,51 +1582,51 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:34
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:33
 msgid "Admin User"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:178
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:177
 msgid "The <em>admin</em> user has been removed or renamed."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:186
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:185
 msgid "The <em>admin</em> user still exists."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:198
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:197
 msgid "The user with id 1 has been removed."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:206
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:205
 msgid "A user with id 1 still exists."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:234
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:229
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:117
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:93
 msgid "Security check"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:256
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:251
 msgid ""
 "The new admin username you entered is invalid or WordPress could not change "
 "the user id or username. Please check the name and try again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:304
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:301
 msgid ""
 "It looks like you have already removed the admin user. No further action is "
 "necessary."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:308
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:305
 msgid ""
 "This feature will improve the security of your WordPress installation by "
 "removing common user attributes that can be used to target your site."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:112
 #: modules/free/ssl/class-itsec-ssl-admin.php:325
@@ -1634,53 +1634,53 @@ msgstr ""
 msgid "WARNING"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:112
 msgid "Backup your database"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:309
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:306
 msgid "before changing the admin user."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:310
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:307
 msgid "Notice"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:310
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:307
 msgid ""
 "Changing the admin username or id of user 1 will log you out of your site "
 "requiring you to log back in again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:323
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:320
 msgid "Enable Change Admin User"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:330
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:327
 msgid "Check this box to enable admin user renaming."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:338
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:335
 msgid "New Admin Username"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:345
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:342
 msgid ""
 "Enter a new username to replace \"admin.\" Please note that if you are "
 "logged in as admin you will have to log in again."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:353
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:350
 msgid "Change User ID 1"
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:359
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:356
 msgid "Change the ID of the user with ID 1."
 msgstr ""
 
-#: modules/free/admin-user/class-itsec-admin-user-admin.php:366
+#: modules/free/admin-user/class-itsec-admin-user-admin.php:363
 msgid "Save Admin User"
 msgstr ""
 
@@ -2770,13 +2770,13 @@ msgstr ""
 msgid "Could not update prefix references in usermeta table."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:42
-#: modules/free/file-change/class-itsec-file-change-admin.php:507
-#: modules/free/file-change/class-itsec-file-change-admin.php:522
+#: modules/free/file-change/class-itsec-file-change-admin.php:48
+#: modules/free/file-change/class-itsec-file-change-admin.php:513
+#: modules/free/file-change/class-itsec-file-change-admin.php:528
 msgid "File Change Detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:91
+#: modules/free/file-change/class-itsec-file-change-admin.php:97
 msgid ""
 "Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
 "have many files in your installation or a lot of active plugins activating "
@@ -2784,76 +2784,76 @@ msgid ""
 "See the plugin homepage for more information."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:93
-#: modules/free/file-change/class-itsec-file-change-admin.php:319
+#: modules/free/file-change/class-itsec-file-change-admin.php:99
+#: modules/free/file-change/class-itsec-file-change-admin.php:325
 msgid "Scan Next File Chunk"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:93
-#: modules/free/file-change/class-itsec-file-change-admin.php:319
+#: modules/free/file-change/class-itsec-file-change-admin.php:99
+#: modules/free/file-change/class-itsec-file-change-admin.php:325
 msgid "Scan Files Now"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:94
+#: modules/free/file-change/class-itsec-file-change-admin.php:100
 msgid "Scanning... (this could take a while on a large site)"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:95
+#: modules/free/file-change/class-itsec-file-change-admin.php:101
 msgid "No changes were detected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:96
+#: modules/free/file-change/class-itsec-file-change-admin.php:102
 msgid "Changes were detected. Please check the log page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:97
+#: modules/free/file-change/class-itsec-file-change-admin.php:103
 #: modules/free/malware/class-itsec-malware-admin.php:83
 msgid "An error occured. Please try again later"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:135
+#: modules/free/file-change/class-itsec-file-change-admin.php:141
 msgid "Your site will detect changes to your files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:143
+#: modules/free/file-change/class-itsec-file-change-admin.php:149
 msgid ""
 "Your website is not looking for changed files. Consider turning on file "
 "change detections."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:181
+#: modules/free/file-change/class-itsec-file-change-admin.php:187
 msgid ""
 "has noticed a change to some files in your WordPress site. Please review the "
 "logs to make sure your system has not been compromised."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:182
+#: modules/free/file-change/class-itsec-file-change-admin.php:188
 msgid "View Logs"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:183
+#: modules/free/file-change/class-itsec-file-change-admin.php:189
 msgid "Dismiss Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:252
+#: modules/free/file-change/class-itsec-file-change-admin.php:258
 msgid "Email file change notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:253
+#: modules/free/file-change/class-itsec-file-change-admin.php:259
 msgid ""
 "Notifications will be sent to all emails set to receive notifications on the "
 "global settings page."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:275
+#: modules/free/file-change/class-itsec-file-change-admin.php:281
 msgid "Enable File Change detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:297
+#: modules/free/file-change/class-itsec-file-change-admin.php:303
 msgid "Split file checking into chunks."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:298
+#: modules/free/file-change/class-itsec-file-change-admin.php:304
 msgid ""
 "Splits file checking into 7 chunks (plugins, themes, wp-admin, wp-includes, "
 "uploads, the rest of wp-content and everything that is left over) and "
@@ -2862,60 +2862,60 @@ msgid ""
 "continue even on a lower-end web host."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:318
+#: modules/free/file-change/class-itsec-file-change-admin.php:324
 msgid ""
 "Press the button below to scan your site's files for changes. Note that if "
 "changes are found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:359
+#: modules/free/file-change/class-itsec-file-change-admin.php:365
 msgid ""
 "Exclude files or folders by clicking the red minus next to the file or "
 "folder name."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:399
+#: modules/free/file-change/class-itsec-file-change-admin.php:405
 msgid "Today"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:401
+#: modules/free/file-change/class-itsec-file-change-admin.php:407
 msgid "Tomorrow"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:406
+#: modules/free/file-change/class-itsec-file-change-admin.php:412
 msgid "Next automatic scan at: "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:407
+#: modules/free/file-change/class-itsec-file-change-admin.php:413
 msgid ""
 "Automatic file change scanning is triggered by a user visiting your page and "
 "may not happen exactly at the time listed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:435
+#: modules/free/file-change/class-itsec-file-change-admin.php:441
 msgid "Exclude Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:436
+#: modules/free/file-change/class-itsec-file-change-admin.php:442
 msgid "Include Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:438
+#: modules/free/file-change/class-itsec-file-change-admin.php:444
 msgid "Include/Exclude Files"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:439
+#: modules/free/file-change/class-itsec-file-change-admin.php:445
 msgid ""
 "Select whether we should exclude files and folders selected or whether the "
 "scan should only include files and folders selected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:459
-#: modules/free/file-change/class-itsec-file-change-admin.php:570
+#: modules/free/file-change/class-itsec-file-change-admin.php:465
+#: modules/free/file-change/class-itsec-file-change-admin.php:576
 msgid "Display file change admin warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:460
+#: modules/free/file-change/class-itsec-file-change-admin.php:466
 msgid ""
 "Disabling this feature will prevent the file change warning from displaying "
 "to the site administrator in the WordPress Dashboard. Note that disabling "
@@ -2924,38 +2924,38 @@ msgid ""
 "manually checking the log files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:489
+#: modules/free/file-change/class-itsec-file-change-admin.php:495
 msgid ""
 "File types listed here will not be checked for changes. While it is possible "
 "to change files such as images it is quite rare and nearly all known "
 "WordPress attacks exploit php, js and other text files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:514
+#: modules/free/file-change/class-itsec-file-change-admin.php:520
 msgid "File Change Detection Settings"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:530
+#: modules/free/file-change/class-itsec-file-change-admin.php:536
 msgid "Split File Scanning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:538
+#: modules/free/file-change/class-itsec-file-change-admin.php:544
 msgid "Include/Exclude Files and Folders"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:546
+#: modules/free/file-change/class-itsec-file-change-admin.php:552
 msgid "Files and Folders List"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:554
+#: modules/free/file-change/class-itsec-file-change-admin.php:560
 msgid "Ignore File Types"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:562
+#: modules/free/file-change/class-itsec-file-change-admin.php:568
 msgid "Email File Change Notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:592
+#: modules/free/file-change/class-itsec-file-change-admin.php:598
 msgid ""
 "Even the best security solutions can fail. How do you know if someone gets "
 "into your site? You will know because they will change something. File "
@@ -2966,7 +2966,7 @@ msgid ""
 "thereby taking into account whether or not you modify the files yourself."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:706
+#: modules/free/file-change/class-itsec-file-change-admin.php:707
 msgid "File Change History"
 msgstr ""
 
@@ -2976,16 +2976,16 @@ msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:110
 #: modules/free/file-change/class-itsec-file-change-log.php:178
-#: modules/free/file-change/class-itsec-file-change.php:243
+#: modules/free/file-change/class-itsec-file-change.php:252
 msgid "Files Added"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:117
 #: modules/free/file-change/class-itsec-file-change-log.php:135
 #: modules/free/file-change/class-itsec-file-change-log.php:153
-#: modules/free/file-change/class-itsec-file-change.php:246
-#: modules/free/file-change/class-itsec-file-change.php:276
-#: modules/free/file-change/class-itsec-file-change.php:306
+#: modules/free/file-change/class-itsec-file-change.php:255
+#: modules/free/file-change/class-itsec-file-change.php:285
+#: modules/free/file-change/class-itsec-file-change.php:315
 msgid "File"
 msgstr ""
 
@@ -3021,7 +3021,7 @@ msgid "Check Time"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:179
-#: modules/free/file-change/class-itsec-file-change.php:273
+#: modules/free/file-change/class-itsec-file-change.php:282
 msgid "Files Deleted"
 msgstr ""
 
@@ -3029,82 +3029,78 @@ msgstr ""
 msgid "Memory Used"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:237
+#: modules/free/file-change/class-itsec-file-change.php:246
 msgid "Scan Time:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:238
+#: modules/free/file-change/class-itsec-file-change.php:247
 msgid "Files Added:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:239
+#: modules/free/file-change/class-itsec-file-change.php:248
 msgid "Files Deleted:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:240
+#: modules/free/file-change/class-itsec-file-change.php:249
 msgid "Files Modified:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:241
+#: modules/free/file-change/class-itsec-file-change.php:250
 msgid "Memory Used:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:247
-#: modules/free/file-change/class-itsec-file-change.php:277
-#: modules/free/file-change/class-itsec-file-change.php:307
+#: modules/free/file-change/class-itsec-file-change.php:256
+#: modules/free/file-change/class-itsec-file-change.php:286
+#: modules/free/file-change/class-itsec-file-change.php:316
 msgid "Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:248
-#: modules/free/file-change/class-itsec-file-change.php:278
-#: modules/free/file-change/class-itsec-file-change.php:308
+#: modules/free/file-change/class-itsec-file-change.php:257
+#: modules/free/file-change/class-itsec-file-change.php:287
+#: modules/free/file-change/class-itsec-file-change.php:317
 msgid "File Hash"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:266
+#: modules/free/file-change/class-itsec-file-change.php:275
 msgid "No files were added."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:296
+#: modules/free/file-change/class-itsec-file-change.php:305
 msgid "No files were removed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:303
+#: modules/free/file-change/class-itsec-file-change.php:312
 msgid "Files Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:326
+#: modules/free/file-change/class-itsec-file-change.php:335
 msgid "No files were changed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:415
+#: modules/free/file-change/class-itsec-file-change.php:424
 msgid "File Changes Detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:525
+#: modules/free/file-change/class-itsec-file-change.php:534
 msgid "WordPress File Change Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:527
+#: modules/free/file-change/class-itsec-file-change.php:536
 msgid "A file (or files) on your site at "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:527
+#: modules/free/file-change/class-itsec-file-change.php:536
 msgid ""
 " have been changed. Please review the report below to verify changes are not "
 "the result of a compromise."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:546
+#: modules/free/file-change/class-itsec-file-change.php:555
 msgid "File changes detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:548
-msgid "detected"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:550
-msgid "file changes on your system"
+#: modules/free/file-change/class-itsec-file-change.php:557
+msgid "detected file changes on your system"
 msgstr ""
 
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:50
@@ -3803,17 +3799,17 @@ msgid ""
 "may annoy your members."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:106
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:117
 msgid ""
 "<strong>ERROR</strong>: You MUST Choose a password that rates at least "
 "<em>Strong</em> on the meter. Your setting have NOT been saved."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:128
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:139
 msgid "Sorry, but you must enter a strong password."
 msgstr ""
 
-#: modules/free/strong-passwords/class-itsec-strong-passwords.php:149
+#: modules/free/strong-passwords/class-itsec-strong-passwords.php:160
 msgid "Sorry, but you must enter a strong password"
 msgstr ""
 

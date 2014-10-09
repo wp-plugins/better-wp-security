@@ -448,6 +448,7 @@ class ITSEC_Setup {
 		delete_site_option( 'itsec_api_nag' );
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
 		delete_site_transient( 'itsec_upload_dir' );
+		delete_site_transient( 'itsec_notification_running' );
 
 		$htaccess = ITSEC_Lib::get_htaccess();
 

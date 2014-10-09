@@ -9,10 +9,12 @@
 class ITSEC_Lockout {
 
 	private
+		$core,
 		$lockout_modules;
 
-	function __construct() {
+	function __construct( $core ) {
 
+		$this->core = $core;
 		$this->lockout_modules = array(); //array to hold information on modules using this feature
 
 		//Run database cleanup daily with cron

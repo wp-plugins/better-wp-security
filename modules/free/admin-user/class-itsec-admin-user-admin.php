@@ -9,8 +9,7 @@ class ITSEC_Admin_User_Admin {
 
 	function run( $core ) {
 
-		$this->core = $core;
-
+		$this->core        = $core;
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
@@ -222,11 +221,7 @@ class ITSEC_Admin_User_Admin {
 	 */
 	public function initialize_admin() {
 
-		if ( ITSEC_Lib::user_id_exists( 1 ) || username_exists( 'admin' ) ) {
-			$this->settings = false;
-		} else {
-			$this->settings = true;
-		}
+		$this->settings = ( username_exists( 'admin' ) || ITSEC_Lib::user_id_exists( 1 ) ) ? false : true;
 
 		if ( ! $this->settings === true && isset( $_POST['itsec_enable_admin_user'] ) && $_POST['itsec_enable_admin_user'] == 'true' ) {
 
@@ -298,6 +293,8 @@ class ITSEC_Admin_User_Admin {
 	 * @return void
 	 */
 	public function metabox_admin_user_settings() {
+
+		$this->settings = ( username_exists( 'admin' ) || ITSEC_Lib::user_id_exists( 1 ) ) ? false : true;
 
 		if ( $this->settings === true ) {
 

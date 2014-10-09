@@ -1,5 +1,4 @@
 # Begin HackRepair.com Blacklist
-if ($http_user_agent ~* "^$"){return 403;}
 if ($http_user_agent ~* "^[Ww]eb[Bb]andit"){return 403;}
 if ($http_user_agent ~* "^Acunetix"){return 403;}
 if ($http_user_agent ~* "^binlar"){return 403;}

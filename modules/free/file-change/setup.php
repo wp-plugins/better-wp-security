@@ -79,6 +79,9 @@ if ( ! class_exists( 'ITSEC_File_Change_Setup' ) ) {
 		 * @return void
 		 */
 		public function execute_deactivate() {
+
+			wp_clear_scheduled_hook( 'itsec_file_check' );
+
 		}
 
 		/**

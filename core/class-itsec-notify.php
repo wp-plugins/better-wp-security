@@ -21,11 +21,13 @@ class ITSEC_Notify {
 
 			//Send digest if it has been 24 hours
 			if (
-				$this->queue === false ||
-				(
-					is_array( $this->queue ) &&
-					isset( $this->queue['last_sent'] ) &&
-					$this->queue['last_sent'] < ( $itsec_globals['current_time_gmt'] - 86400 )
+				get_site_transient( 'itsec_notification_running' ) === false && (
+					$this->queue === false ||
+					(
+						is_array( $this->queue ) &&
+						isset( $this->queue['last_sent'] ) &&
+						$this->queue['last_sent'] < ( $itsec_globals['current_time_gmt'] - 86400 )
+					)
 				)
 			) {
 				add_action( 'init', array( $this, 'init' ) );
@@ -46,6 +48,8 @@ class ITSEC_Notify {
 
 		global $itsec_globals, $wpdb;
 
+		set_site_transient( 'itsec_notification_running', true, 60 );
+
 		$messages     = false;
 		$has_lockouts = true; //assume a lockout has occured by default
 
@@ -54,18 +58,18 @@ class ITSEC_Notify {
 		}
 
 		$host_count = absint( $wpdb->get_var(
-		                           $wpdb->prepare(
-		                                "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND `lockout_host`!='';",
-		                                date( 'Y-m-d H:i:s', $this->queue['last_sent'] )
-		                           )
-		                      ) );
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND `lockout_host`!='';",
+				date( 'Y-m-d H:i:s', $this->queue['last_sent'] )
+			)
+		) );
 
 		$user_count = absint( $wpdb->get_var(
-		                           $wpdb->prepare(
-		                                "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND ( `lockout_user`!=0 OR `lockout_username` ) is not NULL;",
-		                                date( 'Y-m-d H:i:s', $this->queue['last_sent'] )
-		                           )
-		                      ) );
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_start_gmt` > '%s' AND ( `lockout_user`!=0 OR `lockout_username` is not NULL );",
+				date( 'Y-m-d H:i:s', $this->queue['last_sent'] )
+			)
+		) );
 
 		if ( $host_count == 0 && $user_count == 0 ) {
 
@@ -131,7 +135,9 @@ class ITSEC_Notify {
 
 				foreach ( $messages as $message ) {
 
-					$module_message .= '<p>' . $message . '</p>';
+					if ( is_string( $message ) ) {
+						$module_message .= '<p>' . $message . '</p>';
+					}
 
 				}
 
@@ -168,6 +174,8 @@ class ITSEC_Notify {
 		);
 
 		update_site_option( 'itsec_message_queue', $this->queue );
+
+		delete_site_transient( 'itsec_notification_running' );
 
 	}
 
@@ -207,13 +215,17 @@ class ITSEC_Notify {
 
 		if ( isset( $itsec_globals['settings']['digest_email'] ) && $itsec_globals['settings']['digest_email'] === true ) {
 
-			$this->queue['messages'][] = wp_kses( $body, $allowed_tags );
+			if ( ! in_array( wp_kses( $body, $allowed_tags ), $this->queue['messages'] ) ) {
 
-			update_site_option( 'itsec_message_queue', $this->queue );
+				$this->queue['messages'][] = wp_kses( $body, $allowed_tags );
+
+				update_site_option( 'itsec_message_queue', $this->queue );
+
+			}
 
 			return true;
 
-		} else {
+		} elseif ( isset( $itsec_globals['settings']['email_notifications'] ) && $itsec_globals['settings']['email_notifications'] === true ) {
 
 			$subject = trim( sanitize_text_field( $body['subject'] ) );
 			$message = wp_kses( $body['message'], $allowed_tags );
@@ -233,6 +245,8 @@ class ITSEC_Notify {
 			return $this->send_mail( $subject, $message, $headers, $attachments );
 
 		}
+
+		return true;
 
 	}
 

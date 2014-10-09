@@ -32,12 +32,21 @@ class ITSEC_File_Change {
 		if (
 			( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) &&
 			isset( $this->settings['enabled'] ) &&
-			$this->settings['enabled'] === true && isset( $this->settings['last_run'] ) &&
+			$this->settings['enabled'] === true &&
+			isset( $this->settings['last_run'] ) &&
 			( $itsec_globals['current_time'] - $interval ) > $this->settings['last_run'] &&
 			( ! defined( 'ITSEC_FILE_CHECK_CRON' ) || ITSEC_FILE_CHECK_CRON === false )
 		) {
+			wp_clear_scheduled_hook( 'itsec_file_check' );
 			add_action( 'init', array( $this, 'execute_file_check' ) );
 		}
+
+		//Use Cron if registered
+		if ( defined( 'ITSEC_FILE_CHECK_CRON' ) && ITSEC_FILE_CHECK_CRON === true && ! wp_next_scheduled( 'itsec_execute_file_check_cron' ) ) {
+			wp_schedule_event( time(), 'hourly', 'itsec_execute_file_check_cron' );
+		}
+
+		add_action( 'itsec_execute_file_check_cron', array( $this, 'execute_file_check' ) );
 
 	}
 
@@ -542,12 +551,10 @@ class ITSEC_File_Change {
 			if ( $changed > 0 ) {
 
 				$message = sprintf(
-					'<strong>%s:</strong> %s %s <em>%s</em> %s.',
+					'<strong>%s:</strong> %s %s.',
 					__( 'File changes detected', 'it-l10n-better-wp-security' ),
 					$itsec_globals['plugin_name'],
-					__( 'detected', 'it-l10n-better-wp-security' ),
-					$changed,
-					__( 'file changes on your system', 'it-l10n-better-wp-security' )
+					__( 'detected file changes on your system', 'it-l10n-better-wp-security' )
 				);
 
 				$itsec_notify->notify( $message );

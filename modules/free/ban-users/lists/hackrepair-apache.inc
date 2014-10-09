@@ -1,6 +1,5 @@
 # Begin HackRepair.com Blacklist
 RewriteEngine on
-RewriteCond %{HTTP_USER_AGENT} ^$ [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ^[Ww]eb[Bb]andit [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ^Acunetix [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ^binlar [NC,OR]

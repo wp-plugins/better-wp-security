@@ -13,10 +13,16 @@ class ITSEC_File_Change_Admin {
 		$this->settings    = get_site_option( 'itsec_file_change' );
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+		add_action( 'itsec_add_admin_meta_boxes', array(
+				$this,
+				'add_admin_meta_boxes'
+			) ); //add meta boxes to admin page
 		add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-		add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+		add_filter( 'itsec_add_dashboard_status', array(
+				$this,
+				'dashboard_status'
+			) ); //add information for plugin status
 		add_filter( 'itsec_logger_displays', array( $this, 'register_logger_displays' ) ); //adds logs metaboxes
 		add_filter( 'itsec_tracking_vars', array( $this, 'tracking_vars' ) );
 
@@ -51,10 +57,10 @@ class ITSEC_File_Change_Admin {
 		);
 
 		$this->core->add_toc_item(
-		           array(
-			           'id'    => $id,
-			           'title' => $title,
-		           )
+			array(
+				'id'    => $id,
+				'title' => $title,
+			)
 		);
 
 	}
@@ -80,7 +86,7 @@ class ITSEC_File_Change_Admin {
 			)
 		);
 
-		if ( isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) !== false ) ) {
+		if ( isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) !== false || strpos( get_current_screen()->id, 'dashboard' ) !== false ) ) {
 
 			wp_enqueue_script( 'itsec_file_change_js', $this->module_path . 'js/admin-file-change.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
 			wp_localize_script(
@@ -146,7 +152,7 @@ class ITSEC_File_Change_Admin {
 
 		}
 
-		array_push( $statuses[$status_array], $status );
+		array_push( $statuses[ $status_array ], $status );
 
 		return $statuses;
 
@@ -637,19 +643,14 @@ class ITSEC_File_Change_Admin {
 
 				//two loops keep directories sorted before files
 
-				// All dirs
+				// All files and directories (alphabetical sorting)
 				foreach ( $files as $file ) {
 
-					if ( file_exists( $directory . $file ) && $file != '.' && $file != '..' && is_dir( $directory . $file ) ) {
+					if ( $file != '.' && $file != '..' && file_exists( $directory . $file ) && is_dir( $directory . $file ) ) {
+
 						echo '<li class="directory collapsed"><a href="#" rel="' . htmlentities( $directory . $file ) . '/">' . htmlentities( $file ) . '<div class="itsec_treeselect_control"><img src="' . plugins_url( 'images/redminus.png', __FILE__ ) . '" style="vertical-align: -3px;" title="Add to exclusions..." class="itsec_filetree_exclude"></div></a></li>';
-					}
 
-				}
-
-				// All files
-				foreach ( $files as $file ) {
-
-					if ( file_exists( $directory . $file ) && $file != '.' && $file != '..' && ! is_dir( $directory . $file ) ) {
+					} elseif ( $file != '.' && $file != '..' && file_exists( $directory . $file ) && ! is_dir( $directory . $file ) ) {
 
 						$ext = preg_replace( '/^.*\./', '', $file );
 						echo '<li class="file ext_' . $ext . '"><a href="#" rel="' . htmlentities( $directory . $file ) . '">' . htmlentities( $file ) . '<div class="itsec_treeselect_control"><img src="' . plugins_url( 'images/redminus.png', __FILE__ ) . '" style="vertical-align: -3px;" title="Add to exclusions..." class="itsec_filetree_exclude"></div></a></li>';

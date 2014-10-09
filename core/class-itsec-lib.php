@@ -779,9 +779,9 @@ final class ITSEC_Lib {
 		}
 
 		//queary the user table to see if the user is there
-		$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
+		$saved_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
 
-		if ( $user_id == $user_id ) {
+		if ( $saved_id == $user_id ) {
 			return true;
 		} else {
 			return false;
