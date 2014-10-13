@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.16\n"
+"Project-Id-Version: iThemes Security 4.4.18\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-10-09 21:42:36+00:00\n"
+"POT-Creation-Date: 2014-10-13 15:39:43+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,144 +13,144 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.16)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.18)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:250
+#: core/class-itsec-core.php:253
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:216
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:257
+#: core/class-itsec-core.php:260
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:264
+#: core/class-itsec-core.php:267
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:271
+#: core/class-itsec-core.php:274
 #: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:282
+#: core/class-itsec-core.php:285
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:292
+#: core/class-itsec-core.php:295
 msgid "Go Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:305 core/class-itsec-core.php:316
+#: core/class-itsec-core.php:308 core/class-itsec-core.php:319
 #: modules/free/backup/class-itsec-backup-admin.php:673
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:509 core/class-itsec-core.php:602
-#: core/class-itsec-core.php:898 core/class-itsec-core.php:1646
-#: core/class-itsec-core.php:1685
+#: core/class-itsec-core.php:512 core/class-itsec-core.php:605
+#: core/class-itsec-core.php:901 core/class-itsec-core.php:1649
+#: core/class-itsec-core.php:1688
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:593 core/class-itsec-core.php:1647
+#: core/class-itsec-core.php:596 core/class-itsec-core.php:1650
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:742
+#: core/class-itsec-core.php:745
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:769 core/class-itsec-core.php:1730
+#: core/class-itsec-core.php:772 core/class-itsec-core.php:1733
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:773 core/class-itsec-core.php:1734
+#: core/class-itsec-core.php:776 core/class-itsec-core.php:1737
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:779 core/class-itsec-core.php:1740
+#: core/class-itsec-core.php:782 core/class-itsec-core.php:1743
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:781 core/class-itsec-core.php:1742
+#: core/class-itsec-core.php:784 core/class-itsec-core.php:1745
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:783
+#: core/class-itsec-core.php:786
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:784
+#: core/class-itsec-core.php:787
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:791 core/class-itsec-core.php:1747
+#: core/class-itsec-core.php:794 core/class-itsec-core.php:1750
 #: core/class-itsec-files.php:120
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:858
+#: core/class-itsec-core.php:861
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:868
+#: core/class-itsec-core.php:871
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:948
+#: core/class-itsec-core.php:951
 msgid ""
 "New! Take your site security to the next level by activating iThemes Brute "
 "Force Network Protection."
 msgstr ""
 
-#: core/class-itsec-core.php:948
+#: core/class-itsec-core.php:951
 msgid "Get Free API Key"
 msgstr ""
 
-#: core/class-itsec-core.php:1473
+#: core/class-itsec-core.php:1476
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1474
+#: core/class-itsec-core.php:1477
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1475
+#: core/class-itsec-core.php:1478
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1477
+#: core/class-itsec-core.php:1480
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1478
+#: core/class-itsec-core.php:1481
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1559
+#: core/class-itsec-core.php:1562
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1863
+#: core/class-itsec-core.php:1866
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1863
+#: core/class-itsec-core.php:1866
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -368,7 +368,7 @@ msgid ""
 "server even though the users will be added to the banned users list."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:255 core/class-itsec-notify.php:152
+#: core/class-itsec-global-settings.php:255 core/class-itsec-notify.php:156
 msgid "Lockouts"
 msgstr ""
 
@@ -758,7 +758,7 @@ msgstr ""
 msgid "is not a valid address in the white list users box."
 msgstr ""
 
-#: core/class-itsec-global-settings.php:1125 core/class-itsec-lockout.php:1086
+#: core/class-itsec-global-settings.php:1125 core/class-itsec-lockout.php:1093
 #: modules/free/away-mode/class-itsec-away-mode-admin.php:574
 #: modules/free/backup/class-itsec-backup-admin.php:620
 #: modules/free/backup/class-itsec-backup-admin.php:752
@@ -820,7 +820,7 @@ msgstr ""
 msgid "Don't Lock Yourself Out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:115 core/class-itsec-lockout.php:1154
+#: core/class-itsec-lockout.php:115 core/class-itsec-lockout.php:1163
 msgid "Temporarily Whitelist my IP"
 msgstr ""
 
@@ -883,15 +883,15 @@ msgstr ""
 msgid "Is this computer white-listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:642 core/class-itsec-lockout.php:1148
+#: core/class-itsec-lockout.php:642 core/class-itsec-lockout.php:1157
 msgid "Your IP Address"
 msgstr ""
 
-#: core/class-itsec-lockout.php:643 core/class-itsec-lockout.php:1148
-msgid "is whitelisted until"
+#: core/class-itsec-lockout.php:643 core/class-itsec-lockout.php:1157
+msgid "is whitelisted for"
 msgstr ""
 
-#: core/class-itsec-lockout.php:644 core/class-itsec-lockout.php:1149
+#: core/class-itsec-lockout.php:644 core/class-itsec-lockout.php:1158
 msgid "Remove IP from Whitelist"
 msgstr ""
 
@@ -899,43 +899,48 @@ msgstr ""
 msgid "White Listed"
 msgstr ""
 
-#: core/class-itsec-lockout.php:896
+#: core/class-itsec-lockout.php:898
 msgid "Locked out hosts"
 msgstr ""
 
-#: core/class-itsec-lockout.php:915
+#: core/class-itsec-lockout.php:910 core/class-itsec-lockout.php:939
+#: core/class-itsec-lockout.php:967
+msgid "Expires in"
+msgstr ""
+
+#: core/class-itsec-lockout.php:918
 msgid "Currently no hosts are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:923
+#: core/class-itsec-lockout.php:926
 msgid "Locked out users"
 msgstr ""
 
-#: core/class-itsec-lockout.php:943
+#: core/class-itsec-lockout.php:947
 msgid "Currently no users are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:951
+#: core/class-itsec-lockout.php:955
 msgid "Locked out usernames (not real users)"
 msgstr ""
 
-#: core/class-itsec-lockout.php:970
+#: core/class-itsec-lockout.php:975
 msgid "Currently no usernames are locked out of this website."
 msgstr ""
 
-#: core/class-itsec-lockout.php:978
+#: core/class-itsec-lockout.php:983
 msgid "Release Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1008
+#: core/class-itsec-lockout.php:1013
 msgid "Host or User Lockout"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1090
+#: core/class-itsec-lockout.php:1097
 msgid "The selected lockouts have been cleared."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1139
+#: core/class-itsec-lockout.php:1148
 msgid ""
 "Security is a delicate item. It does not care who you are, if it sees that "
 "you are trying to do something strange it will lock you out. This can be "
@@ -943,120 +948,120 @@ msgid ""
 "as images and others."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1140
+#: core/class-itsec-lockout.php:1149
 msgid ""
 "Use the button below to temporarily white list your IP from lockouts for 24 "
 "hours. It will still notify you of the situation but it will not lock you "
 "out of your site allowing you a chance to fix the issue."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1141
+#: core/class-itsec-lockout.php:1150
 msgid ""
 "Please note that if your IP address changes at any time during the period "
 "(such as you switch locations) you could still inadvertently lock yourself "
 "out."
 msgstr ""
 
-#: core/class-itsec-lockout.php:1180
+#: core/class-itsec-lockout.php:1189
 msgid "has"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1185
+#: core/class-itsec-lockout.php:1194
 msgid "host"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1187
+#: core/class-itsec-lockout.php:1196
 msgid "The host has been locked out "
 msgstr ""
 
-#: core/class-itsec-lockout.php:1191
+#: core/class-itsec-lockout.php:1200
 msgid "permanently"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1192
+#: core/class-itsec-lockout.php:1201
 msgid "To release the host lockout you can remove the host from the"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1192
+#: core/class-itsec-lockout.php:1201
 msgid "host list"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1196 core/class-itsec-lockout.php:1222
-#: core/class-itsec-lockout.php:1230
+#: core/class-itsec-lockout.php:1205 core/class-itsec-lockout.php:1231
+#: core/class-itsec-lockout.php:1239
 msgid "until"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1197 core/class-itsec-lockout.php:1226
+#: core/class-itsec-lockout.php:1206 core/class-itsec-lockout.php:1235
 msgid "To release the lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1197
+#: core/class-itsec-lockout.php:1206
 msgid "the admin area"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1222
+#: core/class-itsec-lockout.php:1231
 msgid "The user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1224
+#: core/class-itsec-lockout.php:1233
 msgid "user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1226 core/class-itsec-lockout.php:1236
-#: core/class-itsec-lockout.php:1240
+#: core/class-itsec-lockout.php:1235 core/class-itsec-lockout.php:1245
+#: core/class-itsec-lockout.php:1249
 msgid "the lockouts page"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1230
+#: core/class-itsec-lockout.php:1239
 msgid "and the user has been locked out"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1231
+#: core/class-itsec-lockout.php:1240
 msgid "have"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1232
+#: core/class-itsec-lockout.php:1241
 msgid "and a user"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1236
+#: core/class-itsec-lockout.php:1245
 msgid "To release the user lockout please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1240
+#: core/class-itsec-lockout.php:1249
 msgid "To release the lockouts please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1257 core/class-itsec-notify.php:148
+#: core/class-itsec-lockout.php:1266 core/class-itsec-notify.php:152
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:703
 msgid "Dear Site Admin"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1258
+#: core/class-itsec-lockout.php:1267
 msgid "A"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1262
+#: core/class-itsec-lockout.php:1271
 msgid " been locked out of the WordPress site at"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1265
+#: core/class-itsec-lockout.php:1274
 msgid "due to"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1270 core/class-itsec-notify.php:155
+#: core/class-itsec-lockout.php:1279 core/class-itsec-notify.php:159
 msgid "This email was generated automatically by"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1272 core/class-itsec-notify.php:157
+#: core/class-itsec-lockout.php:1281 core/class-itsec-notify.php:161
 msgid "To change your email preferences please visit"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1274 core/class-itsec-notify.php:159
+#: core/class-itsec-lockout.php:1283 core/class-itsec-notify.php:163
 msgid "the plugin settings"
 msgstr ""
 
-#: core/class-itsec-lockout.php:1277
+#: core/class-itsec-lockout.php:1286
 msgid "Site Lockout Notification"
 msgstr ""
 
@@ -1166,62 +1171,62 @@ msgstr ""
 msgid "All Log Data"
 msgstr ""
 
-#: core/class-itsec-notify.php:77
+#: core/class-itsec-notify.php:81
 msgid "There have been no lockouts since the last email check."
 msgstr ""
 
-#: core/class-itsec-notify.php:83 core/class-itsec-notify.php:110
-#: core/class-itsec-notify.php:119
+#: core/class-itsec-notify.php:87 core/class-itsec-notify.php:114
+#: core/class-itsec-notify.php:123
 msgid "There have been"
 msgstr ""
 
-#: core/class-itsec-notify.php:85
+#: core/class-itsec-notify.php:89
 msgid ""
 "users or usernames locked out for attempting to log in with incorrect "
 "credentials."
 msgstr ""
 
-#: core/class-itsec-notify.php:92 core/class-itsec-notify.php:101
+#: core/class-itsec-notify.php:96 core/class-itsec-notify.php:105
 msgid "There has been"
 msgstr ""
 
-#: core/class-itsec-notify.php:94
+#: core/class-itsec-notify.php:98
 msgid ""
 "user or username locked out for attempting to log in with incorrect "
 "credentials."
 msgstr ""
 
-#: core/class-itsec-notify.php:103
+#: core/class-itsec-notify.php:107
 msgid "host locked out."
 msgstr ""
 
-#: core/class-itsec-notify.php:112
+#: core/class-itsec-notify.php:116
 msgid "hosts locked out."
 msgstr ""
 
-#: core/class-itsec-notify.php:121
+#: core/class-itsec-notify.php:125
 msgid "lockout(s) including"
 msgstr ""
 
-#: core/class-itsec-notify.php:123
+#: core/class-itsec-notify.php:127
 msgid "user(s) and"
 msgstr ""
 
-#: core/class-itsec-notify.php:125
+#: core/class-itsec-notify.php:129
 msgid "host(s) locked out of your site."
 msgstr ""
 
-#: core/class-itsec-notify.php:149
+#: core/class-itsec-notify.php:153
 msgid ""
 "The following is a summary of security related activity on your site. For "
 "details please visit"
 msgstr ""
 
-#: core/class-itsec-notify.php:151
+#: core/class-itsec-notify.php:155
 msgid "the security logs"
 msgstr ""
 
-#: core/class-itsec-notify.php:163
+#: core/class-itsec-notify.php:167
 msgid "Daily Security Digest"
 msgstr ""
 
@@ -2795,7 +2800,8 @@ msgid "Scan Files Now"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-admin.php:100
-msgid "Scanning... (this could take a while on a large site)"
+#: modules/free/malware/class-itsec-malware-admin.php:80
+msgid "Scanning..."
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-admin.php:101
@@ -3516,10 +3522,6 @@ msgstr ""
 #: modules/free/malware/class-itsec-malware-admin.php:79
 #: modules/free/malware/class-itsec-malware-admin.php:280
 msgid "Scan Homepage for Malware"
-msgstr ""
-
-#: modules/free/malware/class-itsec-malware-admin.php:80
-msgid "Scanning... (this could take a little while)"
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:81
@@ -4544,7 +4546,7 @@ msgid ""
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://ithemes.com/security"
+msgid "https://ithemes.com/security"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -4559,5 +4561,5 @@ msgid "iThemes.com"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://ithemes.com"
+msgid "https://ithemes.com"
 msgstr ""

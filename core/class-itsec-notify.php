@@ -48,7 +48,11 @@ class ITSEC_Notify {
 
 		global $itsec_globals, $wpdb;
 
-		set_site_transient( 'itsec_notification_running', true, 60 );
+		if ( is_404() || get_site_transient( 'itsec_notification_running' ) !== false ) {
+			return;
+		}
+
+		set_site_transient( 'itsec_notification_running', true, 3600 );
 
 		$messages     = false;
 		$has_lockouts = true; //assume a lockout has occured by default
@@ -174,8 +178,6 @@ class ITSEC_Notify {
 		);
 
 		update_site_option( 'itsec_message_queue', $this->queue );
-
-		delete_site_transient( 'itsec_notification_running' );
 
 	}
 

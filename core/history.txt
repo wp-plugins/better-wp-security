@@ -163,3 +163,5 @@
 	Fixed: User lockout count in email notifications will now be correct
 1.7.4 - 2014-10-09 - Chris Wiegman
 	Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15
+1.8.0 - 2014-10-13 - Chris Wiegman
+	New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.

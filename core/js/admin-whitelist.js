@@ -15,8 +15,8 @@ var set_temp = function () {
 		var caller = this;
 
 		var data = {
-			action : 'itsec_temp_whitelist_ajax',
-			nonce  : itsec_temp_whitelist.nonce
+			action: 'itsec_temp_whitelist_ajax',
+			nonce : itsec_temp_whitelist.nonce
 		};
 
 		//let user know we're working
@@ -29,7 +29,16 @@ var set_temp = function () {
 
 				data = jQuery.parseJSON( response );
 
-				jQuery( '.itsec_temp_whitelist' ).replaceWith( '<p class="itsec_temp_whitelist submit">' + data.message1 + ', <strong>' + data.ip + '</strong>, ' + data.message2 + ' <strong>' + data.exp + '</strong>.<br /><a href="#" class="itsec_temp_whitelist_release_ajax button-primary">' + data.message3 + '</a></p>' );
+				if ( jQuery( caller ).hasClass( 'dashboard-whitelist' ) ) {
+
+					jQuery( '.itsec_temp_whitelist' ).replaceWith( '<p class="itsec_temp_whitelist submit"><a href="#" class="itsec_temp_whitelist_release_ajax button-primary dashboard-whitelist">' + data.message3 + '</a><span class="itsec_temp_whitelist_ip">' + data.message1 + ' <strong>' + data.ip + '</strong>, ' + data.message2 + ' <strong>' + data.exp + '</strong>.</span></p>' );
+
+				} else {
+
+					jQuery( '.itsec_temp_whitelist' ).replaceWith( '<p class="itsec_temp_whitelist submit">' + data.message1 + ', <strong>' + data.ip + '</strong>, ' + data.message2 + ' <strong>' + data.exp + '</strong>.<br /><a href="#" class="itsec_temp_whitelist_release_ajax button-primary">' + data.message3 + '</a></p>' );
+
+				}
+
 				release_temp();
 
 			}
@@ -54,8 +63,8 @@ var release_temp = function () {
 		var caller = this;
 
 		var data = {
-			action : 'itsec_temp_whitelist_release_ajax',
-			nonce  : itsec_temp_whitelist.nonce
+			action: 'itsec_temp_whitelist_release_ajax',
+			nonce : itsec_temp_whitelist.nonce
 		};
 
 		//let user know we're working
@@ -66,7 +75,15 @@ var release_temp = function () {
 
 			if ( response !== 'error' ) {
 
-				jQuery( '.itsec_temp_whitelist' ).replaceWith( '<p class="itsec_temp_whitelist submit"><a href="#" class="itsec_temp_whitelist_ajax button-primary">' + itsec_temp_whitelist.success + '</a></p>' );
+				var d_class = '';
+
+				if ( jQuery( caller ).hasClass( 'dashboard-whitelist' ) ) {
+
+					d_class = ' dashboard-whitelist';
+
+				}
+
+				jQuery( '.itsec_temp_whitelist' ).replaceWith( '<p class="itsec_temp_whitelist submit"><a href="#" class="itsec_temp_whitelist_ajax' + d_class + ' button-primary">' + itsec_temp_whitelist.success + '</a></p>' );
 				set_temp();
 
 			}

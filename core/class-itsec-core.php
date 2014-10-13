@@ -202,7 +202,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Malware_Scheduling',
 					),
-					'password' => array(
+					'password'           => array(
 						'has_front' => true,
 						'option'    => 'itsec_password',
 						'setting'   => 'enabled',
@@ -235,7 +235,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'has_front' => false,
 						'class_id'  => 'Core',
 					),
-
+					'dashboard-widget'          => array(
+						'has_front' => false,
+						'class_id'  => 'Dashboard_Widget',
+					),
 				),
 			);
 
@@ -589,20 +592,20 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			// Add the Parent link.
 			$wp_admin_bar->add_menu(
-			             array(
-				             'title' => __( 'Security', 'it-l10n-better-wp-security' ),
-				             'href'  => admin_url( $network . 'admin.php?page=itsec' ),
-				             'id'    => 'itsec_admin_bar_menu',
-			             )
+				array(
+					'title' => __( 'Security', 'it-l10n-better-wp-security' ),
+					'href'  => admin_url( $network . 'admin.php?page=itsec' ),
+					'id'    => 'itsec_admin_bar_menu',
+				)
 			);
 
 			$wp_admin_bar->add_menu(
-			             array(
-				             'id'     => 'itsec_admin_bar_dashboard',
-				             'title'  => __( 'Dashboard', 'it-l10n-better-wp-security' ),
-				             'href'   => admin_url( $network . 'admin.php?page=itsec' ),
-				             'parent' => 'itsec_admin_bar_menu',
-			             )
+				array(
+					'id'     => 'itsec_admin_bar_dashboard',
+					'title'  => __( 'Dashboard', 'it-l10n-better-wp-security' ),
+					'href'   => admin_url( $network . 'admin.php?page=itsec' ),
+					'parent' => 'itsec_admin_bar_menu',
+				)
 			);
 
 			/**
@@ -615,23 +618,23 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 					if ( isset( $page['link'] ) ) {
 
 						$wp_admin_bar->add_menu(
-						             array(
-							             'id'     => 'test_' . $page['slug'],
-							             'title'  => $page['title'],
-							             'href'   => admin_url( $network . 'admin.phpadmin.php?page=' . $page['link'] ),
-							             'parent' => 'itsec_admin_bar_menu',
-						             )
+							array(
+								'id'     => 'test_' . $page['slug'],
+								'title'  => $page['title'],
+								'href'   => admin_url( $network . 'admin.phpadmin.php?page=' . $page['link'] ),
+								'parent' => 'itsec_admin_bar_menu',
+							)
 						);
 
 					} else {
 
 						$wp_admin_bar->add_menu(
-						             array(
-							             'id'     => 'test_' . $page['slug'],
-							             'title'  => $page['title'],
-							             'href'   => admin_url( $network . 'admin.php?page=toplevel_page_itsec_' . $page['slug'] ),
-							             'parent' => 'itsec_admin_bar_menu',
-						             )
+							array(
+								'id'     => 'test_' . $page['slug'],
+								'title'  => $page['title'],
+								'href'   => admin_url( $network . 'admin.php?page=toplevel_page_itsec_' . $page['slug'] ),
+								'parent' => 'itsec_admin_bar_menu',
+							)
 						);
 
 					}
@@ -665,7 +668,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			} else {
 
-				call_user_func_array( $this->tooltip_modules[sanitize_text_field( $_POST['module'] )]['callback'], array() );
+				call_user_func_array( $this->tooltip_modules[ sanitize_text_field( $_POST['module'] ) ]['callback'], array() );
 
 			}
 
@@ -696,7 +699,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			} else {
 
-				call_user_func_array( $this->tooltip_modules[sanitize_text_field( $_POST['module'] )]['callback'], array() );
+				call_user_func_array( $this->tooltip_modules[ sanitize_text_field( $_POST['module'] ) ]['callback'], array() );
 
 			}
 
@@ -819,7 +822,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				foreach ( $this->tooltip_modules as $module => $tip ) {
 
-					$messages[$module] = array(
+					$messages[ $module ] = array(
 						'success' => $tip['success'],
 						'failure' => $tip['failure'],
 					);
@@ -945,7 +948,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						global $itsec_globals;
 
 						echo '<div class="updated" id="itsec_api_notice"><span class="it-icon-itsec"></span>'
-						. __( 'New! Take your site security to the next level by activating iThemes Brute Force Network Protection.', 'it-l10n-better-wp-security' ) . '<a class="itsec-notice-button" onclick="document.location.href=\'?itsec_no_api_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">'. __( 'Get Free API Key', 'it-l10n-better-wp-security' ) . '</a><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_api_nag=on&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
+						     . __( 'New! Take your site security to the next level by activating iThemes Brute Force Network Protection.', 'it-l10n-better-wp-security' ) . '<a class="itsec-notice-button" onclick="document.location.href=\'?itsec_no_api_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">' . __( 'Get Free API Key', 'it-l10n-better-wp-security' ) . '</a><a class="itsec-notice-hide" onclick="document.location.href=\'?itsec_no_api_nag=on&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">&times;</a>
 						</div>';
 
 					}
@@ -1025,11 +1028,11 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			global $wp_settings_sections, $wp_settings_fields;
 
-			if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[$page] ) || ! isset( $wp_settings_sections[$page][$section] ) ) {
+			if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[ $page ] ) || ! isset( $wp_settings_sections[ $page ][ $section ] ) ) {
 				return;
 			}
 
-			$section = $wp_settings_sections[$page][$section];
+			$section = $wp_settings_sections[ $page ][ $section ];
 
 			if ( $section['title'] && $show_title === true ) {
 				echo "<h4>{$section['title']}</h4>\n";
@@ -1039,7 +1042,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				call_user_func( $section['callback'], $section );
 			}
 
-			if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[$page] ) || ! isset( $wp_settings_fields[$page][$section['id']] ) ) {
+			if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
 				return;
 			}
 
@@ -1266,10 +1269,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				if (
 					isset( $info['setting'] ) &&
 					! is_array( $info['value'] ) &&
-					isset( $option[$info['setting']] ) &&
+					isset( $option[ $info['setting'] ] ) &&
 					(
 						$info['value'] === 'present' ||
-						$option[$info['setting']] == $info['value']
+						$option[ $info['setting'] ] == $info['value']
 					)
 				) {
 
@@ -1280,7 +1283,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 					foreach ( $info['value'] as $value ) {
 
-						if ( isset( $option[$info['setting']] ) && $option[$info['setting']] == $value ) {
+						if ( isset( $option[ $info['setting'] ] ) && $option[ $info['setting'] ] == $value ) {
 
 							$run_front = true;
 
@@ -1821,7 +1824,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				$saved_setting = get_site_option( $setting );
 
 				foreach ( $option_pair as $option ) {
-					$saved_setting[$option['option']] = $option['value'];
+					$saved_setting[ $option['option'] ] = $option['value'];
 				}
 
 				update_site_option( $setting, $saved_setting );

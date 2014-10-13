@@ -43,7 +43,7 @@ class ITSEC_File_Change {
 
 		//Use Cron if registered
 		if ( defined( 'ITSEC_FILE_CHECK_CRON' ) && ITSEC_FILE_CHECK_CRON === true && ! wp_next_scheduled( 'itsec_execute_file_check_cron' ) ) {
-			wp_schedule_event( time(), 'hourly', 'itsec_execute_file_check_cron' );
+			wp_schedule_event( time(), 'daily', 'itsec_execute_file_check_cron' );
 		}
 
 		add_action( 'itsec_execute_file_check_cron', array( $this, 'execute_file_check' ) );

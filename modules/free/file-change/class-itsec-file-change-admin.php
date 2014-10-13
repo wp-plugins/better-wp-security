@@ -97,7 +97,7 @@ class ITSEC_File_Change_Admin {
 					'text'                 => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'it-l10n-better-wp-security' ),
 					'module_path'          => $this->module_path,
 					'button_text'          => isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
-					'scanning_button_text' => __( 'Scanning... (this could take a while on a large site)', 'it-l10n-better-wp-security' ),
+					'scanning_button_text' => __( 'Scanning...', 'it-l10n-better-wp-security' ),
 					'no_changes'           => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
 					'changes'              => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
 					'error'                => __( 'An error occured. Please try again later', 'it-l10n-better-wp-security' ),

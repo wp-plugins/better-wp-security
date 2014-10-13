@@ -213,3 +213,6 @@
     Fixed: Adding define( 'ITSEC_FILE_CHANGE_CRON', true ); to wp-config.php will cause the file change scanner to only run once daily via wp-cron.
     Fixed: Compatibility issue where strong password enforcement could cause an error if passwords are changed outside of the core of WordPress
 	Fixed: Lost password url should now be correct on multisite.
+1.4.8 - 2014-10-13 - Chris Wiegman
+	New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
+	Fixed: When using wp-cron for file checking cron check will run daily instead of hourly.

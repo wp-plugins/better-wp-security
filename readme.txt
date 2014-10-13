@@ -1,10 +1,10 @@
 === iThemes Security (formerly Better WP Security) ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
-Donate link: http://ithemes.com
+Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.16
+Stable tag: 4.4.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,7 @@ Pro Features:
 * Malware scanning - Automatically check any URL or individual file on a specified schedule and scan your whole site automatically as users browse through it
 * Password Expiration - Set a maximum password age and force users to choose a new password. You can also force all users to choose a new password immediately (if needed)
 * Generate Strong Passwords - Generate strong passwords right from your profile screen
+* Dashboard Widget - manage important tasks such as user banning and system scans right from the WordPress dashboard.
 * GeoIP banning - coming soon
 
 = iThemes Sync Integration =
@@ -190,6 +191,10 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.18 =
+* New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
+* Fixed: When using wp-cron for file checking cron check will run daily instead of hourly.
 
 = 4.4.16 =
 * Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15
@@ -1299,6 +1304,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.18 =
+Version 4.4.18 contains a minor bugfix and is recommended for all users.
 
 = 4.4.16 =
 Version 4.4.16 is a bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
