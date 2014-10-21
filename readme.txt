@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.18
+Stable tag: 4.4.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,7 @@ Pro Features:
 * Generate Strong Passwords - Generate strong passwords right from your profile screen
 * Dashboard Widget - manage important tasks such as user banning and system scans right from the WordPress dashboard.
 * GeoIP banning - coming soon
+* Online file comparison - When a file change is detected it will scan the origin of the files to determine if the change was malicious or not. Currently works only in WordPress core but plugins and themes are coming.
 
 = iThemes Sync Integration =
 
@@ -191,6 +192,11 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.20 =
+* New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
+* Fixed: Make sure php_gid is always defined to prevent error message if the function is not usable.
+* Fixed: Link to BackupBuddy in admin bar will now work correctly.
 
 = 4.4.18 =
 * New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
@@ -1304,6 +1310,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.20 =
+Version 4.4.20 contains a minor bugfix and is recommended for all users.
 
 = 4.4.18 =
 Version 4.4.18 contains a minor bugfix and is recommended for all users.

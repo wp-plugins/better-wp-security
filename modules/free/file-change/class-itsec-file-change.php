@@ -141,10 +141,16 @@ class ITSEC_File_Change {
 					if ( array_key_exists( $current_file, $logged_minus_deleted ) ) {
 
 						//if attributes differ added to changed files array
-						if ( ( ( isset( $current_attr['mod_date'] ) && strcmp( $current_attr['mod_date'], $logged_minus_deleted[$current_file]['mod_date'] ) != 0 ) || strcmp( $current_attr['d'], $logged_minus_deleted[$current_file]['d'] ) != 0 ) || ( ( isset( $current_attr['hash'] ) && strcmp( $current_attr['hash'], $logged_minus_deleted[$current_file]['hash'] ) != 0 ) || strcmp( $current_attr['h'], $logged_minus_deleted[$current_file]['h'] ) != 0 ) ) {
+						if ( ( ( isset( $current_attr['mod_date'] ) && strcmp( $current_attr['mod_date'], $logged_minus_deleted[ $current_file ]['mod_date'] ) != 0 ) || strcmp( $current_attr['d'], $logged_minus_deleted[ $current_file ]['d'] ) != 0 ) || ( ( isset( $current_attr['hash'] ) && strcmp( $current_attr['hash'], $logged_minus_deleted[ $current_file ]['hash'] ) != 0 ) || strcmp( $current_attr['h'], $logged_minus_deleted[ $current_file ]['h'] ) != 0 ) ) {
 
-							$files_changed[$current_file]['h'] = isset( $current_attr['hash'] ) ? $current_attr['hash'] : $current_attr['h'];
-							$files_changed[$current_file]['d'] = isset( $current_attr['mod_date'] ) ? $current_attr['mod_date'] : $current_attr['d'];
+							$remote_check = apply_filters( 'itsec_process_changed_file', true, $current_file, $current_attr['h'] ); //hook to run actions on a changed file at time of discovery
+
+							if ( $remote_check === true ) { //don't list the file if it matches the WordPress.org hash
+
+								$files_changed[ $current_file ]['h'] = isset( $current_attr['hash'] ) ? $current_attr['hash'] : $current_attr['h'];
+								$files_changed[ $current_file ]['d'] = isset( $current_attr['mod_date'] ) ? $current_attr['mod_date'] : $current_attr['d'];
+
+							}
 
 						}
 
@@ -157,6 +163,17 @@ class ITSEC_File_Change {
 				$files_deleted_count = sizeof( $files_removed );
 				$files_changed_count = sizeof( $files_changed );
 
+				if ( $files_added_count > 0 ) {
+
+					$files_added       = apply_filters( 'itsec_process_added_files', $files_added ); //hook to run actions on all files added
+					$files_added_count = sizeof( $files_added );
+
+				}
+
+				if ( $files_deleted_count > 0 ) {
+					do_action( 'itsec_process_removed_files', $files_removed ); //hook to run actions on all files removed
+				}
+
 				//create single array of all changes
 				$full_change_list = array(
 					'added'   => $files_added,
@@ -165,6 +182,12 @@ class ITSEC_File_Change {
 				);
 
 				update_site_option( $db_field, $current_files );
+
+				//Cleanup variables when we're done with them
+				unset( $files_added );
+				unset( $files_removed );
+				unset( $files_changed );
+				unset( $current_files );
 
 				$this->settings['last_run']   = $itsec_globals['current_time'];
 				$this->settings['last_chunk'] = $chunk;
@@ -180,9 +203,9 @@ class ITSEC_File_Change {
 				$full_change_list['memory'] = round( ( $memory_used / 1000000 ), 2 );
 
 				$itsec_logger->log_event(
-				             'file_change',
-				             8,
-				             $full_change_list
+					'file_change',
+					8,
+					$full_change_list
 				);
 
 				if ( $send_email === true && $scheduled_call !== false && isset( $this->settings['email'] ) && $this->settings['email'] === true && ( $files_added_count > 0 || $files_changed_count > 0 || $files_deleted_count > 0 ) ) {
@@ -450,16 +473,16 @@ class ITSEC_File_Change {
 			$dirs = array(
 				'wp-admin/',
 				'wp-includes/',
-				$content_dir[sizeof( $content_dir ) - 1] . '/',
-				$content_dir[sizeof( $content_dir ) - 1] . '/uploads/',
-				$content_dir[sizeof( $content_dir ) - 1] . '/themes/',
-				$content_dir[sizeof( $content_dir ) - 1] . '/' . $plugin_dir[sizeof( $plugin_dir ) - 1] . '/',
+				$content_dir[ sizeof( $content_dir ) - 1 ] . '/',
+				$content_dir[ sizeof( $content_dir ) - 1 ] . '/uploads/',
+				$content_dir[ sizeof( $content_dir ) - 1 ] . '/themes/',
+				$content_dir[ sizeof( $content_dir ) - 1 ] . '/' . $plugin_dir[ sizeof( $plugin_dir ) - 1 ] . '/',
 				''
 			);
 
-			$path = $dirs[$chunk];
+			$path = $dirs[ $chunk ];
 
-			unset( $dirs[$chunk] );
+			unset( $dirs[ $chunk ] );
 
 			$this->excludes = $dirs;
 
@@ -497,9 +520,9 @@ class ITSEC_File_Change {
 
 						} else { //is file so add to array
 
-							$data[$relname]      = array();
-							$data[$relname]['d'] = @filemtime( $absname ) + $time_offset;
-							$data[$relname]['h'] = @md5_file( $absname );
+							$data[ $relname ]      = array();
+							$data[ $relname ]['d'] = @filemtime( $absname ) + $time_offset;
+							$data[ $relname ]['h'] = @md5_file( $absname );
 
 						}
 

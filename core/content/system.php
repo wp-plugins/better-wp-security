@@ -126,6 +126,8 @@ $htaccess = ITSEC_Lib::get_htaccess();
 			}
 		}
 
+		$php_gid = __( 'undefined', 'it-l10n-better-wp-security' );
+
 		if ( is_callable( 'posix_getegid' ) && ( false === in_array( 'posix_getegid', $disabled_functions_array ) ) ) {
 			$php_gid = @posix_getegid();
 		}

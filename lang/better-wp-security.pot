@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.4.18\n"
+"Project-Id-Version: iThemes Security 4.4.20\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-10-13 15:39:43+00:00\n"
+"POT-Creation-Date: 2014-10-21 16:30:56+00:00\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,144 +13,144 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.18)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.4.20)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:253
+#: core/class-itsec-core.php:260
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:216
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:260
+#: core/class-itsec-core.php:267
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:267
+#: core/class-itsec-core.php:274
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:274
+#: core/class-itsec-core.php:281
 #: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:285
+#: core/class-itsec-core.php:292
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:295
+#: core/class-itsec-core.php:302
 msgid "Go Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:308 core/class-itsec-core.php:319
+#: core/class-itsec-core.php:315 core/class-itsec-core.php:326
 #: modules/free/backup/class-itsec-backup-admin.php:673
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:512 core/class-itsec-core.php:605
-#: core/class-itsec-core.php:901 core/class-itsec-core.php:1649
-#: core/class-itsec-core.php:1688
+#: core/class-itsec-core.php:519 core/class-itsec-core.php:612
+#: core/class-itsec-core.php:908 core/class-itsec-core.php:1656
+#: core/class-itsec-core.php:1695
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:596 core/class-itsec-core.php:1650
+#: core/class-itsec-core.php:603 core/class-itsec-core.php:1657
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:745
+#: core/class-itsec-core.php:752
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:772 core/class-itsec-core.php:1733
+#: core/class-itsec-core.php:779 core/class-itsec-core.php:1740
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:776 core/class-itsec-core.php:1737
+#: core/class-itsec-core.php:783 core/class-itsec-core.php:1744
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:782 core/class-itsec-core.php:1743
+#: core/class-itsec-core.php:789 core/class-itsec-core.php:1750
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:784 core/class-itsec-core.php:1745
+#: core/class-itsec-core.php:791 core/class-itsec-core.php:1752
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:786
+#: core/class-itsec-core.php:793
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:787
+#: core/class-itsec-core.php:794
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:794 core/class-itsec-core.php:1750
+#: core/class-itsec-core.php:801 core/class-itsec-core.php:1757
 #: core/class-itsec-files.php:120
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:227
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:861
+#: core/class-itsec-core.php:868
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:871
+#: core/class-itsec-core.php:878
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:951
+#: core/class-itsec-core.php:958
 msgid ""
 "New! Take your site security to the next level by activating iThemes Brute "
 "Force Network Protection."
 msgstr ""
 
-#: core/class-itsec-core.php:951
+#: core/class-itsec-core.php:958
 msgid "Get Free API Key"
 msgstr ""
 
-#: core/class-itsec-core.php:1476
+#: core/class-itsec-core.php:1483
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1477
+#: core/class-itsec-core.php:1484
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1478
+#: core/class-itsec-core.php:1485
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1480
+#: core/class-itsec-core.php:1487
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1481
+#: core/class-itsec-core.php:1488
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1562
+#: core/class-itsec-core.php:1569
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1866
+#: core/class-itsec-core.php:1873
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1866
+#: core/class-itsec-core.php:1873
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -671,15 +671,15 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:538
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:511
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:304
-#: modules/free/file-change/class-itsec-file-change-admin.php:609
+#: modules/free/file-change/class-itsec-file-change-admin.php:492
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:341
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:481
 #: modules/free/malware/class-itsec-malware-admin.php:312
 #: modules/free/ssl/class-itsec-ssl-admin.php:343
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:182
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1742
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1765
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1788
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1747
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1770
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1793
 msgid "Save All Changes"
 msgstr ""
 
@@ -764,10 +764,10 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:752
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:724
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:350
-#: modules/free/file-change/class-itsec-file-change-admin.php:343
-#: modules/free/file-change/class-itsec-file-change-admin.php:627
-#: modules/free/file-change/class-itsec-file-change-admin.php:682
-#: modules/free/file-change/class-itsec-file-change-admin.php:807
+#: modules/free/file-change/class-itsec-file-change-admin.php:369
+#: modules/free/file-change/class-itsec-file-change-admin.php:749
+#: modules/free/file-change/class-itsec-file-change-admin.php:768
+#: modules/free/file-change/class-itsec-file-change-admin.php:823
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:465
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
 #: modules/free/ipcheck/class-itsec-ipcheck-admin.php:222
@@ -777,7 +777,7 @@ msgstr ""
 #: modules/free/malware/class-itsec-malware-admin.php:431
 #: modules/free/ssl/class-itsec-ssl-admin.php:573
 #: modules/free/strong-passwords/class-itsec-strong-passwords-admin.php:245
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1944
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1949
 msgid "Security error!"
 msgstr ""
 
@@ -1265,8 +1265,8 @@ msgid "Document Root Path"
 msgstr ""
 
 #: core/content/system.php:32 core/content/system.php:49
-#: core/content/system.php:256 core/content/system.php:264
-#: core/content/system.php:272
+#: core/content/system.php:258 core/content/system.php:266
+#: core/content/system.php:274
 msgid "Yes"
 msgstr ""
 
@@ -1310,11 +1310,11 @@ msgstr ""
 msgid "Not Set"
 msgstr ""
 
-#: core/content/system.php:81 core/content/system.php:174
-#: core/content/system.php:182 core/content/system.php:191
-#: core/content/system.php:199 core/content/system.php:208
-#: core/content/system.php:217 core/content/system.php:225
-#: core/content/system.php:242 core/content/system.php:250
+#: core/content/system.php:81 core/content/system.php:176
+#: core/content/system.php:184 core/content/system.php:193
+#: core/content/system.php:201 core/content/system.php:210
+#: core/content/system.php:219 core/content/system.php:227
+#: core/content/system.php:244 core/content/system.php:252
 #: modules/free/ssl/class-itsec-ssl-admin.php:257
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:403
 msgid "Off"
@@ -1352,167 +1352,171 @@ msgstr ""
 msgid "unavailable"
 msgstr ""
 
-#: core/content/system.php:134
+#: core/content/system.php:129
+msgid "undefined"
+msgstr ""
+
+#: core/content/system.php:136
 msgid "PHP Process User (UID:GID)"
 msgstr ""
 
-#: core/content/system.php:140
+#: core/content/system.php:142
 msgid "PHP Information"
 msgstr ""
 
-#: core/content/system.php:142
+#: core/content/system.php:144
 msgid "PHP Version"
 msgstr ""
 
-#: core/content/system.php:143
+#: core/content/system.php:145
 msgid "PHP Memory Usage"
 msgstr ""
 
-#: core/content/system.php:144
+#: core/content/system.php:146
 msgid " MB"
 msgstr ""
 
-#: core/content/system.php:150 core/content/system.php:158
-#: core/content/system.php:166 core/content/system.php:233
+#: core/content/system.php:152 core/content/system.php:160
+#: core/content/system.php:168 core/content/system.php:235
 msgid "N/A"
 msgstr ""
 
-#: core/content/system.php:153
+#: core/content/system.php:155
 msgid "PHP Memory Limit"
 msgstr ""
 
-#: core/content/system.php:161
+#: core/content/system.php:163
 msgid "PHP Max Upload Size"
 msgstr ""
 
-#: core/content/system.php:169
+#: core/content/system.php:171
 msgid "PHP Max Post Size"
 msgstr ""
 
-#: core/content/system.php:172 core/content/system.php:180
-#: core/content/system.php:189 core/content/system.php:197
-#: core/content/system.php:206 core/content/system.php:215
-#: core/content/system.php:223 core/content/system.php:240
-#: core/content/system.php:248
+#: core/content/system.php:174 core/content/system.php:182
+#: core/content/system.php:191 core/content/system.php:199
+#: core/content/system.php:208 core/content/system.php:217
+#: core/content/system.php:225 core/content/system.php:242
+#: core/content/system.php:250
 msgid "On"
 msgstr ""
 
-#: core/content/system.php:177
+#: core/content/system.php:179
 msgid "PHP Safe Mode"
 msgstr ""
 
-#: core/content/system.php:185
+#: core/content/system.php:187
 msgid "PHP Allow URL fopen"
 msgstr ""
 
-#: core/content/system.php:194
+#: core/content/system.php:196
 msgid "PHP Allow URL Include"
 msgstr ""
 
-#: core/content/system.php:202
+#: core/content/system.php:204
 msgid "PHP Display Errors"
 msgstr ""
 
-#: core/content/system.php:211
+#: core/content/system.php:213
 msgid "PHP Display Startup Errors"
 msgstr ""
 
-#: core/content/system.php:220
+#: core/content/system.php:222
 msgid "PHP Expose PHP"
 msgstr ""
 
-#: core/content/system.php:228
+#: core/content/system.php:230
 msgid "PHP Register Globals"
 msgstr ""
 
-#: core/content/system.php:236
+#: core/content/system.php:238
 msgid "PHP Max Script Execution Time"
 msgstr ""
 
-#: core/content/system.php:237
+#: core/content/system.php:239
 msgid "Seconds"
 msgstr ""
 
-#: core/content/system.php:245
+#: core/content/system.php:247
 msgid "PHP Magic Quotes GPC"
 msgstr ""
 
-#: core/content/system.php:253
+#: core/content/system.php:255
 msgid "PHP open_basedir"
 msgstr ""
 
-#: core/content/system.php:258 core/content/system.php:266
-#: core/content/system.php:274
+#: core/content/system.php:260 core/content/system.php:268
+#: core/content/system.php:276
 msgid "No"
 msgstr ""
 
-#: core/content/system.php:261
+#: core/content/system.php:263
 msgid "PHP XML Support"
 msgstr ""
 
-#: core/content/system.php:269
+#: core/content/system.php:271
 msgid "PHP IPTC Support"
 msgstr ""
 
-#: core/content/system.php:277
+#: core/content/system.php:279
 msgid "PHP Exif Support"
 msgstr ""
 
-#: core/content/system.php:279
+#: core/content/system.php:281
 msgid "Disabled PHP Functions"
 msgstr ""
 
-#: core/content/system.php:284
+#: core/content/system.php:286
 msgid "WordPress Configuration"
 msgstr ""
 
-#: core/content/system.php:288
+#: core/content/system.php:290
 msgid "Multisite is enabled"
 msgstr ""
 
-#: core/content/system.php:290
+#: core/content/system.php:292
 msgid "Multisite is NOT enabled"
 msgstr ""
 
-#: core/content/system.php:293
+#: core/content/system.php:295
 msgid "\tMultisite"
 msgstr ""
 
-#: core/content/system.php:298
+#: core/content/system.php:300
 msgid "Enabled"
 msgstr ""
 
-#: core/content/system.php:302
+#: core/content/system.php:304
 msgid ""
 "WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for this "
 "plugin to function correctly"
 msgstr ""
 
-#: core/content/system.php:305
+#: core/content/system.php:307
 msgid "WP Permalink Structure"
 msgstr ""
 
-#: core/content/system.php:307
+#: core/content/system.php:309
 msgid "Wp-config Location"
 msgstr ""
 
-#: core/content/system.php:309
+#: core/content/system.php:311
 msgid "Active Plugins"
 msgstr ""
 
-#: core/content/system.php:310
+#: core/content/system.php:312
 msgid "Content Directory"
 msgstr ""
 
-#: core/content/system.php:314
+#: core/content/system.php:316
 msgid " variables"
 msgstr ""
 
-#: core/content/system.php:316
+#: core/content/system.php:318
 msgid "Build Version"
 msgstr ""
 
-#: core/content/system.php:317
+#: core/content/system.php:319
 msgid ""
 "Note: this is NOT the same as the version number on the plugin page or "
 "WordPress.org page and is instead used for support."
@@ -2450,7 +2454,7 @@ msgstr ""
 msgid ""
 "This tool will not allow further changes to your wp-content folder once it "
 "has been renamed in order to avoid accidentally breaking the site later. "
-"Uninstalling this plugin will not revert the changes made by this page."
+"Uninstalling this plugin will not revert the changes made by this feature."
 msgstr ""
 
 #: modules/free/content-directory/class-itsec-content-directory-admin.php:140
@@ -2775,13 +2779,7 @@ msgstr ""
 msgid "Could not update prefix references in usermeta table."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:48
-#: modules/free/file-change/class-itsec-file-change-admin.php:513
-#: modules/free/file-change/class-itsec-file-change-admin.php:528
-msgid "File Change Detection"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:97
+#: modules/free/file-change/class-itsec-file-change-admin.php:63
 msgid ""
 "Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
 "have many files in your installation or a lot of active plugins activating "
@@ -2789,179 +2787,122 @@ msgid ""
 "See the plugin homepage for more information."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:99
-#: modules/free/file-change/class-itsec-file-change-admin.php:325
+#: modules/free/file-change/class-itsec-file-change-admin.php:65
+#: modules/free/file-change/class-itsec-file-change-admin.php:194
 msgid "Scan Next File Chunk"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:99
-#: modules/free/file-change/class-itsec-file-change-admin.php:325
+#: modules/free/file-change/class-itsec-file-change-admin.php:65
+#: modules/free/file-change/class-itsec-file-change-admin.php:194
 msgid "Scan Files Now"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:100
+#: modules/free/file-change/class-itsec-file-change-admin.php:66
 #: modules/free/malware/class-itsec-malware-admin.php:80
 msgid "Scanning..."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:101
+#: modules/free/file-change/class-itsec-file-change-admin.php:67
 msgid "No changes were detected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:102
+#: modules/free/file-change/class-itsec-file-change-admin.php:68
 msgid "Changes were detected. Please check the log page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:103
+#: modules/free/file-change/class-itsec-file-change-admin.php:69
 #: modules/free/malware/class-itsec-malware-admin.php:83
 msgid "An error occured. Please try again later"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:141
-msgid "Your site will detect changes to your files."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:149
-msgid ""
-"Your website is not looking for changed files. Consider turning on file "
-"change detections."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:187
+#: modules/free/file-change/class-itsec-file-change-admin.php:122
 msgid ""
 "has noticed a change to some files in your WordPress site. Please review the "
 "logs to make sure your system has not been compromised."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:188
+#: modules/free/file-change/class-itsec-file-change-admin.php:123
 msgid "View Logs"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:189
+#: modules/free/file-change/class-itsec-file-change-admin.php:124
 msgid "Dismiss Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:258
-msgid "Email file change notifications"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:259
-msgid ""
-"Notifications will be sent to all emails set to receive notifications on the "
-"global settings page."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:281
-msgid "Enable File Change detection"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:303
-msgid "Split file checking into chunks."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:304
-msgid ""
-"Splits file checking into 7 chunks (plugins, themes, wp-admin, wp-includes, "
-"uploads, the rest of wp-content and everything that is left over) and "
-"divides the checks evenly over the course of a day. This feature may result "
-"in more notifications but will allow for the scanning of bigger sites to "
-"continue even on a lower-end web host."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:324
+#: modules/free/file-change/class-itsec-file-change-admin.php:193
 msgid ""
 "Press the button below to scan your site's files for changes. Note that if "
 "changes are found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:365
-msgid ""
-"Exclude files or folders by clicking the red minus next to the file or "
-"folder name."
+#: modules/free/file-change/class-itsec-file-change-admin.php:212
+#: modules/free/file-change/class-itsec-file-change-admin.php:279
+#: modules/free/file-change/class-itsec-file-change-admin.php:294
+msgid "File Change Detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:405
+#: modules/free/file-change/class-itsec-file-change-admin.php:245
+msgid "Your site will detect changes to your files."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:253
+msgid ""
+"Your website is not looking for changed files. Consider turning on file "
+"change detections."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:286
+msgid "File Change Detection Settings"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:302
+msgid "Split File Scanning"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:310
+msgid "Include/Exclude Files and Folders"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:318
+msgid "Files and Folders List"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:326
+msgid "Ignore File Types"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:334
+msgid "Email File Change Notifications"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:342
+#: modules/free/file-change/class-itsec-file-change-admin.php:686
+msgid "Display file change admin warning"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:393
+msgid "File Change History"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:453
 msgid "Today"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:407
+#: modules/free/file-change/class-itsec-file-change-admin.php:455
 msgid "Tomorrow"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:412
+#: modules/free/file-change/class-itsec-file-change-admin.php:460
 msgid "Next automatic scan at: "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:413
+#: modules/free/file-change/class-itsec-file-change-admin.php:461
 msgid ""
 "Automatic file change scanning is triggered by a user visiting your page and "
 "may not happen exactly at the time listed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:441
-msgid "Exclude Selected"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:442
-msgid "Include Selected"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:444
-msgid "Include/Exclude Files"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:445
-msgid ""
-"Select whether we should exclude files and folders selected or whether the "
-"scan should only include files and folders selected."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:465
-#: modules/free/file-change/class-itsec-file-change-admin.php:576
-msgid "Display file change admin warning"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:466
-msgid ""
-"Disabling this feature will prevent the file change warning from displaying "
-"to the site administrator in the WordPress Dashboard. Note that disabling "
-"both the error message and the email notification will result in no "
-"notifications of file changes. The only way you will be able to tell is by "
-"manually checking the log files."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:495
-msgid ""
-"File types listed here will not be checked for changes. While it is possible "
-"to change files such as images it is quite rare and nearly all known "
-"WordPress attacks exploit php, js and other text files."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:520
-msgid "File Change Detection Settings"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:536
-msgid "Split File Scanning"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:544
-msgid "Include/Exclude Files and Folders"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:552
-msgid "Files and Folders List"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:560
-msgid "Ignore File Types"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:568
-msgid "Email File Change Notifications"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change-admin.php:598
+#: modules/free/file-change/class-itsec-file-change-admin.php:481
 msgid ""
 "Even the best security solutions can fail. How do you know if someone gets "
 "into your site? You will know because they will change something. File "
@@ -2972,8 +2913,71 @@ msgid ""
 "thereby taking into account whether or not you modify the files yourself."
 msgstr ""
 
+#: modules/free/file-change/class-itsec-file-change-admin.php:596
+msgid "Email file change notifications"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:597
+msgid ""
+"Notifications will be sent to all emails set to receive notifications on the "
+"global settings page."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:617
+msgid "Enable File Change detection"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:636
+msgid ""
+"Exclude files or folders by clicking the red minus next to the file or "
+"folder name."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:662
+msgid "Exclude Selected"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:663
+msgid "Include Selected"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:665
+msgid "Include/Exclude Files"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:666
+msgid ""
+"Select whether we should exclude files and folders selected or whether the "
+"scan should only include files and folders selected."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:687
+msgid ""
+"Disabling this feature will prevent the file change warning from displaying "
+"to the site administrator in the WordPress Dashboard. Note that disabling "
+"both the error message and the email notification will result in no "
+"notifications of file changes. The only way you will be able to tell is by "
+"manually checking the log files."
+msgstr ""
+
 #: modules/free/file-change/class-itsec-file-change-admin.php:707
-msgid "File Change History"
+msgid "Split file checking into chunks."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:708
+msgid ""
+"Splits file checking into 7 chunks (plugins, themes, wp-admin, wp-includes, "
+"uploads, the rest of wp-content and everything that is left over) and "
+"divides the checks evenly over the course of a day. This feature may result "
+"in more notifications but will allow for the scanning of bigger sites to "
+"continue even on a lower-end web host."
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change-admin.php:735
+msgid ""
+"File types listed here will not be checked for changes. While it is possible "
+"to change files such as images it is quite rare and nearly all known "
+"WordPress attacks exploit php, js and other text files."
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:90
@@ -2982,16 +2986,16 @@ msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:110
 #: modules/free/file-change/class-itsec-file-change-log.php:178
-#: modules/free/file-change/class-itsec-file-change.php:252
+#: modules/free/file-change/class-itsec-file-change.php:275
 msgid "Files Added"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:117
 #: modules/free/file-change/class-itsec-file-change-log.php:135
 #: modules/free/file-change/class-itsec-file-change-log.php:153
-#: modules/free/file-change/class-itsec-file-change.php:255
-#: modules/free/file-change/class-itsec-file-change.php:285
-#: modules/free/file-change/class-itsec-file-change.php:315
+#: modules/free/file-change/class-itsec-file-change.php:278
+#: modules/free/file-change/class-itsec-file-change.php:308
+#: modules/free/file-change/class-itsec-file-change.php:338
 msgid "File"
 msgstr ""
 
@@ -3027,7 +3031,7 @@ msgid "Check Time"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:179
-#: modules/free/file-change/class-itsec-file-change.php:282
+#: modules/free/file-change/class-itsec-file-change.php:305
 msgid "Files Deleted"
 msgstr ""
 
@@ -3035,77 +3039,77 @@ msgstr ""
 msgid "Memory Used"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:246
+#: modules/free/file-change/class-itsec-file-change.php:269
 msgid "Scan Time:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:247
+#: modules/free/file-change/class-itsec-file-change.php:270
 msgid "Files Added:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:248
+#: modules/free/file-change/class-itsec-file-change.php:271
 msgid "Files Deleted:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:249
+#: modules/free/file-change/class-itsec-file-change.php:272
 msgid "Files Modified:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:250
+#: modules/free/file-change/class-itsec-file-change.php:273
 msgid "Memory Used:"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:256
-#: modules/free/file-change/class-itsec-file-change.php:286
-#: modules/free/file-change/class-itsec-file-change.php:316
+#: modules/free/file-change/class-itsec-file-change.php:279
+#: modules/free/file-change/class-itsec-file-change.php:309
+#: modules/free/file-change/class-itsec-file-change.php:339
 msgid "Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:257
-#: modules/free/file-change/class-itsec-file-change.php:287
-#: modules/free/file-change/class-itsec-file-change.php:317
+#: modules/free/file-change/class-itsec-file-change.php:280
+#: modules/free/file-change/class-itsec-file-change.php:310
+#: modules/free/file-change/class-itsec-file-change.php:340
 msgid "File Hash"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:275
+#: modules/free/file-change/class-itsec-file-change.php:298
 msgid "No files were added."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:305
+#: modules/free/file-change/class-itsec-file-change.php:328
 msgid "No files were removed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:312
+#: modules/free/file-change/class-itsec-file-change.php:335
 msgid "Files Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:335
+#: modules/free/file-change/class-itsec-file-change.php:358
 msgid "No files were changed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:424
+#: modules/free/file-change/class-itsec-file-change.php:447
 msgid "File Changes Detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:534
+#: modules/free/file-change/class-itsec-file-change.php:557
 msgid "WordPress File Change Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:536
+#: modules/free/file-change/class-itsec-file-change.php:559
 msgid "A file (or files) on your site at "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:536
+#: modules/free/file-change/class-itsec-file-change.php:559
 msgid ""
 " have been changed. Please review the report below to verify changes are not "
 "the result of a compromise."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:555
+#: modules/free/file-change/class-itsec-file-change.php:578
 msgid "File changes detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:557
+#: modules/free/file-change/class-itsec-file-change.php:580
 msgid "detected file changes on your system"
 msgstr ""
 
@@ -3533,17 +3537,17 @@ msgid "Malware has been detected. Please check the log page for details."
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:109
-msgid "You will need to get a free api key from "
+msgid "For more information on setting up your account, see the"
+msgstr ""
+
+#: modules/free/malware/class-itsec-malware-admin.php:109
+msgid "VirusTotal API key tutorial"
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:109
 msgid ""
-"to use this feature. (note you only need a public key and do not need to ask "
-"them for a private key.)"
-msgstr ""
-
-#: modules/free/malware/class-itsec-malware-admin.php:109
-msgid "For more information on setting up your account, visit this"
+"(note you only need a public key and do not need to ask them for a private "
+"key.)"
 msgstr ""
 
 #: modules/free/malware/class-itsec-malware-admin.php:127
@@ -3820,7 +3824,7 @@ msgid "System Tweaks"
 msgstr ""
 
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:59
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:2074
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2079
 msgid "WordPress Tweaks"
 msgstr ""
 
@@ -4031,7 +4035,7 @@ msgid ""
 msgstr ""
 
 #: modules/free/tweaks/class-itsec-tweaks-admin.php:525
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1634
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1639
 msgid "Display Random Version"
 msgstr ""
 
@@ -4148,367 +4152,367 @@ msgstr ""
 msgid "Rules to block suspicious URIs"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:878
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:883
 msgid "Rules to block foreign characters in URLs"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:895
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:900
 msgid "Rules to help reduce spam"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1037
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1042
 msgid "You are protecting common WordPress files from access."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1045
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1050
 msgid ""
 "You are not protecting common WordPress files from access. Click here to "
 "protect WordPress files."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1059
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1064
 msgid "You have successfully disabled directory browsing on your site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1067
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1072
 msgid ""
 "You have not disabled directory browsing on your site. Click here to prevent "
 "a user from seeing every file present in your WordPress site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1081
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1086
 msgid "You are blocking HTTP request methods you do not need."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1089
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1094
 msgid ""
 "You are not blocking HTTP request methods you do not need. Click here to "
 "block extra HTTP request methods that WordPress should not normally need."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1101
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1106
 msgid ""
 "Your WordPress site is blocking suspicious looking information in the URL."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1109
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1114
 msgid ""
 "Your WordPress site is not blocking suspicious looking information in the "
 "URL. Click here to block users from trying to execute code that they should "
 "not be able to execute."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1121
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1126
 msgid "Your WordPress site is blocking non-english characters in the URL."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1129
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1134
 msgid ""
 "Your WordPress site is not blocking non-english characters in the URL. Click "
 "here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1141
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1146
 msgid "Your installation does not accept long URLs."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1149
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1154
 msgid ""
 "Your installation accepts long (over 255 character) URLS. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1161
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1166
 msgid "Your wp-config.php and .htaccess files are not writeable."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1169
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1174
 msgid ""
 "Your wp-config.php and .htaccess files are writeable. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1181
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1186
 msgid ""
 "Your WordPress installation is not telling every bot that you use WordPress."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1189
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1194
 msgid ""
 "Your WordPress installation is telling every bot that you use WordPress with "
 "a special \"generator\" tag. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1201
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1206
 msgid ""
 "Your WordPress installation is not publishing the Windows Live Writer header."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1209
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1214
 msgid ""
 "Your WordPress installation is publishing the Windows Live Writer header. "
 "Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1221
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1226
 msgid ""
 "Your WordPress installation is not publishing the Really Simple Discovery "
 "(RSD) header."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1229
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1234
 msgid ""
 "Your WordPress installation is publishing the Really Simple Discovery (RSD) "
 "header. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1243
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1248
 msgid ""
 "Your WordPress installation is not telling users who cannot update themes "
 "about theme updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1251
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1256
 msgid ""
 "Your WordPress installation is telling users who cannot update themes about "
 "theme updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1263
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1268
 msgid ""
 "Your WordPress installation is not telling users who cannot update plugins "
 "about plugin updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1271
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1276
 msgid ""
 "Your WordPress installation is telling users who cannot update plugins about "
 "plugin updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1283
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1288
 msgid ""
 "Your WordPress installation is not telling users who cannot update WordPress "
 "core about WordPress core updates."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1291
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1296
 msgid ""
 "Your WordPress installation is telling users who cannot update WordPress "
 "core about WordPress core updates. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1305
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1310
 msgid ""
 "Your WordPress installation is not allowing users without a user agent to "
 "post comments."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1313
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1318
 msgid ""
 "Your WordPress installation is allowing users without a user agent to post "
 "comments. Fix this to reduce comment spam."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1325
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1330
 msgid "Version information is obscured to all non admin users."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1333
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1338
 msgid ""
 "Users may still be able to get version information from various plugins and "
 "themes. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1345
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1350
 msgid ""
 "Users cannot edit plugin and themes files directly from within the WordPress "
 "Dashboard."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1353
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1358
 msgid ""
 "Users can edit plugin and themes files directly from within the WordPress "
 "Dashboard. Click here to fix this."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1365
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1370
 msgid "XML-RPC is not available on your WordPress installation."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1373
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1378
 msgid ""
 "XML-RPC is protecting you from the trackback and pingback attack but is "
 "still available on your site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1381
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1386
 msgid ""
 "XML-RPC is available on your WordPress installation. Attackers can use this "
 "feature to attack your site. Click here to disable access to XML-RPC."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1393
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1398
 msgid "Users cannot execute PHP from the uploads folder."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1401
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1406
 msgid "Users can execute PHP from the uploads folder."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1415
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1420
 msgid "The front page of your site is using a safe version of jQuery."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1423
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1428
 msgid ""
 "The front page of your site is not using a safe version of jQuery or the "
 "version of jQuery cannot be determined."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1431
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1436
 msgid ""
 "Your version of jQuery has not been determined. Load your homepage while "
 "logged in to determine the version of jQuery you are using"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1443
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1448
 msgid "User's nicknames are different from their display name."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1451
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1456
 msgid ""
 "User nicknames may be the same as their login name. This means their login "
 "user name may be publicly available throughout the site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1463
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1468
 msgid ""
 "Your login page is not giving out unnecessary information upon failed login."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1471
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1476
 msgid ""
 "Your login page is giving out unnecessary information upon failed login."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1483
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1488
 msgid "User profiles for users without content are not publicly available."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1491
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1496
 msgid ""
 "User profiles for users without content are publicly available. This can "
 "make it relatively easy to gain the username of important users."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1512
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1517
 msgid "Configure Server Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1519
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1524
 msgid "Configure WordPress Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1526
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1531
 msgid "Configure Multisite Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1534
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1539
 msgid "System Files"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1544
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1549
 msgid "Directory Browsing"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1554
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1559
 msgid "Request Methods"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1562
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1567
 msgid "Suspicious Query Strings"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1570
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1575
 msgid "Non-English Characters"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1578
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1583
 msgid "Long URL Strings"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1586
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1591
 msgid "File Writing Permissions"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1594
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1599
 msgid "Uploads"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1602
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1607
 msgid "Generator Meta Tag"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1610
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1615
 msgid "Windows Live Writer Header"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1618
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1623
 msgid "EditURI Header"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1626
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1631
 msgid "Comment Spam"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1642
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1647
 msgid "File Editor"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1650
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1655
 msgid "XML-RPC"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1658
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1663
 msgid "Replace jQuery With a Safe Version"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1666
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1671
 msgid "Login Error Messages"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1674
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1679
 msgid "Force Unique Nickname"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1682
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1687
 msgid "Disable Extra User Archives"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1692
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1697
 msgid "Theme Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1700
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1705
 msgid "Plugin Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1708
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1713
 msgid "Core Update Notifications"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1732
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1755
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1778
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1737
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1760
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1783
 msgid ""
 "These are advanced settings that may be utilized to further strengthen the "
 "security of your WordPress site."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1733
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1756
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1779
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1738
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1761
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1784
 msgid ""
 "Note: These settings are listed as advanced because they block common forms "
 "of attacks but they can also block legitimate plugins and themes that rely "
@@ -4517,19 +4521,19 @@ msgid ""
 "working as expected."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1734
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1757
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:1780
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1739
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1762
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:1785
 msgid ""
 "Remember, some of these settings might conflict with other plugins or "
 "themes, so test your site after enabling each setting."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:2014
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2019
 msgid "Server Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks-admin.php:2064
+#: modules/free/tweaks/class-itsec-tweaks-admin.php:2069
 msgid "Multisite Tweaks"
 msgstr ""
 

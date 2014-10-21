@@ -216,3 +216,5 @@
 1.4.8 - 2014-10-13 - Chris Wiegman
 	New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
 	Fixed: When using wp-cron for file checking cron check will run daily instead of hourly.
+1.4.9 - 2014-10-21 - Chris Wiegman
+	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.

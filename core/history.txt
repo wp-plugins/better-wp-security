@@ -165,3 +165,7 @@
 	Fixed: Error on line 1312 when iThemes API is actived with version 4.4.15
 1.8.0 - 2014-10-13 - Chris Wiegman
 	New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
+1.9.0 - 2014-10-21 - Chris Wiegman
+	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
+	Fixed: Make sure php_gid is always defined to prevent error message if the function is not usable.
+	Fixed: Link to BackupBuddy in admin bar will now work correctly.

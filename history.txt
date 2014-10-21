@@ -282,3 +282,9 @@
 	Fixed: When using wp-cron for file checking cron check will run daily instead of hourly.
 4.4.18 - 2014-10-13 - Packaging Bot (core)
 	New Pro Feature: Dashboard widget. Get important information and handle user blocking right from the WordPress Dashboard.
+4.4.19 - 2014-10-21 - Packaging Bot (core)
+	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
+	Fixed: Make sure php_gid is always defined to prevent error message if the function is not usable.
+	Fixed: Link to BackupBuddy in admin bar will now work correctly.
+4.4.20 - 2014-10-21 - Packaging Bot (modules/free)
+	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.

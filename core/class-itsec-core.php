@@ -202,6 +202,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Malware_Scheduling',
 					),
+					'online-files' => array(
+						'has_front' => true,
+						'option'    => 'itsec_online_files',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Online_Files',
+					),
 					'password'           => array(
 						'has_front' => true,
 						'option'    => 'itsec_password',
@@ -621,7 +628,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 							array(
 								'id'     => 'test_' . $page['slug'],
 								'title'  => $page['title'],
-								'href'   => admin_url( $network . 'admin.phpadmin.php?page=' . $page['link'] ),
+								'href'   => admin_url( $network . 'admin.php?page=' . $page['link'] ),
 								'parent' => 'itsec_admin_bar_menu',
 							)
 						);
