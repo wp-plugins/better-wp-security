@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.20
+Stable tag: 4.4.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,11 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.21 =
+* Enhancement: More time/date information is now shown in the logs for file change scanning
+* Fixed: Filechange will no longer show false positives with every change in DST (although this will cause run round of such notifications on update).
+* Fixed: Link to malware scanning logs will work.
 
 = 4.4.20 =
 * New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
@@ -1310,6 +1315,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.4.21 =
+Version 4.4.21 contains a fix to an issue that affects daylight savings time as well as other minor bug fixes. It is recommended for all users.
 
 = 4.4.20 =
 Version 4.4.20 contains a minor bugfix and is recommended for all users.

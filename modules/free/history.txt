@@ -218,3 +218,7 @@
 	Fixed: When using wp-cron for file checking cron check will run daily instead of hourly.
 1.4.9 - 2014-10-21 - Chris Wiegman
 	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
+1.4.10 - 2014-10-28 - Chris Wiegman
+	Enhancement: More time/date information is now shown in the logs for file change scanning
+	Fixed: Filechange will no longer show false positives with every change in DST (although this will cause run round of such notifications on update).
+	Fixed: Link to malware scanning logs will work.

@@ -521,7 +521,7 @@ class ITSEC_File_Change {
 						} else { //is file so add to array
 
 							$data[ $relname ]      = array();
-							$data[ $relname ]['d'] = @filemtime( $absname ) + $time_offset;
+							$data[ $relname ]['d'] = @filemtime( $absname );
 							$data[ $relname ]['h'] = @md5_file( $absname );
 
 						}

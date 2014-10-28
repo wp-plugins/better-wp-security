@@ -288,3 +288,7 @@
 	Fixed: Link to BackupBuddy in admin bar will now work correctly.
 4.4.20 - 2014-10-21 - Packaging Bot (modules/free)
 	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
+4.4.21 - 2014-10-28 - Packaging Bot (modules/free)
+	Enhancement: More time/date information is now shown in the logs for file change scanning
+	Fixed: Filechange will no longer show false positives with every change in DST (although this will cause run round of such notifications on update).
+	Fixed: Link to malware scanning logs will work.
