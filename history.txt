@@ -292,3 +292,5 @@
 	Enhancement: More time/date information is now shown in the logs for file change scanning
 	Fixed: Filechange will no longer show false positives with every change in DST (although this will cause run round of such notifications on update).
 	Fixed: Link to malware scanning logs will work.
+4.4.22 - 2014-11-04 - Packaging Bot (core)
+	New Pro Feature: Temporary privilege escalation

@@ -169,3 +169,5 @@
 	New Pro Feature: File change scanning will now compare WordPress core files to the WordPress.org repository.
 	Fixed: Make sure php_gid is always defined to prevent error message if the function is not usable.
 	Fixed: Link to BackupBuddy in admin bar will now work correctly.
+1.10.0 - 2014-11-04 - Chris Wiegman
+	New Pro Feature: Temporary privilege escalation

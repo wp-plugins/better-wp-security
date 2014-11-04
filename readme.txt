@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 4.4.21
+Stable tag: 4.4.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,7 @@ Pro Features:
 * Dashboard Widget - manage important tasks such as user banning and system scans right from the WordPress dashboard.
 * GeoIP banning - coming soon
 * Online file comparison - When a file change is detected it will scan the origin of the files to determine if the change was malicious or not. Currently works only in WordPress core but plugins and themes are coming.
+* Temporary privilege escalation - give a contractor or someone else temporary admin or editor access to your site that will automatically reset itself.
 
 = iThemes Sync Integration =
 
@@ -192,6 +193,9 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.4.22 =
+* New Pro Feature: Temporary privilege escalation
 
 = 4.4.21 =
 * Enhancement: More time/date information is now shown in the logs for file change scanning

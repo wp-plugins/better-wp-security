@@ -209,6 +209,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Online_Files',
 					),
+					'privilege' => array(
+						'has_front' => true,
+						'option'    => 'itsec_privilege',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Privilege',
+					),
 					'password'           => array(
 						'has_front' => true,
 						'option'    => 'itsec_password',
