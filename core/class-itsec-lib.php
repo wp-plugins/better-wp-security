@@ -224,7 +224,7 @@ final class ITSEC_Lib {
 
 		}
 
-		return $page_url;
+		return esc_url( $page_url );
 	}
 
 	/**

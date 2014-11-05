@@ -171,3 +171,5 @@
 	Fixed: Link to BackupBuddy in admin bar will now work correctly.
 1.10.0 - 2014-11-04 - Chris Wiegman
 	New Pro Feature: Temporary privilege escalation
+1.10.1 - 2014-11-05 - Chris Wiegman
+	Security Fix: Fixed possible XSS vulnerability in ITSEC_Lib. - Low priority - Thanks to http://planetzuda.com

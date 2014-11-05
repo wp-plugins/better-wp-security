@@ -294,3 +294,5 @@
 	Fixed: Link to malware scanning logs will work.
 4.4.22 - 2014-11-04 - Packaging Bot (core)
 	New Pro Feature: Temporary privilege escalation
+4.4.23 - 2014-11-05 - Packaging Bot (core)
+	Security Fix: Fixed possible XSS vulnerability in ITSEC_Lib. - Low priority - Thanks to http://planetzuda.com
