@@ -40,7 +40,8 @@ class ITSEC_One_Version {
 
 			deactivate_plugins( $plugin, true, $network );
 			add_site_option( 'itsec_had_other_version', true );
-			wp_redirect( $_SERVER['HTTP_REFERER'], '302' );
+			wp_safe_redirect( $_SERVER['HTTP_REFERER'], '302' );
+			exit();
 
 		}
 

@@ -21,4 +21,4 @@ if ( is_admin() ) {
 }
 
 require_once( dirname( __FILE__ ) .  '/core/class-itsec-core.php' );
-new ITSEC_Core( __FILE__, __( 'iThemes Security', 'it-l10n-better-wp-security' ) );
+new ITSEC_Core( __FILE__, __( 'iThemes Security', 'LION' ) );
