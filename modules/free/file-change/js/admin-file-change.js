@@ -97,5 +97,3 @@ jQuery( window ).load( function () {
 	} );
 
 } );
-
-

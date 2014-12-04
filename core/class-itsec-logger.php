@@ -311,7 +311,7 @@ final class ITSEC_Logger {
 
 			$sanitized_data = $this->sanitize_array( $data ); //array of sanitized data
 
-			if ( $itsec_globals['settings']['log_type'] === 0 || $itsec_globals['settings']['log_type'] == 2 ) {
+			if ( ! isset( $itsec_globals['settings']['log_type'] ) || $itsec_globals['settings']['log_type'] === 0 || $itsec_globals['settings']['log_type'] == 2 ) {
 
 				$wpdb->hide_errors(); //Don't show error if table isn't present. Instead we'll just try to reconstruct the tables.
 
@@ -340,7 +340,7 @@ final class ITSEC_Logger {
 
 			}
 
-			if ( $itsec_globals['settings']['log_type'] === 1 || $itsec_globals['settings']['log_type'] == 2 ) {
+			if ( isset( $itsec_globals['settings']['log_type'] ) && ( $itsec_globals['settings']['log_type'] === 1 || $itsec_globals['settings']['log_type'] == 2 ) ) {
 
 				$message =
 					$options['type'] . ',' .
@@ -418,6 +418,8 @@ final class ITSEC_Logger {
 		echo '<label for="itsec_log_filter"><strong>' . __( 'Select Filter: ', 'it-l10n-better-wp-security' ) . '</strong></label>';
 		echo '<select id="itsec_log_filter" name="itsec_log_filter">';
 		echo '<option value="all-log-data" ' . selected( $log_filter, 'all-log-data' ) . '>' . __( 'All Log Data', 'it-l10n-better-wp-security' ) . '</option>';
+
+		$this->logger_displays = apply_filters( 'itsec_logger_displays', $this->logger_displays );
 
 		if ( sizeof( $this->logger_displays ) > 0 ) {
 

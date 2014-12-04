@@ -224,7 +224,13 @@ class ITSEC_Backup {
 			foreach ( $recipients as $recipient ) {
 
 				if ( is_email( trim( $recipient ) ) ) {
-					$mail_success = wp_mail( trim( $recipient ), $subject, $body, $headers, $attachment );
+
+					if ( defined( 'ITSEC_DEBUG' ) && ITSEC_DEBUG === true ) {
+						$body .= '<p>' . __( 'Debug info (source page): ' . esc_url( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] ) ) . '</p>';
+					}
+
+					$mail_success = wp_mail( trim( $recipient ), $subject, '<html>' . $body . '</html>', $headers, $attachment );
+
 				}
 
 			}

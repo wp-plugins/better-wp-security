@@ -3,8 +3,8 @@ Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
 Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
-Tested up to: 4.0
-Stable tag: 4.4.23
+Tested up to: 4.1
+Stable tag: 4.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Pro Features:
 * GeoIP banning - coming soon
 * Online file comparison - When a file change is detected it will scan the origin of the files to determine if the change was malicious or not. Currently works only in WordPress core but plugins and themes are coming.
 * Temporary privilege escalation - give a contractor or someone else temporary admin or editor access to your site that will automatically reset itself.
+* wp-cli integration - Manage your site's security from the command line.
 
 = iThemes Sync Integration =
 
@@ -193,6 +194,25 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.5.2 =
+* New Pro Feature: wp-cli integration
+* New Feature: Temporarily whitelist your IP address via iThemes Sync
+* New Feature: Override proxy IP detection
+* New feature: Hide admin bar (if desired)
+* New Feature: Perform file scan via iThemes Sync
+* New Feature: Perform malware scan via iThemes Sync
+* Enhancement: Added filter to allow for custom log pages
+* Enhancement: Added debug constant to help troubleshoot multiple emails
+* Enhancement: Added constant to force digest emails via wp-cron instead of custom timing
+* Fixed: Various missing variable fixes were added
+* Fixed: MySQL errors on MySQL 5.6 during activation were fixed.
+* Fixed: HTML emails now contain HTML tag
+* Fixed: Lockout count in emails should now be more accurate
+* Fixed: Make sure to esc urls on SSL redirects (unreported minor security fix)
+* Fixed: Added filters to SSL to try to catch more assets
+* Fixed: Suspicious query strings feature should no longer conflict with many plugins
+* Fixed: File change detection should no longer throw an error if opendir failed
 
 = 4.4.23 =
 * Fixed: App passwords in two-factor authentication will now correctly authenticate themselves.
@@ -1322,6 +1342,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.5.2 =
+Version 4.5.2 is a feature and bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
 
 = 4.4.23 =
 Version 4.4.23 contains a security update and is recommended for all users.

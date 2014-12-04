@@ -222,3 +222,10 @@
 	Enhancement: More time/date information is now shown in the logs for file change scanning
 	Fixed: Filechange will no longer show false positives with every change in DST (although this will cause run round of such notifications on update).
 	Fixed: Link to malware scanning logs will work.
+1.5.0 - 2014-12-04 - Chris Wiegman
+	New Feature: Perform file scan via iThemes Sync
+	New Feature: Perform malware scan via iThemes Sync
+	Fixed: Make sure to esc urls on SSL redirects (unreported minor security fix)
+	Fixed: Added filters to SSL to try to catch more assets
+	Fixed: Suspicious query strings feature should no longer conflict with many plugins
+	Fixed: File change detection should no longer throw an error if opendir failed

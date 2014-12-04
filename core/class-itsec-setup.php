@@ -45,6 +45,8 @@ class ITSEC_Setup {
 			'did_upgrade'               => false,
 			'lock_file'                 => false,
 			'digest_email'              => false,
+			'proxy_override'            => false,
+			'hide_admin_bar'            => false,
 		);
 
 		if ( ! $case ) {
@@ -449,6 +451,7 @@ class ITSEC_Setup {
 		delete_site_transient( 'ITSEC_SHOW_WRITE_FILES_TOOLTIP' );
 		delete_site_transient( 'itsec_upload_dir' );
 		delete_site_transient( 'itsec_notification_running' );
+		wp_clear_scheduled_hook( 'itsec_digest_email' );
 
 		$htaccess = ITSEC_Lib::get_htaccess();
 

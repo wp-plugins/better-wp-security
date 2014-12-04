@@ -339,7 +339,7 @@ class ITSEC_File_Change_Admin {
 
 		add_settings_field(
 			'itsec_file_change[notify_admin]',
-			__( 'Display file change admin warning', 'it-l10n-better-wp-security' ),
+			__( 'Display File Change Admin Warning', 'it-l10n-better-wp-security' ),
 			array( $this, 'settings_field_notify_admin' ),
 			'security_page_toplevel_page_itsec_settings',
 			'file_change-settings'

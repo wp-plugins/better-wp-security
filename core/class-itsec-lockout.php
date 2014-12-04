@@ -488,7 +488,7 @@ class ITSEC_Lockout {
 
 		global $itsec_globals;
 
-		$white_ips = $itsec_globals['settings']['lockout_white_list'];
+		$white_ips = isset( $itsec_globals['settings']['lockout_white_list'] ) ? $itsec_globals['settings']['lockout_white_list'] : array();
 
 		if ( ! is_array( $white_ips ) ) {
 			$white_ips = explode( PHP_EOL, $white_ips );
@@ -718,7 +718,7 @@ class ITSEC_Lockout {
 			$reason = sanitize_text_field( $reason );
 
 			//handle a permanent host ban (if needed)
-			if ( $itsec_globals['settings']['blacklist'] === true && $good_host !== false ) { //permanent blacklist
+			if ( isset( $itsec_globals['settings']['blacklist'] ) && $itsec_globals['settings']['blacklist'] === true && $good_host !== false ) { //permanent blacklist
 
 				$blacklist_period = isset( $itsec_globals['settings']['blacklist_period'] ) ? $itsec_globals['settings']['blacklist_period'] * 24 * 60 * 60 : 604800;
 
@@ -774,9 +774,9 @@ class ITSEC_Lockout {
 							'lockout_type'      => $type,
 							'lockout_start'     => date( 'Y-m-d H:i:s', $itsec_globals['current_time'] ),
 							'lockout_start_gmt' => date( 'Y-m-d H:i:s', $itsec_globals['current_time_gmt'] ),
-							'lockout_expire'    => $expiration, 'lockout_expire_gmt' => $expiration_gmt,
+							'lockout_expire'    => $expiration,
+							'lockout_expire_gmt' => $expiration_gmt,
 							'lockout_host'      => sanitize_text_field( $host ),
-							'lockout_user'      => '',
 						)
 					);
 
@@ -1028,10 +1028,15 @@ class ITSEC_Lockout {
 
 		$sync_modules['lockout'] = array(
 			'verbs'      => array(
-				'itsec-get-lockouts'    => 'Ithemes_Sync_Verb_ITSEC_Get_Lockouts',
-				'itsec-release-lockout' => 'Ithemes_Sync_Verb_ITSEC_Release_Lockout'
+				'itsec-get-lockouts'       => 'Ithemes_Sync_Verb_ITSEC_Get_Lockouts',
+				'itsec-release-lockout'    => 'Ithemes_Sync_Verb_ITSEC_Release_Lockout',
+				'itsec-get-temp-whitelist' => 'Ithemes_Sync_Verb_ITSEC_Get_Temp_Whitelist',
+				'itsec-set-temp-whitelist' => 'Ithemes_Sync_Verb_ITSEC_Set_Temp_Whitelist',
 			),
-			'everything' => 'itsec-get-lockouts',
+			'everything' => array(
+				'itsec-get-lockouts',
+			    'itsec-get-temp-whitelist',
+			),
 			'path'       => dirname( __FILE__ ),
 		);
 

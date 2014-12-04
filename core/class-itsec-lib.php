@@ -119,7 +119,7 @@ final class ITSEC_Lib {
 				log_user bigint(20) UNSIGNED,
 				log_url varchar(255),
 				log_referrer varchar(255),
-				log_data longtext NOT NULL DEFAULT '',
+				log_data longtext NOT NULL,
 				PRIMARY KEY  (log_id),
 				KEY log_type (log_type),
 				KEY log_date_gmt (log_date_gmt)
@@ -396,6 +396,12 @@ final class ITSEC_Lib {
 	 */
 	public static function get_ip() {
 
+		global $itsec_globals;
+
+		if ( isset( $itsec_globals['settings']['proxy_override'] ) && $itsec_globals['settings']['proxy_override'] === true ) {
+			return esc_sql( $_SERVER['REMOTE_ADDR'] );
+		}
+
 		//Just get the headers if we can or else use the SERVER global
 		if ( function_exists( 'apache_request_headers' ) ) {
 
@@ -595,7 +601,7 @@ final class ITSEC_Lib {
 
 				for ( $count = 0; $count < $wildcards; $count ++ ) {
 
-					$octets[$count] = '[0-9]+';
+					$octets[ $count ] = '[0-9]+';
 
 				}
 

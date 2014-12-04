@@ -1,16 +1,16 @@
 <?php
 /*
-	Plugin Name: iThemes Security
-	Plugin URI: https://ithemes.com/security
-	Description: Protect your WordPress site by hiding vital areas of your site, protecting access to important files, preventing brute-force login attempts, detecting attack attempts and more.
-	Version: 4.4.23
-	Text Domain: it-l10n-better-wp-security
-	Domain Path: /languages
-	Author: iThemes.com
-	Author URI: https://ithemes.com
-	Network: True
-	License: GPLv2
-	Copyright 2014  iThemes  (email : info@ithemes.com)
+Plugin Name: iThemes Security
+Plugin URI: https://ithemes.com/security
+Description: Protect your WordPress site by hiding vital areas of your site, protecting access to important files, preventing brute-force login attempts, detecting attack attempts and more.
+Version: 4.5.2
+Text Domain: it-l10n-better-wp-security
+Domain Path: /languages
+Author: iThemes.com
+Author URI: https://ithemes.com
+Network: True
+License: GPLv2
+Copyright 2014  iThemes  (email : info@ithemes.com)
 */
 
 if ( is_admin() ) {
@@ -21,4 +21,4 @@ if ( is_admin() ) {
 }
 
 require_once( dirname( __FILE__ ) .  '/core/class-itsec-core.php' );
-new ITSEC_Core( __FILE__, __( 'iThemes Security', 'LION' ) );
+new ITSEC_Core( __FILE__, __( 'iThemes Security', 'it-l10n-better-wp-security' ) );

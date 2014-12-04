@@ -723,7 +723,13 @@ class ITSEC_Hide_Backend_Admin {
 		foreach ( $recipients as $recipient ) {
 
 			if ( is_email( trim( $recipient ) ) ) {
-				wp_mail( trim( $recipient ), $subject, $body, $headers );
+
+				if ( defined( 'ITSEC_DEBUG' ) && ITSEC_DEBUG === true ) {
+					$body .= '<p>' . __( 'Debug info (source page): ' . esc_url( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] ) ) . '</p>';
+				}
+
+				wp_mail( trim( $recipient ), $subject, '<html>' . $body . '</html>', $headers );
+
 			}
 
 		}

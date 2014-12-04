@@ -74,7 +74,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4034, //plugin build number - used to trigger updates
+				'plugin_build'       => 4035, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -202,14 +202,14 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Malware_Scheduling',
 					),
-					'online-files' => array(
+					'online-files'       => array(
 						'has_front' => true,
 						'option'    => 'itsec_online_files',
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'Online_Files',
 					),
-					'privilege' => array(
+					'privilege'          => array(
 						'has_front' => true,
 						'option'    => 'itsec_privilege',
 						'setting'   => 'enabled',
@@ -249,9 +249,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'has_front' => false,
 						'class_id'  => 'Core',
 					),
-					'dashboard-widget'          => array(
+					'dashboard-widget'   => array(
 						'has_front' => false,
 						'class_id'  => 'Dashboard_Widget',
+					),
+					'wp-cli'   => array(
+						'has_front' => true,
+						'class_id'  => 'WP_ClI',
 					),
 				),
 			);
@@ -449,7 +453,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//Admin bar links
-			add_action( 'admin_bar_menu', array( $this, 'admin_bar_links' ), 99 );
+			if ( ! isset( $itsec_globals['settings']['hide_admin_bar'] ) || $itsec_globals['settings']['hide_admin_bar'] === false ) {
+				add_action( 'admin_bar_menu', array( $this, 'admin_bar_links' ), 99 );
+			}
 
 			if ( isset( $itsec_globals['settings']['infinitewp_compatibility'] ) && $itsec_globals['settings']['infinitewp_compatibility'] === true ) {
 

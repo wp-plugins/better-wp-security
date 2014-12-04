@@ -19,15 +19,16 @@ class ITSEC_File_Change {
 			$itsec_globals['ithemes_log_dir'],
 			'.lock',
 		);
+		$interval       = 86400; //Run daily
 
-		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
-
-		// If we're splitting the file check run it every 6 hours. Else daily.
+		// If we're splitting the file check run it every 6 hours.
 		if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
 			$interval = 12342;
-		} else {
-			$interval = 86400;
 		}
+
+		add_filter( 'itsec_logger_modules', array( $this, 'itsec_logger_modules' ) );
+		add_filter( 'itsec_sync_modules', array( $this, 'itsec_sync_modules' ) ); //register sync modules
+		add_action( 'itsec_execute_file_check_cron', array( $this, 'execute_file_check' ) ); //Action to execute during a cron run.
 
 		if (
 			( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) &&
@@ -37,27 +38,29 @@ class ITSEC_File_Change {
 			( $itsec_globals['current_time'] - $interval ) > $this->settings['last_run'] &&
 			( ! defined( 'ITSEC_FILE_CHECK_CRON' ) || ITSEC_FILE_CHECK_CRON === false )
 		) {
+
 			wp_clear_scheduled_hook( 'itsec_file_check' );
 			add_action( 'init', array( $this, 'execute_file_check' ) );
-		}
 
-		//Use Cron if registered
-		if ( defined( 'ITSEC_FILE_CHECK_CRON' ) && ITSEC_FILE_CHECK_CRON === true && ! wp_next_scheduled( 'itsec_execute_file_check_cron' ) ) {
+		} elseif ( defined( 'ITSEC_FILE_CHECK_CRON' ) && ITSEC_FILE_CHECK_CRON === true && ! wp_next_scheduled( 'itsec_execute_file_check_cron' ) ) { //Use cron if needed
+
 			wp_schedule_event( time(), 'daily', 'itsec_execute_file_check_cron' );
-		}
 
-		add_action( 'itsec_execute_file_check_cron', array( $this, 'execute_file_check' ) );
+		}
 
 	}
 
 	/**
 	 * Executes file checking
 	 *
-	 * @param bool $scheduled_call [optional] is this an automatic check
+	 * @since 4.0
+	 *
+	 * @param bool $scheduled_call [optional] true if this is an automatic check
+	 * @param bool $data whether to return a data array (true) or not (false)
 	 *
 	 * @return mixed
 	 **/
-	public function execute_file_check( $scheduled_call = true ) {
+	public function execute_file_check( $scheduled_call = true, $data = false ) {
 
 		global $itsec_files, $itsec_logger, $itsec_globals;
 
@@ -230,13 +233,23 @@ class ITSEC_File_Change {
 
 					$this->running = false;
 
-					return true;
+					//There were changes found
+					if ( $data === true ) {
+
+						return $full_change_list;
+
+					} else {
+
+						return true;
+
+					}
+
 
 				} else {
 
 					$this->running = false;
 
-					return false;
+					return false; //No changes were found
 
 				}
 
@@ -244,7 +257,7 @@ class ITSEC_File_Change {
 
 			$this->running = false;
 
-			return - 1;
+			return - 1; //An error occured
 
 		}
 
@@ -253,10 +266,11 @@ class ITSEC_File_Change {
 	/**
 	 * Get Report Details
 	 *
+	 * @since 4.0
+	 *
 	 * @param array $email_details array of details to build email
 	 *
 	 * @return string report details
-	 *
 	 **/
 	function get_email_report( $email_details ) {
 
@@ -371,10 +385,11 @@ class ITSEC_File_Change {
 	 *
 	 * Checks if given file should be included in file check based on exclude/include options
 	 *
+	 * @since 4.0
+	 *
 	 * @param string $file path of file to check from site root
 	 *
 	 * @return bool true if file should be checked false if not
-	 *
 	 **/
 	private function is_checkable_file( $file ) {
 
@@ -436,11 +451,13 @@ class ITSEC_File_Change {
 	/**
 	 * Register 404 and file change detection for logger
 	 *
+	 * @since 4.0
+	 *
 	 * @param  array $logger_modules array of logger modules
 	 *
-	 * @return array                   array of logger modules
+	 * @return array array of logger modules
 	 */
-	public function register_logger( $logger_modules ) {
+	public function itsec_logger_modules( $logger_modules ) {
 
 		$logger_modules['file_change'] = array(
 			'type'     => 'file_change',
@@ -448,6 +465,28 @@ class ITSEC_File_Change {
 		);
 
 		return $logger_modules;
+
+	}
+
+	/**
+	 * Register malware for Sync
+	 *
+	 * @since 4.0
+	 *
+	 * @param  array $sync_modules array of malware modules
+	 *
+	 * @return array array of sync modules
+	 */
+	public function itsec_sync_modules( $sync_modules ) {
+
+		$sync_modules['file-change'] = array(
+			'verbs' => array(
+				'itsec-perform-file-scan' => 'Ithemes_Sync_Verb_ITSEC_Perform_File_Scan',
+			),
+			'path'  => dirname( __FILE__ ),
+		);
+
+		return $sync_modules;
 
 	}
 
@@ -494,9 +533,9 @@ class ITSEC_File_Change {
 
 		$clean_path = sanitize_text_field( $path );
 
-		if ( $directory_handle = opendir( ITSEC_Lib::get_home_path() . $clean_path ) ) { //get the directory
+		if ( $directory_handle = @opendir( ITSEC_Lib::get_home_path() . $clean_path ) ) { //get the directory
 
-			while ( ( $item = readdir( $directory_handle ) ) !== false ) { // loop through dirs
+			while ( ( $item = @readdir( $directory_handle ) ) !== false ) { // loop through dirs
 
 				if ( $item != '.' && $item != '..' ) { //don't scan parent/etc
 
@@ -542,6 +581,8 @@ class ITSEC_File_Change {
 
 	/**
 	 * Builds and sends notification email
+	 *
+	 * @since 4.0
 	 *
 	 * @param array $email_details array of details for the email messge
 	 *
@@ -590,6 +631,8 @@ class ITSEC_File_Change {
 
 	/**
 	 * Set HTML content type for email
+	 *
+	 * @since 4.0
 	 *
 	 * @return string html content type
 	 */

@@ -59,21 +59,23 @@ class ITSEC_Database_Prefix_Admin {
 
 			$status_array = 'safe-medium';
 			$status       = array(
-				'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'it-l10n-better-wp-security' ) ),
-				'link' => '#itsec_change_table_prefix', 'advanced' => true,
+				'text'     => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'it-l10n-better-wp-security' ) ),
+				'link'     => '#itsec_change_table_prefix',
+				'advanced' => true,
 			);
 
 		} else {
 
 			$status_array = 'medium';
 			$status       = array(
-				'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'it-l10n-better-wp-security' ) ),
-				'link' => '#itsec_change_table_prefix', 'advanced' => true,
+				'text'     => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'it-l10n-better-wp-security' ) ),
+				'link'     => '#itsec_change_table_prefix',
+				'advanced' => true,
 			);
 
 		}
 
-		array_push( $statuses[$status_array], $status );
+		array_push( $statuses[ $status_array ], $status );
 
 		return $statuses;
 
@@ -107,11 +109,9 @@ class ITSEC_Database_Prefix_Admin {
 	 */
 	public function metabox_advanced_settings() {
 
-		$content = '<p>' . __( 'By default, WordPress assigns the prefix "wp" to all tables in the database where your content, users, and objects exist. For potential attackers, this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% of sites are already known. Changing the "wp" prefix makes it more difficult for tools that are trying to take advantage of vulnerabilities in other places to affect the database of your site.', 'it-l10n-better-wp-security' ) . '<strong>' . __( 'Before using this tool, we strongly recommend running a backup of your database.', 'it-l10n-better-wp-security' ) . '</strong></p>';
-		$content .= '<p>' . __( 'Note: The use of this tool requires quite a bit of system memory which may be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'it-l10n-better-wp-security' ) . '</p>';
-		$content .= sprintf( '<div class="itsec-warning-message"><span>%s: </span><a href="?page=toplevel_page_itsec_backups">%s</a> %s</div>', __( 'WARNING', 'it-l10n-better-wp-security' ), __( 'Backup your database', 'it-l10n-better-wp-security' ), __( 'before using this tool.', 'it-l10n-better-wp-security' ) );
-
-		echo $content;
+		echo '<p>' . __( 'By default, WordPress assigns the prefix "wp" to all tables in the database where your content, users, and objects exist. For potential attackers, this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% of sites are already known. Changing the "wp" prefix makes it more difficult for tools that are trying to take advantage of vulnerabilities in other places to affect the database of your site.', 'it-l10n-better-wp-security' ) . '<strong>' . __( 'Before using this tool, we strongly recommend running a backup of your database.', 'it-l10n-better-wp-security' ) . '</strong></p>';
+		echo '<p>' . __( 'Note: The use of this tool requires quite a bit of system memory which may be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo sprintf( '<div class="itsec-warning-message"><span>%s: </span><a href="?page=toplevel_page_itsec_backups">%s</a> %s</div>', __( 'WARNING', 'it-l10n-better-wp-security' ), __( 'Backup your database', 'it-l10n-better-wp-security' ), __( 'before using this tool.', 'it-l10n-better-wp-security' ) );
 
 		global $itsec_globals;
 
@@ -170,14 +170,12 @@ class ITSEC_Database_Prefix_Admin {
 
 		} else {
 
-			$content = sprintf(
+			printf(
 				'<p>%s <a href="?page=toplevel_page_itsec_settings">%s</a> %s',
 				__( 'You must allow this plugin to write to the wp-config.php file on the', 'it-l10n-better-wp-security' ),
 				__( 'Settings', 'it-l10n-better-wp-security' ),
 				__( 'page to use this feature.', 'it-l10n-better-wp-security' )
 			);
-
-			echo $content;
 
 		}
 
@@ -203,14 +201,14 @@ class ITSEC_Database_Prefix_Admin {
 			$avail = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
 			//first character should be alpha
-			$new_prefix = $avail[mt_rand( 0, 25 )];
+			$new_prefix = $avail[ mt_rand( 0, 25 ) ];
 
 			//length of new prefix
 			$prelength = mt_rand( 4, 9 );
 
 			//generate remaning characters
 			for ( $i = 0; $i < $prelength; $i ++ ) {
-				$new_prefix .= $avail[mt_rand( 0, 35 )];
+				$new_prefix .= $avail[ mt_rand( 0, 35 ) ];
 			}
 
 			//complete with underscore
@@ -298,10 +296,13 @@ class ITSEC_Database_Prefix_Admin {
 		}
 
 		$rules[] = array(
-			'type' => 'wpconfig', 'name' => 'Database Prefix', 'rules' => array(
+			'type'  => 'wpconfig',
+			'name'  => 'Database Prefix',
+			'rules' => array(
 				array(
-					'type' => 'replace', 'search_text' => 'table_prefix',
-					'rule' => "\$table_prefix = '" . $new_prefix . "';",
+					'type'        => 'replace',
+					'search_text' => 'table_prefix',
+					'rule'        => "\$table_prefix = '" . $new_prefix . "';",
 				),
 			),
 		);

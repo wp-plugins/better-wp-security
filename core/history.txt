@@ -173,3 +173,15 @@
 	New Pro Feature: Temporary privilege escalation
 1.10.1 - 2014-11-05 - Chris Wiegman
 	Security Fix: Fixed possible XSS vulnerability in ITSEC_Lib. - Low priority - Thanks to http://planetzuda.com
+1.11.0 - 2014-12-04 - Chris Wiegman
+	New Pro Feature: wp-cli integration
+	New Feature: Temporarily whitelist your IP address via iThemes Sync
+	New Feature: Override proxy IP detection
+	New feature: Hide admin bar (if desired)
+	Enhancement: Added filter to allow for custom log pages
+	Enhancement: Added debug constant to help troubleshoot multiple emails
+	Enhancement: Added constant to force digest emails via wp-cron instead of custom timing
+	Fixed: Various missing variable fixes were added
+	Fixed: MySQL errors on MySQL 5.6 during activation were fixed.
+	Fixed: HTML emails now contain HTML tag
+	Fixed: Lockout count in emails should now be more accurate

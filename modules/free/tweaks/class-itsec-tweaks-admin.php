@@ -837,7 +837,6 @@ class ITSEC_Tweaks_Admin {
 					          "\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"base64_encode\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(%24&x)\") { set \$susquery 1; }" . PHP_EOL .
-					          "\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){ set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(127.0)\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(globals|encode|localhost|loopback)\") { set \$susquery 1; }" . PHP_EOL .
 					          "\tif (\$args ~* \"(request|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL .
@@ -860,8 +859,6 @@ class ITSEC_Tweaks_Admin {
 					          "\tRewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]" . PHP_EOL .
-					          "\tRewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]" . PHP_EOL .
-					          "\tRewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]" . PHP_EOL .
 					          "\tRewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
