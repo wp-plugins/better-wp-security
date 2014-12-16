@@ -223,6 +223,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'value'     => true,
 						'class_id'  => 'Password',
 					),
+					'recaptcha'           => array(
+						'has_front' => true,
+						'option'    => 'itsec_recaptcha',
+						'setting'   => 'enabled',
+						'value'     => true,
+						'class_id'  => 'Recaptcha',
+					),
 					'settings'           => array(
 						'has_front' => false,
 						'class_id'  => 'Settings',

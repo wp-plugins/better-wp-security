@@ -229,3 +229,5 @@
 	Fixed: Added filters to SSL to try to catch more assets
 	Fixed: Suspicious query strings feature should no longer conflict with many plugins
 	Fixed: File change detection should no longer throw an error if opendir failed
+1.5.1 - 2014-12-16 - Chris Wiegman
+	Fixed: Removed unneeded fields in malware

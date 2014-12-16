@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 4.5.2
+Stable tag: 4.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,7 @@ Pro Features:
 * Online file comparison - When a file change is detected it will scan the origin of the files to determine if the change was malicious or not. Currently works only in WordPress core but plugins and themes are coming.
 * Temporary privilege escalation - give a contractor or someone else temporary admin or editor access to your site that will automatically reset itself.
 * wp-cli integration - Manage your site's security from the command line.
+* Google reCAPTCHA - Protect your site against spammers
 
 = iThemes Sync Integration =
 
@@ -194,6 +195,10 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.5.6 =
+* New Pro Feature: Google reCAPTCHA
+* Fixed: Removed unneeded fields in malware
 
 = 4.5.2 =
 * New Pro Feature: wp-cli integration
@@ -1342,6 +1347,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.5.6 =
+Version 4.5.6 contains a minor bugfix and is recommended for all users.
 
 = 4.5.2 =
 Version 4.5.2 is a feature and bug-fix release addressing numerous minor bugs affecting some users. It is recommended for all users.
