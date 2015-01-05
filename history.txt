@@ -338,3 +338,10 @@
 	Fixed: Removed unneeded fields in malware
 4.5.6 - 2014-12-16 - Packaging Bot (core)
 	New Pro Feature: Google reCAPTCHA
+4.5.7 - 2015-01-05 - Packaging Bot (modules/free)
+	Fix/Enhancement: Code refactoring of numerous modules
+	Fix: Hiding available updates in multi-site will no longer block wp-cli from detecting updates.
+	Fix: Removed leftover JavaScript debugging statements.
+4.5.8 - 2015-01-05 - Packaging Bot (core)
+	New Feature: Add file/folder permissions check to Dashboard
+	Fix/Enhancement: Minor refactoring of various core components

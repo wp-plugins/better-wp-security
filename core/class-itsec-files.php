@@ -338,7 +338,7 @@ final class ITSEC_Files {
 
 				if ( $state == true ) { //as long as we're not in the section keep writing
 
-					unset( $lines[$line_number] );
+					unset( $lines[ $line_number ] );
 
 				}
 
@@ -900,8 +900,8 @@ final class ITSEC_Files {
 
 							if ( $rule['name'] == $rewrite_rule['name'] ) {
 
-								$found                     = true;
-								$this->rewrite_rules[$key] = $rule;
+								$found                       = true;
+								$this->rewrite_rules[ $key ] = $rule;
 
 							}
 
@@ -955,8 +955,8 @@ final class ITSEC_Files {
 
 							if ( $rule['name'] == $wpconfig_rule['name'] ) {
 
-								$found                      = true;
-								$this->wpconfig_rules[$key] = $rule;
+								$found                        = true;
+								$this->wpconfig_rules[ $key ] = $rule;
 
 							}
 
@@ -1038,7 +1038,7 @@ final class ITSEC_Files {
 
 				if ( $state == true ) { //as long as we're not in the section keep writing
 
-					unset( $lines[$line_number] );
+					unset( $lines[ $line_number ] );
 
 				}
 
@@ -1177,7 +1177,7 @@ final class ITSEC_Files {
 					foreach ( $config_array as $line_number => $line ) {
 
 						if ( strpos( $line, $replace ) !== false ) {
-							$config_array[$line_number] = $rule_to_replace;
+							$config_array[ $line_number ] = $rule_to_replace;
 						}
 
 						if ( $delete_count < $delete_total ) {
@@ -1186,13 +1186,13 @@ final class ITSEC_Files {
 
 								if ( strpos( $line, $rule['search_text'] ) !== false ) {
 
-									unset( $config_array[$line_number] );
+									unset( $config_array[ $line_number ] );
 
 									//delete the following line(s) if they is blank
 									$count = 1;
-									while ( isset( $config_array[$line_number + $count] ) && strlen( trim( $config_array[$line_number + $count] ) ) < 1 ) {
+									while ( isset( $config_array[ $line_number + $count ] ) && strlen( trim( $config_array[ $line_number + $count ] ) ) < 1 ) {
 
-										unset( $config_array[$line_number + 1] );
+										unset( $config_array[ $line_number + 1 ] );
 
 									}
 

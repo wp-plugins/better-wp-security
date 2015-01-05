@@ -1,13 +1,56 @@
 <?php
-
+/**
+ * File Change Administrative Screens
+ *
+ * Sets up all administrative functions for the file change detection feature
+ * including fields, sanitation and all other privileged functions.
+ *
+ * @since   4.0.0
+ *
+ * @package iThemes_Security
+ */
 class ITSEC_File_Change_Admin {
 
-	private
-		$settings,
-		$core,
-		$module_path;
+	/**
+	 * The module's saved options
+	 *
+	 * @since  4.0.0
+	 * @access private
+	 * @var array
+	 */
+	private $settings;
 
-	function run( $core ) {
+	/**
+	 * The core plugin class utilized in order to set up admin and other screens
+	 *
+	 * @since  4.0.0
+	 * @access private
+	 * @var ITSEC_Core
+	 */
+	private $core;
+
+	/**
+	 * The absolute web patch to the module's files
+	 *
+	 * @since  4.0.0
+	 * @access private
+	 * @var string
+	 */
+	private $module_path;
+
+	/**
+	 * Setup the module's administrative functionality
+	 *
+	 * Loads the file change detection module's priviledged functionality including
+	 * settings fields.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param ITSEC_Core $core The core plugin instance
+	 *
+	 * @return void
+	 */
+	public function run( $core ) {
 
 		$this->core        = $core;
 		$this->settings    = get_site_option( 'itsec_file_change' );
@@ -34,7 +77,9 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Add Files Admin Javascript
 	 *
-	 * @since 4.0
+	 * Enqueues files used in the admin area for the file change module
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -42,7 +87,8 @@ class ITSEC_File_Change_Admin {
 
 		global $itsec_globals;
 
-		wp_enqueue_script( 'itsec_file_change_warning_js', $this->module_path . 'js/admin-file-change-warning.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
+		wp_register_script( 'itsec_file_change_warning_js', $this->module_path . 'js/admin-file-change-warning.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
+		wp_enqueue_script( 'itsec_file_change_warning_js' );
 		wp_localize_script(
 			'itsec_file_change_warning_js',
 			'itsec_file_change_warning',
@@ -52,9 +98,10 @@ class ITSEC_File_Change_Admin {
 			)
 		);
 
-		if ( isset( get_current_screen()->id ) && ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) !== false || strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) !== false || strpos( get_current_screen()->id, 'dashboard' ) !== false ) ) {
+		if ( isset( get_current_screen()->id ) && ( false !== strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_settings' ) || false !== strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_logs' ) || false !== strpos( get_current_screen()->id, 'dashboard' ) ) ) {
 
-			wp_enqueue_script( 'itsec_file_change_js', $this->module_path . 'js/admin-file-change.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
+			wp_register_script( 'itsec_file_change_js', $this->module_path . 'js/admin-file-change.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_file_change_js' );
 			wp_localize_script(
 				'itsec_file_change_js',
 				'itsec_file_change',
@@ -62,7 +109,7 @@ class ITSEC_File_Change_Admin {
 					'mem_limit'            => ITSEC_Lib::get_memory_limit(),
 					'text'                 => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'it-l10n-better-wp-security' ),
 					'module_path'          => $this->module_path,
-					'button_text'          => isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
+					'button_text'          => isset( $this->settings['split'] ) && true === $this->settings['split'] ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ),
 					'scanning_button_text' => __( 'Scanning...', 'it-l10n-better-wp-security' ),
 					'no_changes'           => __( 'No changes were detected.', 'it-l10n-better-wp-security' ),
 					'changes'              => __( 'Changes were detected. Please check the log page for details.', 'it-l10n-better-wp-security' ),
@@ -72,7 +119,8 @@ class ITSEC_File_Change_Admin {
 				)
 			);
 
-			wp_enqueue_script( 'itsec_jquery_filetree', $this->module_path . 'filetree/jqueryFileTree.js', array( 'jquery' ), '1.01' );
+			wp_register_script( 'itsec_jquery_filetree', $this->module_path . 'filetree/jqueryFileTree.js', array( 'jquery' ), '1.01' );
+			wp_enqueue_script( 'itsec_jquery_filetree' );
 			wp_localize_script(
 				'itsec_jquery_filetree',
 				'itsec_jquery_filetree',
@@ -94,24 +142,34 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Display admin warning
 	 *
-	 * @since 4.0
+	 * Displays a warning in the Dashboard to administrators  when file changes have been detected
 	 *
-	 * Displays a warning to adminstrators when file changes have been detected
+	 * @since 4.0.0
 	 *
-	 **/
+	 * @return void
+	 */
 	public function dashboard_warning() {
 
 		global $blog_id; //get the current blog id
 
-		if ( ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) || ! current_user_can( 'activate_plugins' ) ) { //only display to network admin if in multisite
+		if ( ( is_multisite() && ( 1 != $blog_id || ! current_user_can( 'manage_network_options' ) ) ) || ! current_user_can( 'activate_plugins' ) ) { //only display to network admin if in multisite
 			return;
 		}
 
 		//if there is a warning to display
-		if ( get_site_option( 'itsec_file_change_warning' ) == '1' ) {
+		if ( '1' == get_site_option( 'itsec_file_change_warning' ) ) {
 
 			if ( ! function_exists( 'itsec_intrusion_warning' ) ) {
 
+				/**
+				 * Echos warning markup.
+				 *
+				 * Build and echos the file change warning markup that appears in the dashboard
+				 *
+				 * @since 4.0.0
+				 *
+				 * @return void
+				 */
 				function itsec_intrusion_warning() {
 
 					global $itsec_globals;
@@ -163,11 +221,17 @@ class ITSEC_File_Change_Admin {
 
 			//take them to the correct logs page
 			if ( isset( $_GET['bit51_view_logs'] ) ) {
+
 				if ( is_multisite() ) {
+
 					wp_redirect( admin_url() . 'network/admin.php?page=better-wp-security-logs#file-change', 302 );
+
 				} else {
+
 					wp_redirect( admin_url() . 'admin.php?page=better-wp-security-logs#file-change', 302 );
+
 				}
+
 			}
 
 		}
@@ -177,7 +241,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Echos the one-time file change scan form
 	 *
-	 * @since 4.0
+	 * Echos the form necessary to perform one-time file scans which can then be accessed
+	 * by various administrative screens including the plugin's settings and logs pages
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param string $origin the origin
 	 *
@@ -185,13 +252,13 @@ class ITSEC_File_Change_Admin {
 	 */
 	public function file_change_form( $origin ) {
 
-		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
+		if ( isset( $this->settings['enabled'] ) && true === $this->settings['enabled'] ) {
 
 			echo '<form id="itsec_one_time_file_check" method="post" action="">';
 			echo wp_nonce_field( 'itsec_do_file_check', 'wp_nonce' );
 			echo '<input type="hidden" name="itsec_file_change_origin" value="' . sanitize_text_field( $origin ) . '">';
 			echo '<p>' . __( "Press the button below to scan your site's files for changes. Note that if changes are found this will take you to the logs page for details.", 'it-l10n-better-wp-security' ) . '</p>';
-			echo '<p><input type="submit" id="itsec_one_time_file_check_submit" class="button-primary" value="' . ( isset( $this->settings['split'] ) && $this->settings['split'] === true ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ) ) . '" /></p>';
+			echo '<p><input type="submit" id="itsec_one_time_file_check_submit" class="button-primary" value="' . ( isset( $this->settings['split'] ) && true === $this->settings['split'] ? __( 'Scan Next File Chunk', 'it-l10n-better-wp-security' ) : __( 'Scan Files Now', 'it-l10n-better-wp-security' ) ) . '" /></p>';
 			echo '<div id="itsec_file_change_status"><p></p></div>';
 			echo '</form>';
 
@@ -202,7 +269,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Add meta boxes to primary options pages
 	 *
-	 * @since 4.0
+	 * Adds the module's meta settings box to the settings page and
+	 * registers the added box in the page's table of contents.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -232,13 +302,18 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Sets the status in the plugin dashboard
 	 *
-	 * @since 4.0
+	 * Sets a medium priority item for the module's functionality in the plugin
+	 * dashboard.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $statuses array of existing plugin dashboard statuses
 	 *
 	 * @return array statuses
 	 */
 	public function itsec_add_dashboard_status( $statuses ) {
 
-		if ( $this->settings['enabled'] === true ) {
+		if ( isset( $this->settings['enabled'] ) && true === $this->settings['enabled'] ) {
 
 			$status_array = 'safe-medium';
 			$status       = array(
@@ -265,7 +340,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Execute admin initializations
 	 *
-	 * @since 4.0
+	 * Calls the dashboard warning method and sets up all module settings fields and
+	 * sections.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -357,7 +435,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Prepare and save options in network settings
 	 *
-	 * @since 4.0
+	 * Saves the options in a multi-site network where data sanitization and processing is not
+	 * called automatically on form submission.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -378,7 +459,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Array of displays for the logs screen
 	 *
-	 * @since 4.0
+	 * Registers the custom log page with the core plugin to allow for access from the log page's
+	 * dropdown menu.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param array $displays metabox array
 	 *
@@ -386,7 +470,7 @@ class ITSEC_File_Change_Admin {
 	 */
 	public function itsec_logger_displays( $displays ) {
 
-		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
+		if ( isset( $this->settings['enabled'] ) && true === $this->settings['enabled'] ) {
 
 			$displays[] = array(
 				'module'   => 'file_change',
@@ -403,7 +487,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Adds fields that will be tracked for Google Analytics
 	 *
-	 * @since 4.0
+	 * Registers all settings in the module that will be tracked on change by
+	 * Google Analytics if "allow tracking" is enabled.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param array $vars tracking vars
 	 *
@@ -424,7 +511,9 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Render the file change log metabox
 	 *
-	 * @since 4.0
+	 * Displays a metabox on the logs page, when filtered, showing all file change items.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -438,13 +527,17 @@ class ITSEC_File_Change_Admin {
 			require( dirname( __FILE__ ) . '/class-itsec-file-change-log.php' );
 		}
 
-		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
+		if ( isset( $this->settings['enabled'] ) && true === $this->settings['enabled'] ) {
 
 			// If we're splitting the file check run it every 6 hours. Else daily.
-			if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
+			if ( isset( $this->settings['split'] ) && true === $this->settings['split'] ) {
+
 				$interval = 12342;
+
 			} else {
+
 				$interval = 86400;
+
 			}
 
 			$next_run_raw = $this->settings['last_run'] + $interval;
@@ -472,7 +565,10 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Render the settings metabox
 	 *
-	 * @since 4.0
+	 * Displays the contents of the module's settings metabox on the "Settings"
+	 * page with all module options.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -498,7 +594,9 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * Sanitize and validate input
 	 *
-	 * @since 4.0
+	 * Sanitizes and validates module options saved on the settings page or via multisite.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param  Array $input array of input fields
 	 *
@@ -517,9 +615,13 @@ class ITSEC_File_Change_Admin {
 		$input['last_chunk']   = ( isset( $input['last_chunk'] ) ? $input['last_chunk'] : false );
 
 		if ( ! is_array( $input['file_list'] ) ) {
+
 			$file_list = explode( PHP_EOL, $input['file_list'] );
+
 		} else {
+
 			$file_list = $input['file_list'];
+
 		}
 
 		$good_files = array();
@@ -531,9 +633,13 @@ class ITSEC_File_Change_Admin {
 		$input['file_list'] = $good_files;
 
 		if ( ! is_array( $input['types'] ) ) {
+
 			$file_types = explode( PHP_EOL, $input['types'] );
+
 		} else {
+
 			$file_types = $input['types'];
+
 		}
 
 		$good_types = array();
@@ -542,7 +648,7 @@ class ITSEC_File_Change_Admin {
 
 			$file_type = trim( $file_type );
 
-			if ( strlen( $file_type ) > 0 && $file_type != '.' ) {
+			if ( 0 < strlen( $file_type ) && '.' != $file_type ) {
 
 				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
 
@@ -553,16 +659,24 @@ class ITSEC_File_Change_Admin {
 
 		$input['types'] = $good_types;
 
-		if ( $input['split'] === true ) {
+		if ( isset( $input['split'] ) && true === $input['split'] ) {
+
 			$interval = 12282;
+
 		} else {
+
 			$interval = 86340;
+
 		}
 
-		if ( defined( 'ITSEC_DOING_FILE_CHECK' ) && ITSEC_DOING_FILE_CHECK === true ) {
+		if ( defined( 'ITSEC_DOING_FILE_CHECK' ) && true === ITSEC_DOING_FILE_CHECK ) {
+
 			$input['last_run'] = $itsec_globals['current_time'];
+
 		} else {
+
 			$input['last_run'] = isset( $this->settings['last_run'] ) && $this->settings['last_run'] > $itsec_globals['current_time'] - $interval ? $this->settings['last_run'] : ( $itsec_globals['current_time'] - $interval + 120 );
+
 		}
 
 		if ( is_multisite() ) {
@@ -580,16 +694,23 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos Email File Change Notifications Field
 	 *
-	 * @since 4.0
+	 * Echo's the settings field that determines whether or not file change notifications
+	 * will be emailed to the site admin.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_email() {
 
-		if ( isset( $this->settings['email'] ) && $this->settings['email'] === false ) {
+		if ( isset( $this->settings['email'] ) && false === $this->settings['email'] ) {
+
 			$email = 0;
+
 		} else {
+
 			$email = 1;
+
 		}
 
 		echo '<input type="checkbox" id="itsec_file_change_email" name="itsec_file_change[email]" value="1" ' . checked( 1, $email, false ) . '/>';
@@ -601,16 +722,22 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos Enable File Change Detection Field
 	 *
-	 * @since 4.0
+	 * Echo's the settings field that determines whether or not the file change detection module is enabled.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_enabled() {
 
-		if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
+		if ( isset( $this->settings['enabled'] ) && true === $this->settings['enabled'] ) {
+
 			$enabled = 1;
+
 		} else {
+
 			$enabled = 0;
+
 		}
 
 		echo '<input type="checkbox" id="itsec_file_change_enabled" name="itsec_file_change[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
@@ -621,6 +748,8 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos Enable File Change List Field
 	 *
+	 * Echo's the settings field that determines specific folders in the site root for exclusion or inclusion.
+	 *
 	 * @param  array $args field arguments
 	 *
 	 * @return void
@@ -628,9 +757,13 @@ class ITSEC_File_Change_Admin {
 	public function settings_field_file_list() {
 
 		if ( isset( $this->settings['file_list'] ) && is_array( $this->settings['file_list'] ) ) {
+
 			$file_list = implode( PHP_EOL, $this->settings['file_list'] );
+
 		} else {
+
 			$file_list = '';
+
 		}
 
 		echo '<p class="description">' . __( 'Exclude files or folders by clicking the red minus next to the file or folder name.', 'it-l10n-better-wp-security' ) . '</p>';
@@ -645,20 +778,26 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos method Field
 	 *
-	 * @since 4.0
+	 * Echo's the settings field that determines whether selected files and folders in the file_list
+	 * field will be excluded or included.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_method() {
 
-		if ( isset( $this->settings['method'] ) ) {
-			$method = $this->settings['method'] === true ? 1 : 0;
-		} else {
+		if ( isset( $this->settings['method'] ) && true === $this->settings['method'] ) {
+
 			$method = 1;
+
+		} else {
+
+			$method = 0;
+
 		}
 
 		echo '<select id="itsec_file_change_method" name="itsec_file_change[method]">';
-
 		echo '<option value="1" ' . selected( $method, '1' ) . '>' . __( 'Exclude Selected', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Include Selected', 'it-l10n-better-wp-security' ) . '</option>';
 		echo '</select><br />';
@@ -670,16 +809,23 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos Email File Change Notifications Field
 	 *
-	 * @param  array $args field arguments
+	 * Echo's the settings field that determines if the notification banner will be displayed to
+	 * administrators in the Dashboard.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_notify_admin() {
 
-		if ( isset( $this->settings['notify_admin'] ) && $this->settings['notify_admin'] === false ) {
+		if ( isset( $this->settings['notify_admin'] ) && false === $this->settings['notify_admin'] ) {
+
 			$notify_admin = 0;
+
 		} else {
+
 			$notify_admin = 1;
+
 		}
 
 		echo '<input type="checkbox" id="itsec_file_change_notify_admin" name="itsec_file_change[notify_admin]" value="1" ' . checked( 1, $notify_admin, false ) . '/>';
@@ -691,16 +837,23 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos split file checks Field
 	 *
-	 * @since 4.0
+	 * Echo's the settings field that determines if file change scanning will be split into 7
+	 * chunks throughout the day of if the entire site will be scanned in a single pass.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_split() {
 
-		if ( isset( $this->settings['split'] ) && $this->settings['split'] === true ) {
+		if ( isset( $this->settings['split'] ) && true === $this->settings['split'] ) {
+
 			$split = 1;
+
 		} else {
+
 			$split = 0;
+
 		}
 
 		echo '<input type="checkbox" id="itsec_file_change_split" name="itsec_file_change[split]" value="1" ' . checked( 1, $split, false ) . '/>';
@@ -712,15 +865,21 @@ class ITSEC_File_Change_Admin {
 	/**
 	 * echos file change types Field
 	 *
-	 * @since 4.0
+	 * Echo's the settings field that determines various file types that can be excluded from
+	 * the file scan detection.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function settings_field_types() {
 
 		if ( isset( $this->settings['types'] ) && is_array( $this->settings['types'] ) ) {
+
 			$types = implode( PHP_EOL, $this->settings['types'] );
+
 		} else {
+
 			$types = implode( PHP_EOL, array(
 				'.jpg',
 				'.jpeg',
@@ -729,6 +888,7 @@ class ITSEC_File_Change_Admin {
 				'.mo',
 				'.po',
 			) );
+
 		}
 
 		echo '<textarea id="itsec_file_change_types" name="itsec_file_change[types]" wrap="off" cols="20" rows="10">' . $types . PHP_EOL . '</textarea><br />';
@@ -737,9 +897,12 @@ class ITSEC_File_Change_Admin {
 	}
 
 	/**
-	 * Executes one-time backup.
+	 * Dismisses the file change notifications.
 	 *
-	 * @since 4.0
+	 * Processes the ajax request for dismissing the file change notification box in the
+	 * WordPress Dashboard.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -754,9 +917,12 @@ class ITSEC_File_Change_Admin {
 	}
 
 	/**
-	 * Executes one-time backup.
+	 * Gets file list for tree.
 	 *
-	 * @since 4.0
+	 * Processes the ajax request for retreiving the list of files and folders that can later either
+	 * excluded or included.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -778,7 +944,7 @@ class ITSEC_File_Change_Admin {
 
 			natcasesort( $files );
 
-			if ( count( $files ) > 2 ) { /* The 2 accounts for . and .. */
+			if ( 2 < count( $files ) ) { /* The 2 accounts for . and .. */
 
 				echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
 
@@ -787,11 +953,11 @@ class ITSEC_File_Change_Admin {
 				// All files and directories (alphabetical sorting)
 				foreach ( $files as $file ) {
 
-					if ( $file != '.' && $file != '..' && file_exists( $directory . $file ) && is_dir( $directory . $file ) ) {
+					if ( '.' != $file && '..' != $file && file_exists( $directory . $file ) && is_dir( $directory . $file ) ) {
 
 						echo '<li class="directory collapsed"><a href="#" rel="' . htmlentities( $directory . $file ) . '/">' . htmlentities( $file ) . '<div class="itsec_treeselect_control"><img src="' . plugins_url( 'images/redminus.png', __FILE__ ) . '" style="vertical-align: -3px;" title="Add to exclusions..." class="itsec_filetree_exclude"></div></a></li>';
 
-					} elseif ( $file != '.' && $file != '..' && file_exists( $directory . $file ) && ! is_dir( $directory . $file ) ) {
+					} elseif ( '.' != $file && '..' != $file && file_exists( $directory . $file ) && ! is_dir( $directory . $file ) ) {
 
 						$ext = preg_replace( '/^.*\./', '', $file );
 						echo '<li class="file ext_' . $ext . '"><a href="#" rel="' . htmlentities( $directory . $file ) . '">' . htmlentities( $file ) . '<div class="itsec_treeselect_control"><img src="' . plugins_url( 'images/redminus.png', __FILE__ ) . '" style="vertical-align: -3px;" title="Add to exclusions..." class="itsec_filetree_exclude"></div></a></li>';
@@ -811,9 +977,11 @@ class ITSEC_File_Change_Admin {
 	}
 
 	/**
-	 * Executes one-time backup.
+	 * Executes one-time file scan.
 	 *
-	 * @since 4.0
+	 * Processes the ajax request to execute a one-time file scan.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */

@@ -1,11 +1,11 @@
-# Copyright (C) 2014 iThemes Security
+# Copyright (C) 2015 iThemes Security
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.5.6\n"
+"Project-Id-Version: iThemes Security 4.5.8\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2014-12-16 17:50:46+00:00\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2015-01-05 17:17:03+00:00\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.5.6)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.5.8)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
 #: core/class-itsec-core.php:278
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:216
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:343
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
 msgid "Settings"
 msgstr ""
@@ -157,125 +157,16 @@ msgid ""
 "it."
 msgstr ""
 
-#: core/class-itsec-dashboard-admin.php:31
+#: core/class-itsec-dashboard-admin.php:48
 msgid "Security Status"
 msgstr ""
 
-#: core/class-itsec-dashboard-admin.php:40
+#: core/class-itsec-dashboard-admin.php:57
+msgid "WordPress File Permissions"
+msgstr ""
+
+#: core/class-itsec-dashboard-admin.php:66
 msgid "System Information"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:96
-msgid "All"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:97
-msgid "High"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:98
-msgid "Medium"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:99
-msgid "Low"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:100
-#: core/class-itsec-dashboard-admin.php:188
-#: core/class-itsec-dashboard-admin.php:288
-msgid "Completed"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:107
-#: core/class-itsec-dashboard-admin.php:122
-#: core/class-itsec-dashboard-admin.php:222
-#: core/class-itsec-dashboard-admin.php:237
-msgid "High Priority"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:108
-#: core/class-itsec-dashboard-admin.php:223
-msgid "These are items that should be secured immediately."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:114
-#: core/class-itsec-dashboard-admin.php:141
-#: core/class-itsec-dashboard-admin.php:168
-#: core/class-itsec-dashboard-admin.php:229
-#: core/class-itsec-dashboard-admin.php:251
-#: core/class-itsec-dashboard-admin.php:273
-msgid "Fix it"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:123
-#: core/class-itsec-dashboard-admin.php:238
-msgid "You have secured all High Priority items."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:134
-#: core/class-itsec-dashboard-admin.php:149
-#: core/class-itsec-dashboard-admin.php:244
-#: core/class-itsec-dashboard-admin.php:259
-msgid "Medium Priority"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:135
-msgid ""
-"These are medium priority items that should be fixed if no conflicts are "
-"present, but they are not critical to the overall security of your site."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:150
-#: core/class-itsec-dashboard-admin.php:260
-msgid "You have secured all Medium Priority items."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:161
-#: core/class-itsec-dashboard-admin.php:176
-#: core/class-itsec-dashboard-admin.php:266
-#: core/class-itsec-dashboard-admin.php:281
-msgid "Low Priority"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:162
-msgid ""
-"These are low priority items that should be secured if, and only if, your "
-"plugins or theme do not conflict with their use."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:177
-#: core/class-itsec-dashboard-admin.php:282
-msgid "You have secured all Low Priority items."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:189
-msgid "These are items that you have successfully secured."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:195
-#: core/class-itsec-dashboard-admin.php:201
-#: core/class-itsec-dashboard-admin.php:207
-#: core/class-itsec-dashboard-admin.php:295
-#: core/class-itsec-dashboard-admin.php:301
-#: core/class-itsec-dashboard-admin.php:307
-msgid "Edit"
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:245
-msgid ""
-"These are items that should be secured if possible however they are not "
-"critical to the overall security of your site."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:267
-msgid ""
-"These are items that should be secured if, and only if, your plugins or "
-"theme do not conflict with their use."
-msgstr ""
-
-#: core/class-itsec-dashboard-admin.php:289
-msgid "These are items that you have successfuly secured."
 msgstr ""
 
 #: core/class-itsec-files.php:71
@@ -444,10 +335,10 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:752
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:724
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:350
-#: modules/free/file-change/class-itsec-file-change-admin.php:369
-#: modules/free/file-change/class-itsec-file-change-admin.php:749
-#: modules/free/file-change/class-itsec-file-change-admin.php:768
-#: modules/free/file-change/class-itsec-file-change-admin.php:823
+#: modules/free/file-change/class-itsec-file-change-admin.php:450
+#: modules/free/file-change/class-itsec-file-change-admin.php:912
+#: modules/free/file-change/class-itsec-file-change-admin.php:934
+#: modules/free/file-change/class-itsec-file-change-admin.php:991
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:465
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:653
 #: modules/free/ipcheck/class-itsec-ipcheck-admin.php:222
@@ -514,7 +405,7 @@ msgstr ""
 #: modules/free/backup/class-itsec-backup-admin.php:538
 #: modules/free/ban-users/class-itsec-ban-users-admin.php:511
 #: modules/free/brute-force/class-itsec-brute-force-admin.php:304
-#: modules/free/file-change/class-itsec-file-change-admin.php:492
+#: modules/free/file-change/class-itsec-file-change-admin.php:588
 #: modules/free/four-oh-four/class-itsec-four-oh-four-admin.php:341
 #: modules/free/hide-backend/class-itsec-hide-backend-admin.php:481
 #: modules/free/malware/class-itsec-malware-admin.php:312
@@ -1266,6 +1157,126 @@ msgid ""
 "dashboard."
 msgstr ""
 
+#: core/content/perms.php:213 core/content/perms.php:222
+msgid "Relative Path"
+msgstr ""
+
+#: core/content/perms.php:214 core/content/perms.php:223
+msgid "Suggestion"
+msgstr ""
+
+#: core/content/perms.php:215
+msgid ">Value"
+msgstr ""
+
+#: core/content/perms.php:216 core/content/perms.php:225
+msgid "Result"
+msgstr ""
+
+#: core/content/perms.php:217 core/content/perms.php:226
+msgid "Status"
+msgstr ""
+
+#: core/content/perms.php:224
+msgid "Value"
+msgstr ""
+
+#: core/content/status.php:15
+msgid "All"
+msgstr ""
+
+#: core/content/status.php:16
+msgid "High"
+msgstr ""
+
+#: core/content/status.php:17
+msgid "Medium"
+msgstr ""
+
+#: core/content/status.php:18
+msgid "Low"
+msgstr ""
+
+#: core/content/status.php:19 core/content/status.php:107
+#: core/content/status.php:207
+msgid "Completed"
+msgstr ""
+
+#: core/content/status.php:26 core/content/status.php:41
+#: core/content/status.php:141 core/content/status.php:156
+msgid "High Priority"
+msgstr ""
+
+#: core/content/status.php:27 core/content/status.php:142
+msgid "These are items that should be secured immediately."
+msgstr ""
+
+#: core/content/status.php:33 core/content/status.php:60
+#: core/content/status.php:87 core/content/status.php:148
+#: core/content/status.php:170 core/content/status.php:192
+msgid "Fix it"
+msgstr ""
+
+#: core/content/status.php:42 core/content/status.php:157
+msgid "You have secured all High Priority items."
+msgstr ""
+
+#: core/content/status.php:53 core/content/status.php:68
+#: core/content/status.php:163 core/content/status.php:178
+msgid "Medium Priority"
+msgstr ""
+
+#: core/content/status.php:54
+msgid ""
+"These are medium priority items that should be fixed if no conflicts are "
+"present, but they are not critical to the overall security of your site."
+msgstr ""
+
+#: core/content/status.php:69 core/content/status.php:179
+msgid "You have secured all Medium Priority items."
+msgstr ""
+
+#: core/content/status.php:80 core/content/status.php:95
+#: core/content/status.php:185 core/content/status.php:200
+msgid "Low Priority"
+msgstr ""
+
+#: core/content/status.php:81
+msgid ""
+"These are low priority items that should be secured if, and only if, your "
+"plugins or theme do not conflict with their use."
+msgstr ""
+
+#: core/content/status.php:96 core/content/status.php:201
+msgid "You have secured all Low Priority items."
+msgstr ""
+
+#: core/content/status.php:108
+msgid "These are items that you have successfully secured."
+msgstr ""
+
+#: core/content/status.php:114 core/content/status.php:120
+#: core/content/status.php:126 core/content/status.php:214
+#: core/content/status.php:220 core/content/status.php:226
+msgid "Edit"
+msgstr ""
+
+#: core/content/status.php:164
+msgid ""
+"These are items that should be secured if possible however they are not "
+"critical to the overall security of your site."
+msgstr ""
+
+#: core/content/status.php:186
+msgid ""
+"These are items that should be secured if, and only if, your plugins or "
+"theme do not conflict with their use."
+msgstr ""
+
+#: core/content/status.php:208
+msgid "These are items that you have successfuly secured."
+msgstr ""
+
 #: core/content/system.php:9
 msgid "User Information"
 msgstr ""
@@ -1642,7 +1653,7 @@ msgid "A user with id 1 still exists."
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:229
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:117
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:222
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:95
 msgid "Security check"
 msgstr ""
@@ -1666,7 +1677,7 @@ msgid ""
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:306
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 #: modules/free/ssl/class-itsec-ssl-admin.php:325
 #: modules/free/ssl/class-itsec-ssl-admin.php:329
@@ -1674,7 +1685,7 @@ msgid "WARNING"
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:306
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 msgid "Backup your database"
 msgstr ""
@@ -2456,20 +2467,20 @@ msgstr ""
 msgid "Invalid Login Attempt"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:45
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:203
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:158
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:330
 msgid "Change Content Directory"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:86
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:187
 msgid "You have renamed the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:94
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:195
 msgid "You should rename the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:138
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:270
 msgid ""
 "By default, WordPress puts all your content (including images, plugins, "
 "themes, uploads and more) in a directory called \"wp-content.\" This default "
@@ -2480,26 +2491,26 @@ msgid ""
 "your site's file system will not produce any results."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:139
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:271
 msgid ""
 "This tool will not allow further changes to your wp-content folder once it "
 "has been renamed in order to avoid accidentally breaking the site later. "
 "Uninstalling this plugin will not revert the changes made by this feature."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:140
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:272
 msgid ""
 "Changing the name of the wp-content directory may in fact break plugins and "
 "themes that have \"hard-coded\" it into their design rather than calling it "
 "dynamically."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 msgid "before using this tool."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:142
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:274
 msgid ""
 "Please note: Changing the name of your wp-content directory on a site that "
 "already has images and other content referencing it will break your site. "
@@ -2507,57 +2518,57 @@ msgid ""
 "WordPress install."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:155
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:287
 msgid ""
 "Congratulations! You have already renamed your \"wp-content\" directory."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:156
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:288
 msgid "Your current content directory is: "
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:158
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:290
 msgid "No further actions are available on this page."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:178
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:308
 msgid "Enable Change Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:185
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:314
 msgid "Check this box to enable content directory renaming."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:191
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:319
 msgid "Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:197
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:325
 msgid ""
 "Enter a new directory name to replace \"wp-content.\" You may need to log in "
 "again after performing this operation."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:215
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:342
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:175
 msgid "You must allow this plugin to write to the wp-config.php file on the"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:217
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:344
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:177
 msgid "page to use this feature."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:282
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:379
 msgid ""
 "Please choose a directory name that is greater than 2 characters in length."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:289
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:386
 msgid "You have not chosen a new name for wp-content. Nothing was saved."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:320
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:417
 msgid "Unable to rename the wp-content folder. Operation cancelled."
 msgstr ""
 
@@ -2809,7 +2820,7 @@ msgstr ""
 msgid "Could not update prefix references in usermeta table."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:63
+#: modules/free/file-change/class-itsec-file-change-admin.php:110
 msgid ""
 "Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
 "have many files in your installation or a lot of active plugins activating "
@@ -2817,121 +2828,121 @@ msgid ""
 "See the plugin homepage for more information."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:65
-#: modules/free/file-change/class-itsec-file-change-admin.php:194
+#: modules/free/file-change/class-itsec-file-change-admin.php:112
+#: modules/free/file-change/class-itsec-file-change-admin.php:261
 msgid "Scan Next File Chunk"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:65
-#: modules/free/file-change/class-itsec-file-change-admin.php:194
+#: modules/free/file-change/class-itsec-file-change-admin.php:112
+#: modules/free/file-change/class-itsec-file-change-admin.php:261
 msgid "Scan Files Now"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:66
+#: modules/free/file-change/class-itsec-file-change-admin.php:113
 #: modules/free/malware/class-itsec-malware-admin.php:80
 msgid "Scanning..."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:67
+#: modules/free/file-change/class-itsec-file-change-admin.php:114
 msgid "No changes were detected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:68
+#: modules/free/file-change/class-itsec-file-change-admin.php:115
 msgid "Changes were detected. Please check the log page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:69
+#: modules/free/file-change/class-itsec-file-change-admin.php:116
 #: modules/free/malware/class-itsec-malware-admin.php:83
 msgid "An error occured. Please try again later"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:122
+#: modules/free/file-change/class-itsec-file-change-admin.php:180
 msgid ""
 "has noticed a change to some files in your WordPress site. Please review the "
 "logs to make sure your system has not been compromised."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:123
+#: modules/free/file-change/class-itsec-file-change-admin.php:181
 msgid "View Logs"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:124
+#: modules/free/file-change/class-itsec-file-change-admin.php:182
 msgid "Dismiss Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:193
+#: modules/free/file-change/class-itsec-file-change-admin.php:260
 msgid ""
 "Press the button below to scan your site's files for changes. Note that if "
 "changes are found this will take you to the logs page for details."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:212
-#: modules/free/file-change/class-itsec-file-change-admin.php:279
-#: modules/free/file-change/class-itsec-file-change-admin.php:294
+#: modules/free/file-change/class-itsec-file-change-admin.php:282
+#: modules/free/file-change/class-itsec-file-change-admin.php:357
+#: modules/free/file-change/class-itsec-file-change-admin.php:372
 msgid "File Change Detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:245
+#: modules/free/file-change/class-itsec-file-change-admin.php:320
 msgid "Your site will detect changes to your files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:253
+#: modules/free/file-change/class-itsec-file-change-admin.php:328
 msgid ""
 "Your website is not looking for changed files. Consider turning on file "
 "change detections."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:286
+#: modules/free/file-change/class-itsec-file-change-admin.php:364
 msgid "File Change Detection Settings"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:302
+#: modules/free/file-change/class-itsec-file-change-admin.php:380
 msgid "Split File Scanning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:310
+#: modules/free/file-change/class-itsec-file-change-admin.php:388
 msgid "Include/Exclude Files and Folders"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:318
+#: modules/free/file-change/class-itsec-file-change-admin.php:396
 msgid "Files and Folders List"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:326
+#: modules/free/file-change/class-itsec-file-change-admin.php:404
 msgid "Ignore File Types"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:334
+#: modules/free/file-change/class-itsec-file-change-admin.php:412
 msgid "Email File Change Notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:342
+#: modules/free/file-change/class-itsec-file-change-admin.php:420
 msgid "Display File Change Admin Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:393
+#: modules/free/file-change/class-itsec-file-change-admin.php:477
 msgid "File Change History"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:453
+#: modules/free/file-change/class-itsec-file-change-admin.php:546
 msgid "Today"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:455
+#: modules/free/file-change/class-itsec-file-change-admin.php:548
 msgid "Tomorrow"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:460
+#: modules/free/file-change/class-itsec-file-change-admin.php:553
 msgid "Next automatic scan at: "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:461
+#: modules/free/file-change/class-itsec-file-change-admin.php:554
 msgid ""
 "Automatic file change scanning is triggered by a user visiting your page and "
 "may not happen exactly at the time listed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:481
+#: modules/free/file-change/class-itsec-file-change-admin.php:577
 msgid ""
 "Even the best security solutions can fail. How do you know if someone gets "
 "into your site? You will know because they will change something. File "
@@ -2942,49 +2953,49 @@ msgid ""
 "thereby taking into account whether or not you modify the files yourself."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:596
+#: modules/free/file-change/class-itsec-file-change-admin.php:717
 msgid "Email file change notifications"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:597
+#: modules/free/file-change/class-itsec-file-change-admin.php:718
 msgid ""
 "Notifications will be sent to all emails set to receive notifications on the "
 "global settings page."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:617
+#: modules/free/file-change/class-itsec-file-change-admin.php:744
 msgid "Enable File Change detection"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:636
+#: modules/free/file-change/class-itsec-file-change-admin.php:769
 msgid ""
 "Exclude files or folders by clicking the red minus next to the file or "
 "folder name."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:662
+#: modules/free/file-change/class-itsec-file-change-admin.php:801
 msgid "Exclude Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:663
+#: modules/free/file-change/class-itsec-file-change-admin.php:802
 msgid "Include Selected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:665
+#: modules/free/file-change/class-itsec-file-change-admin.php:804
 msgid "Include/Exclude Files"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:666
+#: modules/free/file-change/class-itsec-file-change-admin.php:805
 msgid ""
 "Select whether we should exclude files and folders selected or whether the "
 "scan should only include files and folders selected."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:686
+#: modules/free/file-change/class-itsec-file-change-admin.php:832
 msgid "Display file change admin warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:687
+#: modules/free/file-change/class-itsec-file-change-admin.php:833
 msgid ""
 "Disabling this feature will prevent the file change warning from displaying "
 "to the site administrator in the WordPress Dashboard. Note that disabling "
@@ -2993,11 +3004,11 @@ msgid ""
 "manually checking the log files."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:707
+#: modules/free/file-change/class-itsec-file-change-admin.php:860
 msgid "Split file checking into chunks."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:708
+#: modules/free/file-change/class-itsec-file-change-admin.php:861
 msgid ""
 "Splits file checking into 7 chunks (plugins, themes, wp-admin, wp-includes, "
 "uploads, the rest of wp-content and everything that is left over) and "
@@ -3006,7 +3017,7 @@ msgid ""
 "continue even on a lower-end web host."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change-admin.php:735
+#: modules/free/file-change/class-itsec-file-change-admin.php:895
 msgid ""
 "File types listed here will not be checked for changes. While it is possible "
 "to change files such as images it is quite rare and nearly all known "
@@ -3019,16 +3030,13 @@ msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:110
 #: modules/free/file-change/class-itsec-file-change-log.php:178
-#: modules/free/file-change/class-itsec-file-change.php:289
 msgid "Files Added"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:117
 #: modules/free/file-change/class-itsec-file-change-log.php:135
 #: modules/free/file-change/class-itsec-file-change-log.php:153
-#: modules/free/file-change/class-itsec-file-change.php:292
-#: modules/free/file-change/class-itsec-file-change.php:322
-#: modules/free/file-change/class-itsec-file-change.php:352
+#: modules/free/file-change/class-itsec-file-change.php:115
 msgid "File"
 msgstr ""
 
@@ -3064,7 +3072,6 @@ msgid "Check Time"
 msgstr ""
 
 #: modules/free/file-change/class-itsec-file-change-log.php:179
-#: modules/free/file-change/class-itsec-file-change.php:319
 msgid "Files Deleted"
 msgstr ""
 
@@ -3072,77 +3079,77 @@ msgstr ""
 msgid "Memory Used"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:283
-msgid "Scan Time:"
+#: modules/free/file-change/class-itsec-file-change.php:112
+msgid "Files"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:284
-msgid "Files Added:"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:285
-msgid "Files Deleted:"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:286
-msgid "Files Modified:"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:287
-msgid "Memory Used:"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:293
-#: modules/free/file-change/class-itsec-file-change.php:323
-#: modules/free/file-change/class-itsec-file-change.php:353
+#: modules/free/file-change/class-itsec-file-change.php:116
 msgid "Modified"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:294
-#: modules/free/file-change/class-itsec-file-change.php:324
-#: modules/free/file-change/class-itsec-file-change.php:354
+#: modules/free/file-change/class-itsec-file-change.php:117
 msgid "File Hash"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:312
-msgid "No files were added."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:342
-msgid "No files were removed."
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:349
-msgid "Files Modified"
-msgstr ""
-
-#: modules/free/file-change/class-itsec-file-change.php:372
+#: modules/free/file-change/class-itsec-file-change.php:135
 msgid "No files were changed."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:464
+#: modules/free/file-change/class-itsec-file-change.php:411
+msgid "Scan Time:"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:412
+msgid "Files Added:"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:413
+msgid "Files Deleted:"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:414
+msgid "Files Modified:"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:415
+msgid "Memory Used:"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:417
+msgid "Added"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:418
+msgid "Deleted"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:419
+msgid "__( Modified"
+msgstr ""
+
+#: modules/free/file-change/class-itsec-file-change.php:510
 msgid "File Changes Detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:598
+#: modules/free/file-change/class-itsec-file-change.php:658
 msgid "WordPress File Change Warning"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:600
+#: modules/free/file-change/class-itsec-file-change.php:660
 msgid "A file (or files) on your site at "
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:600
+#: modules/free/file-change/class-itsec-file-change.php:660
 msgid ""
 " have been changed. Please review the report below to verify changes are not "
 "the result of a compromise."
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:619
+#: modules/free/file-change/class-itsec-file-change.php:679
 msgid "File changes detected"
 msgstr ""
 
-#: modules/free/file-change/class-itsec-file-change.php:621
+#: modules/free/file-change/class-itsec-file-change.php:681
 msgid "detected file changes on your system"
 msgstr ""
 
@@ -4570,13 +4577,13 @@ msgstr ""
 msgid "Multisite Tweaks"
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks.php:180
+#: modules/free/tweaks/class-itsec-tweaks.php:184
 msgid ""
 "Your Nickname must be different than your login name. Please choose a "
 "different Nickname."
 msgstr ""
 
-#: modules/free/tweaks/class-itsec-tweaks.php:198
+#: modules/free/tweaks/class-itsec-tweaks.php:202
 msgid ""
 "A Nickname is required. Please choose a nickname or fill out your first and "
 "last name."

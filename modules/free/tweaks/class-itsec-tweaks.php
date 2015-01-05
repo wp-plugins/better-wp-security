@@ -8,90 +8,94 @@ class ITSEC_Tweaks {
 
 		$this->settings = get_site_option( 'itsec_tweaks' );
 
-		//remove wp-generator meta tag
-		if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] == true ) {
-			remove_action( 'wp_head', 'wp_generator' );
-		}
+		if ( ! defined( 'WP_CLI' ) || false === WP_CLI ) { //don't risk blocking anything with WP_CLI
 
-		//remove wlmanifest link if turned on
-		if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] == true ) {
-			remove_action( 'wp_head', 'wlwmanifest_link' );
-		}
+			//remove wp-generator meta tag
+			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] == true ) {
+				remove_action( 'wp_head', 'wp_generator' );
+			}
 
-		//remove rsd link from header if turned on
-		if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] == true ) {
-			remove_action( 'wp_head', 'rsd_link' );
-		}
+			//remove wlmanifest link if turned on
+			if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] == true ) {
+				remove_action( 'wp_head', 'wlwmanifest_link' );
+			}
 
-		//Disable XML-RPC
-		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 2 ) {
+			//remove rsd link from header if turned on
+			if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] == true ) {
+				remove_action( 'wp_head', 'rsd_link' );
+			}
 
-			add_filter( 'xmlrpc_enabled', array( $this, 'empty_return_function' ) );
-			add_filter( 'bloginfo_url', array( $this, 'remove_pingback_url' ), 10, 2 );
+			//Disable XML-RPC
+			if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 2 ) {
 
-		}
-
-		if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 1 ) {
-			add_filter( 'xmlrpc_methods', array( $this, 'xmlrpc_methods' ) );
-		}
-
-		//ban extra-long urls if turned on
-		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == true && ! is_admin() ) {
-
-			if ( ! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) && ( strlen( $_SERVER['REQUEST_URI'] ) > 255 || strpos( $_SERVER['REQUEST_URI'], 'eval(' ) || strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) || strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) || strpos( $_SERVER['REQUEST_URI'], 'base64' ) )
-
-			) {
-				@header( 'HTTP/1.1 414 Request-URI Too Long' );
-				@header( 'Status: 414 Request-URI Too Long' );
-				@header( 'Cache-Control: no-cache, must-revalidate' );
-				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
-				@header( 'Connection: Close' );
-				@exit;
+				add_filter( 'xmlrpc_enabled', array( $this, 'empty_return_function' ) );
+				add_filter( 'bloginfo_url', array( $this, 'remove_pingback_url' ), 10, 2 );
 
 			}
 
-		}
+			if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 1 ) {
+				add_filter( 'xmlrpc_methods', array( $this, 'xmlrpc_methods' ) );
+			}
 
-		//display random number for wordpress version if turned on
-		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['random_version'] ) && $this->settings['random_version'] == true ) {
-			add_action( 'plugins_loaded', array( $this, 'random_version' ) );
-		}
+			//ban extra-long urls if turned on
+			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == true && ! is_admin() ) {
 
-		//remove theme update notifications if turned on
-		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] == true ) {
-			add_action( 'plugins_loaded', array( $this, 'theme_updates' ) );
-		}
+				if ( ! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) && ( strlen( $_SERVER['REQUEST_URI'] ) > 255 || strpos( $_SERVER['REQUEST_URI'], 'eval(' ) || strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) || strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) || strpos( $_SERVER['REQUEST_URI'], 'base64' ) )
 
-		//remove plugin update notifications if turned on
-		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] == true ) {
-			add_action( 'plugins_loaded', array( $this, 'public_updates' ) );
-		}
+				) {
+					@header( 'HTTP/1.1 414 Request-URI Too Long' );
+					@header( 'Status: 414 Request-URI Too Long' );
+					@header( 'Cache-Control: no-cache, must-revalidate' );
+					@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+					@header( 'Connection: Close' );
+					@exit;
 
-		//remove core update notifications if turned on
-		if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == true ) {
-			add_action( 'plugins_loaded', array( $this, 'core_updates' ) );
-		}
+				}
 
-		//Execute jQuery check
-		add_action( 'wp_print_scripts', array( $this, 'get_jquery_version' ) );
+			}
 
-		if ( isset( $this->settings['safe_jquery'] ) && $this->settings['safe_jquery'] == true ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
-		}
+			//display random number for wordpress version if turned on
+			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['random_version'] ) && $this->settings['random_version'] == true ) {
+				add_action( 'plugins_loaded', array( $this, 'random_version' ) );
+			}
 
-		//Process remove login errors
-		if ( isset( $this->settings['login_errors'] ) && $this->settings['login_errors'] === true ) {
-			add_filter( 'login_errors', array( $this, 'empty_return_function' ) );
-		}
+			//remove theme update notifications if turned on
+			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] == true ) {
+				add_action( 'plugins_loaded', array( $this, 'theme_updates' ) );
+			}
 
-		//Process remove extra author archives
-		if ( isset( $this->settings['disable_unused_author_pages'] ) && $this->settings['disable_unused_author_pages'] === true ) {
-			add_action( 'template_redirect', array( $this, 'disable_unused_author_pages' ) );
-		}
+			//remove plugin update notifications if turned on
+			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] == true ) {
+				add_action( 'plugins_loaded', array( $this, 'public_updates' ) );
+			}
 
-		//Process require unique nicename
-		if ( isset( $this->settings['force_unique_nicename'] ) && $this->settings['force_unique_nicename'] === true ) {
-			add_action( 'user_profile_update_errors', array( $this, 'force_unique_nicename' ), 10, 3 );
+			//remove core update notifications if turned on
+			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == true ) {
+				add_action( 'plugins_loaded', array( $this, 'core_updates' ) );
+			}
+
+			//Execute jQuery check
+			add_action( 'wp_print_scripts', array( $this, 'get_jquery_version' ) );
+
+			if ( isset( $this->settings['safe_jquery'] ) && $this->settings['safe_jquery'] == true ) {
+				add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
+			}
+
+			//Process remove login errors
+			if ( isset( $this->settings['login_errors'] ) && $this->settings['login_errors'] === true ) {
+				add_filter( 'login_errors', array( $this, 'empty_return_function' ) );
+			}
+
+			//Process remove extra author archives
+			if ( isset( $this->settings['disable_unused_author_pages'] ) && $this->settings['disable_unused_author_pages'] === true ) {
+				add_action( 'template_redirect', array( $this, 'disable_unused_author_pages' ) );
+			}
+
+			//Process require unique nicename
+			if ( isset( $this->settings['force_unique_nicename'] ) && $this->settings['force_unique_nicename'] === true ) {
+				add_action( 'user_profile_update_errors', array( $this, 'force_unique_nicename' ), 10, 3 );
+			}
+
 		}
 
 	}

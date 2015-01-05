@@ -2,9 +2,9 @@
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisjean
 Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
-Requires at least: 3.9
+Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 4.5.6
+Stable tag: 4.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,12 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.5.8 =
+* New Feature: Add file/folder permissions check to Dashboard
+* Fix/Enhancement: Code refactoring of numerous modules
+* Fix: Hiding available updates in multi-site will no longer block wp-cli from detecting updates.
+* Fix: Removed leftover JavaScript debugging statements.
 
 = 4.5.6 =
 * New Pro Feature: Google reCAPTCHA
@@ -1347,6 +1353,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.5.8 =
+Version 4.5.8 contains minor bugfixes and enhancements and is recommended for all users.
 
 = 4.5.6 =
 Version 4.5.6 contains a minor bugfix and is recommended for all users.

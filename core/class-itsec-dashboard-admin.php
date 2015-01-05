@@ -1,35 +1,61 @@
 <?php
-
 /**
- * Brand plugins with iThemes sidebar items in the admin
+ * Display the plugin's dashboard information.
  *
- * @version 1.0
+ * Sets up and displays the dashboard status, file permissions and other system
+ * information on the plugin's dashboard.
+ *
+ * @since   4.0.0
+ *
+ * @package iThemes_Security
  */
 class ITSEC_Dashboard_Admin {
 
+	/**
+	 * Initialize the plugin dashboard
+	 *
+	 * Initialize areas of the plugin dashboard.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return ITSEC_Dashboard_Admin
+	 */
 	function __construct() {
 
 		if ( is_admin() ) {
 
-			$this->initialize();
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'itsec_add_admin_meta_boxes' ) );
 
 		}
 
 	}
 
 	/**
-	 * Add meta boxes to primary options pages.
+	 * Add meta boxes to the plugin dashboard.
 	 *
-	 * @since 4.0
+	 * Adds plugin's metaboxes including status, system information and file
+	 * permissions to the plugin dashboard.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
-	public function add_admin_meta_boxes() {
+	public function itsec_add_admin_meta_boxes() {
 
+		//System status shows which plugin features have been activated
 		add_meta_box(
 			'itsec_status',
 			__( 'Security Status', 'it-l10n-better-wp-security' ),
 			array( $this, 'metabox_normal_status' ),
+			'toplevel_page_itsec',
+			'advanced',
+			'core'
+		);
+
+		add_meta_box(
+			'itsec_file_permissions',
+			__( 'WordPress File Permissions', 'it-l10n-better-wp-security' ),
+			array( $this, 'metabox_normal_file_permissions' ),
 			'toplevel_page_itsec',
 			'advanced',
 			'core'
@@ -47,278 +73,44 @@ class ITSEC_Dashboard_Admin {
 	}
 
 	/**
-	 * Enqueue CSS for iThemes Security dashboard
+	 * Display the file permissions metabox.
+	 *
+	 * Builds and displays the table that shows WordPress file permissions as marked up
+	 * in the system.php file.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
-	public function enqueue_admin_css() {
+	public function metabox_normal_file_permissions() {
 
-		wp_enqueue_style( 'itsec_admin_dashboard' );
+		require_once( 'content/perms.php' );
 
 	}
 
 	/**
-	 * Initializes all admin functionality.
+	 * Display security status.
 	 *
-	 * @since 4.0
+	 * Builds and displays the table showing the security status as determined
+	 * by which features have been configured.
 	 *
-	 * @param ITSEC_Core $core The $itsec_core instance
-	 *
-	 * @return void
-	 */
-	private function initialize() {
-
-		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
-		add_action( 'wp_ajax_itsec_sidebar', array( $this, 'save_ajax_options' ) );
-
-	}
-
-	/**
-	 * Display security status
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
 	public function metabox_normal_status() {
 
-		$statuses = array(
-			'safe-high'   => array(),
-			'high'        => array(),
-			'safe-medium' => array(),
-			'medium'      => array(),
-			'safe-low'    => array(),
-			'low'         => array(),
-		);
-
-		$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
-
-		echo '<div id="itsec_tabbed_dashboard_content">';
-		echo '<ul class="itsec-tabs">';
-		echo '<li><a href="#itsec_showall">' . __( 'All', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '<li><a href="#itsec_high">' . __( 'High', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '<li><a href="#itsec_medium">' . __( 'Medium', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '<li><a href="#itsec_low">' . __( 'Low', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '<li><a href="#itsec_completed">' . __( 'Completed', 'it-l10n-better-wp-security' ) . '</a></li>';
-		echo '</ul>';
-
-		// Begin High Priority Tab
-		echo '<div id="itsec_high">';
-		if ( isset ( $statuses['high'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that should be secured immediately.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist high-priority">';
-
-			if ( isset ( $statuses['high'] ) ) {
-
-				$this->status_loop( $statuses['high'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		echo '</div>';
-
-		// Begin Medium Priority Tab
-		echo '<div id="itsec_medium">';
-
-		if ( isset ( $statuses['medium'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are medium priority items that should be fixed if no conflicts are present, but they are not critical to the overall security of your site.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist medium-priority">';
-
-			if ( isset ( $statuses['medium'] ) ) {
-
-				$this->status_loop( $statuses['medium'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		echo '</div>';
-
-		// Begin Low Priority Tab
-		echo '<div id="itsec_low">';
-
-		if ( isset ( $statuses['low'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are low priority items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist low-priority">';
-
-			if ( isset ( $statuses['low'] ) ) {
-
-				$this->status_loop( $statuses['low'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		echo '</div>';
-
-		// Begin Completed Tab
-		echo '<div id="itsec_completed">';
-
-		if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Completed', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that you have successfully secured.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist completed">';
-
-			if ( isset ( $statuses['safe-high'] ) ) {
-
-				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			if ( isset ( $statuses['safe-medium'] ) ) {
-
-				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			if ( isset ( $statuses['safe-low'] ) ) {
-
-				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			echo '</ul>';
-
-		}
-
-		echo '</div>';
-
-		// Begin Show All Tab
-		echo '<div id="itsec_showall">';
-
-		if ( isset ( $statuses['high'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that should be secured immediately.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist high-priority">';
-
-			if ( isset ( $statuses['high'] ) ) {
-
-				$this->status_loop( $statuses['high'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'High Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all High Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		if ( isset ( $statuses['medium'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist medium-priority">';
-
-			if ( isset ( $statuses['medium'] ) ) {
-
-				$this->status_loop( $statuses['medium'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Medium Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Medium Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		if ( isset ( $statuses['low'][0] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist low-priority">';
-
-			if ( isset ( $statuses['low'] ) ) {
-
-				$this->status_loop( $statuses['low'], __( 'Fix it', 'it-l10n-better-wp-security' ), 'primary' );
-
-			}
-
-			echo '</ul>';
-
-		} else {
-			echo '<div class="itsec-priority-items-completed">';
-			printf( '<h2>%s</h2>', __( 'Low Priority', 'it-l10n-better-wp-security' ) );
-			printf( '<p>%s</p>', __( 'You have secured all Low Priority items.', 'it-l10n-better-wp-security' ) );
-			echo '</div>';
-		}
-
-		if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
-
-			printf( '<h2>%s</h2>', __( 'Completed', 'it-l10n-better-wp-security' ) );
-			_e( 'These are items that you have successfuly secured.', 'it-l10n-better-wp-security' );
-
-			echo '<ul class="statuslist completed">';
-
-			if ( isset ( $statuses['safe-high'] ) ) {
-
-				$this->status_loop( $statuses['safe-high'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			if ( isset ( $statuses['safe-medium'] ) ) {
-
-				$this->status_loop( $statuses['safe-medium'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			if ( isset ( $statuses['safe-low'] ) ) {
-
-				$this->status_loop( $statuses['safe-low'], __( 'Edit', 'it-l10n-better-wp-security' ), 'secondary' );
-
-			}
-
-			echo '</ul>';
-
-		}
-
-		echo '</div>';
-		echo '</div>';
+		require_once( 'content/status.php' );
 
 	}
 
 	/**
-	 * Display the system information metabox
+	 * Display the system information metabox.
+	 *
+	 * Builds and displays the table that shows system infmormation as marked up
+	 * in the system.php file.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return void
 	 */
@@ -329,9 +121,12 @@ class ITSEC_Dashboard_Admin {
 	}
 
 	/**
-	 * Displays required status array
+	 * Displays required status array.
 	 *
-	 * @since 4.0
+	 * Loops through the filterable status array to build the table items for the
+	 * security status metabox.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param array  $status_array array of statuses
 	 * @param string $button_text  string for button
@@ -343,15 +138,21 @@ class ITSEC_Dashboard_Admin {
 
 		foreach ( $status_array as $status ) {
 
-			if ( isset( $status['advanced'] ) && $status['advanced'] === true ) {
+			if ( isset( $status['advanced'] ) && true === $status['advanced'] ) {
+
 				$page = 'advanced';
-			} elseif ( isset( $status['pro'] ) && $status['pro'] === true ) {
+
+			} elseif ( isset( $status['pro'] ) && true === $status['pro'] ) {
+
 				$page = 'pro';
+
 			} else {
+
 				$page = 'settings';
+
 			}
 
-			if ( strpos( $status['link'], 'http:' ) === false && strpos( $status['link'], '?page=' ) === false ) {
+			if ( false === strpos( $status['link'], 'http:' ) && false === strpos( $status['link'], '?page=' ) ) {
 
 				$setting_link = '?page=toplevel_page_itsec_' . $page . $status['link'];
 

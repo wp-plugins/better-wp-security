@@ -231,3 +231,7 @@
 	Fixed: File change detection should no longer throw an error if opendir failed
 1.5.1 - 2014-12-16 - Chris Wiegman
 	Fixed: Removed unneeded fields in malware
+1.5.2 - 2015-01-05 - Chris Wiegman
+	Fix/Enhancement: Code refactoring of numerous modules
+	Fix: Hiding available updates in multi-site will no longer block wp-cli from detecting updates.
+	Fix: Removed leftover JavaScript debugging statements.

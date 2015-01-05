@@ -14,7 +14,7 @@ jQuery( document ).ready( function () {
 
 	jQuery( '#itsec_log_filter' ).on( 'change', function () {
 
-		uri.removeSearch( 'itsec_log_filter' ).removeSearch( 'orderby' ).removeSearch( 'order' ).removeSearch( 'paged' ).addSearch( { itsec_log_filter : [this.value] } );
+		uri.removeSearch( 'itsec_log_filter' ).removeSearch( 'orderby' ).removeSearch( 'order' ).removeSearch( 'paged' ).addSearch( { itsec_log_filter: [this.value] } );
 		window.location.replace( uri );
 
 	} );

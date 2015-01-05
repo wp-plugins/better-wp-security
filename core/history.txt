@@ -187,3 +187,6 @@
 	Fixed: Lockout count in emails should now be more accurate
 1.12.0 - 2014-12-16 - Chris Wiegman
 	New Pro Feature: Google reCAPTCHA
+1.12.1 - 2015-01-05 - Chris Wiegman
+	New Feature: Add file/folder permissions check to Dashboard
+	Fix/Enhancement: Minor refactoring of various core components
