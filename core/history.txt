@@ -190,3 +190,6 @@
 1.12.1 - 2015-01-05 - Chris Wiegman
 	New Feature: Add file/folder permissions check to Dashboard
 	Fix/Enhancement: Minor refactoring of various core components
+1.12.2 - 2015-01-12 - Chris Wiegman
+	Fix: Fixed duplicate module listsing on log page dropdown
+	Fix: Fixed missing lockouts on iThemes Sync dashboard

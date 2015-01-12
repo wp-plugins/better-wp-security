@@ -416,7 +416,7 @@ class ITSEC_File_Change {
 
 		$report .= $this->build_table_section( __( 'Added', 'it-l10n-better-wp-security' ), $added );
 		$report .= $this->build_table_section( __( 'Deleted', 'it-l10n-better-wp-security' ), $removed );
-		$report .= $this->build_table_section( __( '__( Modified', 'it-l10n-better-wp-security' ), $changed );
+		$report .= $this->build_table_section( __( 'Modified', 'it-l10n-better-wp-security' ), $changed );
 
 		return $report;
 

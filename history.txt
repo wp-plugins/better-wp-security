@@ -345,3 +345,8 @@
 4.5.8 - 2015-01-05 - Packaging Bot (core)
 	New Feature: Add file/folder permissions check to Dashboard
 	Fix/Enhancement: Minor refactoring of various core components
+4.5.9 - 2015-01-12 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.5.3
+4.5.10 - 2015-01-12 - Packaging Bot (core)
+	Fix: Fixed duplicate module listsing on log page dropdown
+	Fix: Fixed missing lockouts on iThemes Sync dashboard

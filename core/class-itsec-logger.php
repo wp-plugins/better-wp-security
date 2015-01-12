@@ -419,8 +419,6 @@ final class ITSEC_Logger {
 		echo '<select id="itsec_log_filter" name="itsec_log_filter">';
 		echo '<option value="all-log-data" ' . selected( $log_filter, 'all-log-data' ) . '>' . __( 'All Log Data', 'it-l10n-better-wp-security' ) . '</option>';
 
-		$this->logger_displays = apply_filters( 'itsec_logger_displays', $this->logger_displays );
-
 		if ( sizeof( $this->logger_displays ) > 0 ) {
 
 			foreach ( $this->logger_displays as $display ) {

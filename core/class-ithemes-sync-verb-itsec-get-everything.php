@@ -26,7 +26,7 @@ class Ithemes_Sync_Verb_ITSEC_Get_Everything extends Ithemes_Sync_Verb {
 
 					foreach ( $module['everything'] as $item ) {
 
-						if ( isset( $module['verbs'][$item] ) ) {
+						if ( isset( $module['verbs'][ $item ] ) ) {
 							$everything[] = $item;
 						}
 
@@ -34,11 +34,11 @@ class Ithemes_Sync_Verb_ITSEC_Get_Everything extends Ithemes_Sync_Verb {
 
 				} elseif ( isset( $module['verbs'][ $module['everything'] ] ) ) {
 
-					$everything[]= $module['everything'];
+					$everything[] = $module['everything'];
 
 				}
 
-				foreach( $everything as $verb ) {
+				foreach ( $everything as $verb ) {
 
 					$class = $module['verbs'][ $verb ];
 
@@ -50,7 +50,7 @@ class Ithemes_Sync_Verb_ITSEC_Get_Everything extends Ithemes_Sync_Verb {
 
 					$obj = new $class;
 
-					$module_results[ $name ] = $obj->run( array() );
+					$module_results[ $name ][ $verb ] = $obj->run( array() );
 
 				}
 
@@ -59,7 +59,7 @@ class Ithemes_Sync_Verb_ITSEC_Get_Everything extends Ithemes_Sync_Verb {
 		}
 
 		return array_merge( array(
-			                    'api' => '0',
+			                    'api' => '1',
 		                    ),
 		                    $module_results
 		);
