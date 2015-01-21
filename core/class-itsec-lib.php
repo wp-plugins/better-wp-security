@@ -481,10 +481,11 @@ final class ITSEC_Lib {
 	 *
 	 * @param int  $length how long the string should be (max 62)
 	 * @param bool $base32 true if use only base32 characters to generate
+	 * @param bool $special_chars whether to include special characters in generation
 	 *
 	 * @return string
 	 */
-	public static function get_random( $length, $base32 = false ) {
+	public static function get_random( $length, $base32 = false, $special_chars = false ) {
 
 		if ( $base32 === true ) {
 
@@ -493,6 +494,12 @@ final class ITSEC_Lib {
 		} else {
 
 			$string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+			if ( true === $special_chars ) {
+
+				$string .='_)(*&^%$#@!~`:;<>,.?/{}[]|';
+
+			}
 
 		}
 

@@ -558,7 +558,7 @@ class ITSEC_Tweaks_Admin {
 				__( 'to see if you even need this feature', 'it-l10n-better-wp-security' )
 			);
 		}
-
+print site_url();
 		if ( $is_safe === true ) {
 			$color = 'green';
 		} else {

@@ -350,3 +350,8 @@
 4.5.10 - 2015-01-12 - Packaging Bot (core)
 	Fix: Fixed duplicate module listsing on log page dropdown
 	Fix: Fixed missing lockouts on iThemes Sync dashboard
+4.6.1 - 2015-01-21 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.6.0
+4.6.2 - 2015-01-21 - Packaging Bot (core)
+	New Feature: Change WordPress Salts
+	Enhancement: Refactored ITSEC_Lib and ITSEC_Files for better usability and new functions to make changing salts possible

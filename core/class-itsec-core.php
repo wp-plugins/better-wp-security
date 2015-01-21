@@ -74,7 +74,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Set plugin defaults
 			$itsec_globals = array(
-				'plugin_build'       => 4035, //plugin build number - used to trigger updates
+				'plugin_build'       => 4036, //plugin build number - used to trigger updates
 				'plugin_access_lvl'  => 'manage_options', //Access level required to access plugin options
 				'plugin_name'        => sanitize_text_field( $plugin_name ), //the name of the plugin
 				'plugin_base'        => str_replace( WP_PLUGIN_DIR . '/', '', $plugin_file ),
@@ -137,6 +137,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 						'setting'   => 'enabled',
 						'value'     => true,
 						'class_id'  => 'Backup',
+					),
+					'salts'  	=> array(
+						'has_front' => false,
+						'class_id'  => 'Salts',
 					),
 					'file-change'       => array(
 						'has_front' => true,

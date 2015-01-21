@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.5.10\n"
+"Project-Id-Version: iThemes Security 4.6.2\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2015-01-12 19:49:46+00:00\n"
+"POT-Creation-Date: 2015-01-21 21:29:51+00:00\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,144 +13,145 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.5.10)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.6.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
 msgstr ""
 
-#: core/class-itsec-core.php:278
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:343
+#: core/class-itsec-core.php:282
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:216
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:176
+#: modules/free/salts/class-itsec-salts-admin.php:339
 msgid "Settings"
 msgstr ""
 
-#: core/class-itsec-core.php:285
+#: core/class-itsec-core.php:289
 msgid "Advanced"
 msgstr ""
 
-#: core/class-itsec-core.php:292
+#: core/class-itsec-core.php:296
 msgid "Logs"
 msgstr ""
 
-#: core/class-itsec-core.php:299
+#: core/class-itsec-core.php:303
 #: modules/free/help/class-itsec-help-admin.php:19
 msgid "Help"
 msgstr ""
 
-#: core/class-itsec-core.php:310
+#: core/class-itsec-core.php:314
 msgid "Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:320
+#: core/class-itsec-core.php:324
 msgid "Go Pro"
 msgstr ""
 
-#: core/class-itsec-core.php:333 core/class-itsec-core.php:344
+#: core/class-itsec-core.php:337 core/class-itsec-core.php:348
 #: modules/free/backup/class-itsec-backup-admin.php:673
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:539 core/class-itsec-core.php:632
-#: core/class-itsec-core.php:928 core/class-itsec-core.php:1676
-#: core/class-itsec-core.php:1715
+#: core/class-itsec-core.php:543 core/class-itsec-core.php:636
+#: core/class-itsec-core.php:932 core/class-itsec-core.php:1680
+#: core/class-itsec-core.php:1719
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:623 core/class-itsec-core.php:1677
+#: core/class-itsec-core.php:627 core/class-itsec-core.php:1681
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:772
+#: core/class-itsec-core.php:776
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:799 core/class-itsec-core.php:1760
+#: core/class-itsec-core.php:803 core/class-itsec-core.php:1764
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:803 core/class-itsec-core.php:1764
+#: core/class-itsec-core.php:807 core/class-itsec-core.php:1768
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:809 core/class-itsec-core.php:1770
+#: core/class-itsec-core.php:813 core/class-itsec-core.php:1774
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:811 core/class-itsec-core.php:1772
+#: core/class-itsec-core.php:815 core/class-itsec-core.php:1776
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:813
+#: core/class-itsec-core.php:817
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:814
+#: core/class-itsec-core.php:818
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:821 core/class-itsec-core.php:1777
-#: core/class-itsec-files.php:120
+#: core/class-itsec-core.php:825 core/class-itsec-core.php:1781
+#: core/class-itsec-files.php:171
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:225
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:888
+#: core/class-itsec-core.php:892
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:898
+#: core/class-itsec-core.php:902
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:978
+#: core/class-itsec-core.php:982
 msgid ""
 "New! Take your site security to the next level by activating iThemes Brute "
 "Force Network Protection."
 msgstr ""
 
-#: core/class-itsec-core.php:978
+#: core/class-itsec-core.php:982
 msgid "Get Free API Key"
 msgstr ""
 
-#: core/class-itsec-core.php:1503
+#: core/class-itsec-core.php:1507
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1504
+#: core/class-itsec-core.php:1508
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1505
+#: core/class-itsec-core.php:1509
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1507
+#: core/class-itsec-core.php:1511
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1508
+#: core/class-itsec-core.php:1512
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1589
+#: core/class-itsec-core.php:1593
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1893
+#: core/class-itsec-core.php:1897
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1893
+#: core/class-itsec-core.php:1897
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -169,33 +170,33 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-#: core/class-itsec-files.php:71
+#: core/class-itsec-files.php:120
 msgid "Rewrite Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:80
+#: core/class-itsec-files.php:129
 msgid "wp-config.php Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:283 core/class-itsec-files.php:715
+#: core/class-itsec-files.php:338 core/class-itsec-files.php:798
 msgid "There are no rules to write."
 msgstr ""
 
-#: core/class-itsec-files.php:760
+#: core/class-itsec-files.php:843
 msgid "Your rewrite rules have been saved to"
 msgstr ""
 
-#: core/class-itsec-files.php:762
+#: core/class-itsec-files.php:845
 msgid "You must restart your NGINX server for the settings to take effect"
 msgstr ""
 
-#: core/class-itsec-files.php:779
+#: core/class-itsec-files.php:862
 msgid ""
 "Unable to write to your .htaccess or nginx.conf file. If the problem "
 "persists contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:834
+#: core/class-itsec-files.php:917
 msgid ""
 "Unable to write to your wp-config.php file. If the problem persists contact "
 "support."
@@ -1653,8 +1654,9 @@ msgid "A user with id 1 still exists."
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:229
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:222
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:117
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:95
+#: modules/free/salts/class-itsec-salts-admin.php:249
 msgid "Security check"
 msgstr ""
 
@@ -1677,7 +1679,7 @@ msgid ""
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:306
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 #: modules/free/ssl/class-itsec-ssl-admin.php:325
 #: modules/free/ssl/class-itsec-ssl-admin.php:329
@@ -1685,7 +1687,7 @@ msgid "WARNING"
 msgstr ""
 
 #: modules/free/admin-user/class-itsec-admin-user-admin.php:306
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 msgid "Backup your database"
 msgstr ""
@@ -2467,20 +2469,20 @@ msgstr ""
 msgid "Invalid Login Attempt"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:158
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:330
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:45
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:203
 msgid "Change Content Directory"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:187
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:86
 msgid "You have renamed the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:195
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:94
 msgid "You should rename the wp-content directory of your site."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:270
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:138
 msgid ""
 "By default, WordPress puts all your content (including images, plugins, "
 "themes, uploads and more) in a directory called \"wp-content.\" This default "
@@ -2491,26 +2493,26 @@ msgid ""
 "your site's file system will not produce any results."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:271
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:139
 msgid ""
 "This tool will not allow further changes to your wp-content folder once it "
 "has been renamed in order to avoid accidentally breaking the site later. "
 "Uninstalling this plugin will not revert the changes made by this feature."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:272
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:140
 msgid ""
 "Changing the name of the wp-content directory may in fact break plugins and "
 "themes that have \"hard-coded\" it into their design rather than calling it "
 "dynamically."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:273
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:141
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:114
 msgid "before using this tool."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:274
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:142
 msgid ""
 "Please note: Changing the name of your wp-content directory on a site that "
 "already has images and other content referencing it will break your site. "
@@ -2518,57 +2520,59 @@ msgid ""
 "WordPress install."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:287
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:155
 msgid ""
 "Congratulations! You have already renamed your \"wp-content\" directory."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:288
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:156
 msgid "Your current content directory is: "
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:290
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:158
 msgid "No further actions are available on this page."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:308
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:178
 msgid "Enable Change Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:314
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:185
 msgid "Check this box to enable content directory renaming."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:319
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:191
 msgid "Directory Name"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:325
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:197
 msgid ""
 "Enter a new directory name to replace \"wp-content.\" You may need to log in "
 "again after performing this operation."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:342
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:215
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:175
+#: modules/free/salts/class-itsec-salts-admin.php:338
 msgid "You must allow this plugin to write to the wp-config.php file on the"
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:344
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:217
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:177
+#: modules/free/salts/class-itsec-salts-admin.php:340
 msgid "page to use this feature."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:379
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:282
 msgid ""
 "Please choose a directory name that is greater than 2 characters in length."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:386
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:289
 msgid "You have not chosen a new name for wp-content. Nothing was saved."
 msgstr ""
 
-#: modules/free/content-directory/class-itsec-content-directory-admin.php:417
+#: modules/free/content-directory/class-itsec-content-directory-admin.php:320
 msgid "Unable to rename the wp-content folder. Operation cancelled."
 msgstr ""
 
@@ -3669,6 +3673,52 @@ msgstr ""
 
 #: modules/free/malware/class-itsec-malware-log.php:168
 msgid "Results"
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:191
+msgid "WordPress Salts"
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:218
+msgid "Your WordPress Salts have not been changed. You should change them now."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:226
+msgid "You have recently changed your WordPress Salts."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:300
+msgid ""
+"A secret key makes your site harder to hack and access by adding random "
+"elements to the password."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:301
+msgid ""
+"In simple terms, a secret key is a password with elements that make it "
+"harder to generate enough options to break through your security barriers. A "
+"password like \"password\" or \"test\" is simple and easily broken. A "
+"random, unpredictable password such as \"88a7da62429ba6ad3cb3c76a09641fc\" "
+"takes years to come up with the right combination. A salt is used to further "
+"enhance the security of the generated result."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:302
+msgid ""
+"Note that enabling this feature will log you out of your WordPress site."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:317
+#: modules/free/salts/class-itsec-salts-admin.php:328
+msgid "Change WordPress Salts"
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:323
+msgid "Check this box to change your WordPress Salts."
+msgstr ""
+
+#: modules/free/salts/class-itsec-salts-admin.php:381
+msgid "Unable change the WordPress Salts. Operation cancelled."
 msgstr ""
 
 #: modules/free/ssl/class-itsec-ssl-admin.php:104
