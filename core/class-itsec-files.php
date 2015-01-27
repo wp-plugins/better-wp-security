@@ -1278,10 +1278,14 @@ final class ITSEC_Files {
 
 					foreach ( $config_array as $line_number => $line ) {
 
-						foreach ( $rule_to_replace as $search_text => $rule ) {
+						if ( is_array( $rule_to_replace ) ) {
 
-							if ( false !== strpos( $line, $search_text ) ) {
-								$config_array[ $line_number ] = $rule;
+							foreach ( $rule_to_replace as $search_text => $rule ) {
+
+								if ( false !== strpos( $line, $search_text ) ) {
+									$config_array[ $line_number ] = $rule;
+								}
+
 							}
 
 						}

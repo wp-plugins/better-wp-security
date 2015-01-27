@@ -355,3 +355,5 @@
 4.6.2 - 2015-01-21 - Packaging Bot (core)
 	New Feature: Change WordPress Salts
 	Enhancement: Refactored ITSEC_Lib and ITSEC_Files for better usability and new functions to make changing salts possible
+4.6.3 - 2015-01-27 - Packaging Bot (core)
+	Bug Fix: Generating wp-config.php file updates no longer produces warnings.
