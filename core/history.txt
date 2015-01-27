@@ -196,3 +196,5 @@
 1.13.0 - 2015-01-21 - Chris Wiegman
 	New Feature: Change WordPress Salts
 	Enhancement: Refactored ITSEC_Lib and ITSEC_Files for better usability and new functions to make changing salts possible
+1.13.1 - 2015-01-27 - Chris Jean
+	Bug Fix: Generating wp-config.php file updates no longer produces warnings.
