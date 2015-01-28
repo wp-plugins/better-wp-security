@@ -1148,7 +1148,7 @@ final class ITSEC_Files {
 			}
 
 			//Actually write the new content to wp-config.
-			if ( $false !== htaccess_contents ) {
+			if ( false !== $htaccess_contents ) {
 
 				//Make sure we can write to the file
 				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
@@ -1278,10 +1278,14 @@ final class ITSEC_Files {
 
 					foreach ( $config_array as $line_number => $line ) {
 
-						foreach ( $rule_to_replace as $search_text => $rule ) {
+						if ( is_array( $rule_to_replace ) ) {
 
-							if ( false !== strpos( $line, $search_text ) ) {
-								$config_array[ $line_number ] = $rule;
+							foreach ( $rule_to_replace as $search_text => $rule ) {
+
+								if ( false !== strpos( $line, $search_text ) ) {
+									$config_array[ $line_number ] = $rule;
+								}
+
 							}
 
 						}

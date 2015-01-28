@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 4.6.2
+Stable tag: 4.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,12 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.6.4 =
+* Fix: .htaccess file modifications now function as expected when changing settings.
+
+= 4.6.3 =
+* Fix: Fixed warnings produced when saving settings that update the wp-config.php file
 
 = 4.6.2 =
 * New Feature: Change WordPress Salts
