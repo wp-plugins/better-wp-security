@@ -1148,7 +1148,7 @@ final class ITSEC_Files {
 			}
 
 			//Actually write the new content to wp-config.
-			if ( $false !== htaccess_contents ) {
+			if ( false !== $htaccess_contents ) {
 
 				//Make sure we can write to the file
 				$perms = substr( sprintf( '%o', @fileperms( $htaccess_file ) ), - 4 );
