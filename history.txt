@@ -359,3 +359,6 @@
 	Bug Fix: Generating wp-config.php file updates no longer produces warnings.
 4.6.4 - 2015-01-27 - Packaging Bot (core)
 	Bug Fix: Fixed .htaccess file modifications failing.
+4.6.5 - 2015-02-05 - Packaging Bot (core)
+	Fix: Quick banning IPs will now work correctly if existing htaccess rules are in place
+	Fix: minor bug fixes and typo corrections.

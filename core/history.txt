@@ -200,3 +200,6 @@
 	Bug Fix: Generating wp-config.php file updates no longer produces warnings.
 1.13.2 - 2015-01-27 - Chris Jean
 	Bug Fix: Fixed .htaccess file modifications failing.
+1.13.3 - 2015-02-05 - Chris Wiegman
+	Fix: Quick banning IPs will now work correctly if existing htaccess rules are in place
+	Fix: minor bug fixes and typo corrections.

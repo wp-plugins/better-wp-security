@@ -3,8 +3,8 @@ Contributors: ithemes, ChrisWiegman, gerroald, mattdanner, chrisjean
 Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
-Tested up to: 4.1
-Stable tag: 4.6.4
+Tested up to: 4.2
+Stable tag: 4.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,11 +196,9 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Changelog ==
 
-= 4.6.4 =
-* Fix: .htaccess file modifications now function as expected when changing settings.
-
-= 4.6.3 =
-* Fix: Fixed warnings produced when saving settings that update the wp-config.php file
+= 4.6.6 =
+* Fix: Quick banning IPs will now work correctly if existing htaccess rules are in place
+* Fix: minor bug fixes and typo corrections.
 
 = 4.6.2 =
 * New Feature: Change WordPress Salts
@@ -1368,6 +1366,9 @@ This release is a complete rewrite from the ground up. Special thanks to Cory Mi
 * First alpha release including simple feature set.
 
 == Upgrade Notice ==
+
+= 4.6.6 =
+Version 4.6.6 contains minor bugfixes and is recommended for all users.
 
 = 4.6.2 =
 Version 4.6.2 contains new features and enhancements and is recommended for all users.

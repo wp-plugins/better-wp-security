@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.6.4\n"
+"Project-Id-Version: iThemes Security 4.6.6\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2015-01-27 23:01:57+00:00\n"
+"POT-Creation-Date: 2015-02-05 20:51:18+00:00\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.6.4)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.6.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -95,7 +95,7 @@ msgid "to allow this plugin to write to these files."
 msgstr ""
 
 #: core/class-itsec-core.php:825 core/class-itsec-core.php:1781
-#: core/class-itsec-files.php:171
+#: core/class-itsec-files.php:169
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:225
 msgid "Settings Updated"
 msgstr ""
@@ -170,33 +170,33 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-#: core/class-itsec-files.php:120
+#: core/class-itsec-files.php:118
 msgid "Rewrite Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:129
+#: core/class-itsec-files.php:127
 msgid "wp-config.php Rules"
 msgstr ""
 
-#: core/class-itsec-files.php:338 core/class-itsec-files.php:798
+#: core/class-itsec-files.php:336 core/class-itsec-files.php:796
 msgid "There are no rules to write."
 msgstr ""
 
-#: core/class-itsec-files.php:843
+#: core/class-itsec-files.php:841
 msgid "Your rewrite rules have been saved to"
 msgstr ""
 
-#: core/class-itsec-files.php:845
+#: core/class-itsec-files.php:843
 msgid "You must restart your NGINX server for the settings to take effect"
 msgstr ""
 
-#: core/class-itsec-files.php:862
+#: core/class-itsec-files.php:860
 msgid ""
 "Unable to write to your .htaccess or nginx.conf file. If the problem "
 "persists contact support."
 msgstr ""
 
-#: core/class-itsec-files.php:917
+#: core/class-itsec-files.php:915
 msgid ""
 "Unable to write to your wp-config.php file. If the problem persists contact "
 "support."
