@@ -362,3 +362,9 @@
 4.6.5 - 2015-02-05 - Packaging Bot (core)
 	Fix: Quick banning IPs will now work correctly if existing htaccess rules are in place
 	Fix: minor bug fixes and typo corrections.
+4.6.7 - 2015-02-20 - Packaging Bot (modules/free)
+	Updated modules/free to version 1.6.1
+4.6.8 - 2015-02-20 - Packaging Bot (core)
+	Enhancement: Limit the number of lockouts that can be displayed at any given time in the dashboard.
+	Fix: Make sure header error messages are suppressed when performing a lockout.
+	Fix: Fix error message from missing login information when displaying lockouts.

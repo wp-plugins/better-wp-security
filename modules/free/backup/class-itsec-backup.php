@@ -1,11 +1,46 @@
 <?php
 
+/**
+ * Backup execution.
+ *
+ * Handles database backups at scheduled interval.
+ *
+ * @since   4.0.0
+ *
+ * @package iThemes_Security
+ */
 class ITSEC_Backup {
 
-	private
-		$core,
-		$settings;
+	/**
+	 * An instance of ITSEC_Core for attaining various items
+	 *
+	 * @since  4.0.0
+	 * @access private
+	 * @var ITSEC_Core
+	 */
+	private $core;
 
+	/**
+	 * The module's saved options
+	 *
+	 * @since  4.0.0
+	 * @access private
+	 * @var array
+	 */
+	private $settings;
+
+	/**
+	 * Setup the module's functionality.
+	 *
+	 * Loads the backup detection module's unpriviledged functionality including
+	 * performing the scans themselves.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param ITSEC_Core $core instance of the iThemes Security Core object.
+	 *
+	 * @return void
+	 */
 	function run( $core ) {
 
 		global $itsec_globals;
@@ -13,18 +48,40 @@ class ITSEC_Backup {
 		$this->core     = $core;
 		$this->settings = get_site_option( 'itsec_backup' );
 
+		add_action( 'itsec_execute_backup_cron', array( $this, 'do_backup' ) ); //Action to execute during a cron run.
+
 		add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
 
-		if ( ( ! defined( 'DOING_AJAX' ) || DOING_AJAX === false ) && $this->settings['enabled'] === true && ! class_exists( 'pb_backupbuddy' ) && ( ( $itsec_globals['current_time_gmt'] - $this->settings['interval'] * 24 * 60 * 60 ) ) > $this->settings['last_run'] ) {
+		if (
+			(
+				! defined( 'DOING_AJAX' ) ||
+				false === DOING_AJAX
+			) &&
+			(
+				! defined( 'ITSEC_BACKUP_CRON' ) ||
+				false === ITSEC_BACKUP_CRON
+			) &&
+			true === $this->settings['enabled'] &&
+			! class_exists( 'pb_backupbuddy' ) &&
+			( $itsec_globals['current_time_gmt'] - $this->settings['interval'] * 24 * 60 * 60 ) > $this->settings['last_run']
+		) {
 
 			add_action( 'init', array( $this, 'do_backup' ), 10, 0 );
+
+		} elseif ( defined( 'ITSEC_BACKUP_CRON' ) && true === ITSEC_BACKUP_CRON && ! wp_next_scheduled( 'itsec_execute_backup_cron' ) ) { //Use cron if needed
+
+			wp_schedule_event( time(), 'daily', 'itsec_execute_backup_cron' );
 
 		}
 
 	}
 
 	/**
-	 * Public function to get lock and call backup
+	 * Public function to get lock and call backup.
+	 *
+	 * Attempts to get a lock to prevent concurrant backups and calls the backup function itself.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param  boolean $one_time whether this is a one time backup
 	 *
@@ -42,7 +99,7 @@ class ITSEC_Backup {
 
 			$itsec_files->release_file_lock( 'backup' );
 
-			if ( $one_time === true ) {
+			if ( true === $one_time ) {
 
 				switch ( $this->settings['method'] ) {
 
@@ -67,7 +124,7 @@ class ITSEC_Backup {
 
 		} else {
 
-			if ( $one_time === true ) {
+			if ( true === $one_time ) {
 
 				$type    = 'error';
 				$message = __( 'Something went wrong with your backup. It looks like another process might already be trying to backup your database. Please try again in a few minutes. If the problem persists please contact support.', 'it-l10n-better-wp-security' );
@@ -78,7 +135,7 @@ class ITSEC_Backup {
 
 		}
 
-		if ( $one_time === true ) {
+		if ( true === $one_time ) {
 
 			if ( is_multisite() ) {
 
@@ -101,7 +158,11 @@ class ITSEC_Backup {
 	}
 
 	/**
-	 * Executes backup function
+	 * Executes backup function.
+	 *
+	 * Handles the execution of database backups.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param bool $one_time whether this is a one-time backup
 	 *
@@ -112,10 +173,14 @@ class ITSEC_Backup {
 		global $wpdb, $itsec_globals, $itsec_logger;
 
 		//get all of the tables
-		if ( isset( $this->settings['all_sites'] ) && $this->settings['all_sites'] === true ) {
+		if ( isset( $this->settings['all_sites'] ) && true === $this->settings['all_sites'] ) {
+
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N ); //retrieve a list of all tables in the DB
+
 		} else {
+
 			$tables = $wpdb->get_results( 'SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N ); //retrieve a list of all tables for this WordPress installation
+
 		}
 
 		$return = '';
@@ -131,7 +196,7 @@ class ITSEC_Backup {
 
 			$return .= PHP_EOL . PHP_EOL . $row2[1] . ";" . PHP_EOL . PHP_EOL;
 
-			if ( in_array( substr( $table[0], strlen( $wpdb->prefix ) ), $this->settings['exclude'] ) === false ) {
+			if ( ! in_array( substr( $table[0], strlen( $wpdb->prefix ) ), $this->settings['exclude'] ) ) {
 
 				$result = $wpdb->get_results( 'SELECT * FROM `' . $table[0] . '`;', ARRAY_N );
 
@@ -145,9 +210,13 @@ class ITSEC_Backup {
 						$row[$j] = preg_replace( '#' . PHP_EOL . '#', "\n", $row[$j] );
 
 						if ( isset( $row[$j] ) ) {
+
 							$return .= '"' . $row[$j] . '"';
+
 						} else {
+
 							$return .= '""';
+
 						}
 
 						if ( $j < ( $num_fields - 1 ) ) {
@@ -172,15 +241,18 @@ class ITSEC_Backup {
 
 		//save file
 		$file = 'backup-' . substr( sanitize_title( get_bloginfo( 'name' ) ), 0, 20 ) . '-' . $current_time . '-' . ITSEC_Lib::get_random( mt_rand( 5, 10 ) );
+
 		if ( ! is_dir( $itsec_globals['ithemes_backup_dir'] ) ) {
 			@mkdir( trailingslashit( $itsec_globals['ithemes_dir'] ) . 'backups' );
 		}
+
 		$handle = @fopen( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql', 'w+' );
+
 		@fwrite( $handle, $return );
 		@fclose( $handle );
 
 		//zip the file
-		if ( $this->settings['zip'] === true ) {
+		if ( true === $this->settings['zip'] ) {
 
 			if ( ! class_exists( 'PclZip' ) ) {
 				require( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -188,7 +260,7 @@ class ITSEC_Backup {
 
 			$zip = new PclZip( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.zip' );
 
-			if ( $zip->create( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' ) != 0 ) {
+			if ( 0 != $zip->create( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' ) ) {
 
 				//delete .sql and keep zip
 				@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . '.sql' );
@@ -203,7 +275,7 @@ class ITSEC_Backup {
 
 		}
 
-		if ( $this->settings['method'] !== 2 || $one_time === true ) {
+		if ( 2 !== $this->settings['method'] || true === $one_time ) {
 
 			$option = get_site_option( 'itsec_global' );
 
@@ -225,7 +297,7 @@ class ITSEC_Backup {
 
 				if ( is_email( trim( $recipient ) ) ) {
 
-					if ( defined( 'ITSEC_DEBUG' ) && ITSEC_DEBUG === true ) {
+					if ( defined( 'ITSEC_DEBUG' ) && true === ITSEC_DEBUG ) {
 						$body .= '<p>' . __( 'Debug info (source page): ' . esc_url( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] ) ) . '</p>';
 					}
 
@@ -240,7 +312,7 @@ class ITSEC_Backup {
 
 		}
 
-		if ( $this->settings['method'] === 1 ) {
+		if ( 1 === $this->settings['method'] ) {
 
 			@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . $fileext );
 
@@ -249,13 +321,13 @@ class ITSEC_Backup {
 			$retain = isset( $this->settings['retain'] ) ? absint( $this->settings['retain'] ) : 0;
 
 			//delete extra files
-			if ( $retain > 0 ) {
+			if ( 0 < $retain ) {
 
 				$files = scandir( $itsec_globals['ithemes_backup_dir'], 1 );
 
 				$count = 0;
 
-				if ( is_array( $files ) && count( $files ) > 0 ) {
+				if ( is_array( $files ) && 0 < count( $files ) ) {
 
 					foreach ( $files as $file ) {
 
@@ -276,7 +348,7 @@ class ITSEC_Backup {
 
 		}
 
-		if ( $one_time === false ) {
+		if ( false === $one_time ) {
 
 			$this->settings['last_run'] = $itsec_globals['current_time_gmt'];
 
@@ -288,7 +360,7 @@ class ITSEC_Backup {
 
 			case 0:
 
-				if ( $mail_success === false ) {
+				if ( false === $mail_success ) {
 
 					$status = array(
 						'status'  => __( 'Error', 'it-l10n-better-wp-security' ),
@@ -307,7 +379,7 @@ class ITSEC_Backup {
 				break;
 			case 1:
 
-				if ( $mail_success === false ) {
+				if ( false === $mail_success ) {
 
 					$status = array(
 						'status'  => __( 'Error', 'it-l10n-better-wp-security' ),
@@ -338,7 +410,11 @@ class ITSEC_Backup {
 	}
 
 	/**
-	 * Register backups for logger
+	 * Register backups for logger.
+	 *
+	 * Adds the backup module to ITSEC_Logger.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @param  array $logger_modules array of logger modules
 	 *
@@ -356,7 +432,11 @@ class ITSEC_Backup {
 	}
 
 	/**
-	 * Set HTML content type for email
+	 * Set HTML content type for email.
+	 *
+	 * Sets the content type on outgoing emails to HTML.
+	 *
+	 * @since 4.0.0
 	 *
 	 * @return string html content type
 	 */

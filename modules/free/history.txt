@@ -239,4 +239,8 @@
 	Fix: Fixed typo on file change warning emails.
 1.6.0 - 2015-01-21 - Chris Wiegman
 	New Feature: Change WordPress Salts
+1.6.1 - 2015-02-17 - Chris Wiegman
+	Enhancement: Minor refactoring for performance and scalability.
+	Enhancement: Add ITSEC_BACKUP_CRON constant to replace plugin's backup scheduler with wp_cron.
+	Enhancement: Add dashboard reminder to salts to prompt for periodic salt changes.
 
