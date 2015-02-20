@@ -1,5 +1,5 @@
 === iThemes Security (formerly Better WP Security) ===
-Contributors: ithemes, ChrisWiegman, gerroald, mattdanner, chrisjean
+Contributors: ithemes, gerroald, mattdanner, chrisjean
 Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
