@@ -878,114 +878,45 @@ final class ITSEC_Lib {
 	 * @return array array of good hosts or false
 	 */
 	public static function validates_ip_address( $ip ) {
-
-		//validate list
-		$ip             = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
-		$ip_parts       = explode( '.', $ip );
-		$error_handler  = null;
-		$is_ip          = 0;
-		$part_count     = 1;
-		$good_ip        = true;
-		$found_wildcard = false;
-
-		foreach ( $ip_parts as $part ) {
-
-			if ( true === $good_ip ) {
-
-				if ( ( is_numeric( $part ) && 255 >= $part && 0 <= $part ) || '*' === $part || ( 3 === $part_count && false !== strpos( $part, '/' ) ) ) {
-					$is_ip ++;
-				}
-
-				switch ( $part_count ) {
-
-					case 1: //1st octet
-
-						if ( '*' === $part || false !== strpos( $part, '/' ) ) {
-
-							return false;
-
-						}
-
-						break;
-
-					case 2: //2nd octet
-
-						if ( '*' === $part ) {
-
-							$found_wildcard = true;
-
-						} elseif ( false !== strpos( $part, '/' ) ) {
-
-							return false;
-
-						}
-
-						break;
-
-					case 3: //3rd octet
-
-						if ( '*' === $part ) {
-
-							if ( $found_wildcard === true ) {
-
-								return false;
-
-							}
-
-						} elseif ( false !== strpos( $part, '/' ) ) {
-
-							return false;
-
-						} else {
-
-							$found_wildcard = true;
-
-						}
-
-						break;
-
-					default: //4th octet and netmask
-
-						if ( '*' === $part ) {
-
-							if ( true === $found_wildcard ) {
-
-								return false;
-
-							} elseif ( false !== strpos( $part, '/' ) ) {
-
-								$netmask = intval( substr( $part, ( strpos( $part, '/' ) + 1 ) ) );
-
-								if ( ! is_numeric( $netmask ) && 1 > $netmask && 31 < $netmask ) {
-
-									return false;
-
-								}
-
-							}
-
-						}
-
-						break;
-
-				}
-
-				$part_count ++;
-
-			}
-
-		}
-
-		if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false ) || ( strpos( $ip, '/' ) === false && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
-
+		$ip = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
+		
+		if ( substr_count( $ip, '.' ) !== 3 ) {
 			return false;
-
 		}
-
-		return true; //ip is valid
-
+		
+		$has_cidr = ( false !== strpos( $ip, '/' ) );
+		$has_wildcard = ( false !== strpos( $ip, '*' ) );
+		
+		if ( $has_cidr && $has_wildcard ) {
+			return false;
+		}
+		
+		$ip_digit_regex = '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)';
+		$cidr_digit_regex = '(?:3[0-2]|2[0-9]|1[1-9]|[148])';
+		
+		$ip_regex = "(?:$ip_digit_regex\.){3}$ip_digit_regex";
+		
+		if ( $has_cidr ) {
+			return (boolean) preg_match( "{^$ip_regex/$cidr_digit_regex$}", $ip );
+		}
+		
+		if ( $has_wildcard ) {
+			$wildcard_count = substr_count( $ip, '*' );
+			
+			if ( 1 === $wildcard_count ) {
+				return (boolean) preg_match( "{^(?:$ip_digit_regex\.){3}\*$}", $ip );
+			} else if ( 2 === $wildcard_count ) { 
+				return (boolean) preg_match( "{^(?:$ip_digit_regex\.){2}\*\.\*$}", $ip );
+			} else if ( 3 === $wildcard_count ) { 
+				return (boolean) preg_match( "{^(?:$ip_digit_regex\.)\*\.\*\.\*$}", $ip );
+			}
+			
+			return false;
+		}
+		
+		return (boolean) preg_match( "{^$ip_regex$}", $ip );
 	}
-
+	
 	/**
 	 * Validates a file path
 	 *

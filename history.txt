@@ -368,3 +368,7 @@
 	Enhancement: Limit the number of lockouts that can be displayed at any given time in the dashboard.
 	Fix: Make sure header error messages are suppressed when performing a lockout.
 	Fix: Fix error message from missing login information when displaying lockouts.
+4.6.9 - 2015-02-26 - Packaging Bot (modules/free)
+	Bug Fix: When a file scan is run from iThemes Sync, a warning will no longer be added to the site's error log.
+4.6.10 - 2015-02-26 - Packaging Bot (core)
+	Bug Fix: Fixed regression that prevented adding wildcard IP's in the form of 'XXX.XXX.XXX.*' to Ban Hosts.
