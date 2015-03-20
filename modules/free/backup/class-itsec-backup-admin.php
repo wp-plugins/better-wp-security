@@ -964,7 +964,7 @@ class ITSEC_Backup_Admin {
 
 		echo '<input class="small-text" name="itsec_backup[retain]" id="itsec_backup_retain" value="' . $retain . '" type="text">';
 		echo '<label for="itsec_backup_retain"> ' . __( 'Backups', 'it-l10n-better-wp-security' ) . '</label>';
-		echo '<p class="description"> ' . __( 'The number of backups that should be kept on disk. This only applies to backups saved to disk. Set to "0" to disable.', 'it-l10n-better-wp-security' ) . '</p>';
+		echo '<p class="description"> ' . __( 'Limit the number of backups stored locally (on this server). Any older backups beyond this number will be removed. Setting to "0" will retain all backups.', 'it-l10n-better-wp-security' ) . '</p>';
 
 	}
 

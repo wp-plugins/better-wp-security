@@ -4,7 +4,7 @@ Donate link: https://ithemes.com/security
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 4.6.10
+Stable tag: 4.6.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,9 +196,14 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Changelog ==
 
+= 4.6.12 =
+* Enhancement: Translation files can now be stored in WP_LANG_DIR/plugins/better-wp-security/ so that translation files will not be overwritten on when the plugin updates.
+* Bug Fix: The file permissions check will no longer list a warning if the plugins directory has permissions of 755.
+* Bug Fix: Fixed incorrect text describing the "Backups to Retain" database backup setting.
+
 = 4.6.10 =
 * Bug Fix: Fixed regression that prevented adding wildcard IP's in the form of 'XXX.XXX.XXX.*' to Ban Hosts.
-* Bug Fix: When a file scan is run from iThemes Sync, a warning will no longer be added to the site's error log.
+* Bug Fix: When a file scan is run from iThemes Sync, a warning will no longer be added to the site's error log. 
 
 = 4.6.8 =
 * Enhancement: Minor refactoring for performance and scalability.

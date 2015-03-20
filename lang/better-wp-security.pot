@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.6.10\n"
+"Project-Id-Version: iThemes Security 4.6.12\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2015-02-26 21:21:18+00:00\n"
+"POT-Creation-Date: 2015-03-20 15:57:17+00:00\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.6.10)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.6.12)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -52,106 +52,106 @@ msgstr ""
 msgid "Backups"
 msgstr ""
 
-#: core/class-itsec-core.php:543 core/class-itsec-core.php:636
-#: core/class-itsec-core.php:932 core/class-itsec-core.php:1680
-#: core/class-itsec-core.php:1719
+#: core/class-itsec-core.php:564 core/class-itsec-core.php:657
+#: core/class-itsec-core.php:953 core/class-itsec-core.php:1701
+#: core/class-itsec-core.php:1740
 msgid "Dashboard"
 msgstr ""
 
-#: core/class-itsec-core.php:627 core/class-itsec-core.php:1681
+#: core/class-itsec-core.php:648 core/class-itsec-core.php:1702
 msgid "Security"
 msgstr ""
 
-#: core/class-itsec-core.php:776
+#: core/class-itsec-core.php:797
 msgid "Dismiss"
 msgstr ""
 
-#: core/class-itsec-core.php:803 core/class-itsec-core.php:1764
+#: core/class-itsec-core.php:824 core/class-itsec-core.php:1785
 msgid "NGINX conf file and/or restart your NGINX server"
 msgstr ""
 
-#: core/class-itsec-core.php:807 core/class-itsec-core.php:1768
+#: core/class-itsec-core.php:828 core/class-itsec-core.php:1789
 msgid ".htaccess file"
 msgstr ""
 
-#: core/class-itsec-core.php:813 core/class-itsec-core.php:1774
+#: core/class-itsec-core.php:834 core/class-itsec-core.php:1795
 msgid ""
 "As you have not allowed this plugin to update system files you must update "
 "your"
 msgstr ""
 
-#: core/class-itsec-core.php:815 core/class-itsec-core.php:1776
+#: core/class-itsec-core.php:836 core/class-itsec-core.php:1797
 msgid ""
 "as well as your wp-config.php file manually. Rules to insert in both files "
 "can be found on the Dashboard page."
 msgstr ""
 
-#: core/class-itsec-core.php:817
+#: core/class-itsec-core.php:838
 msgid "Click here"
 msgstr ""
 
-#: core/class-itsec-core.php:818
+#: core/class-itsec-core.php:839
 msgid "to allow this plugin to write to these files."
 msgstr ""
 
-#: core/class-itsec-core.php:825 core/class-itsec-core.php:1781
+#: core/class-itsec-core.php:846 core/class-itsec-core.php:1802
 #: core/class-itsec-files.php:169
 #: modules/free/database-prefix/class-itsec-database-prefix-admin.php:225
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-itsec-core.php:892
+#: core/class-itsec-core.php:913
 msgid "Show Intro"
 msgstr ""
 
-#: core/class-itsec-core.php:902
+#: core/class-itsec-core.php:923
 msgid "Important First Steps"
 msgstr ""
 
-#: core/class-itsec-core.php:982
+#: core/class-itsec-core.php:1003
 msgid ""
 "New! Take your site security to the next level by activating iThemes Brute "
 "Force Network Protection."
 msgstr ""
 
-#: core/class-itsec-core.php:982
+#: core/class-itsec-core.php:1003
 msgid "Get Free API Key"
 msgstr ""
 
-#: core/class-itsec-core.php:1507
+#: core/class-itsec-core.php:1528
 msgid "Secure Your Site"
 msgstr ""
 
-#: core/class-itsec-core.php:1508
+#: core/class-itsec-core.php:1529
 msgid ""
 "Use the button below to enable default settings. This feature will enable "
 "all settings that cannot conflict with other plugins or themes."
 msgstr ""
 
-#: core/class-itsec-core.php:1509
+#: core/class-itsec-core.php:1530
 msgid "One-Click Secure"
 msgstr ""
 
-#: core/class-itsec-core.php:1511
+#: core/class-itsec-core.php:1532
 msgid ""
 "Site Secured. Check the dashboard for further suggestions on securing your "
 "site."
 msgstr ""
 
-#: core/class-itsec-core.php:1512
+#: core/class-itsec-core.php:1533
 msgid ""
 "Whoops. Something went wrong. Please contact support if the problem persists."
 msgstr ""
 
-#: core/class-itsec-core.php:1593
+#: core/class-itsec-core.php:1614
 msgid "Return to top"
 msgstr ""
 
-#: core/class-itsec-core.php:1897
+#: core/class-itsec-core.php:1918
 msgid "Thank you for activating"
 msgstr ""
 
-#: core/class-itsec-core.php:1897
+#: core/class-itsec-core.php:1918
 msgid ""
 "It looks like you had another version of this plugin activated. To avoid "
 "conflicts the extra version has been deactivated and we recommend you delete "
@@ -2164,8 +2164,9 @@ msgstr ""
 
 #: modules/free/backup/class-itsec-backup-admin.php:967
 msgid ""
-"The number of backups that should be kept on disk. This only applies to "
-"backups saved to disk. Set to \"0\" to disable."
+"Limit the number of backups stored locally (on this server). Any older "
+"backups beyond this number will be removed. Setting to \"0\" will retain all "
+"backups."
 msgstr ""
 
 #: modules/free/backup/class-itsec-backup-admin.php:993

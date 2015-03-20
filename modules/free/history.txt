@@ -245,3 +245,5 @@
 	Enhancement: Add dashboard reminder to salts to prompt for periodic salt changes.
 1.6.2 - 2015-02-26 - Chris Jean
 	Bug Fix: When a file scan is run from iThemes Sync, a warning will no longer be added to the site's error log.
+1.6.3 - 2014-03-20 - Chris Jean
+	Bug Fix: Fixed incorrect text describing the "Backups to Retain" database backup setting.
