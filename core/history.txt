@@ -209,3 +209,7 @@
 	Fix: Fix error message from missing login information when displaying lockouts.
 1.13.5 - 2015-02-26 - Chris Jean
 	Bug Fix: Fixed regression that prevented adding wildcard IP's in the form of 'XXX.XXX.XXX.*' to Ban Hosts.
+1.13.6 - 2015-03-20 - Chris Jean
+	Enhancement: Translation files can now be stored in WP_LANG_DIR/plugins/ithemes-security-pro for
+		iThemes Security Pro and WP_LANG_DIR/plugins/better-wp-security for iThemes Security free version.
+	Bug Fix: The file permissions check will no longer list a warning if the plugins directory has permissions of 755.
