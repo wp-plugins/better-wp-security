@@ -5,7 +5,7 @@ Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 4.0.27
+Stable tag: 4.0.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,9 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.0.28 =
+* Security fix for XSS vulnerability. Thanks to Ole Aass (@oleaass) for finding and disclosing this vulnerability to the iThemes Security team.
 
 = 4.0.27 =
 * XMLRPC soft block should now work with WordPress mobile app
