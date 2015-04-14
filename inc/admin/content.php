@@ -1827,7 +1827,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php
 				foreach ( $grouped as $url => $data ) {
 					?>
-					<li><strong><?php echo $url; ?></strong> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></li>
+					<li><strong><?php echo esc_html( $url ); ?></strong> (<?php echo $data['count']; ?>) <?php echo get_date_from_gmt( date( 'Y-m-d H:i:s', $data['last'] ) ); ?></li>
 					<?php
 				}
 			?>
