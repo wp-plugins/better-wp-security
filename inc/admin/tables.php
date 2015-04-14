@@ -206,8 +206,8 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 				$rows[$count]['time'] = $attr['time'];
 				$rows[$count]['id'] = $attr['id'];
 				$rows[$count]['host'] = $attr['host'];
-				$rows[$count]['uri'] = $attr['url'];
-				$rows[$count]['referrer'] = $attr['referrer'];
+				$rows[$count]['uri'] = esc_html( $attr['url'] );
+				$rows[$count]['referrer'] = esc_html( $attr['referrer'] );
 				$rows[$count]['count'] = $attr['count'];
 
 				$count++;

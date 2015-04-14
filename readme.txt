@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.6
 Tested up to: 3.6
-Stable tag: 3.5.6
+Stable tag: 3.5.7
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -164,6 +164,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.5.7 =
+* Security fix for XSS vulnerability. Thanks to Ole Aass (@oleaass) for finding and disclosing this vulnerability to the iThemes Security team.
 
 = 3.5.6 =
 * Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
