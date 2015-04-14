@@ -5,7 +5,7 @@ Donate link: http://ithemes.com/security
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.7
 Tested up to: 3.8.1
-Stable tag: 3.6.6
+Stable tag: 3.6.7
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -173,6 +173,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 3.6.7 =
+* Security fix for XSS vulnerability. Thanks to Ole Aass (@oleaass) for finding and disclosing this vulnerability to the iThemes Security team.
 
 = 3.6.6 =
 * Added notice about upgrade
