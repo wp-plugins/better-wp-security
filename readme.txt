@@ -1,13 +1,11 @@
 === iThemes Security (formerly Better WP Security) ===
-Contributors: ithemes, chrisjean, gerroald, mattdanner
-Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
+Contributors: ithemes, chrisjean, aaroncampbell, gerroald, mattdanner
+Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 4.6.13
+Tested up to: 4.2.2
+Stable tag: 4.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-The easiest, most effective way to secure WordPress in seconds.
 
 == License ==
 Released under the terms of the GNU General Public License.
@@ -33,7 +31,6 @@ Pro Features:
 * User action logging - track when user's edit content, login or logout
 * 2-factor authentication - Use Google Authenticator or Authy to send a custom code to your phone when you log in
 * Import/export settings - saves time setting up multiple WordPress sites
-* Malware scanning - Automatically check any URL or individual file on a specified schedule and scan your whole site automatically as users browse through it
 * Password Expiration - Set a maximum password age and force users to choose a new password. You can also force all users to choose a new password immediately (if needed)
 * Generate Strong Passwords - Generate strong passwords right from your profile screen
 * Dashboard Widget - manage important tasks such as user banning and system scans right from the WordPress dashboard.
@@ -45,7 +42,7 @@ Pro Features:
 
 = iThemes Sync Integration =
 
-Manage more than one site? Manage away mode, handle malware scanning, release lockouts and make sure your WordPress site is up to date with <a href="http://ithemes.com/sync/">iThemes Sync</a>.
+Manage more than one site? Manage away mode, release lockouts and make sure your WordPress site is up to date with <a href="http://ithemes.com/sync/">iThemes Sync</a>.
 
 = New! iThemes Brute Force Protection Network =
 
@@ -88,7 +85,7 @@ iThemes Security monitors your site and reports changes to the filesystem and da
 
 * Detects bots and other attempts to search for vulnerabilities
 * Monitors filesystem for unauthorized changes
-* Run a scan for malware and blacklists on the homepage of your site
+* Run a scan for blacklists on the homepage of your site
 * Receive email notifications when someone gets locked out after too many failed login attempts or when a file on your site has been changed.
 
 = Recover =
@@ -194,6 +191,38 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.8.0 =
+* Feature Removal: Removed the malware scanning features as VirusTotal no longer supports scanning from WordPress sites. A replacement is in the works.
+* Bug Fix: The close button on the "Thank you for activating iThemes Security" message now appears in the correct location.
+* Bug Fix: Removed the site's URL being displayed in the "Replace jQuery With a Safe Version" setting details.
+* Bug Fix: Updated .htaccess rules to be compatible with Apache 2.4 without the auth compat module.
+* Bug Fix: Enabling and disabling the "Remove File Writing Permissions" setting now updates the file permissions properly.
+* Bug Fix: Web servers that cannot be recognized now default to Apache.
+* Enhancement: Updated the hackrepair lists.
+
+= 4.7.0 =
+* Enhancement: Updated to use new file modification API.
+* Enhancement: Added HackRepair.com blacklist for Nginx.
+* Enhancement: Improved Nginx support for System Tweak features.
+* Enhancement: Updates to wp-config.php, .htaccess, and nginx.conf files now support more systems.
+* Enhancement: Combined the "Force SSL for Dashboard" and "Force SSL for Login" settings to a unified "Force SSL for Dashboard" setting. This is due to how the FORCE_SSL_LOGIN define was deprecated in WP 4.0.0.
+* Enhancement: Added comments to wp-config.php, .htaccess, and nginx.conf updates that indicate which settings affect the specific entries.
+* Enhancement: Added translation support for previously static strings, including strings used for comments in wp-config.php, .htaccess, and nginx.conf files.
+* Enhancement: Improved generation of valid referers for use by the Reduce Comment Spam feature.
+* Enhancement: Broadened the server support in the import settings code.
+* Enhancement: Added new library classes for managing files, directories, and config files.
+* Enhancement: Improved error messages for when file writes fail.
+* Enhancement: Improved error messages for when export file creation fails.
+* Enhancement: Improved error messages for situations when the .htaccess, nginx.conf, or wp-config.php files may need to be manually updated.
+* Bug Fix: Added support for Apache 2.4 without the access_compat module.
+* Bug Fix: Fixed condition where forcing SSL on front-end pages could cause infinite redirection loops with specific setups of nginx to Apache reverse proxy servers.
+* Bug Fix: Fixed scenarios where the site would be forced to load via https but scripts, stylesheets, and images would load via http.
+* Bug Fix: Fixed invalid nginx.conf rule generation for the Reduce Comment Spam feature.
+* Bug Fix: Corrected invalid parsing of some IP formats in Ban Hosts list.
+* Bug Fix: Improved error handling when reading or updating config files.
+* Bug Fix: Fixed various warnings that would display when changing settings.
+* Bug Fix: Fixed a situation where creation of a zipped export file would fail, but an email would still be sent as if the zip was created successfully.
 
 = 4.6.13 =
 * Security fix for XSS vulnerability. Thanks to Ole Aass (@oleaass) for finding and disclosing this vulnerability to the iThemes Security team.
