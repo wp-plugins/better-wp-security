@@ -108,8 +108,8 @@ class ITSEC_Setup {
 
 		global $itsec_globals;
 
-		$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free';
-		$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/pro';
+		$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/modules';
+		$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'pro';
 
 		$has_pro = is_dir( $pro_modules_folder );
 
@@ -503,7 +503,6 @@ class ITSEC_Setup {
 		}
 
 		ITSEC_Lib::clear_caches();
-
 	}
 
 	/**

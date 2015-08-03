@@ -230,64 +230,32 @@ final class ITSEC_Lib {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $address  address to filter
-	 * @param bool   $apache   [true] does this require an apache style wildcard
-	 * @param bool   $wildcard false if a wildcard shouldn't be included at all
+	 * @param string $url          URL to filter
 	 *
-	 * @return string domain name
+	 * @return string domain name or '*' on error or domain mapped multisite
 	 * */
-	public static function get_domain( $address, $apache = true, $wildcard = true ) {
-
-		preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
-
-		$host = $matches[2];
-
-		preg_match( "/[^\.\/]+\.[^\.\/]+$/", $host, $matches );
-
-		if ( true === $wildcard ) {
-
-			if ( true === $apache ) {
-
-				$wc = '(.*)';
-
-			} else {
-
-				$wc = '*.';
-
-			}
-
-		} else {
-
-			$wc = '';
-
-		}
-
-		if ( ! is_array( $matches ) ) {
-			return false;
-		}
-
-		// multisite domain mapping compatibility. when hide login is enabled,
-		// rewrite rules redirect valid POST requests from MAPPED_DOMAIN/wp-login.php?SECRET_KEY
-		// because they aren't coming from the "top-level" domain. blog_id 1, the parent site,
-		// is a completely different, unrelated domain in this configuration.
+	public static function get_domain( $url ) {
 		if ( is_multisite() && function_exists( 'domain_mapping_warning' ) ) {
-
-			if ( $apache == true ) {
-				return $wc;
-			} else {
-				return '*';
-			}
-
-		} elseif ( isset( $matches[0] ) ) {
-
-			return $wc . $matches[0];
-
-		} else {
-
-			return false;
-
+			return '*';
 		}
-
+		
+		
+		$host = parse_url( $url, PHP_URL_HOST );
+		
+		if ( false === $host ) {
+			return '*';
+		}
+		if ( 'www.' == substr( $host, 0, 4 ) ) {
+			return substr( $host, 4 );
+		}
+		
+		$host_parts = explode( '.', $host );
+		
+		if ( count( $host_parts ) > 2 ) {
+			$host_parts = array_slice( $host_parts, -2, 2 );
+		}
+		
+		return implode( '.', $host_parts );
 	}
 
 	/**
@@ -430,10 +398,12 @@ final class ITSEC_Lib {
 
 			$the_ip = $headers['HTTP_X_FORWARDED_FOR'];
 
-		} else {
+		} else if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
 
 			$the_ip = $_SERVER['REMOTE_ADDR'];
 
+		} else {
+			$the_ip = '';
 		}
 
 		return esc_sql( $the_ip );
@@ -562,7 +532,7 @@ final class ITSEC_Lib {
 	 */
 	public static function get_ssl() {
 
-		$url = str_replace( 'http://', 'https://', get_bloginfo( 'url' ) );
+		$url = str_ireplace( 'http://', 'https://', get_bloginfo( 'url' ) );
 
 		if ( function_exists( 'wp_http_supports' ) && wp_http_supports( array( 'ssl' ), $url ) ) {
 

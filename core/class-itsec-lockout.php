@@ -746,7 +746,7 @@ class ITSEC_Lockout {
 					$host_expiration = false;
 
 					if ( ! class_exists( 'ITSEC_Ban_Users' ) ) {
-						require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'modules/free/ban-users/class-itsec-ban-users.php' );
+						require( trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/modules/ban-users/class-itsec-ban-users.php' );
 					}
 
 					ITSEC_Ban_Users::insert_ip( sanitize_text_field( $host ) ); //Send it to the Ban Users module for banning
