@@ -56,7 +56,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				}
 			}
 			
-			if ( ! is_array( $upload_dir ) ) {
+			if ( ! isset( $upload_dir ) || ! is_array( $upload_dir ) ) {
 
 				if ( is_multisite() ) {
 
@@ -1147,7 +1147,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			if ( isset( $_GET['page'] ) && $_GET['page'] === 'toplevel_page_itsec_go_pro_link' ) {
 
-				wp_redirect( 'http://ithemes.com/security', 301 );
+				wp_redirect( 'https://ithemes.com/security/?utm_source=wordpressadmin&utm_medium=wpmenu&utm_campaign=itsecfreecta', 301 );
 				exit();
 
 			}

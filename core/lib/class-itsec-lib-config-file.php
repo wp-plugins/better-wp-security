@@ -243,6 +243,25 @@ class ITSEC_Lib_Config_File {
 	}
 	
 	/**
+	 * Remove matched content from the wp-config.php file.
+	 *
+	 * @since 1.17.0
+	 *
+	 * @param array|string $patterns An array of regular expression strings or a string for a regular expression to
+	 *                               match in the file.
+	 * @return int|WP_Error Number of matches removed or a WP_Error object on error.
+	 */
+	public static function remove_from_wp_config( $patterns ) {
+		$file_path = self::get_wp_config_file_path();
+		
+		if ( empty( $file_path ) ) {
+			return new WP_Error( 'itsec-lib-config-file-wp-config-file-updates-disabled', __( 'Updates to <code>wp-config.php</code> are disabled via a filter.', 'it-l10n-better-wp-security' ) );
+		}
+		
+		return self::remove( $file_path, $patterns );
+	}
+	
+	/**
 	 * Write the supplied modification to the wp-config.php file.
 	 *
 	 * @since 1.15.0
@@ -527,6 +546,55 @@ class ITSEC_Lib_Config_File {
 	}
 	
 	/**
+	 * Remove matched content from the supplied file.
+	 *
+	 * @since 1.17.0
+	 *
+	 * @param string       $file     Config file to update.
+	 * @param array|string $patterns An array of regular expression strings or a string for a regular expression to
+	 *                               match in the file.
+	 * @return int|WP_Error Number of matches removed or a WP_Error object on error.
+	 */
+	protected static function remove( $file, $patterns ) {
+		$replacements = array();
+		
+		foreach ( (array) $patterns as $pattern ) {
+			$replacements[$pattern] = '';
+		}
+		
+		
+		return self::replace( $file, $replacements );
+	}
+	
+	/**
+	 * Replace matched content in a file.
+	 *
+	 * @since 1.17.0
+	 *
+	 * @param string       $file         Config file to update.
+	 * @param array|string $replacements An array of regular expression string indexes with replacement string values.
+	 * @return int|WP_Error Number of replacements made or a WP_Error object on error.
+	 */
+	protected static function replace( $file, $replacements ) {
+		$contents = self::get_file_contents( $file );
+		
+		if ( is_wp_error( $contents ) ) {
+			return $contents;
+		}
+		
+		
+		$total = 0;
+		
+		foreach ( (array) $replacements as $pattern => $replacement ) {
+			$contents = preg_replace( $pattern, $replacement, $contents, -1, $count );
+			$total += $count;
+		}
+		
+		// Write the new contents to the file and return the results.
+		return ITSEC_Lib_File::write( $file, $contents );
+	}
+	
+	/**
 	 * Get the appropriate comment delimiter for a specific type of config.
 	 *
 	 * @since 1.15.0
@@ -600,58 +668,6 @@ class ITSEC_Lib_Config_File {
 	}
 	
 	/**
-	 * Internal class function to remove comments from a string containing PHP code.
-	 *
-	 * @since 1.15.0
-	 * @access protected
-	 *
-	 * @param string $contents String containing the code to strip of comments.
-	 * @return string|WP_Error Returns a string containing the stripped source or a WP_Error object on an error.
-	 */
-	protected static function strip_php_comments( $contents ) {
-		if ( ! ITSEC_Lib_Utility::is_callable_function( 'token_get_all' ) ) {
-			return new WP_Error( 'itsec-lib-config-file-strip-php-comments-token-get-all-is-disabled', __( 'Unable to strip comments from the source code as the token_get_all() function is disabled. This is a system configuration issue.', 'it-l10n-better-wp-security' ) );
-		}
-		
-		
-		$tokens = token_get_all( $contents );
-		
-		if ( ! is_array( $tokens ) ) {
-			return new WP_Error( 'itsec-lib-config-file-strip-php-comments-token-get-all-invalid-response', sprintf( __( 'Unable to strip comments from the source code as the token_get_all() function returned an unrecognized value (type: %s)', 'it-l10n-better-wp-security' ), gettype( $tokens ) ) );
-		}
-		
-		
-		if ( ! defined( 'T_ML_COMMENT' ) ) {
-			define( 'T_ML_COMMENT', T_COMMENT );
-		}
-		if ( ! defined( 'T_DOC_COMMENT' ) ) {
-			define( 'T_DOC_COMMENT', T_ML_COMMENT );
-		}
-		
-		$contents = '';
-		
-		foreach ( $tokens as $token ) {
-			if ( is_string( $token ) ) {
-				$contents .= $token;
-			} else {
-				list( $id, $text ) = $token;
-				
-				switch ($id) {
-					case T_COMMENT:
-					case T_ML_COMMENT:
-					case T_DOC_COMMENT:
-						break;
-					default:
-						$contents .= $text;
-						break;
-				}
-			}
-		}
-		
-		return $contents;
-	}
-	
-	/**
 	 * Get full file path to the server's config file for the site.
 	 *
 	 * Customize the returned value with the itsec_filter_server_config_file_path filter. Filter the value to a blank
@@ -668,7 +684,8 @@ class ITSEC_Lib_Config_File {
 			return '';
 		}
 		
-		$file_path = ABSPATH . $file;
+		$home_path = get_home_path();
+		$file_path = $home_path . $file;
 		$file_path = apply_filters( 'itsec_filter_server_config_file_path', $file_path, $file );
 		
 		return $file_path;

@@ -57,35 +57,12 @@ class ITSEC_Salts_Admin {
 		$this->module_path = ITSEC_Lib::get_module_path( __FILE__ );
 		$this->settings    = false;
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) ); //enqueue scripts for admin page
 		add_action( 'itsec_add_admin_meta_boxes', array( $this, 'itsec_add_admin_meta_boxes' ) ); //add meta boxes to admin page
 		add_filter( 'itsec_add_dashboard_status', array( $this, 'itsec_add_dashboard_status' ) ); //add information for plugin status
 		add_filter( 'itsec_tracking_vars', array( $this, 'itsec_tracking_vars' ) ); //Usage information tracked via Google Analytics (opt-in)
 
 		if ( ! empty( $_POST ) ) {
 			add_action( 'itsec_admin_init', array( $this, 'initialize_admin' ) ); //Process the WordPress Salts change if a form has been submitted
-		}
-
-	}
-
-	/**
-	 * Add Files Admin Javascript
-	 *
-	 * Enqueues files used in the admin area for the content directory module
-	 *
-	 * @since 4.6.0
-	 *
-	 * @return void
-	 */
-	public function admin_enqueue_scripts() {
-
-		global $itsec_globals;
-
-		if ( isset( get_current_screen()->id ) && false !== strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec_advanced' ) ) {
-
-			wp_register_script( 'itsec_content_directory_js', $this->module_path . 'js/itsec-salts.js', array( 'jquery' ), $itsec_globals['plugin_build'] );
-			wp_enqueue_script( 'itsec_content_directory_js' );
-
 		}
 
 	}

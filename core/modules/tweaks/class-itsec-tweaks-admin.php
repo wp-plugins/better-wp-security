@@ -466,29 +466,6 @@ class ITSEC_Tweaks_Admin {
 	}
 
 	/**
-	 * echos Remove WordPress Generator Meta Tag Field
-	 *
-	 * @since 4.0
-	 *
-	 * @return void
-	 */
-	public function tweaks_wordpress_generator_tag() {
-
-		if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === true ) {
-			$generator_tag = 1;
-		} else {
-			$generator_tag = 0;
-		}
-
-		$content = '<input type="checkbox" id="itsec_tweaks_server_generator_tag" name="itsec_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_generator_tag">' . __( 'Remove WordPress Generator Meta Tag', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Removes the <code>&lt;meta name="generator" content="WordPress [version]" /&gt;</code></pre> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'it-l10n-better-wp-security' ) . '</p>';
-
-		echo $content;
-
-	}
-
-	/**
 	 * echos Hide Plugin Update Notifications Field
 	 *
 	 * @since 4.0
@@ -506,29 +483,6 @@ class ITSEC_Tweaks_Admin {
 		$content = '<input type="checkbox" id="itsec_tweaks_server_plugin_updates" name="itsec_tweaks[plugin_updates]" value="1" ' . checked( 1, $plugin_updates, false ) . '/>';
 		$content .= '<label for="itsec_tweaks_server_plugin_updates">' . __( 'Hide Plugin Update Notifications', 'it-l10n-better-wp-security' ) . '</label>';
 		$content .= '<p class="description">' . __( 'Hides plugin update notifications from users who cannot update plugins. Please note that this only makes a difference in multi-site installations.', 'it-l10n-better-wp-security' ) . '</p>';
-
-		echo $content;
-
-	}
-
-	/**
-	 * echos Display Random Version Field
-	 *
-	 * @since 4.0
-	 *
-	 * @return void
-	 */
-	public function tweaks_wordpress_random_version() {
-
-		if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === true ) {
-			$random_version = 1;
-		} else {
-			$random_version = 0;
-		}
-
-		$content = '<input type="checkbox" id="itsec_tweaks_server_random_version" name="itsec_tweaks[random_version]" value="1" ' . checked( 1, $random_version, false ) . '/>';
-		$content .= '<label for="itsec_tweaks_server_random_version">' . __( 'Display Random Version', 'it-l10n-better-wp-security' ) . '</label>';
-		$content .= '<p class="description">' . __( 'Where a WordPress version must be displayed, it will display a random WordPress version and will remove the WordPress version completely where possible.', 'it-l10n-better-wp-security' ) . '</p>';
 
 		echo $content;
 
@@ -739,27 +693,17 @@ class ITSEC_Tweaks_Admin {
 		}
 		
 		if ( true === $input['uploads_php'] ) {
-			$upload_path = get_option( 'upload_path' );
+			require_once( trailingslashit( $GLOBALS['itsec_globals']['plugin_dir'] ) . 'core/lib/class-itsec-lib-utility.php' );
 			
-			if ( is_string( $upload_path ) && ! empty( $upload_path ) && ( 'wp-content/uploads' !== $upload_path ) ) {
-				$upload_path = str_replace( '\\', '/', $upload_path );
-				$abspath = str_replace( '\\', '/', ABSPATH );
+			$dir = ITSEC_Lib_Utility::get_relative_upload_url_path();
+			
+			if ( ! empty( $dir ) ) {
+				$dir = preg_quote( $dir );
 				
-				if ( 0 === strpos( $upload_path, $abspath ) ) {
-					$dir = preg_replace( '|^' . preg_quote( $abspath, '|' ) . '/?|', '', $upload_path );
-				}
+				$rewrites .= "\n";
+				$rewrites .= "\t\t# " . __( 'Disable PHP in Uploads - Security > Settings > System Tweaks > Uploads', 'it-l10n-better-wp-security' ) . "\n";
+				$rewrites .= "\t\tRewriteRule ^$dir/.*\.(?:php[1-6]?|pht|phtml?)$ - [NC,F]\n";
 			}
-			
-			if ( empty( $dir ) ) {
-				$dir = 'wp-content/uploads';
-			}
-			
-			$dir = trim( $dir, '/' );
-			$dir = preg_quote( $dir );
-			
-			$rewrites .= "\n";
-			$rewrites .= "\t\t# " . __( 'Disable PHP in Uploads - Security > Settings > System Tweaks > Uploads', 'it-l10n-better-wp-security' ) . "\n";
-			$rewrites .= "\t\tRewriteRule ^$dir/.*\.(?:php[1-6]?|pht|phtml?)$ - [NC,F]\n";
 		}
 		
 		if ( true == $input['request_methods'] ) {
@@ -866,9 +810,17 @@ class ITSEC_Tweaks_Admin {
 		
 		// Rewrite Rules for Disable PHP in Uploads
 		if ( true === $input['uploads_php'] ) {
-			$modification .= "\n";
-			$modification .= "\t# " . __( 'Disable PHP in Uploads - Security > Settings > System Tweaks > Uploads', 'it-l10n-better-wp-security' ) . "\n";
-			$modification .= "\tlocation ^(.*)/uploads/(.*).php(.?) { deny all; }\n";
+			require_once( trailingslashit( $GLOBALS['itsec_globals']['plugin_dir'] ) . 'core/lib/class-itsec-lib-utility.php' );
+			
+			$dir = ITSEC_Lib_Utility::get_relative_upload_url_path();
+			
+			if ( ! empty( $dir ) ) {
+				$dir = preg_quote( $dir );
+				
+				$modification .= "\n";
+				$modification .= "\t# " . __( 'Disable PHP in Uploads - Security > Settings > System Tweaks > Uploads', 'it-l10n-better-wp-security' ) . "\n";
+				$modification .= "\tlocation ^$dir/(.*).php(.?) { deny all; }\n";
+			}
 		}
 		
 		// Apache rewrite rules for disable http methods
@@ -1135,26 +1087,6 @@ class ITSEC_Tweaks_Admin {
 
 		array_push( $statuses[ $status_array ], $status );
 
-		if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === true ) {
-
-			$status_array = 'safe-medium';
-			$status       = array(
-				'text' => __( 'Your WordPress installation is not telling every bot that you use WordPress.', 'it-l10n-better-wp-security' ),
-				'link' => '#itsec_tweaks_server_generator_tag',
-			);
-
-		} else {
-
-			$status_array = 'medium';
-			$status       = array(
-				'text' => __( 'Your WordPress installation is telling every bot that you use WordPress with a special "generator" tag. Click here to fix this.', 'it-l10n-better-wp-security' ),
-				'link' => '#itsec_tweaks_server_generator_tag',
-			);
-
-		}
-
-		array_push( $statuses[ $status_array ], $status );
-
 		if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] === true ) {
 
 			$status_array = 'safe-low';
@@ -1273,26 +1205,6 @@ class ITSEC_Tweaks_Admin {
 			$status       = array(
 				'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'it-l10n-better-wp-security' ),
 				'link' => '#itsec_tweaks_server_comment_spam',
-			);
-
-		}
-
-		array_push( $statuses[ $status_array ], $status );
-
-		if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === true ) {
-
-			$status_array = 'safe-low';
-			$status       = array(
-				'text' => __( 'Version information is obscured to all non admin users.', 'it-l10n-better-wp-security' ),
-				'link' => '#itsec_tweaks_server_random_version',
-			);
-
-		} else {
-
-			$status_array = 'low';
-			$status       = array(
-				'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'it-l10n-better-wp-security' ),
-				'link' => '#itsec_tweaks_server_random_version',
 			);
 
 		}
@@ -1559,14 +1471,6 @@ class ITSEC_Tweaks_Admin {
 		);
 
 		add_settings_field(
-			'itsec_tweaks[generator_tag]',
-			__( 'Generator Meta Tag', 'it-l10n-better-wp-security' ),
-			array( $this, 'tweaks_wordpress_generator_tag' ),
-			'security_page_toplevel_page_itsec_settings',
-			'tweaks_wordpress'
-		);
-
-		add_settings_field(
 			'itsec_tweaks[wlwmanifest_header]',
 			__( 'Windows Live Writer Header', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_wlwmanifest_header' ),
@@ -1586,14 +1490,6 @@ class ITSEC_Tweaks_Admin {
 			'itsec_tweaks[comment_spam]',
 			__( 'Comment Spam', 'it-l10n-better-wp-security' ),
 			array( $this, 'tweaks_wordpress_comment_spam' ),
-			'security_page_toplevel_page_itsec_settings',
-			'tweaks_wordpress'
-		);
-
-		add_settings_field(
-			'itsec_tweaks[random_version]',
-			__( 'Display Random Version', 'it-l10n-better-wp-security' ),
-			array( $this, 'tweaks_wordpress_random_version' ),
 			'security_page_toplevel_page_itsec_settings',
 			'tweaks_wordpress'
 		);
@@ -1764,11 +1660,6 @@ class ITSEC_Tweaks_Admin {
 	public function one_click_settings( $one_click_settings ) {
 
 		$one_click_settings['itsec_tweaks'][] = array(
-			'option' => 'generator_tag',
-			'value'  => 1,
-		);
-
-		$one_click_settings['itsec_tweaks'][] = array(
 			'option' => 'wlwmanifest_header',
 			'value'  => 1,
 		);
@@ -1843,14 +1734,12 @@ class ITSEC_Tweaks_Admin {
 		$input['non_english_characters']      = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? true : false );
 		$input['long_url_strings']            = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? true : false );
 		$input['write_permissions']           = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? true : false );
-		$input['generator_tag']               = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? true : false );
 		$input['wlwmanifest_header']          = ( isset( $input['wlwmanifest_header'] ) && intval( $input['wlwmanifest_header'] == 1 ) ? true : false );
 		$input['edituri_header']              = ( isset( $input['edituri_header'] ) && intval( $input['edituri_header'] == 1 ) ? true : false );
 		$input['theme_updates']               = ( isset( $input['theme_updates'] ) && intval( $input['theme_updates'] == 1 ) ? true : false );
 		$input['plugin_updates']              = ( isset( $input['plugin_updates'] ) && intval( $input['plugin_updates'] == 1 ) ? true : false );
 		$input['core_updates']                = ( isset( $input['core_updates'] ) && intval( $input['core_updates'] == 1 ) ? true : false );
 		$input['comment_spam']                = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? true : false );
-		$input['random_version']              = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? true : false );
 		$input['file_editor']                 = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? true : false );
 		$input['disable_xmlrpc']              = isset( $input['disable_xmlrpc'] ) ? intval( $input['disable_xmlrpc'] ) : 0;
 		$input['uploads_php']                 = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? true : false );
@@ -1968,11 +1857,9 @@ class ITSEC_Tweaks_Admin {
 			'long_url_strings'            => '0:b',
 			'write_permissions'           => '0:b',
 			'uploads_php'                 => '0:b',
-			'generator_tag'               => '0:b',
 			'wlwmanifest_header'          => '0:b',
 			'edituri_header'              => '0:b',
 			'comment_spam'                => '0:b',
-			'random_version'              => '0:b',
 			'file_editor'                 => '0:b',
 			'disable_xmlrpc'              => '0:b',
 			'core_updates'                => '0:b',

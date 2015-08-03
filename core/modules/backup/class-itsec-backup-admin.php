@@ -67,10 +67,7 @@ class ITSEC_Backup_Admin {
 
 		if ( isset( $_POST['itsec_backup'] ) && $_POST['itsec_backup'] == 'one_time_backup' ) {
 			add_action( 'itsec_admin_init', array( $this, 'one_time_backup' ) );
-		}
-
-		//manually save options on multisite
-		if ( is_multisite() ) {
+		} elseif ( is_multisite() ) {
 			add_action( 'itsec_admin_init', array( $this, 'itsec_admin_init_multisite' ) ); //save multisite options
 		}
 

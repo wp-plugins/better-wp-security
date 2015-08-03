@@ -19,14 +19,12 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 				'non_english_characters'      => false,
 				'long_url_strings'            => false,
 				'write_permissions'           => false,
-				'generator_tag'               => false,
 				'wlwmanifest_header'          => false,
 				'edituri_header'              => false,
 				'theme_updates'               => false,
 				'plugin_updates'              => false,
 				'core_updates'                => false,
 				'comment_spam'                => false,
-				'random_version'              => false,
 				'file_editor'                 => false,
 				'disable_xmlrpc'              => 0,
 				'uploads_php'                 => false,
@@ -157,14 +155,12 @@ if ( ! class_exists( 'ITSEC_Tweaks_Setup' ) ) {
 				$current_options['non_english_characters']   = isset( $itsec_bwps_options['st_ht_foreign'] ) && $itsec_bwps_options['st_ht_foreign'] == 1 ? true : false;
 				$current_options['long_url_strings']         = isset( $itsec_bwps_options['st_longurl'] ) && $itsec_bwps_options['st_longurl'] == 1 ? true : false;
 				$current_options['write_permissions']        = isset( $itsec_bwps_options['st_fileperm'] ) && $itsec_bwps_options['st_fileperm'] == 1 ? true : false;
-				$current_options['generator_tag']            = isset( $itsec_bwps_options['st_generator'] ) && $itsec_bwps_options['st_generator'] == 1 ? true : false;
 				$current_options['wlwmanifest_header']       = isset( $itsec_bwps_options['st_manifest'] ) && $itsec_bwps_options['st_manifest'] == 1 ? true : false;
 				$current_options['edituri_header']           = isset( $itsec_bwps_options['st_edituri'] ) && $itsec_bwps_options['st_edituri'] == 1 ? true : false;
 				$current_options['theme_updates']            = isset( $itsec_bwps_options['st_themenot'] ) && $itsec_bwps_options['st_themenot'] == 1 ? true : false;
 				$current_options['plugin_updates']           = isset( $itsec_bwps_options['st_pluginnot'] ) && $itsec_bwps_options['st_pluginnot'] == 1 ? true : false;
 				$current_options['core_updates']             = isset( $itsec_bwps_options['st_corenot'] ) && $itsec_bwps_options['st_corenot'] == 1 ? true : false;
 				$current_options['comment_spam']             = isset( $itsec_bwps_options['st_comment'] ) && $itsec_bwps_options['st_comment'] == 1 ? true : false;
-				$current_options['random_version']           = isset( $itsec_bwps_options['st_randomversion'] ) && $itsec_bwps_options['st_randomversion'] == 1 ? true : false;
 				$current_options['login_errors']             = isset( $itsec_bwps_options['st_loginerror'] ) && $itsec_bwps_options['st_loginerror'] == 1 ? true : false;
 
 				update_site_option( 'itsec_tweaks', $current_options );

@@ -503,12 +503,6 @@ class ITSEC_Setup {
 		}
 
 		ITSEC_Lib::clear_caches();
-
-		// Clean up data from removed malware modules.
-		delete_site_option( 'itsec_malware' );
-		delete_site_option( 'itsec_malware_scheduling' );
-		delete_site_option( 'itsec_malware_scheduling_report_queue' );
-		$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "options` WHERE `option_name` LIKE ('%itsec_malware_scheduling_last_scans%')" );
 	}
 
 	/**

@@ -94,7 +94,7 @@ class ITSEC_Core_Admin {
 	public function add_plugin_meta_links( $meta ) {
 
 		$meta[] = '<a href="http://ithemes.com/security/ithemes-security-professional-setup" target="_blank">' . __( 'Get Pro Setup', 'it-l10n-better-wp-security' ) . '</a>';
-		$meta[] = '<a href="http://ithemes.com/security" target="_blank">' . __( 'Get Support', 'it-l10n-better-wp-security' ) . '</a>';
+		$meta[] = '<a href="https://ithemes.com/security?utm_source=wordpressadmin&utm_medium=banner&utm_campaign=itsecfreecta" target="_blank">' . __( 'Get Support', 'it-l10n-better-wp-security' ) . '</a>';
 
 		return $meta;
 	}
@@ -136,7 +136,7 @@ class ITSEC_Core_Admin {
 		echo '<div class="column two">';
 		echo '<h2>' . __( 'Website Security is a complicated subject, but we have experts that can help.', 'it-l10n-better-wp-security' ) . '</h2>';
 		echo '<p>' . __( 'Get added peace of mind with professional support from our expert team and pro features to take your site security to the next level with iThemes Security Pro.', 'it-l10n-better-wp-security' ) . '</p>';
-		echo '<p><a class="button-primary" href="http://www.ithemes.com/security" target="_blank">' . __( 'Get Support and Pro Features', 'it-l10n-better-wp-security' ) . '</a></p>';
+		echo '<p><a class="button-primary" href="https://ithemes.com/security?utm_source=wordpressadmin&utm_medium=banner&utm_campaign=itsecfreecta" target="_blank">' . __( 'Get Support and Pro Features', 'it-l10n-better-wp-security' ) . '</a></p>';
 		echo '</div>';
 		echo '</div>';
 
@@ -154,9 +154,9 @@ class ITSEC_Core_Admin {
 		echo '<p>' . __( 'Since you are using the free version of iThemes Security from WordPress.org, you can get free support from the WordPress community.', 'it-l10n-better-wp-security' ) . '</p>';
 		echo '<p><a class="button-secondary" href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">' . __( 'Get Free Support', 'it-l10n-better-wp-security' ) . '</a></p>';
 		echo '<p>' . __( 'Be sure your site has been properly secured by having one of our security experts tailor iThemes Security settings to the specific needs of this site.', 'it-l10n-better-wp-security' ) . '</p>';
-		echo '<p><a class="button-secondary" href="http://ithemes.com/security/ithemes-security-professional-setup" target="_blank">' . __( 'Have an expert secure my site', 'it-l10n-better-wp-security' ) . '</a></p>';
+		echo '<p><a class="button-secondary" href="https://ithemes.com/security/ithemes-security-professional-setup" target="_blank">' . __( 'Have an expert secure my site', 'it-l10n-better-wp-security' ) . '</a></p>';
 		echo '<p>' . __( 'Get added peace of mind with professional support from our expert team and pro features with iThemes Security Pro.', 'it-l10n-better-wp-security' ) . '</p>';
-		echo '<p><a class="button-secondary" href="http://www.ithemes.com/security" target="_blank">' . __( 'Get iThemes Security Pro', 'it-l10n-better-wp-security' ) . '</a></p>';
+		echo '<p><a class="button-secondary" href="https://ithemes.com/security/?utm_source=wordpressadmin&utm_medium=widget&utm_campaign=itsecfreecta" target="_blank">' . __( 'Get iThemes Security Pro', 'it-l10n-better-wp-security' ) . '</a></p>';
 
 	}
 
@@ -360,7 +360,7 @@ class ITSEC_Core_Admin {
 
 			//take the user to paypal if they've clicked donate
 			if ( isset( $_GET['itsec_donate'] ) ) {
-				wp_redirect( 'http://ithemes.com/security', '302' );
+				wp_redirect( 'https://ithemes.com/security', '302' );
 				exit();
 			}
 

@@ -103,4 +103,76 @@ class ITSEC_Lib_Utility {
 	public static function normalize_line_endings( $content, $line_ending = "\n" ) {
 		return preg_replace( '/(?<!\r)\n|\r(?!\n)|(?<!\r)\r\n|\r\r\n/', $line_ending, $content );
 	}
+	
+	/**
+	 * Returns the directory path to the uploads directory relative to the site root.
+	 *
+	 * @since 1.16.1
+	 *
+	 * @return string|bool The upload directory relative path or false if the path could not be determined.
+	 */
+	public static function get_relative_upload_url_path() {
+		$upload_dir_details = wp_upload_dir();
+		$upload_baseurl = parse_url( $upload_dir_details['baseurl'], PHP_URL_PATH );
+		$home_url = parse_url( home_url(), PHP_URL_PATH );
+		
+		$upload_path = preg_replace( '/^' . preg_quote( $home_url, '/' ) . '/', '', $upload_baseurl, 1, $count );
+		
+		if ( 1 === $count ) {
+			return trim( $upload_path, '/' );
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Remove comments from a string containing PHP code.
+	 *
+	 * @since 1.15.0
+	 *
+	 * @param string $contents String containing the code to strip of comments.
+	 * @return string|WP_Error Returns a string containing the stripped source or a WP_Error object on an error.
+	 */
+	public static function strip_php_comments( $contents ) {
+		if ( ! self::is_callable_function( 'token_get_all' ) ) {
+			return new WP_Error( 'itsec-lib-utility-strip-php-comments-token-get-all-is-disabled', __( 'Unable to strip comments from the source code as the token_get_all() function is disabled. This is a system configuration issue.', 'it-l10n-better-wp-security' ) );
+		}
+		
+		
+		$tokens = token_get_all( $contents );
+		
+		if ( ! is_array( $tokens ) ) {
+			return new WP_Error( 'itsec-lib-utility-strip-php-comments-token-get-all-invalid-response', sprintf( __( 'Unable to strip comments from the source code as the token_get_all() function returned an unrecognized value (type: %s)', 'it-l10n-better-wp-security' ), gettype( $tokens ) ) );
+		}
+		
+		
+		if ( ! defined( 'T_ML_COMMENT' ) ) {
+			define( 'T_ML_COMMENT', T_COMMENT );
+		}
+		if ( ! defined( 'T_DOC_COMMENT' ) ) {
+			define( 'T_DOC_COMMENT', T_ML_COMMENT );
+		}
+		
+		$contents = '';
+		
+		foreach ( $tokens as $token ) {
+			if ( is_string( $token ) ) {
+				$contents .= $token;
+			} else {
+				list( $id, $text ) = $token;
+				
+				switch ($id) {
+					case T_COMMENT:
+					case T_ML_COMMENT:
+					case T_DOC_COMMENT:
+						break;
+					default:
+						$contents .= $text;
+						break;
+				}
+			}
+		}
+		
+		return $contents;
+	}
 }

@@ -263,3 +263,13 @@
 	Bug Fix: Enabling and disabling the "Remove File Writing Permissions" setting now updates the file permissions properly.
 	Bug Fix: Web servers that cannot be recognized now default to Apache.
 	Enhancement: Updated the hackrepair lists.
+1.16.0 - 2015-08-03 - Chris Jean
+	Feature Removal: Removed the "Remove WordPress Generator Meta Tag" feature as it is not recommended due to limited security benefit and creating compatibility issues.
+	Enhancement: Added the ability to undo the Content Directory change.
+	Bug Fix: No longer tries to load a non-existent JavaScript file for the salts module.
+	Bug Fix: Fixed an issue with one-time database backups on multi-site installs.
+	Bug Fix: Fixed issues related to locating .htaccess or nginx.conf files on sites with WordPress installed in a separate directory.
+	Bug Fix: Fixed issues with PHP blocking in uploads directory not working with certain non-standard setups.
+	Bug Fix: Minor change to fix a warning that can appear after changing the Content Directory.
+	Bug Fix: Fixed a PHP fatal error that could occur on some servers when adding a ban to the site's .htaccess or nginx.conf file.
+	Bug Fix: Fixed some issues with profile pages on multisite setups that affected both two factor authentication and the password generator.

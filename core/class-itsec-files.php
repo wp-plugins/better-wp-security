@@ -434,7 +434,7 @@ final class ITSEC_Files {
 		require_once( trailingslashit( $GLOBALS['itsec_globals']['plugin_dir'] ) . 'core/lib/class-itsec-lib-config-file.php' );
 		$result = ITSEC_Lib_Config_File::append_server_config( $host_rule );
 		
-		if ( is_error( $result ) ) {
+		if ( is_wp_error( $result ) ) {
 			return false;
 		}
 		

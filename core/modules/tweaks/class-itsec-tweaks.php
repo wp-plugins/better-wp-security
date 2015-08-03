@@ -10,11 +10,6 @@ class ITSEC_Tweaks {
 
 		if ( ! defined( 'WP_CLI' ) || false === WP_CLI ) { //don't risk blocking anything with WP_CLI
 
-			//remove wp-generator meta tag
-			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] == true ) {
-				remove_action( 'wp_head', 'wp_generator' );
-			}
-
 			//remove wlmanifest link if turned on
 			if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] == true ) {
 				remove_action( 'wp_head', 'wlwmanifest_link' );
@@ -52,11 +47,6 @@ class ITSEC_Tweaks {
 
 				}
 
-			}
-
-			//display random number for wordpress version if turned on
-			if ( ( ! isset( $itsec_globals['is_iwp_call'] ) || $itsec_globals['is_iwp_call'] === false ) && isset( $this->settings['random_version'] ) && $this->settings['random_version'] == true ) {
-				add_action( 'plugins_loaded', array( $this, 'random_version' ) );
 			}
 
 			//remove theme update notifications if turned on
@@ -237,35 +227,6 @@ class ITSEC_Tweaks {
 			remove_action( 'load-update-core.php', 'wp_update_plugins' );
 			add_filter( 'pre_site_transient_update_plugins', array( $this, 'empty_return_function' ) );
 			wp_clear_scheduled_hook( 'wp_update_plugins' );
-
-		}
-
-	}
-
-	/**
-	 * Display random WordPress version
-	 *
-	 * @return void
-	 */
-	function random_version() {
-
-		global $wp_version;
-
-		$new_version = get_site_transient( 'itsec_random_version' );
-
-		if ( $new_version === false ) {
-
-			$new_version = mt_rand( 100, 500 );
-			set_site_transient( 'itsec_random_version', $new_version, 86400 );
-
-		}
-
-		//always show real version to site administrators
-		if ( ! current_user_can( 'manage_options' ) ) {
-
-			$wp_version = $new_version;
-			add_filter( 'script_loader_src', array( $this, 'remove_script_version' ), 15, 1 );
-			add_filter( 'style_loader_src', array( $this, 'remove_script_version' ), 15, 1 );
 
 		}
 

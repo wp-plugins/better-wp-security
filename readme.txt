@@ -2,8 +2,8 @@
 Contributors: ithemes, chrisjean, aaroncampbell, gerroald, mattdanner
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.0
-Tested up to: 4.2.2
-Stable tag: 4.8.0
+Tested up to: 4.2.3
+Stable tag: 4.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,23 +48,6 @@ Manage more than one site? Manage away mode, release lockouts and make sure your
 
 Network Brute Force Protection takes brute force protection to the next level by further banning users who have tried to break into other sites from breaking into yours. The iThemes Brute Force Protection Network will automatically report IP addresses of failed login attempts to iThemes and will block them for a length of time necessary to protect your site based on the number of sites that have seen a similar attack.
 
-= Obscure =
-
-iThemes Security hides common WordPress security vulnerabilities, preventing attackers from learning too much about your site and away from sensitive areas like your site's login, admin, etc.
-
-* Changes the URLs for WordPress dashboard areas including login, admin and more
-* Completely turns off the ability to login for a given time period (away mode)
-* Removes the meta "Generator" tag
-* Removes theme, plugin, and core update notifications from users who do not have permission to update them
-* Removes Windows Live Write header information
-* Removes RSD header information
-* Renames "admin" account
-* Changes the ID on the user with ID 1
-* Changes the Wordpress database table prefix
-* Changes wp-content path
-* Removes login error messages
-* Displays a random version number to non administrative users
-
 = Protect =
 
 Hiding parts of your site is helpful, but won't prevent all attacks. In addition to obscuring sensitive areas of your WordPress site, iThemes Security works to protect it by blocking bad users and increasing the security of passwords and other vital information.
@@ -76,7 +59,7 @@ Hiding parts of your site is helpful, but won't prevent all attacks. In addition
 * Enforces strong passwords for all accounts of a configurable minimum role
 * Forces SSL for admin pages (on supporting servers)
 * Forces SSL for any page or post (on supporting servers)
-* Turns off file editing from within Wordpress admin area
+* Turns off file editing from within WordPress admin area
 * Detects and blocks numerous attacks to your filesystem and database
 
 = Detect =
@@ -88,6 +71,21 @@ iThemes Security monitors your site and reports changes to the filesystem and da
 * Run a scan for blacklists on the homepage of your site
 * Receive email notifications when someone gets locked out after too many failed login attempts or when a file on your site has been changed.
 
+= Obscure =
+
+iThemes Security hides common WordPress security vulnerabilities, preventing attackers from learning too much about your site and away from sensitive areas like your site's login, admin, etc.
+
+* Changes the URLs for WordPress dashboard areas including login, admin and more
+* Completely turns off the ability to login for a given time period (away mode)
+* Removes theme, plugin, and core update notifications from users who do not have permission to update them
+* Removes Windows Live Write header information
+* Removes RSD header information
+* Renames "admin" account
+* Changes the ID on the user with ID 1
+* Changes the WordPress database table prefix
+* Changes wp-content path
+* Removes login error messages
+
 = Recover =
 
 iThemes Security makes regular backups of your WordPress database, allowing you to get back online quickly in the event of an attack. Use iThemes Security to create and email database backups on a customizable schedule.
@@ -98,7 +96,6 @@ For complete site backups and the ability to restore or move WordPress easily, c
 
 * Makes it easier for users not accustomed to WordPress to remember login and admin URLs by customizing default admin URLs
 * Detects hidden 404 errors on your site that can affect your SEO such as bad links and missing images
-* Removes the existing jQuery version used and replaces it with a safe version (the version that comes default with WordPress).
 
 = Tutorials =
 
@@ -132,7 +129,7 @@ Please read the installation instructions and FAQ before installing this plugin.
 
 NOTE: iThemes Security makes significant changers to your database and other site files which can be problematic, so a backup is strongly recommended before making any changes to your site with this plugin. While problems are rare, most support requests involve the failure to make a proper backup before installation.
 
-1. BEFORE YOU BEGIN: Back up your Wordpress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddy">BackupBuddy</a>, our WordPress backup plugin for a complete site backup.
+1. BEFORE YOU BEGIN: Back up your WordPress database, config file, and .htaccess file. We recommend using <a href="http://ithemes.com/purchase/backupbuddy">BackupBuddy</a>, our WordPress backup plugin for a complete site backup.
 2. Upload the zip file to the `/wp-content/plugins/` directory
 3. Unzip
 4. Activate the plugin through the 'Plugins' menu in WordPress
@@ -191,6 +188,16 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 4.9.0 =
+* Feature Removal: Removed the "Remove WordPress Generator Meta Tag" feature as it is not recommended due to limited security benefit and creating compatibility issues.
+* Enhancement: Added the ability to undo the Content Directory change.
+* Bug Fix: No longer tries to load a non-existent JavaScript file for the salts module.
+* Bug Fix: Fixed an issue with one-time database backups on multi-site installs.
+* Bug Fix: Fixed issues related to locating .htaccess or nginx.conf files on sites with WordPress installed in a separate directory.
+* Bug Fix: Fixed issues with PHP blocking in uploads directory not working with certain non-standard setups.
+* Bug Fix: Minor change to fix a warning that can appear after changing the Content Directory.
+* Bug Fix: Fixed a PHP fatal error that could occur on some servers when adding a ban to the site's .htaccess or nginx.conf file.
 
 = 4.8.0 =
 * Feature Removal: Removed the malware scanning features as VirusTotal no longer supports scanning from WordPress sites. A replacement is in the works.

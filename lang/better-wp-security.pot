@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the iThemes Security package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security 4.8.0\n"
-"Report-Msgid-Bugs-To: http://ithemes.com/forum/\n"
-"POT-Creation-Date: 2015-07-06 16:51:52+00:00\n"
+"Project-Id-Version: iThemes Security 4.9.0\n"
+"Report-Msgid-Bugs-To: http://ithemes.com/support/\n"
+"POT-Creation-Date: 2015-08-03 16:32:16+00:00\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.8.0)  #-#-#-#-#
+#. #-#-#-#-#  better-wp-security.pot (iThemes Security 4.9.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: better-wp-security.php:24
 msgid "iThemes Security"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: core/class-itsec-core.php:270
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:176
-#: core/modules/salts/class-itsec-salts-admin.php:265
+#: core/modules/salts/class-itsec-salts-admin.php:242
 msgid "Settings"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgid "Go Pro"
 msgstr ""
 
 #: core/class-itsec-core.php:325 core/class-itsec-core.php:336
-#: core/modules/backup/class-itsec-backup-admin.php:966
+#: core/modules/backup/class-itsec-backup-admin.php:963
 msgid "Backups"
 msgstr ""
 
@@ -335,8 +335,8 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:383 core/class-itsec-lockout.php:1109
 #: core/modules/away-mode/class-itsec-away-mode-admin.php:574
-#: core/modules/backup/class-itsec-backup-admin.php:478
-#: core/modules/backup/class-itsec-backup-admin.php:625
+#: core/modules/backup/class-itsec-backup-admin.php:475
+#: core/modules/backup/class-itsec-backup-admin.php:622
 #: core/modules/ban-users/class-itsec-ban-users-admin.php:743
 #: core/modules/brute-force/class-itsec-brute-force-admin.php:350
 #: core/modules/file-change/class-itsec-file-change-admin.php:450
@@ -349,7 +349,7 @@ msgstr ""
 #: core/modules/ipcheck/class-itsec-ipcheck-admin.php:437
 #: core/modules/ssl/class-itsec-ssl-admin.php:395
 #: core/modules/strong-passwords/class-itsec-strong-passwords-admin.php:245
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1932
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1821
 msgid "Security error!"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:484
 #: core/modules/away-mode/class-itsec-away-mode-admin.php:438
-#: core/modules/backup/class-itsec-backup-admin.php:561
+#: core/modules/backup/class-itsec-backup-admin.php:558
 #: core/modules/ban-users/class-itsec-ban-users-admin.php:530
 #: core/modules/brute-force/class-itsec-brute-force-admin.php:304
 #: core/modules/file-change/class-itsec-file-change-admin.php:588
@@ -411,9 +411,9 @@ msgstr ""
 #: core/modules/hide-backend/class-itsec-hide-backend-admin.php:460
 #: core/modules/ssl/class-itsec-ssl-admin.php:297
 #: core/modules/strong-passwords/class-itsec-strong-passwords-admin.php:182
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1703
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1726
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1749
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1599
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1622
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1645
 msgid "Save All Changes"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:870
 #: core/class-itsec-global-settings.php:1174
-#: core/modules/backup/class-itsec-backup-admin.php:875
+#: core/modules/backup/class-itsec-backup-admin.php:872
 msgid "Days"
 msgstr ""
 
@@ -637,14 +637,14 @@ msgstr ""
 
 #: core/class-itsec-global-settings.php:1149
 #: core/class-itsec-global-settings.php:1232
-#: core/modules/backup/class-itsec-backup-admin.php:905
+#: core/modules/backup/class-itsec-backup-admin.php:902
 msgid ""
 "This path must be writable by your website. For added security, it is "
 "recommended you do not include it in your website root folder."
 msgstr ""
 
 #: core/class-itsec-global-settings.php:1150
-#: core/modules/backup/class-itsec-backup-admin.php:906
+#: core/modules/backup/class-itsec-backup-admin.php:903
 msgid "Restore Default Location"
 msgstr ""
 
@@ -1566,35 +1566,24 @@ msgid ""
 "prevent the site from functioning correctly."
 msgstr ""
 
-#: core/lib/class-itsec-lib-config-file.php:260
+#: core/lib/class-itsec-lib-config-file.php:258
+#: core/lib/class-itsec-lib-config-file.php:279
 msgid "Updates to <code>wp-config.php</code> are disabled via a filter."
 msgstr ""
 
-#: core/lib/class-itsec-lib-config-file.php:283
+#: core/lib/class-itsec-lib-config-file.php:302
 msgid "Unable to read %1$s due to the following error: %2$s"
 msgstr ""
 
-#: core/lib/class-itsec-lib-config-file.php:415
+#: core/lib/class-itsec-lib-config-file.php:434
 msgid ""
 "The \"Write to Files\" setting is disabled. Manual configuration for the "
 "<code>%s</code> file can be found on the Security > Dashboard page."
 msgstr ""
 
-#: core/lib/class-itsec-lib-config-file.php:521
-#: core/lib/class-itsec-lib-config-file.php:524
+#: core/lib/class-itsec-lib-config-file.php:540
+#: core/lib/class-itsec-lib-config-file.php:543
 msgid "Do not modify or remove this line"
-msgstr ""
-
-#: core/lib/class-itsec-lib-config-file.php:613
-msgid ""
-"Unable to strip comments from the source code as the token_get_all() "
-"function is disabled. This is a system configuration issue."
-msgstr ""
-
-#: core/lib/class-itsec-lib-config-file.php:620
-msgid ""
-"Unable to strip comments from the source code as the token_get_all() "
-"function returned an unrecognized value (type: %s)"
 msgstr ""
 
 #: core/lib/class-itsec-lib-directory.php:37
@@ -1718,6 +1707,18 @@ msgid ""
 "disabled. This is a system configuration issue."
 msgstr ""
 
+#: core/lib/class-itsec-lib-utility.php:138
+msgid ""
+"Unable to strip comments from the source code as the token_get_all() "
+"function is disabled. This is a system configuration issue."
+msgstr ""
+
+#: core/lib/class-itsec-lib-utility.php:145
+msgid ""
+"Unable to strip comments from the source code as the token_get_all() "
+"function returned an unrecognized value (type: %s)"
+msgstr ""
+
 #: core/lib/class-itsec-wp-list-table.php:206
 msgid "No items found."
 msgstr ""
@@ -1808,9 +1809,8 @@ msgid "A user with id 1 still exists."
 msgstr ""
 
 #: core/modules/admin-user/class-itsec-admin-user-admin.php:229
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:123
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:95
-#: core/modules/salts/class-itsec-salts-admin.php:176
+#: core/modules/salts/class-itsec-salts-admin.php:153
 msgid "Security check"
 msgstr ""
 
@@ -1833,7 +1833,6 @@ msgid ""
 msgstr ""
 
 #: core/modules/admin-user/class-itsec-admin-user-admin.php:306
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:163
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:114
 #: core/modules/ssl/class-itsec-ssl-admin.php:279
 #: core/modules/ssl/class-itsec-ssl-admin.php:283
@@ -1841,7 +1840,6 @@ msgid "WARNING"
 msgstr ""
 
 #: core/modules/admin-user/class-itsec-admin-user-admin.php:306
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:163
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:114
 msgid "Backup your database"
 msgstr ""
@@ -2046,8 +2044,8 @@ msgstr ""
 msgid "Away Mode Triggered"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:90
-#: core/modules/backup/class-itsec-backup-admin.php:551
+#: core/modules/backup/class-itsec-backup-admin.php:87
+#: core/modules/backup/class-itsec-backup-admin.php:548
 msgid ""
 "One of the best ways to protect yourself from an attack is to have access to "
 "a database backup of your site. If something goes wrong, you can get your "
@@ -2057,128 +2055,128 @@ msgid ""
 "delete previous backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:112
+#: core/modules/backup/class-itsec-backup-admin.php:109
 msgid "Tables for Backup"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:113
+#: core/modules/backup/class-itsec-backup-admin.php:110
 msgid "Excluded Tables"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:207
+#: core/modules/backup/class-itsec-backup-admin.php:204
 msgid "Description"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:216
+#: core/modules/backup/class-itsec-backup-admin.php:213
 msgid "Make a Database Backup"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:224
+#: core/modules/backup/class-itsec-backup-admin.php:221
 msgid "Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:237
+#: core/modules/backup/class-itsec-backup-admin.php:234
 msgid "Take the Next Steps in Security with BackupBuddy"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:280
+#: core/modules/backup/class-itsec-backup-admin.php:277
 msgid "Your site is performing scheduled database and file backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:295
+#: core/modules/backup/class-itsec-backup-admin.php:292
 msgid ""
 "BackupBuddy is installed but backups do not appear to have been scheduled. "
 "Please schedule backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:310
+#: core/modules/backup/class-itsec-backup-admin.php:307
 msgid "You are using a 3rd party backup solution."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:325
+#: core/modules/backup/class-itsec-backup-admin.php:322
 msgid ""
 "It looks like you have a 3rd-party backup solution in place but are not "
 "using it. Please turn on scheduled backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:333
+#: core/modules/backup/class-itsec-backup-admin.php:330
 msgid ""
 "Your site is performing scheduled database backups but is not backing up "
 "files. Consider purchasing or scheduling BackupBuddy to protect your "
 "investment."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:341
+#: core/modules/backup/class-itsec-backup-admin.php:338
 msgid "Your site is not performing any scheduled database backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:367
+#: core/modules/backup/class-itsec-backup-admin.php:364
 msgid "Configure Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:374
+#: core/modules/backup/class-itsec-backup-admin.php:371
 msgid "Enable Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:381
+#: core/modules/backup/class-itsec-backup-admin.php:378
 msgid "Backup Schedule Settings"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:388
+#: core/modules/backup/class-itsec-backup-admin.php:385
 msgid "Schedule Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:398
+#: core/modules/backup/class-itsec-backup-admin.php:395
 msgid "Backup Interval"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:408
+#: core/modules/backup/class-itsec-backup-admin.php:405
 msgid "Backup Full Database"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:416
+#: core/modules/backup/class-itsec-backup-admin.php:413
 msgid "Backup Method"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:424
+#: core/modules/backup/class-itsec-backup-admin.php:421
 msgid "Backup Location"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:432
+#: core/modules/backup/class-itsec-backup-admin.php:429
 msgid "Backups to Retain"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:440
+#: core/modules/backup/class-itsec-backup-admin.php:437
 msgid "Compress Backup Files"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:448
+#: core/modules/backup/class-itsec-backup-admin.php:445
 msgid "Exclude Tables"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:503
+#: core/modules/backup/class-itsec-backup-admin.php:500
 msgid "Back up your site"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:504
+#: core/modules/backup/class-itsec-backup-admin.php:501
 msgid ""
 "We recommend making a database backup before you get started securing your "
 "site."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:505
+#: core/modules/backup/class-itsec-backup-admin.php:502
 msgid "Make a backup"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:507
+#: core/modules/backup/class-itsec-backup-admin.php:504
 msgid "Backup completed. Please check your email or uploads folder."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:508
+#: core/modules/backup/class-itsec-backup-admin.php:505
 msgid "Whoops. Something went wrong. Check the backup page or contact support."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:578
+#: core/modules/backup/class-itsec-backup-admin.php:575
 msgid ""
 "A database backup is just a simple start. BackupBuddy goes one step further "
 "to provide complete backups of all your site files (including image and "
@@ -2189,95 +2187,95 @@ msgid ""
 "host or domain."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:579
+#: core/modules/backup/class-itsec-backup-admin.php:576
 msgid "5 Reasons You Need a Complete Backup Strategy"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:581
+#: core/modules/backup/class-itsec-backup-admin.php:578
 msgid "Database backups aren't enough."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:581
+#: core/modules/backup/class-itsec-backup-admin.php:578
 msgid ""
 "You need complete backups of your entire site (including images and media "
 "files, themes, plugins, widgets and settings)."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:582
+#: core/modules/backup/class-itsec-backup-admin.php:579
 msgid "Backup files should be protected."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:582
+#: core/modules/backup/class-itsec-backup-admin.php:579
 msgid ""
 "Send and store them safely off-site to a secure remote destination (like "
 "email, Dropbox, Amazon S3, etc.)"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:583
+#: core/modules/backup/class-itsec-backup-admin.php:580
 msgid "Backups should be automated and scheduled so you don't forget."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:583
+#: core/modules/backup/class-itsec-backup-admin.php:580
 msgid ""
 "Set daily, weekly or monthly backups that automatically send backups off-"
 "site."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:584
+#: core/modules/backup/class-itsec-backup-admin.php:581
 msgid "Restoring your site should be quick and easy."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:584
+#: core/modules/backup/class-itsec-backup-admin.php:581
 msgid ""
 "If you get hacked or your server crashes, you shouldn't have to worry about "
 "restoring your site. Reliable backups mean nothing gets corrupted or broken "
 "during the restore process."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:585
+#: core/modules/backup/class-itsec-backup-admin.php:582
 msgid "You should own your backup files."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:585
+#: core/modules/backup/class-itsec-backup-admin.php:582
 msgid ""
 "Don't just rely on a host or service. It's your site, so you should own "
 "everything on it."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:588
+#: core/modules/backup/class-itsec-backup-admin.php:585
 msgid "Learn more about BackupBuddy"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:606
+#: core/modules/backup/class-itsec-backup-admin.php:603
 msgid ""
 "Press the button below to create a backup of your WordPress database. If you "
 "have \"Send Backups By Email\" selected in automated backups you will "
 "receive an email containing the backup file."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:607
+#: core/modules/backup/class-itsec-backup-admin.php:604
 msgid "Create Database Backup"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:608
+#: core/modules/backup/class-itsec-backup-admin.php:605
 msgid "Adjust Backup Settings"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:759
+#: core/modules/backup/class-itsec-backup-admin.php:756
 msgid ""
 "Checking this box will have the backup script backup all tables in your "
 "database, even if they are not part of this WordPress site."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:785
+#: core/modules/backup/class-itsec-backup-admin.php:782
 msgid "Enable Scheduled Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:827
+#: core/modules/backup/class-itsec-backup-admin.php:824
 msgid "Tables with data that does not need to be backed up"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:849
+#: core/modules/backup/class-itsec-backup-admin.php:846
 msgid ""
 "Some plugins can create log files in your database. While these logs might "
 "be handy for some functions, they can also take up a lot of space and, in "
@@ -2286,48 +2284,48 @@ msgid ""
 "will be backed up, but not the data in the table."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:876
+#: core/modules/backup/class-itsec-backup-admin.php:873
 msgid "The number of days between database backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:904
+#: core/modules/backup/class-itsec-backup-admin.php:901
 msgid "The path on your machine where backup files should be stored."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:935
+#: core/modules/backup/class-itsec-backup-admin.php:932
 msgid "Save Locally and Email"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:936
+#: core/modules/backup/class-itsec-backup-admin.php:933
 msgid "Email Only"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:937
+#: core/modules/backup/class-itsec-backup-admin.php:934
 msgid "Save Locally Only"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:939
+#: core/modules/backup/class-itsec-backup-admin.php:936
 msgid "Backup Save Method"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:940
+#: core/modules/backup/class-itsec-backup-admin.php:937
 msgid ""
 "Select what we should do with your backup file. You can have it emailed to "
 "you, saved locally or both."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:967
+#: core/modules/backup/class-itsec-backup-admin.php:964
 msgid ""
 "Limit the number of backups stored locally (on this server). Any older "
 "backups beyond this number will be removed. Setting to \"0\" will retain all "
 "backups."
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:993
+#: core/modules/backup/class-itsec-backup-admin.php:990
 msgid "Zip Database Backups"
 msgstr ""
 
-#: core/modules/backup/class-itsec-backup-admin.php:994
+#: core/modules/backup/class-itsec-backup-admin.php:991
 msgid "You may need to turn this off if you are having problems with backups."
 msgstr ""
 
@@ -2640,138 +2638,170 @@ msgstr ""
 msgid "Invalid Login Attempt"
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:54
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:203
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:29
+msgid ""
+"Do not remove. Removing this line could break your site. Added by Security > "
+"Settings > Change Content Directory."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:75
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:213
 msgid "Change Content Directory"
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:92
-msgid "You have renamed the wp-content directory of your site."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:100
-msgid "You should rename the wp-content directory of your site."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:153
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:115
 msgid ""
-"Congratulations! You have already renamed your \"wp-content\" directory."
+"Unable to undo the change to the content directory due to a failed nonce "
+"verification."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:136
+msgid ""
+"The Content Directory change was successfully changed back to <code>wp-"
+"content</code>."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:138
+msgid "The Content Directory was successfully changed to <code>%s</code>."
 msgstr ""
 
 #: core/modules/content-directory/class-itsec-content-directory-admin.php:154
-msgid "Your current content directory is: "
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:156
-msgid "No further actions are available on this page."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:160
-msgid ""
-"By default, WordPress puts all your content (including images, plugins, "
-"themes, uploads and more) in a directory called \"wp-content.\" This default "
-"folder name makes it easy for attackers to scan for files with security "
-"vulnerabilities on your WordPress installation because they know where the "
-"vulnerable files are located. Moving the \"wp-content\" folder can make it "
-"more difficult for an attacker to find problems with your site, as scans of "
-"your site's file system will not produce any results."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:161
-msgid ""
-"This tool will not allow further changes to your wp-content folder once it "
-"has been renamed in order to avoid accidentally breaking the site later. "
-"Uninstalling this plugin will not revert the changes made by this feature."
+msgid "The <code>wp-content</code> directory is available at <code>%s</code>."
 msgstr ""
 
 #: core/modules/content-directory/class-itsec-content-directory-admin.php:162
 msgid ""
-"Changing the name of the wp-content directory may in fact break plugins and "
-"themes that have \"hard-coded\" it into their design rather than calling it "
-"dynamically."
+"<span>IMPORTANT:</span> Ensure that you <a href=\"%s\">create a database "
+"backup</a> before undoing the Content Directory change."
 msgstr ""
 
 #: core/modules/content-directory/class-itsec-content-directory-admin.php:163
-#: core/modules/database-prefix/class-itsec-database-prefix-admin.php:114
-msgid "before using this tool."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:164
 msgid ""
-"Please note: Changing the name of your wp-content directory on a site that "
-"already has images and other content referencing it will break your site. "
-"For this reason, we highly recommend you only try this technique on a fresh "
-"WordPress install."
+"<span>WARNING:</span> Undoing the Content Directory change when images and "
+"other content were added after the change <strong>will break your site</"
+"strong>. Only undo the Content Directory change if absolutely necessary."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:165
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:166
+msgid "Undo Content Directory Change"
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:172
+msgid "No further actions are available on this page."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:176
 msgid ""
-"<strong>WARNING:</strong> BackupBuddy only works with sites that have the "
-"standard wp-content folder name and location. If you have altered the name "
-"or the location of this folder, BackupBuddy will be unable to properly "
-"create backups or migrate the site."
+"By default, WordPress stores files for plugins, themes, and uploads in a "
+"directory called <code>wp-content</code>. Some older and less intelligent "
+"bots hard coded this directory in order to look for vulnerable files. Modern "
+"bots are intelligent enough to locate this folder programmatically, thus "
+"changing the Content Directory is no longer a recommended security step."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:183
-msgid "Enable Change Directory Name"
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:177
+msgid ""
+"This tool provides an undo feature after changing the Content Directory. "
+"Since not all plugins, themes, or site contents function properly with a "
+"renamed Content Directory, please verify that the site is functioning "
+"correctly after the change. If any issues are encountered, the undo feature "
+"should be used to undo the change. Please note that the undo feature is only "
+"available when the changes added to the <code>wp-config.php</code> file for "
+"this feature are unmodified."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:188
-msgid "Check this box to enable content directory renaming."
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:178
+msgid ""
+"<span>IMPORTANT:</span> Deactivating or uninstalling this plugin will not "
+"revert the changes made by this feature."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:179
+msgid ""
+"<span>IMPORTANT:</span> Ensure that you <a href=\"%s\">create a database "
+"backup</a> before changing the Content Directory."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:180
+msgid ""
+"<span>WARNING:</span> Changing the name of the Content Directory on a site "
+"that already has images and other content referencing it <strong>will break "
+"your site</strong>. For this reason, we highly recommend only changing the "
+"Content Directory on a fresh WordPress install."
 msgstr ""
 
 #: core/modules/content-directory/class-itsec-content-directory-admin.php:193
-msgid "Directory Name"
+msgid "Enable Change Directory Name"
 msgstr ""
 
 #: core/modules/content-directory/class-itsec-content-directory-admin.php:198
+msgid "Check this box to enable Content Directory renaming."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:203
+msgid "Directory Name"
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:208
 msgid ""
 "Enter a new directory name to replace \"wp-content.\" You may need to log in "
 "again after performing this operation."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:212
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:220
 msgid ""
 "You must allow this plugin to write to the wp-config.php file on the <a href="
 "\"%s\">Settings</a> page to use this feature."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:219
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:227
+msgid ""
+"Unable to change the Content Directory due to a failed nonce verification."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:234
 msgid ""
 "The <code>wp-content</code> directory has already been renamed. No Directory "
 "Name changes have been made."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:229
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:244
 msgid "The Directory Name cannot be empty."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:236
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:251
 msgid "You have not chosen a new name for wp-content. Nothing was saved."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:243
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:258
 msgid ""
 "The Directory Name cannot be an absolute path. Please supply a path that is "
 "relative to <code>ABSPATH</code> (<code>%s</code>)."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:253
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:289
+msgid ""
+"A file or directory already exists at <code>%s</code>. The Content Directory "
+"change has not been undone. Please remove the existing file or directory and "
+"try again."
+msgstr ""
+
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:291
 msgid ""
 "A file or directory already exists at <code>%s</code>. No Directory Name "
 "changes have been made. Please choose a new Directory Name or remove the "
 "existing file or directory and try again."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:267
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:307
 msgid ""
-"Unable to rename the <code>wp-content</code> directory to <code>%s</code>. "
-"This could indicate a file permission issue or that your server does not "
-"support the supplied name as a valid directory name. No config file or "
-"directory changes have been made."
+"Unable to rename the <code>%1$s</code> directory to <code>%2$s</code>. This "
+"could indicate a file permission issue or that your server does not support "
+"the supplied name as a valid directory name. No config file or directory "
+"changes have been made."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:279
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:319
 msgid ""
 "Unable to set the permissions of the new Directory Name (<code>%1$s</code>) "
 "to match the permissions of the old Directory Name. You may have to manually "
@@ -2779,41 +2809,34 @@ msgid ""
 "your site to function properly."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:287
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:288
-msgid ""
-"Do not remove. Removing this line could break your site. Added by Security > "
-"Settings > Change Content Directory."
-msgstr ""
-
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:299
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:343
 msgid ""
 "Unable to update the <code>wp-config.php</code> file. No directory or config "
 "file changes have been made. %1$s (%2$s)"
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:301
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:345
 msgid ""
 "In order to change the content directory on your server, you will have to "
 "manually change the configuration and rename the directory. Details can be "
 "found <a href=\"%s\">here</a>."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:303
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:347
 msgid ""
-"CRITICAL ERROR: The <code>wp-content</code> directory was successfully "
-"renamed to the new name (<code>%1$s</code>). However, an error occurred when "
-"updating the <code>wp-config.php</code> file to configure WordPress to use "
-"the new content directory. iThemes Security attempted to rename the "
-"directory back to its original name, but an unknown error prevented the "
-"rename from working as expected. In order for your site to function "
-"properly, you will either need to rename the <code>%1$s</code> directory "
-"back to <code>wp-content</code> or manually update the <code>wp-config.php</"
-"code> file with the necessary modifications. Instructions for making this "
-"modification can be found <a href=\"%2$s\">here</a>."
+"CRITICAL ERROR: The <code>%1$s</code> directory was successfully renamed to "
+"the new name (<code>%2$s</code>). However, an error occurred when updating "
+"the <code>wp-config.php</code> file to configure WordPress to use the new "
+"content directory. iThemes Security attempted to rename the directory back "
+"to its original name, but an unknown error prevented the rename from working "
+"as expected. In order for your site to function properly, you will either "
+"need to manually rename the <code>%2$s</code> directory back to <code>%1$s</"
+"code> or manually update the <code>wp-config.php</code> file with the "
+"necessary modifications. Instructions for making this modification can be "
+"found <a href=\"%3$s\">here</a>."
 msgstr ""
 
-#: core/modules/content-directory/class-itsec-content-directory-admin.php:305
+#: core/modules/content-directory/class-itsec-content-directory-admin.php:349
 msgid ""
 "Details on the error that prevented the <code>wp-config.php</code> file from "
 "updating is as follows: %1$s (%2$s)"
@@ -3031,6 +3054,10 @@ msgid ""
 "site and having to perform a rather difficult fix."
 msgstr ""
 
+#: core/modules/database-prefix/class-itsec-database-prefix-admin.php:114
+msgid "before using this tool."
+msgstr ""
+
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:125
 msgid "Your database is using the default table prefix"
 msgstr ""
@@ -3052,12 +3079,12 @@ msgid "Check this box to generate a new database table prefix."
 msgstr ""
 
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:175
-#: core/modules/salts/class-itsec-salts-admin.php:264
+#: core/modules/salts/class-itsec-salts-admin.php:241
 msgid "You must allow this plugin to write to the wp-config.php file on the"
 msgstr ""
 
 #: core/modules/database-prefix/class-itsec-database-prefix-admin.php:177
-#: core/modules/salts/class-itsec-salts-admin.php:266
+#: core/modules/salts/class-itsec-salts-admin.php:243
 msgid "page to use this feature."
 msgstr ""
 
@@ -3825,31 +3852,31 @@ msgstr ""
 msgid "IP Flagged as bad by iThemes IPCheck"
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:106
+#: core/modules/salts/class-itsec-salts-admin.php:83
 msgid "WordPress Salts"
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:137
+#: core/modules/salts/class-itsec-salts-admin.php:114
 msgid "Your WordPress Salts have not been changed. You should change them now."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:145
+#: core/modules/salts/class-itsec-salts-admin.php:122
 msgid ""
 "Your WordPress Salts have not been changed 30 days. You should change them "
 "now."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:153
+#: core/modules/salts/class-itsec-salts-admin.php:130
 msgid "You have recently changed your WordPress Salts."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:227
+#: core/modules/salts/class-itsec-salts-admin.php:204
 msgid ""
 "A secret key makes your site harder to hack and access by adding random "
 "elements to the password."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:228
+#: core/modules/salts/class-itsec-salts-admin.php:205
 msgid ""
 "In simple terms, a secret key is a password with elements that make it "
 "harder to generate enough options to break through your security barriers. A "
@@ -3859,27 +3886,27 @@ msgid ""
 "enhance the security of the generated result."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:229
+#: core/modules/salts/class-itsec-salts-admin.php:206
 msgid ""
 "Note that enabling this feature will log you out of your WordPress site."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:244
-#: core/modules/salts/class-itsec-salts-admin.php:254
+#: core/modules/salts/class-itsec-salts-admin.php:221
+#: core/modules/salts/class-itsec-salts-admin.php:231
 msgid "Change WordPress Salts"
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:248
+#: core/modules/salts/class-itsec-salts-admin.php:225
 msgid "Check this box to change your WordPress Salts."
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:312
+#: core/modules/salts/class-itsec-salts-admin.php:289
 msgid ""
 "Unable to read the <code>wp-config.php</code> file in order to update the "
 "salts. Error details as follows: %1$s (%2$s)"
 msgstr ""
 
-#: core/modules/salts/class-itsec-salts-admin.php:336
+#: core/modules/salts/class-itsec-salts-admin.php:313
 msgid ""
 "Unable to update the <code>wp-config.php</code> file in order to update the "
 "salts. Error details as follows: %1$s (%2$s)"
@@ -4066,7 +4093,7 @@ msgid "System Tweaks"
 msgstr ""
 
 #: core/modules/tweaks/class-itsec-tweaks-admin.php:64
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:2008
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1895
 msgid "WordPress Tweaks"
 msgstr ""
 
@@ -4255,519 +4282,470 @@ msgid ""
 msgstr ""
 
 #: core/modules/tweaks/class-itsec-tweaks-admin.php:484
-msgid "Remove WordPress Generator Meta Tag"
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:485
-msgid ""
-"Removes the <code>&lt;meta name=\"generator\" content=\"WordPress "
-"[version]\" /&gt;</code></pre> meta tag from your sites header. This process "
-"hides version information from a potential attacker making it more difficult "
-"to determine vulnerabilities."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:507
 msgid "Hide Plugin Update Notifications"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:508
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:485
 msgid ""
 "Hides plugin update notifications from users who cannot update plugins. "
 "Please note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:530
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1595
-msgid "Display Random Version"
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:531
-msgid ""
-"Where a WordPress version must be displayed, it will display a random "
-"WordPress version and will remove the WordPress version completely where "
-"possible."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:556
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:510
 msgid "Your current jQuery version is %1$s"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:559
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:513
 msgid ""
 "Your current jQuery version is undetermined. Please <a href=\"%1$s\" target="
 "\"_blank\">check your homepage</a> to see if you even need this feature"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:574
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:528
 msgid "Enqueue a safe version of jQuery"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:575
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:529
 msgid ""
 "Remove the existing jQuery version used and replace it with a safe version "
 "(the version that comes default with WordPress)."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:580
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:534
 msgid ""
 "Note that this only checks the homepage of your site and only for users who "
 "are logged in. This is done intentionally to save resources. If you think "
 "this is in error "
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:582
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:536
 msgid "click here to check again."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:583
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:537
 msgid ""
 "This will open your homepage in a new window allowing the plugin to "
 "determine the version of jQuery actually being used. You can then come back "
 "here and reload this page to see your version."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:604
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:558
 msgid "Hide Theme Update Notifications"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:605
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:559
 msgid ""
 "Hides theme update notifications from users who cannot update themes. Please "
 "note that this only makes a difference in multi-site installations."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:627
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:581
 msgid "Disable PHP in Uploads"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:628
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:582
 msgid ""
 "Disable PHP execution in the uploads directory. This will prevent uploading "
 "of malicious scripts to uploads."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:650
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:604
 msgid "Remove the Windows Live Writer header. "
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:651
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:605
 msgid ""
 "This is not needed if you do not use Windows Live Writer or other blogging "
 "clients that rely on this file."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:674
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:732
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:851
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:628
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:686
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:795
 msgid ""
 "Protect System Files - Security > Settings > System Tweaks > System Files"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:700
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:863
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:654
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:807
 msgid "Disable XML-RPC - Security > Settings > WordPress Tweaks > XML-RPC"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:723
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:677
 msgid ""
 "Disable Directory Browsing - Security > Settings > System Tweaks > Directory "
 "Browsing"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:761
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:870
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:704
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:821
 msgid "Disable PHP in Uploads - Security > Settings > System Tweaks > Uploads"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:767
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:877
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:711
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:829
 msgid ""
 "Filter Request Methods - Security > Settings > System Tweaks > Request "
 "Methods"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:774
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:884
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:718
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:836
 msgid ""
 "Filter Suspicious Query Strings in the URL - Security > Settings > System "
 "Tweaks > Suspicious Query Strings"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:799
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:911
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:743
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:863
 msgid ""
 "Filter Non-English Characters - Security > Settings > System Tweaks > Non-"
 "English Characters"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:808
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:920
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:752
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:872
 msgid ""
 "Reduce Comment Spam - Security > Settings > System Tweaks > Comment Spam"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:921
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:873
 msgid "Help reduce spam"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:979
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:931
 msgid ""
 "Disable File Editor - Security > Settings > WordPress Tweaks > File Editor"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:998
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:950
 msgid "You are protecting common WordPress files from access."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1006
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:958
 msgid ""
 "You are not protecting common WordPress files from access. Click here to "
 "protect WordPress files."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1020
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:972
 msgid "You have successfully disabled directory browsing on your site."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1028
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:980
 msgid ""
 "You have not disabled directory browsing on your site. Click here to prevent "
 "a user from seeing every file present in your WordPress site."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1042
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:994
 msgid "You are blocking HTTP request methods you do not need."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1050
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1002
 msgid ""
 "You are not blocking HTTP request methods you do not need. Click here to "
 "block extra HTTP request methods that WordPress should not normally need."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1062
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1014
 msgid ""
 "Your WordPress site is blocking suspicious looking information in the URL."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1070
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1022
 msgid ""
 "Your WordPress site is not blocking suspicious looking information in the "
 "URL. Click here to block users from trying to execute code that they should "
 "not be able to execute."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1082
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1034
 msgid "Your WordPress site is blocking non-english characters in the URL."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1090
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1042
 msgid ""
 "Your WordPress site is not blocking non-english characters in the URL. Click "
 "here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1102
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1054
 msgid "Your installation does not accept long URLs."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1110
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1062
 msgid ""
 "Your installation accepts long (over 255 character) URLS. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1122
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1074
 msgid "Your wp-config.php and .htaccess files are not writeable."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1130
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1082
 msgid ""
 "Your wp-config.php and .htaccess files are writeable. This can lead to "
 "vulnerabilities. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1142
-msgid ""
-"Your WordPress installation is not telling every bot that you use WordPress."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1150
-msgid ""
-"Your WordPress installation is telling every bot that you use WordPress with "
-"a special \"generator\" tag. Click here to fix this."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1162
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1094
 msgid ""
 "Your WordPress installation is not publishing the Windows Live Writer header."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1170
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1102
 msgid ""
 "Your WordPress installation is publishing the Windows Live Writer header. "
 "Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1182
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1114
 msgid ""
 "Your WordPress installation is not publishing the Really Simple Discovery "
 "(RSD) header."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1190
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1122
 msgid ""
 "Your WordPress installation is publishing the Really Simple Discovery (RSD) "
 "header. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1204
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1136
 msgid ""
 "Your WordPress installation is not telling users who cannot update themes "
 "about theme updates."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1212
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1144
 msgid ""
 "Your WordPress installation is telling users who cannot update themes about "
 "theme updates. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1224
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1156
 msgid ""
 "Your WordPress installation is not telling users who cannot update plugins "
 "about plugin updates."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1232
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1164
 msgid ""
 "Your WordPress installation is telling users who cannot update plugins about "
 "plugin updates. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1244
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1176
 msgid ""
 "Your WordPress installation is not telling users who cannot update WordPress "
 "core about WordPress core updates."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1252
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1184
 msgid ""
 "Your WordPress installation is telling users who cannot update WordPress "
 "core about WordPress core updates. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1266
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1198
 msgid ""
 "Your WordPress installation is not allowing users without a user agent to "
 "post comments."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1274
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1206
 msgid ""
 "Your WordPress installation is allowing users without a user agent to post "
 "comments. Fix this to reduce comment spam."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1286
-msgid "Version information is obscured to all non admin users."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1294
-msgid ""
-"Users may still be able to get version information from various plugins and "
-"themes. Click here to fix this."
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1306
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1218
 msgid ""
 "Users cannot edit plugin and themes files directly from within the WordPress "
 "Dashboard."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1314
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1226
 msgid ""
 "Users can edit plugin and themes files directly from within the WordPress "
 "Dashboard. Click here to fix this."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1326
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1238
 msgid "XML-RPC is not available on your WordPress installation."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1334
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1246
 msgid ""
 "XML-RPC is protecting you from the trackback and pingback attack but is "
 "still available on your site."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1342
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1254
 msgid ""
 "XML-RPC is available on your WordPress installation. Attackers can use this "
 "feature to attack your site. Click here to disable access to XML-RPC."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1354
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1266
 msgid "Users cannot execute PHP from the uploads folder."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1362
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1274
 msgid "Users can execute PHP from the uploads folder."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1376
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1288
 msgid "The front page of your site is using a safe version of jQuery."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1384
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1296
 msgid ""
 "The front page of your site is not using a safe version of jQuery or the "
 "version of jQuery cannot be determined."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1392
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1304
 msgid ""
 "Your version of jQuery has not been determined. Load your homepage while "
 "logged in to determine the version of jQuery you are using"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1404
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1316
 msgid "User's nicknames are different from their display name."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1412
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1324
 msgid ""
 "User nicknames may be the same as their login name. This means their login "
 "user name may be publicly available throughout the site."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1424
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1336
 msgid ""
 "Your login page is not giving out unnecessary information upon failed login."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1432
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1344
 msgid ""
 "Your login page is giving out unnecessary information upon failed login."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1444
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1356
 msgid "User profiles for users without content are not publicly available."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1452
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1364
 msgid ""
 "User profiles for users without content are publicly available. This can "
 "make it relatively easy to gain the username of important users."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1473
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1385
 msgid "Configure Server Tweaks"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1480
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1392
 msgid "Configure WordPress Tweaks"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1487
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1399
 msgid "Configure Multisite Tweaks"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1495
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1407
 msgid "System Files"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1505
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1417
 msgid "Directory Browsing"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1515
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1427
 msgid "Request Methods"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1523
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1435
 msgid "Suspicious Query Strings"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1531
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1443
 msgid "Non-English Characters"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1539
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1451
 msgid "Long URL Strings"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1547
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1459
 msgid "File Writing Permissions"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1555
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1467
 msgid "Uploads"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1563
-msgid "Generator Meta Tag"
-msgstr ""
-
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1571
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1475
 msgid "Windows Live Writer Header"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1579
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1483
 msgid "EditURI Header"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1587
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1491
 msgid "Comment Spam"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1603
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1499
 msgid "File Editor"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1611
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1507
 msgid "XML-RPC"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1619
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1515
 msgid "Replace jQuery With a Safe Version"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1627
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1523
 msgid "Login Error Messages"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1635
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1531
 msgid "Force Unique Nickname"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1643
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1539
 msgid "Disable Extra User Archives"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1653
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1549
 msgid "Theme Update Notifications"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1661
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1557
 msgid "Plugin Update Notifications"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1669
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1565
 msgid "Core Update Notifications"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1693
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1716
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1739
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1589
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1612
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1635
 msgid ""
 "These are advanced settings that may be utilized to further strengthen the "
 "security of your WordPress site."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1694
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1717
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1740
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1590
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1613
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1636
 msgid ""
 "Note: These settings are listed as advanced because they block common forms "
 "of attacks but they can also block legitimate plugins and themes that rely "
@@ -4776,29 +4754,29 @@ msgid ""
 "working as expected."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1695
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1718
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1741
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1591
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1614
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1637
 msgid ""
 "Remember, some of these settings might conflict with other plugins or "
 "themes, so test your site after enabling each setting."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1948
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1837
 msgid "Server Tweaks"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks-admin.php:1998
+#: core/modules/tweaks/class-itsec-tweaks-admin.php:1885
 msgid "Multisite Tweaks"
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks.php:184
+#: core/modules/tweaks/class-itsec-tweaks.php:174
 msgid ""
 "Your Nickname must be different than your login name. Please choose a "
 "different Nickname."
 msgstr ""
 
-#: core/modules/tweaks/class-itsec-tweaks.php:202
+#: core/modules/tweaks/class-itsec-tweaks.php:192
 msgid ""
 "A Nickname is required. Please choose a nickname or fill out your first and "
 "last name."
